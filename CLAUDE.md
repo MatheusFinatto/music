@@ -1,6 +1,6 @@
 # Música: treino de improviso
 
-Site pessoal de treino de guitarra (improviso/solo), em português do Brasil. Publicado na Vercel em `musica-matheus-finatto.vercel.app`.
+Site pessoal de treino de guitarra (improviso/solo), em português do Brasil. Publicado na Vercel em `music-finatto.vercel.app`.
 O dono (Matheus) é guitarrista, se considera "muito teórico" e quer prática: frases que combinem técnica e beleza, com micro-evoluções diárias. Referência estética: David Gilmour.
 
 **Antes de mudar qualquer coisa, leia:**
