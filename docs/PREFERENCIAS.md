@@ -18,6 +18,7 @@ Estas regras saíram de feedback direto do dono durante o desenvolvimento. Quand
 ## Interface
 - **Laranja (`--target`) = nota-alvo** (normalmente a 3ª do acorde; em alguns exemplos a 9ª). Fica fixo na partitura, tab, cifra e teclado.
 - **Azul (`--accent`) = o que está tocando agora** (destaque durante a reprodução). Nunca usar laranja para isso.
+- **Verde (`--ok`) = nota selecionada no editor** de ideias.
 - Partitura, tab e cifra: **sob demanda** (botão). Nada aberto por padrão nas missões.
 - A partitura mostra, embaixo de cada nota, a **função no acorde** (T, 3, 5, 7, 9…) e ao passar o mouse/tocar mostra o **nome (C4)**. Ele não lê partitura bem.
 - Nada de scroll lateral: partitura e tab quebram em linhas conforme a largura.

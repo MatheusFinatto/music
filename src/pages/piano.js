@@ -8,6 +8,7 @@ import { audio, resume, voice, playNote, transport, now } from "../lib/audio.js"
 import { pentatonic, IV, LETTER, noteName, legacyToDegrees } from "../lib/theory.js";
 import { sheetBlock, flashSheet, exportHtml } from "../lib/score.js";
 import { WEEKS, DEMOS, MISS } from "../lib/missions.js";
+import { GRIDS, quantize, moveNote, resizeNote, transposeNote, deleteNote, where } from "../lib/edit.js";
 
 const $ = (id) => document.getElementById(id);
 $("nav").append(mountNav("piano"));
@@ -239,6 +240,49 @@ function download(it) {
   document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
 }
 
+/* ---------- editor de ideias ---------- */
+const selectedOf = {}, undoOf = {};
+let editStep = 0.25;
+function applyEdit(id, it, res) {
+  (undoOf[id] = undoOf[id] || []).push(it.notes.map((x) => ({ ...x })));
+  if (!it.original) it.original = it.notes.map((x) => ({ ...x }));
+  it.notes = res.notes; selectedOf[id] = res.sel;
+  if (isPlaying(id)) playing.notes = it.notes;
+  persist(); renderIdeas();
+}
+function editorFor(id, it, sel) {
+  const box = document.createElement("div"); box.className = "editor";
+  const row = (...kids) => { const r = document.createElement("div"); r.className = "row"; r.append(...kids); return r; };
+  const label = (t) => { const s = document.createElement("span"); s.className = "small muted"; s.textContent = t; return s; };
+
+  box.append(row(label("Ajustar todas ao tempo:"), ...GRIDS.map(([g, n]) => btn(n, () => applyEdit(id, it, quantize(it.notes, g))))));
+
+  const step = document.createElement("div"); step.className = "seg"; step.setAttribute("role", "group"); step.setAttribute("aria-label", "Passo");
+  GRIDS.forEach(([g, n]) => { const b = btn(n, () => { editStep = g; renderIdeas(); }); b.setAttribute("aria-pressed", editStep === g ? "true" : "false"); step.append(b); });
+
+  if (sel >= 0 && it.notes[sel]) {
+    const x = it.notes[sel];
+    const info = document.createElement("b"); info.className = "sel-info"; info.textContent = noteName(x.m) + " · " + where(x.b);
+    box.append(row(label("Nota selecionada:"), info, label("Passo:"), step));
+    box.append(row(
+      btn("← Antes", () => applyEdit(id, it, moveNote(it.notes, sel, -editStep))),
+      btn("Depois →", () => applyEdit(id, it, moveNote(it.notes, sel, editStep))),
+      btn("Mais curta", () => applyEdit(id, it, resizeNote(it.notes, sel, -editStep))),
+      btn("Mais longa", () => applyEdit(id, it, resizeNote(it.notes, sel, editStep))),
+      btn("↑ ½ tom", () => { const r = transposeNote(it.notes, sel, 1); applyEdit(id, it, r); playNote(x.m + 1, now(), 0.4); }),
+      btn("↓ ½ tom", () => { const r = transposeNote(it.notes, sel, -1); applyEdit(id, it, r); playNote(x.m - 1, now(), 0.4); }),
+      Object.assign(btn("Apagar nota", () => applyEdit(id, it, deleteNote(it.notes, sel))), { style: "color:var(--bad)" }),
+    ));
+  } else {
+    box.append(label("Clique numa nota da partitura ou da tab para editar só ela. Ela fica verde."));
+  }
+  const tail = [];
+  if (undoOf[id]?.length) tail.push(btn("Desfazer", () => { it.notes = undoOf[id].pop(); selectedOf[id] = -1; persist(); renderIdeas(); }));
+  if (it.original) tail.push(btn("Voltar ao original", () => { (undoOf[id] = undoOf[id] || []).push(it.notes); it.notes = it.original.map((x) => ({ ...x })); selectedOf[id] = -1; persist(); renderIdeas(); }));
+  if (tail.length) box.append(row(...tail));
+  return box;
+}
+
 function renderIdeas() {
   const box = $("ideas"); box.textContent = "";
   const ids = Object.keys(S.ideas).filter((k) => S.ideas[k] && (!filterStar || S.ideas[k].star)).sort((a, b) => (S.ideas[b].created || 0) - (S.ideas[a].created || 0));
@@ -269,10 +313,14 @@ function renderIdeas() {
     meta.textContent = chsOfIdea(it).map((c) => c.n).join(" ") + " · " + it.notes.length + " notas · " + (it.bpm || "?") + " bpm · " + new Date(it.created).toLocaleDateString("pt-BR");
     card.append(meta);
     if (openTabs.has(id)) {
+      const sel = selectedOf[id] ?? -1;
       const sheet = document.createElement("div"); sheet.style.cssText = "display:flex;flex-direction:column;gap:10px";
       card.append(sheet);
-      sheetBlock(sheet, { notes: it.notes, chs: chsOfIdea(it), bpm: it.bpm, owner: id });
-      card.append(btn("Baixar partitura e tab (.html)", () => download(it)));
+      sheetBlock(sheet, {
+        notes: it.notes, chs: chsOfIdea(it), bpm: it.bpm, owner: id, selected: sel,
+        onSelect: (ni) => { selectedOf[id] = ni === selectedOf[id] ? -1 : ni; if (selectedOf[id] >= 0 && audio()) { resume(); playNote(it.notes[ni].m, now(), 0.5); } renderIdeas(); },
+      });
+      card.append(editorFor(id, it, sel), btn("Baixar partitura e tab (.html)", () => download(it)));
     }
     box.append(card);
   });

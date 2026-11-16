@@ -11,6 +11,7 @@ src/lib/base.js                        a base: tom, progressão (graus), bpm, es
 src/lib/audio.js                       Web Audio: voz do piano, pad, baixo, bateria sintetizada, metrônomo e o TRANSPORTE
 src/lib/basebar.js                     barra da base + janela "Montar base" (usada em todas as páginas)
 src/lib/score.js                       partitura (ABC → abcjs), tab em texto, cifra rápida, destaque, exportar HTML
+src/lib/edit.js                        editor de ideias: ajustar ao tempo, mover, encurtar/alongar, ±½ tom, apagar (funções puras)
 src/lib/store.js                       localStorage (prefixo musica:), backup exportar/importar
 src/lib/plan.js                        conteúdo dos 57 dias do Diário
 src/lib/missions.js                    missões semanais do Piano e os exemplos
@@ -38,7 +39,7 @@ Formato salvo:
   notes: [ { m: 60, b: 0, d: 2 } ] }     // m = MIDI (60 = C4), b = tempo de início 0..15.75, d = duração em tempos
 ```
 Ideias antigas (vindas do artefato) podem ter `prog: ["Am","F","C","G"]` no lugar de `base`; `legacyToDegrees` converte.
-A gravação quantiza em semicolcheias.
+A gravação quantiza em semicolcheias. Ao editar, a primeira versão fica em `original` (botão "Voltar ao original"); o "Desfazer" é só da sessão.
 
 ## Dados no navegador
 Chaves: `musica:base`, `musica:piano` (`{meta:{color,week}, ideas:{id:ideia}, missions:{w1:[bool…]}}`), `musica:diario` (`{meta:{phrases:{semana:texto}}, days:{n:{done,count,note,scores,video,ts}}}`).

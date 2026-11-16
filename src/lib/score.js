@@ -115,7 +115,7 @@ function tabLayout(width) {
 }
 const scoreBpl = (w) => (w >= 640 ? 4 : w >= 300 ? 2 : 1);
 
-function wireNotes(el, seq, targets) {
+function wireNotes(el, seq, targets, onSelect, selected) {
   const els = el.querySelectorAll(".abcjs-note");
   if (els.length !== seq.length) return;
   const tip = document.createElement("div"); tip.className = "ntip"; tip.hidden = true; el.appendChild(tip);
@@ -134,6 +134,7 @@ function wireNotes(el, seq, targets) {
     const m = seq[i].m;
     n.setAttribute("data-ni", seq[i].ni);
     if (targets.includes(seq[i].fn)) n.classList.add("tgt");
+    if (seq[i].ni === selected) n.classList.add("sel");
     const addHit = (tries) => {
       try {
         if (!n.isConnected || !n.getBBox().width) { if (tries < 20) requestAnimationFrame(() => addHit(tries + 1)); return; }
@@ -147,14 +148,14 @@ function wireNotes(el, seq, targets) {
     n.setAttribute("tabindex", "0"); n.setAttribute("aria-label", noteName(m));
     n.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") { pinned = null; show(n, m); } });
     n.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") hide(); });
-    n.addEventListener("click", () => { pinned = n; show(n, m); });
+    n.addEventListener("click", () => { pinned = n; show(n, m); if (onSelect) onSelect(seq[i].ni); });
     n.addEventListener("focus", () => show(n, m));
     n.addEventListener("blur", () => { pinned = null; hide(); });
   });
   el.addEventListener("click", (e) => { if (!e.target.closest(".abcjs-note")) { pinned = null; hide(); } });
 }
 
-function renderScore(el, notes, chs, bpm, bpl, width, targets) {
+function renderScore(el, notes, chs, bpm, bpl, width, targets, onSelect, selected) {
   el.textContent = "";
   try {
     const seq = [];
@@ -163,14 +164,14 @@ function renderScore(el, notes, chs, bpm, bpl, width, targets) {
       responsive: "resize", add_classes: true, foregroundColor: getComputedStyle(document.body).color,
       paddingtop: 0, paddingbottom: 0, paddingleft: 0, paddingright: 0, staffwidth: sw,
     });
-    wireNotes(el, seq, targets);
+    wireNotes(el, seq, targets, onSelect, selected);
   } catch (e) {
     el.innerHTML = '<p class="empty small">Não consegui desenhar a partitura desta ideia.</p>';
   }
 }
 
 // Bloco completo: legenda, cifra rápida, partitura e tab. Reorganiza ao mudar a largura.
-export function sheetBlock(container, { notes, chs, bpm, owner, targets = ["3"], cifra = false }) {
+export function sheetBlock(container, { notes, chs, bpm, owner, targets = ["3"], cifra = false, onSelect = null, selected = -1 }) {
   if (owner) container.dataset.owner = owner;
   const tName = { 3: "3ª", 9: "9ª", 5: "5ª", T: "tônica" };
   if (cifra) {
@@ -191,6 +192,7 @@ export function sheetBlock(container, { notes, chs, bpm, owner, targets = ["3"],
   hint.append("Em ", tg, ". Embaixo de cada nota, a função dela no acorde do compasso. Passe o mouse para ver o nome (C4 = Dó central).");
   const sc = document.createElement("div"); sc.className = "score";
   const pre = document.createElement("pre"); pre.className = "tab";
+  if (onSelect) { pre.classList.add("pick"); pre.addEventListener("click", (e) => { const t = e.target.closest(".tn"); if (t) onSelect(+t.dataset.ni); }); }
   container.append(hint, sc, pre);
 
   let lastKey = "";
@@ -198,8 +200,9 @@ export function sheetBlock(container, { notes, chs, bpm, owner, targets = ["3"],
     const w = container.clientWidth || 700;
     const key = scoreBpl(w) + ":" + JSON.stringify(tabLayout(w));
     if (key === lastKey) return; lastKey = key;
-    renderScore(sc, notes, chs, bpm, scoreBpl(w), w, targets);
+    renderScore(sc, notes, chs, bpm, scoreBpl(w), w, targets, onSelect, selected);
     pre.innerHTML = tabText(notes, chs, true, tabLayout(w), targets);
+    if (selected >= 0) pre.querySelectorAll('[data-ni="' + selected + '"]').forEach((e) => e.classList.add("sel"));
   };
   requestAnimationFrame(render);
   if (window.ResizeObserver) {

@@ -108,3 +108,8 @@ pre.tab .tn.now.now { background: var(--accent); color: var(--accent-ink); font-
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 .modal .row input[type=range] { flex: 1 1 160px; width: auto; }
+
+/* edição: nota selecionada = verde (laranja é alvo, azul é o que toca) */
+.score .abcjs-note.sel path, .score .abcjs-note.sel use { fill: var(--ok) !important; }
+pre.tab.pick .tn { cursor: pointer; }
+pre.tab .tn.sel { outline: 2px solid var(--ok); outline-offset: 1px; color: var(--ok); font-weight: 700; }
