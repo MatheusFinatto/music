@@ -1,0 +1,31 @@
+# Preferências e combinados com o dono
+
+Estas regras saíram de feedback direto do dono durante o desenvolvimento. Quando algo aqui conflitar com um "bom padrão" genérico, **vale o que está aqui**.
+
+## Jeito de trabalhar
+- Ele quer **pragmatismo**: coisas para fazer com a mão na massa, não explicação teórica longa.
+- **Micro-evoluções**: cada dia/missão tem uma meta pequena e mensurável.
+- Quando ele pede para "avaliar uma ideia", a resposta é: tabela compasso a compasso (notas no formato C4, a função de cada uma), o que está bom, o que melhorar (no máximo 2–3 pontos concretos), e uma nota simples da regra da missão (ex.: "3 de 4"). Ele usa o botão **"Copiar para o Claude"** do Piano para mandar a ideia.
+- Erros de execução dele (tempo adiantado, nota esbarrada) são comuns: aponte o padrão (ex.: "a nota depois de uma nota longa sai uma semicolcheia antes") e dê um remédio prático.
+
+## Notação e textos
+- Nomes de notas: **letra + oitava** (C4, A4, E5, Bb3, F#4). C4 = Dó central. **Nunca** "Dó · Ré · Mi" na interface.
+- Nada de listas de notas soltas poluindo os cards (ele chamou de "poluição").
+- Nas missões, **não** listar nomes de acordes/notas no texto ("ele sabe quais são os acordes"). As notas-alvo aparecem na **cifra rápida** (quadradinhos acorde/nota), que só aparece quando ele clica em "Ver partitura e tab".
+- Os exemplos das missões são **exemplos da regra**, não para decorar. Nome sempre "Exemplo: …" (nunca "frase pronta"). O objetivo final é improvisar.
+- Missões precisam ser **mastigadas**: dizer exatamente o que fazer em 5–10 min. Ele é guitarrista: o piano é só para despertar ideias; cada semana termina numa missão de guitarra.
+
+## Interface
+- **Laranja (`--target`) = nota-alvo** (normalmente a 3ª do acorde; em alguns exemplos a 9ª). Fica fixo na partitura, tab, cifra e teclado.
+- **Azul (`--accent`) = o que está tocando agora** (destaque durante a reprodução). Nunca usar laranja para isso.
+- Partitura, tab e cifra: **sob demanda** (botão). Nada aberto por padrão nas missões.
+- A partitura mostra, embaixo de cada nota, a **função no acorde** (T, 3, 5, 7, 9…) e ao passar o mouse/tocar mostra o **nome (C4)**. Ele não lê partitura bem.
+- Nada de scroll lateral: partitura e tab quebram em linhas conforme a largura.
+- "Parar" numa frase para **a frase e a base juntas**.
+- Montador de base: dentro de uma **janela (modal)**, não página separada. Base padrão: **Am F C G, 72 bpm**. Botões de subir/descer meio tom.
+- Celular: tela cheia no piano (deitado mostra tudo; em pé, uma oitava com botão de oitava).
+
+## Pedagogia (o que funcionou)
+- Notas-alvo (3ª do acorde no tempo 1), notas de passagem **andando em direção** à próxima 3ª, bends para o alvo, ritmo/espaço, motivos, pergunta e resposta, cor (9ª e 6ª), arco do solo.
+- Treino de ouvido: **não** construir dentro do site; ele preferiu apps prontos. Recomendar **Functional Ear Trainer** (celular). As missões de "Ouvir" apontam para ele.
+- Gravações do Diário sempre na **base padrão** para comparar a evolução (dia 0, 28, 56).

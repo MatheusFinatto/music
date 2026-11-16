@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Música · treino de improviso</title>
+<meta name="description" content="Diário do Solo e Piano de Ideias: treino de improviso na guitarra.">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+</head>
+<body>
+<div class="wrap">
+  <div id="nav"></div>
+  <header>
+    <h1>Treino de improviso</h1>
+    <p class="muted" style="margin-top:6px;max-width:62ch">Frases que combinam técnica e beleza, uma micro-evolução por dia. Com a guitarra, use o Diário. Sem ela, use o Piano.</p>
+  </header>
+
+  <div class="cards">
+    <a class="card" href="/diario">
+      <h2>Diário do Solo</h2>
+      <p>O plano de 8 semanas: a micro-meta do dia, o braço com os alvos, timer de 30 minutos, contador de acertos e as fichas de gravação.</p>
+      <span class="go">Abrir →</span>
+    </a>
+    <a class="card" href="/piano">
+      <h2>Piano de Ideias</h2>
+      <p>Para inventar frases sem a guitarra: piano por cima da base, ideias gravadas em partitura e tab, missões da semana.</p>
+      <span class="go">Abrir →</span>
+    </a>
+  </div>
+
+  <section id="basebar" aria-label="Base"></section>
+
+  <section class="panel" aria-labelledby="dados">
+    <h2 id="dados">Seus dados</h2>
+    <p class="muted small" style="max-width:68ch">Tudo fica salvo só neste navegador. Para passar para outro aparelho, baixe o backup aqui e importe lá.</p>
+    <div class="row">
+      <button class="btn" id="export" type="button">Baixar backup (.json)</button>
+      <label class="btn" for="import">Importar backup…</label>
+      <input id="import" type="file" accept="application/json,.json" hidden>
+    </div>
+    <p class="status" id="status"></p>
+  </section>
+</div>
+<script type="module" src="/src/pages/home.js"></script>
+</body>
+</html>

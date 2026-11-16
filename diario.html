@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diário do Solo</title>
+<meta name="description" content="Plano de 8 semanas para improvisar na guitarra, uma micro-meta por dia.">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+</head>
+<body>
+<div class="wrap" id="app">
+  <div id="nav"></div>
+  <header class="top">
+    <div>
+      <h1>Diário do Solo</h1>
+      <p class="muted" style="margin-top:6px">8 semanas, 30 minutos por dia, uma micro-meta de cada vez.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="st-done" class="mono">0</b><span>dias feitos</span></div>
+      <div class="stat"><b id="st-streak" class="mono">0</b><span>seguidos</span></div>
+      <div class="stat"><b id="st-avg" class="mono">–</b><span>acerto 7 dias</span></div>
+    </div>
+  </header>
+
+  <section id="basebar" aria-label="Base"></section>
+
+  <nav class="panel" aria-label="Dias"><div class="ruler" id="ruler"></div></nav>
+
+  <main class="panel" id="day">
+    <div class="dayhead">
+      <div>
+        <div class="eyebrow" id="d-eyebrow"></div>
+        <h2 id="d-title"></h2>
+      </div>
+      <div class="row">
+        <button class="btn" id="prev" type="button">← Anterior</button>
+        <button class="btn" id="next" type="button">Próximo →</button>
+      </div>
+    </div>
+    <p class="goal" id="d-goal"></p>
+    <ol class="steps" id="d-steps"></ol>
+
+    <div>
+      <h3 style="margin-bottom:8px">No braço</h3>
+      <div class="chords" id="chords"></div>
+    </div>
+    <div class="boardwrap"><svg class="board" id="board" viewBox="0 0 760 196" role="img" aria-label="Braço da guitarra com as notas do dia"></svg></div>
+    <div class="legend" id="legend"></div>
+    <p class="boardnote" id="boardnote"></p>
+
+    <div class="grid2">
+      <section class="timer" aria-label="Timer de 30 minutos">
+        <h3>Sessão de 30 min</h3>
+        <div class="row" style="justify-content:space-between">
+          <div class="clock" id="clock">05:00</div>
+          <div class="row">
+            <button class="btn primary" id="t-go" type="button">Iniciar</button>
+            <button class="btn" id="t-skip" type="button">Pular bloco</button>
+            <button class="btn" id="t-reset" type="button">Zerar</button>
+          </div>
+        </div>
+        <div class="blocks" id="blocks"></div>
+        <div class="blabels" id="blabels"></div>
+        <p id="t-now"></p>
+        <label class="muted small" for="phrase">Frase roubada desta semana (música, minuto, ou tab):</label>
+        <input class="txt" id="phrase" type="text" placeholder="Ex.: Comfortably Numb, 1º solo, 4:30 a 4:36">
+      </section>
+
+      <section style="display:flex;flex-direction:column;gap:12px" aria-label="Medição do dia">
+        <h3>Medição do dia</h3>
+        <p id="m-label"></p>
+        <div class="counter">
+          <button class="cbtn" id="c-minus" type="button" aria-label="Diminuir">−</button>
+          <div class="cval" id="c-val">0/8</div>
+          <button class="cbtn" id="c-plus" type="button" aria-label="Aumentar">+</button>
+          <div class="pips" id="pips"></div>
+        </div>
+        <p class="small muted" id="m-prev"></p>
+        <label for="note" class="muted small">O que melhorou hoje, em uma frase:</label>
+        <textarea class="txt" id="note" placeholder="Ex.: o bend pro E4 sobre o C saiu afinado 3 vezes seguidas"></textarea>
+        <button class="btn donebtn" id="done" type="button" aria-pressed="false">Marcar dia como feito</button>
+      </section>
+    </div>
+
+    <section id="rec" class="panel" style="background:var(--bg)" hidden aria-label="Ficha de gravação">
+      <h3>Ficha da gravação</h3>
+      <p class="muted small">Ouça a gravação uma vez e dê uma nota de 1 a 5 para cada item. Seja rápido.</p>
+      <div class="crit" id="crit"></div>
+      <label for="vid" class="muted small">Onde está o vídeo (link ou nome do arquivo):</label>
+      <input class="txt" id="vid" type="text" placeholder="Ex.: Google Fotos, álbum Solo, 16/11">
+    </section>
+  </main>
+
+  <section class="panel" aria-label="Evolução">
+    <h2>Evolução</h2>
+    <h3>Acerto diário (% da meta)</h3>
+    <svg class="chart" id="chart" viewBox="0 0 600 150" role="img" aria-label="Gráfico de acerto por dia"></svg>
+    <h3>Fichas de gravação</h3>
+    <div class="tablewrap" id="compare"></div>
+  </section>
+</div>
+<script type="module" src="/src/pages/diario.js"></script>
+</body>
+</html>

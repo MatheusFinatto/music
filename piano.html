@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Piano de Ideias</title>
+<meta name="description" content="Piano no navegador para inventar frases sem a guitarra, por cima da base.">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+</head>
+<body>
+<div class="wrap">
+  <div id="nav"></div>
+  <header>
+    <h1>Piano de Ideias</h1>
+    <p class="muted" style="margin-top:6px">Para inventar frases sem a guitarra. Use fone, toque por cima da base e guarde o que prestar.</p>
+  </header>
+
+  <section id="basebar" aria-label="Base"></section>
+
+  <section class="panel" aria-label="Teclado">
+    <div class="row" style="justify-content:space-between">
+      <div class="row">
+        <button class="btn rec" id="rec" type="button">● Gravar ideia</button>
+        <label class="row small muted" for="color"><input id="color" type="checkbox"> Notas de cor (9ª, 6ª)</label>
+      </div>
+      <button class="btn primary" id="stage-open" type="button">⛶ Tela cheia</button>
+    </div>
+    <p class="status" id="status">Toque por cima da base. A 3ª do acorde que está soando fica em laranja.</p>
+    <div class="kbwrap"><div class="kb" id="kb" role="group" aria-label="Teclado de piano"></div></div>
+    <div class="legend">
+      <span><span class="dot target"></span>3ª do acorde que está soando (alvo)</span>
+      <span><span class="dot chord"></span>Outras notas do acorde</span>
+      <span><span class="dot penta"></span>Pentatônica</span>
+      <span><span class="dot color"></span>Cor (quando ligada)</span>
+      <span>As letras nas teclas são o teclado do computador.</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="tab-ideias" aria-selected="true" type="button">Ideias</button>
+      <button class="tab" role="tab" id="tab-missoes" aria-selected="false" type="button">Missões</button>
+    </div>
+    <div id="p-ideias" class="tabpanel">
+      <div class="draft" id="draft" hidden>
+        <h3 style="color:var(--target)">Ideia nova, ainda não salva</h3>
+        <div class="row">
+          <input class="txt" id="draft-name" type="text" placeholder="Dê um nome (ex.: pergunta descendo pro E4)" style="flex:1 1 240px">
+          <button class="btn" id="draft-play" type="button">▶ Ouvir com a base</button>
+          <button class="btn primary" id="draft-save" type="button">Salvar ideia</button>
+          <button class="btn" id="draft-drop" type="button">Descartar</button>
+        </div>
+        <div id="draft-sheet" style="display:flex;flex-direction:column;gap:10px"></div>
+      </div>
+      <div class="row" style="justify-content:space-between">
+        <h3>Ideias salvas</h3>
+        <div class="seg" role="group" aria-label="Filtro">
+          <button type="button" id="f-all" aria-pressed="true">Todas</button>
+          <button type="button" id="f-star" aria-pressed="false">★ Favoritas</button>
+        </div>
+      </div>
+      <div class="ideas" id="ideas"></div>
+    </div>
+    <div id="p-missoes" class="tabpanel" hidden>
+      <div class="row">
+        <label for="week" class="small muted">Semana do Diário</label>
+        <select id="week" class="txt"></select>
+      </div>
+      <p class="muted small">Missões curtas, de 5 a 10 minutos. O piano só serve para gerar ideias. O objetivo é sempre levar alguma coisa para a guitarra. Os exemplos tocam na base padrão, no tom em que a base estiver.</p>
+      <ul class="mlist" id="mlist"></ul>
+    </div>
+  </section>
+</div>
+
+<div class="stage" id="stage" hidden role="dialog" aria-label="Piano em tela cheia">
+  <div class="sbar">
+    <button class="btn primary" id="s-play" type="button">▶ Base</button>
+    <button class="btn rec" id="s-rec" type="button">● Gravar</button>
+    <div class="bars" id="s-bars"></div>
+    <button class="btn" id="s-oct" type="button">Oitava ↑</button>
+    <button class="btn" id="s-close" type="button" aria-label="Sair da tela cheia">✕</button>
+  </div>
+  <div class="sinfo">
+    <p class="status" id="s-status"></p>
+    <div class="row" id="s-draft" hidden>
+      <span class="small" id="s-draft-txt"></span>
+      <button class="btn" id="s-draft-play" type="button">▶ Ouvir</button>
+      <button class="btn primary" id="s-draft-save" type="button">Salvar</button>
+      <button class="btn" id="s-draft-drop" type="button">Descartar</button>
+    </div>
+  </div>
+  <div class="kb" id="s-kb" role="group" aria-label="Teclado de piano"></div>
+</div>
+<script type="module" src="/src/pages/piano.js"></script>
+</body>
+</html>
