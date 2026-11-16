@@ -8,6 +8,7 @@ O dono (Matheus) é guitarrista, se considera "muito teórico" e quer prática: 
 - `docs/ARQUITETURA.md` — como o código está organizado e o modelo de dados.
 - `docs/PROJETO.md` — objetivo, plano de 8 semanas e páginas.
 - `docs/BACKLOG.md` — o que já foi pedido e ainda não foi feito, e ideias combinadas.
+- `docs/PROGRESSO.md` — onde o aluno está, ideias já avaliadas e padrões observados. **Atualize ao avaliar ideias.**
 
 ## Comandos
 ```bash
