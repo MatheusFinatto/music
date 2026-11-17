@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { ToolIcon } from "@/components/ToolIcon";
 
-// Por enquanto o afinador é o app Android em marmota-tuner/. Esta página só explica e entrega o APK.
+// O app Android em marmota-tuner/ convive com o afinador do site (docs/PROJETO.md). Esta página só explica e entrega o APK.
 // O arquivo é anexado a um Release do GitHub com este nome exato (ver marmota-tuner/README.md).
 const APK_URL = "https://github.com/MatheusFinatto/music/releases/latest/download/marmota-tuner.apk";
 const SOURCE_URL = "https://github.com/MatheusFinatto/music/tree/main/marmota-tuner";

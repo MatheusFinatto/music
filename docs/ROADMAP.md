@@ -11,7 +11,7 @@ Sem datas. A ordem é a recomendada; cada ferramenta só é lançada quando esti
 
 ## Ordem recomendada
 1. **Tirar de ouvido** — o diferencial do site. Núcleo: carregar um áudio, marcar trecho A–B em loop, desacelerar sem mudar o tom, e o método de treino por cima disso.
-2. **Afinador** — rápido de fazer, e é quem inaugura microfone e detecção de altura no núcleo, que o treinador e o treino de ouvido reaproveitam. Pode andar em paralelo com o item 1, por outro dev. Hoje o hub entrega o app Android Marmota Tuner (`marmota-tuner/`) no lugar; ele não alimenta o núcleo, então este item continua aberto e obrigatório: as ferramentas que ouvem a guitarra dependem dessas bases.
+2. **Afinador** — rápido de fazer, e é quem inaugura microfone e detecção de altura no núcleo, que o treinador e o treino de ouvido reaproveitam. Pode andar em paralelo com o item 1, por outro dev. O hub já entrega o app Android Marmota Tuner (`marmota-tuner/`), que fica mesmo depois: é o afinador de bolso, sem internet. Ele não alimenta o núcleo, então este item continua aberto e obrigatório: as ferramentas que ouvem a guitarra dependem dessas bases.
 3. **Treino de ouvido** — intervalos, acordes, graus funcionais.
 4. **Improvisação** — redesenho do Laboratório (Diário e Piano) como ferramenta do site novo.
 5. **Player de tab e MIDI** — abre arquivo do próprio usuário (Guitar Pro, MIDI) e toca junto. A base técnica provável é a biblioteca alphaTab. **Sem catálogo de tablaturas**: música comercial é protegida por direito autoral.
