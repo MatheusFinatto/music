@@ -1,18 +1,35 @@
 {
   "name": "musica",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "check": "node scripts/check.mjs"
+    "dev": "next dev",
+    "dev:lab": "vite --config legacy/vite.config.js",
+    "build:lab": "vite build --config legacy/vite.config.js",
+    "build": "npm run build:lab && next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "check": "node legacy/scripts/check.mjs",
+    "smoke": "node legacy/scripts/smoke.mjs"
   },
   "dependencies": {
-    "abcjs": "6.4.4"
+    "abcjs": "6.4.4",
+    "next": "^16.4.6",
+    "next-intl": "^4.15.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.5",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^10.15.0",
+    "eslint-config-next": "^16.4.6",
+    "tailwindcss": "^4.3.5",
+    "typescript": "^6.0.3",
     "vite": "5.4.11"
   }
 }

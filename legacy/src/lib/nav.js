@@ -3,10 +3,10 @@ export function mountNav(current) {
   const nav = document.createElement("nav");
   nav.className = "site-nav";
   nav.setAttribute("aria-label", "Páginas");
-  const pages = [["/", "Início", "home"], ["/diario", "Diário do Solo", "diario"], ["/piano", "Piano de Ideias", "piano"]];
-  const brand = document.createElement("a"); brand.href = "/"; brand.className = "brand"; brand.textContent = "Música";
+  const pages = [["/laboratorio", "Laboratório", "home"], ["/laboratorio/diario", "Diário do Solo", "diario"], ["/laboratorio/piano", "Piano de Ideias", "piano"]];
+  const brand = document.createElement("a"); brand.href = "/"; brand.className = "brand"; brand.textContent = "← Musical Tools";
   nav.append(brand);
-  pages.slice(1).forEach(([href, label, id]) => {
+  pages.forEach(([href, label, id]) => {
     const a = document.createElement("a"); a.href = href; a.textContent = label;
     if (id === current) a.setAttribute("aria-current", "page");
     nav.append(a);

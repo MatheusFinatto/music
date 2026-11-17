@@ -1,8 +1,10 @@
 node_modules/
-dist/
+.next/
+next-env.d.ts
+*.tsbuildinfo
+public/laboratorio/
 .vercel/
 .DS_Store
 *.log
 backup*.json
 musica-backup*.json
-.vercel

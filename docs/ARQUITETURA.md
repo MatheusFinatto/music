@@ -1,59 +1,53 @@
 # Arquitetura
 
-Site estático multi-página com **Vite** e JavaScript puro (sem framework). Única dependência: `abcjs` (partitura).
+Next.js (App Router) + TypeScript + Tailwind v4 + next-intl. Sem backend: tudo roda no navegador.
 
 ```
-index.html, diario.html, piano.html   páginas (entradas no vite.config.js)
-src/styles.css                         tokens de cor/tipo (claro e escuro) e componentes comuns
-src/pages/*.js|.css                    código de cada página
-src/lib/theory.js                      campo harmônico, nomes (C4), funções (T,3,5…), posição na guitarra
-src/lib/base.js                        a base: tom, progressão (graus), bpm, estilo, mixagem; presets e estilos
-src/lib/audio.js                       Web Audio: voz do piano, pad, baixo, bateria sintetizada, metrônomo e o TRANSPORTE
-src/lib/basebar.js                     barra da base + janela "Montar base" (usada em todas as páginas)
-src/lib/score.js                       partitura (ABC → abcjs), tab em texto, cifra rápida, destaque, exportar HTML
-src/lib/edit.js                        editor de ideias: ajustar ao tempo, mover, encurtar/alongar, ±½ tom, apagar (funções puras)
-src/lib/store.js                       localStorage (prefixo musica:), backup exportar/importar
-src/lib/plan.js                        conteúdo dos 57 dias do Diário
-src/lib/challenges.js                  desafios do Piano (categorias, alvo de cada um), exemplos e desafio do dia
-scripts/check.mjs                      validação dos dados (Node)
-scripts/smoke.mjs                      teste de fumaça no navegador (Playwright)
+src/app/[locale]/layout.tsx    casca do site: cabeçalho, rodapé, fontes, tema
+src/app/[locale]/page.tsx      o hub
+src/app/[locale]/<slug>/       a rota de cada ferramenta
+src/tools/registry.ts          lista de ferramentas (fonte única)
+src/tools/<slug>/              o código de UMA ferramenta
+src/core/                      o que é comum a mais de uma ferramenta (criado sob demanda)
+src/components/                interface compartilhada (cabeçalho, rodapé, peças do hub)
+src/i18n/                      configuração do next-intl
+src/proxy.ts                   roteamento de idioma
+messages/pt-BR.json            todos os textos visíveis
+legacy/                        site antigo (Vite), vira public/laboratorio/ no build
 ```
 
-## Base e teoria
-- A base guarda o **tom** como `key` = tônica do tom maior (0 = Dó; Am é o relativo). A progressão é uma lista de **graus** 0..6 (`[5,3,0,4]` = vi IV I V = Am F C G).
-- `makeChord(grau, key)` devolve `{ n (nome), r (fundamental), t (tríade), third, ninth, bass, pad, roman, deg }`.
-- Nomes com bemol nos tons de F, Bb, Eb, Ab, Db, Gb; sustenido nos outros.
-- `shiftOf(base)` = deslocamento em semitons do tom padrão (usado para transpor exemplos e a região do braço).
+## Regra de isolamento
+1. **Uma ferramenta nunca importa de outra.** Nem código, nem estilo, nem tipo.
+2. O que duas ferramentas precisam vai para `src/core/` (lógica, sem interface) ou `src/components/` (interface).
+3. `src/core/` não importa de ferramentas, páginas nem componentes. É TypeScript puro, testável sem navegador sempre que possível.
+4. Nada em `src/` importa de `legacy/`. Para reaproveitar algo de lá, **migre** para `src/core/` em TypeScript.
 
-## Transporte (audio.js)
-- Conta em semicolcheias; o ciclo é de **4 compassos** (16 tempos). Contagem de 1 compasso opcional (tempos negativos).
-- Eventos: `transport.on("beat", (beat, time, info) => …)`, `"start"`, `"stop"`. `time` é o relógio do Web Audio; para mexer na tela, agende com `setTimeout((time - now()) * 1000)`.
-- `transport.curBeat()` dá o tempo atual (fracionado), usado na gravação.
-- Trocar a base (`setBase`) atualiza o transporte sem parar.
+O lint (`eslint.config.mjs`) barra os imports por `@/tools/...`. Dentro da própria ferramenta, use import relativo.
 
-## Ideias (piano)
-Formato salvo:
-```js
-{ name, created, bpm, star, tried,
-  base: { key, prog: [graus] },          // base em que foi gravada
-  notes: [ { m: 60, b: 0, d: 2 } ] }     // m = MIDI (60 = C4), b = tempo de início 0..15.75, d = duração em tempos
-```
-Ideias antigas (vindas do artefato) podem ter `prog: ["Am","F","C","G"]` no lugar de `base`; `legacyToDegrees` converte.
-A gravação quantiza em semicolcheias. Ao editar, a primeira versão fica em `original` (botão "Voltar ao original"); o "Desfazer" é só da sessão.
+O motivo: cada ferramenta tem um dono e evolui no seu ritmo. Mexer no afinador não pode quebrar o player.
 
-## Dados no navegador
-Chaves: `musica:base`, `musica:piano` (`{meta:{color,target}, ideas:{id:ideia}, done:{idDoDesafio:vezes}}`; dados antigos podem ter `missions`, ignorado), `musica:diario` (`{meta:{phrases:{semana:texto}}, days:{n:{done,count,note,scores,video,ts}}}`).
-Backup: `exportAll()` / `importAll()` em `store.js` (formato `{app:"musica", version:1, base, piano, diario}`).
-Ideias gravadas com um desafio ativo guardam `challenge: idDoDesafio`.
+## Como adicionar uma ferramenta
+Exemplo com o afinador (`slug`: `afinador`).
 
-## Partitura
-- ABC gerado em `toAbc`, sempre `K:C` com acidentes explícitos (funciona em qualquer tom).
-- Cada nota recebe `data-ni` (índice na ideia) para destacar na reprodução; a tab usa `<span class="tn" data-ni>`.
-- Notas com cabeça vazada (mínimas) ganham um retângulo invisível para o hover funcionar.
-- Layout se adapta à largura (4, 2 ou 1 compasso por linha) com `ResizeObserver`.
+1. **Registro**: em `src/tools/registry.ts`, a entrada já existe como `planejada`. Ao começar, mude para `proxima`; ao lançar, para `pronta` e acrescente `href: "/afinador"`.
+2. **Textos**: em `messages/pt-BR.json`, `tools.afinador` já tem `name` e `summary` (usados no hub). Os textos da ferramenta em si vão num bloco próprio no topo do arquivo: `"afinador": { ... }`.
+3. **Código**: crie `src/tools/afinador/`. Sugestão: `Afinador.tsx` (componente raiz, `"use client"`), `components/`, `lib/` (lógica pura), `afinador.css` se precisar.
+4. **Rota**: `src/app/[locale]/afinador/page.tsx`, um componente de servidor fino que define `metadata` e renderiza `<Afinador />`. Para usar textos dentro de componente cliente, envolva a ferramenta em `<NextIntlClientProvider messages={pick(messages, "afinador")}>` na página: só o bloco dela vai para o navegador. Áudio só existe no navegador: nada de Web Audio fora de componente cliente, e crie o `AudioContext` em resposta a um gesto do usuário.
+5. **Núcleo**: se precisar de algo que outra ferramenta também vai usar, coloque em `src/core/` seguindo o contrato de `docs/ROADMAP.md`. Se outra ferramenta já tem algo parecido dentro dela, mova para `src/core/` num PR separado, antes.
+6. **Dados**: `localStorage` com chave `musica:<slug>`. Guarde um campo `version` para poder migrar depois.
+7. **Conferir**: `npm run lint && npm run typecheck && npm run build`, e a ferramenta em 360 px de largura, em claro e escuro, navegável por teclado.
 
-## Como adicionar
-- **Desafio**: em `src/lib/challenges.js`, acrescente `{ id, cat, target, title, text, demo? }` na lista `CHALLENGES` (a ordem da lista é a ordem do "desafio do dia"; mantenha as categorias alternadas).
-- **Exemplo**: `DEMOS[chave] = { name: "Exemplo: …", bpm, notes: [...] }` na base padrão (tom de Dó); o site transpõe.
-- **Estilo de base**: `STYLES` em `base.js` (padrões de 16 semicolcheias para bumbo, caixa, chimbal e baixo).
-- Rode `npm run check` depois.
+O hub se atualiza sozinho a partir do registro. Não edite `page.tsx` do hub para acrescentar ferramenta.
+
+## Idiomas
+`src/i18n/routing.ts` tem um idioma (`pt-BR`), sem prefixo na URL. Para acrescentar inglês: inclua `"en"` em `locales` e crie `messages/en.json`. As rotas viram `/en/...` sozinhas. Por isso nenhum texto visível fica fixo no código, e links internos usam `Link` de `@/i18n/navigation`.
+
+## Laboratório (`legacy/`)
+O site antigo é um projeto Vite à parte. `npm run build:lab` gera `public/laboratorio/` (ignorado pelo git) e o Next serve como arquivo estático. `next.config.ts` cuida das URLs limpas (`/laboratorio/diario`) e redireciona os endereços antigos (`/diario`, `/piano`). O `src/proxy.ts` ignora `/laboratorio`.
+
+Mesma origem do site novo, então o `localStorage` (`musica:base`, `musica:piano`, `musica:diario`) é compartilhado. **Ferramentas novas não leem nem escrevem nessas três chaves.**
+
+Detalhes internos: `legacy/docs/ARQUITETURA.md`.
+
+## Sistema visual
+`DESIGN.md` na raiz descreve o sistema (cores, tipos, componentes). Os tokens ficam em `src/app/globals.css`. Ferramentas usam os tokens; não inventam paleta própria.

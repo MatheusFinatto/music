@@ -1,10 +1,11 @@
-# Música · treino de improviso
+# Musical Tools
 
-Site de treino de improviso na guitarra: **Diário do Solo** (plano de 8 semanas com micro-metas diárias) e **Piano de Ideias** (inventar frases sem a guitarra, por cima de uma base que você monta).
+Ferramentas de prática para quem toca: gratuitas, sem conta, guitarra primeiro. Um hub leva a ferramentas independentes (tirar de ouvido, afinador, treino de ouvido, improvisação, player de tab e MIDI).
 
 ```bash
 npm install
+npm run build:lab   # uma vez, para o Laboratório aparecer no dev
 npm run dev
 ```
 
-Documentação para quem for desenvolver (pessoas ou agentes): [`CLAUDE.md`](CLAUDE.md) e a pasta [`docs/`](docs/).
+Para desenvolver (pessoas ou agentes): [`CLAUDE.md`](CLAUDE.md), [`docs/ARQUITETURA.md`](docs/ARQUITETURA.md) e [`docs/ROADMAP.md`](docs/ROADMAP.md).

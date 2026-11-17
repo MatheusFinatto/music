@@ -1,4 +1,6 @@
-# Preferências e combinados com o dono
+# Preferências e combinados com o dono (Laboratório)
+
+> **Escopo:** valem para o Diário do Solo e o Piano de Ideias (`legacy/`). Não são regras do site novo; para ele, veja `docs/` na raiz.
 
 Estas regras saíram de feedback direto do dono durante o desenvolvimento. Quando algo aqui conflitar com um "bom padrão" genérico, **vale o que está aqui**.
 
@@ -35,5 +37,5 @@ Estas regras saíram de feedback direto do dono durante o desenvolvimento. Quand
 
 ## Pedagogia (o que funcionou)
 - Notas-alvo (3ª do acorde no tempo 1), notas de passagem **andando em direção** à próxima 3ª, bends para o alvo, ritmo/espaço, motivos, pergunta e resposta, cor (9ª e 6ª), arco do solo.
-- Treino de ouvido: **não** construir dentro do site; ele preferiu apps prontos. Recomendar **Functional Ear Trainer** (celular). As missões de "Ouvir" apontam para ele.
+- Treino de ouvido: as missões de "Ouvir" do Laboratório apontam para o **Functional Ear Trainer** (celular). *Revogado para o site novo em 2026-11-17: treino de ouvido passa a ser uma ferramenta própria (ver `docs/ROADMAP.md`).*
 - Gravações do Diário sempre na **base padrão** para comparar a evolução (dia 0, 28, 56).

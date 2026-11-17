@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-17T12:30:00Z",
+  "title": "Design System: Musical Tools",
+  "extensions": {
+    "colorMeta": {
+      "action-blue": { "role": "primary", "displayName": "Azul de ação", "canonical": "#27598a", "tonalRamp": ["#0b1520", "#14304b", "#1d446a", "#27598a", "#4f82b3", "#7fb2e2", "#b9d3ec", "#e4edf6"] },
+      "target-orange": { "role": "secondary", "displayName": "Laranja de nota-alvo", "canonical": "#c27400", "tonalRamp": ["#2a1a00", "#3d2c10", "#8a5200", "#c27400", "#dd8f1a", "#f0a634", "#f4cf94", "#f8ead2"] },
+      "selected-green": { "role": "tertiary", "displayName": "Verde de selecionado", "canonical": "#2e7a4d", "tonalRamp": ["#0c2416", "#17422a", "#225e3b", "#2e7a4d", "#479a68", "#62c18a", "#a9dcbd", "#dff2e6"] },
+      "ground": { "role": "neutral", "displayName": "Fundo", "canonical": "#f5f5f7", "tonalRamp": ["#000000", "#1c1c1e", "#38383c", "#5f5f66", "#a1a1a8", "#d9d9de", "#ececf0", "#f5f5f7"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Só o título do hub." },
+      "headline": { "displayName": "Headline", "purpose": "Título de seção." },
+      "title": { "displayName": "Title", "purpose": "Nome de ferramenta no card." },
+      "body": { "displayName": "Body", "purpose": "Descrições." },
+      "label": { "displayName": "Label", "purpose": "Selos de situação." }
+    },
+    "shadows": [
+      { "name": "shadow", "value": "0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06)", "purpose": "Card no ar, em repouso." },
+      { "name": "shadow-up", "value": "0 2px 4px rgb(0 0 0 / 0.05), 0 18px 40px rgb(0 0 0 / 0.12)", "purpose": "Card no ar, no hover." }
+    ],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Curva única para entrada e hover." },
+      { "name": "staff-cycle", "value": "8s", "purpose": "Ciclo do cursor da pauta." }
+    ],
+    "breakpoints": [{ "name": "next-card-stack", "value": "640px" }]
+  },
+  "components": [
+    { "name": "Botão primário", "kind": "button", "refersTo": "button-primary", "description": "Ação de abrir uma ferramenta.", "html": "<span class=\"ds-go\">Abrir</span>", "css": ".ds-go { display: inline-flex; background: var(--accent); color: var(--accent-ink); font-weight: 600; font-size: 0.95rem; padding: 9px 18px; border-radius: 999px; }" },
+    { "name": "Card de ferramenta", "kind": "card", "refersTo": "card", "description": "Ferramenta no ar; o card inteiro é o link.", "html": "<a class=\"ds-card\" href=\"#\"><h3>Diário do Solo</h3><p>Plano de 8 semanas de improviso.</p></a>", "css": ".ds-card { display: flex; flex-direction: column; gap: 10px; background: var(--surface); color: var(--ink); border-radius: 22px; padding: 26px; box-shadow: var(--shadow); text-decoration: none; transition: transform .5s cubic-bezier(0.16,1,0.3,1), box-shadow .5s cubic-bezier(0.16,1,0.3,1); } .ds-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-up); } .ds-card:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; } .ds-card h3 { font-size: 1.45rem; font-weight: 650; letter-spacing: -0.022em; margin: 0; } .ds-card p { color: var(--muted); margin: 0; }" },
+    { "name": "Selo de situação", "kind": "chip", "refersTo": "badge", "description": "Situação da ferramenta.", "html": "<span class=\"ds-badge\">Planejada</span>", "css": ".ds-badge { display: inline-flex; font-size: 0.82rem; font-weight: 600; padding: 5px 11px; border-radius: 999px; background: var(--soft); color: var(--muted); }" }
+  ],
+  "narrative": {
+    "northStar": "O padrão, bem feito",
+    "overview": "O padrão da categoria, escolhido de propósito, com acabamento de página de app da Apple: respiro, cards grandes arredondados, uma família tipográfica, animações suaves. O hub é um painel de entrada; o que dá para abrir hoje é a maior coisa da página.",
+    "keyCharacteristics": ["Fundo cinza suave, superfícies brancas, um só azul para ação", "Cards de raio 22px com sombra macia", "Tamanho do card diz a situação", "A pauta animada é o único elemento decorativo"],
+    "rules": [{ "name": "A Regra das Três Cores", "body": "Azul é ação e tocando agora. Laranja é nota-alvo. Verde é selecionado. Nenhuma é usada para outra coisa.", "section": "colors" }],
+    "dos": ["Use os tokens de globals.css", "Diga a situação com as palavras do registro"],
+    "donts": ["Não use linguagem de venda", "Não acrescente um segundo elemento decorativo animado ao hub"]
+  }
+}
