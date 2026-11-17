@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Afinador</string>
-    <string name="play_a_string">Toque uma corda</string>
-    <string name="mic_needed">Toque aqui para liberar o microfone</string>
-    <string name="mic_in_settings">Libere o microfone nas configurações (toque aqui)</string>
-    <string name="mic_failed">Não consegui abrir o microfone</string>
-</resources>
