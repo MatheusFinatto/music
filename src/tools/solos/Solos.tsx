@@ -6,17 +6,17 @@ import type { Exercise, Lesson } from "./curriculum/types";
 import { NeckHero } from "./components/NeckHero";
 import { ExerciseFrame, type Part } from "./ExerciseFrame";
 import { progressStore, useProgress, useToday } from "./progress";
-import { EMPTY, buildSession, daysThisWeek, learnLesson, rate, rateCold, toggleLesson, unitStatuses, type Progress, type Rating, type Session } from "./session/schedule";
+import { EMPTY, addDays, buildSession, daysThisWeek, learnLesson, rate, rateCold, toggleLesson, unitStatuses, type Progress, type Rating, type Session } from "./session/schedule";
 import "./solos.css";
 
 type Step = { part: Part; ex: Exercise; lesson?: Lesson; first?: boolean; last?: boolean };
-type Outcome = { learned?: string; repeat?: string };
+type Outcome = { cold?: string; done?: string; repeat?: string };
 
 function stepsOf(s: Session, p: Progress): Step[] {
   const steps: Step[] = [];
   if (s.cold) steps.push({ part: "cold", ex: s.cold.exercises.find((e) => e.id === s.cold!.key)!, lesson: s.cold });
   // Lição já tentada e não aprendida volta marcada como repetição.
-  const part: Part = s.lesson && p.exercises[s.lesson.key] ? "again" : "new";
+  const part: Part = s.lesson && p.exercises[s.lesson.key]?.last === "nao" ? "again" : "new";
   s.lesson?.exercises.forEach((ex, i, all) => steps.push({ part, ex, lesson: s.lesson, first: i === 0, last: i === all.length - 1 }));
   if (s.phrase) steps.push({ part: "phrase", ex: s.phrase });
   s.reviews.forEach((ex) => steps.push({ part: "review", ex }));
@@ -52,19 +52,24 @@ export function Solos() {
       if (view.at + 1 < view.steps.length) setView({ ...view, at: view.at + 1, ratings });
       else {
         const lesson = view.steps.find((s) => s.part === "new" || s.part === "again")?.lesson;
-        const outcome: Outcome = lesson ? (next.lessons[lesson.id] ? { learned: lesson.title } : { repeat: lesson.title }) : {};
+        const tomorrow = buildSession(curriculum, next, addDays(today, 1)).cold;
+        const outcome: Outcome = !lesson ? {}
+          : !next.lessons[lesson.id] ? { repeat: lesson.title }
+          : tomorrow?.id === lesson.id ? { cold: lesson.title }
+          : { done: lesson.title };
         setView({ name: "done", steps: view.steps, ratings, outcome });
       }
       window.scrollTo({ top: 0 });
     };
     return (
-      <main className="wrap solos">
+      <main className="wrap solos" id="conteudo">
         <ExerciseFrame
           key={view.at}
           ex={step.ex}
           part={step.part}
           intro={step.first && step.lesson ? { title: step.lesson.title, text: step.lesson.intro } : undefined}
           progress={{ n: view.at + 1, total: view.steps.length }}
+          rated={view.ratings[view.at]}
           onRate={onRate}
           onBack={view.at > 0 ? () => setView({ ...view, at: view.at - 1 }) : undefined}
           onExit={home}
@@ -76,7 +81,7 @@ export function Solos() {
 
   if (view.name === "free")
     return (
-      <main className="wrap solos">
+      <main className="wrap solos" id="conteudo">
         <ExerciseFrame
           ex={view.ex}
           part="free"
@@ -89,7 +94,7 @@ export function Solos() {
 
   if (view.name === "done")
     return (
-      <main className="wrap solos">
+      <main className="wrap solos" id="conteudo">
         <section className="done">
           <h1>{t("done.title")}</h1>
           <ol className="recap">
@@ -102,7 +107,10 @@ export function Solos() {
             ))}
           </ol>
           <p>
-            {view.outcome.learned ? t("done.learned", { lesson: view.outcome.learned }) : view.outcome.repeat ? t("done.repeat", { lesson: view.outcome.repeat }) : t("done.review")}
+            {view.outcome.cold ? t("done.learned", { lesson: view.outcome.cold })
+              : view.outcome.done ? t("done.done", { lesson: view.outcome.done })
+              : view.outcome.repeat ? t("done.repeat", { lesson: view.outcome.repeat })
+              : t("done.review")}
           </p>
           <button type="button" className="btn primary" onClick={home}>{t("done.back")}</button>
         </section>
@@ -120,14 +128,20 @@ export function Solos() {
   const start = () => { if (steps.length) setView({ name: "session", steps, at: 0, ratings: [] }); };
   const reset = () => { if (window.confirm(t("home.resetConfirm"))) progressStore.set(EMPTY); };
   const open = (ex: Exercise) => setView({ name: "free", ex });
+  // Desmarcar apaga o registro da lição; se ela foi feita em sessão (e não só marcada à mão), confirma antes.
+  const toggle = (l: Lesson) => {
+    const e = progress.lessons[l.id];
+    if (e && !e.manual && !window.confirm(t("home.unmarkConfirm", { lesson: l.title }))) return;
+    progressStore.set((p) => toggleLesson(p, l.id, today));
+  };
   // Qualquer lição pode ser feita a qualquer momento; a trilha só recomenda a ordem.
   const startLesson = (lesson: Lesson) => {
-    const part: Part = progress.exercises[lesson.key] && !progress.lessons[lesson.id] ? "again" : "new";
+    const part: Part = progress.exercises[lesson.key]?.last === "nao" && !progress.lessons[lesson.id] ? "again" : "new";
     setView({ name: "session", at: 0, ratings: [], steps: lesson.exercises.map((ex, i, all) => ({ part, ex, lesson, first: i === 0, last: i === all.length - 1 })) });
   };
 
   return (
-    <main className="wrap solos">
+    <main className="wrap solos" id="conteudo">
       <header className="solos-hero">
         <div className="hero-copy">
           <h1>{t("title")}</h1>
@@ -190,7 +204,7 @@ export function Solos() {
                         <li key={l.id} className={recommended ? "next" : undefined}>
                           <div className="lesson-head">
                             <label className="check">
-                              <input type="checkbox" checked={!!e} onChange={() => progressStore.set((p) => toggleLesson(p, l.id, today))} disabled={!today} />
+                              <input type="checkbox" checked={!!e} onChange={() => toggle(l)} disabled={!today} />
                               <span className="sr-only">{t("home.mark", { lesson: l.title })}</span>
                             </label>
                             <strong>{l.title}</strong>

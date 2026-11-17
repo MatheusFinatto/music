@@ -1,7 +1,7 @@
 // Voz solista sintetizada: toca frases de exemplo, com bend, vibrato e slide.
 // Não imita o timbre da guitarra; serve para mostrar altura e ritmo com exatidão.
 import { hz } from "@/core/theory";
-import type { AudioGraph } from "./context";
+import { track, type AudioGraph } from "./context";
 
 export type LeadNote = {
   /** Altura de chegada, em MIDI (60 = C4). */
@@ -48,7 +48,7 @@ export function playLead({ ctx, bus }: AudioGraph, n: LeadNote, t0: number, beat
     depth.gain.setValueAtTime(0, start);
     depth.gain.linearRampToValueAtTime(n.vibrato.cents, start + 0.25);
     lfo.connect(depth); depth.connect(o1.detune); depth.connect(o2.detune);
-    lfo.start(t); lfo.stop(end + 0.5);
+    track(lfo).start(t); lfo.stop(end + 0.5);
   }
 
   g.gain.setValueAtTime(0, t);
@@ -56,7 +56,7 @@ export function playLead({ ctx, bus }: AudioGraph, n: LeadNote, t0: number, beat
   g.gain.setTargetAtTime(amp * 0.7, t + 0.012, 0.25);
   g.gain.setTargetAtTime(0, end, 0.05);
   o1.connect(f); o2.connect(g2).connect(f); f.connect(g).connect(bus.lead);
-  o1.start(t); o2.start(t); o1.stop(end + 0.5); o2.stop(end + 0.5);
+  track(o1).start(t); track(o2).start(t); o1.stop(end + 0.5); o2.stop(end + 0.5);
 }
 
 export function playPhrase(graph: AudioGraph, notes: readonly LeadNote[], t0: number, beatDur: number) {

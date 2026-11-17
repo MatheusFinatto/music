@@ -25,7 +25,7 @@ export default async function Hub({ params }: Props) {
   const notes = [...live, ...next, ...planned].map((x) => ({ filled: isLive(x), target: x.status === "proxima" }));
 
   return (
-    <main className="wrap">
+    <main className="wrap" id="conteudo">
       <section className="hero">
         <h1 className="rise">{t("hub.title")}</h1>
         <Staff notes={notes} />

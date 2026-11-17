@@ -31,6 +31,8 @@ describe("agenda de revisão", () => {
   it("o intervalo cresce com 'consegui' e volta com 'ainda não'", () => {
     let p = rate(EMPTY, "x", "ok", D1);
     expect(p.exercises.x).toMatchObject({ interval: 1, due: D2 });
+    p = rate(p, "x", "ok", D1);
+    expect(p.exercises.x!.interval).toBe(1); // repetir no mesmo dia não empurra a revisão
     p = rate(p, "x", "ok", D2);
     expect(p.exercises.x!.interval).toBe(3);
     p = rate(p, "x", "quase", D2);
@@ -63,6 +65,14 @@ describe("sessão", () => {
     expect(buildSession(c, p, D2).cold?.id).toBe("l2"); // mas o teste a frio continua sendo proposto
     p = rateCold(p, c.units[0]!.lessons[1]!, "ok", D2);
     expect(p.lessons.l2!.cold).toBe(D2);
+  });
+  it("o teste a frio é o da lição feita mais recentemente, e não se repete no mesmo dia", () => {
+    let p = learnLesson(EMPTY, "l3", D1); // feita fora de ordem, antes
+    p = learnLesson(p, "l1", D2);
+    const D3 = "2026-11-19";
+    expect(buildSession(c, p, D3).cold?.id).toBe("l1");
+    p = rateCold(p, c.units[0]!.lessons[0]!, "quase", D3);
+    expect(buildSession(c, p, D3).cold?.id).toBe("l3"); // l1 já foi tentada hoje
   });
   it("a pessoa pode marcar e desmarcar uma lição por conta própria", () => {
     let p = toggleLesson(EMPTY, "l1", D1);

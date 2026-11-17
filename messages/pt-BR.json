@@ -3,7 +3,7 @@
     "name": "Musical Tools",
     "title": "Musical Tools",
     "description": "Ferramentas de prática para quem toca: tirar de ouvido, afinador, treino de ouvido, improvisação e player de tab. Gratuito e sem conta.",
-    "skip": "Pular para as ferramentas"
+    "skip": "Pular para o conteúdo"
   },
   "nav": {
     "label": "Principal",
@@ -83,7 +83,8 @@
       "count": "{done} de {total}",
       "trailNote": "Faça na ordem que quiser. A caixa à esquerda marca a lição como feita, inclusive as que você já sabe e quer pular.",
       "phrases": "Frases de ouvido",
-      "phrasesNote": "Frases curtas para ouvir, cantar e achar no braço. A sessão sugerida traz uma por vez."
+      "phrasesNote": "Frases curtas para ouvir, cantar e achar no braço. A sessão sugerida traz uma por vez.",
+      "unmarkConfirm": "Desmarcar \"{lesson}\"? Isso apaga o registro de que você fez esta lição."
     },
     "part": {
       "cold": "A frio",
@@ -99,7 +100,7 @@
       "review": "Revisão misturada parece mais difícil do que repetir a mesma coisa. É esperado, e é o que fixa.",
       "phrase": "Solo também é feito de frases que você ouviu e guardou. Uma por sessão, sempre de ouvido primeiro.",
       "take": "Depois de tanta regra, toque sem nenhuma.",
-      "again": "Esta lição ficou em \"ainda não\" da última vez, então ela volta. Sem pressa: é assim que a trilha funciona."
+      "again": "Esta lição ficou em \"ainda não\" da última vez, então ela volta. Sem pressa."
     },
     "frame": {
       "step": "Passo {n} de {total}",
@@ -119,7 +120,8 @@
       "learned": "Amanhã a sessão começa refazendo \"{lesson}\" a frio, sem aquecer. Dormir faz parte do treino.",
       "repeat": "\"{lesson}\" ainda não ficou, então volta na próxima sessão. É o caminho normal.",
       "review": "Sessão de frase e revisão.",
-      "back": "Voltar para a trilha"
+      "back": "Voltar para a trilha",
+      "done": "\"{lesson}\" está feita."
     },
     "backing": {
       "play": "Tocar base",
@@ -129,7 +131,8 @@
       "faster": "Mais rápido",
       "counting": "Contagem",
       "noAudio": "Este navegador não conseguiu iniciar o áudio.",
-      "space": "Barra de espaço toca e para."
+      "space": "Barra de espaço toca e para.",
+      "bpm": "bpm"
     },
     "map": {
       "shape": "Desenho",

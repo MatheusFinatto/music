@@ -34,7 +34,12 @@ const markDay = (p: Progress, today: Day): Day[] => (p.days.includes(today) ? p.
 export function rate(p: Progress, exerciseId: string, rating: Rating, today: Day): Progress {
   const prev = p.exercises[exerciseId];
   const i = prev ? INTERVALS.indexOf(prev.interval as (typeof INTERVALS)[number]) : -1;
-  const interval = rating === "nao" ? INTERVALS[0] : rating === "quase" ? (prev?.interval ?? INTERVALS[0]) : INTERVALS[Math.min(i + 1, INTERVALS.length - 1)]!;
+  // O intervalo só cresce em dias diferentes: repetir "consegui" no mesmo dia não empurra a revisão para longe.
+  const sameDay = prev?.day === today;
+  const interval =
+    rating === "nao" ? INTERVALS[0]
+    : rating === "quase" || sameDay ? (prev?.interval ?? INTERVALS[0])
+    : INTERVALS[Math.min(i + 1, INTERVALS.length - 1)]!;
   const state: ExerciseState = { last: rating, times: (prev?.times ?? 0) + 1, interval, due: addDays(today, interval), day: today };
   return { ...p, exercises: { ...p.exercises, [exerciseId]: state }, days: markDay(p, today) };
 }
@@ -94,10 +99,11 @@ export function buildSession(c: Curriculum, p: Progress, today: Day, maxReviews 
 
   // A frio: a lição feita mais recentemente em sessão, em outro dia, ainda não confirmada.
   // Lição marcada à mão não entra: a pessoa disse que já sabe.
-  const cold = [...lessons].reverse().find((l) => {
-    const e = p.lessons[l.id];
-    return e && !e.manual && !e.cold && e.learned < today;
-  });
+  // Se o teste a frio já foi tentado hoje, não se repete no mesmo dia.
+  const cold = lessons
+    .map((l, order) => ({ l, order, e: p.lessons[l.id] }))
+    .filter(({ l, e }) => e && !e.manual && !e.cold && e.learned < today && p.exercises[l.key]?.day !== today)
+    .sort((a, b) => b.e!.learned.localeCompare(a.e!.learned) || b.order - a.order)[0]?.l;
 
   const lesson = nextLesson(c, p);
 

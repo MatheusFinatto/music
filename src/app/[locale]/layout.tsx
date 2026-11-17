@@ -6,12 +6,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Bricolage_Grotesque, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-// Fonte de título com personalidade, usada pelas ferramentas.
-const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display", display: "swap" });
 
 type Props = { children: ReactNode; params: Promise<{ locale: string }> };
 
@@ -33,12 +31,12 @@ export default async function LocaleLayout({ children, params }: Props) {
   const t = await getTranslations("site");
 
   return (
-    <html lang={locale} className={`${inter.variable} ${display.variable}`}>
+    <html lang={locale} className={inter.variable}>
       <body>
         {/* messages={null}: os textos não vão para o navegador por padrão. Ferramenta com
             componente cliente passa só o bloco dela (ver docs/ARQUITETURA.md). */}
         <NextIntlClientProvider messages={null}>
-          <a className="skip" href="#ferramentas">{t("skip")}</a>
+          <a className="skip" href="#conteudo">{t("skip")}</a>
           <Header />
           {children}
           <Footer />

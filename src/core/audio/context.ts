@@ -6,6 +6,7 @@ export type BusName = "drums" | "bass" | "chords" | "lead" | "click";
 export type AudioGraph = { ctx: AudioContext; master: GainNode; bus: Record<BusName, GainNode> };
 
 let graph: AudioGraph | null = null;
+const MASTER = 0.8;
 
 export function getAudio(): AudioGraph | null {
   if (graph) return graph;
@@ -17,7 +18,7 @@ export function getAudio(): AudioGraph | null {
   comp.threshold.value = -14;
   comp.ratio.value = 4;
   const master = ctx.createGain();
-  master.gain.value = 0.8;
+  master.gain.value = MASTER;
   master.connect(comp).connect(ctx.destination);
   const mk = (gain: number) => { const g = ctx.createGain(); g.gain.value = gain; g.connect(master); return g; };
   graph = { ctx, master, bus: { drums: mk(0.7), bass: mk(0.75), chords: mk(0.6), lead: mk(1), click: mk(1) } };
@@ -29,6 +30,29 @@ export function resumeAudio(): AudioGraph | null {
   const g = getAudio();
   if (g && g.ctx.state !== "running") void g.ctx.resume();
   return g;
+}
+
+const live = new Set<AudioScheduledSourceNode>();
+
+/** Registra uma fonte agendada, para poder calar tudo ao parar. */
+export function track<T extends AudioScheduledSourceNode>(node: T): T {
+  live.add(node);
+  node.addEventListener("ended", () => live.delete(node));
+  return node;
+}
+
+/** Cala o que está soando e o que já estava agendado, com uma descida curta para não estalar. */
+export function silence(g: AudioGraph) {
+  const now = g.ctx.currentTime;
+  const doomed = [...live];
+  live.clear();
+  g.master.gain.cancelScheduledValues(now);
+  g.master.gain.setTargetAtTime(0, now, 0.012);
+  setTimeout(() => {
+    for (const n of doomed) { try { n.stop(); } catch { /* já tinha parado */ } }
+    g.master.gain.cancelScheduledValues(g.ctx.currentTime);
+    g.master.gain.setValueAtTime(MASTER, g.ctx.currentTime);
+  }, 70);
 }
 
 export const audioNow = (): number => graph?.ctx.currentTime ?? 0;

@@ -19,6 +19,8 @@ type Props = {
   /** Texto da lição, mostrado antes do primeiro exercício dela. */
   intro?: { title: string; text: string };
   progress?: { n: number; total: number };
+  /** Avaliação já dada a este passo nesta sessão (ao voltar um passo). */
+  rated?: Rating;
   onRate: (r: Rating) => void;
   onBack?: () => void;
   onExit: () => void;
@@ -28,10 +30,10 @@ type Props = {
 const HINTED: Part[] = ["cold", "again", "review", "phrase", "take"];
 const RATINGS = ["ok", "quase", "nao"] as const;
 
-export function ExerciseFrame({ ex, part, intro, progress, onRate, onBack, onExit, exitLabel }: Props) {
+export function ExerciseFrame({ ex, part, intro, progress, rated, onRate, onBack, onExit, exitLabel }: Props) {
   const t = useTranslations("solos");
   const running = useRunning();
-  const [rating, setRating] = useState<Rating | null>(null);
+  const [rating, setRating] = useState<Rating | null>(rated ?? null);
   const stage = useRef<HTMLDivElement>(null);
 
   // Ao trocar de exercício ou sair, a base para.
@@ -76,6 +78,13 @@ export function ExerciseFrame({ ex, part, intro, progress, onRate, onBack, onExi
         {ex.kind === "take" && <TakeEngine ex={ex} />}
       </div>
 
+      {ex.kind === "find" && rated && (
+        <footer className="rate">
+          <div className="row">
+            <button type="button" className="btn primary next" onClick={() => onRate(rated)}>{t("frame.next")}</button>
+          </div>
+        </footer>
+      )}
       {ex.kind !== "find" && (
         <footer className="rate">
           <p id="rate-q"><strong>{t("frame.rate")}</strong> {ex.check}</p>

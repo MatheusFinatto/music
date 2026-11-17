@@ -1,7 +1,7 @@
 // Transporte: o relógio musical que toca a base em ciclo e avisa quem estiver ouvindo.
 // Conta em semicolcheias, compasso 4/4, um acorde por compasso.
 import type { Chord } from "@/core/theory";
-import { getAudio, resumeAudio, type AudioGraph } from "./context";
+import { getAudio, resumeAudio, silence, type AudioGraph } from "./context";
 import { STYLES, bassNote, click, hat, kick, pad, snare, voicing, type Style, type StyleName } from "./backing";
 
 export type Backing = { chords: Chord[]; bpm: number; style: StyleName; click?: boolean };
@@ -64,6 +64,7 @@ class Transport {
     this.running = false;
     if (this.timer) clearInterval(this.timer);
     this.timer = null;
+    if (this.graph) silence(this.graph);
     this.listeners.stop.forEach((f) => f());
   }
 
@@ -100,6 +101,12 @@ class Transport {
       const barInCycle = ((bar % n) + n) % n;
       const chord = step >= 0 ? backing.chords[barInCycle]! : null;
 
+      // Timer estrangulado (aba em segundo plano): o passo já passou. Avança o relógio sem tocar.
+      const late = t < graph.ctx.currentTime - 0.03;
+      if (late) {
+        this.nextStep++;
+        continue;
+      }
       if (step < 0) {
         if (s % 4 === 0) click(graph, t, s === 0);
       } else if (!this.muted && chord) {

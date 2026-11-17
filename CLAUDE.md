@@ -23,7 +23,7 @@ npm run smoke       # teste de fumaça no navegador (Playwright), com o start ro
 ## Regras
 - **Isolamento**: uma ferramenta (`src/tools/<slug>/`) nunca importa de outra. O que for comum vai para `src/core/`. O lint barra.
 - **Registro**: toda ferramenta entra em `src/tools/registry.ts`. O hub lê de lá; não escreva lista de ferramentas em outro lugar.
-- **Textos**: nada de texto visível fixo no código. Tudo em `messages/pt-BR.json` (next-intl). Português do Brasil, direto, sem linguagem de venda.
+- **Textos**: nada de texto de interface fixo no código. Tudo em `messages/pt-BR.json` (next-intl). Exceção: conteúdo didático longo (lições, exercícios) é dado tipado por idioma dentro da ferramenta (ver `docs/ARQUITETURA.md`, "Conteúdo longo"). Português do Brasil, direto, sem linguagem de venda.
 - **Status honesto**: `pronta`, `laboratorio`, `proxima` ou `planejada`. Sem datas prometidas.
 - **Notas** no formato letra + oitava (**C4, Bb3**; C4 = Dó central).
 - **Cores com significado** nas ferramentas: laranja = nota-alvo, azul = tocando agora, verde = selecionado.
