@@ -299,7 +299,10 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos-root { display: contents; }
 
 /* som da frase */
-.solos .backing > .btn.small { justify-self: end; }
+.solos .backing-extra { justify-self: end; display: flex; gap: 8px; align-items: center; }
+.solos .key-picker { display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-sm); font-weight: 600; }
+.solos .key-picker select { min-height: 36px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 4px 12px; font: inherit; }
+.solos .key-note { color: var(--target); font-size: var(--text-sm); font-weight: 600; }
 .solos .sound-panel { width: min(26rem, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); padding: 24px; }
 .solos .sound-panel[open] { display: flex; flex-direction: column; gap: 16px; }
 .solos .sound-panel::backdrop { background: rgb(0 0 0 / 0.55); }
@@ -318,3 +321,8 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .text-tab .head { color: var(--ink); font-weight: 700; }
 .solos .text-tab .tn { color: var(--ink); font-weight: 700; border-radius: 3px; }
 .solos .text-tab .tn.now { background: var(--accent); color: var(--accent-ink); }
+
+/* perguntas de teoria: links para fora */
+.solos .concepts { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font-size: var(--text-sm); }
+.solos .concepts a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.solos .concepts a:hover { color: var(--ink); }

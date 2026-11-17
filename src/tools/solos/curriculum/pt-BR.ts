@@ -96,6 +96,7 @@ export const curriculum: Curriculum = {
       lessons: [
         {
           id: "u0.l1",
+          concepts: ["O que é a escala pentatônica menor?", "O que é a tônica de uma escala?"],
           title: "O desenho 1",
           intro:
             "Boa parte dos solos de rock e blues que você conhece passa por este desenho. Ele tem só cinco notas, repetidas em duas oitavas. O objetivo aqui não é correr por ele: é saber, de olhos fechados, onde está a tônica.",
@@ -133,6 +134,7 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u0.l2",
+          concepts: ["Quais são os 5 desenhos da pentatônica?"],
           title: "Os cinco desenhos",
           intro:
             "O desenho 1 é uma janela do braço. As mesmas cinco notas continuam para cima e para baixo em mais quatro desenhos, e cada um encaixa no vizinho. Você não precisa dominar os cinco hoje: precisa saber que existem e como se ligam.",
@@ -171,6 +173,7 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u0.l3",
+          concepts: ["O que é a tônica, a terça e a quinta de um acorde?", "O que é campo harmônico?"],
           title: "As notas de cada acorde",
           intro:
             'A pentatônica serve para a música inteira, mas cada acorde tem três notas que soam "em casa" enquanto ele toca: a tônica, a 3ª e a 5ª. Solo que parece escala ignora isso. Aqui você só aprende onde elas ficam; usar vem depois.',
@@ -215,6 +218,7 @@ export const curriculum: Curriculum = {
       lessons: [
         {
           id: "u1.l1",
+          concepts: ["O que é compasso na música?"],
           title: "Dois compassos tocando, dois calado",
           intro:
             "O defeito mais comum de quem improvisa é não parar de tocar: os dedos correm mais que as ideias. Cantor respira; guitarrista esquece. Calar por obrigação parece artificial, e é. É um treino, não um jeito de tocar no palco.",
@@ -319,6 +323,7 @@ export const curriculum: Curriculum = {
       lessons: [
         {
           id: "u2.l1",
+          concepts: ["O que é semicolcheia?", "O que é tempo forte e tempo fraco?"],
           title: "Uma nota, muitos ritmos",
           intro:
             "Com uma nota só não há escala onde se esconder: tudo o que sobra é ritmo. Quem resolve o ritmo com uma nota tem o que dizer com cinco.",
@@ -363,6 +368,7 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u2.l2",
+          concepts: ["O que é contratempo na música?"],
           title: "Fora do tempo 1",
           intro:
             "Começar toda frase no primeiro tempo é o que deixa o solo quadrado. Entrar depois, ou antes, muda tudo sem mudar uma nota.",
@@ -499,6 +505,7 @@ export const curriculum: Curriculum = {
       lessons: [
         {
           id: "u5.l1",
+          concepts: ["O que é uma nota do acorde?"],
           title: "Uma nota, quatro cores",
           intro:
             "Antes de perseguir notas, ouça o que a troca de acorde faz com uma nota parada. O Dó (C5) está em três dos quatro acordes da base: é a 3ª do Am, a 5ª do F e a tônica do C. Sobre o G ele fica tenso, pedindo para mudar.",
@@ -537,6 +544,7 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u5.l2",
+          concepts: ["O que são notas alvo no improviso?"],
           title: "Chegar na troca",
           intro:
             "Agora o alvo muda a cada acorde. Na segunda metade do compasso, o site mostra a nota do próximo acorde; você chega nela no tempo 1. Tônica, 3ª e 5ª se revezam, para nenhuma virar prisão.",
@@ -609,6 +617,7 @@ export const curriculum: Curriculum = {
       lessons: [
         {
           id: "u6.l1",
+          concepts: ["O que é nota de aproximação?"],
           title: "Chegar por um passo",
           intro:
             "Uma nota do acorde soa mais forte quando se chega nela andando: a nota vizinha da escala, de cima ou de baixo, e então o alvo. É o que transforma uma nota certa numa frase.",
@@ -658,6 +667,7 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u6.l2",
+          concepts: ["O que é antecipação na música?"],
           title: "Antes e depois do tempo 1",
           intro:
             "Chegar no alvo sempre em cima do tempo 1 fica previsível de novo. Os solos que você gosta antecipam a troca, com o alvo entrando meio tempo antes do acorde, ou atrasam, com uma nota de passagem no tempo 1 e o alvo logo depois.",
@@ -702,6 +712,7 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u6.l3",
+          concepts: ["Como fazer bend na guitarra?", "Como fazer slide na guitarra?"],
           title: "Chegar com bend e slide",
           intro:
             "Juntando tudo: o alvo como fim de um gesto. Um bend que chega na 3ª do acorde, um slide que escorrega até a tônica. É assim que a nota do acorde deixa de ser exercício e vira frase.",
@@ -753,6 +764,7 @@ export const curriculum: Curriculum = {
       lessons: [
         {
           id: "u11.l1",
+          concepts: ["O que é tensão e resolução na música?"],
           title: "A nota que pede para resolver",
           intro:
             "Nem toda nota da pentatônica é nota do acorde. Sobre o Am, o Ré e o Sol incomodam um pouco; sobre o F, também. Essa tensão é boa: ela pede a próxima nota. O que não pode é deixar pendurada: a tensão resolve numa nota do acorde, logo ao lado.",
@@ -987,6 +999,7 @@ export const curriculum: Curriculum = {
       lessons: [
         {
           id: "u12.l1",
+          concepts: ["Como ligar os desenhos da pentatônica?"],
           title: "Desenho 2",
           intro:
             "O desenho 1 é só uma janela. Acima dele, o desenho 2 tem as mesmas notas, com outro caminho para os dedos e outras notas do acorde à mão. Os alvos continuam os mesmos; muda onde eles estão.",
@@ -1094,6 +1107,7 @@ export const curriculum: Curriculum = {
       lessons: [
         {
           id: "u13.l1",
+          concepts: ["O que é tom relativo menor?", "Como mudar a pentatônica de tom?"],
           title: "Mi menor",
           intro:
             "Na pentatônica, mudar de tom é mudar de casa: o desenho 1 de Mi menor é o de Lá menor sete casas acima. O que não muda é o que você aprendeu: as notas do acorde ficam nos mesmos pontos do desenho.",
@@ -1166,7 +1180,7 @@ export const curriculum: Curriculum = {
               title: "Do grave ao agudo",
               goal: "Oito compassos em quatro partes, do grave ao agudo. Siga a faixa.",
               steps: [
-                "Grave: cordas de baixo do desenho 1, poucas notas.",
+                "Grave: cordas de baixo, poucas notas.",
                 "Meio: cordas do meio, frases um pouco mais longas.",
                 "Agudo: suba de desenho com um slide.",
                 "Pico: a nota mais alta do solo, segurada.",
@@ -1176,23 +1190,22 @@ export const curriculum: Curriculum = {
               bars: 8,
               arc: ["Grave", "Meio", "Agudo", "Pico"],
               example: phrase("x3", "Exemplo do arco 3", 8, [
-                [6, 5, 0.5, 1.5],
-                [6, 8, 2.5, 0.5],
-                [5, 5, 3, 0.5],
-                [5, 7, 3.5, 1],
-                [4, 7, 5, 1.5],
-                [4, 5, 6.5, 0.5],
-                [4, 7, 7, 0.5],
-                [3, 5, 8.5, 0.5],
-                [3, 7, 9, 0.5],
-                [2, 5, 9.5, 2],
-                [2, 8, 12.5, 0.5],
-                [1, 10, 13, 2, { slide: 8 }],
+                [6, 8, 0.5, 1.5],
+                [6, 10, 2.5, 0.5],
+                [6, 12, 3, 1],
+                [5, 12, 4.5, 1.5],
+                [5, 10, 6, 0.5],
+                [5, 12, 6.5, 0.5],
+                [4, 10, 8.5, 0.5],
+                [4, 12, 9, 0.5],
+                [4, 14, 9.5, 2],
+                [3, 12, 12.5, 0.5],
+                [2, 15, 13, 2, { slide: 13 }],
                 [1, 12, 16.5, 1.5, { slide: 10 }],
                 [2, 13, 18, 0.5],
                 [2, 10, 18.5, 1],
                 [1, 15, 20, 0.5],
-                [1, 17, 20.5, 2],
+                [1, 15, 20.5, 2, { bend: 2 }],
                 [2, 15, 24, 2, { bend: 2 }],
                 [1, 15, 26, 0.5],
                 [1, 15, 28, 3, { vib: "lento", vibDelay: 1 }],
@@ -1210,6 +1223,7 @@ export const curriculum: Curriculum = {
       lessons: [
         {
           id: "u8.l1",
+          concepts: ["O que é motivo na música?"],
           title: "Repetir de propósito",
           intro:
             "De um solo, quem ouve guarda pouca coisa: uma ideia que volta. Repetir parece pobre para quem toca e soa como intenção para quem ouve. Improvisadores experientes retomam o que acabaram de tocar o tempo todo.",
@@ -1317,6 +1331,7 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u8.l3",
+          concepts: ["O que é pergunta e resposta na música?"],
           title: "Pergunta e resposta",
           intro:
             "Duas frases que conversam: a pergunta fica no ar, termina numa nota que pede continuação; a resposta começa parecida e pousa. É o motivo dando direção ao solo.",
@@ -1367,6 +1382,7 @@ export const curriculum: Curriculum = {
       lessons: [
         {
           id: "u9.l1",
+          concepts: ["O que é lick na guitarra?"],
           title: "Três frases para guardar",
           intro:
             "Todo improvisador toca coisas que já tocou antes. A diferença está em guardar poucas frases, bem guardadas, e saber mudar cada uma. Aqui são três frases curtas: uma com bend, uma com slide e uma de ritmo. Guarde até tocar sem pensar.",
@@ -1500,6 +1516,7 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u14.l2",
+          concepts: ["O que é dinâmica na música?"],
           title: "Fraco e forte",
           intro: "Palhetar mais fraco ou mais forte muda tudo sem mudar uma nota. Um solo inteiro no mesmo volume cansa; uma frase fraca seguida de uma forte acorda quem está ouvindo.",
           key: "u14.l2.pr",
@@ -1613,24 +1630,24 @@ export const curriculum: Curriculum = {
               arc: ["Começo", "Desenvolve", "Pico", "Fecha"],
               example: phrase("x4", "Exemplo do arco final", 16, [
                 [1, 8, 0.5, 0.5],
-                [1, 5, 1, 0.5],
+                [2, 10, 1, 0.5],
                 [2, 8, 1.5, 0.5],
-                [1, 5, 2, 1.5],
+                [2, 10, 2, 1.5],
                 [2, 8, 7.5, 0.5],
                 [1, 8, 8.5, 0.5],
-                [1, 5, 9, 0.5],
+                [2, 10, 9, 0.5],
                 [2, 8, 9.5, 0.5],
-                [2, 5, 10, 1.5],
+                [3, 9, 10, 1.5],
                 [3, 7, 12.5, 0.5],
                 [2, 8, 13, 2],
-                [2, 5, 16.5, 0.5],
-                [2, 5, 17, 0.5],
+                [3, 9, 16.5, 0.5],
+                [3, 9, 17, 0.5],
                 [2, 8, 17.5, 0.5],
-                [1, 5, 18, 1.5],
+                [2, 10, 18, 1.5],
                 [1, 8, 20, 2, { vib: "lento", vibDelay: 1 }],
                 [2, 8, 24.5, 1, { bend: 2 }],
                 [2, 8, 25.5, 0.5, { release: 2 }],
-                [2, 5, 26, 1.5],
+                [3, 9, 26, 1.5],
                 [1, 10, 32.5, 0.5],
                 [1, 12, 33, 1.5, { slide: 10 }],
                 [2, 13, 34.5, 0.5],
@@ -1643,17 +1660,17 @@ export const curriculum: Curriculum = {
                 [1, 12, 46.5, 0.5],
                 [2, 15, 48, 1.5, { bend: 2 }],
                 [1, 15, 49.5, 0.5],
-                [1, 17, 50, 2, { vib: "lento", vibDelay: 0.5 }],
-                [1, 17, 52.5, 0.5],
-                [1, 15, 53, 0.5],
-                [1, 17, 53.5, 2.5],
+                [1, 15, 50, 2, { bend: 2, vib: "lento", vibDelay: 0.5 }],
+                [1, 15, 52.5, 0.5],
+                [1, 12, 53, 0.5],
+                [1, 15, 53.5, 2.5, { bend: 2 }],
                 [1, 15, 56.5, 0.5],
                 [1, 12, 57, 0.5],
                 [2, 13, 57.5, 0.5],
                 [2, 10, 58, 0.5],
                 [2, 8, 58.5, 1.5],
                 [1, 8, 60.5, 0.5],
-                [1, 5, 61, 0.5],
+                [2, 10, 61, 0.5],
                 [2, 8, 61.5, 2.5, { vib: "lento", vibDelay: 1 }],
               ]),
             },

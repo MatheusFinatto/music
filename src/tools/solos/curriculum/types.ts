@@ -72,6 +72,11 @@ export type Lesson = {
   exercises: Exercise[];
   /** Exercício refeito "a frio" no começo da sessão seguinte. */
   key: string;
+  /**
+   * Perguntas de teoria que a lição pressupõe ("O que é a tônica de um acorde?"). O site não explica teoria:
+   * cada pergunta vira um link para a busca do Google com a frase exata.
+   */
+  concepts?: string[];
 };
 
 export type Unit = {

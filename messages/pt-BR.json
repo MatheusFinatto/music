@@ -113,7 +113,8 @@
       "quit": "Sair da sessão",
       "steps": "Como fazer",
       "next": "Próximo",
-      "prev": "Passo anterior"
+      "prev": "Passo anterior",
+      "concepts": "Para quem quiser ler sobre o assunto (abre uma busca)"
     },
     "done": {
       "title": "Sessão feita",
@@ -256,6 +257,10 @@
       "listen": "Ouvir",
       "close": "Fechar",
       "credits": "Gravações do violão: Universidade de Iowa, via tonejs-instruments (CC BY 3.0)."
+    },
+    "key": {
+      "label": "Tom",
+      "note": "Tom de {key}: o desenho 1 começa na casa {fret}. O texto fala em Lá menor, casa 5."
     }
   }
 }

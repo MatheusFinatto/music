@@ -55,7 +55,7 @@ export function Solos() {
           key={view.at}
           ex={step.ex}
           part={step.part}
-          intro={step.first && step.lesson ? { title: step.lesson.title, text: step.lesson.intro } : undefined}
+          intro={step.first && step.lesson ? { title: step.lesson.title, text: step.lesson.intro, concepts: step.lesson.concepts } : undefined}
           progress={{ n: view.at + 1, total: view.steps.length }}
           rated={view.ratings[view.at]}
           onRate={onRate}

@@ -1,8 +1,10 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { transport } from "@/core/audio";
 import type { Exercise } from "./curriculum/types";
+import { keyName, rootFret, transposeExercise } from "./curriculum/transpose";
+import { usePracticeKey } from "./progress";
 import type { Part } from "./session/route";
 import type { Rating } from "./session/schedule";
 import { useRunning } from "./components/useTransport";
@@ -19,7 +21,7 @@ type Props = {
   ex: Exercise;
   part: Part;
   /** Texto da lição, mostrado antes do primeiro exercício dela. */
-  intro?: { title: string; text: string };
+  intro?: { title: string; text: string; concepts?: string[] };
   progress?: { n: number; total: number };
   /** Avaliação já dada a este passo nesta sessão (ao voltar um passo). */
   rated?: Rating;
@@ -32,14 +34,18 @@ type Props = {
 const HINTED: Part[] = ["cold", "again", "review", "phrase", "take"];
 const RATINGS = ["ok", "quase", "nao"] as const;
 
-export function ExerciseFrame({ ex, part, intro, progress, rated, onRate, onBack, onExit, exitLabel }: Props) {
+export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRate, onBack, onExit, exitLabel }: Props) {
   const t = useTranslations("solos");
   const running = useRunning();
   const [rating, setRating] = useState<Rating | null>(rated ?? null);
   const stage = useRef<HTMLDivElement>(null);
+  const key = usePracticeKey();
+  // O exercício no tom de prática; o escrito em outro tom de propósito não muda.
+  const ex = useMemo(() => transposeExercise(written, key), [written, key]);
+  const moved = ex !== written;
 
   // Ao trocar de exercício ou sair, a base para.
-  useEffect(() => () => transport.stop(), [ex.id]);
+  useEffect(() => () => transport.stop(), [ex.id, key]);
   // Modo "tocando": ao ligar a base, o que se lê de longe sobe para o topo da tela.
   useEffect(() => { if (running) stage.current?.scrollIntoView({ block: "start", behavior: "smooth" }); }, [running]);
 
@@ -62,10 +68,18 @@ export function ExerciseFrame({ ex, part, intro, progress, rated, onRate, onBack
           <section className="intro">
             <h2>{intro.title}</h2>
             <p>{intro.text}</p>
+            {intro.concepts && intro.concepts.length > 0 && (
+              <ul className="concepts" aria-label={t("frame.concepts")}>
+                {intro.concepts.map((q) => (
+                  <li key={q}><a href={`https://www.google.com/search?q=${encodeURIComponent(q)}`} target="_blank" rel="noreferrer">{q}</a></li>
+                ))}
+              </ul>
+            )}
           </section>
         )}
         <h1>{ex.title}</h1>
         <p className="goal">{ex.goal}</p>
+        {moved && <p className="key-note">{t("key.note", { key: keyName(key), fret: rootFret(key) })}</p>}
         {part !== "cold" && ex.steps.length > 0 && (
           <ol className="steps" aria-label={t("frame.steps")}>{ex.steps.map((s) => <li key={s}>{s}</li>)}</ol>
         )}
