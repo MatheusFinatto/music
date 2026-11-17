@@ -12,7 +12,7 @@ Next.js (App Router) + TypeScript + Tailwind v4 + next-intl, deploy na Vercel. E
 
 ## Users
 
-Qualquer músico, do iniciante ao avançado, com identidade de guitarra primeiro (guitarra, violão, baixo). Na prática, o primeiro público são o dono e amigos músicos. Usam em casa com o instrumento na mão, ou no trabalho com fone e sem instrumento; no computador e no celular.
+Qualquer músico, do iniciante ao avançado, com foco em instrumentos de corda (guitarra, violão, baixo). Na prática, o primeiro público são o dono e amigos músicos. Usam em casa com o instrumento na mão, ou no trabalho com fone e sem instrumento; no computador e no celular.
 
 ## Product Purpose
 
