@@ -7,7 +7,7 @@ export type Dot = FretPos & { kind: DotKind; label?: string; outside?: boolean }
 
 /**
  * Gesto desenhado como na tablatura, fora da bolinha. Bend: seta curva subindo, com `text` ("full", "½").
- * Soltar: a seta descendo. Slide: linha pela corda, saindo de uma marca vazada na casa `fromFret`.
+ * Soltar: a seta descendo. Slide: seta pela corda, da casa `fromFret` até a nota (a origem é desenhada como bolinha).
  * `now`: o gesto está soando.
  */
 export type GestureMark = FretPos & ({ kind: "bend" | "release"; text: string } | { kind: "slide"; fromFret: number }) & { now?: boolean };
@@ -139,11 +139,13 @@ export function Fretboard({ minFret, maxFret, dots, onPick, label, describe, pla
           const cx = x(g.fret), cy = y(g.string);
           const cls = `fb-gesture ${g.kind}${g.now ? " now" : ""}`;
           if (g.kind === "slide") {
-            const fx = x(g.fromFret);
+            // Seta pela corda, da bolinha de origem (uma nota tocada, desenhada com as outras) até o destino.
+            const fx = x(g.fromFret), dir = Math.sign(cx - fx) || 1;
+            const x1 = fx + dir * 15, x2 = cx - dir * 17;
             return (
               <g key={gi} className={cls} aria-hidden="true">
-                <line x1={fx} x2={cx} y1={cy} y2={cy} />
-                <circle cx={fx} cy={cy} r="7" />
+                <line x1={x1} x2={x2} y1={cy} y2={cy} />
+                <path d={`M ${x2 - dir * 8} ${cy - 6} L ${x2} ${cy} L ${x2 - dir * 8} ${cy + 6}`} />
               </g>
             );
           }

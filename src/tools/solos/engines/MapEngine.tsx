@@ -58,7 +58,7 @@ export function MapEngine({ ex }: { ex: MapExercise }) {
         </div>
       )}
       <Fretboard minFret={lo} maxFret={hi} dots={dots} label={ex.layer === "penta" ? t("labelPenta", { n: shape }) : t("labelChord", { chord: chord.name })} />
-      <p className="legend">{ex.layer === "penta" ? t("legendPenta") : t("legendChord")}{anyOutside ? " " + t("legendOutside") : ""}</p>
+      {anyOutside && <p className="legend">{t("legendOutside")}</p>}
       <BackingBar base={base} />
     </div>
   );

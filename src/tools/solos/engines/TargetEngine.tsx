@@ -7,7 +7,7 @@ import { BackingBar } from "../components/BackingBar";
 import { Banner } from "../components/Banner";
 import { Fretboard, type Dot } from "../components/Fretboard";
 import { useBeat } from "../components/useTransport";
-import { targetDegree } from "./target";
+import { pentaDegrees, targetDegree } from "./target";
 
 /**
  * Chegar na troca. Na primeira metade do compasso, o alvo é o do acorde que está soando (você já devia
@@ -23,7 +23,7 @@ export function TargetEngine({ ex }: { ex: TargetExercise }) {
   const ahead = live && beat.beatInBar >= 2;
   const bar = live ? beat.bar + (ahead ? 1 : 0) : 0;
   const chord = chords[bar % chords.length]!;
-  const degree = targetDegree(bar, ex.degrees);
+  const degree = targetDegree(bar, pentaDegrees(chord, ex.degrees, minorPentatonic(base.key)));
   const name = t(`degree.${degree}`);
 
   const line = ex.line;
@@ -53,10 +53,7 @@ export function TargetEngine({ ex }: { ex: TargetExercise }) {
         </div>
       )}
       {showBoard && (
-        <>
-          <Fretboard minFret={lo} maxFret={hi} dots={dots} label={t("board", { degree: name, chord: ex.blind ? "?" : chord.name })} />
-          <p className="legend">{t("legend")}</p>
-        </>
+        <Fretboard minFret={lo} maxFret={hi} dots={dots} label={t("board", { degree: name, chord: ex.blind ? "?" : chord.name })} />
       )}
     </div>
   );

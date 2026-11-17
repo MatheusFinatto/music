@@ -147,7 +147,7 @@ export function Solos() {
 
       <section className="today" aria-labelledby="h-today">
         <h2 id="h-today">{practicedToday ? t("home.again") : t("home.today")}</h2>
-        <p className="note">{practicedToday ? t("home.doneToday") : t("home.suggestion")}</p>
+        {practicedToday && <p className="note">{t("home.doneToday")}</p>}
         {steps.length > 0 ? (
           <ol className="plan">
             {steps.map((s, i) => (
@@ -166,18 +166,24 @@ export function Solos() {
 
       <section aria-labelledby="h-trail">
         <h2 id="h-trail">{t("home.trail")}</h2>
-        <p className="note">{t("home.trailNote")}</p>
+        {curriculum.sections.map((sec, si) => (
+        <div key={sec.id} className="trail-section">
+          <h3 className="section-title"><span className="kicker">{t("home.section", { n: si + 1 })}</span>{sec.title}</h3>
+          <p className="note">{sec.goal}</p>
         <ol className="trail">
-          {curriculum.units.map((u, i) => {
+          {sec.units.map((id) => {
+            const i = curriculum.units.findIndex((x) => x.id === id);
+            const u = curriculum.units[i]!;
             const st = statuses[i]!;
             const done = u.lessons.filter((l) => progress.lessons[l.id]).length;
             return (
-              <li key={u.id} className={`unit ${st}`}>
+              <li key={u.id} className={`unit ${st}${u.arc ? " arc" : ""}`}>
                 <details open={st === "atual"}>
                   <summary className="unit-head">
                     <span className="n" aria-hidden="true">{i + 1}</span>
                     <div>
-                      <h3>{u.title}</h3>
+                      {u.arc && <span className="kicker">{t("home.arc")}</span>}
+                      <h4>{u.title}</h4>
                       <p>{u.skill}</p>
                     </div>
                     <span className={`badge ${st}`}>{t("home.count", { done, total: u.lessons.length })}</span>
@@ -208,7 +214,13 @@ export function Solos() {
               </li>
             );
           })}
+        </ol>
+        </div>
+        ))}
 
+        <div className="trail-section">
+          <h3 className="section-title">{t("home.extra")}</h3>
+        <ol className="trail">
           {/* As frases de ouvido correm em paralelo às unidades: a sessão sugerida traz uma por vez. */}
           <li className="unit frases">
             <details>
@@ -217,7 +229,7 @@ export function Solos() {
                   <svg viewBox="0 0 24 24" width="20" height="20"><path d="M9 18V6l10-2v12" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /><circle cx="6.5" cy="18" r="2.5" fill="currentColor" /><circle cx="16.5" cy="16" r="2.5" fill="currentColor" /></svg>
                 </span>
                 <div>
-                  <h3>{t("home.phrases")}</h3>
+                  <h4>{t("home.phrases")}</h4>
                   <p>{t("home.phrasesNote")}</p>
                 </div>
                 <span className="badge">{t("home.count", { done: curriculum.phrases.filter((ph) => progress.exercises[ph.id]?.last === "ok").length, total: curriculum.phrases.length })}</span>
@@ -249,6 +261,7 @@ export function Solos() {
             </details>
           </li>
         </ol>
+        </div>
         <p className="note">{t("home.soon")}</p>
       </section>
 

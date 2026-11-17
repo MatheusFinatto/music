@@ -35,7 +35,6 @@ export function LineEngine({ ex }: { ex: LineExercise }) {
         </div>
       )}
       <Fretboard minFret={lo} maxFret={hi} dots={dots} label={t("label", { n: ex.string + 1, chord: chord.name })} />
-      <p className="legend">{t("legend")}</p>
       <BackingBar base={base} />
     </div>
   );

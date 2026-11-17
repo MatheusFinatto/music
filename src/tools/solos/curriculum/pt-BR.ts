@@ -1,7 +1,8 @@
-// Conteúdo de "Como fazer solos" em português.
+// Conteúdo de "Como solar no violão e na guitarra" em português.
 // Fase 1: O mapa do braço, Respirar e Ritmo. Fase 2: Ouvir a troca e Ligar. Bend e vibrato não têm unidade
 // própria (o público já sabe fazer): aparecem usados nas frases, como gesto até a nota do acorde.
-// Fase 3: Uma corda só, Motivo, Vocabulário e O arco do solo.
+// Fase 3: Uma corda só, Motivo, Vocabulário e O arco do solo. Depois: quatro seções, cada uma fechando
+// com um arco (solo com exemplo). O curso é só de pentatônica: a meta é um solo que valha um couvert.
 // Fundamentação e fontes: docs/solos/PESQUISA.md.
 import type { LeadNote } from "@/core/audio";
 import { STANDARD_TUNING, type FretPos } from "@/core/theory";
@@ -15,6 +16,13 @@ const VAMP: Base = { key: 0, prog: [5], bpm: 72, style: "balada" };
 const AM_F: Base = { key: 0, prog: [5, 3], bpm: 72, style: "balada" };
 /** Os outros dois acordes da base: outras notas-alvo para o bend. */
 const C_G: Base = { key: 0, prog: [0, 4], bpm: 72, style: "balada" };
+/** A base padrão em rock, um pouco mais rápida: o arco do braço. */
+const ROCK: Base = { ...BASE, bpm: 80, style: "rock" };
+/** Mi menor: Em C G D, os mesmos papéis de Am F C G sete casas acima. */
+const EM: Base = { key: 7, prog: [5, 3, 0, 4], bpm: 72, style: "balada" };
+const EM_VAMP: Base = { ...EM, prog: [5] };
+/** Ré menor: Dm Bb F C. */
+const DM: Base = { key: 5, prog: [5, 3, 0, 4], bpm: 72, style: "balada" };
 /** A base padrão mais lenta, para o primeiro contato com alvos que mudam. */
 const BASE_SLOW: Base = { ...BASE, bpm: 60 };
 /** Oito compassos, ordem menos previsível: para ouvir a troca em vez de contar. */
@@ -23,7 +31,7 @@ const LONG: Base = { key: 0, prog: [5, 3, 0, 4, 5, 0, 3, 4], bpm: 72, style: "ba
 // ---------- ajudantes para escrever frases ----------
 
 /** Técnica de uma nota. Bend e soltar em semitons (2 = um tom); slide = casa de onde a nota vem. */
-type Tech = { bend?: number; release?: number; slide?: number; vib?: "lento" | "rapido"; vibDelay?: number };
+type Tech = { bend?: number; release?: number; slide?: number; vib?: "lento" | "rapido"; vibDelay?: number; amp?: number };
 
 /** [corda (1 = Mi agudo … 6 = Mi grave), casa, tempo de início, duração em tempos, técnica] */
 type Tab = [string: number, fret: number, beat: number, dur: number, tech?: Tech];
@@ -42,6 +50,7 @@ function phrase(id: string, name: string, bars: number, tab: Tab[]): Phrase {
     else if (tech.release) Object.assign(n, { from: at + tech.release, hold: 0.4, glide: 0.4 });
     else if (tech.slide !== undefined) Object.assign(n, { from: open + tech.slide, glide: 0.15 });
     if (tech.vib) n.vibrato = { ...VIBRATO[tech.vib], delay: tech.vibDelay ?? (tech.bend ? 0.6 : 0) };
+    if (tech.amp !== undefined) n.amp = tech.amp;
     return n;
   });
   return { id, name, bars, notes, frets };
@@ -66,7 +75,7 @@ const ear = (id: string, p: Phrase): EchoExercise => ({
   steps: [
     "Ouça duas ou três vezes sem tocar.",
     "Cante junto. Se não consegue cantar, ainda não ouviu direito.",
-    "Agora procure no braço, no desenho 1 em Lá menor. O site toca, você responde.",
+    "Agora procure no braço, no desenho 1 em Lá menor.",
     "Só então abra o braço para conferir.",
   ],
   check: "Tocou a frase inteira antes de conferir no braço?",
@@ -83,7 +92,7 @@ export const curriculum: Curriculum = {
       id: "u0",
       title: "O mapa do braço",
       skill:
-        "Os desenhos da pentatônica e onde ficam as notas de cada acorde. Já tem isso no dedo? Marque como feita e siga.",
+        "Os desenhos da pentatônica e onde ficam as notas de cada acorde.",
       lessons: [
         {
           id: "u0.l1",
@@ -99,7 +108,6 @@ export const curriculum: Curriculum = {
               goal: 'Toque o desenho subindo e descendo, devagar, dizendo "tônica" toda vez que passar por um A.',
               steps: [
                 "Duas notas por corda, da 6ª à 1ª e de volta.",
-                "As bolinhas brancas são a tônica (A). São três neste desenho.",
                 "Ligue a base e repita no tempo, uma nota por tempo.",
               ],
               check: "Subiu e desceu no tempo, sem olhar para a tela?",
@@ -113,7 +121,6 @@ export const curriculum: Curriculum = {
               title: "Onde está a tônica?",
               goal: "Aponte no braço as três tônicas do desenho.",
               steps: [
-                "Toque nelas na tela e depois na guitarra.",
                 "Um toque errado conta: pense antes.",
               ],
               check: "",
@@ -137,7 +144,7 @@ export const curriculum: Curriculum = {
               title: "Um desenho por vez",
               goal: "Toque cada um dos cinco desenhos uma vez, subindo e descendo.",
               steps: [
-                "Troque de desenho pelos botões. Repare que a parte de cima de um é a parte de baixo do seguinte.",
+                "A parte de cima de um desenho é a parte de baixo do seguinte.",
                 "Em cada um, ache as tônicas antes de tocar.",
               ],
               check: "Passou pelos cinco achando a tônica em cada um?",
@@ -175,9 +182,8 @@ export const curriculum: Curriculum = {
               title: "Tônica, 3ª e 5ª de cada acorde",
               goal: "Para cada acorde, toque as três notas dele dentro do desenho 1.",
               steps: [
-                "Escolha o acorde. As notas dele aparecem marcadas com T, 3 e 5.",
-                "Algumas ficam fora da pentatônica (aparecem com contorno tracejado). Tudo bem: são notas do tom.",
-                "Ligue a base: as marcas trocam junto com o acorde. Toque uma nota longa de cada acorde.",
+                "Algumas notas do acorde ficam fora da pentatônica. Neste curso, os solos usam só as de dentro.",
+                "Toque uma nota longa de cada acorde, no tempo da troca.",
               ],
               check:
                 "Achou pelo menos uma nota de cada acorde no tempo da troca?",
@@ -220,7 +226,7 @@ export const curriculum: Curriculum = {
               title: "Dois e dois",
               goal: "Toque nos compassos marcados e fique em silêncio total nos outros.",
               steps: [
-                'Use só o desenho 1 da pentatônica de Lá menor (se não lembra dele, está em "O mapa do braço"). Não importa o que você toca, importa parar.',
+                "Use só o desenho 1 da pentatônica de Lá menor. Não importa o que você toca, importa parar.",
                 "No silêncio, abafe as cordas e ouça a base.",
                 "Termine a frase antes do silêncio começar, sem deixar nota vazando.",
               ],
@@ -437,7 +443,54 @@ export const curriculum: Curriculum = {
         },
       ],
     },
-
+    {
+      id: "a1",
+      title: "Arco 1: o primeiro solo",
+      skill: "Juntar poucas notas, silêncio e ritmo num solo de oito compassos",
+      arc: true,
+      takeCheck: "Seu solo teve frases com começo e fim, silêncio entre elas e ritmos variados?",
+      lessons: [
+        {
+          id: "a1.l1",
+          title: "Oito compassos",
+          intro:
+            "Hora de juntar a seção: poucas notas do desenho 1, silêncio de verdade e ritmo que nem sempre começa no tempo 1. O exemplo mostra um jeito de fazer. Ouça quantas vezes quiser, depois toque o seu: não o do exemplo.",
+          key: "a1.take",
+          exercises: [
+            {
+              id: "a1.take",
+              kind: "take",
+              title: "O primeiro solo",
+              goal: "Oito compassos no desenho 1, com frases curtas e silêncio entre elas.",
+              steps: ["Primeiras duas partes: poucas notas, bastante espaço.", "Últimas duas: o ritmo mais solto, e uma frase que fecha."],
+              check: "Seu solo teve frases com começo e fim, silêncio entre elas e ritmos variados?",
+              base: BASE,
+              bars: 8,
+              arc: ["Poucas notas", "Respira", "Ritmo", "Fecha"],
+              example: phrase("x1", "Exemplo do arco 1", 8, [
+                [1, 5, 0.5, 0.5],
+                [1, 8, 1, 0.5],
+                [1, 5, 1.5, 1.5],
+                [2, 8, 6.5, 0.5],
+                [1, 5, 7, 1],
+                [2, 5, 8.5, 0.5],
+                [2, 8, 9, 0.5],
+                [2, 5, 9.5, 2],
+                [3, 7, 15, 0.5],
+                [2, 5, 16, 1.5],
+                [3, 7, 17.5, 0.5],
+                [3, 5, 18, 1.5],
+                [1, 8, 24.5, 0.5],
+                [1, 5, 25, 0.5],
+                [2, 8, 25.5, 0.5],
+                [2, 5, 26, 1.5],
+                [2, 8, 28.5, 2.5],
+              ]),
+            },
+          ],
+        },
+      ],
+    },
     {
       id: "u5",
       title: "Ouvir a troca",
@@ -566,7 +619,7 @@ export const curriculum: Curriculum = {
               kind: "echo",
               title: "Pela vizinha",
               goal: "Repita as frases. Todas chegam no acorde novo vindo da nota vizinha.",
-              steps: ["Cante antes de tocar.", "Repare de onde vem a última nota: de cima ou de baixo?"],
+              steps: ["Repare de onde vem a última nota: de cima ou de baixo?"],
               check: "Repetiu as três sem olhar o braço?",
               base: AM_F,
               reveal: "tab",
@@ -659,7 +712,7 @@ export const curriculum: Curriculum = {
               kind: "echo",
               title: "Gestos até o alvo",
               goal: "Repita: uma chegada por bend, outra por slide.",
-              steps: ["O slide parte da casa 5 da 4ª corda e escorrega até a 7, sem tirar o dedo.", "Cante antes de tocar."],
+              steps: ["Na frase 1, o alvo chega por bend. Na frase 2, chega por slide: da casa 5 à 7 da 4ª corda."],
               check: "As chegadas soaram como o fim de um gesto, não como uma nota solta?",
               base: AM_F,
               reveal: "tab",
@@ -692,7 +745,148 @@ export const curriculum: Curriculum = {
         },
       ],
     },
-
+    {
+      id: "u11",
+      title: "Tensão e resolução",
+      skill: "A nota da pentatônica que incomoda, e para onde ela quer ir",
+      takeCheck: "Suas tensões resolveram numa nota do acorde, em vez de ficar penduradas?",
+      lessons: [
+        {
+          id: "u11.l1",
+          title: "A nota que pede para resolver",
+          intro:
+            "Nem toda nota da pentatônica é nota do acorde. Sobre o Am, o Ré e o Sol incomodam um pouco; sobre o F, também. Essa tensão é boa: ela pede a próxima nota. O que não pode é deixar pendurada: a tensão resolve numa nota do acorde, logo ao lado.",
+          key: "u11.l1.echo",
+          exercises: [
+            {
+              id: "u11.l1.echo",
+              kind: "echo",
+              title: "Incomoda e resolve",
+              goal: "Repita. Em cada frase, uma nota incomoda e a seguinte resolve.",
+              steps: ["Repare na nota que pede continuação.", "Abra o braço só para conferir."],
+              check: "Ouviu qual nota incomodava antes de abrir o braço?",
+              base: AM_F,
+              reveal: "tab",
+              phrases: [
+                phrase("t1", "Ré cai no Dó", 2, [
+                  [2, 5, 0.5, 0.5],
+                  [3, 7, 1, 1],
+                  [3, 5, 2, 1.5],
+                  [2, 8, 4, 1],
+                  [1, 5, 5, 2],
+                ]),
+                phrase("t2", "Sol sobe para o Lá", 2, [
+                  [2, 8, 0, 1],
+                  [1, 5, 1, 2],
+                  [3, 7, 4.5, 1],
+                  [3, 5, 5.5, 2],
+                ]),
+              ],
+            },
+            {
+              id: "u11.l1.pr",
+              kind: "play-rest",
+              title: "Uma tensão por frase",
+              goal: "Toda frase passa por uma nota que incomoda e resolve numa nota do acorde.",
+              steps: ["Segure a tensão um pouco: é ela que dá vontade de ouvir a próxima.", "A resolução fica a uma nota de distância na pentatônica."],
+              check: "Suas tensões resolveram, em vez de ficar penduradas?",
+              base: BASE,
+              pattern: ["play", "play", "rest", "rest"],
+              rule: "Uma tensão que resolve, por frase",
+            },
+          ],
+        },
+        {
+          id: "u11.l2",
+          title: "Tensão na troca",
+          intro:
+            "O lugar mais forte para uma tensão é em cima da troca: o acorde muda, a nota fica pendurada meio tempo e cai no alvo. É o que faz um solo simples soar como música.",
+          key: "u11.l2.target",
+          exercises: [
+            {
+              id: "u11.l2.echo",
+              kind: "echo",
+              title: "Pendura e cai",
+              goal: "Repita. A nota do tempo 1 do F é uma tensão; o alvo vem meio tempo depois.",
+              steps: [],
+              check: "Sentiu a nota pendurada caindo no alvo?",
+              base: AM_F,
+              reveal: "tab",
+              phrases: [
+                phrase("t3", "Pendura e cai", 2, [
+                  [3, 5, 1, 1.5],
+                  [3, 7, 4, 0.5],
+                  [3, 5, 4.5, 2],
+                ]),
+              ],
+            },
+            {
+              id: "u11.l2.target",
+              kind: "target",
+              title: "Alvo pela tensão",
+              goal: "Chegue em cada alvo passando antes pela nota da pentatônica ao lado dele.",
+              steps: ["A tensão pode cair em cima da troca; o alvo vem logo depois.", "Varie: às vezes chegue direto."],
+              check: "Suas tensões caíram no alvo, sem ficar penduradas?",
+              base: BASE,
+              shape: 1,
+              degrees: ["T", "3", "5"],
+              rule: "Chegue no alvo vindo de uma tensão",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "a2",
+      title: "Arco 2: o solo que segue os acordes",
+      skill: "Um solo que chega nas notas do acorde, com tensão que resolve",
+      arc: true,
+      takeCheck: "Suas frases chegaram em notas do acorde na troca, com alguma tensão resolvida no caminho?",
+      lessons: [
+        {
+          id: "a2.l1",
+          title: "Oito compassos na harmonia",
+          intro:
+            "Agora o solo conversa com a base: cada troca de acorde é um lugar para chegar, de preferência vindo de perto, às vezes passando por uma nota que incomoda e resolve. O exemplo faz isso só com o desenho 1.",
+          key: "a2.take",
+          exercises: [
+            {
+              id: "a2.take",
+              kind: "take",
+              title: "O solo que segue os acordes",
+              goal: "Oito compassos. Em cada troca, chegue numa nota do novo acorde.",
+              steps: ["Vale antecipar ou atrasar a chegada.", "Pelo menos uma tensão por frase, resolvida logo depois."],
+              check: "Suas frases chegaram em notas do acorde na troca, com alguma tensão resolvida no caminho?",
+              base: BASE,
+              bars: 8,
+              arc: ["Chega na troca", "Tensão e volta", "Chega na troca", "Fecha no alvo"],
+              example: phrase("x2", "Exemplo do arco 2", 8, [
+                [1, 8, 0.5, 0.5],
+                [1, 5, 1, 1],
+                [2, 8, 2, 0.5],
+                [2, 5, 2.5, 1],
+                [1, 5, 3.5, 2.5],
+                [2, 8, 6, 1],
+                [1, 5, 7, 0.5],
+                [1, 8, 8, 2],
+                [3, 5, 12.5, 1],
+                [3, 7, 13.5, 2],
+                [3, 7, 16, 0.5],
+                [3, 5, 16.5, 1.5],
+                [4, 7, 19.5, 0.5],
+                [3, 5, 20, 2],
+                [2, 5, 24, 0.5],
+                [2, 8, 24.5, 0.5],
+                [1, 5, 25, 0.5],
+                [2, 8, 25.5, 2],
+                [3, 7, 28.5, 0.5],
+                [2, 8, 29, 2.5],
+              ]),
+            },
+          ],
+        },
+      ],
+    },
     {
       id: "u7",
       title: "Uma corda só",
@@ -710,10 +904,10 @@ export const curriculum: Curriculum = {
               id: "u7.l1.line",
               kind: "line",
               title: "A pentatônica numa corda",
-              goal: "Suba e desça a 2ª corda só com as notas da pentatônica, um dedo só, escorregando.",
+              goal: "Suba e desça a 2ª corda só com as notas da pentatônica.",
               steps: [
                 "Diga o nome de cada nota em voz alta enquanto toca.",
-                "Ligue a base. As notas laranja são as do acorde: pare nelas e deixe soar.",
+                "Com a base, pare nas notas do acorde e deixe soar.",
               ],
               check: "Andou pela corda inteira sabendo o nome de cada nota?",
               base: VAMP,
@@ -727,7 +921,7 @@ export const curriculum: Curriculum = {
               goal: "Tire as frases de ouvido. Todas ficam na 2ª corda.",
               steps: [
                 "Antes de tocar, cante e pergunte: a próxima nota sobe ou desce? Pouco ou muito?",
-                "Procure na 2ª corda, escorregando o dedo.",
+                "Procure na 2ª corda.",
               ],
               check: "Achou as frases na corda sem abrir o braço?",
               base: AM_F,
@@ -786,6 +980,229 @@ export const curriculum: Curriculum = {
       ],
     },
     {
+      id: "u12",
+      title: "Outras regiões",
+      skill: "Os desenhos 2 e 3 sobre a base, e mudar de região no meio da frase",
+      takeCheck: "Você usou mais de uma região do braço?",
+      lessons: [
+        {
+          id: "u12.l1",
+          title: "Desenho 2",
+          intro:
+            "O desenho 1 é só uma janela. Acima dele, o desenho 2 tem as mesmas notas, com outro caminho para os dedos e outras notas do acorde à mão. Os alvos continuam os mesmos; muda onde eles estão.",
+          key: "u12.l1.target",
+          exercises: [
+            {
+              id: "u12.l1.map",
+              kind: "map",
+              title: "As notas do acorde no desenho 2",
+              goal: "Para cada acorde, toque as notas dele dentro do desenho 2.",
+              steps: ["Uma nota longa por acorde."],
+              check: "Achou uma nota de cada acorde no desenho 2, no tempo da troca?",
+              base: BASE,
+              shapes: [2],
+              layer: "chord",
+            },
+            {
+              id: "u12.l1.target",
+              kind: "target",
+              title: "Alvos no desenho 2",
+              goal: "Chegue em cada alvo na troca, sem sair do desenho 2.",
+              steps: ["Se travar, olhe o braço por uma volta."],
+              check: "Chegou nos alvos sem voltar para o desenho 1?",
+              base: BASE,
+              shape: 2,
+              degrees: ["T", "3", "5"],
+              rule: "Só o desenho 2",
+            },
+          ],
+        },
+        {
+          id: "u12.l2",
+          title: "Desenho 3",
+          intro: "Mais acima, o desenho 3. Com três desenhos, a mesma nota do acorde aparece em vários lugares: a escolha passa a ser onde ela soa melhor, não onde ela está.",
+          key: "u12.l2.target",
+          exercises: [
+            {
+              id: "u12.l2.target",
+              kind: "target",
+              title: "Alvos no desenho 3",
+              goal: "Chegue em cada alvo na troca, no desenho 3.",
+              steps: ["Repare que algumas notas do acorde estão onde estavam no desenho 2: os desenhos se encaixam."],
+              check: "Chegou nos alvos sem voltar para os desenhos de baixo?",
+              base: BASE,
+              shape: 3,
+              degrees: ["T", "3", "5"],
+              rule: "Só o desenho 3",
+            },
+          ],
+        },
+        {
+          id: "u12.l3",
+          title: "Trocar de região na frase",
+          intro: "A região não precisa ser fixa. Um slide no meio da frase leva você para cima ou para baixo sem cortar a ideia, e o ouvinte sente o solo andar.",
+          key: "u12.l3.pr",
+          exercises: [
+            {
+              id: "u12.l3.echo",
+              kind: "echo",
+              title: "Subir e descer",
+              goal: "Repita. As frases mudam de desenho pelo caminho.",
+              steps: ["Ache no braço onde o slide leva a frase."],
+              check: "Repetiu as duas sem olhar o braço?",
+              base: AM_F,
+              reveal: "tab",
+              phrases: [
+                phrase("r1", "Sobe para o desenho 2", 2, [
+                  [2, 5, 0.5, 0.5],
+                  [2, 8, 1, 0.5],
+                  [2, 10, 1.5, 1.5, { slide: 8 }],
+                  [1, 10, 4, 0.5],
+                  [1, 8, 4.5, 2],
+                ]),
+                phrase("r2", "Desce para o desenho 1", 2, [
+                  [1, 10, 0.5, 1],
+                  [1, 8, 1.5, 0.5],
+                  [2, 10, 2, 1.5],
+                  [2, 8, 4, 0.5],
+                  [2, 5, 4.5, 0.5],
+                  [3, 7, 5, 0.5],
+                  [3, 5, 5.5, 2],
+                ]),
+              ],
+            },
+            {
+              id: "u12.l3.pr",
+              kind: "play-rest",
+              title: "Começa num, termina no outro",
+              goal: "Cada frase começa num desenho e termina em outro.",
+              steps: ["Use slides para mudar de região.", "Termine numa nota do acorde."],
+              check: "Suas frases mudaram de região sem perder a ideia?",
+              base: BASE,
+              pattern: ["play", "play", "rest", "rest"],
+              rule: "Cada frase muda de desenho",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "u13",
+      title: "Outro tom",
+      skill: "A mesma pentatônica em outra casa",
+      takeCheck: "Achou as notas do acorde no tom novo sem voltar para o desenho de Lá?",
+      lessons: [
+        {
+          id: "u13.l1",
+          title: "Mi menor",
+          intro:
+            "Na pentatônica, mudar de tom é mudar de casa: o desenho 1 de Mi menor é o de Lá menor sete casas acima. O que não muda é o que você aprendeu: as notas do acorde ficam nos mesmos pontos do desenho.",
+          key: "u13.l1.target",
+          exercises: [
+            {
+              id: "u13.l1.map",
+              kind: "map",
+              title: "O desenho 1 em Mi menor",
+              goal: "Toque o desenho 1 em Mi menor, achando as tônicas antes.",
+              steps: ["Compare com o de Lá: é o mesmo desenho, em outra casa."],
+              check: "Achou as tônicas e tocou o desenho no tempo?",
+              base: EM_VAMP,
+              shapes: [1],
+              layer: "penta",
+            },
+            {
+              id: "u13.l1.target",
+              kind: "target",
+              title: "Alvos em Mi menor",
+              goal: "Chegue em cada alvo na troca, no desenho 1 de Mi menor.",
+              steps: ["A base é Em C G D: os mesmos papéis de Am F C G, outra casa."],
+              check: "Chegou nos alvos no tom novo?",
+              base: EM,
+              shape: 1,
+              degrees: ["T", "3", "5"],
+              rule: "Mi menor, desenho 1",
+            },
+          ],
+        },
+        {
+          id: "u13.l2",
+          title: "Ré menor",
+          intro: "Mais um tom, agora abaixo. Na banda, quem escolhe o tom é a música, não o guitarrista: o desenho tem que ir aonde ela estiver.",
+          key: "u13.l2.target",
+          exercises: [
+            {
+              id: "u13.l2.target",
+              kind: "target",
+              title: "Alvos em Ré menor",
+              goal: "Chegue em cada alvo na troca, no desenho 1 de Ré menor.",
+              steps: ["A base é Dm Bb F C.", "Ache a tônica antes de ligar a base."],
+              check: "Chegou nos alvos no tom novo?",
+              base: DM,
+              shape: 1,
+              degrees: ["T", "3", "5"],
+              rule: "Ré menor, desenho 1",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "a3",
+      title: "Arco 3: do grave ao agudo",
+      skill: "Um solo que atravessa o braço e cresce até um ponto alto",
+      arc: true,
+      takeCheck: "Seu solo subiu de região aos poucos e chegou num ponto alto?",
+      lessons: [
+        {
+          id: "a3.l1",
+          title: "Atravessar o braço",
+          intro:
+            'Os solos que ficam na memória têm forma: começam calmos e graves, crescem e chegam a um ponto alto. O segundo solo de "Comfortably Numb" começa grave e termina agudo. Aqui a base é de rock, um pouco mais rápida, e a faixa diz em que parte do arco você está.',
+          key: "a3.take",
+          exercises: [
+            {
+              id: "a3.take",
+              kind: "take",
+              title: "Do grave ao agudo",
+              goal: "Oito compassos em quatro partes, do grave ao agudo. Siga a faixa.",
+              steps: [
+                "Grave: cordas de baixo do desenho 1, poucas notas.",
+                "Meio: cordas do meio, frases um pouco mais longas.",
+                "Agudo: suba de desenho com um slide.",
+                "Pico: a nota mais alta do solo, segurada.",
+              ],
+              check: "Seu solo subiu de região aos poucos e chegou num ponto alto?",
+              base: ROCK,
+              bars: 8,
+              arc: ["Grave", "Meio", "Agudo", "Pico"],
+              example: phrase("x3", "Exemplo do arco 3", 8, [
+                [6, 5, 0.5, 1.5],
+                [6, 8, 2.5, 0.5],
+                [5, 5, 3, 0.5],
+                [5, 7, 3.5, 1],
+                [4, 7, 5, 1.5],
+                [4, 5, 6.5, 0.5],
+                [4, 7, 7, 0.5],
+                [3, 5, 8.5, 0.5],
+                [3, 7, 9, 0.5],
+                [2, 5, 9.5, 2],
+                [2, 8, 12.5, 0.5],
+                [1, 10, 13, 2, { slide: 8 }],
+                [1, 12, 16.5, 1.5, { slide: 10 }],
+                [2, 13, 18, 0.5],
+                [2, 10, 18.5, 1],
+                [1, 15, 20, 0.5],
+                [1, 17, 20.5, 2],
+                [2, 15, 24, 2, { bend: 2 }],
+                [1, 15, 26, 0.5],
+                [1, 15, 28, 3, { vib: "lento", vibDelay: 1 }],
+              ]),
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: "u8",
       title: "Motivo",
       skill: "Repetir e variar uma ideia, em vez de juntar ideias soltas",
@@ -803,7 +1220,7 @@ export const curriculum: Curriculum = {
               kind: "echo",
               title: "A mesma frase, outro acorde",
               goal: "Repita. Cada frase toca uma ideia curta e a repete sobre o acorde seguinte.",
-              steps: ["Ouça como a mesma frase muda de cor quando o acorde troca.", "Cante antes de tocar."],
+              steps: ["Ouça como a mesma frase muda de cor quando o acorde troca."],
               check: "Repetiu a ideia igual, nos dois acordes?",
               base: AM_F,
               reveal: "tab",
@@ -1036,41 +1453,125 @@ export const curriculum: Curriculum = {
       ],
     },
     {
-      id: "u10",
-      title: "O arco do solo",
-      skill: "Um solo com começo, meio e fim",
-      takeCheck: "Seu solo cresceu até um ponto alto, em vez de ficar no mesmo nível do começo ao fim?",
+      id: "u14",
+      title: "Intensidade",
+      skill: "Pouco e muito, fraco e forte: o solo que cresce de propósito",
+      takeCheck: "A intensidade mudou de propósito, em vez de ficar igual do começo ao fim?",
       lessons: [
         {
-          id: "u10.l1",
-          title: "Do grave ao agudo",
-          intro:
-            'Os solos que ficam na memória têm forma: começam calmos e graves, crescem e chegam a um ponto alto. O segundo solo de "Comfortably Numb" começa grave e termina agudo. Aqui a base dura dezesseis compassos e a faixa diz em que parte do arco você está.',
-          key: "u10.l1.arc",
+          id: "u14.l1",
+          title: "Pouco e muito",
+          intro: "A mesma ideia pode vir com duas notas ou com oito. Encher aos poucos é o jeito mais simples de fazer o solo crescer, e esvaziar é o jeito de acalmar.",
+          key: "u14.l1.pr",
           exercises: [
             {
-              id: "u10.l1.arc",
-              kind: "take",
-              title: "Quatro partes",
-              goal: "Dezesseis compassos em quatro partes. Siga a indicação de cada uma.",
-              steps: [
-                "Grave: desenho 1, cordas de baixo, poucas notas e muito silêncio.",
-                "Meio: suba para as cordas do meio; frases um pouco mais longas.",
-                "Agudo: cordas de cima, bends.",
-                "Pico e saída: a nota mais alta do solo, segurada com vibrato, e uma frase que desce e termina.",
+              id: "u14.l1.echo",
+              kind: "echo",
+              title: "A mesma ideia, mais cheia",
+              goal: "Repita. A segunda metade diz a mesma coisa com mais notas.",
+              steps: ["Cante as duas metades."],
+              check: "Repetiu as duas versões sem olhar?",
+              base: AM_F,
+              reveal: "tab",
+              phrases: [
+                phrase("i1", "Vazia e cheia", 2, [
+                  [1, 5, 0, 1.5],
+                  [1, 8, 2, 1.5],
+                  [1, 5, 4, 0.5],
+                  [1, 8, 4.5, 0.5],
+                  [1, 5, 5, 0.5],
+                  [2, 8, 6, 0.5],
+                  [1, 5, 6.5, 1.5],
+                ]),
               ],
-              check: "Dava para ouvir o solo crescendo de uma parte para a outra?",
+            },
+            {
+              id: "u14.l1.pr",
+              kind: "play-rest",
+              title: "Responde com o dobro",
+              goal: "A resposta repete a ideia da pergunta com o dobro de notas.",
+              steps: ["Pergunta com duas ou três notas.", "Resposta com a mesma direção, mais cheia."],
+              check: "Suas respostas encheram a ideia sem virar escala?",
               base: BASE,
-              bars: 16,
-              arc: ["Grave, poucas notas", "Meio do braço", "Agudo, com bends", "Pico e saída"],
+              pattern: ["play", "rest", "play", "rest"],
+              rule: "Resposta com o dobro de notas",
             },
           ],
         },
         {
+          id: "u14.l2",
+          title: "Fraco e forte",
+          intro: "Palhetar mais fraco ou mais forte muda tudo sem mudar uma nota. Um solo inteiro no mesmo volume cansa; uma frase fraca seguida de uma forte acorda quem está ouvindo.",
+          key: "u14.l2.pr",
+          exercises: [
+            {
+              id: "u14.l2.echo",
+              kind: "echo",
+              title: "Fraco, depois forte",
+              goal: "Repita, com a mesma diferença de volume.",
+              steps: ["A primeira metade quase sussurrada; a segunda, cheia."],
+              check: "Sua repetição teve a mesma diferença de volume?",
+              base: AM_F,
+              reveal: "tab",
+              phrases: [
+                phrase("i2", "Fraco, depois forte", 2, [
+                  [1, 8, 0.5, 0.5, { amp: 0.35 }],
+                  [1, 5, 1, 0.5, { amp: 0.35 }],
+                  [2, 8, 1.5, 0.5, { amp: 0.35 }],
+                  [1, 5, 2, 1.5, { amp: 0.35 }],
+                  [1, 8, 4.5, 0.5],
+                  [1, 5, 5, 0.5],
+                  [2, 8, 5.5, 0.5],
+                  [1, 5, 6, 1.5],
+                ]),
+              ],
+            },
+            {
+              id: "u14.l2.pr",
+              kind: "play-rest",
+              title: "Pergunta fraca, resposta forte",
+              goal: "A pergunta fraca, a resposta forte. Depois, inverta.",
+              steps: ["Exagere a diferença: no começo, ela sempre parece menor do que é."],
+              check: "Dava para ouvir a diferença de volume entre as frases?",
+              base: BASE,
+              pattern: ["play", "rest", "play", "rest"],
+              rule: "Fraco, depois forte",
+            },
+          ],
+        },
+        {
+          id: "u14.l3",
+          title: "Crescer em oito compassos",
+          intro: "Juntando as duas: oito compassos que começam vazios e fracos e terminam cheios e fortes. É o motor de qualquer arco.",
+          key: "u14.l3.take",
+          exercises: [
+            {
+              id: "u14.l3.take",
+              kind: "take",
+              title: "Só cresce",
+              goal: "Oito compassos que só crescem: mais notas e mais volume a cada parte.",
+              steps: ["Comece com quase nada.", "Não chegue ao máximo antes da última parte."],
+              check: "O solo cresceu aos poucos, sem chegar no máximo cedo demais?",
+              base: BASE,
+              bars: 8,
+              arc: ["Pouco e fraco", "Mais notas", "Mais forte", "O máximo"],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "u10",
+      title: "Arco final: o solo inteiro",
+      skill: "Dezesseis compassos só com a pentatônica, que alguém pagaria para ouvir",
+      arc: true,
+      takeCheck: "Seu solo teve começo, pico e fim, com uma ideia que voltou?",
+      lessons: [
+        {
           id: "u10.l2",
           title: "Compor o solo",
           intro:
-            "O segundo solo de \"Comfortably Numb\" foi montado com as melhores partes de várias tomadas: o improviso virou composição. Sem gravador dá para fazer parecido: tocar, guardar o que funcionou e tocar de novo mantendo essa parte.",
+            'O segundo solo de "Comfortably Numb" foi montado com as melhores partes de várias tomadas: o improviso virou composição. Sem gravador dá para fazer parecido: tocar, guardar o que funcionou e tocar de novo mantendo essa parte.',
           key: "u10.l2.compose",
           exercises: [
             {
@@ -1094,7 +1595,7 @@ export const curriculum: Curriculum = {
           id: "u10.l3",
           title: "O solo inteiro",
           intro:
-            "Tudo junto: respirar, ritmo, bends, alvos na troca, um motivo que volta e um arco. Não é para usar tudo em toda frase. É para ter tudo à mão e escolher.",
+            "Tudo junto: respirar, ritmo, alvos na troca, tensão que resolve, o braço inteiro, um motivo que volta e intensidade que cresce. Não é para usar tudo em toda frase. É para ter tudo à mão e escolher. Só pentatônica: é o que basta.",
           key: "u10.l3.full",
           exercises: [
             {
@@ -1110,11 +1611,63 @@ export const curriculum: Curriculum = {
               base: BASE,
               bars: 16,
               arc: ["Começo", "Desenvolve", "Pico", "Fecha"],
+              example: phrase("x4", "Exemplo do arco final", 16, [
+                [1, 8, 0.5, 0.5],
+                [1, 5, 1, 0.5],
+                [2, 8, 1.5, 0.5],
+                [1, 5, 2, 1.5],
+                [2, 8, 7.5, 0.5],
+                [1, 8, 8.5, 0.5],
+                [1, 5, 9, 0.5],
+                [2, 8, 9.5, 0.5],
+                [2, 5, 10, 1.5],
+                [3, 7, 12.5, 0.5],
+                [2, 8, 13, 2],
+                [2, 5, 16.5, 0.5],
+                [2, 5, 17, 0.5],
+                [2, 8, 17.5, 0.5],
+                [1, 5, 18, 1.5],
+                [1, 8, 20, 2, { vib: "lento", vibDelay: 1 }],
+                [2, 8, 24.5, 1, { bend: 2 }],
+                [2, 8, 25.5, 0.5, { release: 2 }],
+                [2, 5, 26, 1.5],
+                [1, 10, 32.5, 0.5],
+                [1, 12, 33, 1.5, { slide: 10 }],
+                [2, 13, 34.5, 0.5],
+                [2, 10, 35, 1],
+                [2, 13, 36, 2, { vib: "lento", vibDelay: 1 }],
+                [1, 12, 40.5, 0.5],
+                [1, 15, 41, 0.5],
+                [1, 12, 41.5, 2],
+                [1, 15, 44.5, 2],
+                [1, 12, 46.5, 0.5],
+                [2, 15, 48, 1.5, { bend: 2 }],
+                [1, 15, 49.5, 0.5],
+                [1, 17, 50, 2, { vib: "lento", vibDelay: 0.5 }],
+                [1, 17, 52.5, 0.5],
+                [1, 15, 53, 0.5],
+                [1, 17, 53.5, 2.5],
+                [1, 15, 56.5, 0.5],
+                [1, 12, 57, 0.5],
+                [2, 13, 57.5, 0.5],
+                [2, 10, 58, 0.5],
+                [2, 8, 58.5, 1.5],
+                [1, 8, 60.5, 0.5],
+                [1, 5, 61, 0.5],
+                [2, 8, 61.5, 2.5, { vib: "lento", vibDelay: 1 }],
+              ]),
             },
           ],
         },
       ],
     },
+  ],
+
+  sections: [
+    { id: "s1", title: "Primeiros passos", goal: "Do mapa do braço ao primeiro solo: poucas notas, silêncio e ritmo.", units: ["u0", "u1", "u2", "a1"] },
+    { id: "s2", title: "A harmonia", goal: "Ouvir a troca de acorde e chegar nas notas dele, com tensão que resolve.", units: ["u5", "u6", "u11", "a2"] },
+    { id: "s3", title: "O braço", goal: "Sair do desenho 1: uma corda só, outros desenhos, outros tons.", units: ["u7", "u12", "u13", "a3"] },
+    { id: "s4", title: "O solo", goal: "Motivo, vocabulário e intensidade, até um solo inteiro que alguém pagaria para ouvir.", units: ["u8", "u9", "u14", "u10"] },
   ],
 
   // Frases próprias, simples, no desenho 1, em ordem de dificuldade. As quatro últimas usam bend, vibrato e slide.

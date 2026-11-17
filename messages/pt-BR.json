@@ -41,7 +41,7 @@
       "summary": "Abra seus arquivos e toque junto."
     },
     "solos": {
-      "name": "Como fazer solos",
+      "name": "Como solar no violão e na guitarra",
       "summary": "Trilha de prática para o solo deixar de soar como escala: respiração, ritmo, notas do acorde e frases de ouvido."
     }
   },
@@ -55,8 +55,8 @@
     "back": "Voltar para as ferramentas"
   },
   "solos": {
-    "title": "Como fazer solos",
-    "lead": "Uma trilha de prática para o seu solo deixar de soar como escala. Uma sessão por dia, de 15 a 25 minutos, com a guitarra na mão.",
+    "title": "Como solar no violão e na guitarra",
+    "lead": "Uma trilha de prática só com a pentatônica, até você improvisar um solo que alguém pagaria couvert para ouvir. Uma sessão por dia, de 15 a 25 minutos, com o instrumento na mão.",
     "meta": "Trilha de prática para criar solos melódicos na guitarra: respiração, ritmo, bends, vibrato, notas do acorde, motivo, vocabulário e o arco do solo.",
     "home": {
       "today": "Sessão sugerida",
@@ -64,27 +64,28 @@
       "week": "{n, plural, one {# dia de prática nesta semana} other {# dias de prática nesta semana}}",
       "trail": "A trilha",
       "finished": "Você fez todas as lições disponíveis. As sessões continuam com revisão e frases novas.",
-      "soon": "Próximo passo da ferramenta: gravar e comparar as próprias tomadas, com o microfone.",
+      "soon": "Notas de fora da pentatônica, como a 7ª e a 9ª, ficam para depois: primeiro, um solo inteiro só com ela.",
       "lessonCold": "Confirmada a frio",
       "practice": "Praticar",
       "reset": "Apagar meu progresso",
-      "resetConfirm": "Apagar todo o progresso de \"Como fazer solos\" neste navegador?",
+      "resetConfirm": "Apagar todo o progresso de \"Como solar no violão e na guitarra\" neste navegador?",
       "again": "Outra sessão",
-      "doneToday": "Você já praticou hoje. Outra sessão é opcional; o que fixa é voltar amanhã.",
+      "doneToday": "Você já praticou hoje. O que fixa é voltar amanhã.",
       "nothing": "Não há nada na fila agora. Volte amanhã para o teste a frio.",
       "neck": "Braço da guitarra com a pentatônica de Lá menor",
       "recommended": "Próxima",
       "do": "Fazer",
       "redo": "Refazer",
       "mark": "Marcar \"{lesson}\" como feita",
-      "suggestion": "O que o site montaria para você agora: a próxima lição, uma frase de ouvido e uma tomada livre.",
       "continue": "Continuar",
       "progress": "{done} de {total} lições feitas",
       "count": "{done} de {total}",
-      "trailNote": "Faça na ordem que quiser. A caixa à esquerda marca a lição como feita, inclusive as que você já sabe e quer pular.",
       "phrases": "Frases de ouvido",
-      "phrasesNote": "Frases curtas para ouvir, cantar e achar no braço. A sessão sugerida traz uma por vez.",
-      "unmarkConfirm": "Desmarcar \"{lesson}\"? Isso apaga o registro de que você fez esta lição."
+      "phrasesNote": "Frases curtas para tirar de ouvido.",
+      "unmarkConfirm": "Desmarcar \"{lesson}\"? Isso apaga o registro de que você fez esta lição.",
+      "section": "Seção {n}",
+      "arc": "Arco da seção",
+      "extra": "Fora da trilha"
     },
     "part": {
       "cold": "A frio",
@@ -97,10 +98,10 @@
     },
     "partHint": {
       "cold": "Sem aquecer e sem reler a explicação. É assim que se descobre o que ficou de ontem.",
-      "review": "Revisão misturada parece mais difícil do que repetir a mesma coisa. É esperado, e é o que fixa.",
-      "phrase": "Solo também é feito de frases que você ouviu e guardou. Uma por sessão, sempre de ouvido primeiro.",
+      "review": "Misturado parece mais difícil. É o que fixa.",
+      "phrase": "De ouvido primeiro.",
       "take": "Depois de tanta regra, toque sem nenhuma.",
-      "again": "Esta lição ficou em \"ainda não\" da última vez, então ela volta. Sem pressa."
+      "again": "Ficou em \"ainda não\" da última vez."
     },
     "frame": {
       "step": "Passo {n} de {total}",
@@ -112,13 +113,12 @@
       "quit": "Sair da sessão",
       "steps": "Como fazer",
       "next": "Próximo",
-      "prev": "Passo anterior",
-      "rateHint": "Escolha uma resposta para seguir. Ela decide quando este exercício volta."
+      "prev": "Passo anterior"
     },
     "done": {
       "title": "Sessão feita",
-      "learned": "Amanhã a sessão começa refazendo \"{lesson}\" a frio, sem aquecer. Dormir faz parte do treino.",
-      "repeat": "\"{lesson}\" ainda não ficou, então volta na próxima sessão. É o caminho normal.",
+      "learned": "Amanhã a sessão começa refazendo \"{lesson}\" a frio.",
+      "repeat": "\"{lesson}\" ainda não ficou e volta na próxima sessão.",
       "review": "Sessão de frase e revisão.",
       "back": "Voltar para a trilha",
       "done": "\"{lesson}\" está feita."
@@ -140,12 +140,10 @@
       "chord": "Acorde",
       "labelPenta": "Braço da guitarra: pentatônica, desenho {n}",
       "labelChord": "Braço da guitarra: notas do acorde {chord}",
-      "legendPenta": "Cada bolinha mostra a nota que está ali. As brancas são a tônica. A faixa em cima mostra onde o desenho fica no braço inteiro.",
-      "legendChord": "Em laranja, as notas do acorde: T (tônica), 3 (terça), 5 (quinta). As claras são o resto da pentatônica.",
       "idle": "Ligue a base e toque junto",
       "follow": "As marcas acompanham o acorde",
       "oneNote": "Uma nota por tempo",
-      "legendOutside": "Contorno tracejado: nota do acorde que fica fora da pentatônica."
+      "legendOutside": "Tracejadas: notas do acorde fora da pentatônica."
     },
     "find": {
       "start": "Começar",
@@ -159,9 +157,8 @@
         "3": "Onde está a 3ª de {chord}?",
         "5": "Onde está a 5ª de {chord}?"
       },
-      "hint": "Toque numa bolinha.",
       "right": "Isso.",
-      "wrong": "Não era essa. As certas estão em verde.",
+      "wrong": "Não era essa.",
       "score": "{hits} de {total}",
       "verdict": {
         "ok": "Está no dedo. Pode seguir.",
@@ -198,18 +195,28 @@
       "idle": "Ligue a base: o site toca, você responde",
       "showRhythm": "Ver o ritmo escrito",
       "showTab": "Ver no braço",
-      "hide": "Esconder",
       "rhythmLabel": "Ritmo: cada quadrado é uma semicolcheia",
       "tabLabel": "Onde a frase fica no braço",
-      "tabLegend": "Cada bolinha mostra a nota e acende quando ela soa. Seta subindo: bend (full = um tom). Seta descendo: dobrar antes e soltar. Linha a partir de um círculo tracejado: slide. Na ordem:",
       "bendFull": "full",
-      "bendHalf": "½"
+      "bendHalf": "½",
+      "hideBoard": "Esconder o braço",
+      "hideRhythm": "Esconder o ritmo",
+      "showText": "Ver tab",
+      "hideText": "Esconder a tab",
+      "textLabel": "A frase em tablatura"
     },
     "take": {
       "playing": "Valendo",
       "idle": "Ligue a base quando estiver pronto",
       "bar": "Compasso {bar} de {total}",
-      "arc": "Partes do solo"
+      "arc": "Partes do solo",
+      "example": "Exemplo",
+      "idleExample": "Ouça o exemplo, ou toque a base e faça o seu.",
+      "playExample": "Ouvir exemplo",
+      "stopExample": "Parar o exemplo",
+      "showTab": "Ver tab do exemplo",
+      "hideTab": "Esconder a tab",
+      "tabLabel": "O solo de exemplo em tablatura"
     },
     "target": {
       "word": "{degree} de {chord}",
@@ -220,7 +227,6 @@
       "showBoard": "Ver o braço",
       "hideBoard": "Esconder o braço",
       "board": "Braço da guitarra: {degree} de {chord}",
-      "legend": "Em laranja, onde está o alvo dentro do desenho. A faixa troca para o próximo alvo na metade do compasso.",
       "degree": {
         "T": "Tônica",
         "3": "3ª",
@@ -231,8 +237,7 @@
       "chord": "Acorde",
       "idle": "Ligue a base e fique na {n}ª corda",
       "follow": "Só a {n}ª corda",
-      "label": "Braço da guitarra: {n}ª corda, notas do acorde {chord}",
-      "legend": "Só uma corda. Em laranja, as notas do acorde que está soando (T, 3, 5); as outras são o resto da pentatônica."
+      "label": "Braço da guitarra: {n}ª corda, notas do acorde {chord}"
     },
     "sound": {
       "button": "Som: {instrument}",
@@ -243,8 +248,8 @@
         "sintetizador": "Sintetizador"
       },
       "about": {
-        "violao": "Violão gravado nota a nota. Bend, slide e vibrato são feitos em cima da gravação.",
-        "sintetizador": "Som sintético: menos natural, mas a altura de cada nota fica bem clara."
+        "violao": "Violão gravado.",
+        "sintetizador": "Menos natural, mas a altura de cada nota fica bem clara."
       },
       "tone": "Tom",
       "volume": "Volume",

@@ -7,7 +7,7 @@ Vários devs contribuem, cada um numa ferramenta. **Leia antes de mudar qualquer
 - `docs/ROADMAP.md` — o que vem, em que ordem, e o contrato do núcleo compartilhado.
 - `docs/PROJETO.md` — visão e decisões já tomadas.
 - `PRODUCT.md` e `DESIGN.md` — verdade de produto e sistema visual.
-- `docs/solos/` — pesquisa e especificações de "Como fazer solos".
+- `docs/solos/` — pesquisa e especificações de "Como solar no violão e na guitarra".
 - `legacy/CLAUDE.md` — só se for mexer no Laboratório (site antigo).
 
 ## Comandos

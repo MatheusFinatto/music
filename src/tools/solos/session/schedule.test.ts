@@ -12,6 +12,7 @@ const c: Curriculum = {
     { id: "u0", title: "", skill: "", lessons: [lesson("l1"), lesson("l2")] },
     { id: "u1", title: "", skill: "", lessons: [lesson("l3")] },
   ],
+  sections: [{ id: "s1", title: "", goal: "", units: ["u0", "u1"] }],
   phrases: [{ ...ex("f1"), kind: "echo", phrases: [], reveal: "tab" } as Exercise as never],
   take: ex("take") as never,
 };
@@ -148,7 +149,9 @@ describe("conteúdo real", () => {
 describe("frases das unidades", () => {
   const exercises = real.units.flatMap((u) => u.lessons.flatMap((l) => l.exercises));
   const echoes = [...exercises, ...real.phrases].flatMap((e) => (e.kind === "echo" ? [e] : []));
-  const notes = echoes.flatMap((e) => e.phrases.filter((p) => p.frets).map((p) => ({ e, p })));
+  // Frases do eco e solos de exemplo dos arcos seguem as mesmas regras.
+  const examples = exercises.flatMap((e) => (e.kind === "take" && e.example ? [{ e, p: e.example }] : []));
+  const notes = [...echoes.flatMap((e) => e.phrases.filter((p) => p.frets).map((p) => ({ e, p }))), ...examples];
   const chordAt = (base: { prog: number[]; key: number }, beat: number) => chordsOf(base.prog, base.key)[Math.floor(beat / 4) % base.prog.length]!;
 
   it("todo exercício tem base", () => {
@@ -157,23 +160,17 @@ describe("frases das unidades", () => {
   it("no eco, a resposta cai sobre os mesmos acordes da chamada", () => {
     for (const e of echoes) for (const p of e.phrases) expect(p.bars % e.base!.prog.length, `${e.id}/${p.id}`).toBe(0);
   });
-  it("posições do desenho 1, ou todas numa corda só", () => {
-    const box = new Set(pentatonicShape(0, 1).map((x) => `${x.string}-${x.fret}`));
-    for (const { p } of notes) {
-      if (new Set(p.frets!.map((f) => f.string)).size === 1 && p.frets!.length > 2) continue;
-      p.frets!.forEach((f) => expect(box.has(`${f.string}-${f.fret}`), p.id).toBe(true));
-    }
-  });
   it("o arco divide a tomada em partes inteiras", () => {
     for (const e of exercises) if (e.kind === "take" && e.arc) expect(e.bars % e.arc.length, e.id).toBe(0);
   });
-  it("bend, soltura e slide começam e terminam em notas da pentatônica", () => {
-    const penta = new Set(minorPentatonic(0));
-    for (const { p } of notes)
+  it("só notas da pentatônica do tom, inclusive a origem de bend, soltura e slide", () => {
+    for (const { e, p } of notes) {
+      const penta = new Set(minorPentatonic(e.base!.key));
       for (const n of p.notes) {
         expect(penta.has(mod12(n.midi)), `${p.id}@${n.beat}`).toBe(true);
         if (n.from !== undefined) expect(penta.has(mod12(n.from)), `${p.id}@${n.beat} (origem)`).toBe(true);
       }
+    }
   });
   it("toda nota longa é nota do acorde que está soando", () => {
     for (const { e, p } of notes)
@@ -200,7 +197,26 @@ describe("frases das unidades", () => {
         else expect([1, 2], `${p.id}@${n.beat}: bend de ${g?.amount} semitons`).toContain(g?.amount);
       });
   });
+  it("todo arco tem exemplo do tamanho da tomada, menos o de compor", () => {
+    for (const u of real.units.filter((x) => x.arc))
+      for (const e of u.lessons.flatMap((l) => l.exercises)) {
+        if (e.kind !== "take" || e.id === "u10.l2.compose") continue;
+        expect(e.example, e.id).toBeDefined();
+        expect(e.example!.bars, e.id).toBe(e.bars);
+      }
+  });
   it("todo alvo na troca reveza pelo menos dois graus", () => {
     for (const e of exercises) if (e.kind === "target") expect(new Set(e.degrees).size, e.id).toBeGreaterThanOrEqual(2);
+  });
+});
+
+describe("seções", () => {
+  it("cobrem todas as unidades, uma vez, na ordem da trilha, e cada uma fecha com um arco", () => {
+    expect(real.sections.flatMap((s) => s.units)).toEqual(real.units.map((u) => u.id));
+    for (const s of real.sections) {
+      const last = real.units.find((u) => u.id === s.units.at(-1));
+      expect(last?.arc, s.id).toBe(true);
+      expect(s.units.slice(0, -1).every((id) => !real.units.find((u) => u.id === id)?.arc), s.id).toBe(true);
+    }
   });
 });

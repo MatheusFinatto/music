@@ -1,4 +1,4 @@
-// Endereço de cada tela de "Como fazer solos". Lógica pura: o navegador fica em ../nav.ts.
+// Endereço de cada tela de "Como solar no violão e na guitarra". Lógica pura: o navegador fica em ../nav.ts.
 //   /solos                       a trilha
 //   /solos?licao=u3.l1           uma lição do começo (dá para mandar o link)
 //   /solos?exercicio=f.07        um exercício avulso (frase de ouvido, tomada livre ou qualquer outro)

@@ -98,7 +98,6 @@ export function ExerciseFrame({ ex, part, intro, progress, rated, onRate, onBack
             ))}
             <button type="button" className="btn primary next" disabled={!rating} onClick={() => rating && onRate(rating)}>{t("frame.next")}</button>
           </div>
-          {!rating && <p className="note">{t("frame.rateHint")}</p>}
         </footer>
       )}
     </article>
