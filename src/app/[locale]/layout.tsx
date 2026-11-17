@@ -36,7 +36,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         {/* messages={null}: os textos não vão para o navegador por padrão. Ferramenta com
             componente cliente passa só o bloco dela (ver docs/ARQUITETURA.md). */}
         <NextIntlClientProvider messages={null}>
-          <a className="skip" href="#ferramentas">{t("skip")}</a>
+          <a className="skip" href="#conteudo">{t("skip")}</a>
           <Header />
           {children}
           <Footer />

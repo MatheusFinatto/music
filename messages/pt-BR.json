@@ -3,7 +3,7 @@
     "name": "Musical Tools",
     "title": "Musical Tools",
     "description": "Ferramentas de prática para quem toca: tirar de ouvido, afinador, treino de ouvido, improvisação e player de tab. Gratuito e sem conta.",
-    "skip": "Pular para as ferramentas"
+    "skip": "Pular para o conteúdo"
   },
   "nav": {
     "label": "Principal",
@@ -24,14 +24,6 @@
     "planejada": "Planejada"
   },
   "tools": {
-    "diario": {
-      "name": "Diário do Solo",
-      "summary": "Plano de 8 semanas de improviso na guitarra, com a meta do dia, o braço e o timer."
-    },
-    "piano": {
-      "name": "Piano de Ideias",
-      "summary": "Invente frases sem a guitarra, por cima de uma base, e veja em partitura e tab."
-    },
     "tirar-de-ouvido": {
       "name": "Tirar de ouvido",
       "summary": "Treinador para tirar músicas e solos de ouvido, trecho por trecho."
@@ -44,22 +36,177 @@
       "name": "Treino de ouvido",
       "summary": "Intervalos, acordes e graus."
     },
-    "improvisacao": {
-      "name": "Improvisação",
-      "summary": "Frases por cima de uma base que você monta."
-    },
     "player": {
       "name": "Player de tab e MIDI",
       "summary": "Abra seus arquivos e toque junto."
+    },
+    "solos": {
+      "name": "Como fazer solos",
+      "summary": "Trilha de prática para o solo deixar de soar como escala: respiração, ritmo, notas do acorde e frases de ouvido."
     }
   },
   "footer": {
     "free": "Gratuito e sem conta.",
     "data": "O que você grava fica só neste navegador.",
-    "backup": "Backup dos dados"
+    "backup": "Laboratório e backup dos dados"
   },
   "notFound": {
     "title": "Essa página não existe",
     "back": "Voltar para as ferramentas"
+  },
+  "solos": {
+    "title": "Como fazer solos",
+    "lead": "Uma trilha de prática para o seu solo deixar de soar como escala. Uma sessão por dia, de 15 a 25 minutos, com a guitarra na mão.",
+    "meta": "Trilha de prática para criar solos melódicos na guitarra: respiração, ritmo, notas do acorde e frases de ouvido.",
+    "home": {
+      "today": "Sessão sugerida",
+      "start": "Começar",
+      "week": "{n, plural, one {# dia de prática nesta semana} other {# dias de prática nesta semana}}",
+      "trail": "A trilha",
+      "finished": "Você fez todas as lições disponíveis. As sessões continuam com revisão e frases novas.",
+      "soon": "Mais unidades em construção: bends, vibrato, notas do acorde, motivo e o arco do solo.",
+      "lessonCold": "Confirmada a frio",
+      "practice": "Praticar",
+      "reset": "Apagar meu progresso",
+      "resetConfirm": "Apagar todo o progresso de \"Como fazer solos\" neste navegador?",
+      "again": "Outra sessão",
+      "doneToday": "Você já praticou hoje. Outra sessão é opcional; o que fixa é voltar amanhã.",
+      "nothing": "Não há nada na fila agora. Volte amanhã para o teste a frio.",
+      "neck": "Braço da guitarra com a pentatônica de Lá menor",
+      "recommended": "Próxima",
+      "do": "Fazer",
+      "redo": "Refazer",
+      "mark": "Marcar \"{lesson}\" como feita",
+      "suggestion": "O que o site montaria para você agora: a próxima lição, uma frase de ouvido e uma tomada livre.",
+      "continue": "Continuar",
+      "progress": "{done} de {total} lições feitas",
+      "count": "{done} de {total}",
+      "trailNote": "Faça na ordem que quiser. A caixa à esquerda marca a lição como feita, inclusive as que você já sabe e quer pular.",
+      "phrases": "Frases de ouvido",
+      "phrasesNote": "Frases curtas para ouvir, cantar e achar no braço. A sessão sugerida traz uma por vez.",
+      "unmarkConfirm": "Desmarcar \"{lesson}\"? Isso apaga o registro de que você fez esta lição."
+    },
+    "part": {
+      "cold": "A frio",
+      "new": "Lição nova",
+      "phrase": "Frase de ouvido",
+      "review": "Revisão",
+      "take": "Tomada livre",
+      "free": "Prática livre",
+      "again": "Repetir"
+    },
+    "partHint": {
+      "cold": "Sem aquecer e sem reler a explicação. É assim que se descobre o que ficou de ontem.",
+      "review": "Revisão misturada parece mais difícil do que repetir a mesma coisa. É esperado, e é o que fixa.",
+      "phrase": "Solo também é feito de frases que você ouviu e guardou. Uma por sessão, sempre de ouvido primeiro.",
+      "take": "Depois de tanta regra, toque sem nenhuma.",
+      "again": "Esta lição ficou em \"ainda não\" da última vez, então ela volta. Sem pressa."
+    },
+    "frame": {
+      "step": "Passo {n} de {total}",
+      "rate": "Como foi?",
+      "ok": "Consegui",
+      "quase": "Quase",
+      "nao": "Ainda não",
+      "back": "Voltar para a trilha",
+      "quit": "Sair da sessão",
+      "steps": "Como fazer",
+      "next": "Próximo",
+      "prev": "Passo anterior",
+      "rateHint": "Escolha uma resposta para seguir. Ela decide quando este exercício volta."
+    },
+    "done": {
+      "title": "Sessão feita",
+      "learned": "Amanhã a sessão começa refazendo \"{lesson}\" a frio, sem aquecer. Dormir faz parte do treino.",
+      "repeat": "\"{lesson}\" ainda não ficou, então volta na próxima sessão. É o caminho normal.",
+      "review": "Sessão de frase e revisão.",
+      "back": "Voltar para a trilha",
+      "done": "\"{lesson}\" está feita."
+    },
+    "backing": {
+      "play": "Tocar base",
+      "stop": "Parar",
+      "chords": "Acordes da base",
+      "slower": "Mais lento",
+      "faster": "Mais rápido",
+      "counting": "Contagem",
+      "noAudio": "Este navegador não conseguiu iniciar o áudio.",
+      "space": "Barra de espaço toca e para.",
+      "bpm": "bpm"
+    },
+    "map": {
+      "shape": "Desenho",
+      "shapeN": "Desenho {n}",
+      "chord": "Acorde",
+      "labelPenta": "Braço da guitarra: pentatônica, desenho {n}",
+      "labelChord": "Braço da guitarra: notas do acorde {chord}",
+      "legendPenta": "Cada bolinha mostra a nota que está ali. As brancas são a tônica. A faixa em cima mostra onde o desenho fica no braço inteiro.",
+      "legendChord": "Em laranja, as notas do acorde: T (tônica), 3 (terça), 5 (quinta). As claras são o resto da pentatônica.",
+      "idle": "Ligue a base e toque junto",
+      "follow": "As marcas acompanham o acorde",
+      "oneNote": "Uma nota por tempo",
+      "legendOutside": "Contorno tracejado: nota do acorde que fica fora da pentatônica."
+    },
+    "find": {
+      "start": "Começar",
+      "again": "Fazer de novo",
+      "continue": "Continuar",
+      "next": "Próxima",
+      "board": "Braço da guitarra: toque na nota pedida",
+      "pos": "Corda {string}, casa {fret}",
+      "ask": {
+        "T": "Onde está a tônica de {chord}?",
+        "3": "Onde está a 3ª de {chord}?",
+        "5": "Onde está a 5ª de {chord}?"
+      },
+      "hint": "Toque numa bolinha.",
+      "right": "Isso.",
+      "wrong": "Não era essa. As certas estão em verde.",
+      "score": "{hits} de {total}",
+      "verdict": {
+        "ok": "Está no dedo. Pode seguir.",
+        "quase": "Quase. Vale repetir antes de seguir.",
+        "nao": "Ainda não. Volte ao mapa, olhe de novo e repita."
+      },
+      "askAll": {
+        "T": "Toque em todas as tônicas de {chord}",
+        "3": "Toque em todas as 3ªs de {chord}",
+        "5": "Toque em todas as 5ªs de {chord}"
+      },
+      "hintAll": "São várias. Um toque errado conta.",
+      "foundSome": "{found} de {total}",
+      "wrongAll": "Essa não. Continue procurando.",
+      "scoreAll": "{misses, plural, =0 {Sem nenhum erro} one {# toque errado} other {# toques errados}}",
+      "seeMap": "Ver o mapa",
+      "hideMap": "Esconder o mapa",
+      "mapLabel": "Mapa da região, com o nome de cada nota"
+    },
+    "playRest": {
+      "play": "Toque",
+      "rest": "Silêncio",
+      "idle": "Ligue a base para começar",
+      "nextPlay": "Prepare: você entra",
+      "nextRest": "Termine a frase",
+      "pattern": "Compassos de tocar e de calar",
+      "shortPlay": "toca",
+      "shortRest": "cala"
+    },
+    "echo": {
+      "which": "Qual frase",
+      "listen": "Ouça",
+      "yourTurn": "Sua vez",
+      "idle": "Ligue a base: o site toca, você responde",
+      "showRhythm": "Ver o ritmo escrito",
+      "showTab": "Ver no braço",
+      "hide": "Esconder",
+      "rhythmLabel": "Ritmo: cada quadrado é uma semicolcheia",
+      "tabLabel": "Onde a frase fica no braço",
+      "tabLegend": "Os números são a ordem das notas."
+    },
+    "take": {
+      "playing": "Valendo",
+      "idle": "Ligue a base quando estiver pronto",
+      "bar": "Compasso {bar} de {total}"
+    }
   }
 }

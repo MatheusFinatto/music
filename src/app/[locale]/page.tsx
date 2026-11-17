@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { TOOLS, isLive, type Tool } from "@/tools/registry";
 import { Staff } from "@/components/Staff";
@@ -24,7 +25,7 @@ export default async function Hub({ params }: Props) {
   const notes = [...live, ...next, ...planned].map((x) => ({ filled: isLive(x), target: x.status === "proxima" }));
 
   return (
-    <main className="wrap">
+    <main className="wrap" id="conteudo">
       <section className="hero">
         <h1 className="rise">{t("hub.title")}</h1>
         <Staff notes={notes} />
@@ -36,7 +37,7 @@ export default async function Hub({ params }: Props) {
           <ul className="grid">
             {live.map((x, i) => (
               <li key={x.slug} className="rise" style={{ "--i": i + 2 } as React.CSSProperties}>
-                <a className="card" href={x.href}>
+                <ToolLink href={x.href}>
                   <ToolIcon slug={x.slug} />
                   <h3>{name(x)}</h3>
                   <p>{summary(x)}</p>
@@ -44,7 +45,7 @@ export default async function Hub({ params }: Props) {
                     <span className="go">{t("hub.open")}<Arrow /></span>
                     {x.status === "laboratorio" && <span className="badge">{t("status.laboratorio")}</span>}
                   </span>
-                </a>
+                </ToolLink>
               </li>
             ))}
           </ul>
@@ -90,6 +91,11 @@ export default async function Hub({ params }: Props) {
       )}
     </main>
   );
+}
+
+/** Ferramentas novas são rotas do Next; as do Laboratório são páginas estáticas fora dele. */
+function ToolLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return href.startsWith("/laboratorio") ? <a className="card" href={href}>{children}</a> : <Link className="card" href={href}>{children}</Link>;
 }
 
 function Arrow() {

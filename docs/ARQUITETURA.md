@@ -8,7 +8,9 @@ src/app/[locale]/page.tsx      o hub
 src/app/[locale]/<slug>/       a rota de cada ferramenta
 src/tools/registry.ts          lista de ferramentas (fonte única)
 src/tools/<slug>/              o código de UMA ferramenta
-src/core/                      o que é comum a mais de uma ferramenta (criado sob demanda)
+src/core/theory                notas, acordes, pentatônica, posições no braço (puro, com testes)
+src/core/audio                 AudioContext único, transporte, base sintetizada, voz solista
+src/core/storage               localStorage com prefixo musica: e versão
 src/components/                interface compartilhada (cabeçalho, rodapé, peças do hub)
 src/i18n/                      configuração do next-intl
 src/proxy.ts                   roteamento de idioma
@@ -38,6 +40,12 @@ Exemplo com o afinador (`slug`: `afinador`).
 7. **Conferir**: `npm run lint && npm run typecheck && npm run build`, e a ferramenta em 360 px de largura, em claro e escuro, navegável por teclado.
 
 O hub se atualiza sozinho a partir do registro. Não edite `page.tsx` do hub para acrescentar ferramenta.
+
+## Conteúdo longo
+Texto de interface vai em `messages/`. Conteúdo didático extenso (lições, exercícios) é dado tipado dentro da ferramenta, um arquivo por idioma: veja `src/tools/solos/curriculum/pt-BR.ts`. Para outro idioma, crie `en.ts` com o mesmo formato.
+
+## Testes
+Só testes de unidade (Vitest) para lógica pura: `src/**/*.test.ts`. Rode com `npm test`. Sem testes de navegador.
 
 ## Idiomas
 `src/i18n/routing.ts` tem um idioma (`pt-BR`), sem prefixo na URL. Para acrescentar inglês: inclua `"en"` em `locales` e crie `messages/en.json`. As rotas viram `/en/...` sozinhas. Por isso nenhum texto visível fica fixo no código, e links internos usam `Link` de `@/i18n/navigation`.

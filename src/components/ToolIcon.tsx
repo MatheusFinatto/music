@@ -8,7 +8,7 @@ const ICONS: Record<string, ReactNode> = {
   "tirar-de-ouvido": <><path d="M3 12h2M7 8v8M11 5v14M15 9v6M19 11v2" /></>,
   afinador: <><path d="M4 16a8 8 0 0 1 16 0" /><path d="M12 16l3.5-6" /><circle cx="12" cy="16" r="1.4" /><path d="M12 5v2M5.5 9.5l1.4 1.2M18.5 9.5l-1.4 1.2" /></>,
   "treino-de-ouvido": <><path d="M7 10a5 5 0 0 1 10 0c0 3-2.5 3.6-2.5 6a2.8 2.8 0 0 1-5.4 1" /><path d="M10 10.5a2 2 0 0 1 4 0c0 1.2-1.5 1.6-1.5 3" /></>,
-  improvisacao: <><path d="M3 15c3 0 3-6 6-6s3 8 6 8 3-10 6-10" /></>,
+  solos: <><path d="M3 15c3 0 3-6 6-6s3 8 6 8 3-10 6-10" /></>,
   player: <><path d="M3 7h18M3 12h8M3 17h8" /><path d="M15 11.5v6l5-3z" /></>,
 };
 const FALLBACK = <><path d="M9 18V6l10-2v12" /><circle cx="6.5" cy="18" r="2.5" /><circle cx="16.5" cy="16" r="2.5" /></>;

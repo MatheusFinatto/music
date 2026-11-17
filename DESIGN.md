@@ -42,9 +42,30 @@ typography:
     fontFamily: "Inter, system-ui, sans-serif"
     fontSize: "0.82rem"
     fontWeight: 600
+  small:
+    fontFamily: "Inter, system-ui, sans-serif"
+    fontSize: "0.92rem"
+    fontWeight: 400
+  lead:
+    fontFamily: "Inter, system-ui, sans-serif"
+    fontSize: "1.15rem"
+    fontWeight: 400
+  tool-title:
+    fontFamily: "Inter, system-ui, sans-serif"
+    fontSize: "clamp(1.9rem, 4.5vw, 2.9rem)"
+    fontWeight: 700
+    lineHeight: 1.06
+    letterSpacing: "-0.03em"
+  stage:
+    fontFamily: "Inter, system-ui, sans-serif"
+    fontSize: "clamp(2.4rem, 9vw, 4.25rem)"
+    fontWeight: 700
+    lineHeight: 1
+    letterSpacing: "-0.035em"
 rounded:
   card: "22px"
   icon: "14px"
+  small: "10px"
   pill: "999px"
 spacing:
   gutter: "20px"
@@ -95,7 +116,7 @@ Neutros frios e um azul de marca; o laranja e o verde têm significado musical e
 - **Azul de ação** (#27598a; escuro #7fb2e2): botões, links, foco, e "o que está tocando agora".
 
 ### Secondary
-- **Laranja de nota-alvo** (#c27400; escuro #f0a634): a nota-alvo nas ferramentas; no hub, só a ferramenta em construção (a "próxima nota").
+- **Laranja de nota-alvo** (#c27400; escuro #f0a634): a nota-alvo nas ferramentas; no hub, só a ferramenta em construção (a "próxima nota"). Texto sobre laranja usa `--on-target`; texto laranja sobre fundo suave usa `--target-ink`.
 
 ### Tertiary
 - **Verde de selecionado** (#2e7a4d): item selecionado dentro das ferramentas. Não aparece no hub.
@@ -123,6 +144,11 @@ Neutros frios e um azul de marca; o laranja e o verde têm significado musical e
 - **Body** (400, 17px, 1.5): descrições, até 38ch dentro de card.
 - **Label** (600, 0.82rem): selos de situação.
 
+### Escala para ferramentas
+As ferramentas usam só os degraus definidos como variáveis em `globals.css`: `--text-xs` (0.82rem), `--text-sm` (0.92rem), `--text-md` (1rem), `--text-lg` (1.15rem), `--text-xl` (1.45rem), `--text-2xl`, `--text-3xl` (título de ferramenta) e `--text-stage`.
+
+**A Regra do Palco.** O que se lê tocando, com o instrumento na mão e a tela a um metro (o que fazer agora, o acorde, a contagem, a casa), usa `--text-stage` ou `--text-xl` e cor cheia. Texto de instrução é sempre menor que isso.
+
 ## Elevation
 
 Um degrau só. Cards no ar têm `--shadow` (sombra macia, com deslocamento) e sobem para `--shadow-up` no hover. Cards planejados são planos, com contorno de 1px. No escuro a sombra vira um contorno claro de 1px. O cabeçalho é translúcido com desfoque, e é o único lugar com desfoque.
@@ -149,6 +175,20 @@ Raio 22px nos cards, 14px nos ícones, pílula nos botões e selos. Sem cantos v
 
 ### Ícones
 - Linha, traço 1.8, pontas redondas, 24px de grade. Um por ferramenta em `src/components/ToolIcon.tsx`.
+
+### O mundo de "Como fazer solos"
+- A ferramenta tem ambiente próprio, sempre escuro: palco à noite. Fundo marrom quase preto com uma luz quente vinda de cima, superfícies de madeira escura, texto em marfim. Definido em `src/tools/solos/solos.css` (`body:has(.solos)`), que redefine os tokens do site enquanto a ferramenta está aberta.
+- Títulos em Bricolage Grotesque (`--font-display`); texto em Inter.
+- Ação principal em marfim. O azul fica só para "tocando agora" e o laranja só para nota-alvo e para o que está em andamento.
+- A abertura é o braço inteiro atravessando a página, com a pentatônica acendendo em onda.
+- A trilha é um caminho vertical com discos numerados, não uma pilha de cards.
+- O hub ainda usa o visual claro original; levar este mundo para o site inteiro é decisão em aberto.
+
+### Braço da guitarra
+- `src/tools/solos/components/Fretboard.tsx`. É o único elemento com material: jacarandá com veio, trastes de alpaca, pestana de osso, cordas de aço (as três graves encapadas em bronze) e marcações de madrepérola. Tokens `--wood*`, `--fret*`, `--steel`, `--bronze`, `--inlay` em `globals.css`, iguais nos dois temas.
+- Mostra só a região de trabalho, grande; a miniatura acima diz onde ela fica no braço inteiro.
+- Bolinhas: madrepérola com o nome da nota (escala), branca com T (tônica), laranja (nota do acorde, com T, 3 ou 5), azul (soando agora), verde e vermelha (certo e errado no quiz). Sobre a madeira escura, as cores usam a versão clara (`--target-bright`, `--now-bright`) e o texto é sempre `--on-bright`.
+- Os tamanhos de texto dentro do SVG estão em unidades do desenho, não na escala de texto do site.
 
 ### Pauta animada (assinatura)
 - `src/components/Staff.tsx`: uma nota por ferramenta do registro. Cabeça cheia = no ar; vazada = ainda não. Um cursor azul atravessa a pauta em 8 s e cada nota acende quando ele passa; a ferramenta em construção acende em laranja.

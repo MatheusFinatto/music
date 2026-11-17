@@ -7,6 +7,7 @@ Vários devs contribuem, cada um numa ferramenta. **Leia antes de mudar qualquer
 - `docs/ROADMAP.md` — o que vem, em que ordem, e o contrato do núcleo compartilhado.
 - `docs/PROJETO.md` — visão e decisões já tomadas.
 - `PRODUCT.md` e `DESIGN.md` — verdade de produto e sistema visual.
+- `docs/solos/` — pesquisa e especificações de "Como fazer solos".
 - `legacy/CLAUDE.md` — só se for mexer no Laboratório (site antigo).
 
 ## Comandos
@@ -14,7 +15,7 @@ Vários devs contribuem, cada um numa ferramenta. **Leia antes de mudar qualquer
 npm install
 npm run dev         # Next (hub e ferramentas novas). O Laboratório aparece se já foi gerado.
 npm run build       # gera o Laboratório e depois o Next
-npm run lint && npm run typecheck && npm run check
+npm run lint && npm run typecheck && npm run check && npm test
 npm run start       # serve o build
 npm run smoke       # teste de fumaça no navegador (Playwright), com o start rodando
 ```
@@ -22,7 +23,7 @@ npm run smoke       # teste de fumaça no navegador (Playwright), com o start ro
 ## Regras
 - **Isolamento**: uma ferramenta (`src/tools/<slug>/`) nunca importa de outra. O que for comum vai para `src/core/`. O lint barra.
 - **Registro**: toda ferramenta entra em `src/tools/registry.ts`. O hub lê de lá; não escreva lista de ferramentas em outro lugar.
-- **Textos**: nada de texto visível fixo no código. Tudo em `messages/pt-BR.json` (next-intl). Português do Brasil, direto, sem linguagem de venda.
+- **Textos**: nada de texto de interface fixo no código. Tudo em `messages/pt-BR.json` (next-intl). Exceção: conteúdo didático longo (lições, exercícios) é dado tipado por idioma dentro da ferramenta (ver `docs/ARQUITETURA.md`, "Conteúdo longo"). Português do Brasil, direto, sem linguagem de venda.
 - **Status honesto**: `pronta`, `laboratorio`, `proxima` ou `planejada`. Sem datas prometidas.
 - **Notas** no formato letra + oitava (**C4, Bb3**; C4 = Dó central).
 - **Cores com significado** nas ferramentas: laranja = nota-alvo, azul = tocando agora, verde = selecionado.
@@ -34,4 +35,4 @@ npm run smoke       # teste de fumaça no navegador (Playwright), com o start ro
 
 ## Git
 - Push na `main` publica na hora. Trabalhe em branch e abra PR; o merge é do dono.
-- Antes de pedir revisão: `npm run lint`, `npm run typecheck`, `npm run check` e `npm run build` passando.
+- Antes de pedir revisão: `npm run lint`, `npm run typecheck`, `npm run check`, `npm test` e `npm run build` passando.
