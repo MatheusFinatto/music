@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { transport } from "@/core/audio";
 import { chordsOf } from "@/core/theory";
 import type { Base } from "../curriculum/types";
+import { SoundPanel } from "./SoundPanel";
 import { useBeat, useRunning } from "./useTransport";
 
 export const backingOf = (base: Base, bpm = base.bpm) => ({ chords: chordsOf(base.prog, base.key), bpm, style: base.style });
@@ -81,6 +82,7 @@ export function BackingBar({ base, countIn = 1 }: { base: Base; countIn?: number
         <span className="num">{bpm} <small>{t("bpm")}</small></span>
         <button type="button" className="btn square" onClick={() => nudge(4)} aria-label={t("faster")}>+</button>
       </div>
+      <SoundPanel />
       <ol className="chords" aria-label={t("chords")}>
         {chords.map((c, i) => {
           const on = !!beat && beat.beat >= 0 && beat.barInCycle === i;

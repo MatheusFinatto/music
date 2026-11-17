@@ -78,7 +78,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; background: var(--surface); align-self: flex-start; }
 .solos .seg button { border: 0; background: transparent; color: var(--ink); padding: 9px 16px; min-height: 44px; min-width: 44px; font-size: var(--text-sm); font-weight: 500; cursor: pointer; }
 .solos .seg { background: transparent; }
-.solos .seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.solos .seg button[aria-pressed="true"], .solos .seg button[aria-checked="true"] { background: var(--ink); color: var(--bg); }
 .solos .seg button:disabled { cursor: default; }
 
 /* hoje: a sessão como uma sequência numerada */
@@ -287,3 +287,16 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 
 .solos .reset { margin-top: -8px; }
 .solos-root { display: contents; }
+
+/* som da frase */
+.solos .backing > .btn.small { justify-self: end; }
+.solos .sound-panel { width: min(26rem, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); padding: 24px; }
+.solos .sound-panel[open] { display: flex; flex-direction: column; gap: 16px; }
+.solos .sound-panel::backdrop { background: rgb(0 0 0 / 0.55); }
+.solos .sound-panel h2 { font-size: var(--text-xl); margin: 0; }
+.solos .sound-panel .note { color: var(--muted); font-size: var(--text-sm); margin: 0; }
+.solos .sound-panel .slider { display: grid; gap: 6px; font-weight: 600; font-size: var(--text-sm); }
+.solos .sound-panel input[type="range"] { width: 100%; accent-color: var(--ink); min-height: 32px; }
+.solos .sound-panel .credits { margin: 0; font-size: var(--text-xs); }
+.solos .sound-panel .credits a { color: var(--muted); }
+.solos .sound-panel .row { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }

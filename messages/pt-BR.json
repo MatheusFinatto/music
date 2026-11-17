@@ -207,6 +207,24 @@
       "playing": "Valendo",
       "idle": "Ligue a base quando estiver pronto",
       "bar": "Compasso {bar} de {total}"
+    },
+    "sound": {
+      "button": "Som: {instrument}",
+      "title": "Som da frase",
+      "instrument": "Instrumento",
+      "name": {
+        "violao": "Violão",
+        "sintetizador": "Sintetizador"
+      },
+      "about": {
+        "violao": "Violão gravado nota a nota. Bend, slide e vibrato são feitos em cima da gravação.",
+        "sintetizador": "Som sintético: menos natural, mas a altura de cada nota fica bem clara."
+      },
+      "tone": "Tom",
+      "volume": "Volume",
+      "listen": "Ouvir",
+      "close": "Fechar",
+      "credits": "Gravações do violão: Universidade de Iowa, via tonejs-instruments (CC BY 3.0)."
     }
   }
 }

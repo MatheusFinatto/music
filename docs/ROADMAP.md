@@ -26,7 +26,8 @@ Criado sob demanda pela primeira ferramenta que precisar. Quem chegar primeiro d
 | `core/pitch` | Detecção de altura: recebe amostras, devolve `{ hz, clareza }`. Função pura, sem depender do navegador | Afinador | — |
 | `core/theory` | Notas e conversões (Hz ↔ MIDI ↔ nome `C4`), campo harmônico, pentatônica, braço | **Feito** (solos). Falta Hz → nota + cents: é do afinador | — |
 | `core/audio/transport` | Relógio musical, base sintetizada e eventos de tempo | **Feito** (solos) | — |
-| `core/audio/lead` | Voz solista sintetizada com bend, vibrato e slide | **Feito** (solos) | — |
+| `core/audio/lead` | Voz solista com bend, vibrato e slide. Toca violão gravado, uma nota por semitom (`samples.ts`, amostras em `public/sons/`, CC BY 3.0); a voz sintetizada fica como opção e como reserva enquanto as amostras baixam | **Feito** (solos) | — |
+| `core/audio/sound` | Som escolhido pela pessoa (violão ou sintetizador, com tom e volume), guardado em `musica:som` e válido para o site todo | **Feito** (solos) | — |
 | `core/storage` | `createStore`: `localStorage` com prefixo `musica:`, versão, assinável | **Feito** (solos). Backup ainda não | — |
 
 Regras: sem interface dentro de `core/`; nomes de nota sempre `C4`, `Bb3`; lá de referência configurável (padrão 440 Hz).
