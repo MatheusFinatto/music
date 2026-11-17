@@ -13,11 +13,40 @@
   --accent-soft: #e4edf6;
   --target: #c27400; /* nota-alvo */
   --target-soft: #f8ead2;
+  --target-ink: #8a5200; /* texto sobre --target-soft */
+  --on-target: #1d1d1f; /* texto sobre --target */
   --ok: #2e7a4d; /* selecionado */
   --bad: #b3412f;
+  /* braço da guitarra: jacarandá, alpaca, osso e madrepérola (iguais nos dois temas) */
+  --wood: #4a2c21;
+  --wood-2: #5e3a2b;
+  --wood-3: #3a2119;
+  --fret: #e6e1d6;
+  --fret-shade: #8d877b;
+  --steel: #dfe2e6;
+  --bronze: #c9a66b;
+  --inlay: #efe7d6;
+  /* sobre a madeira escura, alvo e "tocando agora" usam a versão clara nos dois temas */
+  --target-bright: #f0a634;
+  --now-bright: #7fb2e2;
+  --ok-bright: #6fd39a;
+  --bad-bright: #ef7f6c;
+  --on-bright: #1a1208; /* texto sobre qualquer bolinha clara */
+  --pearl: #ffffff;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06);
   --shadow-up: 0 2px 4px rgb(0 0 0 / 0.05), 0 18px 40px rgb(0 0 0 / 0.12);
   --radius: 22px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+  /* Escala de texto. Ferramentas usam só estes degraus. */
+  --text-xs: 0.82rem;
+  --text-sm: 0.92rem;
+  --text-md: 1rem;
+  --text-lg: 1.15rem;
+  --text-xl: 1.45rem;
+  --text-2xl: clamp(1.45rem, 2.6vw, 1.9rem);
+  --text-3xl: clamp(1.9rem, 4.5vw, 2.9rem);
+  --text-stage: clamp(2.4rem, 9vw, 4.25rem); /* o que se lê tocando, de longe */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   color-scheme: light;
 }
@@ -34,6 +63,8 @@
     --accent-soft: #1b2a3a;
     --target: #f0a634;
     --target-soft: #3d2c10;
+    --target-ink: #f0a634;
+    --on-target: #1c1c1e;
     --ok: #62c18a;
     --bad: #e2725f;
     --shadow: 0 0 0 1px rgb(255 255 255 / 0.06);
@@ -133,9 +164,8 @@
   a.card:hover .go svg { transform: translateX(4px); }
 
   .badge { display: inline-flex; align-items: center; gap: 7px; font-size: 0.82rem; font-weight: 600; padding: 5px 11px; border-radius: 999px; background: var(--soft); color: var(--muted); white-space: nowrap; }
-  .badge.proxima { background: var(--target-soft); color: var(--target); }
+  .badge.proxima { background: var(--target-soft); color: var(--target-ink); }
   .badge.proxima::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-  @media (prefers-color-scheme: light) { .badge.proxima { color: #8a5200; } }
 
   .card.next { flex-direction: row; align-items: center; gap: 22px; padding: 28px; }
   .card.next .icon { width: 64px; height: 64px; border-radius: 18px; margin: 0; background: var(--target-soft); color: var(--target); }

@@ -7,6 +7,7 @@ Vários devs contribuem, cada um numa ferramenta. **Leia antes de mudar qualquer
 - `docs/ROADMAP.md` — o que vem, em que ordem, e o contrato do núcleo compartilhado.
 - `docs/PROJETO.md` — visão e decisões já tomadas.
 - `PRODUCT.md` e `DESIGN.md` — verdade de produto e sistema visual.
+- `docs/solos/` — pesquisa e especificações de "Como fazer solos".
 - `legacy/CLAUDE.md` — só se for mexer no Laboratório (site antigo).
 
 ## Comandos
@@ -14,7 +15,7 @@ Vários devs contribuem, cada um numa ferramenta. **Leia antes de mudar qualquer
 npm install
 npm run dev         # Next (hub e ferramentas novas). O Laboratório aparece se já foi gerado.
 npm run build       # gera o Laboratório e depois o Next
-npm run lint && npm run typecheck && npm run check
+npm run lint && npm run typecheck && npm run check && npm test
 npm run start       # serve o build
 npm run smoke       # teste de fumaça no navegador (Playwright), com o start rodando
 ```
@@ -34,4 +35,4 @@ npm run smoke       # teste de fumaça no navegador (Playwright), com o start ro
 
 ## Git
 - Push na `main` publica na hora. Trabalhe em branch e abra PR; o merge é do dono.
-- Antes de pedir revisão: `npm run lint`, `npm run typecheck`, `npm run check` e `npm run build` passando.
+- Antes de pedir revisão: `npm run lint`, `npm run typecheck`, `npm run check`, `npm test` e `npm run build` passando.

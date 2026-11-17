@@ -5,6 +5,10 @@ Sem datas. A ordem é a recomendada; cada ferramenta só é lançada quando esti
 ## Feito
 - **Fundação e hub** (novembro de 2026): Next na raiz, registro de ferramentas, homepage, site antigo movido para o Laboratório.
 
+## Em andamento
+- **Como fazer solos** (`/solos`): no ar no hub desde a fase 1; substitui o Diário do Solo e a "Improvisação" planejada. Diário e Piano saíram do hub e seguem em `/laboratorio`. Fase 1 feita: O mapa do braço, Respirar e Ritmo com poucas notas, frases de ouvido e sessão sugerida com teste a frio. A trilha é aberta (decisão do dono, 2026-11-17): nada é travado, o site só recomenda a próxima lição, e qualquer lição pode ser marcada como feita à mão. Faltam: fase 2 (bends, vibrato, ouvir a troca, ligar), fase 3 (uma corda, motivo, vocabulário, arco), fase 4 (troca no hub). Pesquisa e decisões em `docs/solos/`.
+- **Depois dos solos: Criador de ideias**, o redesenho do Piano de Ideias, refeito do zero como ferramenta do site novo.
+
 ## Ordem recomendada
 1. **Tirar de ouvido** — o diferencial do site. Núcleo: carregar um áudio, marcar trecho A–B em loop, desacelerar sem mudar o tom, e o método de treino por cima disso.
 2. **Afinador** — rápido de fazer, e é quem inaugura microfone e detecção de altura no núcleo, que o treinador e o treino de ouvido reaproveitam. Pode andar em paralelo com o item 1, por outro dev.
@@ -17,12 +21,13 @@ Criado sob demanda pela primeira ferramenta que precisar. Quem chegar primeiro d
 
 | Módulo | O que oferece | Quem inaugura | Ponto de partida |
 |---|---|---|---|
-| `core/audio/context` | Um único `AudioContext` do site, criado no primeiro gesto do usuário | Afinador | `legacy/src/lib/audio.js` |
+| `core/audio/context` | Um único `AudioContext` do site, criado no primeiro gesto do usuário | **Feito** (solos) | — |
 | `core/audio/mic` | Pedir o microfone, entregar o sinal, tratar permissão negada e ausência de microfone | Afinador | — |
 | `core/pitch` | Detecção de altura: recebe amostras, devolve `{ hz, clareza }`. Função pura, sem depender do navegador | Afinador | — |
-| `core/theory` | Notas e conversões (Hz ↔ MIDI ↔ nome `C4` ↔ cents), escalas, campo harmônico | Afinador (o mínimo); Treino de ouvido amplia | `legacy/src/lib/theory.js` |
-| `core/transport` | Relógio musical: andamento, compassos, eventos de tempo | Improvisação ou Player | `legacy/src/lib/audio.js` |
-| `core/storage` | Leitura e escrita em `localStorage` com prefixo `musica:`, versão e backup | Primeira ferramenta que salvar algo | `legacy/src/lib/store.js` |
+| `core/theory` | Notas e conversões (Hz ↔ MIDI ↔ nome `C4`), campo harmônico, pentatônica, braço | **Feito** (solos). Falta Hz → nota + cents: é do afinador | — |
+| `core/audio/transport` | Relógio musical, base sintetizada e eventos de tempo | **Feito** (solos) | — |
+| `core/audio/lead` | Voz solista sintetizada com bend, vibrato e slide | **Feito** (solos) | — |
+| `core/storage` | `createStore`: `localStorage` com prefixo `musica:`, versão, assinável | **Feito** (solos). Backup ainda não | — |
 
 Regras: sem interface dentro de `core/`; nomes de nota sempre `C4`, `Bb3`; lá de referência configurável (padrão 440 Hz).
 

@@ -16,12 +16,11 @@ export type Tool = {
 };
 
 export const TOOLS = [
-  { slug: "diario", status: "laboratorio", href: "/laboratorio/diario" },
-  { slug: "piano", status: "laboratorio", href: "/laboratorio/piano" },
-  { slug: "tirar-de-ouvido", status: "proxima" },
+  // Diário do Solo e Piano de Ideias (site antigo) saíram do hub; seguem acessíveis em /laboratorio.
+  { slug: "solos", status: "pronta", href: "/solos" },
+  { slug: "tirar-de-ouvido", status: "planejada" },
   { slug: "afinador", status: "planejada" },
   { slug: "treino-de-ouvido", status: "planejada" },
-  { slug: "improvisacao", status: "planejada" },
   { slug: "player", status: "planejada" },
 ] as const satisfies readonly Tool[];
 
