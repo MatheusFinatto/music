@@ -18,6 +18,9 @@ Teste visual sem microfone (emulador; só existe no build debug):
 adb shell am start -n br.musica.marmotatuner/.DemoToneActivity --ef hz 241.9
 ```
 
+## Publicar
+A página `/afinador` do site baixa `https://github.com/MatheusFinatto/music/releases/latest/download/marmota-tuner.apk`. Para publicar uma versão: gere o APK, renomeie para `marmota-tuner.apk` e anexe a um Release do GitHub marcado como o mais recente. O nome do arquivo tem que ser exatamente esse.
+
 ## Como funciona
 | Arquivo | Papel |
 |---|---|

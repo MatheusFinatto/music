@@ -37,4 +37,4 @@ npm run smoke       # teste de fumaça no navegador (Playwright), com o start ro
 - Antes de pedir revisão: `npm run lint`, `npm run typecheck`, `npm run check` e `npm run build` passando.
 
 ## Marmota Tuner (app Android)
-`marmota-tuner/` é o **Marmota Tuner**, um app Android separado (afinador cromático em Kotlin), fora do build do site (`.vercelignore`). Não faz parte do hub nem do `registry.ts` (o afinador web planejado lá é outra coisa). Ver `marmota-tuner/README.md`.
+`marmota-tuner/` é o **Marmota Tuner**, um app Android separado (afinador cromático em Kotlin), fora do build do site (`.vercelignore`). O hub chega nele pela página `/afinador` (`src/tools/afinador/`), que só explica e entrega o APK publicado num Release do GitHub. O afinador dentro do site, que inaugura `src/core/`, segue no `docs/ROADMAP.md`. Ver `marmota-tuner/README.md`.

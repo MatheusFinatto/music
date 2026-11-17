@@ -19,7 +19,8 @@ export const TOOLS = [
   { slug: "diario", status: "laboratorio", href: "/laboratorio/diario" },
   { slug: "piano", status: "laboratorio", href: "/laboratorio/piano" },
   { slug: "tirar-de-ouvido", status: "proxima" },
-  { slug: "afinador", status: "planejada" },
+  // Página que entrega o app Android (marmota-tuner/). O afinador dentro do site segue no roadmap.
+  { slug: "afinador", status: "pronta", href: "/afinador" },
   { slug: "treino-de-ouvido", status: "planejada" },
   { slug: "improvisacao", status: "planejada" },
   { slug: "player", status: "planejada" },
