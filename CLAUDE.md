@@ -36,3 +36,6 @@ npm run smoke       # teste de fumaça no navegador (Playwright), com o start ro
 ## Git
 - Push na `main` publica na hora. Trabalhe em branch e abra PR; o merge é do dono.
 - Antes de pedir revisão: `npm run lint`, `npm run typecheck`, `npm run check`, `npm test` e `npm run build` passando.
+
+## Afinador (app Android)
+`afinador/` é um app Android separado (afinador cromático em Kotlin), fora do build do site (`.vercelignore`). Não faz parte do hub nem do `registry.ts`. Ver `afinador/README.md`.
