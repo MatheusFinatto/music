@@ -2,6 +2,7 @@
 // Conta em semicolcheias, compasso 4/4, um acorde por compasso.
 import type { Chord } from "@/core/theory";
 import { getAudio, resumeAudio, silence, type AudioGraph } from "./context";
+import { prepareLead } from "./lead";
 import { STYLES, bassNote, click, hat, kick, pad, snare, voicing, type Style, type StyleName } from "./backing";
 
 export type Backing = { chords: Chord[]; bpm: number; style: StyleName; click?: boolean };
@@ -47,6 +48,8 @@ class Transport {
   start(backing: Backing, { countIn = 0 }: { countIn?: number } = {}): boolean {
     const graph = resumeAudio();
     if (!graph || backing.chords.length === 0) return false;
+    // As gravações do violão começam a baixar já, durante a contagem.
+    prepareLead(graph);
     this.stop();
     this.graph = graph;
     this.setBacking(backing);
