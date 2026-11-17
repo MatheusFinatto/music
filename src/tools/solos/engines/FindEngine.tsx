@@ -112,7 +112,7 @@ export function FindEngine({ ex, onResult }: { ex: FindExercise; onResult: (r: R
     return { ...p, kind: "pick" };
   });
 
-  const feedback = !last ? t(single ? "hintAll" : "hint") : isTarget(last) ? (single ? t("foundSome", { found, total }) : t("right")) : t(single ? "wrongAll" : "wrong");
+  const feedback = !last ? (single ? t("hintAll") : "") : isTarget(last) ? (single ? t("foundSome", { found, total }) : t("right")) : t(single ? "wrongAll" : "wrong");
 
   return (
     <div className="engine">
