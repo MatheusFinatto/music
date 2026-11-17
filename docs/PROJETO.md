@@ -12,7 +12,7 @@ Qualquer músico, do iniciante ao avançado. Identidade de guitarra primeiro (gu
 | Ferramenta | Situação | O que é |
 |---|---|---|
 | Tirar de ouvido | próxima | Treinador para tirar músicas e solos de ouvido. É o diferencial: o dono nunca viu igual. |
-| Afinador | planejada | Afinação pelo microfone. |
+| Afinador | pronta (app Android) | Afinação pelo microfone. Hoje é o Marmota Tuner (`marmota-tuner/`), entregue pela página `/afinador`. O afinador dentro do site segue planejado. |
 | Treino de ouvido | planejada | Intervalos, acordes e graus. |
 | Improvisação | planejada | Redesenho do que hoje é o Laboratório. |
 | Player de tab e MIDI | planejada | Abre arquivos do usuário e toca junto. |
@@ -29,6 +29,7 @@ A lista de verdade é `src/tools/registry.ts`. Ordem e detalhes: `docs/ROADMAP.m
 | 2026-11-17 | Guitarra primeiro, ferramentas neutras onde der | Dá identidade sem fechar a porta. |
 | 2026-11-17 | Treino de ouvido entra no site | Revoga a decisão antiga de usar só app externo. |
 | 2026-11-17 | Sem catálogo de tablaturas | Tablatura de música comercial é protegida por direito autoral. |
+| 2026-11-17 | O afinador entra como app Android (Marmota Tuner), ligado ao hub por `/afinador` | Contribuição de um amigo, aceita pelo dono mesmo fora da stack web. Não segue os tokens do `DESIGN.md` nem alimenta `src/core/`; o afinador dentro do site continua necessário, porque microfone e detecção de altura no núcleo são a base das ferramentas que ouvem a guitarra. |
 | antes | Dados só no navegador, com backup | Sem backend até haver contas. |
 
 ## Em aberto

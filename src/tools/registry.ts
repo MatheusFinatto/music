@@ -19,7 +19,8 @@ export const TOOLS = [
   // Diário do Solo e Piano de Ideias (site antigo) saíram do hub; seguem acessíveis em /laboratorio.
   { slug: "solos", status: "pronta", href: "/solos" },
   { slug: "tirar-de-ouvido", status: "planejada" },
-  { slug: "afinador", status: "planejada" },
+  // Página que entrega o app Android (marmota-tuner/). O afinador dentro do site segue no roadmap.
+  { slug: "afinador", status: "pronta", href: "/afinador" },
   { slug: "treino-de-ouvido", status: "planejada" },
   { slug: "player", status: "planejada" },
 ] as const satisfies readonly Tool[];

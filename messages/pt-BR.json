@@ -30,7 +30,7 @@
     },
     "afinador": {
       "name": "Afinador",
-      "summary": "Afinação pelo microfone, com o desvio em cents."
+      "summary": "App Android: afinação pelo microfone, com o desvio em cents."
     },
     "treino-de-ouvido": {
       "name": "Treino de ouvido",
@@ -49,6 +49,20 @@
     "free": "Gratuito e sem conta.",
     "data": "O que você grava fica só neste navegador.",
     "backup": "Laboratório e backup dos dados"
+  },
+  "afinador": {
+    "title": "Afinador",
+    "description": "Marmota Tuner: app Android de afinação pelo microfone, com a nota e o desvio em cents.",
+    "lead": "Por enquanto o afinador é um app Android, o Marmota Tuner. Toque uma corda e ele mostra a nota, a frequência e o desvio em cents.",
+    "download": "Baixar o APK",
+    "platform": "Android 8 ou mais novo",
+    "installTitle": "Como instalar",
+    "step1": "Baixe o arquivo no celular.",
+    "step2": "Abra o arquivo. Se o Android pedir, permita instalar apps desta fonte.",
+    "step3": "Abra o Marmota Tuner e libere o microfone.",
+    "notStore": "O app não está na loja: a instalação é direto pelo arquivo. O afinador dentro do site ainda não foi feito.",
+    "limits": "Feito para guitarra e violão, com o lá em 440 Hz. Não detecta as cordas mais graves do baixo.",
+    "source": "Ver o código do app"
   },
   "notFound": {
     "title": "Essa página não existe",
