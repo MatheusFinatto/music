@@ -1,29 +1,37 @@
-# Música: treino de improviso
+# Musical Tools
 
-Site pessoal de treino de guitarra (improviso/solo), em português do Brasil. Publicado na Vercel em `musica-matheus-finatto.vercel.app`.
-O dono (Matheus) é guitarrista, se considera "muito teórico" e quer prática: frases que combinem técnica e beleza, com micro-evoluções diárias. Referência estética: David Gilmour.
+Site de música generalista, gratuito e não comercial, guitarra primeiro. Um **hub** (a homepage) leva a **ferramentas de prática independentes**; cada uma tem que ser excelente sozinha. Em português do Brasil. Publicado na Vercel em `music-finatto.vercel.app`.
 
-**Antes de mudar qualquer coisa, leia:**
-- `docs/PREFERENCIAS.md` — combinados com o dono sobre interface, notação e pedagogia. **Seguir à risca.**
-- `docs/ARQUITETURA.md` — como o código está organizado e o modelo de dados.
-- `docs/PROJETO.md` — objetivo, plano de 8 semanas e páginas.
-- `docs/BACKLOG.md` — o que já foi pedido e ainda não foi feito, e ideias combinadas.
-- `docs/PROGRESSO.md` — onde o aluno está, ideias já avaliadas e padrões observados. **Atualize ao avaliar ideias.**
+Vários devs contribuem, cada um numa ferramenta. **Leia antes de mudar qualquer coisa:**
+- `docs/ARQUITETURA.md` — estrutura, regra de isolamento e **como adicionar uma ferramenta**.
+- `docs/ROADMAP.md` — o que vem, em que ordem, e o contrato do núcleo compartilhado.
+- `docs/PROJETO.md` — visão e decisões já tomadas.
+- `PRODUCT.md` e `DESIGN.md` — verdade de produto e sistema visual.
+- `legacy/CLAUDE.md` — só se for mexer no Laboratório (site antigo).
 
 ## Comandos
 ```bash
 npm install
-npm run dev        # servidor local
-npm run check      # valida plano (57 dias) e missões
-npm run build      # build de produção (dist/)
+npm run dev         # Next (hub e ferramentas novas). O Laboratório aparece se já foi gerado.
+npm run build       # gera o Laboratório e depois o Next
+npm run lint && npm run typecheck && npm run check
+npm run start       # serve o build
+npm run smoke       # teste de fumaça no navegador (Playwright), com o start rodando
 ```
-Teste no navegador (precisa de Playwright): `npm run build && npx vite preview --port 4173 &` e depois `node scripts/smoke.mjs`.
 
-## Regras rápidas
-- Todo texto visível ao usuário em **português do Brasil**, direto, sem jargão de sistema.
-- Notas sempre no formato **C4, A4, Bb3** (C4 = Dó central). Nunca "Dó, Ré, Mi" na interface.
-- **Laranja = nota-alvo**, **azul = o que está tocando agora**. Não misturar.
-- Informação extra (partitura, tab, cifra) aparece **sob demanda** (botão), não por padrão.
-- Dados só no navegador (`localStorage`, prefixo `musica:`). Não adicionar backend sem o dono pedir.
-- Antes de commitar: `npm run check` e `npm run build` precisam passar.
-- Deploy: push na branch `main` publica automaticamente na Vercel (ver `docs/DEPLOY.md`).
+## Regras
+- **Isolamento**: uma ferramenta (`src/tools/<slug>/`) nunca importa de outra. O que for comum vai para `src/core/`. O lint barra.
+- **Registro**: toda ferramenta entra em `src/tools/registry.ts`. O hub lê de lá; não escreva lista de ferramentas em outro lugar.
+- **Textos**: nada de texto visível fixo no código. Tudo em `messages/pt-BR.json` (next-intl). Português do Brasil, direto, sem linguagem de venda.
+- **Status honesto**: `pronta`, `laboratorio`, `proxima` ou `planejada`. Sem datas prometidas.
+- **Notas** no formato letra + oitava (**C4, Bb3**; C4 = Dó central).
+- **Cores com significado** nas ferramentas: laranja = nota-alvo, azul = tocando agora, verde = selecionado.
+- **Dados** só no navegador (`localStorage`, prefixo `musica:`). Sem backend nem contas até o dono pedir.
+- **Sem catálogo de tablaturas** de músicas comerciais (direito autoral). O player abre arquivos do usuário.
+- `legacy/` está congelado: só correção.
+- **Next 16** mudou convenções (ex.: `src/proxy.ts` no lugar de `middleware.ts`). Antes de usar uma API do Next, confira em `node_modules/next/dist/docs/` (ver `AGENTS.md`).
+- TypeScript fica na versão 6: o lint ainda não aceita a 7.
+
+## Git
+- Push na `main` publica na hora. Trabalhe em branch e abra PR; o merge é do dono.
+- Antes de pedir revisão: `npm run lint`, `npm run typecheck`, `npm run check` e `npm run build` passando.

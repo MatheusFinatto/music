@@ -1,0 +1,65 @@
+{
+  "site": {
+    "name": "Musical Tools",
+    "title": "Musical Tools",
+    "description": "Ferramentas de prática para quem toca: tirar de ouvido, afinador, treino de ouvido, improvisação e player de tab. Gratuito e sem conta.",
+    "skip": "Pular para as ferramentas"
+  },
+  "nav": {
+    "label": "Principal",
+    "lab": "Laboratório"
+  },
+  "hub": {
+    "title": "Musical Tools",
+    "live": "Disponíveis agora",
+    "next": "A seguir",
+    "planned": "Planejadas",
+    "plannedNote": "Ainda não começaram. Sem data: cada uma só sai quando estiver boa de verdade.",
+    "open": "Abrir"
+  },
+  "status": {
+    "pronta": "Pronta",
+    "laboratorio": "Laboratório",
+    "proxima": "Em construção",
+    "planejada": "Planejada"
+  },
+  "tools": {
+    "diario": {
+      "name": "Diário do Solo",
+      "summary": "Plano de 8 semanas de improviso na guitarra, com a meta do dia, o braço e o timer."
+    },
+    "piano": {
+      "name": "Piano de Ideias",
+      "summary": "Invente frases sem a guitarra, por cima de uma base, e veja em partitura e tab."
+    },
+    "tirar-de-ouvido": {
+      "name": "Tirar de ouvido",
+      "summary": "Treinador para tirar músicas e solos de ouvido, trecho por trecho."
+    },
+    "afinador": {
+      "name": "Afinador",
+      "summary": "Afinação pelo microfone, com o desvio em cents."
+    },
+    "treino-de-ouvido": {
+      "name": "Treino de ouvido",
+      "summary": "Intervalos, acordes e graus."
+    },
+    "improvisacao": {
+      "name": "Improvisação",
+      "summary": "Frases por cima de uma base que você monta."
+    },
+    "player": {
+      "name": "Player de tab e MIDI",
+      "summary": "Abra seus arquivos e toque junto."
+    }
+  },
+  "footer": {
+    "free": "Gratuito e sem conta.",
+    "data": "O que você grava fica só neste navegador.",
+    "backup": "Backup dos dados"
+  },
+  "notFound": {
+    "title": "Essa página não existe",
+    "back": "Voltar para as ferramentas"
+  }
+}

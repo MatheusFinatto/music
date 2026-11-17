@@ -1,10 +1,10 @@
 // Teste de fumaça no navegador (precisa do Playwright instalado globalmente ou no projeto).
-// Uso: npm run build && npx vite preview --port 4173 &  depois  node scripts/smoke.mjs
+// Uso: npm run build && npm run start &  depois  npm run smoke
 import { createRequire } from "node:module";
 // Aceita Playwright local ou global (NODE_PATH=$(npm root -g)).
 const { chromium } = await import("playwright").catch(() => createRequire(import.meta.url)("playwright"));
 
-const BASE = process.env.URL || "http://localhost:4173";
+const BASE = process.env.URL || "http://localhost:3000";
 const out = process.env.SHOTS || "/tmp";
 const b = await chromium.launch({ args: ["--autoplay-policy=no-user-gesture-required"] });
 const errs = [];
@@ -18,10 +18,12 @@ const page = async (path, opts = { viewport: { width: 1100, height: 1400 } }) =>
 
 // início
 let p = await page("/");
+await p.screenshot({ path: out + "/smoke-hub.png", fullPage: true });
+p = await page("/laboratorio");
 await p.screenshot({ path: out + "/smoke-home.png", fullPage: true });
 
 // diário: tocar base, mudar tom pelo modal
-p = await page("/diario");
+p = await page("/laboratorio/diario");
 await p.click("#basebar .btn.primary"); await p.waitForTimeout(1500);
 await p.click("text=Montar base"); await p.waitForTimeout(200);
 await p.click("text=+ ½ tom"); await p.waitForTimeout(200);
@@ -35,7 +37,7 @@ await p.screenshot({ path: out + "/smoke-diario.png", fullPage: true });
 await p.evaluate(() => localStorage.clear());
 
 // piano: gravar uma ideia pelo teclado do computador
-p = await page("/piano");
+p = await page("/laboratorio/piano");
 await p.click("text=Montar base"); await p.locator(".modal input[type=range]").first().fill("110"); await p.locator(".modal input[type=range]").first().dispatchEvent("change");
 await p.click(".modal .head .btn");
 await p.click("#rec"); await p.waitForTimeout(2400);

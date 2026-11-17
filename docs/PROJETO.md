@@ -1,24 +1,39 @@
 # O projeto
 
-## O problema
-Ao compor solos, o dono cai em dois extremos: seguindo a teoria, o solo fica "quadrado e mecânico"; seguindo o feeling, fica simples demais (muitas vezes a tônica uma oitava acima por um compasso inteiro). Falta **vocabulário**: frases que combinem técnica e beleza.
+## Visão
+Um site de música **generalista**: várias demandas separadas, cada uma atendida por uma ferramenta especialista que seja excelente sozinha. Gratuito, livre e não comercial; feito primeiro para o dono e amigos músicos, aberto a qualquer um.
 
-## A abordagem
-1. **Notas-alvo**: o feeling dele já sabe para onde ir; falta o caminho. Mirar a 3ª (e a 5ª, 9ª) do acorde em tempos fortes.
-2. **Motivos**: repetir uma ideia com variação em vez de inventar notas o tempo todo.
-3. **Vocabulário roubado**: uma frase de um solo que ele ama por semana (tirar, tocar em 3 tons, variar).
-4. **Ritmo e espaço**: começar fora do tempo 1, silêncio como parte da frase.
-5. **Tempero Gilmour**: pentatônica + 9ª e 6ª, bends lentos e afinados, vibrato largo, espaço.
+O hub (homepage) é um **painel de entrada**: mostra o que existe e leva à ferramenta em um clique. Não é página de venda.
 
-## Páginas
-- **Início** (`/`): links, barra da base, backup (exportar/importar).
-- **Diário do Solo** (`/diario`): plano de 57 dias (dia 0 + 8 semanas). Cada dia: micro-meta, passos, braço da guitarra com os alvos do dia (acompanha a base), timer de 30 min em 4 blocos (cantar/vocabulário/foco/livre), contador de acertos (micro-evolução, com "última vez você fez X, tente X+1"), anotação, "dia feito". Dias de gravação (0, 7, 14…, 56) têm ficha de 1 a 5. Gráfico de acerto e tabela comparando as fichas.
-- **Piano de Ideias** (`/piano`): piano no navegador (mouse, toque ou teclado do computador), por cima da base. Grava 4 compassos, mostra partitura + tab, salva ideias (★, "Testei na guitarra", "Copiar para o Claude", baixar HTML). Aba de **Missões** por semana, com exemplos tocáveis.
-- **Montar base** (janela em todas as páginas): tom (± meio tom), 4 acordes do campo harmônico maior, andamento, estilo (Balada, Rock, Pop, Só acordes), mixagem, metrônomo. A base vale para o site todo.
+## Para quem
+Qualquer músico, do iniciante ao avançado. Identidade de guitarra primeiro (guitarra, violão, baixo); ferramentas neutras (afinador, ouvido) servem a qualquer instrumento.
 
-## As 8 semanas
-1. Notas-alvo · 2. Bends para o alvo · 3. Ritmo e espaço · 4. Motivos · 5. Pergunta e resposta · 6. Cor (9ª e 6ª) · 7. O arco do solo · 8. Juntar tudo.
-Conteúdo dos dias: `src/lib/plan.js`. Missões e exemplos do piano: `src/lib/missions.js`.
+## As ferramentas
+| Ferramenta | Situação | O que é |
+|---|---|---|
+| Tirar de ouvido | próxima | Treinador para tirar músicas e solos de ouvido. É o diferencial: o dono nunca viu igual. |
+| Afinador | planejada | Afinação pelo microfone. |
+| Treino de ouvido | planejada | Intervalos, acordes e graus. |
+| Improvisação | planejada | Redesenho do que hoje é o Laboratório. |
+| Player de tab e MIDI | planejada | Abre arquivos do usuário e toca junto. |
+| Diário do Solo, Piano de Ideias | laboratório | Experimentos do site antigo, funcionando. |
+
+A lista de verdade é `src/tools/registry.ts`. Ordem e detalhes: `docs/ROADMAP.md`.
+
+## Decisões já tomadas
+| Data | Decisão | Por quê |
+|---|---|---|
+| 2026-11-17 | Next.js (App Router) + TypeScript | Contas virão logo e o dono já conhece Next. Áudio roda todo no cliente, então a stack não muda nada na parte musical. |
+| 2026-11-17 | PT-BR no lançamento, pronto para outros idiomas | Custo pequeno agora; evita reescrever depois. |
+| 2026-11-17 | Site antigo congelado em `legacy/`, servido em `/laboratorio` | Vai ser redesenhado; portar para React seria trabalho jogado fora. |
+| 2026-11-17 | Guitarra primeiro, ferramentas neutras onde der | Dá identidade sem fechar a porta. |
+| 2026-11-17 | Treino de ouvido entra no site | Revoga a decisão antiga de usar só app externo. |
+| 2026-11-17 | Sem catálogo de tablaturas | Tablatura de música comercial é protegida por direito autoral. |
+| antes | Dados só no navegador, com backup | Sem backend até haver contas. |
+
+## Em aberto
+- Domínio. O nome é "Musical Tools" (2026-11-17) e fica só em `messages/pt-BR.json`.
+- Contas: quando e com qual provedor.
 
 ## Histórico
-Começou como artefatos dentro do Claude (claude.ai). Virou site para usar microfone/MIDI no futuro, abrir no celular e no Linux (Nobara) sem o Claude Desktop, e poder ser desenvolvido por qualquer conta do Claude Code.
+Começou como artefatos no Claude, virou um site pessoal de treino de improviso (Vite + JS puro) e, em novembro de 2026, foi reestruturado como hub generalista. O site pessoal original vive em `legacy/`; a história dele está em `legacy/docs/PROJETO.md`.
