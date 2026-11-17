@@ -23,8 +23,11 @@ export function useCountIn(): number | null {
 const keepsSpace = (el: EventTarget | null) =>
   el instanceof Element && (el.closest("input, textarea, select, a, summary, [contenteditable=true], [role=button]") !== null);
 
-/** Tocar/parar, andamento e os acordes da base, com o acorde que está soando em destaque. */
-export function BackingBar({ base, countIn = 1 }: { base: Base; countIn?: number }) {
+/**
+ * Tocar/parar, andamento e os acordes da base, com o acorde que está soando em destaque.
+ * `hideChords` esconde os nomes (o compasso continua marcado): para treinar ouvir a troca.
+ */
+export function BackingBar({ base, countIn = 1, hideChords = false }: { base: Base; countIn?: number; hideChords?: boolean }) {
   const t = useTranslations("solos.backing");
   const [bpm, setBpm] = useState(base.bpm);
   const running = useRunning();
@@ -88,7 +91,7 @@ export function BackingBar({ base, countIn = 1 }: { base: Base; countIn?: number
           const on = !!beat && beat.beat >= 0 && beat.barInCycle === i;
           return (
             <li key={i} className={on ? "on" : undefined} aria-current={on ? "true" : undefined}>
-              <b>{c.name}</b>
+              <b>{hideChords ? "?" : c.name}</b>
               <span className="beats" aria-hidden="true">
                 {[0, 1, 2, 3].map((b) => <i key={b} className={on && beat.beatInBar === b ? "on" : undefined} />)}
               </span>

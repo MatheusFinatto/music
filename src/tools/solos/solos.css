@@ -58,7 +58,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .neck-hero .fb-dot .shade { opacity: 0.4; }
 
 /* botões: todo alvo de toque tem pelo menos 44 px */
-.solos .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-weight: 600; font-size: var(--text-md); cursor: pointer; transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.3s var(--ease); }
+.solos .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-weight: 600; font-size: var(--text-md); cursor: pointer; text-decoration: none; transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.3s var(--ease); }
 .solos .btn:active:not(:disabled) { transform: scale(0.97); }
 .solos .btn:disabled { opacity: 0.45; cursor: default; }
 .solos .btn { background: transparent; }
@@ -157,7 +157,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .engine .rule { align-self: flex-start; background: var(--inlay); color: var(--on-bright); font-weight: 650; padding: 5px 13px; border-radius: 999px; font-size: var(--text-sm); }
 
 /* modo "tocando": com a base ligada, some o que é para ler e cresce o que é para olhar de longe */
-.solos .frame.playing .reading, .solos .frame.playing .rate, .solos .frame.playing .legend, .solos .frame.playing .reveal > .btn, .solos .frame.playing .backing .keys { display: none; }
+.solos .frame.playing .reading, .solos .frame.playing .rate, .solos .frame.playing .legend, .solos .frame.playing .backing .keys { display: none; }
 .solos .frame.playing .stage-title { display: block; color: var(--muted); font-size: var(--text-sm); font-weight: 600; margin-bottom: 8px; }
 .solos .frame.playing .chords b { font-size: var(--text-xl); }
 
@@ -261,6 +261,11 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .fb-dot.ok text { fill: var(--on-bright); font-size: 16px; }
 .solos .fb-dot.bad .face { fill: var(--bad-bright); }
 .solos .fb-dot .hit { fill: transparent; stroke: none; }
+.solos .fb-gesture path, .solos .fb-gesture line { fill: none; stroke: var(--target-bright); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.solos .fb-gesture circle { fill: none; stroke: var(--target-bright); stroke-width: 2.5; stroke-dasharray: 4 3; }
+.solos .fb-gesture text { fill: var(--target-bright); font-size: 13px; font-weight: 700; }
+.solos .fb-gesture.now path, .solos .fb-gesture.now line, .solos .fb-gesture.now circle { stroke: var(--now-bright); }
+.solos .fb-gesture.now text { fill: var(--now-bright); }
 .solos .fb-dot.pickable { cursor: pointer; outline: none; }
 .solos .fb-dot.pickable:hover .face { stroke: var(--pearl); stroke-width: 3; }
 .solos .fb-dot.pickable:focus-visible .face { stroke: var(--now-bright); stroke-width: 5; }

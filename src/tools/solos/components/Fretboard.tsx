@@ -5,6 +5,13 @@ import type { FretPos } from "@/core/theory";
 export type DotKind = "scale" | "root" | "target" | "pick" | "ok" | "bad" | "now";
 export type Dot = FretPos & { kind: DotKind; label?: string; outside?: boolean };
 
+/**
+ * Gesto desenhado como na tablatura, fora da bolinha. Bend: seta curva subindo, com `text` ("full", "½").
+ * Soltar: a seta descendo. Slide: linha pela corda, saindo de uma marca vazada na casa `fromFret`.
+ * `now`: o gesto está soando.
+ */
+export type GestureMark = FretPos & ({ kind: "bend" | "release"; text: string } | { kind: "slide"; fromFret: number }) & { now?: boolean };
+
 type Props = {
   minFret: number;
   maxFret: number;
@@ -17,6 +24,7 @@ type Props = {
   describe?: (pos: FretPos) => string;
   /** Só a madeira e as bolinhas, sem miniatura, nomes nem números: para uso decorativo. */
   plain?: boolean;
+  gestures?: GestureMark[];
 };
 
 const FW = 66; // largura de uma casa
@@ -34,7 +42,7 @@ const LAST = 17; // última casa da miniatura
  * Braço da guitarra em jacarandá, visto como tablatura: 1ª corda em cima.
  * Mostra só a região de trabalho, grande; a miniatura em cima diz onde ela fica no braço inteiro.
  */
-export function Fretboard({ minFret, maxFret, dots, onPick, label, describe, plain }: Props) {
+export function Fretboard({ minFret, maxFret, dots, onPick, label, describe, plain, gestures = [] }: Props) {
   const id = useId().replace(/:/g, "");
   const lo = Math.max(1, minFret);
   const n = Math.max(4, maxFret - lo + 1); // casas mostradas
@@ -55,7 +63,8 @@ export function Fretboard({ minFret, maxFret, dots, onPick, label, describe, pla
         viewBox={plain ? `${LEFT} ${by - 6} ${bw} ${bh + 18}` : `0 0 ${width} ${height}`}
         role={plain ? "img" : "group"}
         aria-label={label}
-        style={plain ? undefined : { maxWidth: Math.round(width * 1.35) }}
+        // Braço longo (uma corda só) não encolhe até ficar ilegível: passa a rolar na horizontal dentro do quadro.
+        style={plain ? undefined : { maxWidth: Math.round(width * 1.35), minWidth: Math.max(280, n * 44) }}
       >
         <defs>
           <linearGradient id={`${id}w`} x1="0" y1="0" x2="0" y2="1">
@@ -124,6 +133,37 @@ export function Fretboard({ minFret, maxFret, dots, onPick, label, describe, pla
         {!plain && Array.from({ length: n }, (_, i) => lo + i).map((f) => (
           <text key={f} className={INLAYS.includes(f) || f === 12 ? "fb-num mark" : "fb-num"} x={x(f)} y={by + bh + 26} textAnchor="middle">{f}</text>
         ))}
+
+        {/* gestos: slides por baixo das bolinhas, setas de bend ao lado delas */}
+        {gestures.map((g, gi) => {
+          const cx = x(g.fret), cy = y(g.string);
+          const cls = `fb-gesture ${g.kind}${g.now ? " now" : ""}`;
+          if (g.kind === "slide") {
+            const fx = x(g.fromFret);
+            return (
+              <g key={gi} className={cls} aria-hidden="true">
+                <line x1={fx} x2={cx} y1={cy} y2={cy} />
+                <circle cx={fx} cy={cy} r="7" />
+              </g>
+            );
+          }
+          // A seta sobe (bend) ou desce (soltar) logo à direita da bolinha, como na tab.
+          // Na 1ª corda a seta é mais curta, para não sair da madeira.
+          const ax = cx + 23, top = cy - (g.string === 0 ? 17 : 30), low = cy - 7;
+          const d = g.kind === "bend"
+            ? `M ${cx + 13} ${cy - 3} Q ${ax} ${cy - 3} ${ax} ${top + 4}`
+            : `M ${ax} ${top} L ${ax} ${low - 4}`;
+          const head = g.kind === "bend"
+            ? `M ${ax - 5} ${top + 9} L ${ax} ${top} L ${ax + 5} ${top + 9}`
+            : `M ${ax - 5} ${low - 9} L ${ax} ${low} L ${ax + 5} ${low - 9}`;
+          return (
+            <g key={gi} className={cls} aria-hidden="true">
+              <path d={d} />
+              <path d={head} />
+              <text x={ax + 6} y={top + 6}>{g.text}</text>
+            </g>
+          );
+        })}
 
         {dots.map((d, di) => {
           const cls = `fb-dot ${d.kind}${d.outside ? " outside" : ""}`;

@@ -2,11 +2,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { atAudioTime, getAudio, playPhrase, transport } from "@/core/audio";
-import { fretSpan, noteName } from "@/core/theory";
+import { fretSpan, midiAt, pcName } from "@/core/theory";
+import { gestureOf, spell } from "./tech";
 import type { EchoExercise, Phrase } from "../curriculum/types";
 import { BackingBar } from "../components/BackingBar";
 import { Banner } from "../components/Banner";
-import { Fretboard, type Dot } from "../components/Fretboard";
+import { Fretboard, type Dot, type GestureMark } from "../components/Fretboard";
 import { useBeat, useRunning } from "../components/useTransport";
 
 /** O site toca a frase, depois deixa o mesmo número de compassos para a pessoa responder. */
@@ -62,7 +63,7 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
         </button>
         {shown && (ex.reveal === "rhythm"
           ? <RhythmGrid phrase={phrase} now={now} label={t("rhythmLabel")} />
-          : <Tab phrase={phrase} now={now} label={t("tabLabel")} legend={t("tabLegend")} />)}
+          : <Tab phrase={phrase} now={now} label={t("tabLabel")} legend={t("tabLegend")} half={t("bendHalf")} full={t("bendFull")} />)}
       </div>
     </div>
   );
@@ -86,21 +87,35 @@ function RhythmGrid({ phrase, now, label }: { phrase: Phrase; now: number; label
   );
 }
 
-function Tab({ phrase, now, label, legend }: { phrase: Phrase; now: number; label: string; legend: string }) {
+function Tab({ phrase, now, label, legend, half, full }: { phrase: Phrase; now: number; label: string; legend: string; half: string; full: string }) {
   if (!phrase.frets) return null;
-  const [lo, hi] = fretSpan(phrase.frets);
-  // A mesma posição pode ser tocada mais de uma vez: mostra a ordem de todas as passagens.
-  const order = new Map<string, number[]>();
-  phrase.frets.forEach((p, i) => order.set(`${p.string}-${p.fret}`, [...(order.get(`${p.string}-${p.fret}`) ?? []), i]));
-  const dots: Dot[] = [...order.entries()].map(([k, idx]) => {
+  const frets = phrase.frets;
+  // Cada casa mostra o nome da nota; a ordem aparece ao tocar (a bolinha acende) e na linha de notas.
+  const uses = new Map<string, number[]>();
+  frets.forEach((p, i) => uses.set(`${p.string}-${p.fret}`, [...(uses.get(`${p.string}-${p.fret}`) ?? []), i]));
+  const dots: Dot[] = [...uses.entries()].map(([k, idx]) => {
     const [string, fret] = k.split("-").map(Number) as [number, number];
-    const ns = idx.map((i) => i + 1);
-    return { string, fret, kind: idx.includes(now) ? "now" : "target", label: ns.length > 2 ? `${ns[0]}…` : ns.join("·") };
+    return { string, fret, kind: idx.includes(now) ? "now" : "target", label: pcName(midiAt({ string, fret })) };
   });
+  // Os gestos vão desenhados no braço; um por casa e tipo, aceso quando é ele que está soando.
+  const marks = new Map<string, GestureMark>();
+  phrase.notes.forEach((n, i) => {
+    const pos = frets[i]!, g = gestureOf(n, pos);
+    if (!g) return;
+    const k = `${pos.string}-${pos.fret}-${g.kind}`;
+    const mark: GestureMark = g.kind === "slide"
+      ? { ...pos, kind: "slide", fromFret: g.fromFret }
+      : { ...pos, kind: g.kind, text: g.amount === 1 ? half : g.amount === 2 ? full : `${g.amount / 2}` };
+    marks.set(k, { ...mark, now: i === now || !!marks.get(k)?.now });
+  });
+  const gestures = [...marks.values()];
+  const [lo, last] = fretSpan([...frets, ...gestures.flatMap((g) => (g.kind === "slide" ? [{ string: g.string, fret: g.fromFret }] : []))]);
+  // A seta do bend fica à direita da nota: na última casa, abre mais uma para ela caber.
+  const hi = gestures.some((g) => g.kind !== "slide" && g.fret === last) ? last + 1 : last;
   return (
     <>
-      <Fretboard minFret={lo} maxFret={hi} dots={dots} label={label} />
-      <p className="legend">{legend} <span className="notes">{phrase.notes.map((n) => noteName(n.midi)).join(" ")}</span></p>
+      <Fretboard minFret={lo} maxFret={hi} dots={dots} gestures={gestures} label={label} />
+      <p className="legend">{legend} <span className="notes">{phrase.notes.map((n, i) => spell(n, frets[i]!)).join(" ")}</span></p>
     </>
   );
 }

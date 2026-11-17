@@ -20,7 +20,7 @@ O primeiro passo, e o mais barato: `MediaRecorder` + IndexedDB.
 - Nenhum concorrente pesquisado oferece isso.
 - Cuidado: ouvir a própria gravação **sem roteiro** não melhora nada (Nusseck et al. 2025). Sempre junto com um modelo e uma pergunta específica.
 
-### 2. Bends (unidade 3)
+### 2. Bends (sem unidade própria: medir os bends das frases e das chegadas no alvo)
 - Medida: erro em cents na parte sustentada do bend, contra um **alvo declarado** pelo exercício.
 - Tolerância inicial sugerida: ±15 cents. É um chute, não um número da literatura: ajustar com uso real.
 - Mostrador de altura **só neste tipo de exercício isolado**, com veredito claro (afinado ou não), e depois rodadas com o mostrador escondido. Com o mostrador sempre ligado a pessoa passa a depender dele (Blanco et al. 2021; Pardue & McPherson 2019).
@@ -37,7 +37,7 @@ O primeiro passo, e o mais barato: `MediaRecorder` + IndexedDB.
 - Distribuição dos graus em que a pessoa pousa (T, 3, 5). Aviso de monotonia quando um grau passa de 50%.
 - Nunca premiar um grau só: foi isso que prendeu a versão antiga nas 3ªs.
 
-### 5. Vibrato (unidade 4)
+### 5. Vibrato (sem unidade própria: descrever o das notas longas)
 - Mostrar velocidade (Hz) e largura (cents) ao lado de referências nomeadas (lento e largo, rápido e raso).
 - Não existe valor correto: descrever, não pontuar.
 

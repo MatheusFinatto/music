@@ -2,7 +2,8 @@ import { describe, expect, it } from "vitest";
 import type { Curriculum, Exercise, Lesson } from "../curriculum/types";
 import { EMPTY, addDays, buildSession, daysThisWeek, learnLesson, rate, rateCold, toggleLesson, unitStatuses } from "./schedule";
 import { curriculum as real } from "../curriculum/pt-BR";
-import { chordsOf, degreeIn, pentatonicShape } from "@/core/theory";
+import { chordsOf, degreeIn, minorPentatonic, mod12, pentatonicShape } from "@/core/theory";
+import { gestureOf } from "../engines/tech";
 
 const ex = (id: string): Exercise => ({ id, kind: "take", title: id, goal: "", steps: [], check: "", bars: 4 });
 const lesson = (id: string): Lesson => ({ id, title: id, intro: "", exercises: [ex(id + ".a"), ex(id + ".b")], key: id + ".a" });
@@ -141,5 +142,65 @@ describe("conteúdo real", () => {
         if (ph.frets) expect(ph.frets, ph.id).toHaveLength(ph.notes.length);
       }
     }
+  });
+});
+
+describe("frases das unidades", () => {
+  const exercises = real.units.flatMap((u) => u.lessons.flatMap((l) => l.exercises));
+  const echoes = [...exercises, ...real.phrases].flatMap((e) => (e.kind === "echo" ? [e] : []));
+  const notes = echoes.flatMap((e) => e.phrases.filter((p) => p.frets).map((p) => ({ e, p })));
+  const chordAt = (base: { prog: number[]; key: number }, beat: number) => chordsOf(base.prog, base.key)[Math.floor(beat / 4) % base.prog.length]!;
+
+  it("todo exercício tem base", () => {
+    for (const e of exercises) expect(e.base, e.id).toBeDefined();
+  });
+  it("no eco, a resposta cai sobre os mesmos acordes da chamada", () => {
+    for (const e of echoes) for (const p of e.phrases) expect(p.bars % e.base!.prog.length, `${e.id}/${p.id}`).toBe(0);
+  });
+  it("posições do desenho 1, ou todas numa corda só", () => {
+    const box = new Set(pentatonicShape(0, 1).map((x) => `${x.string}-${x.fret}`));
+    for (const { p } of notes) {
+      if (new Set(p.frets!.map((f) => f.string)).size === 1 && p.frets!.length > 2) continue;
+      p.frets!.forEach((f) => expect(box.has(`${f.string}-${f.fret}`), p.id).toBe(true));
+    }
+  });
+  it("o arco divide a tomada em partes inteiras", () => {
+    for (const e of exercises) if (e.kind === "take" && e.arc) expect(e.bars % e.arc.length, e.id).toBe(0);
+  });
+  it("bend, soltura e slide começam e terminam em notas da pentatônica", () => {
+    const penta = new Set(minorPentatonic(0));
+    for (const { p } of notes)
+      for (const n of p.notes) {
+        expect(penta.has(mod12(n.midi)), `${p.id}@${n.beat}`).toBe(true);
+        if (n.from !== undefined) expect(penta.has(mod12(n.from)), `${p.id}@${n.beat} (origem)`).toBe(true);
+      }
+  });
+  it("toda nota longa é nota do acorde que está soando", () => {
+    for (const { e, p } of notes)
+      for (const n of p.notes) if (n.dur >= 1.5) expect(degreeIn(n.midi, chordAt(e.base!, n.beat)), `${p.id}@${n.beat}`).not.toBeNull();
+  });
+  it("toda frase respira e cabe nos compassos", () => {
+    for (const { p } of notes) {
+      expect(p.bars * 4 - p.notes.reduce((a, n) => a + n.dur, 0), p.id).toBeGreaterThanOrEqual(1.5);
+      p.notes.slice(1).forEach((n, i) => expect(n.beat, `${p.id}: notas sobrepostas`).toBeGreaterThanOrEqual(p.notes[i]!.beat + p.notes[i]!.dur));
+    }
+  });
+  it("os bends da fase 2 aparecem nas frases de ouvido, mas não dominam", () => {
+    const withTech = real.phrases.filter((e) => e.kind === "echo" && e.phrases.some((p) => p.notes.some((n) => n.from !== undefined || n.vibrato)));
+    expect(withTech.length).toBeGreaterThan(0);
+    expect(withTech.length).toBeLessThanOrEqual(real.phrases.length / 2);
+  });
+  it("todo gesto do conteúdo é um que a tablatura sabe desenhar", () => {
+    for (const { p } of notes)
+      p.notes.forEach((n, i) => {
+        if (n.from === undefined) return;
+        const g = gestureOf(n, p.frets![i]!);
+        expect(g, `${p.id}@${n.beat}`).not.toBeNull();
+        if (g?.kind === "slide") expect(g.fromFret, `${p.id}@${n.beat}: slide fora do braço`).toBeGreaterThanOrEqual(1);
+        else expect([1, 2], `${p.id}@${n.beat}: bend de ${g?.amount} semitons`).toContain(g?.amount);
+      });
+  });
+  it("todo alvo na troca reveza pelo menos dois graus", () => {
+    for (const e of exercises) if (e.kind === "target") expect(new Set(e.degrees).size, e.id).toBeGreaterThanOrEqual(2);
   });
 });

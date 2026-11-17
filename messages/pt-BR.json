@@ -57,14 +57,14 @@
   "solos": {
     "title": "Como fazer solos",
     "lead": "Uma trilha de prática para o seu solo deixar de soar como escala. Uma sessão por dia, de 15 a 25 minutos, com a guitarra na mão.",
-    "meta": "Trilha de prática para criar solos melódicos na guitarra: respiração, ritmo, notas do acorde e frases de ouvido.",
+    "meta": "Trilha de prática para criar solos melódicos na guitarra: respiração, ritmo, bends, vibrato, notas do acorde, motivo, vocabulário e o arco do solo.",
     "home": {
       "today": "Sessão sugerida",
       "start": "Começar",
       "week": "{n, plural, one {# dia de prática nesta semana} other {# dias de prática nesta semana}}",
       "trail": "A trilha",
       "finished": "Você fez todas as lições disponíveis. As sessões continuam com revisão e frases novas.",
-      "soon": "Mais unidades em construção: bends, vibrato, notas do acorde, motivo e o arco do solo.",
+      "soon": "Próximo passo da ferramenta: gravar e comparar as próprias tomadas, com o microfone.",
       "lessonCold": "Confirmada a frio",
       "practice": "Praticar",
       "reset": "Apagar meu progresso",
@@ -201,12 +201,38 @@
       "hide": "Esconder",
       "rhythmLabel": "Ritmo: cada quadrado é uma semicolcheia",
       "tabLabel": "Onde a frase fica no braço",
-      "tabLegend": "Os números são a ordem das notas."
+      "tabLegend": "Cada bolinha mostra a nota e acende quando ela soa. Seta subindo: bend (full = um tom). Seta descendo: dobrar antes e soltar. Linha a partir de um círculo tracejado: slide. Na ordem:",
+      "bendFull": "full",
+      "bendHalf": "½"
     },
     "take": {
       "playing": "Valendo",
       "idle": "Ligue a base quando estiver pronto",
-      "bar": "Compasso {bar} de {total}"
+      "bar": "Compasso {bar} de {total}",
+      "arc": "Partes do solo"
+    },
+    "target": {
+      "word": "{degree} de {chord}",
+      "now": "Chegou: segure",
+      "next": "Próximo alvo: vá até ele",
+      "idle": "Ligue a base. Primeiro alvo: {first}",
+      "idleBlind": "Ligue a base e escute. Primeiro alvo: {first}",
+      "showBoard": "Ver o braço",
+      "hideBoard": "Esconder o braço",
+      "board": "Braço da guitarra: {degree} de {chord}",
+      "legend": "Em laranja, onde está o alvo dentro do desenho. A faixa troca para o próximo alvo na metade do compasso.",
+      "degree": {
+        "T": "Tônica",
+        "3": "3ª",
+        "5": "5ª"
+      }
+    },
+    "line": {
+      "chord": "Acorde",
+      "idle": "Ligue a base e fique na {n}ª corda",
+      "follow": "Só a {n}ª corda",
+      "label": "Braço da guitarra: {n}ª corda, notas do acorde {chord}",
+      "legend": "Só uma corda. Em laranja, as notas do acorde que está soando (T, 3, 5); as outras são o resto da pentatônica."
     },
     "sound": {
       "button": "Som: {instrument}",

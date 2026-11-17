@@ -22,9 +22,18 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
 
   const live = !!beat && beat.beat >= 0;
   const bar = live ? Math.min(beat.bar + 1, ex.bars) : 0;
+  const arc = ex.arc ?? [];
+  // Com arco, a faixa diz em que parte do solo você está; a contagem de compassos vai para a linha de baixo.
+  const at = arc.length && live ? Math.min(arc.length - 1, Math.floor(((bar - 1) * arc.length) / ex.bars)) : -1;
+  const part = at >= 0 ? arc[at]! : null;
   return (
     <div className="engine">
-      <Banner state={live ? "play" : null} word={t("playing")} note={t("bar", { bar, total: ex.bars })} idle={t("idle")} />
+      <Banner state={live ? "play" : null} word={part ?? t("playing")} note={t("bar", { bar, total: ex.bars })} idle={t("idle")} />
+      {arc.length > 0 && (
+        <ol className="pattern" aria-label={t("arc")}>
+          {arc.map((a, i) => <li key={i} className={`play${i === at ? " on" : ""}`}>{a}</li>)}
+        </ol>
+      )}
       <BackingBar base={ex.base!} />
     </div>
   );

@@ -3,15 +3,17 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { transport } from "@/core/audio";
 import type { Exercise } from "./curriculum/types";
+import type { Part } from "./session/route";
 import type { Rating } from "./session/schedule";
 import { useRunning } from "./components/useTransport";
 import { EchoEngine } from "./engines/EchoEngine";
 import { FindEngine } from "./engines/FindEngine";
+import { LineEngine } from "./engines/LineEngine";
 import { MapEngine } from "./engines/MapEngine";
 import { PlayRestEngine } from "./engines/PlayRestEngine";
 import { TakeEngine } from "./engines/TakeEngine";
+import { TargetEngine } from "./engines/TargetEngine";
 
-export type Part = "cold" | "new" | "again" | "phrase" | "review" | "take" | "free";
 
 type Props = {
   ex: Exercise;
@@ -72,9 +74,11 @@ export function ExerciseFrame({ ex, part, intro, progress, rated, onRate, onBack
       <div className="stage" ref={stage}>
         <p className="stage-title">{ex.title}</p>
         {ex.kind === "map" && <MapEngine ex={ex} />}
+        {ex.kind === "line" && <LineEngine ex={ex} />}
         {ex.kind === "find" && <FindEngine ex={ex} onResult={onRate} />}
         {ex.kind === "play-rest" && <PlayRestEngine ex={ex} />}
         {ex.kind === "echo" && <EchoEngine ex={ex} />}
+        {ex.kind === "target" && <TargetEngine ex={ex} />}
         {ex.kind === "take" && <TakeEngine ex={ex} />}
       </div>
 

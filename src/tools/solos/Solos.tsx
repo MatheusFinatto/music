@@ -1,41 +1,29 @@
 "use client";
-import { useState } from "react";
+import type { MouseEvent } from "react";
 import { useTranslations } from "next-intl";
 import { curriculum } from "./curriculum/pt-BR";
 import type { Exercise, Lesson } from "./curriculum/types";
 import { NeckHero } from "./components/NeckHero";
-import { ExerciseFrame, type Part } from "./ExerciseFrame";
+import { ExerciseFrame } from "./ExerciseFrame";
+import { navigate, useView } from "./nav";
 import { progressStore, useProgress, useToday } from "./progress";
-import { EMPTY, addDays, buildSession, daysThisWeek, learnLesson, rate, rateCold, toggleLesson, unitStatuses, type Progress, type Rating, type Session } from "./session/schedule";
+import { hrefOf, isAgain, lessonSteps, sessionSteps, type Outcome } from "./session/route";
+import { EMPTY, addDays, buildSession, daysThisWeek, learnLesson, rate, rateCold, toggleLesson, unitStatuses, type Rating } from "./session/schedule";
 import "./solos.css";
 
-type Step = { part: Part; ex: Exercise; lesson?: Lesson; first?: boolean; last?: boolean };
-type Outcome = { cold?: string; done?: string; repeat?: string };
-
-function stepsOf(s: Session, p: Progress): Step[] {
-  const steps: Step[] = [];
-  if (s.cold) steps.push({ part: "cold", ex: s.cold.exercises.find((e) => e.id === s.cold!.key)!, lesson: s.cold });
-  // Lição já tentada e não aprendida volta marcada como repetição.
-  const part: Part = s.lesson && p.exercises[s.lesson.key]?.last === "nao" ? "again" : "new";
-  s.lesson?.exercises.forEach((ex, i, all) => steps.push({ part, ex, lesson: s.lesson, first: i === 0, last: i === all.length - 1 }));
-  if (s.phrase) steps.push({ part: "phrase", ex: s.phrase });
-  s.reviews.forEach((ex) => steps.push({ part: "review", ex }));
-  if (steps.length > 0) steps.push({ part: "take", ex: s.take });
-  return steps;
-}
-
-type View =
-  | { name: "home" }
-  | { name: "session"; steps: Step[]; at: number; ratings: (Rating | undefined)[] }
-  | { name: "free"; ex: Exercise }
-  | { name: "done"; steps: Step[]; ratings: (Rating | undefined)[]; outcome: Outcome };
+/** Link de verdade (dá para copiar ou abrir em outra aba); o clique simples navega sem recarregar. */
+const follow = (go: () => void) => (e: MouseEvent<HTMLAnchorElement>) => {
+  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  go();
+};
 
 export function Solos() {
   const t = useTranslations("solos");
   const progress = useProgress();
   const today = useToday();
-  const [view, setView] = useState<View>({ name: "home" });
-  const home = () => setView({ name: "home" });
+  const view = useView();
+  const home = () => navigate({ name: "home" });
 
   if (view.name === "session") {
     const step = view.steps[view.at]!;
@@ -49,7 +37,7 @@ export function Solos() {
 
       const ratings = [...view.ratings];
       ratings[view.at] = r;
-      if (view.at + 1 < view.steps.length) setView({ ...view, at: view.at + 1, ratings });
+      if (view.at + 1 < view.steps.length) navigate({ ...view, at: view.at + 1, ratings }, { replace: true });
       else {
         const lesson = view.steps.find((s) => s.part === "new" || s.part === "again")?.lesson;
         const tomorrow = buildSession(curriculum, next, addDays(today, 1)).cold;
@@ -57,7 +45,7 @@ export function Solos() {
           : !next.lessons[lesson.id] ? { repeat: lesson.title }
           : tomorrow?.id === lesson.id ? { cold: lesson.title }
           : { done: lesson.title };
-        setView({ name: "done", steps: view.steps, ratings, outcome });
+        navigate({ name: "done", lesson: view.lesson, steps: view.steps, ratings, outcome }, { replace: true });
       }
       window.scrollTo({ top: 0 });
     };
@@ -71,7 +59,7 @@ export function Solos() {
           progress={{ n: view.at + 1, total: view.steps.length }}
           rated={view.ratings[view.at]}
           onRate={onRate}
-          onBack={view.at > 0 ? () => setView({ ...view, at: view.at - 1 }) : undefined}
+          onBack={view.at > 0 ? () => navigate({ ...view, at: view.at - 1 }, { replace: true }) : undefined}
           onExit={home}
           exitLabel={t("frame.quit")}
         />
@@ -118,16 +106,16 @@ export function Solos() {
     );
 
   const session = buildSession(curriculum, progress, today || "0000-00-00");
-  const steps = stepsOf(session, progress);
+  const steps = sessionSteps(session, progress);
   const statuses = unitStatuses(curriculum, progress);
   const lessons = curriculum.units.flatMap((u) => u.lessons);
   const doneCount = lessons.filter((l) => progress.lessons[l.id]).length;
   const practicedToday = !!today && progress.days.includes(today);
   const week = today ? daysThisWeek(progress, today) : 0;
   const started = doneCount > 0 || progress.days.length > 0;
-  const start = () => { if (steps.length) setView({ name: "session", steps, at: 0, ratings: [] }); };
+  const start = () => { if (steps.length) navigate({ name: "session", steps, at: 0, ratings: [] }); };
   const reset = () => { if (window.confirm(t("home.resetConfirm"))) progressStore.set(EMPTY); };
-  const open = (ex: Exercise) => setView({ name: "free", ex });
+  const open = (ex: Exercise) => navigate({ name: "free", ex });
   // Desmarcar apaga o registro da lição; se ela foi feita em sessão (e não só marcada à mão), confirma antes.
   const toggle = (l: Lesson) => {
     const e = progress.lessons[l.id];
@@ -135,10 +123,8 @@ export function Solos() {
     progressStore.set((p) => toggleLesson(p, l.id, today));
   };
   // Qualquer lição pode ser feita a qualquer momento; a trilha só recomenda a ordem.
-  const startLesson = (lesson: Lesson) => {
-    const part: Part = progress.exercises[lesson.key]?.last === "nao" && !progress.lessons[lesson.id] ? "again" : "new";
-    setView({ name: "session", at: 0, ratings: [], steps: lesson.exercises.map((ex, i, all) => ({ part, ex, lesson, first: i === 0, last: i === all.length - 1 })) });
-  };
+  const startLesson = (lesson: Lesson) =>
+    navigate({ name: "session", lesson: lesson.id, at: 0, ratings: [], steps: lessonSteps(lesson, isAgain(lesson, progress)) });
 
   return (
     <main className="wrap solos" id="conteudo">
@@ -210,9 +196,9 @@ export function Solos() {
                             <strong>{l.title}</strong>
                             {recommended && <span className="badge atual">{t("home.recommended")}</span>}
                             {e?.cold && <span className="state lessonCold">{t("home.lessonCold")}</span>}
-                            <button type="button" className={recommended ? "btn small primary" : "btn small"} onClick={() => startLesson(l)}>
+                            <a className={recommended ? "btn small primary" : "btn small"} href={hrefOf({ kind: "lesson", id: l.id })} onClick={follow(() => startLesson(l))}>
                               {e ? t("home.redo") : t("home.do")}
-                            </button>
+                            </a>
                           </div>
                         </li>
                       );
@@ -247,7 +233,7 @@ export function Solos() {
                         <strong>{ph.title}</strong>
                         {recommended && <span className="badge atual">{t("home.recommended")}</span>}
                         {state && <span className="state">{t(`frame.${state.last}`)}</span>}
-                        <button type="button" className="btn small" onClick={() => open(ph)}>{state ? t("home.redo") : t("home.do")}</button>
+                        <a className="btn small" href={hrefOf({ kind: "exercise", id: ph.id })} onClick={follow(() => open(ph))}>{state ? t("home.redo") : t("home.do")}</a>
                       </div>
                     </li>
                   );
@@ -256,7 +242,7 @@ export function Solos() {
                   <div className="lesson-head">
                     <span className="dot" aria-hidden="true" />
                     <strong>{curriculum.take.title}</strong>
-                    <button type="button" className="btn small" onClick={() => open(curriculum.take)}>{t("home.do")}</button>
+                    <a className="btn small" href={hrefOf({ kind: "exercise", id: curriculum.take.id })} onClick={follow(() => open(curriculum.take))}>{t("home.do")}</a>
                   </div>
                 </li>
               </ul>
