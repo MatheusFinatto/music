@@ -33,7 +33,13 @@ export type PlayRestExercise = Common & { kind: "play-rest"; pattern: ("play" | 
 export type Phrase = { id: string; name: string; bars: number; notes: LeadNote[]; frets?: FretPos[] };
 
 /** O site toca, a pessoa repete de ouvido. A escrita só aparece quando ela pede. */
-export type EchoExercise = Common & { kind: "echo"; phrases: Phrase[]; reveal: "rhythm" | "tab" };
+export type EchoExercise = Common & {
+  kind: "echo";
+  phrases: Phrase[];
+  reveal: "rhythm" | "tab";
+  /** Nas frases de ouvido: a seção cuja matéria a frase usa (`Section.id`). */
+  section?: string;
+};
 
 /**
  * A cada troca de acorde, o site sorteia um grau (tônica, 3ª ou 5ª) do acorde que vem e a pessoa
@@ -51,15 +57,28 @@ export type TargetExercise = Common & {
 };
 
 /**
+ * Uma parte do arco. `name` é o que se lê de longe; `how` explica a parte em uma frase curta e fica
+ * na tela enquanto a base ou o exemplo toca (o texto da lição some nessa hora).
+ */
+export type ArcPart = { name: string; how?: string };
+
+/**
  * Tomada livre sobre a base, seguida de uma escuta guiada. `arc` divide a tomada em partes iguais,
- * cada uma com uma indicação curta (ex.: "grave, poucas notas"): para treinar o desenho do solo inteiro.
+ * cada uma com um nome e uma explicação curta: para treinar o desenho do solo inteiro.
  */
 export type TakeExercise = Common & {
   kind: "take";
   bars: number;
-  arc?: string[];
-  /** Solo de exemplo, tocado sobre a base por um botão próprio (não é eco: a pessoa ouve quando quiser). */
-  example?: Phrase;
+  arc?: ArcPart[];
+  /** Nota de rodapé do arco: define um termo que as partes usam. Fica na tela junto com elas. */
+  arcNote?: string;
+  /** Outras bases para a mesma tomada, além de `base`: a pessoa escolhe sobre qual solar. */
+  bases?: Base[];
+  /**
+   * Solos de exemplo, tocados sobre `base` por um botão próprio (não é eco: a pessoa ouve quando quiser).
+   * Mais de um, para ninguém ter um modelo só para imitar.
+   */
+  examples?: Phrase[];
 };
 
 export type Exercise = MapExercise | LineExercise | FindExercise | PlayRestExercise | EchoExercise | TargetExercise | TakeExercise;

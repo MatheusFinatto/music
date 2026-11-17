@@ -133,7 +133,8 @@
       "counting": "Contagem",
       "noAudio": "Este navegador não conseguiu iniciar o áudio.",
       "space": "Barra de espaço toca e para.",
-      "bpm": "bpm"
+      "bpm": "bpm",
+      "tempo": "Andamento em bpm, de {min} a {max}"
     },
     "map": {
       "shape": "Desenho",
@@ -217,7 +218,17 @@
       "stopExample": "Parar o exemplo",
       "showTab": "Ver tab do exemplo",
       "hideTab": "Esconder a tab",
-      "tabLabel": "O solo de exemplo em tablatura"
+      "tabLabel": "O solo de exemplo em tablatura",
+      "playExampleN": "Ouvir exemplo {n}",
+      "tabLabelN": "O solo de exemplo {n} em tablatura",
+      "base": "Base",
+      "style": {
+        "balada": "balada",
+        "rock": "rock",
+        "pop": "pop",
+        "acordes": "só acordes"
+      },
+      "yourTurn": "Sua vez"
     },
     "target": {
       "word": "{degree} de {chord}",

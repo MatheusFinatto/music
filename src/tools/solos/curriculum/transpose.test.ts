@@ -24,7 +24,7 @@ describe("tom de prática", () => {
     const moved = all.map((e) => ({ orig: e, e: transposeExercise(e, key) }));
     it("toda frase cabe no braço, da casa 0 à 20", () => {
       for (const { e } of moved) {
-        const phrases = e.kind === "echo" ? e.phrases : e.kind === "take" && e.example ? [e.example] : [];
+        const phrases = e.kind === "echo" ? e.phrases : e.kind === "take" ? e.examples ?? [] : [];
         for (const p of phrases) for (const f of p.frets ?? []) { expect(f.fret, `${e.id}/${p.id}`).toBeGreaterThanOrEqual(0); expect(f.fret, `${e.id}/${p.id}`).toBeLessThanOrEqual(20); }
       }
     });
@@ -33,7 +33,7 @@ describe("tom de prática", () => {
         if (!e.base) continue;
         const penta = new Set(minorPentatonic(e.base.key));
         const chords = chordsOf(e.base.prog, e.base.key);
-        const phrases = e.kind === "echo" ? e.phrases.filter((p) => p.frets) : e.kind === "take" && e.example ? [e.example] : [];
+        const phrases = e.kind === "echo" ? e.phrases.filter((p) => p.frets) : e.kind === "take" ? e.examples ?? [] : [];
         for (const p of phrases)
           for (const n of p.notes) {
             expect(penta.has(mod12(n.midi)), `${e.id}/${p.id}@${n.beat}`).toBe(true);
@@ -44,7 +44,7 @@ describe("tom de prática", () => {
     it("a casa de cada nota bate com a altura dela (no bend, com a altura de partida)", () => {
       const open = [64, 59, 55, 50, 45, 40];
       for (const { e } of moved) {
-        const phrases = e.kind === "echo" ? e.phrases : e.kind === "take" && e.example ? [e.example] : [];
+        const phrases = e.kind === "echo" ? e.phrases : e.kind === "take" ? e.examples ?? [] : [];
         for (const p of phrases)
           p.notes.forEach((n, i) => {
             const f = p.frets?.[i];
@@ -52,6 +52,13 @@ describe("tom de prática", () => {
             const at = open[f.string]! + f.fret;
             expect(at === n.midi || (at === n.from && n.hold === undefined), `${e.id}/${p.id}@${n.beat}`).toBe(true);
           });
+      }
+    });
+    it("as outras bases da tomada acompanham o tom", () => {
+      for (const { orig, e } of moved) {
+        if (orig.kind !== "take" || e.kind !== "take" || !orig.bases || orig.base?.key !== 0) continue;
+        expect(e.bases!.map((b) => b.key), e.id).toEqual(orig.bases.map((b) => (b.key === 0 ? key : b.key)));
+        expect(e.bases!.map((b) => b.prog), e.id).toEqual(orig.bases.map((b) => b.prog));
       }
     });
     it("exercício escrito em outro tom não muda", () => {

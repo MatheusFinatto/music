@@ -49,6 +49,13 @@ export function transposeExercise(ex: Exercise, key: number): Exercise {
   const off = keyOffset(key);
   const base = { ...ex.base, key: mod12(key) };
   if (ex.kind === "echo") return { ...ex, base, phrases: ex.phrases.map((p) => fit(p, off)) };
-  if (ex.kind === "take") return { ...ex, base, ...(ex.example ? { example: fit(ex.example, off) } : {}) };
+  if (ex.kind === "take")
+    return {
+      ...ex,
+      base,
+      ...(ex.examples ? { examples: ex.examples.map((p) => fit(p, off)) } : {}),
+      // As outras bases acompanham o tom; a que foi escrita em outro tom de propósito fica.
+      ...(ex.bases ? { bases: ex.bases.map((b) => (b.key === 0 ? { ...b, key: mod12(key) } : b)) } : {}),
+    };
   return { ...ex, base };
 }

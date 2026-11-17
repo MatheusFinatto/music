@@ -46,7 +46,7 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
 
   // Ao trocar de exercício ou sair, a base para.
   useEffect(() => () => transport.stop(), [ex.id, key]);
-  // Modo "tocando": ao ligar a base, o que se lê de longe sobe para o topo da tela.
+  // Ao ligar a base, o palco sobe para o topo da tela. Nada é escondido: o texto da lição continua acima.
   useEffect(() => { if (running) stage.current?.scrollIntoView({ block: "start", behavior: "smooth" }); }, [running]);
 
   return (
@@ -86,7 +86,6 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
       </div>
 
       <div className="stage" ref={stage}>
-        <p className="stage-title">{ex.title}</p>
         {ex.kind === "map" && <MapEngine ex={ex} />}
         {ex.kind === "line" && <LineEngine ex={ex} />}
         {ex.kind === "find" && <FindEngine ex={ex} onResult={onRate} />}
