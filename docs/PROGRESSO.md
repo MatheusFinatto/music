@@ -15,7 +15,7 @@ Atualize este arquivo quando avaliar ideias ou quando o dono contar como foi um 
 
 ## Onde ele está (novembro de 2026)
 - Plano começou em 16/11/2026. Dia 0 (gravação de referência) ainda não registrado no site.
-- Piano, semana 1: missões 1, 2 e 3 feitas.
+- Piano, semana 1 (antigas missões): 1, 2 e 3 feitas. As missões foram substituídas pelos Desafios em 17/11.
 - Base usada nas ideias: Am F C G, 56 bpm, metrônomo ligado.
 
 ## Ideias avaliadas (semana 1, base Am F C G)
@@ -30,6 +30,10 @@ Atualize este arquivo quando avaliar ideias ou quando o dono contar como foi um 
 - **Adianta a nota que vem depois de uma nota longa** (uma semicolcheia a 56 bpm). Remédio: contar "1 e 2 e" durante a nota longa e só mover no tempo; ouvir o clique antes de trocar. O editor ("Ajustar ao tempo") corrige depois, mas o treino é no tempo.
 - Às vezes segura uma nota enquanto toca a próxima (no piano soa junto; na guitarra vira duas notas).
 - Tende a variar pouco o ritmo quando foca em notas. Próximo passo sugerido: manter a direção das notas de passagem e variar o ritmo delas (pontuada + curta), já preparando a semana 3.
+
+## Feedback do aluno sobre o método (17/11/2026)
+- "Sinto que meu programa tá preso em terças, truncado." O que mais incomoda nas próprias ideias: **as notas** (soam como escala).
+- Resposta: alvo variável, desafios de escolha de notas (saltos, sequência, antecipação, apojatura, nota segurada, poucas notas) e vocabulário real. Próximo: levar o rodízio para o Diário.
 
 ## Histórico das ferramentas
 - Antes do site existiam dois artefatos no claude.ai (Diário do Solo e Piano de Ideias). Os dados foram exportados para um backup JSON e importados no site. Os artefatos não são mais mantidos.

@@ -7,7 +7,7 @@ import { load, save, onExternalChange } from "../lib/store.js";
 import { audio, resume, voice, playNote, transport, now } from "../lib/audio.js";
 import { pentatonic, IV, LETTER, noteName, legacyToDegrees } from "../lib/theory.js";
 import { sheetBlock, flashSheet, exportHtml } from "../lib/score.js";
-import { WEEKS, DEMOS, MISS } from "../lib/missions.js";
+import { CATS, CHALLENGES, DEMOS, challengeOfDay, TARGETS, targetLabel } from "../lib/challenges.js";
 import { GRIDS, quantize, moveNote, resizeNote, transposeNote, deleteNote, where } from "../lib/edit.js";
 
 const $ = (id) => document.getElementById(id);
@@ -15,7 +15,7 @@ $("nav").append(mountNav("piano"));
 mountBaseBar($("basebar"));
 
 /* ---------- estado ---------- */
-const EMPTY = { meta: { color: false, week: 1 }, ideas: {}, missions: {} };
+const EMPTY = { meta: { color: false, target: "3" }, ideas: {}, done: {} };
 let S = load("piano", EMPTY);
 const persist = () => save("piano", S);
 onExternalChange("piano", () => { S = load("piano", EMPTY); renderAll(); });
@@ -66,6 +66,25 @@ function buildKeyboard(kb, lo = LO, hi = HI) {
   const up = (e) => { if (e.pointerId in active) { noteOff(active[e.pointerId]); delete active[e.pointerId]; } };
   kb.addEventListener("pointerup", up); kb.addEventListener("pointercancel", up);
 }
+const curTarget = () => S.meta.target || "3";
+function targetPcs(ch, t = curTarget()) {
+  if (t === "T") return [ch.r];
+  if (t === "5") return [ch.t[2]];
+  if (t === "9") return [ch.ninth ?? (ch.r + 2) % 12];
+  if (t === "all") return ch.t.slice();
+  return [ch.third];
+}
+const targetFns = (t = curTarget()) => (t === "all" ? ["T", "3", "5"] : [t]);
+function renderTarget() {
+  const box = $("target"); box.textContent = "";
+  TARGETS.forEach(([v, lab]) => {
+    const b = document.createElement("button"); b.type = "button"; b.textContent = lab;
+    b.setAttribute("aria-pressed", curTarget() === v ? "true" : "false");
+    b.addEventListener("click", () => { S.meta.target = v; persist(); renderTarget(); markChord(shownChord); renderIdeas(); });
+    box.append(b);
+  });
+  $("legend-target").textContent = curTarget() === "all" ? "Notas do acorde que está soando (alvo)" : targetLabel(curTarget()) + " do acorde que está soando (alvo)";
+}
 function markChord(ci) {
   shownChord = ci;
   const b = getBase(), ch = chordsOf(b)[ci], penta = pentatonic(b.key);
@@ -74,7 +93,7 @@ function markChord(ci) {
     const d = k.querySelector(".dot"), pc = m % 12;
     d.className = "dot"; d.textContent = "";
     const colorPcs = [ch.ninth, ch.deg === 5 ? (ch.r + 9) % 12 : null].filter((x) => x != null);
-    if (pc === ch.third) { d.classList.add("target"); d.textContent = "3"; }
+    if (targetPcs(ch).includes(pc)) { d.classList.add("target"); d.textContent = IV[(pc - ch.r + 12) % 12]; }
     else if (ch.t.includes(pc)) { d.classList.add("chord"); d.textContent = IV[(pc - ch.r + 12) % 12]; }
     else if (S.meta.color && colorPcs.includes(pc)) { d.classList.add("color"); d.textContent = IV[(pc - ch.r + 12) % 12]; }
     else if (penta.includes(pc)) d.classList.add("penta");
@@ -135,7 +154,7 @@ function finishRec() {
   recState = "off"; updateRecBtn();
   const notes = recNotes.map((x) => ({ m: x.m, b: Math.max(0, Math.min(15.75, Math.round(x.b * 4) / 4)), d: Math.max(0.25, Math.round((x.d ?? 0.5) * 4) / 4) })).sort((a, b) => a.b - b.b);
   if (!notes.length) { setStatus("Nenhuma nota gravada. Tente de novo quando quiser."); return; }
-  draft = { notes, bpm: getBase().bpm, base: recBase };
+  draft = { notes, bpm: getBase().bpm, base: recBase, challenge: activeChallenge };
   renderDraft();
   setStatus("Ideia gravada com " + notes.length + " notas. Ouça, dê um nome e salve.");
 }
@@ -167,7 +186,7 @@ transport.on("beat", (beat, t, info) => {
 });
 transport.on("stop", () => {
   if (recState !== "off") { recState = "off"; updateRecBtn(); setStatus("Gravação cancelada."); }
-  playing = null; renderStageBars(-1); $("s-play").textContent = "▶ Base"; renderDraft(); renderIdeas(); renderMissions();
+  playing = null; renderStageBars(-1); $("s-play").textContent = "▶ Base"; renderDraft(); renderIdeas(); renderDesafios();
 });
 transport.on("start", () => { $("s-play").textContent = "■ Base"; });
 
@@ -179,7 +198,7 @@ function togglePlay(key, obj, notes, base) {
     setStatus("A base mudou para " + chordsOf(base).map((c) => c.n).join(" ") + ", a base em que essa ideia foi feita.");
   }
   if (!transport.running) transport.start();
-  renderDraft(); renderIdeas(); renderMissions();
+  renderDraft(); renderIdeas(); renderDesafios();
 }
 const isPlaying = (key) => !!(playing && playing.key === key);
 
@@ -196,7 +215,7 @@ function renderDraft() {
   const box = $("draft-sheet");
   if (box.dataset.for !== String(draft.notes.length) + draft.notes[0].b) {
     box.textContent = ""; box.dataset.for = String(draft.notes.length) + draft.notes[0].b;
-    sheetBlock(box, { notes: draft.notes, chs: chordsOf(draft.base), bpm: draft.bpm, owner: "draft" });
+    sheetBlock(box, { notes: draft.notes, chs: chordsOf(draft.base), bpm: draft.bpm, owner: "draft", targets: targetFns() });
   }
 }
 $("draft-play").addEventListener("click", () => togglePlay("draft", draft, draft.notes, draft.base));
@@ -207,7 +226,7 @@ $("s-draft-drop").addEventListener("click", dropDraft);
 const saveDraft = () => {
   const id = "idea_" + Date.now();
   const name = $("draft-name").value.trim() || "Ideia " + (Object.keys(S.ideas).length + 1);
-  S.ideas[id] = { name, notes: draft.notes, bpm: draft.bpm, base: draft.base, created: Date.now(), star: false, tried: false };
+  S.ideas[id] = { name, notes: draft.notes, bpm: draft.bpm, base: draft.base, created: Date.now(), star: false, tried: false, ...(draft.challenge ? { challenge: draft.challenge } : {}) };
   if (isPlaying("draft")) transport.stop();
   draft = null; $("draft-name").value = ""; $("draft-sheet").dataset.for = "";
   persist(); renderDraft(); renderIdeas(); setStatus("Ideia salva: " + name + ".");
@@ -310,14 +329,15 @@ function renderIdeas() {
     );
     head.append(star, nm, acts); card.append(head);
     const meta = document.createElement("p"); meta.className = "meta";
-    meta.textContent = chsOfIdea(it).map((c) => c.n).join(" ") + " · " + it.notes.length + " notas · " + (it.bpm || "?") + " bpm · " + new Date(it.created).toLocaleDateString("pt-BR");
+    const chal = CHALLENGES.find((c) => c.id === it.challenge);
+    meta.textContent = (chal ? "Desafio: " + chal.title + " · " : "") + chsOfIdea(it).map((c) => c.n).join(" ") + " · " + it.notes.length + " notas · " + (it.bpm || "?") + " bpm · " + new Date(it.created).toLocaleDateString("pt-BR");
     card.append(meta);
     if (openTabs.has(id)) {
       const sel = selectedOf[id] ?? -1;
       const sheet = document.createElement("div"); sheet.style.cssText = "display:flex;flex-direction:column;gap:10px";
       card.append(sheet);
       sheetBlock(sheet, {
-        notes: it.notes, chs: chsOfIdea(it), bpm: it.bpm, owner: id, selected: sel,
+        notes: it.notes, chs: chsOfIdea(it), bpm: it.bpm, owner: id, selected: sel, targets: targetFns(),
         onSelect: (ni) => { selectedOf[id] = ni === selectedOf[id] ? -1 : ni; if (selectedOf[id] >= 0 && audio()) { resume(); playNote(it.notes[ni].m, now(), 0.5); } renderIdeas(); },
       });
       card.append(editorFor(id, it, sel), btn("Baixar partitura e tab (.html)", () => download(it)));
@@ -326,51 +346,70 @@ function renderIdeas() {
   });
 }
 
-/* ---------- missões ---------- */
-const demoOpen = new Set();
-function demoFor(key) {
+/* ---------- desafios ---------- */
+let pick = null, activeChallenge = null, demoOpen = false;
+const demoFor = (key) => {
   const d = DEMOS[key], b = getBase(), sh = shiftOf(b);
   return { ...d, base: { key: b.key, prog: DEFAULT_BASE.prog.slice() }, notes: d.notes.map((x) => ({ ...x, m: x.m + sh })) };
+};
+function currentIdx() { return pick ?? challengeOfDay(); }
+function startChallenge(c) {
+  activeChallenge = c.id;
+  S.meta.target = c.target; persist(); renderTarget(); markChord(shownChord);
+  setStatus("Desafio: " + c.title + ". Alvo: " + targetLabel(c.target) + ". Grave quando quiser.");
+  renderDesafios();
 }
-function renderMissions() {
-  const sel = $("week");
-  if (!sel.options.length) WEEKS.forEach((w, i) => { const o = document.createElement("option"); o.value = i + 1; o.textContent = "Semana " + (i + 1) + " · " + w; sel.append(o); });
-  sel.value = S.meta.week || 1;
-  const w = +sel.value, list = $("mlist"); list.textContent = "";
-  const st = S.missions["w" + w] || [];
-  MISS[w - 1].forEach((t, i) => {
-    const li = document.createElement("li"); li.className = "mitem";
-    const lb = document.createElement("label"); lb.className = st[i] ? "done" : "";
-    const cb = document.createElement("input"); cb.type = "checkbox"; cb.id = "m-" + w + "-" + i; cb.checked = !!st[i];
-    cb.addEventListener("change", () => {
-      const old = S.missions["w" + w] || [];
-      S.missions["w" + w] = MISS[w - 1].map((_, k) => (k === i ? cb.checked : !!old[k]));
-      persist(); renderMissions();
+function renderDesafios() {
+  const i = currentIdx(), c = CHALLENGES[i], box = $("today"); box.textContent = "";
+  const card = document.createElement("article"); card.className = "challenge";
+  const chip = document.createElement("span"); chip.className = "catchip"; chip.textContent = (pick == null ? "Desafio do dia · " : "") + CATS[c.cat];
+  const h = document.createElement("h2"); h.textContent = c.title;
+  const p = document.createElement("p"); p.className = "text"; p.textContent = c.text;
+  const next = document.createElement("p"); next.className = "next"; next.textContent = "Depois, na guitarra: toque a sua melhor versão e improvise com a mesma ideia, sem olhar nada.";
+  const done = S.done[c.id] || 0;
+  const row = document.createElement("div"); row.className = "row";
+  row.append(
+    btn(activeChallenge === c.id ? "✓ Desafio ativo" : "Começar este desafio", () => startChallenge(c), "btn primary"),
+    btn("Fiz ✓" + (done ? " (" + done + "x)" : ""), () => { S.done[c.id] = done + 1; persist(); renderDesafios(); }),
+    btn("Outro desafio", () => { pick = (currentIdx() + 1) % CHALLENGES.length; demoOpen = false; renderDesafios(); }),
+  );
+  card.append(chip, h, p, row);
+  if (c.demo && DEMOS[c.demo]) {
+    const demo = demoFor(c.demo), owner = "demo-" + c.demo;
+    const dbox = document.createElement("div"); dbox.className = "demo";
+    const t = document.createElement("p"); t.className = "small"; const b = document.createElement("b"); b.textContent = demo.name; t.append(b);
+    const r = document.createElement("div"); r.className = "row";
+    r.append(
+      btn(isPlaying(owner) ? "■ Parar" : "▶ Ouvir com a base", () => togglePlay(owner, demo, demo.notes, demo.base)),
+      btn(demoOpen ? "Esconder partitura" : "Ver partitura e tab", () => { demoOpen = !demoOpen; renderDesafios(); }),
+    );
+    dbox.append(t, r);
+    if (demoOpen) sheetBlock(dbox, { notes: demo.notes, chs: chordsOf(demo.base), bpm: demo.bpm, owner, targets: targetFns(c.target), cifra: true });
+    card.append(dbox);
+  }
+  card.append(next);
+  box.append(card);
+
+  const deck = $("deck"); deck.textContent = "";
+  Object.entries(CATS).forEach(([k, name]) => {
+    const g = document.createElement("div"); g.className = "group";
+    const gh = document.createElement("h3"); gh.textContent = name; g.append(gh);
+    CHALLENGES.forEach((x, xi) => {
+      if (x.cat !== k) return;
+      const it = document.createElement("div"); it.className = "item" + (xi === i ? " cur" : "");
+      const tt = document.createElement("b"); tt.textContent = x.title;
+      const right = document.createElement("div"); right.className = "row";
+      const cnt = document.createElement("span"); cnt.className = "count"; cnt.textContent = (S.done[x.id] || 0) + "x";
+      right.append(cnt, btn(xi === i ? "Aberto" : "Abrir", () => { pick = xi; demoOpen = false; document.querySelector(".deckwrap").open = false; renderDesafios(); window.scrollTo({ top: $("today").getBoundingClientRect().top + scrollY - 80, behavior: "smooth" }); }));
+      it.append(tt, right); g.append(it);
     });
-    const sp = document.createElement("span"); const chip = document.createElement("b");
-    chip.className = "mchip " + t[0]; chip.textContent = { piano: "Piano", ouvir: "Ouvir", guitarra: "Em casa, guitarra" }[t[0]];
-    sp.append(chip, t[1]); lb.append(cb, sp); li.append(lb);
-    if (t[2] && DEMOS[t[2]]) {
-      const key = t[2], demo = demoFor(key), owner = "demo-" + key;
-      const box = document.createElement("div"); box.className = "demo";
-      const h = document.createElement("p"); h.className = "small"; const strong = document.createElement("b"); strong.textContent = demo.name; h.append(strong);
-      const r = document.createElement("div"); r.className = "row";
-      r.append(
-        btn(isPlaying(owner) ? "■ Parar" : "▶ Ouvir com a base", () => togglePlay(owner, demo, demo.notes, demo.base), "btn primary"),
-        btn(demoOpen.has(key) ? "Esconder partitura" : "Ver partitura e tab", () => { demoOpen.has(key) ? demoOpen.delete(key) : demoOpen.add(key); renderMissions(); }),
-      );
-      box.append(h, r);
-      if (demoOpen.has(key)) sheetBlock(box, { notes: demo.notes, chs: chordsOf(demo.base), bpm: demo.bpm, owner, targets: demo.targets || ["3"], cifra: true });
-      li.append(box);
-    }
-    list.append(li);
+    deck.append(g);
   });
 }
-$("week").addEventListener("change", (e) => { S.meta.week = +e.target.value; persist(); renderMissions(); });
 
 /* ---------- abas, cor ---------- */
-["ideias", "missoes"].forEach((t) => $("tab-" + t).addEventListener("click", () => {
-  ["ideias", "missoes"].forEach((x) => { $("tab-" + x).setAttribute("aria-selected", x === t ? "true" : "false"); $("p-" + x).hidden = x !== t; });
+["ideias", "desafios"].forEach((t) => $("tab-" + t).addEventListener("click", () => {
+  ["ideias", "desafios"].forEach((x) => { $("tab-" + x).setAttribute("aria-selected", x === t ? "true" : "false"); $("p-" + x).hidden = x !== t; });
 }));
 $("color").addEventListener("change", (e) => { S.meta.color = e.target.checked; persist(); markChord(shownChord); });
 
@@ -418,8 +457,8 @@ document.addEventListener("keydown", (e) => { if (e.key === "Escape" && staged) 
 let rsz = null; window.addEventListener("resize", () => { if (!staged) return; clearTimeout(rsz); rsz = setTimeout(buildStage, 150); });
 
 /* ---------- início ---------- */
-function renderAll() { $("color").checked = !!S.meta.color; markChord(shownChord); renderIdeas(); renderMissions(); renderDraft(); }
-onBaseChange(() => { markChord(shownChord); renderStageBars(-1); renderMissions(); });
+function renderAll() { if (!S.done) S.done = {}; $("color").checked = !!S.meta.color; renderTarget(); markChord(shownChord); renderIdeas(); renderDesafios(); renderDraft(); }
+onBaseChange(() => { markChord(shownChord); renderStageBars(-1); renderDesafios(); });
 buildKeyboard($("kb"));
 renderStageBars(-1);
 renderAll();

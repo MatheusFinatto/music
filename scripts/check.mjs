@@ -1,7 +1,7 @@
 // Verificação rápida dos dados do plano e das missões (roda em Node, sem navegador).
 // Uso: npm run check
 import { D, WEEKS, CRIT, BLOCKS } from "../src/lib/plan.js";
-import { WEEKS as MW, DEMOS, MISS } from "../src/lib/missions.js";
+import { CHALLENGES, DEMOS, CATS, challengeOfDay } from "../src/lib/challenges.js";
 
 const fail = (m) => { console.error("FALHOU:", m); process.exitCode = 1; };
 const LAYERS = ["all", "thirds", "fifths", "chord", "bends", "approach", "color", "ninths"];
@@ -16,16 +16,20 @@ D.forEach((d, n) => {
 if (BLOCKS.reduce((a, b) => a + b[1], 0) !== 30) fail("os blocos do timer devem somar 30 minutos");
 if (!CRIT.length) fail("CRIT vazio");
 
-if (MW.length !== 8 || MISS.length !== 8) fail("missões devem ter 8 semanas");
-MISS.forEach((week, w) => week.forEach((m, i) => {
-  if (!["piano", "ouvir", "guitarra"].includes(m[0])) fail(`missão s${w + 1}#${i} tem tipo inválido`);
-  if (m[2] && !DEMOS[m[2]]) fail(`missão s${w + 1}#${i} aponta para exemplo inexistente: ${m[2]}`);
-}));
+const ids = new Set();
+CHALLENGES.forEach((c) => {
+  if (ids.has(c.id)) fail("desafio repetido: " + c.id); ids.add(c.id);
+  if (!CATS[c.cat]) fail("desafio " + c.id + " tem categoria desconhecida");
+  if (!["T", "3", "5", "9", "all"].includes(c.target)) fail("desafio " + c.id + " tem alvo inválido");
+  if (c.demo && !DEMOS[c.demo]) fail("desafio " + c.id + " aponta para exemplo inexistente");
+});
 Object.entries(DEMOS).forEach(([k, d]) => d.notes.forEach((x) => {
-  if (x.b < 0 || x.b >= 16 || x.d <= 0) fail("exemplo " + k + " tem nota fora dos 4 compassos");
+  if (x.b < 0 || x.b + x.d > 16 || x.d <= 0) fail("exemplo " + k + " tem nota fora dos 4 compassos");
 }));
+const day = challengeOfDay(new Date(2026, 10, 17));
+if (!(day >= 0 && day < CHALLENGES.length)) fail("desafio do dia fora da lista");
 
-if (!process.exitCode) console.log("ok: 57 dias, 8 semanas de missões, " + Object.keys(DEMOS).length + " exemplos");
+if (!process.exitCode) console.log("ok: 57 dias, " + CHALLENGES.length + " desafios, " + Object.keys(DEMOS).length + " exemplos");
 
 // Editor: o caso real que motivou o editor (notas adiantadas uma semicolcheia).
 import { quantize, moveNote, deleteNote, normalize } from "../src/lib/edit.js";

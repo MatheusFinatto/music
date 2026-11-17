@@ -14,7 +14,7 @@ src/lib/score.js                       partitura (ABC → abcjs), tab em texto, 
 src/lib/edit.js                        editor de ideias: ajustar ao tempo, mover, encurtar/alongar, ±½ tom, apagar (funções puras)
 src/lib/store.js                       localStorage (prefixo musica:), backup exportar/importar
 src/lib/plan.js                        conteúdo dos 57 dias do Diário
-src/lib/missions.js                    missões semanais do Piano e os exemplos
+src/lib/challenges.js                  desafios do Piano (categorias, alvo de cada um), exemplos e desafio do dia
 scripts/check.mjs                      validação dos dados (Node)
 scripts/smoke.mjs                      teste de fumaça no navegador (Playwright)
 ```
@@ -42,9 +42,9 @@ Ideias antigas (vindas do artefato) podem ter `prog: ["Am","F","C","G"]` no luga
 A gravação quantiza em semicolcheias. Ao editar, a primeira versão fica em `original` (botão "Voltar ao original"); o "Desfazer" é só da sessão.
 
 ## Dados no navegador
-Chaves: `musica:base`, `musica:piano` (`{meta:{color,week}, ideas:{id:ideia}, missions:{w1:[bool…]}}`), `musica:diario` (`{meta:{phrases:{semana:texto}}, days:{n:{done,count,note,scores,video,ts}}}`).
+Chaves: `musica:base`, `musica:piano` (`{meta:{color,target}, ideas:{id:ideia}, done:{idDoDesafio:vezes}}`; dados antigos podem ter `missions`, ignorado), `musica:diario` (`{meta:{phrases:{semana:texto}}, days:{n:{done,count,note,scores,video,ts}}}`).
 Backup: `exportAll()` / `importAll()` em `store.js` (formato `{app:"musica", version:1, base, piano, diario}`).
-**Missões**: salve sempre a lista completa de booleanos da semana (sem buracos).
+Ideias gravadas com um desafio ativo guardam `challenge: idDoDesafio`.
 
 ## Partitura
 - ABC gerado em `toAbc`, sempre `K:C` com acidentes explícitos (funciona em qualquer tom).
@@ -53,7 +53,7 @@ Backup: `exportAll()` / `importAll()` em `store.js` (formato `{app:"musica", ver
 - Layout se adapta à largura (4, 2 ou 1 compasso por linha) com `ResizeObserver`.
 
 ## Como adicionar
-- **Missão**: em `src/lib/missions.js`, `MISS[semana-1]` recebe `["piano"|"ouvir"|"guitarra", "texto", "chaveDoExemplo?"]`. Adicione no **fim** da semana para não deslocar as caixas já marcadas.
-- **Exemplo**: `DEMOS[chave] = { name: "Exemplo: …", prog, bpm, targets?: ["3"], notes: [...] }` no tom de Dó; o site transpõe.
+- **Desafio**: em `src/lib/challenges.js`, acrescente `{ id, cat, target, title, text, demo? }` na lista `CHALLENGES` (a ordem da lista é a ordem do "desafio do dia"; mantenha as categorias alternadas).
+- **Exemplo**: `DEMOS[chave] = { name: "Exemplo: …", bpm, notes: [...] }` na base padrão (tom de Dó); o site transpõe.
 - **Estilo de base**: `STYLES` em `base.js` (padrões de 16 semicolcheias para bumbo, caixa, chimbal e baixo).
 - Rode `npm run check` depois.

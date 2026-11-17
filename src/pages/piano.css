@@ -60,3 +60,18 @@ body.staged { overflow: hidden; }
 .editor { display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--line); border-radius: 8px; padding: 10px; background: var(--surface); }
 .sel-info { font-family: var(--mono); color: var(--ok); }
 .idea > .btn { align-self: flex-start; }
+
+.challenge { border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 10px; background: var(--bg); }
+.challenge h2 { font-size: 1.6rem; }
+.challenge .text { font-size: 1.05rem; max-width: 64ch; }
+.challenge .next { font-size: .9rem; color: var(--muted); }
+.catchip { align-self: flex-start; font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; border-radius: 4px; padding: 2px 8px; background: var(--soft); color: var(--muted); }
+.deck { display: flex; flex-direction: column; gap: 14px; }
+.deck .group { display: flex; flex-direction: column; gap: 6px; }
+.deck .item { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; justify-content: space-between; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+.deck .item.cur { border-color: var(--accent); }
+.deck .item b { font-weight: 600; }
+.deck .count { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+.deckwrap summary { list-style: none; align-self: flex-start; width: fit-content; }
+.deckwrap summary::-webkit-details-marker { display: none; }
+.deckwrap[open] summary { margin-bottom: 12px; }

@@ -23,14 +23,15 @@
     <div class="row" style="justify-content:space-between">
       <div class="row">
         <button class="btn rec" id="rec" type="button">● Gravar ideia</button>
+        <div class="row small muted"><span>Alvo:</span><div class="seg" id="target" role="group" aria-label="Nota-alvo"></div></div>
         <label class="row small muted" for="color"><input id="color" type="checkbox"> Notas de cor (9ª, 6ª)</label>
       </div>
       <button class="btn primary" id="stage-open" type="button">⛶ Tela cheia</button>
     </div>
-    <p class="status" id="status">Toque por cima da base. A 3ª do acorde que está soando fica em laranja.</p>
+    <p class="status" id="status">Toque por cima da base. O alvo do acorde que está soando fica em laranja.</p>
     <div class="kbwrap"><div class="kb" id="kb" role="group" aria-label="Teclado de piano"></div></div>
     <div class="legend">
-      <span><span class="dot target"></span>3ª do acorde que está soando (alvo)</span>
+      <span><span class="dot target"></span><span id="legend-target">3ª do acorde que está soando (alvo)</span></span>
       <span><span class="dot chord"></span>Outras notas do acorde</span>
       <span><span class="dot penta"></span>Pentatônica</span>
       <span><span class="dot color"></span>Cor (quando ligada)</span>
@@ -41,7 +42,7 @@
   <section class="panel">
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" id="tab-ideias" aria-selected="true" type="button">Ideias</button>
-      <button class="tab" role="tab" id="tab-missoes" aria-selected="false" type="button">Missões</button>
+      <button class="tab" role="tab" id="tab-desafios" aria-selected="false" type="button">Desafios</button>
     </div>
     <div id="p-ideias" class="tabpanel">
       <div class="draft" id="draft" hidden>
@@ -63,13 +64,9 @@
       </div>
       <div class="ideas" id="ideas"></div>
     </div>
-    <div id="p-missoes" class="tabpanel" hidden>
-      <div class="row">
-        <label for="week" class="small muted">Semana do Diário</label>
-        <select id="week" class="txt"></select>
-      </div>
-      <p class="muted small">Missões curtas, de 5 a 10 minutos. O piano só serve para gerar ideias. O objetivo é sempre levar alguma coisa para a guitarra. Os exemplos tocam na base padrão, no tom em que a base estiver.</p>
-      <ul class="mlist" id="mlist"></ul>
+    <div id="p-desafios" class="tabpanel" hidden>
+      <div id="today"></div>
+      <details class="deckwrap"><summary class="btn">Ver todos os desafios</summary><div id="deck" class="deck"></div></details>
     </div>
   </section>
 </div>
