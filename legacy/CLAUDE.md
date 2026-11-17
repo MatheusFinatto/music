@@ -15,6 +15,6 @@ Antes de mexer, leia `legacy/docs/PREFERENCIAS.md` (combinados com o dono, segui
 ## Comandos (rodar na raiz do repo)
 ```bash
 npm run dev:lab     # Vite do Laboratório, com recarga
-npm run check       # valida o plano de 57 dias e as missões
+npm run check       # valida o plano de 57 dias e os desafios
 npm run build:lab   # gera public/laboratorio/
 ```

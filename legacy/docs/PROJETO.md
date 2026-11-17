@@ -15,12 +15,14 @@ Ao compor solos, o dono cai em dois extremos: seguindo a teoria, o solo fica "qu
 ## Páginas
 - **Início** (`/laboratorio`): links, barra da base, backup (exportar/importar).
 - **Diário do Solo** (`/laboratorio/diario`): plano de 57 dias (dia 0 + 8 semanas). Cada dia: micro-meta, passos, braço da guitarra com os alvos do dia (acompanha a base), timer de 30 min em 4 blocos (cantar/vocabulário/foco/livre), contador de acertos (micro-evolução, com "última vez você fez X, tente X+1"), anotação, "dia feito". Dias de gravação (0, 7, 14…, 56) têm ficha de 1 a 5. Gráfico de acerto e tabela comparando as fichas.
-- **Piano de Ideias** (`/laboratorio/piano`): piano no navegador (mouse, toque ou teclado do computador), por cima da base. Grava 4 compassos, mostra partitura + tab, salva ideias (★, "Testei na guitarra", "Copiar para o Claude", baixar HTML). Aba de **Missões** por semana, com exemplos tocáveis.
+- **Piano de Ideias** (`/laboratorio/piano`): piano no navegador (mouse, toque ou teclado do computador), por cima da base. Grava 4 compassos, mostra partitura + tab, salva ideias (★, "Testei na guitarra", "Copiar para o Claude", baixar HTML). Aba de **Desafios**: um desafio do dia (muda todo dia e alterna categorias: alvos, saltos e desenho, tensão e resolução, cor, vocabulário), com exemplo tocável em alguns, contador de vezes feitas e a lista completa sob demanda. Seletor de **alvo** (T, 3ª, 5ª, 9ª, todas) acima do teclado.
 - **Montar base** (janela em todas as páginas): tom (± meio tom), 4 acordes do campo harmônico maior, andamento, estilo (Balada, Rock, Pop, Só acordes), mixagem, metrônomo. A base vale para o site todo.
 
 ## As 8 semanas
 1. Notas-alvo · 2. Bends para o alvo · 3. Ritmo e espaço · 4. Motivos · 5. Pergunta e resposta · 6. Cor (9ª e 6ª) · 7. O arco do solo · 8. Juntar tudo.
-Conteúdo dos dias: `src/lib/plan.js`. Missões e exemplos do piano: `src/lib/missions.js`.
+Conteúdo dos dias: `src/lib/plan.js`. Desafios e exemplos do piano: `src/lib/challenges.js`.
+
+> O plano do Diário ainda está organizado em semanas temáticas e a semana 1 é toda de 3ªs. Ele pediu para sair da prisão das 3ªs; reorganizar o Diário em rodízio de focos está no backlog.
 
 ## Histórico
 Começou como artefatos dentro do Claude (claude.ai). Virou site para usar microfone/MIDI no futuro, abrir no celular e no Linux (Nobara) sem o Claude Desktop, e poder ser desenvolvido por qualquer conta do Claude Code.

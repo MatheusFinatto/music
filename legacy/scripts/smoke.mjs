@@ -47,7 +47,13 @@ console.log("piano:", await p.textContent("#status"));
 await p.click("#draft-save"); await p.waitForTimeout(200);
 await p.click("text=Partitura e tab"); await p.waitForTimeout(600);
 console.log("piano: notas na partitura =", await p.$$eval(".idea .abcjs-note", (e) => e.length));
-await p.click("#tab-missoes"); await p.click(".demo .btn:nth-child(2)"); await p.waitForTimeout(500);
+await p.click("#tab-desafios"); await p.waitForTimeout(200);
+console.log("piano: desafio do dia =", await p.textContent(".challenge h2"));
+await p.click("text=Abrir >> nth=0"); await p.waitForTimeout(200);
+await p.click(".challenge .btn.primary"); await p.waitForTimeout(200);
+console.log("piano: alvo depois de começar =", await p.textContent("#legend-target"));
+const demoBtn = p.locator(".challenge .demo .btn").nth(1);
+if (await demoBtn.count()) { await demoBtn.click(); await p.waitForTimeout(500); }
 await p.screenshot({ path: out + "/smoke-piano.png", fullPage: true });
 
 console.log(errs.length ? "ERROS:\n" + errs.join("\n") : "sem erros no console");
