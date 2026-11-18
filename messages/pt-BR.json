@@ -2,7 +2,7 @@
   "site": {
     "name": "Musical Tools",
     "title": "Musical Tools",
-    "description": "Ferramentas de prática para quem toca: tirar de ouvido, afinador, treino de ouvido, improvisação e player de tab. Gratuito e sem conta.",
+    "description": "Ferramentas de prática para quem toca: tirar de ouvido, afinador, treino de ouvido, improvisação e metrônomo. Gratuito e sem conta.",
     "skip": "Pular para o conteúdo"
   },
   "nav": {
@@ -36,9 +36,9 @@
       "name": "Treino de ouvido",
       "summary": "Intervalos, acordes e graus."
     },
-    "player": {
-      "name": "Player de tab e MIDI",
-      "summary": "Abra seus arquivos e toque junto."
+    "metronomo": {
+      "name": "Metrônomo",
+      "summary": "Andamento e compasso, no navegador ou no app Android."
     },
     "solos": {
       "name": "Como solar no violão e na guitarra",

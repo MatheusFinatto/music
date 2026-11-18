@@ -14,7 +14,7 @@ Sem datas. A ordem é a recomendada; cada ferramenta só é lançada quando esti
 2. **Afinador** — rápido de fazer, e é quem inaugura microfone e detecção de altura no núcleo, que o treinador e o treino de ouvido reaproveitam. Pode andar em paralelo com o item 1, por outro dev. **Feito**: `/afinador` afina no navegador e entrega o app Android Marmota Tuner (`marmota-tuner/`). Os dois rodam a mesma lógica, escrita em Kotlin (`marmota-tuner/core`) e compilada para JS em `src/core/pitch`. Faltam as pendências em "Notas para o afinador", que as ferramentas que ouvem a guitarra vão cobrar.
 3. **Treino de ouvido** — intervalos, acordes, graus funcionais.
 4. **Improvisação** — redesenho do Laboratório (Diário e Piano) como ferramenta do site novo.
-5. **Player de tab e MIDI** — abre arquivo do próprio usuário (Guitar Pro, MIDI) e toca junto. A base técnica provável é a biblioteca alphaTab. **Sem catálogo de tablaturas**: música comercial é protegida por direito autoral.
+5. **Metrônomo** — no navegador e no app Android, no mesmo esquema do afinador: a lógica em Kotlin, compilada para JS no site. O Player de tab e MIDI saiu do plano (decisão do dono, 2026-11-18).
 
 ## Contrato do núcleo (`src/core/`)
 Criado sob demanda pela primeira ferramenta que precisar. Quem chegar primeiro define a interface; quem vier depois reaproveita e, se precisar mudar, muda num PR separado.
