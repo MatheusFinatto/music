@@ -17,8 +17,11 @@ type Common = {
   base?: Base;
 };
 
-/** Mostra desenhos da pentatônica ou as notas de cada acorde dentro de um desenho. */
-export type MapExercise = Common & { kind: "map"; shapes: number[]; layer: "penta" | "chord" };
+/**
+ * Mostra desenhos da pentatônica ou as notas de cada acorde dentro de um desenho. Com `together`,
+ * os desenhos de `shapes` aparecem juntos num braço só, em vez de um botão para cada.
+ */
+export type MapExercise = Common & { kind: "map"; shapes: number[]; layer: "penta" | "chord"; together?: boolean };
 
 /** Uma corda só, ao longo do braço: as notas da pentatônica e, em laranja, as do acorde que está soando. */
 export type LineExercise = Common & { kind: "line"; string: number; frets: [number, number] };
@@ -48,7 +51,8 @@ export type EchoExercise = Common & {
  */
 export type TargetExercise = Common & {
   kind: "target";
-  shape: number;
+  /** Desenho onde procurar o alvo; com vários, vale qualquer um deles. */
+  shape: number | number[];
   degrees: ChordDegree[];
   rule?: string;
   blind?: boolean;

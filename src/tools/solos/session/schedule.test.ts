@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { Curriculum, Exercise, Lesson, Phrase } from "../curriculum/types";
 import { EMPTY, addDays, buildSession, daysThisWeek, learnLesson, rate, rateCold, toggleLesson, unitStatuses } from "./schedule";
 import { curriculum as real } from "../curriculum/pt-BR";
-import { chordsOf, degreeIn, minorPentatonic, mod12, pentatonicShape } from "@/core/theory";
+import { chordsOf, degreeIn, minorPentatonic, mod12, pentatonicShape, pentatonicShapes } from "@/core/theory";
 import { gestureOf } from "../engines/tech";
 
 const ex = (id: string): Exercise => ({ id, kind: "take", title: id, goal: "", steps: [], check: "", bars: 4 });
@@ -346,6 +346,55 @@ describe("frases das unidades", () => {
       expect(p.notes.at(-1)!.dur, `${p.id}: nota longa no fim`).toBeGreaterThanOrEqual(3);
     }
   });
+  // Parte 2: um desenho novo por seção; a junção acumula todos os anteriores (1+2, 1 a 3, 1 a 4, 1 a 5).
+  const PARTE2 = [{ shape: 2, vocab: "u21", join: "u22", arc: "a7.take" }];
+  const boxOf = (shapes: number[]) => new Set(pentatonicShapes(0, shapes).map((x) => `${x.string}-${x.fret}`));
+  const before = (n: number) => Array.from({ length: n - 1 }, (_, i) => i + 1);
+  const placesOf = (p: Phrase) => p.frets!.map((f) => `${f.string}-${f.fret}`);
+  const phrasesOf = (unit: string) =>
+    real.units.find((u) => u.id === unit)!.lessons.flatMap((l) => l.exercises).flatMap((e) => (e.kind === "echo" ? e.phrases : []));
+  it("no vocabulário de cada desenho novo, toda frase fica nele e usa notas que só ele tem", () => {
+    for (const { shape, vocab } of PARTE2) {
+      const [box, old] = [boxOf([shape]), boxOf(before(shape))];
+      expect(phrasesOf(vocab).length, vocab).toBeGreaterThanOrEqual(4);
+      for (const p of phrasesOf(vocab)) {
+        for (const at of placesOf(p)) expect(box.has(at), `${p.id}: ${at}`).toBe(true);
+        expect(placesOf(p).some((at) => !old.has(at)), p.id).toBe(true);
+      }
+    }
+  });
+  it("na junção, toda frase fica nos desenhos juntos e passa do desenho novo para um anterior", () => {
+    for (const { shape, join } of PARTE2) {
+      const all = boxOf([...before(shape), shape]);
+      const [only, old] = [boxOf([shape]), boxOf(before(shape))];
+      expect(phrasesOf(join).length, join).toBeGreaterThanOrEqual(3);
+      for (const p of phrasesOf(join)) {
+        for (const at of placesOf(p)) expect(all.has(at), `${p.id}: ${at}`).toBe(true);
+        expect(placesOf(p).some((at) => only.has(at) && !old.has(at)), `${p.id}: toca o desenho ${shape}`).toBe(true);
+        expect(placesOf(p).some((at) => old.has(at) && !only.has(at)), `${p.id}: toca um anterior`).toBe(true);
+      }
+    }
+  });
+  it("no arco de cada junção: começa nos desenhos de antes, vai ao novo, atravessa e pousa; mais desenhos, mais compassos", () => {
+    for (const { shape, arc } of PARTE2) {
+      const e = take(arc);
+      expect(e.bars, arc).toBe(4 + 4 * shape);
+      const all = boxOf([...before(shape), shape]);
+      const [only, old] = [boxOf([shape]), boxOf(before(shape))];
+      const size = (e.bars * 4) / e.arc!.length;
+      for (const p of e.examples!) {
+        const at = (ns: Phrase["notes"]) => ns.map((n) => `${p.frets![p.notes.indexOf(n)]!.string}-${p.frets![p.notes.indexOf(n)]!.fret}`);
+        at(p.notes).forEach((x) => expect(all.has(x), `${p.id}: ${x}`).toBe(true));
+        at(part(p, 0, size)).forEach((x) => expect(old.has(x), `${p.id}, começo: ${x}`).toBe(true));
+        at(part(p, 1, size)).forEach((x) => expect(only.has(x), `${p.id}, desenho ${shape}: ${x}`).toBe(true));
+        expect(at(part(p, 1, size)).some((x) => !old.has(x)), `${p.id}: o desenho novo soa`).toBe(true);
+        const cross = at(part(p, 2, size));
+        expect(cross.some((x) => only.has(x) && !old.has(x)) && cross.some((x) => old.has(x) && !only.has(x)), `${p.id}: atravessa`).toBe(true);
+        at(part(p, 3, size)).forEach((x) => expect(old.has(x), `${p.id}, pouso: ${x}`).toBe(true));
+        expect(p.notes.at(-1)!.dur, `${p.id}: nota longa no fim`).toBeGreaterThanOrEqual(3);
+      }
+    }
+  });
   it("as outras bases da tomada fecham o ciclo dentro dela, só com acordes que têm nota na pentatônica", () => {
     const takes = [...exercises, real.take].flatMap((e) => (e.kind === "take" && e.bases ? [e] : []));
     expect(takes.map((e) => e.id)).toContain(real.take.id);
@@ -362,7 +411,7 @@ describe("frases das unidades", () => {
       }
   });
   it("os desenhos 4 e 5 têm alvo na troca", () => {
-    const shapes = new Set(exercises.flatMap((e) => (e.kind === "target" && !e.line ? [e.shape] : [])));
+    const shapes = new Set(exercises.flatMap((e) => (e.kind === "target" && !e.line ? [e.shape].flat() : [])));
     expect([...shapes].sort()).toEqual([1, 2, 3, 4, 5]);
   });
   it("todo alvo na troca reveza pelo menos dois graus", () => {

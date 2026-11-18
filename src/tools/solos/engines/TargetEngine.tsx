@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { chordsOf, degreeIn, fretSpan, midiAt, minorPentatonic, pentatonicShape, positionsOf, toneOf } from "@/core/theory";
+import { chordsOf, degreeIn, fretSpan, midiAt, minorPentatonic, pentatonicShapes, positionsOf, toneOf } from "@/core/theory";
 import type { TargetExercise } from "../curriculum/types";
 import { BackingBar } from "../components/BackingBar";
 import { Banner } from "../components/Banner";
@@ -29,7 +29,7 @@ export function TargetEngine({ ex }: { ex: TargetExercise }) {
   const line = ex.line;
   const box = line
     ? positionsOf(minorPentatonic(base.key), line.frets[0], line.frets[1]).filter((p) => p.string === line.string)
-    : pentatonicShape(base.key, ex.shape);
+    : pentatonicShapes(base.key, [ex.shape].flat());
   const [lo, hi] = line ? line.frets : fretSpan(box);
   const targets = positionsOf([toneOf(chord, degree)], lo, hi).filter((p) => !line || p.string === line.string);
   const isTarget = new Set(targets.map((p) => `${p.string}-${p.fret}`));
