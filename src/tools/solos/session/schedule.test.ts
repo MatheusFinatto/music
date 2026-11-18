@@ -353,7 +353,10 @@ describe("frases das unidades", () => {
     }
   });
   // Parte 2: um desenho novo por seção; a junção acumula todos os anteriores (1+2, 1 a 3, 1 a 4, 1 a 5).
-  const PARTE2 = [{ shape: 2, vocab: "u21", join: "u22", arc: "a7.take" }];
+  const PARTE2 = [
+    { shape: 2, vocab: "u21", join: "u22", arc: "a7.take" },
+    { shape: 3, vocab: "u24", join: "u25", arc: "a8.take" },
+  ];
   const boxOf = (shapes: number[]) => new Set(pentatonicShapes(0, shapes).map((x) => `${x.string}-${x.fret}`));
   const before = (n: number) => Array.from({ length: n - 1 }, (_, i) => i + 1);
   const placesOf = (p: Phrase) => p.frets!.map((f) => `${f.string}-${f.fret}`);
