@@ -52,15 +52,20 @@ export function tabSystems(notes: readonly LeadNote[], frets: readonly FretPos[]
   const cw = Math.max(layout.cw, denseCw(notes, frets));
   const perBar = 16 * cw;
   const grid = NAMES.map(() => Array.from({ length: bars }, () => Array.from({ length: perBar }, (): TabCell => ({ ch: "-", note: -1 }))));
+  // A nota anterior na mesma corda: é dela que sai o hammer-on ou o pull-off.
+  const lastOn = new Map<number, LeadNote>();
   notes.forEach((n, i) => {
-    const six = Math.round(n.beat * 4), bar = Math.floor(six / 16);
+    // O compasso vem do tempo exato: arredondar antes jogaria uma fusa do fim do compasso para o seguinte.
+    const bar = Math.floor(n.beat / 4 + 1e-6);
     if (bar >= bars) return;
-    const pos = frets[i]!, token = tabToken(n, pos, notes[i - 1]);
+    const pos = frets[i]!, token = tabToken(n, pos, lastOn.get(pos.string));
+    lastOn.set(pos.string, n);
     const row = grid[pos.string]![bar]!;
     // Nota mais curta que a semicolcheia (enfeite de solo tirado de gravação) cairia em cima da anterior:
     // vai para a primeira coluna livre ao lado. A posição fica aproximada; o som continua no tempo certo.
     const free = (c: number) => c >= 0 && c + token.length <= perBar && row.slice(c, c + token.length + 1).every((x) => x.note < 0) && (c === 0 || row[c - 1]!.note < 0);
-    const want = (six % 16) * cw + (cw > 2 ? 1 : 0);
+    // Posição pelo tempo, caractere a caractere (a fusa cai entre duas semicolcheias), sem passar do fim do compasso.
+    const want = Math.min(Math.round((n.beat - bar * 4) * 4 * cw) + (cw > 2 ? 1 : 0), perBar - token.length);
     let c = want;
     for (let d = 1; !free(c) && d < perBar; d++) c = free(want + d) ? want + d : free(want - d) ? want - d : c;
     if (!free(c)) c = want;

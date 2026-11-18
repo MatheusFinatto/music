@@ -195,7 +195,9 @@ export function Solos() {
                         <h4>{sec.title}</h4>
                         <p>{sec.goal}</p>
                       </div>
-                      <span className={`badge${secCount.done === secCount.total ? " feita" : ""}`}>{t("home.count", secCount)}</span>
+                      {secCount.total > 0
+                        ? <span className={`badge${secCount.done === secCount.total ? " feita" : ""}`}>{t("home.count", secCount)}</span>
+                        : <span className="badge">{t("home.soonBadge")}</span>}
                     </summary>
                     <ol className="trail">
                       {sec.units.map((id) => {
@@ -242,6 +244,7 @@ export function Solos() {
                         );
                       })}
                     </ol>
+                    {sec.soon && <p className="soon">{t("home.soon", { songs: sec.soon.join(", ") })}</p>}
                   </details>
                 );
               })}

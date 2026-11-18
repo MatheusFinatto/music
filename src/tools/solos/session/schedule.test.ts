@@ -478,6 +478,11 @@ describe("seções", () => {
   it("cobrem todas as unidades, uma vez, na ordem da trilha, e cada uma fecha com um arco", () => {
     expect(real.sections.flatMap((s) => s.units)).toEqual(real.units.map((u) => u.id));
     for (const s of real.sections) {
+      // Seção que ainda não tem unidade só anuncia o que vem.
+      if (s.units.length === 0) {
+        expect(s.soon?.length, s.id).toBeGreaterThan(0);
+        continue;
+      }
       const last = real.units.find((u) => u.id === s.units.at(-1));
       expect(last?.arc, s.id).toBe(true);
       expect(s.units.slice(0, -1).every((id) => !real.units.find((u) => u.id === id)?.arc), s.id).toBe(true);
