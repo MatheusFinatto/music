@@ -411,13 +411,24 @@ describe("frases das unidades", () => {
     }
   });
   it("o mesmo lick nos cinco desenhos: mesmas notas e mesmo ritmo, cada versão dentro do seu desenho", () => {
-    const versions = phrasesOf("u12").filter((p) => /^m[1-5]$/.test(p.id));
+    const versions = phrasesOf("u37").filter((p) => /^m[1-5]$/.test(p.id));
     expect(versions.map((p) => p.id)).toEqual(["m1", "m2", "m3", "m4", "m5"]);
     const shapeOf = (p: Phrase) => p.notes.map((n) => `${n.beat}:${n.dur}:${mod12(n.midi)}`).join(" ");
     versions.forEach((p, i) => {
       expect(shapeOf(p), p.id).toBe(shapeOf(versions[0]!));
       for (const at of placesOf(p)) expect(boxOf([i + 1]).has(at), `${p.id}: ${at}`).toBe(true);
     });
+  });
+  it("na seção do mesmo lick, cada lick sai igual nos cinco shapes, cada versão dentro do seu shape", () => {
+    const sig = (p: Phrase) => p.notes.map((n) => `${n.beat}:${n.dur}:${mod12(n.midi)}`).join(" ");
+    for (const lick of ["z1s", "z2s", "z3s"]) {
+      const versions = phrasesOf("u37").filter((p) => p.id.startsWith(lick));
+      expect(versions.map((p) => p.id)).toEqual([1, 2, 3, 4, 5].map((n) => lick + n));
+      versions.forEach((p, i) => {
+        expect(sig(p), p.id).toBe(sig(versions[0]!));
+        for (const at of placesOf(p)) expect(boxOf([i + 1]).has(at), `${p.id}: ${at}`).toBe(true);
+      });
+    }
   });
   it("cada desenho novo tem tônicas para achar e um exercício de voltar à tônica", () => {
     for (const unit of ["u20", "u23", "u26", "u29"]) {
