@@ -1,6 +1,6 @@
 # Musical Tools
 
-Site de música generalista, gratuito e não comercial, guitarra primeiro. Um **hub** (a homepage) leva a **ferramentas de prática independentes**; cada uma tem que ser excelente sozinha. Em português do Brasil. Publicado na Vercel em `music-finatto.vercel.app`.
+Site de música generalista, gratuito e não comercial, com foco em guitarra. Um **hub** (a homepage) leva a **ferramentas de prática independentes**; cada uma tem que ser excelente sozinha. Em português do Brasil. Publicado na Vercel em `adless-music.vercel.app`.
 
 Vários devs contribuem, cada um numa ferramenta. **Leia antes de mudar qualquer coisa:**
 - `docs/ARQUITETURA.md` — estrutura, regra de isolamento e **como adicionar uma ferramenta**.
@@ -36,3 +36,6 @@ npm run smoke       # teste de fumaça no navegador (Playwright), com o start ro
 ## Git
 - Push na `main` publica na hora. Trabalhe em branch e abra PR; o merge é do dono.
 - Antes de pedir revisão: `npm run lint`, `npm run typecheck`, `npm run check`, `npm test` e `npm run build` passando.
+
+## Marmota Tuner (app Android)
+`marmota-tuner/` é o **Marmota Tuner**, um app Android separado (afinador cromático em Kotlin), fora do build do site (`.vercelignore`). O hub chega nele pela página `/afinador` (`src/tools/afinador/`), que só explica e entrega o APK publicado num Release do GitHub. Os dois afinadores convivem: o app é só um afinador (sem anúncio, sem internet, menos de 1 MB); o afinador dentro do site, que inaugura `src/core/`, segue no `docs/ROADMAP.md`. Ver `marmota-tuner/README.md`.

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark gray like the reference screenshot -->
+    <color name="tuner_background">#FF1E1E1E</color>
+    <color name="tuner_ink">#FFEDEDED</color>
+    <color name="tuner_muted">#FF9A9A9A</color>
+    <!-- Same meaning as the site (docs/PREFERENCIAS.md): orange = target, blue = sounding now -->
+    <color name="tuner_target">#FFFF7A1A</color>
+    <color name="tuner_now">#FF4AA3FF</color>
+    <color name="tuner_in_tune">#FF3DDC84</color>
+</resources>
