@@ -1003,37 +1003,39 @@ export const curriculum: Curriculum = {
         {
           id: "u17.l1",
           concepts: ["O que é lick na guitarra?"],
-          title: "Licks que descem e sobem",
+          title: "Os dois primeiros licks",
           intro:
-            "Lick é uma frase curta e pronta, que você tira do bolso no meio do solo. Os primeiros dois atravessam o desenho 1 inteiro: um desce do Dó agudo até o Lá do meio, o outro sobe das cordas graves. Com eles, o desenho deixa de ser uma caixa de notas e vira caminho.",
+            "Lick é uma frase curta e pronta, que você tira do bolso no meio do solo. A diferença para a escala: escala anda nota a nota; lick vai e volta, repete, estica uma nota. O primeiro balança entre o Lá e o Sol no agudo e cai com um bend; o segundo escorrega no grave e gira em volta do Lá.",
           key: "u17.l1.echo",
           exercises: [
             {
               id: "u17.l1.echo",
               kind: "echo",
-              title: "Desce e sobe",
+              title: "Dois licks",
               goal: "Tire os dois licks de ouvido e toque cada um até sair sem pensar.",
               steps: ["Um por vez. Só passe para o próximo quando acertar duas vezes seguidas.", "Depois toque os dois sem olhar a tab."],
               check: "Toca os dois de memória, no tempo?",
               base: AM_F,
               reveal: "tab",
               phrases: [
-                phrase("k1", "Lick: desce do Dó", 2, [
-                  [1, 8, 1, 0.5],
+                phrase("k1", "Lick: vai e volta no Lá", 2, [
+                  [1, 5, 0.5, 0.5],
+                  [2, 8, 1, 0.5],
                   [1, 5, 1.5, 0.5],
                   [2, 8, 2, 0.5],
                   [2, 5, 2.5, 0.5],
-                  [3, 7, 3, 0.5],
-                  [3, 5, 3.5, 0.5],
-                  [4, 7, 4, 2, { vib: "lento" }],
+                  [3, 7, 3, 1, { bend: 2 }],
+                  [3, 5, 4, 0.5],
+                  [4, 7, 4.5, 1.5, { vib: "lento" }],
                 ]),
-                phrase("k2", "Lick: sobe das graves", 2, [
-                  [6, 5, 0.5, 0.5],
-                  [6, 8, 1, 0.5],
-                  [5, 5, 1.5, 0.5],
-                  [5, 7, 2, 0.5],
-                  [4, 5, 2.5, 0.5],
-                  [4, 7, 3, 1.5],
+                phrase("k2", "Lick: escorrega no grave", 2, [
+                  [5, 5, 0.5, 0.5],
+                  [5, 7, 1, 1, { slide: 5 }],
+                  [4, 5, 2, 0.5],
+                  [4, 7, 2.5, 0.5],
+                  [4, 5, 3, 0.5],
+                  [5, 7, 3.5, 0.5],
+                  [4, 7, 4, 2, { vib: "lento" }],
                 ]),
               ],
             },
@@ -1267,7 +1269,7 @@ export const curriculum: Curriculum = {
               kind: "echo",
               title: "As três guardadas",
               goal: "Tire as três de ouvido e repita cada uma até sair sem pensar.",
-              steps: ["Uma por vez. Só passe para a próxima quando acertar duas vezes seguidas.", "Amanhã, toque as três antes de abrir o site."],
+              steps: ["Uma por vez. Só passe para a próxima quando acertar duas vezes seguidas.", "Amanhã, com a base tocando, toque as três de memória antes de ouvir o exemplo de novo."],
               check: "Toca as três de memória, sem olhar?",
               base: AM_F,
               reveal: "tab",
@@ -1465,14 +1467,15 @@ export const curriculum: Curriculum = {
               bases: OTHER_BASES,
               examples: [
                 phrase("x6", "Exemplo do arco 3", 8, [
-                  // Um lick: desce do Dó
-                  [1, 8, 1, 0.5],
+                  // Um lick: vai e volta no Lá
+                  [1, 5, 0.5, 0.5],
+                  [2, 8, 1, 0.5],
                   [1, 5, 1.5, 0.5],
                   [2, 8, 2, 0.5],
                   [2, 5, 2.5, 0.5],
-                  [3, 7, 3, 0.5],
-                  [3, 5, 3.5, 0.5],
-                  [4, 7, 4, 2, { vib: "lento" }],
+                  [3, 7, 3, 1, { bend: 2 }],
+                  [3, 5, 4, 0.5],
+                  [4, 7, 4.5, 1.5, { vib: "lento" }],
                   // Pergunta: termina no Ré, sobre o C
                   [3, 5, 8.5, 0.5],
                   [3, 7, 9, 0.5],
@@ -1496,13 +1499,14 @@ export const curriculum: Curriculum = {
                   [2, 8, 28, 3.5, { vib: "lento" }],
                 ]),
                 phrase("x6b", "Exemplo 2 do arco 3", 8, [
-                  // Um lick: sobe das graves
-                  [6, 5, 0.5, 0.5],
-                  [6, 8, 1, 0.5],
-                  [5, 5, 1.5, 0.5],
-                  [5, 7, 2, 0.5],
-                  [4, 5, 2.5, 0.5],
-                  [4, 7, 3, 1.5],
+                  // Um lick: escorrega no grave
+                  [5, 5, 0.5, 0.5],
+                  [5, 7, 1, 1, { slide: 5 }],
+                  [4, 5, 2, 0.5],
+                  [4, 7, 2.5, 0.5],
+                  [4, 5, 3, 0.5],
+                  [5, 7, 3.5, 0.5],
+                  [4, 7, 4, 2, { vib: "lento" }],
                   // Pergunta: termina no Ré, sobre o C
                   [4, 5, 8, 0.5],
                   [4, 7, 8.5, 0.5],
