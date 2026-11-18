@@ -69,6 +69,9 @@ Como conferir: abra `marmota-music.vercel.app/solos`, de preferência no celular
 - [ ] Ao **parar**, a base desce em meio segundo; no **fim de um trecho** (exemplo, tomada), o último acorde ainda ressoa por cerca de 1,6 s. Ouça se soa natural.
 - [ ] A aba "Solo completo" de Shine On não estoura mais a largura; o botão **Tocar** deixou de ter o tamanho da faixa de acordes.
 
+## Lições novas da pesquisa do curso concorrente
+- [ ] **`u69` Arpejos de tríade na penta** (seção "Vocabulário no shape 1", 3 lições) e **`u70` Como estudar por setores** (seção "Primeiros passos", 2 lições). Foram escritas sem a sua aprovação prévia (você manda vetar depois). Veja se o método de "setores" (sete repetições limpas, juntar vizinhos, subir o andamento) faz sentido para você e se o arpejo de Mi menor (o Si é nota de fora da penta) é como você ensinaria. Ninguém ouviu as frases.
+
 ## Crítica de design (rodada 1)
 - [ ] Veja o calendário, as abas das partes (agora navegáveis por setas) e a lição aberta por link (sem "Passo 1 de 1"). O que sobrou da crítica, e precisa da sua decisão, está no `TODO.local.md` (muro de texto nas lições de solo, quatro mundos visuais, hub genérico).
 

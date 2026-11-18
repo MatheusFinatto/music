@@ -26,6 +26,8 @@ const EM: Base = { key: 7, prog: [5, 3, 0, 4], bpm: 72, style: "balada" };
 const EM_VAMP: Base = { ...EM, prog: [5] };
 /** Ré menor: Dm Bb F C. */
 const DM: Base = { key: 5, prog: [5, 3, 0, 4], bpm: 72, style: "balada" };
+/** Lá menor, Dó, Mi menor, Lá menor: um acorde por compasso, para o arpejo de tríade (o Si do Mi menor é nota de fora da penta). */
+const ARPEJO: Base = { key: 0, prog: [5, 0, 2, 5], bpm: 66, style: "balada" };
 /** A base padrão mais lenta, para o primeiro contato com alvos que mudam. */
 const BASE_SLOW: Base = { ...BASE, bpm: 60 };
 /** Dois acordes, devagar: para as frases rápidas, que se aprendem lentas. */
@@ -792,6 +794,176 @@ const written: Curriculum = {
               base: BASE,
               pattern: ["play", "play", "rest", "rest"],
               rule: "Só três notas: G4, A4 e C5",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "u70",
+      title: "Como estudar: por setores",
+      skill: "Dividir uma frase em setores curtos e estudá-los, do lento ao andamento",
+      takeCheck: "Você estudou a frase por partes curtas antes de tocá-la inteira?",
+      lessons: [
+        {
+          id: "u70.l1",
+          title: "Estudar por setores",
+          intro:
+            "Tocar a frase inteira e recomeçar a cada erro ensina bem o começo e mal o fim. O estudo por setores resolve isso: a frase é cortada em pedaços de um a dois tempos, cada pedaço é repetido até sair limpo, e só depois os vizinhos são ligados. O erro fica preso num pedaço pequeno, onde dá para consertá-lo.",
+          key: "u70.l1.setores",
+          exercises: [
+            {
+              id: "u70.l1.setores",
+              kind: "echo",
+              title: "Uma frase em três setores",
+              goal: "Aprenda a frase por setores: cada um sozinho, depois os dois primeiros juntos, depois a frase inteira.",
+              steps: [
+                "Ouça a frase inteira (última aba) e confira onde ela se divide em três setores. O corte cai onde a mão muda de corda ou a melodia faz uma pausa curta.",
+                "Estude um setor por vez, devagar. A meta é sair sete vezes seguidas sem erro e sem tensão na mão; se errar na sexta, a contagem volta a zero.",
+                "Com os três prontos, junte dois vizinhos (aba \"Setores 1 e 2\") e repita do mesmo jeito. Só então toque a frase inteira.",
+                "Se o erro vem junto com mão apertada ou dedo que não obedece, é cansaço: pare e retome depois, em vez de repetir o erro.",
+              ],
+              check: "Tocou cada setor sete vezes seguidas sem erro e depois a frase inteira, sem tensão na mão?",
+              base: AM_F,
+              reveal: "tab",
+              phrases: [
+                {
+                  ...phrase("setor1", "Setores: setor 1", 2, [
+                    [1, 8, 0.5, 0.5],
+                    [1, 5, 1, 0.5],
+                    [2, 8, 1.5, 0.5],
+                  ]),
+                  label: "Setor 1",
+                  intro: "O primeiro setor tem três notas, na 1ª e na 2ª cordas: a descida do Dó ao Lá e ao Sol.",
+                  steps: ["Entre na metade do tempo 1 e pare no fim do segundo tempo: o setor é curto de propósito.", "Repita até sair sete vezes seguidas sem erro, sem apertar a mão."],
+                },
+                {
+                  ...phrase("setor2", "Setores: setor 2", 2, [
+                    [2, 5, 2, 0.5],
+                    [3, 7, 2.5, 0.5],
+                    [3, 5, 3, 0.5],
+                    [3, 7, 3.5, 0.5],
+                  ]),
+                  label: "Setor 2",
+                  intro: "O segundo setor tem quatro notas, do Mi na 2ª corda às notas vizinhas da 3ª corda: Ré, Dó e Ré.",
+                  steps: ["Aqui o difícil é a troca de corda no começo: se errar sempre no mesmo ponto, estude só essas duas notas.", "Sete vezes seguidas sem erro, devagar."],
+                },
+                {
+                  ...phrase("setor3", "Setores: setor 3", 2, [
+                    [4, 7, 4.5, 0.5],
+                    [3, 5, 5, 0.5],
+                    [3, 7, 5.5, 0.5],
+                    [3, 5, 6, 1.5],
+                  ]),
+                  label: "Setor 3",
+                  intro: "O terceiro setor está no compasso do Fá e termina numa nota longa: o Dó da 3ª corda, que é a 5ª do Fá.",
+                  steps: ["Segure a última nota até o fim, com a mão solta.", "O pouso é parte do setor: estude-o junto, não depois."],
+                },
+                {
+                  ...phrase("setores12", "Setores: setores 1 e 2", 2, [
+                    [1, 8, 0.5, 0.5],
+                    [1, 5, 1, 0.5],
+                    [2, 8, 1.5, 0.5],
+                    [2, 5, 2, 0.5],
+                    [3, 7, 2.5, 0.5],
+                    [3, 5, 3, 0.5],
+                    [3, 7, 3.5, 0.5],
+                  ]),
+                  label: "Setores 1 e 2",
+                  intro: "Dois setores vizinhos ligados: o ponto novo a estudar é a passagem do último Sol do setor 1 para o Mi do setor 2.",
+                  steps: ["Toque devagar, sem parar na junção.", "Se a junção falha, volte à última nota do setor 1 e à primeira do setor 2 e estude só esse par."],
+                },
+                {
+                  ...phrase("setoresfrase", "Setores: a frase inteira", 2, [
+                    [1, 8, 0.5, 0.5],
+                    [1, 5, 1, 0.5],
+                    [2, 8, 1.5, 0.5],
+                    [2, 5, 2, 0.5],
+                    [3, 7, 2.5, 0.5],
+                    [3, 5, 3, 0.5],
+                    [3, 7, 3.5, 0.5],
+                    [4, 7, 4.5, 0.5],
+                    [3, 5, 5, 0.5],
+                    [3, 7, 5.5, 0.5],
+                    [3, 5, 6, 1.5],
+                  ]),
+                  label: "A frase inteira",
+                  intro: "Os três setores juntos, no shape 1 de Lá menor, sobre Lá menor e Fá: a frase termina no Dó, a 5ª do Fá.",
+                  steps: ["Pense em um setor de cada vez enquanto toca: o olho vai um setor à frente da mão.", "Só aumente o andamento depois de sair limpa algumas vezes seguidas."],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "u70.l2",
+          title: "Devagar, depois mais depressa",
+          intro:
+            "O andamento é o último ajuste, não o primeiro. O que sai limpo devagar pode ser levado para mais depressa em passos pequenos; o que só sai rápido erra sempre no mesmo lugar sem você perceber. Suba de 5 a 10 batidas por minuto de cada vez, e desça um degrau quando o erro voltar.",
+          key: "u70.l2.andamento",
+          exercises: [
+            {
+              id: "u70.l2.andamento",
+              kind: "echo",
+              title: "A mesma frase em três andamentos",
+              goal: "Toque a frase limpa no andamento mais lento e suba um degrau de cada vez.",
+              steps: [
+                "Comece na primeira aba, a 60 por minuto, e só passe para a seguinte quando a frase sair limpa três vezes seguidas, sem tensão.",
+                "Se a frase falha no andamento novo, volte ao anterior e estude só o setor onde ela falhou.",
+                "Pare quando o erro for de cansaço: a mão aperta, as notas saem sujas sem motivo. Descanse e retome, em vez de insistir.",
+              ],
+              check: "A frase saiu limpa nos três andamentos, ou você parou no degrau onde ainda sai limpa?",
+              base: AM_F,
+              reveal: "tab",
+              phrases: [
+                {
+                  ...phrase("setor-lento", "Andamento: devagar", 2, [
+                    [1, 5, 0.5, 0.5],
+                    [2, 8, 1, 0.5],
+                    [2, 5, 1.5, 0.5],
+                    [3, 7, 2, 0.5],
+                    [3, 5, 2.5, 0.5],
+                    [4, 7, 3, 0.5],
+                    [4, 5, 3.5, 0.5],
+                    [4, 7, 4.5, 1.5],
+                  ]),
+                  label: "Devagar (60)",
+                  base: AM_F_SLOW,
+                  intro: "Uma descida pela penta, do Lá da 1ª corda ao Lá da 4ª: Lá, Sol, Mi, Ré, Dó, Lá, Sol e o Lá final, longo, que é a 3ª do Fá.",
+                  steps: ["Estude em setores se precisar: do Lá ao Mi, do Ré ao Sol e o pouso.", "A 60 por minuto cada nota tem espaço: use-o para soltar a mão."],
+                },
+                {
+                  ...phrase("setor-medio", "Andamento: no tempo", 2, [
+                    [1, 5, 0.5, 0.5],
+                    [2, 8, 1, 0.5],
+                    [2, 5, 1.5, 0.5],
+                    [3, 7, 2, 0.5],
+                    [3, 5, 2.5, 0.5],
+                    [4, 7, 3, 0.5],
+                    [4, 5, 3.5, 0.5],
+                    [4, 7, 4.5, 1.5],
+                  ]),
+                  label: "No tempo (72)",
+                  intro: "A mesma descida a 72 por minuto, o andamento padrão do curso.",
+                  steps: ["O que mudou foi só o andamento: se algo que saía agora falha, volte ao degrau de 60 e estude esse setor."],
+                },
+                {
+                  ...phrase("setor-rapido", "Andamento: mais depressa", 2, [
+                    [1, 5, 0.5, 0.5],
+                    [2, 8, 1, 0.5],
+                    [2, 5, 1.5, 0.5],
+                    [3, 7, 2, 0.5],
+                    [3, 5, 2.5, 0.5],
+                    [4, 7, 3, 0.5],
+                    [4, 5, 3.5, 0.5],
+                    [4, 7, 4.5, 1.5],
+                  ]),
+                  label: "Mais depressa (84)",
+                  base: { ...AM_F, bpm: 84 },
+                  intro: "A mesma descida a 84 por minuto. Se ela sai limpa aqui, o andamento da base padrão fica confortável.",
+                  steps: ["Não corra para chegar aqui: quem estudou por setores e subiu aos poucos chega com a mão solta."],
+                },
+              ],
             },
           ],
         },
@@ -3451,6 +3623,129 @@ const written: Curriculum = {
                   steps: ["O desenho, em funções: 4ª, 3ª menor, 4ª (2x), 3ª menor. Técnica: bend de meio tom, da 4ª à 5ª bemol (e volta na mesma palhetada).", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 3ª menor."],
                 },
               ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "u69",
+      title: "Arpejos de tríade na penta",
+      skill: "Tocar a tríade de cada acorde da base em arpejo, com as notas que a penta tem dela",
+      takeCheck: "Cada compasso teve o arpejo do acorde dele, e você pousou numa nota dessa tríade?",
+      lessons: [
+        {
+          id: "u69.l1",
+          concepts: ["O que é uma tríade na música?", "O que é arpejo?"],
+          title: "A tríade dentro da penta",
+          intro:
+            "Uma tríade são três notas de um acorde: tônica, 3ª e 5ª. Sobre a base Lá menor, Dó e Mi menor, duas tríades cabem inteiras na pentatônica de Lá menor: Lá menor (Lá, Dó, Mi) e Dó maior (Dó, Mi, Sol). Mi menor (Mi, Sol, Si) cabe pela metade: o Mi e o Sol são da penta, mas o Si, a 5ª do acorde, é nota de fora. No shape 1 o Si fica na 6ª e na 1ª cordas, casa 7, e o mapa o marca como fora da penta.",
+          key: "u69.l1.map",
+          exercises: [
+            {
+              id: "u69.l1.map",
+              kind: "map",
+              title: "As três tríades no shape 1",
+              goal: "Escolha cada acorde e veja quais notas da tríade o shape 1 tem.",
+              steps: [
+                "Em Lá menor e em Dó, toque as notas da tríade do grave para o agudo: as três são da penta.",
+                "Em Mi menor, ache o Mi e o Sol, que são da penta, e depois o Si, marcado como fora dela. Toque-o uma vez para ouvir a diferença.",
+                "Repare que o arpejo não traz notas novas, só escolhe as que dizem o acorde: com exceção do Si, é um recorte da penta.",
+              ],
+              check: "Achou as notas da tríade de cada acorde e soube dizer qual delas não é da penta?",
+              base: ARPEJO,
+              shapes: [1],
+              layer: "chord",
+            },
+          ],
+        },
+        {
+          id: "u69.l2",
+          title: "O arpejo diz o acorde",
+          intro:
+            "Um arpejo é a tríade tocada nota a nota. Quem ouve a melodia reconhece o acorde que está por baixo, mesmo sem prestar atenção nele: por isso tocar a tríade do acorde da vez é o jeito mais direto de fazer a frase concordar com a harmonia. Na penta isso quase não pede nota nova. Sobre o Mi menor, as duas notas da penta, o Mi e o Sol, já bastam.",
+          key: "u69.l2.echo",
+          exercises: [
+            {
+              id: "u69.l2.echo",
+              kind: "echo",
+              title: "Um arpejo por compasso",
+              goal: "Ouça e repita o arpejo de cada acorde da base, trocando junto com ela.",
+              steps: [
+                "Cante as três notas do acorde antes de tocar: o ouvido precisa conhecer a tríade antes dos dedos.",
+                "Na primeira aba, um arpejo curto por compasso. O Mi menor usa só o Mi e o Sol, sem o Si. No último compasso o arpejo desce e pousa no Lá.",
+                "Na segunda aba, o arpejo ganha uma nota de passagem da penta e termina numa nota longa da tríade do acorde. Procure ouvir o pouso: ele é a nota que a harmonia pede.",
+              ],
+              check: "Tocou a tríade certa em cada compasso e trocou junto com a base?",
+              base: ARPEJO,
+              reveal: "tab",
+              phrases: [
+                {
+                  ...phrase("arpejo-um", "Arpejo: um por compasso", 4, [
+                    [4, 7, 0.5, 0.5],
+                    [3, 5, 1, 0.5],
+                    [2, 5, 1.5, 0.5],
+                    [3, 5, 4.5, 0.5],
+                    [2, 5, 5, 0.5],
+                    [2, 8, 5.5, 0.5],
+                    [5, 7, 8.5, 0.5],
+                    [4, 5, 9, 0.5],
+                    [2, 5, 9.5, 0.5],
+                    [2, 5, 12, 0.5],
+                    [3, 5, 12.5, 0.5],
+                    [4, 7, 13, 1.5],
+                  ]),
+                  label: "Um arpejo por compasso",
+                  intro: "Uma tríade por compasso: Lá menor (Lá, Dó, Mi), Dó (Dó, Mi, Sol), Mi menor (Mi, Sol e o Mi de volta, sem o Si) e Lá menor descendo até o Lá.",
+                  steps: ["Os dois primeiros compassos sobem da tônica; o terceiro sobe do Mi grave e passa pelo Sol; o último desce e termina no Lá, a tônica, nota longa.", "Cada compasso começa na metade do tempo 1, sem cair em cima dele.", "Repare no desenho: as notas estão todas no shape 1, nas cordas 2 a 4 e, no Mi menor, também na 5ª."],
+                },
+                {
+                  ...phrase("arpejo-passagem", "Arpejo: com passagem e pouso", 4, [
+                    [2, 5, 0.5, 0.5],
+                    [3, 5, 1, 0.5],
+                    [4, 7, 1.5, 0.5],
+                    [4, 5, 2, 0.5],
+                    [4, 7, 2.5, 1.5],
+                    [2, 8, 4.5, 0.5],
+                    [2, 5, 5, 0.5],
+                    [3, 5, 5.5, 1.5],
+                    [5, 7, 8.5, 0.5],
+                    [4, 5, 9, 0.5],
+                    [4, 7, 9.5, 0.5],
+                    [4, 5, 10, 1.5],
+                    [3, 5, 12.5, 0.5],
+                    [2, 5, 13, 0.5],
+                    [4, 7, 13.5, 1.5],
+                  ]),
+                  label: "Arpejo com passagem e pouso",
+                  intro: "O arpejo desce em Lá menor e em Dó, anda pela penta no Mi menor e volta a Lá menor, sempre terminando numa nota longa da tríade.",
+                  steps: ["Lá menor: Mi, Dó e Lá descem, o Sol passa de volta ao Lá e o Lá fica. Dó: Sol, Mi e Dó, com o Dó longo.", "Mi menor: o Mi, o Sol e a nota vizinha da penta, o Lá, levam ao Sol, a 3ª do acorde, que fica. O Si não é tocado.", "Último compasso: Dó, Mi e Lá, com o Lá longo. Cada pouso é uma nota da tríade do acorde que está soando."],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "u69.l3",
+          title: "O arpejo na sua tomada",
+          intro:
+            "Agora a escolha é sua: sobre a mesma base, toque a tríade de cada acorde em cada compasso e pouse numa nota dela antes da troca. O arpejo não precisa subir sempre do grave: comece pela 3ª, repita uma nota, ou acrescente uma nota da penta entre duas da tríade.",
+          key: "u69.l3.take",
+          exercises: [
+            {
+              id: "u69.l3.take",
+              kind: "take",
+              title: "Tríade de cada acorde",
+              goal: "Em cada compasso, o arpejo do acorde da base no shape 1, terminando numa nota longa dele.",
+              steps: [
+                "Comece devagar, com três notas por compasso, sempre da tônica para cima.",
+                "Depois varie a ordem: desça, comece pela 3ª, repita uma nota ou acrescente uma nota de passagem da penta.",
+                "Sobre o Mi menor, use o Mi e o Sol; deixe o Si de fora, ou toque-o rapidamente, só de passagem.",
+                "Termine o último compasso numa nota longa da tríade de Lá menor.",
+              ],
+              check: "Cada compasso teve o arpejo do acorde dele, e você pousou numa nota dessa tríade antes da troca?",
+              base: ARPEJO,
+              bars: 8,
             },
           ],
         },
@@ -20156,9 +20451,9 @@ const written: Curriculum = {
 
   sections: [
     // Parte 1, um shape só: tudo até "O solo" fica no shape 1. Parte 2: os outros shapes.
-    { id: "s1", title: "Primeiros passos", goal: "Do mapa do braço ao primeiro solo: poucas notas, silêncio e ritmo.", units: ["u0", "u1", "u2", "a1"] },
+    { id: "s1", title: "Primeiros passos", goal: "Do mapa do braço ao primeiro solo: poucas notas, silêncio e ritmo.", units: ["u0", "u1", "u2", "u70", "a1"] },
     { id: "s2", title: "A harmonia", goal: "Ouvir a troca de acorde e chegar nas notas dele, com tensão que resolve.", units: ["u5", "u6", "u11", "u46", "u51", "u58", "a2"] },
-    { id: "s6", title: "Vocabulário no shape 1", goal: "Licks, pergunta e resposta, frases guardadas e ideias para improvisar, tudo no shape 1.", units: ["u17", "u18", "u9", "u19", "u49", "u53", "u62", "u44", "a5"] },
+    { id: "s6", title: "Vocabulário no shape 1", goal: "Licks, pergunta e resposta, frases guardadas e ideias para improvisar, tudo no shape 1.", units: ["u17", "u18", "u9", "u19", "u49", "u53", "u62", "u44", "u69", "a5"] },
     { id: "s5", title: "Velocidade I: no shape 1", goal: "Frases rápidas na pentatônica: grupos de semicolcheias, sequências e licks repetidos, sempre terminando numa nota longa.", units: ["u15", "u16", "u60", "u57", "u61", "a4"] },
     { id: "s4", title: "O solo", goal: "Motivo e intensidade, até um solo inteiro no shape 1 que alguém pagaria para ouvir.", units: ["u8", "u14", "u36", "u54", "u63", "u48", "a6"] },
     { id: "s8", title: "Shape 2", goal: "O shape 2 a fundo, com licks e frases dele, e depois junto com o shape 1.", units: ["u20", "u21", "u22", "a7"] },
