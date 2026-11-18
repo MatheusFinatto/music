@@ -45,6 +45,7 @@ const scalePc = (key: number, i: number): Pc => mod12(key + MAJOR_SCALE[((i % 7)
 
 /** Acorde do grau `deg` (0..6) do tom maior de tônica `key`. Ex.: makeChord(5, 0) = Am. */
 export function makeChord(deg: number, key = 0): Chord {
+  if (!Number.isInteger(deg) || deg < 0 || deg > 6) throw new RangeError(`Grau de acorde fora de 0..6: ${deg}`);
   const k = mod12(key);
   const tones = [scalePc(k, deg), scalePc(k, deg + 2), scalePc(k, deg + 4)] as const;
   return { deg, key: k, name: pcName(tones[0], k) + SUFFIX[deg]!, roman: ROMAN[deg]!, tones };

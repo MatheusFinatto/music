@@ -19,6 +19,27 @@ export type Progress = {
 
 export const EMPTY: Progress = { version: 1, exercises: {}, lessons: {}, days: [] };
 
+const DAY = /^\d{4}-\d{2}-\d{2}$/;
+const isDay = (d: unknown): d is Day => typeof d === "string" && DAY.test(d);
+const isRecord = (v: unknown): v is Record<string, unknown> => !!v && typeof v === "object" && !Array.isArray(v);
+
+/** O progresso lido do navegador, descartando o que estiver malformado em vez de quebrar a página. */
+export function cleanProgress(saved: unknown): Progress | null {
+  if (!isRecord(saved)) return null;
+  const exercises: Record<string, ExerciseState> = {};
+  if (isRecord(saved.exercises))
+    for (const [id, e] of Object.entries(saved.exercises))
+      if (isRecord(e) && (e.last === "ok" || e.last === "quase" || e.last === "nao") && isDay(e.due) && isDay(e.day) && typeof e.times === "number" && typeof e.interval === "number")
+        exercises[id] = { last: e.last, times: e.times, interval: e.interval, due: e.due, day: e.day };
+  const lessons: Progress["lessons"] = {};
+  if (isRecord(saved.lessons))
+    for (const [id, l] of Object.entries(saved.lessons))
+      if (isRecord(l) && isDay(l.learned))
+        lessons[id] = { learned: l.learned, ...(isDay(l.cold) ? { cold: l.cold } : {}), ...(l.manual === true ? { manual: true } : {}) };
+  const days = Array.isArray(saved.days) ? saved.days.filter(isDay) : [];
+  return { version: 1, exercises, lessons, days };
+}
+
 /** Intervalos de revisão, em dias. Cresce a cada "consegui"; volta ao começo no "ainda não". */
 export const INTERVALS = [1, 3, 7, 14, 30] as const;
 

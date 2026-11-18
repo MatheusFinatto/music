@@ -1,9 +1,9 @@
 "use client";
 import { useSyncExternalStore } from "react";
 import { createStore } from "@/core/storage";
-import { EMPTY, toDay, type Day, type Progress } from "./session/schedule";
+import { EMPTY, cleanProgress, toDay, type Day, type Progress } from "./session/schedule";
 
-export const progressStore = createStore<Progress>("solos", EMPTY);
+export const progressStore = createStore<Progress>("solos", EMPTY, cleanProgress);
 
 export const useProgress = (): Progress => useSyncExternalStore(progressStore.subscribe, progressStore.get, progressStore.getInitial);
 

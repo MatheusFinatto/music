@@ -35,6 +35,8 @@ class Transport {
   private t0 = 0;
   private beatDur = 60 / 72;
   private nextStep = 0;
+  /** Andamento pedido durante a execução, aplicado no próximo compasso. */
+  private pendingBeatDur: number | null = null;
   private timer: ReturnType<typeof setInterval> | null = null;
   private listeners: { [K in keyof Events]: Set<Events[K]> } = { beat: new Set(), start: new Set(), stop: new Set() };
 
@@ -52,6 +54,7 @@ class Transport {
     prepareLead(graph);
     this.stop();
     this.graph = graph;
+    this.pendingBeatDur = null;
     this.setBacking(backing);
     this.t0 = graph.ctx.currentTime + 0.12 + countIn * 4 * this.beatDur;
     this.nextStep = -countIn * 16;
@@ -78,12 +81,22 @@ class Transport {
     if (!this.running) this.beatDur = 60 / backing.bpm;
   }
 
-  /** Muda o andamento, inclusive tocando: vale a partir da próxima semicolcheia, sem salto. */
+  /**
+   * Muda o andamento. Tocando, vale a partir do próximo compasso, sem salto: quem agendou notas até o fim do
+   * compasso (a frase do eco, o exemplo) continua alinhado com a base.
+   */
   setTempo(bpm: number) {
-    const next = 60 / bpm;
-    if (this.running) this.t0 += (this.nextStep * (this.beatDur - next)) / 4;
-    this.beatDur = next;
     if (this.backing) this.backing = { ...this.backing, bpm };
+    if (this.running) this.pendingBeatDur = 60 / bpm;
+    else this.beatDur = 60 / bpm;
+  }
+
+  private applyPendingTempo() {
+    if (this.pendingBeatDur === null) return;
+    const next = this.pendingBeatDur;
+    this.t0 += (this.nextStep * (this.beatDur - next)) / 4;
+    this.beatDur = next;
+    this.pendingBeatDur = null;
   }
 
   get secondsPerBeat() { return this.beatDur; }
@@ -95,9 +108,11 @@ class Transport {
   private schedule() {
     const { graph, backing } = this;
     if (!graph || !backing) return;
-    const stepDur = this.beatDur / 4;
     const n = backing.chords.length;
-    while (this.t0 + this.nextStep * stepDur < graph.ctx.currentTime + LOOKAHEAD) {
+    while (true) {
+      if (this.pendingBeatDur !== null && ((this.nextStep % 16) + 16) % 16 === 0) this.applyPendingTempo();
+      const stepDur = this.beatDur / 4;
+      if (this.t0 + this.nextStep * stepDur >= graph.ctx.currentTime + LOOKAHEAD) break;
       const step = this.nextStep, t = this.t0 + step * stepDur;
       const s = ((step % 16) + 16) % 16;
       const bar = Math.floor(step / 16);

@@ -39,5 +39,7 @@ tasks.register<Sync>("exportToSite") {
     include("*.mjs", "*.d.ts")
     // TypeScript pairs foo.mjs with foo.d.mts, not foo.d.ts.
     rename("""(.*)\.d\.ts""", "$1.d.mts")
+    // The .map files are not copied, so drop the comments that point to them (Vite warns about missing maps).
+    filesMatching("*.mjs") { filter { line -> if (line.startsWith("//# sourceMappingURL=")) "" else line } }
     into(siteDir)
 }

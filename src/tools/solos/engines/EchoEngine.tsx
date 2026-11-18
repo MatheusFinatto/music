@@ -25,14 +25,18 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
     const clear = () => { timers.forEach((c) => c()); timers = []; };
     const offBeat = transport.on("beat", (info) => {
       const p = ref.current, g = getAudio();
-      if (!g || info.beatInBar !== 0 || info.bar < 0 || info.bar % (p.bars * 2) !== 0) return;
-      const spb = transport.secondsPerBeat;
-      playPhrase(g, p.notes, info.time, spb);
-      clear();
-      p.notes.forEach((n, i) => {
-        timers.push(atAudioTime(info.time + n.beat * spb, () => setSounding(i)));
-        timers.push(atAudioTime(info.time + (n.beat + n.dur) * spb, () => setSounding((s) => (s === i ? -1 : s))));
-      });
+      if (!g || info.beatInBar !== 0 || info.bar < 0) return;
+      // Compasso a compasso, no andamento daquele compasso: mudar o andamento no meio da frase não a desalinha.
+      const k = info.bar % (p.bars * 2);
+      if (k >= p.bars) return;
+      if (k === 0) clear();
+      const spb = transport.secondsPerBeat, from = k * 4;
+      const inBar = p.notes.map((n, i) => ({ n, i })).filter(({ n }) => n.beat >= from && n.beat < from + 4);
+      playPhrase(g, inBar.map(({ n }) => ({ ...n, beat: n.beat - from })), info.time, spb);
+      for (const { n, i } of inBar) {
+        timers.push(atAudioTime(info.time + (n.beat - from) * spb, () => setSounding(i)));
+        timers.push(atAudioTime(info.time + (n.beat - from + n.dur) * spb, () => setSounding((s) => (s === i ? -1 : s))));
+      }
     });
     const offStop = transport.on("stop", () => { clear(); setSounding(-1); });
     return () => { offBeat(); offStop(); clear(); };

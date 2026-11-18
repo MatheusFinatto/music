@@ -37,14 +37,14 @@ if (typeof Array.prototype.fill === 'undefined') {
     Object.defineProperty(TypedArray.prototype, 'fill', {value: Array.prototype.fill});
   }
 });
-if (typeof Math.log2 === 'undefined') {
-  Math.log2 = function (x) {
-    return Math.log(x) * Math.LOG2E;
-  };
-}
 if (typeof Math.log10 === 'undefined') {
   Math.log10 = function (x) {
     return Math.log(x) * Math.LOG10E;
+  };
+}
+if (typeof Math.log2 === 'undefined') {
+  Math.log2 = function (x) {
+    return Math.log(x) * Math.LOG2E;
   };
 }
 //endregion
@@ -72,10 +72,10 @@ initMetadataForClass(AbstractCollection, 'AbstractCollection', VOID, VOID, [Coll
 initMetadataForClass(AbstractMutableCollection, 'AbstractMutableCollection', VOID, AbstractCollection, [AbstractCollection, Collection]);
 initMetadataForClass(IteratorImpl, 'IteratorImpl');
 initMetadataForClass(ListIteratorImpl, 'ListIteratorImpl', VOID, IteratorImpl);
-initMetadataForClass(AbstractMutableList, 'AbstractMutableList', VOID, AbstractMutableCollection, [AbstractMutableCollection, Collection, KtList_0]);
+initMetadataForClass(AbstractMutableList, 'AbstractMutableList', VOID, AbstractMutableCollection, [AbstractMutableCollection, KtList_0, Collection]);
 initMetadataForClass(SubList, 'SubList', VOID, AbstractMutableList);
 initMetadataForCompanion(Companion_1);
-initMetadataForClass(ArrayList, 'ArrayList', ArrayList_init_$Create$, AbstractMutableList, [AbstractMutableList, Collection, KtList_0]);
+initMetadataForClass(ArrayList, 'ArrayList', ArrayList_init_$Create$, AbstractMutableList, [AbstractMutableList, KtList_0, Collection]);
 initMetadataForClass(Exception, 'Exception', Exception_init_$Create$, Error);
 initMetadataForClass(RuntimeException, 'RuntimeException', RuntimeException_init_$Create$, Exception);
 initMetadataForClass(IllegalArgumentException, 'IllegalArgumentException', IllegalArgumentException_init_$Create$, RuntimeException);
@@ -2746,4 +2746,4 @@ export {
 };
 //endregion
 
-//# sourceMappingURL=kotlin-kotlin-stdlib.mjs.map
+

@@ -62,3 +62,11 @@ describe("pentatônica no braço", () => {
     expect(positionsOf([9], 0, 5)).toEqual([{ string: 0, fret: 5 }, { string: 2, fret: 2 }, { string: 4, fret: 0 }, { string: 5, fret: 5 }]);
   });
 });
+
+describe("makeChord", () => {
+  it("recusa grau fora de 0..6", () => {
+    expect(() => makeChord(7)).toThrow(RangeError);
+    expect(() => makeChord(-1)).toThrow(RangeError);
+    expect(() => makeChord(1.5)).toThrow(RangeError);
+  });
+});
