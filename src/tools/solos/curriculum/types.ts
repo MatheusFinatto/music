@@ -3,7 +3,14 @@ import type { LeadNote, StyleName } from "@/core/audio";
 import type { ChordDegree, FretPos } from "@/core/theory";
 
 /** A base que toca por baixo do exercício. `prog` são graus do campo harmônico (5 = vi). */
-export type Base = { key: number; prog: number[]; bpm: number; style: StyleName };
+export type Base = {
+  key: number;
+  prog: number[];
+  bpm: number;
+  style: StyleName;
+  /** Base refeita de uma gravação (nome da música): fica no tom dela e não muda com o tom de prática. */
+  song?: string;
+};
 
 type Common = {
   /** Identificador estável: o progresso do usuário é guardado por ele. Nunca reutilize. */

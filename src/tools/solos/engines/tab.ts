@@ -24,15 +24,42 @@ export type TabLayout = { cw: number; bpl: number };
 
 const NAMES = ["e", "B", "G", "D", "A", "E"];
 
-export function tabSystems(notes: readonly LeadNote[], frets: readonly FretPos[], bars: number, chords: readonly string[], { cw, bpl }: TabLayout): TabSystem[] {
+/**
+ * Largura mínima da semicolcheia para que nenhuma nota encubra a seguinte na mesma corda. As frases do
+ * curso cabem em 2; trechos rápidos de solo tirado de gravação (tercinas, fusas) pedem mais, e a caixa rola.
+ */
+function denseCw(notes: readonly LeadNote[], frets: readonly FretPos[]): number {
+  let need = 2;
+  const last = new Map<number, number>();
+  notes.forEach((n, i) => {
+    const s = frets[i]!.string, prev = last.get(s);
+    if (prev !== undefined) {
+      const gap = (n.beat - notes[prev]!.beat) * 4;
+      if (gap > 0) need = Math.max(need, Math.ceil(tabToken(notes[prev]!, frets[prev]!).length / gap));
+    }
+    last.set(s, i);
+  });
+  return Math.min(need, 6);
+}
+
+export function tabSystems(notes: readonly LeadNote[], frets: readonly FretPos[], bars: number, chords: readonly string[], layout: TabLayout): TabSystem[] {
+  const { bpl } = layout;
+  const cw = Math.max(layout.cw, denseCw(notes, frets));
   const perBar = 16 * cw;
   const grid = NAMES.map(() => Array.from({ length: bars }, () => Array.from({ length: perBar }, (): TabCell => ({ ch: "-", note: -1 }))));
   notes.forEach((n, i) => {
     const six = Math.round(n.beat * 4), bar = Math.floor(six / 16);
     if (bar >= bars) return;
     const pos = frets[i]!, token = tabToken(n, pos);
-    const c = (six % 16) * cw + (cw > 2 ? 1 : 0);
-    for (let k = 0; k < token.length && c + k < perBar; k++) grid[pos.string]![bar]![c + k] = { ch: token[k]!, note: i };
+    const row = grid[pos.string]![bar]!;
+    // Nota mais curta que a semicolcheia (enfeite de solo tirado de gravação) cairia em cima da anterior:
+    // vai para a primeira coluna livre ao lado. A posição fica aproximada; o som continua no tempo certo.
+    const free = (c: number) => c >= 0 && c + token.length <= perBar && row.slice(c, c + token.length).every((x) => x.note < 0);
+    const want = (six % 16) * cw + (cw > 2 ? 1 : 0);
+    let c = want;
+    for (let d = 1; !free(c) && d < perBar; d++) c = free(want + d) ? want + d : free(want - d) ? want - d : c;
+    if (!free(c)) c = want;
+    for (let k = 0; k < token.length && c + k < perBar; k++) row[c + k] = { ch: token[k]!, note: i };
   });
   const systems: TabSystem[] = [];
   for (let b0 = 0; b0 < bars; b0 += bpl) {

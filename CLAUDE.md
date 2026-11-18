@@ -28,7 +28,7 @@ npm run smoke       # teste de fumaça no navegador (Playwright), com o start ro
 - **Notas** no formato letra + oitava (**C4, Bb3**; C4 = Dó central).
 - **Cores com significado** nas ferramentas: laranja = nota-alvo, azul = tocando agora, verde = selecionado.
 - **Dados** só no navegador (`localStorage`, prefixo `musica:`). Sem backend nem contas até o dono pedir.
-- **Sem catálogo de tablaturas** de músicas comerciais (direito autoral).
+- **Tablatura de música comercial só dentro de lição de análise.** Proibido: catálogo de músicas (tab inteira para tocar a música). Permitido: lick ou solo de uma gravação dentro de uma lição que analisa a técnica (shape, tom, nota de fora), com crédito e o vídeo oficial incorporado, como uso de trecho para estudo (Lei 9.610/98, art. 46, VIII). Em solo longo e central na música, os trechos mais didáticos, não o solo inteiro. Exercício de eco com `transcribed: true` e base com `song`.
 - `legacy/` está congelado: só correção.
 - **Next 16** mudou convenções (ex.: `src/proxy.ts` no lugar de `middleware.ts`). Antes de usar uma API do Next, confira em `node_modules/next/dist/docs/` (ver `AGENTS.md`).
 - TypeScript fica na versão 6: o lint ainda não aceita a 7.

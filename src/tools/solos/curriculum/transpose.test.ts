@@ -22,10 +22,11 @@ describe("tom de prática", () => {
 
   describe.each(PRACTICE_KEYS.map((k) => [keyName(k), k] as const))("em %s", (_, key) => {
     const moved = all.map((e) => ({ orig: e, e: transposeExercise(e, key) }));
-    it("toda frase cabe no braço, da casa 0 à 20", () => {
+    it("toda frase cabe no braço, da casa 0 à 20 (solo de gravação: até a 22, como foi tocado)", () => {
       for (const { e } of moved) {
         const phrases = e.kind === "echo" ? e.phrases : e.kind === "take" ? e.examples ?? [] : [];
-        for (const p of phrases) for (const f of p.frets ?? []) { expect(f.fret, `${e.id}/${p.id}`).toBeGreaterThanOrEqual(0); expect(f.fret, `${e.id}/${p.id}`).toBeLessThanOrEqual(20); }
+        const top = e.kind === "echo" && e.transcribed ? 22 : 20;
+        for (const p of phrases) for (const f of p.frets ?? []) { expect(f.fret, `${e.id}/${p.id}`).toBeGreaterThanOrEqual(0); expect(f.fret, `${e.id}/${p.id}`).toBeLessThanOrEqual(top); }
       }
     });
     it("continua só com notas da pentatônica, e nota longa continua nota do acorde", () => {
@@ -61,8 +62,8 @@ describe("tom de prática", () => {
         expect(e.bases!.map((b) => b.prog), e.id).toEqual(orig.bases.map((b) => b.prog));
       }
     });
-    it("exercício escrito em outro tom não muda", () => {
-      for (const { orig, e } of moved) if (orig.base && orig.base.key !== 0) expect(e).toBe(orig);
+    it("exercício escrito em outro tom, ou no tom de uma gravação, não muda", () => {
+      for (const { orig, e } of moved) if (orig.base && (orig.base.key !== 0 || orig.base.song)) expect(e).toBe(orig);
     });
   });
 });

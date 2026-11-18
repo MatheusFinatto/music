@@ -34,7 +34,7 @@ O treinador de tirar músicas e solos de ouvido é a peça que o dono nunca viu 
 - Gratuito, sem conta por enquanto; dados só no navegador (`localStorage`, prefixo `musica:`). Contas virão depois.
 - PT-BR no lançamento, estruturado para receber outros idiomas.
 - Uma ferramenta nunca depende de outra; o que é comum fica em `src/core/`.
-- Não há catálogo de tablaturas de músicas comerciais (direito autoral).
+- Não há catálogo de tablaturas de músicas comerciais (direito autoral). Lick ou solo de uma gravação só aparece dentro de lição que analisa a técnica, com crédito e o vídeo oficial (uso de trecho para estudo, Lei 9.610/98, art. 46, VIII).
 - Status de cada ferramenta é mostrado com honestidade (pronta, laboratório, próxima, planejada). Sem datas prometidas.
 - Em aberto: nome definitivo e domínio.
 
