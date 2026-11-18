@@ -8,3 +8,8 @@ public/laboratorio/
 *.log
 backup*.json
 musica-backup*.json
+
+# Chaves de assinatura e credenciais do Gradle (nunca versionar)
+*.jks
+*.keystore
+/gradle.properties
