@@ -194,7 +194,7 @@ describe("frases das unidades", () => {
     for (const e of exercises) expect(e.base, e.id).toBeDefined();
   });
   it("no eco, a resposta cai sobre os mesmos acordes da chamada", () => {
-    for (const e of echoes) for (const p of e.phrases) expect(p.bars % e.base!.prog.length, `${e.id}/${p.id}`).toBe(0);
+    for (const e of echoes) for (const p of e.phrases) expect(p.bars % (p.base ?? e.base!).prog.length, `${e.id}/${p.id}`).toBe(0);
   });
   it("o arco divide a tomada em partes inteiras", () => {
     for (const e of exercises) if (e.kind === "take" && e.arc) expect(e.bars % e.arc.length, e.id).toBe(0);
