@@ -411,3 +411,5 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .day-detail ul { padding-left: 18px; }
 
 .solos .badge.optional { margin-left: 8px; vertical-align: middle; }
+
+.solos .plan .skip { position: absolute; top: 12px; right: 12px; }

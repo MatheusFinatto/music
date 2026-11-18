@@ -165,16 +165,14 @@ export function Solos() {
                 <span className="n" aria-hidden="true">{i + 1}</span>
                 <span className="kind">{t(`part.${s.part}`)}</span>
                 <strong>{s.ex.title}</strong>
+                {(s.part === "new" || s.part === "again") && s.lesson && (
+                  <button type="button" className="btn small quiet skip" aria-label={t("home.skipLesson", { lesson: s.lesson.title })} onClick={() => progressStore.set((p) => skipLesson(p, s.lesson!.id, today))} disabled={!today}>{t("home.skip")}</button>
+                )}
               </li>
             ))}
           </ol>
         ) : (
           <p className="note">{t("home.nothing")}</p>
-        )}
-        {session.lesson && (
-          <p className="note">
-            <button type="button" className="btn small quiet" onClick={() => progressStore.set((p) => skipLesson(p, session.lesson!.id, today))} disabled={!today}>{t("home.skipLesson", { lesson: session.lesson.title })}</button>
-          </p>
         )}
         {session.finished && <p className="note">{t("home.finished")}</p>}
       </section>
