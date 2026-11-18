@@ -140,8 +140,11 @@ export type Unit = {
   arc?: boolean;
 };
 
-/** Um trecho da trilha. A última unidade de cada seção é o arco dela. */
-export type Section = { id: string; title: string; goal: string; units: string[] };
+/**
+ * Um trecho da trilha. A última unidade de cada seção é o arco dela. `soon`: o que ainda vai entrar na seção (só o
+ * nome, para o aluno saber o que vem); uma seção só com `soon`, sem unidades, mostra apenas isso.
+ */
+export type Section = { id: string; title: string; goal: string; units: string[]; soon?: string[] };
 
 /** Um grupo de seções, para a trilha não virar uma lista sem fim. */
 export type Chapter = { id: string; title: string; goal: string; sections: string[] };

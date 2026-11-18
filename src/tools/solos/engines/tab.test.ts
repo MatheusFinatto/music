@@ -31,6 +31,22 @@ describe("tablatura em texto", () => {
       ].join("\n"),
     );
   });
+  it("nota rápida no fim do compasso fica nele, na ordem", () => {
+    // Fusas no fim do 1º compasso: arredondadas para semicolcheia, a última cairia no 2º compasso.
+    const notes = [{ midi: 64, beat: 3.625, dur: 0.125 }, { midi: 62, beat: 3.75, dur: 0.125 }, { midi: 64, beat: 3.875, dur: 0.125 }, { midi: 62, beat: 4, dur: 1 }];
+    const frets = [{ string: 2, fret: 9 }, { string: 3, fret: 12 }, { string: 2, fret: 9 }, { string: 2, fret: 7 }];
+    const sys = tabSystems(notes, frets, 2, ["Bm"], { cw: 3, bpl: 2 })[0]!;
+    const g = sys.rows[2]!.bars.map((b) => b.map((c) => c.ch).join(""));
+    expect(g[0]!.match(/9/g)?.length).toBe(2);
+    expect(g[1]!.replace(/-/g, "")).toBe("7");
+  });
+  it("o ligado sai da nota anterior na mesma corda, não da nota anterior de outra corda", () => {
+    // Sol solto, Mi na 2ª corda, e o Lá ligado na 3ª: sobe do Sol (hammer-on), mesmo vindo depois de um Mi mais agudo.
+    const notes = [{ midi: 55, beat: 0, dur: 1 }, { midi: 64, beat: 1, dur: 1 }, { midi: 57, beat: 2, dur: 1, legato: true }];
+    const frets = [{ string: 2, fret: 0 }, { string: 1, fret: 5 }, { string: 2, fret: 2 }];
+    const text = tabText(tabSystems(notes, frets, 1, ["Am"], { cw: 2, bpl: 1 }));
+    expect(text).toContain("h2");
+  });
   it("em tela estreita, um compasso por linha", () => {
     expect(tabLayout(110, 2)).toEqual({ cw: 3, bpl: 2 });
     expect(tabLayout(70, 2)).toEqual({ cw: 2, bpl: 2 });

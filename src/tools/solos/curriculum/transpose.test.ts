@@ -58,7 +58,7 @@ describe("tom de prática", () => {
     it("as outras bases da tomada acompanham o tom", () => {
       for (const { orig, e } of moved) {
         if (orig.kind !== "take" || e.kind !== "take" || !orig.bases || orig.base?.key !== 0) continue;
-        expect(e.bases!.map((b) => b.key), e.id).toEqual(orig.bases.map((b) => (b.key === 0 ? key : b.key)));
+        expect(e.bases!.map((b) => b.key), e.id).toEqual(orig.bases.map((b) => (b.key === 0 && !b.song ? key : b.key)));
         expect(e.bases!.map((b) => b.prog), e.id).toEqual(orig.bases.map((b) => b.prog));
       }
     });

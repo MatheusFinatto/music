@@ -108,6 +108,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .chapter[open] > summary .badge::after, .solos .trail-section[open] > summary .badge::after { content: "−"; }
 .solos .chapter > summary:hover h3, .solos .trail-section > summary:hover h4 { text-decoration: underline; text-underline-offset: 0.2em; }
 .solos .trail-section { margin: 18px 0 0 16px; }
+.solos .trail-section .soon { color: var(--muted); font-size: var(--text-md); text-wrap: pretty; max-width: 56ch; margin: 12px 0 0; }
 .solos .chapter[open] > .trail-section:last-child { margin-bottom: 8px; }
 .solos .kicker { display: block; font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--target); }
 .solos .unit-head h5 { font-size: var(--text-lg); }

@@ -136,6 +136,8 @@
       "chapter": "Capítulo {n}",
       "section": "Seção {n}",
       "arc": "Arco da seção",
+      "soon": "Ainda vêm: {songs}.",
+      "soonBadge": "Em breve",
       "extra": "Fora da trilha"
     },
     "part": {
