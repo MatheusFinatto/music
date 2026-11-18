@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Curriculum, Exercise, Lesson, Phrase } from "../curriculum/types";
-import { EMPTY, addDays, cleanProgress, buildSession, daysThisWeek, learnLesson, rate, rateCold, toggleLesson, unitStatuses } from "./schedule";
+import { skipLesson, EMPTY, addDays, cleanProgress, buildSession, daysThisWeek, learnLesson, rate, rateCold, toggleLesson, unitStatuses, nextLesson } from "./schedule";
 import { curriculum as real } from "../curriculum/pt-BR";
 import { chordsOf, degreeIn, minorPentatonic, mod12, pentatonicShape, pentatonicShapes } from "@/core/theory";
 import { gestureOf } from "../engines/tech";
@@ -507,5 +507,21 @@ describe("progresso guardado", () => {
     expect(Object.keys(p.exercises)).toEqual(["a"]);
     expect(p.lessons).toEqual({ "u0.l1": { learned: "2026-11-18", manual: true } });
     expect(p.days).toEqual(["2026-11-18"]);
+  });
+});
+
+describe("pular lição", () => {
+  it("conta como feita, sem teste a frio, e a próxima passa para a seguinte", () => {
+    const c = real;
+    const first = nextLesson(c, EMPTY)!;
+    const p = skipLesson(EMPTY, first.id, D1);
+    expect(p.lessons[first.id]).toEqual({ learned: D1, manual: true, skipped: true });
+    expect(nextLesson(c, p)!.id).not.toBe(first.id);
+    expect(buildSession(c, p, D2).cold).toBeUndefined();
+    expect(cleanProgress(JSON.parse(JSON.stringify(p)))!.lessons[first.id]!.skipped).toBe(true);
+  });
+  it("pular uma lição já feita não muda nada", () => {
+    const p = learnLesson(EMPTY, "x", D1);
+    expect(skipLesson(p, "x", D2)).toBe(p);
   });
 });

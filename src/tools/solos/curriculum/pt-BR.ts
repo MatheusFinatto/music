@@ -7027,6 +7027,7 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u41",
+      optional: true,
       title: "Scar Tissue (Red Hot Chili Peppers, 1999)",
       skill: "Os dois solos do John Frusciante, na penta de Ré menor, quase sempre numa corda só, deslizando de nota em nota",
       lessons: [
@@ -7269,6 +7270,7 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u42",
+      optional: true,
       title: "Californication (Red Hot Chili Peppers, 1999)",
       skill: "O solo do John Frusciante, na penta de Fá# menor, com poucas notas longas e um bend que vai para fora da penta",
       lessons: [
@@ -7435,6 +7437,7 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u43",
+      optional: true,
       title: "Wonderful Tonight (Eric Clapton, 1977)",
       skill: "A introdução e os dois solos curtos do Eric Clapton, na penta de Mi menor, que tem as mesmas notas da penta de Sol maior",
       lessons: [
@@ -7548,6 +7551,7 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u44",
+      optional: true,
       title: "Smells Like Teen Spirit (Nirvana, 1991)",
       skill: "O solo do Kurt Cobain, que toca a melodia da voz na guitarra, no shape 1 de Fá menor com cordas soltas",
       lessons: [
@@ -7780,6 +7784,7 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u46",
+      optional: true,
       title: "Otherside (Red Hot Chili Peppers, 1999)",
       skill: "O solo do John Frusciante: uma nota por acorde, repetida no ritmo, deslizando pela 2ª corda",
       lessons: [
@@ -7843,6 +7848,7 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u39",
+      optional: true,
       title: "Comfortably Numb (Pink Floyd, 1979)",
       skill: "O segundo solo inteiro do David Gilmour, em Si menor, em sete partes: do shape 1 na casa 7 ao alto do braço",
       lessons: [
@@ -8431,6 +8437,7 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u40",
+      optional: true,
       title: "Back in Black (AC/DC, 1980)",
       skill: "O solo inteiro do Angus Young, em Mi menor, em cinco partes: do grave ao shape 1 na casa 12",
       lessons: [
@@ -8797,6 +8804,7 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u47",
+      optional: true,
       title: "Don't Look Back in Anger (Oasis, 1995)",
       skill: "O segundo solo do Noel Gallagher, na penta de Lá menor sobre uma música em Dó maior, do shape 1 ao shape 5 uma oitava acima",
       lessons: [
@@ -9115,6 +9123,7 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u45",
+      optional: true,
       title: "Nothing Else Matters (Metallica, 1991)",
       skill: "O solo do James Hetfield, no shape 1 de Mi menor uma oitava acima, em compasso composto e com notas de fora que são do acorde",
       lessons: [
@@ -9289,6 +9298,7 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u38",
+      optional: true,
       title: "Stairway to Heaven (Led Zeppelin, 1971)",
       skill: "O solo inteiro do Jimmy Page, em Lá menor, em cinco partes: do shape 1 ao shape 4 e ao shape 1 uma oitava acima",
       lessons: [
@@ -9781,6 +9791,7 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u48",
+      optional: true,
       title: "Boulevard of Broken Dreams (Green Day, 2004)",
       skill: "O solo do Billie Joe Armstrong: a melodia da voz em palhetada tremolo, na 3ª corda, na penta de Fá menor",
       lessons: [
