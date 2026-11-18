@@ -5,7 +5,9 @@ import nextTs from "eslint-config-next/typescript";
 export default defineConfig([
   ...nextVitals,
   ...nextTs,
-  globalIgnores([".next/**", "public/laboratorio/**", "legacy/**", "next-env.d.ts", ".impeccable/**"]),
+  // src/core/pitch/generated/ é JS compilado do Kotlin (marmota-tuner/core): não se edita à mão.
+  // marmota-tuner/ é o app Android (Kotlin); a pasta de build dele tem JS que não é nosso.
+  globalIgnores([".next/**", "public/laboratorio/**", "legacy/**", "next-env.d.ts", ".impeccable/**", "src/core/pitch/generated/**", "marmota-tuner/**"]),
   {
     // Regra de isolamento: uma ferramenta nunca importa de outra. O que for comum sobe para src/core/.
     // Dentro da própria ferramenta, use imports relativos.

@@ -1,3 +1,7 @@
+// Shared with the website: compiled to JS (see core/build.gradle.kts) and exported to TypeScript.
+@file:OptIn(kotlin.js.ExperimentalJsExport::class)
+@file:kotlin.js.JsExport
+
 package br.musica.marmotatuner
 
 import kotlin.math.abs

@@ -52,25 +52,25 @@ class NeedleAnimatorTest {
     fun movesTowardTargetAndSettles() {
         val needle = NeedleAnimator(timeConstantMs = 50.0)
         needle.target = 20f
-        var t = 0L
+        var t = 0.0
         assertTrue(needle.step(t))
         assertTrue(needle.position > 0f && needle.position < 20f)
-        while (needle.step(t)) t += 16
+        while (needle.step(t)) t += 16.0
         assertEquals(20f, needle.position, 0f)
     }
 
     @Test
     fun settledNeedleReportsNoMoreFrames() {
         val needle = NeedleAnimator()
-        assertFalse(needle.step(0))
+        assertFalse(needle.step(0.0))
     }
 
     @Test
     fun longPauseCountsAsOneCappedStep() {
         val needle = NeedleAnimator(timeConstantMs = 1000.0)
         needle.target = 10f
-        needle.step(0)
-        needle.step(60_000) // e.g. app was in the background; capped to 100 ms
+        needle.step(0.0)
+        needle.step(60_000.0) // e.g. app was in the background; capped to 100 ms
         assertTrue(needle.position < 2f)
     }
 }

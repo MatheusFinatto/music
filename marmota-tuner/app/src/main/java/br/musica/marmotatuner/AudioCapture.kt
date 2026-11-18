@@ -54,10 +54,10 @@ class AudioCapture(
     }
 
     private fun readUntilStopped(record: AudioRecord) {
-        val chunk = FloatArray(CHUNK_SAMPLES)
+        val chunk = FloatArray(PitchPipeline.CHUNK_SAMPLES)
         record.startRecording()
         while (running) {
-            val count = record.read(chunk, 0, CHUNK_SAMPLES, AudioRecord.READ_BLOCKING)
+            val count = record.read(chunk, 0, PitchPipeline.CHUNK_SAMPLES, AudioRecord.READ_BLOCKING)
             if (count > 0) onChunk(chunk, count)
         }
     }
@@ -69,7 +69,7 @@ class AudioCapture(
     private fun openSource(source: Int): AudioRecord? {
         val minBytes = AudioRecord.getMinBufferSize(SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_FLOAT)
         if (minBytes <= 0) return null
-        val bufferBytes = maxOf(minBytes, CHUNK_SAMPLES * Float.SIZE_BYTES * 4)
+        val bufferBytes = maxOf(minBytes, PitchPipeline.CHUNK_SAMPLES * Float.SIZE_BYTES * 4)
         val record = runCatching {
             AudioRecord(source, SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_FLOAT, bufferBytes)
         }.getOrNull() ?: return null
@@ -81,9 +81,6 @@ class AudioCapture(
     companion object {
         /** 44.1 kHz is the one rate every Android device must support. */
         const val SAMPLE_RATE = 44100
-
-        /** ~23 ms per chunk → ~43 needle updates per second. */
-        const val CHUNK_SAMPLES = 1024
 
         /**
          * VOICE_RECOGNITION is tried first because it usually skips automatic gain control and

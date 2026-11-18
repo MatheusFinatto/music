@@ -53,7 +53,7 @@ class TunerView(context: Context) : View(context) {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        val stillMoving = needle.step(SystemClock.uptimeMillis())
+        val stillMoving = needle.step(SystemClock.uptimeMillis().toDouble())
         scene.needleCents = needle.position
         painter.draw(canvas, scene)
         if (stillMoving) postInvalidateOnAnimation()

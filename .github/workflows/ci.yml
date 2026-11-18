@@ -1,0 +1,48 @@
+# Roda em todo PR e em todo push na main.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run check
+      - run: npm test
+      - run: npm run build
+
+  # O app Android e o afinador do site usam a mesma lógica (marmota-tuner/core).
+  # Este job testa a lógica, compila o app e confere se o JS commitado no site está em dia com o Kotlin.
+  marmota-tuner:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: marmota-tuner
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - run: ./gradlew --no-daemon :core:jvmTest assembleDebug :core:exportToSite
+      # Só os arquivos da nossa lógica: o kotlin-kotlin-stdlib.mjs muda a ordem interna a cada build, sem mudar
+      # o que faz. Se a lógica passar a usar algo da biblioteca que falta no arquivo commitado, o job "site" quebra
+      # no build e nos testes. Ao trocar a versão do Kotlin, rode exportToSite e commite a pasta inteira.
+      - name: O JS do site está em dia com o Kotlin?
+        run: |
+          if ! git diff --exit-code -- ../src/core/pitch/generated/tuner-core.mjs ../src/core/pitch/generated/tuner-core.d.mts; then
+            echo "::error::src/core/pitch/generated está velho. Rode ./gradlew :core:exportToSite em marmota-tuner/ e commite o resultado."
+            exit 1
+          fi

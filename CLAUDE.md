@@ -38,4 +38,6 @@ npm run smoke       # teste de fumaça no navegador (Playwright), com o start ro
 - Antes de pedir revisão: `npm run lint`, `npm run typecheck`, `npm run check`, `npm test` e `npm run build` passando.
 
 ## Marmota Tuner (app Android)
-`marmota-tuner/` é o **Marmota Tuner**, um app Android separado (afinador cromático em Kotlin), fora do build do site (`.vercelignore`). O hub chega nele pela página `/afinador` (`src/tools/afinador/`), que só explica e entrega o APK publicado num Release do GitHub. Os dois afinadores convivem: o app é só um afinador (sem anúncio, sem internet, menos de 1 MB); o afinador dentro do site, que inaugura `src/core/`, segue no `docs/ROADMAP.md`. Ver `marmota-tuner/README.md`.
+`marmota-tuner/` é o **Marmota Tuner**, um app Android (afinador cromático em Kotlin), fora do build do site (`.vercelignore`). A página `/afinador` (`src/tools/afinador/`) afina no navegador e entrega o APK publicado num Release do GitHub; a pessoa escolhe.
+
+**Uma lógica, dois afinadores.** Detecção (YIN), Hz → nota e cents, suavização, agulha e geometria da tela ficam em Kotlin em `marmota-tuner/core`. O app usa direto; o site usa o JS compilado em `src/core/pitch/generated/`, commitado (a Vercel não tem JDK). Mudou algo em `marmota-tuner/core/src/commonMain`? Rode `./gradlew :core:exportToSite` em `marmota-tuner/` e commite o JS junto. A CI (`.github/workflows/ci.yml`) falha se esquecer. O desenho da tela é de cada plataforma: `TunerPainter.kt` no app, `src/tools/afinador/painter.ts` no site; mudou um, mude o outro. Ver `marmota-tuner/README.md`.

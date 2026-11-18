@@ -30,7 +30,7 @@
     },
     "afinador": {
       "name": "Afinador",
-      "summary": "App Android: afinação pelo microfone, com o desvio em cents."
+      "summary": "Afinação pelo microfone, no navegador ou no app Android, com o desvio em cents."
     },
     "treino-de-ouvido": {
       "name": "Treino de ouvido",
@@ -52,16 +52,31 @@
   },
   "afinador": {
     "title": "Afinador",
-    "description": "Marmota Tuner: app Android de afinação pelo microfone, com a nota e o desvio em cents.",
-    "lead": "O Marmota Tuner é um app Android que é só um afinador. Sem anúncio, sem assinatura, sem internet, com menos de 1 MB. Toque uma corda e ele mostra a nota, a frequência e o desvio em cents.",
+    "description": "Afinador cromático pelo microfone, no navegador ou no app Android Marmota Tuner: a nota, a frequência e o desvio em cents.",
+    "lead": "Toque uma corda: aparecem a nota, a frequência e quanto ela está desafinada. A agulha fica verde quando a corda está afinada.",
+    "start": "Afinar aqui",
+    "stop": "Parar",
+    "retry": "Tentar de novo",
+    "useApp": "Prefiro o app Android",
+    "idleMessage": "Libere o microfone para começar",
+    "playAString": "Toque uma corda",
+    "inTune": "afinada",
+    "screenLabel": "Afinador: nota, frequência e agulha de desvio em cents",
+    "mic": {
+      "denied": "Libere o microfone nas permissões do navegador",
+      "unavailable": "Este navegador não dá acesso ao microfone",
+      "failed": "Não consegui abrir o microfone"
+    },
+    "limits": "Feito para guitarra e violão, com o lá em 440 Hz. Não detecta as cordas mais graves do baixo. O som do microfone não sai do seu aparelho.",
+    "appTitle": "Marmota Tuner, o app Android",
+    "appLead": "O mesmo afinador num app só dele: sem anúncio, sem assinatura, sem internet, com menos de 1 MB. Abre direto, sem passar pelo navegador.",
     "download": "Baixar o APK",
     "platform": "Android 8 ou mais novo",
     "installTitle": "Como instalar",
     "step1": "Baixe o arquivo no celular.",
     "step2": "Abra o arquivo. Se o Android pedir, permita instalar apps desta fonte.",
     "step3": "Abra o Marmota Tuner e libere o microfone.",
-    "notStore": "O app não está na loja: a instalação é direto pelo arquivo. O afinador dentro do site ainda não foi feito; quando sair, o app continua.",
-    "limits": "Feito para guitarra e violão, com o lá em 440 Hz. Não detecta as cordas mais graves do baixo.",
+    "notStore": "O app não está na loja: a instalação é direto pelo arquivo.",
     "source": "Ver o código do app"
   },
   "notFound": {

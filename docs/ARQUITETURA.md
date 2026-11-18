@@ -9,7 +9,8 @@ src/app/[locale]/<slug>/       a rota de cada ferramenta
 src/tools/registry.ts          lista de ferramentas (fonte única)
 src/tools/<slug>/              o código de UMA ferramenta
 src/core/theory                notas, acordes, pentatônica, posições no braço (puro, com testes)
-src/core/audio                 AudioContext único, transporte, base sintetizada, voz solista
+src/core/audio                 AudioContext único, microfone, transporte, base sintetizada, voz solista
+src/core/pitch                 afinador: detecção de altura, Hz → nota e cents, suavização (lógica em Kotlin, ver abaixo)
 src/core/storage               localStorage com prefixo musica: e versão
 src/components/                interface compartilhada (cabeçalho, rodapé, peças do hub)
 src/i18n/                      configuração do next-intl
@@ -21,7 +22,7 @@ legacy/                        site antigo (Vite), vira public/laboratorio/ no b
 ## Regra de isolamento
 1. **Uma ferramenta nunca importa de outra.** Nem código, nem estilo, nem tipo.
 2. O que duas ferramentas precisam vai para `src/core/` (lógica, sem interface) ou `src/components/` (interface).
-3. `src/core/` não importa de ferramentas, páginas nem componentes. É TypeScript puro, testável sem navegador sempre que possível.
+3. `src/core/` não importa de ferramentas, páginas nem componentes. É TypeScript puro, testável sem navegador sempre que possível. Exceção: `src/core/pitch/generated/` é JavaScript compilado do Kotlin de `marmota-tuner/core`, a mesma lógica que o app Android usa. Não se edita à mão: mude o Kotlin e rode `./gradlew :core:exportToSite` em `marmota-tuner/`. A CI falha se os dois divergirem.
 4. Nada em `src/` importa de `legacy/`. Para reaproveitar algo de lá, **migre** para `src/core/` em TypeScript.
 
 O lint (`eslint.config.mjs`) barra os imports por `@/tools/...`. Dentro da própria ferramenta, use import relativo.

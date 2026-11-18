@@ -1,3 +1,7 @@
+// Shared with the website: compiled to JS (see core/build.gradle.kts) and exported to TypeScript.
+@file:OptIn(kotlin.js.ExperimentalJsExport::class)
+@file:kotlin.js.JsExport
+
 package br.musica.marmotatuner
 
 import kotlin.math.log10
@@ -20,8 +24,8 @@ class SampleWindow(val size: Int) {
     fun append(chunk: FloatArray, count: Int) {
         require(count in 0..chunk.size) { "count must be within 0..${chunk.size}, got $count" }
         val incoming = minOf(count, size)
-        System.arraycopy(buffer, incoming, buffer, 0, size - incoming)
-        System.arraycopy(chunk, count - incoming, buffer, size - incoming, incoming)
+        buffer.copyInto(buffer, destinationOffset = 0, startIndex = incoming, endIndex = size)
+        chunk.copyInto(buffer, destinationOffset = size - incoming, startIndex = count - incoming, endIndex = count)
         filled = minOf(size, filled + count)
     }
 
@@ -53,6 +57,9 @@ class PitchPipeline(sampleRate: Int) {
     fun reset() = window.clear()
 
     companion object {
+        /** Samples per mic chunk: ~23 ms at 44.1 kHz → ~43 needle updates per second. The site feeds the same size. */
+        const val CHUNK_SAMPLES = 1024
+
         /** About −50 dBFS: below this it's room noise, and YIN would chase hum or hiss. */
         const val SILENCE_RMS = 0.003
 

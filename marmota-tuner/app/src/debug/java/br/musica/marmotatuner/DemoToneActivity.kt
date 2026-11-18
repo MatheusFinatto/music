@@ -18,7 +18,7 @@ class DemoToneActivity : Activity() {
     private val handler = Handler(Looper.getMainLooper())
     private val pipeline = PitchPipeline(AudioCapture.SAMPLE_RATE)
     private val smoother = PitchSmoother()
-    private val chunk = FloatArray(AudioCapture.CHUNK_SAMPLES)
+    private val chunk = FloatArray(PitchPipeline.CHUNK_SAMPLES)
     private var phase = 0.0
     private var hz = DEFAULT_HZ
 

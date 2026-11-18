@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { hasLocale } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { Afinador } from "@/tools/afinador/Afinador";
 
@@ -18,5 +18,11 @@ export default async function AfinadorPage({ params }: Props) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
-  return <Afinador />;
+  const messages = await getMessages();
+  // Só os textos desta ferramenta vão para o navegador.
+  return (
+    <NextIntlClientProvider messages={{ afinador: messages.afinador }}>
+      <Afinador />
+    </NextIntlClientProvider>
+  );
 }

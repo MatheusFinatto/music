@@ -1,0 +1,18 @@
+/* Afinador no navegador: a tela escura é a mesma do app Android (marmota-tuner). */
+.tuner-screen {
+  position: relative;
+  width: 100%;
+  height: clamp(380px, 64svh, 600px);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #1e1e1e;
+  box-shadow: var(--shadow);
+  scroll-margin-top: 72px; /* abaixo do cabeçalho fixo */
+}
+.tuner-screen canvas { display: block; width: 100%; height: 100%; }
+
+.tuner-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-bottom: 16px; }
+.tuner-actions .go { border: 0; cursor: pointer; padding: 11px 22px; font-size: 1rem; }
+.tuner-actions .go:disabled { opacity: 0.6; cursor: progress; }
+.tuner-actions .go:focus-visible, .tuner-alt:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.tuner-alt { color: var(--accent); font-weight: 600; text-underline-offset: 3px; }
