@@ -29,7 +29,8 @@ export type TabLayout = { cw: number; bpl: number };
 const NAMES = ["e", "B", "G", "D", "A", "E"];
 
 /**
- * Largura mínima da semicolcheia para que nenhuma nota encubra a seguinte na mesma corda. As frases do
+ * Largura mínima da semicolcheia para que nenhuma nota encubra a seguinte na mesma corda, nem grude nela
+ * (7 e 9 seguidos não podem virar "79"). As frases do
  * curso cabem em 2; trechos rápidos de solo tirado de gravação (tercinas, fusas) pedem mais, e a caixa rola.
  */
 function denseCw(notes: readonly LeadNote[], frets: readonly FretPos[]): number {
@@ -39,7 +40,7 @@ function denseCw(notes: readonly LeadNote[], frets: readonly FretPos[]): number 
     const s = frets[i]!.string, prev = last.get(s);
     if (prev !== undefined) {
       const gap = (n.beat - notes[prev]!.beat) * 4;
-      if (gap > 0) need = Math.max(need, Math.ceil(tabToken(notes[prev]!, frets[prev]!, notes[prev - 1]).length / gap));
+      if (gap > 0) need = Math.max(need, Math.ceil((tabToken(notes[prev]!, frets[prev]!, notes[prev - 1]).length + 1) / gap));
     }
     last.set(s, i);
   });
@@ -58,7 +59,7 @@ export function tabSystems(notes: readonly LeadNote[], frets: readonly FretPos[]
     const row = grid[pos.string]![bar]!;
     // Nota mais curta que a semicolcheia (enfeite de solo tirado de gravação) cairia em cima da anterior:
     // vai para a primeira coluna livre ao lado. A posição fica aproximada; o som continua no tempo certo.
-    const free = (c: number) => c >= 0 && c + token.length <= perBar && row.slice(c, c + token.length).every((x) => x.note < 0);
+    const free = (c: number) => c >= 0 && c + token.length <= perBar && row.slice(c, c + token.length + 1).every((x) => x.note < 0) && (c === 0 || row[c - 1]!.note < 0);
     const want = (six % 16) * cw + (cw > 2 ? 1 : 0);
     let c = want;
     for (let d = 1; !free(c) && d < perBar; d++) c = free(want + d) ? want + d : free(want - d) ? want - d : c;

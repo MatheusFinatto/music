@@ -43,6 +43,9 @@ describe("tablatura em texto", () => {
       const sys = tabSystems(p.notes, p.frets, p.bars, ["X"], { cw: 2, bpl: 1 });
       const seen = new Set(sys.flatMap((s) => s.rows.flatMap((r) => r.bars.flat().map((c) => c.note))));
       p.notes.forEach((_, i) => expect(seen.has(i), `${p.id}: nota ${i + 1} encoberta`).toBe(true));
+      // Duas notas coladas na mesma corda viram outro número ("7" e "9" lidos como "79").
+      for (const sy of sys) for (const r of sy.rows) for (const bar of r.bars)
+        bar.forEach((c, k) => { if (k > 0 && c.note >= 0 && bar[k - 1]!.note >= 0 && bar[k - 1]!.note !== c.note) throw new Error(`${p.id}: notas ${bar[k - 1]!.note + 1} e ${c.note + 1} grudadas`); });
     }
   });
 });
