@@ -122,7 +122,7 @@ export const curriculum: Curriculum = {
         {
           id: "u0.l1",
           concepts: ["O que é a escala pentatônica menor?", "O que é a tônica de uma escala?"],
-          video: { youtube: "tzh1OeGUv_E", title: "Improvisation: A-Minor Pentatonic Guitar Solo", author: "Flo Guitar", note: "Antes de começar, assista a este solo improvisado em Lá menor, só com a pentatônica. Agora você não entende quase nada do que ele faz, e está tudo bem. No fim do curso, o vídeo volta." },
+          videos: [{ youtube: "tzh1OeGUv_E", title: "Improvisation: A-Minor Pentatonic Guitar Solo", author: "Flo Guitar", note: "Antes de começar, assista a este solo improvisado em Lá menor, só com a pentatônica. Agora você não entende quase nada do que ele faz, e está tudo bem. No fim do curso, o vídeo volta." }],
           title: "O desenho 1",
           intro:
             "Boa parte dos solos de rock e blues que você conhece passa por este desenho. Ele tem só cinco notas, repetidas em duas oitavas. O objetivo aqui não é correr por ele: é saber, de olhos fechados, onde está a tônica.",
@@ -4502,7 +4502,7 @@ export const curriculum: Curriculum = {
         {
           id: "u10.l3",
           title: "O solo inteiro",
-          video: { youtube: "tzh1OeGUv_E", title: "Improvisation: A-Minor Pentatonic Guitar Solo", author: "Flo Guitar", note: "Lembra deste vídeo, do começo do curso? Assista de novo. Agora dá para reconhecer os desenhos, os bends, as notas longas que caem no acorde e as frases que conversam. É o mesmo material que você tem nas mãos." },
+          videos: [{ youtube: "tzh1OeGUv_E", title: "Improvisation: A-Minor Pentatonic Guitar Solo", author: "Flo Guitar", note: "Lembra deste vídeo, do começo do curso? Assista de novo. Agora dá para reconhecer os desenhos, os bends, as notas longas que caem no acorde e as frases que conversam. É o mesmo material que você tem nas mãos." }, { youtube: "1vuv8gF8rw0", title: "How to Play over Chords ONLY USING THE PENTATONIC scale!", author: "Paul Davids", note: "E o próximo passo, para depois do curso: aqui você usou a pentatônica do tom e mirou as notas do acorde que cabem nela. Neste vídeo, a ideia vai além: pensar a pentatônica a partir de cada acorde, e não só do tom. Está em inglês." }],
           intro:
             "Tudo junto: respirar, ritmo, alvos na troca, tensão que resolve, o braço inteiro, um motivo que volta e intensidade que cresce. Não é para usar tudo em toda frase. É para ter tudo à mão e escolher. Só pentatônica: é o que basta.",
           key: "u10.l3.full",
