@@ -16,7 +16,7 @@ Qualquer músico, do iniciante ao avançado, com foco em instrumentos de corda (
 
 ## Product Purpose
 
-Um site de música generalista, gratuito e não comercial: um hub que leva a ferramentas de prática independentes (treinador de tirar músicas e solos de ouvido, afinador, treino de ouvido, improvisação, player de tab/MIDI). Sucesso é cada ferramenta ser excelente por si só; o hub só precisa levar a pessoa à ferramenta em um clique.
+Um site de música generalista, gratuito e não comercial: um hub que leva a ferramentas de prática independentes (treinador de tirar músicas e solos de ouvido, afinador, treino de ouvido, improvisação, metrônomo). Sucesso é cada ferramenta ser excelente por si só; o hub só precisa levar a pessoa à ferramenta em um clique.
 
 ## Positioning
 
@@ -34,7 +34,7 @@ O treinador de tirar músicas e solos de ouvido é a peça que o dono nunca viu 
 - Gratuito, sem conta por enquanto; dados só no navegador (`localStorage`, prefixo `musica:`). Contas virão depois.
 - PT-BR no lançamento, estruturado para receber outros idiomas.
 - Uma ferramenta nunca depende de outra; o que é comum fica em `src/core/`.
-- O player de tab/MIDI abre arquivos do próprio usuário; não há catálogo de tablaturas (direito autoral).
+- Não há catálogo de tablaturas de músicas comerciais (direito autoral).
 - Status de cada ferramenta é mostrado com honestidade (pronta, laboratório, próxima, planejada). Sem datas prometidas.
 - Em aberto: nome definitivo e domínio.
 
