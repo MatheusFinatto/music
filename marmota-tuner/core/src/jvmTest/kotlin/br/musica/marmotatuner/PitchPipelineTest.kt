@@ -38,8 +38,8 @@ class PitchPipelineTest {
     /** Feeds a long signal in mic-sized chunks, like AudioCapture does; returns the last sample. */
     private fun feed(pipeline: PitchPipeline, signal: FloatArray): PitchSample {
         var last = PitchSample(null, 0f)
-        for (start in signal.indices step AudioCapture.CHUNK_SAMPLES) {
-            val chunk = signal.copyOfRange(start, minOf(signal.size, start + AudioCapture.CHUNK_SAMPLES))
+        for (start in signal.indices step PitchPipeline.CHUNK_SAMPLES) {
+            val chunk = signal.copyOfRange(start, minOf(signal.size, start + PitchPipeline.CHUNK_SAMPLES))
             last = pipeline.process(chunk, chunk.size)
         }
         return last

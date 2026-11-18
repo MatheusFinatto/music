@@ -1,5 +1,10 @@
+// Shared with the website: compiled to JS (see core/build.gradle.kts) and exported to TypeScript.
+@file:OptIn(kotlin.js.ExperimentalJsExport::class)
+@file:kotlin.js.JsExport
+
 package br.musica.marmotatuner
 
+import kotlin.math.PI
 import kotlin.math.asin
 import kotlin.math.min
 
@@ -59,7 +64,7 @@ data class TunerGeometry(
         /** Widest swing whose dial ends still leave room for the ♭/♯ labels at the screen edges. */
         private fun swingThatFits(halfWidth: Float, radius: Float): Float {
             if (radius <= 0f) return MAX_SWING_DEGREES
-            val fits = Math.toDegrees(asin(min(1f, halfWidth / radius).toDouble())).toFloat()
+            val fits = (asin(min(1f, halfWidth / radius).toDouble()) * 180 / PI).toFloat()
             return min(MAX_SWING_DEGREES, fits)
         }
     }

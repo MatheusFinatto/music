@@ -12,16 +12,6 @@ import java.util.Locale
 import kotlin.math.cos
 import kotlin.math.sin
 
-/** What the screen shows right now. Owned by [TunerView]; mutated in place to avoid allocating per frame. */
-class TunerScene {
-    /** Last note heard. Kept (dimmed) after the string stops ringing. */
-    var reading: NoteReading? = null
-    var active: Boolean = false
-    var level: Float = 0f
-    var message: String? = null
-    var needleCents: Float = 0f
-}
-
 /**
  * Draws the tuner: note + octave, frequency, dial with ♭/♯ ends, needle, pivot, note strip, mic level.
  *

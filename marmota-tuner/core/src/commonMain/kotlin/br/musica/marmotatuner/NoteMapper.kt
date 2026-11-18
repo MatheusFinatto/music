@@ -1,3 +1,7 @@
+// Shared with the website: compiled to JS (see core/build.gradle.kts) and exported to TypeScript.
+@file:OptIn(kotlin.js.ExperimentalJsExport::class)
+@file:kotlin.js.JsExport
+
 package br.musica.marmotatuner
 
 import kotlin.math.abs
@@ -41,12 +45,12 @@ object NoteMapper {
 
     fun frequencyFromMidi(midi: Double): Double = A4_HZ * 2.0.pow((midi - A4_MIDI) / 12)
 
-    /** Example: readingFromMidi(59.8) → B3, −20 cents. */
+    /** Example: readingFromMidi(58.8) → B3, −20 cents. */
     fun readingFromMidi(midi: Double): NoteReading {
         val nearest = midi.roundToInt()
         return NoteReading(
-            pitchClass = Math.floorMod(nearest, 12),
-            octave = Math.floorDiv(nearest, 12) - 1,
+            pitchClass = nearest.mod(12),
+            octave = nearest.floorDiv(12) - 1,
             cents = ((midi - nearest) * 100).toFloat(),
             frequencyHz = frequencyFromMidi(midi).toFloat(),
         )
