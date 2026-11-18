@@ -22,7 +22,7 @@ Como conferir: abra `marmota-music.vercel.app/solos`, de preferência no celular
 - [ ] **Botão "Pular"** na lição sugerida (conta como feita, selo "Pulada") e tag **"Opcional"** nas músicas.
 
 ## Do que já existia e nunca foi ouvido
-- [ ] Licks dos ícones (`u38` a `u40`, `a14`): tab do Songsterr, com ligado e a harmonia da gravação
+- [ ] Licks dos ícones (`u38` a `u40`): tab do Songsterr, com ligado e a harmonia da gravação
 - [ ] Tudo do `u19.l3` em diante: arcos 5 a 12, shapes 2 a 5, funções, tônicas, mesmo lick nos cinco shapes
 - [ ] Velocidade II e III
 - [ ] Solo de chegada (`u10.l4`), corrida do Tom Bailey (`u16.l3`), solo do Luca e a base dele (`u10.l5`)
