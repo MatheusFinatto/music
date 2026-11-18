@@ -130,8 +130,9 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
             {RATINGS.map((r) => (
               <button key={r} type="button" className="btn choice" aria-pressed={rating === r} onClick={() => setRating(r)}>{t(`frame.${r}`)}</button>
             ))}
-            <button type="button" className="btn primary next" disabled={!rating} onClick={() => rating && onRate(rating)}>{t("frame.next")}</button>
+            <button type="button" className="btn primary next" disabled={!rating} aria-describedby={rating ? undefined : "rate-hint"} onClick={() => rating && onRate(rating)}>{t("frame.next")}</button>
           </div>
+          {!rating && <p id="rate-hint" className="note">{t("frame.rateHint")}</p>}
         </footer>
       )}
     </article>

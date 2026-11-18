@@ -89,7 +89,7 @@ export function Calendar() {
         {planned.length > 0 && (
           <>
             <h3>{t("forecast")}</h3>
-            <ul>{planned.map((x, i) => <li key={i}><span className={`tag ${x.part}`}>{x.part === "new" || x.part === "again" ? t("lesson") : x.part === "cold" ? t("cold") : t("review")}</span> {x.title}</li>)}</ul>
+            <ul>{planned.filter((x, i) => planned.findIndex((y) => y.title === x.title && (y.part === "cold") === (x.part === "cold")) === i).map((x, i) => <li key={i}><span className={`tag ${x.part}`}>{x.part === "new" || x.part === "again" ? t("lesson") : x.part === "cold" ? t("cold") : t("review")}</span> {x.title}</li>)}</ul>
             <p className="note">{t("forecastNote")}</p>
           </>
         )}

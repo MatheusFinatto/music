@@ -69,6 +69,9 @@ Como conferir: abra `marmota-music.vercel.app/solos`, de preferência no celular
 - [ ] Ao **parar**, a base desce em meio segundo; no **fim de um trecho** (exemplo, tomada), o último acorde ainda ressoa por cerca de 1,6 s. Ouça se soa natural.
 - [ ] A aba "Solo completo" de Shine On não estoura mais a largura; o botão **Tocar** deixou de ter o tamanho da faixa de acordes.
 
+## Crítica de design (rodada 1)
+- [ ] Veja o calendário, as abas das partes (agora navegáveis por setas) e a lição aberta por link (sem "Passo 1 de 1"). O que sobrou da crítica, e precisa da sua decisão, está no `TODO.local.md` (muro de texto nas lições de solo, quatro mundos visuais, hub genérico).
+
 ## Bug do braço (a reproduzir)
 - [ ] Braço do `/solos` bugado em `?licao=u41.l1` (Scar Tissue) e talvez Californication (`u42.l1`). Ainda não reproduzi. Se lembrar o que parecia errado (casa cortada, seta fora do lugar, braço pulando), anote aqui.
 

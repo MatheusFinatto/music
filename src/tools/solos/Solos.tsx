@@ -59,12 +59,12 @@ export function Solos() {
           ex={step.ex}
           part={step.part}
           intro={step.first && step.lesson ? { title: step.lesson.title, text: step.lesson.intro, concepts: step.lesson.concepts, videos: step.lesson.videos, source: step.lesson.source } : undefined}
-          progress={{ n: view.at + 1, total: view.steps.length }}
+          progress={view.steps.length > 1 ? { n: view.at + 1, total: view.steps.length } : undefined}
           rated={view.ratings[view.at]}
           onRate={onRate}
           onBack={view.at > 0 ? () => navigate({ ...view, at: view.at - 1 }, { replace: true }) : undefined}
           onExit={home}
-          exitLabel={t("frame.quit")}
+          exitLabel={t(view.steps.length > 1 ? "frame.quit" : "frame.back")}
         />
       </main>
     );
