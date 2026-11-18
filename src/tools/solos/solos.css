@@ -334,6 +334,8 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .sound-panel[open] { display: flex; flex-direction: column; gap: 16px; }
 .solos .sound-panel::backdrop { background: rgb(0 0 0 / 0.55); }
 .solos .sound-panel h2 { font-size: var(--text-xl); margin: 0; }
+.solos .sound-panel h3 { font-size: var(--text-lg); margin: 8px 0 0; }
+.solos .sound-panel .slider output { color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; margin-left: 6px; }
 .solos .sound-panel .note { color: var(--muted); font-size: var(--text-sm); margin: 0; }
 .solos .sound-panel .slider { display: grid; gap: 6px; font-weight: 600; font-size: var(--text-sm); }
 .solos .sound-panel input[type="range"] { width: 100%; accent-color: var(--ink); min-height: 32px; }
