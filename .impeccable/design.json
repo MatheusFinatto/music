@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-11-17T12:30:00Z",
-  "title": "Design System: Musical Tools",
+  "title": "Design System: Marmota Music",
   "extensions": {
     "colorMeta": {
       "action-blue": { "role": "primary", "displayName": "Azul de ação", "canonical": "#27598a", "tonalRamp": ["#0b1520", "#14304b", "#1d446a", "#27598a", "#4f82b3", "#7fb2e2", "#b9d3ec", "#e4edf6"] },

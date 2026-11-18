@@ -30,11 +30,12 @@ A lista de verdade é `src/tools/registry.ts`. Ordem e detalhes: `docs/ROADMAP.m
 | 2026-11-17 | Treino de ouvido entra no site | Revoga a decisão antiga de usar só app externo. |
 | 2026-11-17 | Sem catálogo de tablaturas | Tablatura de música comercial é protegida por direito autoral. |
 | 2026-11-18 | Licks de solos conhecidos dentro de lição de análise | Catálogo continua proibido. Lick ou solo de gravação entra só numa lição que analisa a técnica (shape, tom, nota de fora), com crédito e o vídeo oficial incorporado: uso de trecho para estudo (Lei 9.610/98, art. 46, VIII). O violão do site não substitui a gravação. |
+| 2026-11-18 | O site passa a se chamar "Marmota Music"; o curso, "Como solar com a pentatônica" | O nome do site acompanha o endereço e o app (Marmota Tuner). O curso é só de pentatônica, e o nome agora diz isso. O endereço `/solos` não muda. |
 | 2026-11-17 | O afinador entra como app Android (Marmota Tuner), ligado ao hub por `/afinador` | Contribuição de um amigo, aceita pelo dono mesmo fora da stack web. O valor dele é ser só um afinador: sem anúncio, sem assinatura, sem internet, menos de 1 MB. Os dois afinadores ficam: o app é o que se abre no celular para afinar; o do site existe porque microfone e detecção de altura em `src/core/` são a base das ferramentas que ouvem a guitarra. O app não segue os tokens do `DESIGN.md` nem alimenta o núcleo. |
 | antes | Dados só no navegador, com backup | Sem backend até haver contas. |
 
 ## Em aberto
-- Domínio. O nome é "Musical Tools" (2026-11-17) e fica só em `messages/pt-BR.json`.
+- Domínio próprio. O nome é "Marmota Music" (2026-11-18; antes, "Musical Tools") e fica só em `messages/pt-BR.json`.
 - Contas: quando e com qual provedor.
 
 ## Histórico

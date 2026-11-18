@@ -1,4 +1,4 @@
-# Musical Tools
+# Marmota Music
 
 Ferramentas de prática para quem toca: gratuitas, sem conta, com foco em guitarra. Um hub leva a ferramentas independentes (tirar de ouvido, afinador, treino de ouvido, improvisação, player de tab e MIDI).
 

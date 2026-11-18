@@ -1,4 +1,4 @@
-// Formato do conteúdo de "Como solar no violão e na guitarra". O conteúdo é dado: acrescentar lição não mexe em código.
+// Formato do conteúdo de "Como solar com a pentatônica". O conteúdo é dado: acrescentar lição não mexe em código.
 import type { LeadNote, StyleName } from "@/core/audio";
 import type { ChordDegree, FretPos } from "@/core/theory";
 

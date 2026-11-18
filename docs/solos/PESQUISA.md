@@ -1,4 +1,4 @@
-# Como solar no violão e na guitarra: o que a pesquisa diz
+# Como solar com a pentatônica: o que a pesquisa diz
 
 Levantamento de 2026-11-17, em três frentes: ciência do aprendizado, concorrentes e pedagogia de solo melódico. É a base das decisões de desenho da ferramenta. Cada achado traz a força da evidência; onde ela é fraca, está dito.
 

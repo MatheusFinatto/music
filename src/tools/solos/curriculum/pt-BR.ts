@@ -1,4 +1,4 @@
-// Conteúdo de "Como solar no violão e na guitarra" em português.
+// Conteúdo de "Como solar com a pentatônica" em português.
 // Fase 1: O mapa do braço, Respirar e Ritmo. Fase 2: Ouvir a troca e Ligar. Bend e vibrato não têm unidade
 // própria (o público já sabe fazer): aparecem usados nas frases, como gesto até a nota do acorde.
 // Fase 3: Uma corda só, Motivo, Vocabulário e O arco do solo. Depois: cinco seções, cada uma fechando

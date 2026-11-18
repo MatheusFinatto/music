@@ -4,7 +4,7 @@ export function mountNav(current) {
   nav.className = "site-nav";
   nav.setAttribute("aria-label", "Páginas");
   const pages = [["/laboratorio", "Laboratório", "home"], ["/laboratorio/diario", "Diário do Solo", "diario"], ["/laboratorio/piano", "Piano de Ideias", "piano"]];
-  const brand = document.createElement("a"); brand.href = "/"; brand.className = "brand"; brand.textContent = "← Musical Tools";
+  const brand = document.createElement("a"); brand.href = "/"; brand.className = "brand"; brand.textContent = "← Marmota Music";
   nav.append(brand);
   pages.forEach(([href, label, id]) => {
     const a = document.createElement("a"); a.href = href; a.textContent = label;
