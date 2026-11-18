@@ -1,11 +1,15 @@
 // Transporte: o relógio musical que toca a base em ciclo e avisa quem estiver ouvindo.
-// Conta em semicolcheias, compasso 4/4, um acorde por compasso.
+// Conta em semicolcheias, compasso 4/4, um acorde por compasso (ou o compasso dividido em partes iguais).
 import type { Chord } from "@/core/theory";
 import { getAudio, resumeAudio, silence, type AudioGraph } from "./context";
 import { prepareLead } from "./lead";
 import { STYLES, bassNote, click, hat, kick, pad, snare, voicing, type Style, type StyleName } from "./backing";
 
-export type Backing = { chords: Chord[]; bpm: number; style: StyleName; click?: boolean };
+/**
+ * `chords`: um acorde por compasso, em ciclo. `split`: compassos com mais de um acorde (mesma posição em
+ * `chords`), que dividem o compasso em partes iguais (2 ou 4).
+ */
+export type Backing = { chords: Chord[]; split?: (Chord[] | undefined)[]; bpm: number; style: StyleName; click?: boolean };
 
 export type BeatInfo = {
   /** Tempo absoluto desde o início (negativo durante a contagem). */
@@ -117,7 +121,9 @@ class Transport {
       const s = ((step % 16) + 16) % 16;
       const bar = Math.floor(step / 16);
       const barInCycle = ((bar % n) + n) % n;
-      const chord = step >= 0 ? backing.chords[barInCycle]! : null;
+      const parts = backing.split?.[barInCycle];
+      const partLen = parts ? 16 / parts.length : 16;
+      const chord = step < 0 ? null : parts ? parts[Math.floor(s / partLen)]! : backing.chords[barInCycle]!;
 
       // Timer estrangulado (aba em segundo plano): o passo já passou. Avança o relógio sem tocar.
       const late = t < graph.ctx.currentTime - 0.03;
@@ -129,7 +135,7 @@ class Transport {
         if (s % 4 === 0) click(graph, t, s === 0);
       } else if (!this.muted && chord) {
         const st = this.style, v = voicing(chord);
-        if (s === 0) pad(graph, v.pad, t, 16 * stepDur);
+        if (s % partLen === 0) pad(graph, v.pad, t, partLen * stepDur);
         if (st.bass[s]) {
           let len = 1;
           while (s + len < 16 && !st.bass[s + len]) len++;

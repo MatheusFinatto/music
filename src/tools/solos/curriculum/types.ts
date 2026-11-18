@@ -10,7 +10,16 @@ export type Base = {
   style: StyleName;
   /** Base refeita de uma gravação (nome da música): fica no tom dela e não muda com o tom de prática. */
   song?: string;
+  /**
+   * Compassos com mais de um acorde: posição do compasso em `prog` → graus, um para cada parte igual do
+   * compasso (2 = meio compasso cada, 4 = um por tempo). `prog` continua com o primeiro acorde do compasso,
+   * que é o que os exercícios de alvo usam.
+   */
+  split?: Partial<Record<number, number[]>>;
 };
+
+/** O que soa em cada compasso: um acorde, ou os acordes de um compasso dividido, em graus. */
+export const barsOf = (base: Base): number[][] => base.prog.map((d, i) => base.split?.[i] ?? [d]);
 
 type Common = {
   /** Identificador estável: o progresso do usuário é guardado por ele. Nunca reutilize. */
