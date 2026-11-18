@@ -53,7 +53,6 @@
   "afinador": {
     "title": "Afinador",
     "description": "Afinador cromático pelo microfone, no navegador ou no app Android Marmota Tuner: a nota, a frequência e o desvio em cents.",
-    "lead": "Toque uma corda: aparecem a nota, a frequência e quanto ela está desafinada. A agulha fica verde quando a corda está afinada.",
     "start": "Afinar aqui",
     "stop": "Parar",
     "retry": "Tentar de novo",
@@ -76,8 +75,7 @@
     "step1": "Baixe o arquivo no celular.",
     "step2": "Abra o arquivo. Se o Android pedir, permita instalar apps desta fonte.",
     "step3": "Abra o Marmota Tuner e libere o microfone.",
-    "notStore": "O app não está na loja: a instalação é direto pelo arquivo.",
-    "source": "Ver o código do app"
+    "notStore": "O app não está na loja: a instalação é direto pelo arquivo."
   },
   "notFound": {
     "title": "Essa página não existe",
