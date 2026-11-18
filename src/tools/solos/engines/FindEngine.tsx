@@ -36,7 +36,7 @@ export function FindEngine({ ex, onResult }: { ex: FindExercise; onResult: (r: R
 
   const box = pentatonicShape(base.key, ex.shape);
   const [lo, hi] = fretSpan(box);
-  // Candidatas: as notas do desenho mais as notas dos acordes que caem na mesma região.
+  // Candidatas: as notas do shape mais as notas dos acordes que caem na mesma região.
   const all = new Map<string, FretPos>();
   [...box, ...positionsOf(chords.flatMap((c) => [...c.tones]), lo, hi)].forEach((p) => all.set(keyOf(p), p));
   const candidates = [...all.values()];

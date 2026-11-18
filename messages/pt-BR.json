@@ -91,7 +91,6 @@
       "week": "{n, plural, one {# dia de prática nesta semana} other {# dias de prática nesta semana}}",
       "trail": "A trilha",
       "finished": "Você fez todas as lições disponíveis. As sessões continuam com revisão e frases novas.",
-      "soon": "Notas de fora da pentatônica, como a 7ª e a 9ª, ficam para depois: primeiro, um solo inteiro só com ela.",
       "lessonCold": "Confirmada a frio",
       "practice": "Praticar",
       "reset": "Apagar meu progresso",
@@ -166,16 +165,16 @@
       "tempo": "Andamento em bpm, de {min} a {max}"
     },
     "map": {
-      "shape": "Desenho",
-      "shapeN": "Desenho {n}",
+      "shape": "Shape",
+      "shapeN": "Shape {n}",
       "chord": "Acorde",
-      "labelPenta": "Braço da guitarra: pentatônica, desenho {n}",
+      "labelPenta": "Braço da guitarra: pentatônica, shape {n}",
       "labelChord": "Braço da guitarra: notas do acorde {chord}",
       "idle": "Ligue a base e toque junto",
       "follow": "As marcas acompanham o acorde",
       "oneNote": "Uma nota por tempo",
       "legendOutside": "Tracejadas: notas do acorde fora da pentatônica.",
-      "labelTogether": "Braço da guitarra: pentatônica, desenhos {shapes} juntos",
+      "labelTogether": "Braço da guitarra: pentatônica, shapes {shapes} juntos",
       "labels": "O que mostrar nas notas",
       "names": "Notas",
       "functions": "Funções (1 ♭3 4 5 ♭7)"
@@ -307,7 +306,7 @@
     },
     "key": {
       "label": "Tom",
-      "note": "Tom de {key}: o desenho 1 começa na casa {fret}. O texto fala em Lá menor, casa 5."
+      "note": "Tom de {key}: o shape 1 começa na casa {fret}. O texto fala em Lá menor, casa 5."
     }
   }
 }

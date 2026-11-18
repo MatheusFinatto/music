@@ -8,7 +8,7 @@ import { Banner } from "../components/Banner";
 import { Fretboard, type Dot } from "../components/Fretboard";
 import { useBeat } from "../components/useTransport";
 
-/** Função de cada nota da pentatônica menor, contada da tônica: pensar 1, ♭3, 4, 5, ♭7 ajuda a levar o desenho a outro tom. */
+/** Função de cada nota da pentatônica menor, contada da tônica: pensar 1, ♭3, 4, 5, ♭7 ajuda a levar o shape a outro tom. */
 const FUNCTION: Record<number, string> = { 0: "1", 3: "♭3", 5: "4", 7: "5", 10: "♭7" };
 
 export function MapEngine({ ex }: { ex: MapExercise }) {
