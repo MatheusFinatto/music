@@ -413,3 +413,9 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .badge.optional { margin-left: 8px; vertical-align: middle; }
 
 .solos .plan .skip { position: absolute; top: 12px; right: 12px; }
+
+/* Clicar no nome ou no quadro da lição entra nela */
+.solos .lesson-head { cursor: pointer; }
+.solos .lesson-head .check, .solos .lesson-head .btn, .solos .lesson-head button { cursor: pointer; }
+.solos .lesson-link { color: inherit; text-decoration: none; }
+.solos .lesson-link:hover { text-decoration: underline; }
