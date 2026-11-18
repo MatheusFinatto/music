@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { atAudioTime, getAudio, playPhrase, transport } from "@/core/audio";
+import { atAudioTime, getAudio, NATURAL_END, playPhrase, transport } from "@/core/audio";
 import type { Exercise } from "../curriculum/types";
 import { backingOf } from "./BackingBar";
 import { Board, chordNames, TextTab } from "./PhraseViews";
@@ -25,7 +25,7 @@ export function DemoPlayer({ ex }: { ex: Exercise }) {
     const clear = () => { timers.forEach((c) => c()); timers = []; };
     const offBeat = transport.on("beat", (info) => {
       if (info.beatInBar !== 0 || !pending.current) return;
-      if (info.bar === demo.bars) timers.push(atAudioTime(info.time, () => transport.stop()));
+      if (info.bar === demo.bars) timers.push(atAudioTime(info.time, () => transport.stop(NATURAL_END)));
       const g = getAudio();
       if (info.bar === 0 && g) {
         const spb = transport.secondsPerBeat;

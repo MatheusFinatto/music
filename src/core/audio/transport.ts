@@ -28,6 +28,9 @@ type Events = { beat: (info: BeatInfo) => void; start: () => void; stop: () => v
 
 const LOOKAHEAD = 0.15; // segundos agendados à frente
 const TICK = 25; // ms entre verificações
+const QUICK = 0.07; // segundos: troca de base, sem deixar rastro
+const FADE = 0.45; // segundos: o aluno parou a base
+export const NATURAL_END = 1.6; // segundos: a base chegou ao fim do trecho
 
 class Transport {
   running = false;
@@ -56,7 +59,7 @@ class Transport {
   start(backing: Backing, { countIn = 0 }: { countIn?: number } = {}): boolean {
     const graph = resumeAudio();
     if (!graph || backing.chords.length === 0) return false;
-    this.stop();
+    this.stop(QUICK);
     this.graph = graph;
     this.pendingBeatDur = null;
     this.setBacking(backing);
@@ -77,13 +80,17 @@ class Transport {
     return true;
   }
 
-  stop() {
+  /**
+   * Para a base. Por padrão ela morre numa descida curta (o que já soa termina de ressoar); `NATURAL_END`
+   * é para o fim de um trecho, em que o último acorde ainda soa por um instante.
+   */
+  stop(fade = FADE) {
     if (!this.running) return;
     this.running = false;
     this.generation++;
     if (this.timer) clearInterval(this.timer);
     this.timer = null;
-    if (this.graph) silence(this.graph);
+    if (this.graph) silence(this.graph, fade);
     this.listeners.stop.forEach((f) => f());
   }
 

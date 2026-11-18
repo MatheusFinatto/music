@@ -199,9 +199,12 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 /* base */
 .solos .backing { display: grid; grid-template-columns: auto auto minmax(0, 1fr); gap: 12px 16px; align-items: center; }
 .solos .backing > * { min-width: 0; }
+/* a base acompanha a rolagem: dá para olhar a tablatura sem perder o play e os acordes */
+@media (min-width: 681px) { .solos .backing { position: sticky; top: 56px; z-index: 5; background: var(--bg); padding-block: 10px; box-shadow: 0 1px 0 var(--line); } }
 .solos .backing .play { min-height: 52px; padding-inline: 20px; font-size: var(--text-lg); }
 .solos .backing .keys { grid-column: 1 / -1; color: var(--muted); font-size: var(--text-xs); }
 @media (hover: none) { .solos .backing .keys { display: none; } }
+.solos .backing .chords { grid-column: 1 / -1; }
 .solos .chords { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(4.5rem, 1fr); gap: 6px; overflow-x: auto; max-width: 100%; padding-bottom: 4px; }
 .solos .chords li { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; background: var(--bg); color: var(--muted); }
 .solos .chords li.on { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }

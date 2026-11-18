@@ -54,6 +54,15 @@ Como conferir: abra `marmota-music.vercel.app/solos`, de preferência no celular
 - [ ] **Born to Be Wild**: ficou **de fora** (o solo famoso é de órgão). Se você quiser mesmo assim, é outra lição.
 - [ ] Em todas: as URLs da fonte (Songsterr) foram montadas pelo id da música e **não foram abertas**. Clique em cada "fonte" e veja se abre.
 
+## Explicações das músicas (reescritas em 2026-11-18)
+- [ ] Os textos de `intro` e `steps` das 28 músicas foram reescritos para falar de **penta, funções e notas de chegada** (sem número de compasso da tab). Foram conferidos contra os dados de cada frase, mas só você ouve. Leia uma ou duas de cada tom e veja se a explicação bate com o que toca.
+- [ ] **Teoria a confirmar:** Back in Black (`u40`): a penta de Mi menor sobre acordes maiores, com o Sol como blue note. Free Bird (`u68`): o texto diz que Si, Mi e Lá são "cor de Sol maior". Shapes das casas 17 a 19 em `u47` e das casas 7 a 10 em `u55`. Dani California, `u58` e `u67` têm duplas e bends que a frase transcrita não tem: os textos citam só o que está nos dados.
+
+## Barra da base e fim da base
+- [ ] A barra da base (play, bpm, acordes) **gruda abaixo do cabeçalho ao rolar, só em telas largas** (no celular ocupava 280 px e não gruda). Veja se ajuda ou atrapalha.
+- [ ] Ao **parar**, a base desce em meio segundo; no **fim de um trecho** (exemplo, tomada), o último acorde ainda ressoa por cerca de 1,6 s. Ouça se soa natural.
+- [ ] A aba "Solo completo" de Shine On não estoura mais a largura; o botão **Tocar** deixou de ter o tamanho da faixa de acordes.
+
 ## Bug do braço (a reproduzir)
 - [ ] Braço do `/solos` bugado em `?licao=u41.l1` (Scar Tissue) e talvez Californication (`u42.l1`). Ainda não reproduzi. Se lembrar o que parecia errado (casa cortada, seta fora do lugar, braço pulando), anote aqui.
 
