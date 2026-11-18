@@ -339,3 +339,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .concepts { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font-size: var(--text-sm); }
 .solos .concepts a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
 .solos .concepts a:hover { color: var(--ink); }
+.solos .lesson-video { margin-top: 16px; max-width: 720px; }
+.solos .lesson-video p { margin: 0 0 10px; }
+.solos .lesson-video iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: var(--radius-sm); background: #000; }
+.solos .lesson-video figcaption { margin-top: 8px; font-size: var(--text-sm); color: var(--muted); }

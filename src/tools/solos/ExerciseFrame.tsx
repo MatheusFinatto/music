@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { transport } from "@/core/audio";
-import type { Exercise } from "./curriculum/types";
+import type { Exercise, Lesson } from "./curriculum/types";
 import { keyName, rootFret, transposeExercise } from "./curriculum/transpose";
 import { usePracticeKey } from "./progress";
 import type { Part } from "./session/route";
@@ -21,7 +21,7 @@ type Props = {
   ex: Exercise;
   part: Part;
   /** Texto da lição, mostrado antes do primeiro exercício dela. */
-  intro?: { title: string; text: string; concepts?: string[] };
+  intro?: { title: string; text: string; concepts?: string[]; video?: Lesson["video"] };
   progress?: { n: number; total: number };
   /** Avaliação já dada a este passo nesta sessão (ao voltar um passo). */
   rated?: Rating;
@@ -74,6 +74,21 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
                   <li key={q}><a href={`https://www.google.com/search?q=${encodeURIComponent(q)}`} target="_blank" rel="noreferrer">{q}</a></li>
                 ))}
               </ul>
+            )}
+            {intro.video && (
+              <figure className="lesson-video">
+                <p>{intro.video.note}</p>
+                {/* Incorporado, não baixado: o vídeo continua sendo de quem fez. Só carrega quando aparece na tela. */}
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${intro.video.youtube}`}
+                  title={intro.video.title}
+                  loading="lazy"
+                  allow="encrypted-media; picture-in-picture; fullscreen"
+                  allowFullScreen
+                  referrerPolicy="strict-origin-when-cross-origin"
+                />
+                <figcaption>{t("frame.video", { title: intro.video.title, author: intro.video.author })}</figcaption>
+              </figure>
             )}
           </section>
         )}
