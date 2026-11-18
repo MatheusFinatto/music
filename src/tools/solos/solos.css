@@ -344,7 +344,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .key-picker select option { background: var(--surface); color: var(--ink); }
 .solos .take-options { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
 .solos .key-note { color: var(--target); font-size: var(--text-sm); font-weight: 600; }
-.solos .sound-panel { width: min(26rem, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); padding: 24px; }
+.solos .sound-panel { margin: auto; max-height: calc(100dvh - 32px); overflow-y: auto; width: min(26rem, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); padding: 24px; }
 .solos .sound-panel[open] { display: flex; flex-direction: column; gap: 16px; }
 .solos .sound-panel::backdrop { background: rgb(0 0 0 / 0.55); }
 .solos .sound-panel h2 { font-size: var(--text-xl); margin: 0; }

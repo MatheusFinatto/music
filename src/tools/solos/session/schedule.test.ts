@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Curriculum, Exercise, Lesson, Phrase } from "../curriculum/types";
-import { EMPTY, addDays, buildSession, daysThisWeek, learnLesson, rate, rateCold, toggleLesson, unitStatuses } from "./schedule";
+import { EMPTY, addDays, cleanProgress, buildSession, daysThisWeek, learnLesson, rate, rateCold, toggleLesson, unitStatuses } from "./schedule";
 import { curriculum as real } from "../curriculum/pt-BR";
 import { chordsOf, degreeIn, minorPentatonic, mod12, pentatonicShape, pentatonicShapes } from "@/core/theory";
 import { gestureOf } from "../engines/tech";
@@ -462,5 +462,21 @@ describe("seções", () => {
   it("os capítulos cobrem todas as seções, uma vez, na ordem, sem capítulo vazio", () => {
     expect(real.chapters.flatMap((c) => c.sections)).toEqual(real.sections.map((s) => s.id));
     for (const c of real.chapters) expect(c.sections.length, c.id).toBeGreaterThan(0);
+  });
+});
+
+describe("progresso guardado", () => {
+  it("o que estiver malformado é descartado, sem quebrar o resto", () => {
+    expect(cleanProgress(null)).toBeNull();
+    expect(cleanProgress({ version: 1 })).toEqual(EMPTY);
+    const p = cleanProgress({
+      version: 1,
+      exercises: { a: { last: "ok", times: 1, interval: 1, due: "2026-11-19", day: "2026-11-18" }, b: "lixo", c: { last: "talvez" } },
+      lessons: { "u0.l1": { learned: "2026-11-18", manual: true }, x: { learned: 3 } },
+      days: ["2026-11-18", 5, "ontem"],
+    })!;
+    expect(Object.keys(p.exercises)).toEqual(["a"]);
+    expect(p.lessons).toEqual({ "u0.l1": { learned: "2026-11-18", manual: true } });
+    expect(p.days).toEqual(["2026-11-18"]);
   });
 });
