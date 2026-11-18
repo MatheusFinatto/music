@@ -18,6 +18,11 @@ export type LeadNote = {
   glide?: number;
   /** Tempos parados em `from` antes de começar a ir (soltar um bend já dobrado). Padrão: 0. */
   hold?: number;
+  /**
+   * Dobrar e soltar na mesma palhetada: a partir deste tempo (contado do início da nota), a altura volta de
+   * `midi` para `from`, no mesmo `glide` da subida.
+   */
+  back?: number;
   /** Vibrato: `rate` em Hz, `cents` de largura, `delay` em tempos antes de começar. */
   vibrato?: { rate: number; cents: number; delay?: number };
   /** Intensidade 0..1. Padrão: 1. */
@@ -74,12 +79,31 @@ function pitchCurve(p: AudioParam, chain: readonly LeadNote[], t0: number, beatD
     if (hold > 0) p.setValueAtTime(value(n.from), t + hold);
     if (exp) p.exponentialRampToValueAtTime(value(n.midi), t + hold + glide);
     else p.linearRampToValueAtTime(value(n.midi), t + hold + glide);
+    if (n.back !== undefined) {
+      const at = Math.max(t + hold + glide, t + Math.min(n.back, n.dur * 0.9) * beatDur);
+      const down = Math.min(glide, Math.max(0.02, t + n.dur * beatDur - at));
+      p.setValueAtTime(value(n.midi), at);
+      if (exp) p.exponentialRampToValueAtTime(value(n.from), at + down);
+      else p.linearRampToValueAtTime(value(n.from), at + down);
+    }
   }
 }
 
 /** Prepara o som escolhido (cadeia e amostras) antes da primeira nota: chame junto com o play. */
 export function prepareLead(graph: AudioGraph) {
   chainOf(graph);
+}
+
+/**
+ * null se o som escolhido já pode tocar; senão, uma promessa que resolve quando as amostras chegam, ou depois
+ * de `ms` (rede lenta: aí sai a voz sintetizada até elas chegarem). Sem isso, o primeiro compasso da primeira
+ * vez sai no sintetizador mesmo com o violão escolhido.
+ */
+export function leadReady(graph: AudioGraph, ms = 2000): Promise<void> | null {
+  chainOf(graph);
+  const s = soundStore.get();
+  if (s.instrument === "sintetizador" || bankOf(graph.ctx, s.instrument)) return null;
+  return Promise.race([loadBank(graph.ctx, s.instrument), new Promise<void>((r) => setTimeout(r, ms))]).catch(() => {});
 }
 
 /** Vibrato: oscila a desafinação (`detune`, em cents) de cada parâmetro dado. */

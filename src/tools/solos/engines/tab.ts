@@ -1,6 +1,7 @@
 // Tablatura em texto de uma frase, no formato do Piano de Ideias (legacy/src/lib/score.js): o acorde em
 // cima de cada compasso, seis linhas (1ª corda em cima), cada semicolcheia com largura fixa (o espaço
-// mostra o ritmo) e a contagem embaixo. Gestos: 7b9 bend, 9r7 dobrar e soltar, 5/7 slide, h7 e p5 ligado, ~ vibrato.
+// mostra o ritmo) e a contagem embaixo. Gestos: 7b9 bend, 9r7 soltar um bend já dobrado, 7b9r7 dobrar e soltar,
+// 5/7 slide, h7 e p5 ligado, ~ vibrato.
 import type { LeadNote } from "@/core/audio";
 import type { FretPos } from "@/core/theory";
 import { gestureOf } from "./tech";
@@ -14,7 +15,7 @@ export function tabToken(n: LeadNote, pos: FretPos, prev?: LeadNote): string {
   const lig = n.legato && prev && !g ? (n.midi > prev.midi ? "h" : "p") : "";
   const body = !g ? `${lig}${f}`
     : g.kind === "slide" ? `${g.fromFret}/${f}`
-    : g.kind === "bend" ? `${f}b${f + g.amount}`
+    : g.kind === "bend" ? `${f}b${f + g.amount}${n.back !== undefined ? `r${f}` : ""}`
     : `${f + g.amount}r${f}`;
   return body + (n.vibrato ? "~" : "");
 }
