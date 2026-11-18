@@ -174,7 +174,10 @@
       "follow": "As marcas acompanham o acorde",
       "oneNote": "Uma nota por tempo",
       "legendOutside": "Tracejadas: notas do acorde fora da pentatônica.",
-      "labelTogether": "Braço da guitarra: pentatônica, desenhos {shapes} juntos"
+      "labelTogether": "Braço da guitarra: pentatônica, desenhos {shapes} juntos",
+      "labels": "O que mostrar nas notas",
+      "names": "Notas",
+      "functions": "Funções (1 ♭3 4 5 ♭7)"
     },
     "find": {
       "start": "Começar",

@@ -408,6 +408,22 @@ describe("frases das unidades", () => {
       }
     }
   });
+  it("o mesmo lick nos cinco desenhos: mesmas notas e mesmo ritmo, cada versão dentro do seu desenho", () => {
+    const versions = phrasesOf("u12").filter((p) => /^m[1-5]$/.test(p.id));
+    expect(versions.map((p) => p.id)).toEqual(["m1", "m2", "m3", "m4", "m5"]);
+    const shapeOf = (p: Phrase) => p.notes.map((n) => `${n.beat}:${n.dur}:${mod12(n.midi)}`).join(" ");
+    versions.forEach((p, i) => {
+      expect(shapeOf(p), p.id).toBe(shapeOf(versions[0]!));
+      for (const at of placesOf(p)) expect(boxOf([i + 1]).has(at), `${p.id}: ${at}`).toBe(true);
+    });
+  });
+  it("cada desenho novo tem tônicas para achar e um exercício de voltar à tônica", () => {
+    for (const unit of ["u20", "u23", "u26", "u29"]) {
+      const ex = real.units.find((u) => u.id === unit)!.lessons[0]!.exercises;
+      expect(ex.some((e) => e.kind === "find" && e.ask.length === 1 && e.ask[0] === "T"), unit).toBe(true);
+      expect(ex.some((e) => e.kind === "play-rest" && e.id.endsWith(".home")), unit).toBe(true);
+    }
+  });
   it("as outras bases da tomada fecham o ciclo dentro dela, só com acordes que têm nota na pentatônica", () => {
     const takes = [...exercises, real.take].flatMap((e) => (e.kind === "take" && e.bases ? [e] : []));
     expect(takes.map((e) => e.id)).toContain(real.take.id);

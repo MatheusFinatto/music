@@ -8,12 +8,16 @@ import { Banner } from "../components/Banner";
 import { Fretboard, type Dot } from "../components/Fretboard";
 import { useBeat } from "../components/useTransport";
 
+/** Função de cada nota da pentatônica menor, contada da tônica: pensar 1, ♭3, 4, 5, ♭7 ajuda a levar o desenho a outro tom. */
+const FUNCTION: Record<number, string> = { 0: "1", 3: "♭3", 5: "4", 7: "5", 10: "♭7" };
+
 export function MapEngine({ ex }: { ex: MapExercise }) {
   const t = useTranslations("solos.map");
   const format = useFormatter();
   const base = ex.base!;
   const [shape, setShape] = useState(ex.shapes[0]!);
   const [picked, setPicked] = useState(0);
+  const [functions, setFunctions] = useState(false);
   const beat = useBeat();
   const live = !!beat && beat.beat >= 0;
   const chords = chordsOf(base.prog, base.key);
@@ -25,7 +29,8 @@ export function MapEngine({ ex }: { ex: MapExercise }) {
   const [lo, hi] = fretSpan(box);
   const root = mod12(base.key + 9);
   const penta = new Set(minorPentatonic(base.key));
-  const name = (p: { string: number; fret: number }) => pcName(midiAt(p), base.key);
+  const name = (p: { string: number; fret: number }) =>
+    functions ? FUNCTION[mod12(midiAt(p) - root)] ?? pcName(midiAt(p), base.key) : pcName(midiAt(p), base.key);
 
   let dots: Dot[];
   let anyOutside = false;
@@ -51,6 +56,10 @@ export function MapEngine({ ex }: { ex: MapExercise }) {
           ))}
         </div>
       )}
+      <div className="seg" role="group" aria-label={t("labels")}>
+        <button type="button" aria-pressed={!functions} onClick={() => setFunctions(false)}>{t("names")}</button>
+        <button type="button" aria-pressed={functions} onClick={() => setFunctions(true)}>{t("functions")}</button>
+      </div>
       {ex.layer === "chord" && (
         <div className="seg" role="group" aria-label={t("chord")}>
           {chords.map((c, i) => (
