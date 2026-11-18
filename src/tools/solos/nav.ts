@@ -1,5 +1,5 @@
 "use client";
-// A tela atual de "Como solar no violão e na guitarra", ligada ao endereço do navegador: o "voltar" funciona, uma lição
+// A tela atual de "Como solar com a pentatônica", ligada ao endereço do navegador: o "voltar" funciona, uma lição
 // tem link próprio e recarregar a página não perde a posição na sessão (guardada no sessionStorage).
 import { useSyncExternalStore } from "react";
 import { curriculum } from "./curriculum/pt-BR";

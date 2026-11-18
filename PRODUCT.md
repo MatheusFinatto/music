@@ -40,7 +40,7 @@ O treinador de tirar músicas e solos de ouvido é a peça que o dono nunca viu 
 
 ## Brand Commitments
 
-- Nome: "Musical Tools" (escolhido pelo dono em 2026-11-17). Domínio ainda em aberto.
+- Nome: "Marmota Music" (o dono trocou em 2026-11-18; antes, "Musical Tools"). O endereço é `marmota-music.vercel.app`.
 - Notas sempre no formato letra + oitava (C4, Bb3). C4 = Dó central.
 - Semântica de cor nas ferramentas: laranja = nota-alvo, azul = o que está tocando agora, verde = selecionado. Não misturar.
 - Não comercial: nada de linguagem de venda, plano pago ou "comece grátis".

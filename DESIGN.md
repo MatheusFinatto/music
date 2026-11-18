@@ -1,5 +1,5 @@
 ---
-name: Musical Tools
+name: Marmota Music
 description: Ferramentas de prática para quem toca. Painel de entrada calmo e generoso, no padrão da categoria.
 colors:
   ground: "#f5f5f7"
@@ -90,7 +90,7 @@ components:
     padding: "5px 11px"
 ---
 
-# Design System: Musical Tools
+# Design System: Marmota Music
 
 ## Overview
 
@@ -176,7 +176,7 @@ Raio 22px nos cards, 14px nos ícones, pílula nos botões e selos. Sem cantos v
 ### Ícones
 - Linha, traço 1.8, pontas redondas, 24px de grade. Um por ferramenta em `src/components/ToolIcon.tsx`.
 
-### O mundo de "Como solar no violão e na guitarra"
+### O mundo de "Como solar com a pentatônica"
 - A ferramenta tem ambiente próprio, sempre escuro: palco à noite. Fundo marrom quase preto com uma luz quente vinda de cima, superfícies de madeira escura, texto em marfim. Definido em `src/tools/solos/solos.css` (`body:has(.solos)`), que redefine os tokens do site enquanto a ferramenta está aberta.
 - Títulos em Bricolage Grotesque (`--font-display`); texto em Inter.
 - Ação principal em marfim. O azul fica só para "tocando agora" e o laranja só para nota-alvo e para o que está em andamento.

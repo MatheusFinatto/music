@@ -1,4 +1,4 @@
-# Como solar no violão e na guitarra: microfone (recurso futuro)
+# Como solar com a pentatônica: microfone (recurso futuro)
 
 Decisão do dono (2026-11-17): o microfone vai acontecer, mas não na primeira versão. Este documento guarda tudo o que já se sabe para quem for construir.
 
