@@ -55,7 +55,15 @@ function get(): View {
   return current.view;
 }
 
-const onPop = () => notify();
+/** Onde a página estava em cada endereço: o "voltar" da lição devolve a trilha na posição em que a pessoa a deixou. */
+const scrolled = new Map<string, number>();
+
+const onPop = () => {
+  notify();
+  const y = scrolled.get(window.location.search) ?? 0;
+  // Depois que a tela nova é desenhada.
+  requestAnimationFrame(() => window.scrollTo({ top: y }));
+};
 
 function subscribe(fn: () => void) {
   if (subs.size === 0) window.addEventListener("popstate", onPop);
@@ -70,6 +78,7 @@ function subscribe(fn: () => void) {
 export function navigate(next: View, { replace = false } = {}) {
   const href = hrefOf(routeOf(next));
   const url = window.location.pathname + href;
+  if (!replace) scrolled.set(window.location.search, window.scrollY);
   if (replace) window.history.replaceState(null, "", url);
   else window.history.pushState(null, "", url);
   const encoded = encodeView(next);
@@ -78,6 +87,8 @@ export function navigate(next: View, { replace = false } = {}) {
   } catch { /* sessionStorage bloqueado: só não guarda a posição */ }
   current = { href, view: next };
   notify();
+  // Tela nova (ou passo novo da sessão) começa no topo, não onde a anterior estava rolada.
+  window.scrollTo({ top: 0 });
 }
 
 export const useView = (): View => useSyncExternalStore(subscribe, get, () => HOME);
