@@ -1,13 +1,13 @@
 "use client";
 // A frase escrita: no braço (com os gestos desenhados) e em tablatura de texto. Usada no eco e no exemplo do arco.
 import { useEffect, useRef, useState } from "react";
-import { chordsOf, fretSpan, midiAt, pcName } from "@/core/theory";
-import type { Base, Phrase } from "../curriculum/types";
+import { fretSpan, midiAt, pcName } from "@/core/theory";
+import type { Phrase } from "../curriculum/types";
 import { tabLayout, tabSystems, tabText, type TabCell } from "../engines/tab";
 import { gestureOf } from "../engines/tech";
 import { Fretboard, type Dot, type GestureMark } from "./Fretboard";
 
-export const chordNames = (base: Base) => chordsOf(base.prog, base.key).map((c) => c.name);
+export { barNames as chordNames } from "./BackingBar";
 
 export function Board({ phrase, now, label, half, full }: { phrase: Phrase; now: number; label: string; half: string; full: string }) {
   if (!phrase.frets) return null;

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { transport } from "@/core/audio";
 import { chordsOf } from "@/core/theory";
-import type { Base } from "../curriculum/types";
+import { barsOf, type Base } from "../curriculum/types";
 import { KeyPicker } from "./KeyPicker";
 import { SoundPanel } from "./SoundPanel";
 import { useBeat, useRunning } from "./useTransport";
@@ -11,7 +11,16 @@ import { useBeat, useRunning } from "./useTransport";
 /** Limites do andamento, para os botões e para o campo digitado. */
 const MIN_BPM = 40, MAX_BPM = 200;
 
-export const backingOf = (base: Base, bpm = base.bpm) => ({ chords: chordsOf(base.prog, base.key), bpm, style: base.style });
+export const backingOf = (base: Base, bpm = base.bpm) => ({
+  chords: chordsOf(base.prog, base.key),
+  split: barsOf(base).map((ds) => (ds.length > 1 ? chordsOf(ds, base.key) : undefined)),
+  bpm,
+  style: base.style,
+});
+
+/** O nome do que soa em cada compasso: "Am", ou "Am G" no compasso dividido (sem repetir o mesmo acorde seguido). */
+export const barNames = (base: Base): string[] =>
+  barsOf(base).map((ds) => chordsOf(ds, base.key).map((c) => c.name).filter((n, i, all) => n !== all[i - 1]).join(" "));
 
 /** Número da contagem (1 a 4) enquanto a base conta antes de entrar; senão null. */
 export function useCountIn(): number | null {
@@ -72,11 +81,11 @@ export function ChordStrip({ base, live, hideChords = false }: { base: Base; liv
   const beat = useBeat();
   return (
     <ol className="chords" aria-label={t("chords")}>
-      {chordsOf(base.prog, base.key).map((c, i) => {
+      {barNames(base).map((name, i) => {
         const on = live && !!beat && beat.beat >= 0 && beat.barInCycle === i;
         return (
           <li key={i} className={on ? "on" : undefined} aria-current={on ? "true" : undefined}>
-            <b>{hideChords ? "?" : c.name}</b>
+            <b>{hideChords ? "?" : name}</b>
             <span className="beats" aria-hidden="true">
               {[0, 1, 2, 3].map((b) => <i key={b} className={on && beat.beatInBar === b ? "on" : undefined} />)}
             </span>

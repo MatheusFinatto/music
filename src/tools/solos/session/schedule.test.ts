@@ -153,8 +153,10 @@ describe("conteúdo real", () => {
     expect(buildSession(real, p, D1).lesson?.id).toBe("u1.l1");
     expect(buildSession(real, p, D2).cold).toBeUndefined();
   });
-  it("o mesmo vídeo abre e fecha o curso: na primeira lição e na última", () => {
-    const lessons = real.sections.flatMap((sec) => sec.units).map((id) => real.units.find((u) => u.id === id)!).flatMap((u) => u.lessons);
+  it("o mesmo vídeo abre e fecha o curso: na primeira lição e na última, antes do capítulo dos solos dos ícones", () => {
+    // O último capítulo (licks de solos conhecidos) vem depois do fim do curso, como extra.
+    const main = real.chapters.filter((c) => c.id !== "c4").flatMap((c) => c.sections);
+    const lessons = main.map((id) => real.sections.find((s) => s.id === id)!).flatMap((sec) => sec.units).map((id) => real.units.find((u) => u.id === id)!).flatMap((u) => u.lessons);
     const [first, last] = [lessons[0]!, lessons.at(-1)!];
     expect(first.videos?.[0]?.youtube).toBeTruthy();
     expect(last.videos?.[0]?.youtube).toBe(first.videos![0]!.youtube);
@@ -458,6 +460,17 @@ describe("frases das unidades", () => {
   });
   it("todo alvo na troca reveza pelo menos dois graus", () => {
     for (const e of exercises) if (e.kind === "target") expect(new Set(e.degrees).size, e.id).toBeGreaterThanOrEqual(2);
+  });
+});
+
+describe("compasso com mais de um acorde", () => {
+  const bases = [...real.units.flatMap((u) => u.lessons.flatMap((l) => l.exercises)), ...real.phrases].flatMap((e) => (e.base ? [e.base, ...(e.kind === "take" ? e.bases ?? [] : [])] : []));
+  it("divide em 2 ou 4 partes, começando pelo acorde de prog", () => {
+    for (const b of bases)
+      for (const [i, parts] of Object.entries(b.split ?? {})) {
+        expect([2, 4], `${b.song}: compasso ${i}`).toContain(parts!.length);
+        expect(parts![0], `${b.song}: compasso ${i}`).toBe(b.prog[Number(i)]);
+      }
   });
 });
 
