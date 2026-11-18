@@ -80,6 +80,9 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .seg { background: transparent; }
 .solos .seg button[aria-pressed="true"], .solos .seg button[aria-checked="true"] { background: var(--ink); color: var(--bg); }
 .solos .seg button:disabled { cursor: default; }
+.solos .phrase-about { max-width: 64ch; }
+.solos .phrase-about p { font-size: var(--text-md); text-wrap: pretty; }
+.solos .phrase-about ol { margin: 8px 0 0; padding-left: 1.4em; color: var(--muted); display: grid; gap: 4px; text-wrap: pretty; }
 
 /* hoje: a sessão como uma sequência numerada */
 .solos .today { display: flex; flex-direction: column; gap: 18px; }

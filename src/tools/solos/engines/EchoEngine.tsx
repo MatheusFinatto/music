@@ -24,6 +24,8 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
   const [mode, setMode] = useState<Mode>("alternate");
   const countBefore = useCountBeforeExample();
   const phrase = ex.phrases[index]!;
+  // Cada aba pode ter a base dos seus compassos (a parte de um solo); trocar de aba com a base tocando para tudo.
+  const base = phrase.base ?? ex.base!;
   const ref = useRef<Phrase>(phrase);
   useEffect(() => { ref.current = phrase; }, [phrase]);
   const modeRef = useRef<Mode>(mode);
@@ -56,15 +58,24 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
   const live = running && !!beat && beat.beat >= 0;
   const calling = live && mode !== "base" && (mode === "example" || beat.bar % (phrase.bars * 2) < phrase.bars);
   const now = running ? sounding : -1;
-  const go = (i: number) => setIndex(i);
+  const go = (i: number) => {
+    if (i !== index && transport.running && (ex.phrases[i]!.base ?? ex.base) !== base) transport.stop();
+    setIndex(i);
+  };
 
   return (
     <div className="engine">
       {ex.phrases.length > 1 && (
         <div className="seg" role="group" aria-label={t("which")}>
           {ex.phrases.map((p, i) => (
-            <button key={p.id} type="button" aria-pressed={i === index} onClick={() => go(i)}>{i + 1}</button>
+            <button key={p.id} type="button" aria-pressed={i === index} onClick={() => go(i)}>{p.label ?? i + 1}</button>
           ))}
+        </div>
+      )}
+      {(phrase.intro || phrase.steps) && (
+        <div className="phrase-about">
+          {phrase.intro && <p>{phrase.intro}</p>}
+          {phrase.steps && <ol>{phrase.steps.map((s) => <li key={s}>{s}</li>)}</ol>}
         </div>
       )}
       <div className="play-mode">
@@ -82,7 +93,7 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
       </div>
       <Banner state={live ? (calling ? "call" : "play") : null} word={t(calling ? "listen" : "yourTurn")} note={phrase.name} idle={t(`idle.${mode}`)} />
       {/* Quem começa é o exemplo: sem contagem, a não ser que a pessoa peça. Só a base: a pessoa começa, e conta. */}
-      <BackingBar base={ex.base!} countIn={mode === "base" || countBefore ? 1 : 0} playLabel={mode === "base" ? undefined : t("play")} />
+      <BackingBar key={phrase.id} base={base} countIn={mode === "base" || countBefore ? 1 : 0} playLabel={mode === "base" ? undefined : t("play")} />
       <div className="reveal">
         <div className="row">
           <button type="button" className="btn" aria-expanded={shown} onClick={() => setShown((s) => !s)}>
@@ -97,7 +108,7 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
         {shown && (ex.reveal === "rhythm"
           ? <RhythmGrid phrase={phrase} now={now} label={t("rhythmLabel")} />
           : <Board phrase={phrase} now={now} label={t("tabLabel")} half={t("bendHalf")} full={t("bendFull")} />)}
-        {tab && phrase.frets && <TextTab phrase={phrase} now={now} chords={chordNames(ex.base!)} label={t("textLabel")} />}
+        {tab && phrase.frets && <TextTab phrase={phrase} now={now} chords={chordNames(base)} label={t("textLabel")} />}
       </div>
     </div>
   );

@@ -48,8 +48,22 @@ export type FindExercise = Common & { kind: "find"; shape: number; ask: ChordDeg
 /** A base marca compassos de tocar e de calar, em ciclo. */
 export type PlayRestExercise = Common & { kind: "play-rest"; pattern: ("play" | "rest")[]; rule?: string };
 
-/** Frase curta com a posição de cada nota no braço (mesma ordem de `notes`). */
-export type Phrase = { id: string; name: string; bars: number; notes: LeadNote[]; frets?: FretPos[] };
+/**
+ * Frase curta com a posição de cada nota no braço (mesma ordem de `notes`). Num eco com várias frases, cada uma é
+ * uma aba: `label` é o nome da aba (senão, o número), `base` a base daquela frase (senão, a do exercício), e
+ * `intro` e `steps` explicam aquela frase (a parte de um solo: tom, shape, nota de fora).
+ */
+export type Phrase = {
+  id: string;
+  name: string;
+  bars: number;
+  notes: LeadNote[];
+  frets?: FretPos[];
+  label?: string;
+  base?: Base;
+  intro?: string;
+  steps?: string[];
+};
 
 /** O site toca, a pessoa repete de ouvido. A escrita só aparece quando ela pede. */
 export type EchoExercise = Common & {
