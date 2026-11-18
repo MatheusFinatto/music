@@ -283,7 +283,7 @@
       "mode": "Como tocar",
       "modes": {
         "alternate": "Ouvir e repetir",
-        "example": "Só o exemplo",
+        "example": "Tocar o exemplo",
         "base": "Só a base"
       },
       "countBefore": "Contagem antes do exemplo",

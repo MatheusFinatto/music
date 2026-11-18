@@ -9,9 +9,9 @@ import { Board, chordNames, TextTab } from "../components/PhraseViews";
 import { useBeat, useRunning } from "../components/useTransport";
 import { setCountBeforeExample, useCountBeforeExample } from "../progress";
 
-/** Alternado: o site toca e deixa o mesmo tanto para a pessoa. Só o exemplo: a frase em loop. Só a base: a pessoa sozinha. */
+/** Exemplo: a frase em loop (o padrão). Só a base: a pessoa sozinha. Alternado: o site toca e deixa o mesmo tanto para a pessoa (por último: ouvir e repetir foi o modo menos útil, segundo o dono). */
 type Mode = "alternate" | "example" | "base";
-const MODES: Mode[] = ["alternate", "example", "base"];
+const MODES: Mode[] = ["example", "base", "alternate"];
 
 /** O site toca a frase, depois deixa o mesmo número de compassos para a pessoa responder. */
 export function EchoEngine({ ex }: { ex: EchoExercise }) {
@@ -21,7 +21,7 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
   const [tab, setTab] = useState(false);
   /** Índice da nota que está soando agora (azul), ou -1. */
   const [sounding, setSounding] = useState(-1);
-  const [mode, setMode] = useState<Mode>("alternate");
+  const [mode, setMode] = useState<Mode>("example");
   const countBefore = useCountBeforeExample();
   const phrase = ex.phrases[index]!;
   // Cada aba pode ter a base dos seus compassos (a parte de um solo); trocar de aba com a base tocando para tudo.
