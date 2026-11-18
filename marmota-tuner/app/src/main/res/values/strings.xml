@@ -5,4 +5,21 @@
     <string name="mic_needed">Toque aqui para liberar o microfone</string>
     <string name="mic_in_settings">Libere o microfone nas configurações (toque aqui)</string>
     <string name="mic_failed">Não consegui abrir o microfone</string>
+    <string name="metronome">Metrônomo</string>
+    <string name="tuner">Afinador</string>
+    <string name="bpm">bpm</string>
+    <string name="play">Tocar</string>
+    <string name="stop">Parar</string>
+    <string name="tap">Marcar o andamento</string>
+    <string name="accent_first">Acentuar o primeiro tempo</string>
+    <plurals name="beats_per_bar">
+        <item quantity="one">%d tempo por compasso</item>
+        <item quantity="other">%d tempos por compasso</item>
+    </plurals>
+    <string-array name="subdivisions">
+        <item>Tempo</item>
+        <item>Colcheia</item>
+        <item>Tercina</item>
+        <item>Semicolch.</item>
+    </string-array>
 </resources>

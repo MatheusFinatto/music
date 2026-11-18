@@ -10,9 +10,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.view.Gravity
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.FrameLayout
+import android.widget.TextView
 
 /**
  * Wires mic → pitch pipeline (audio thread) → smoother → [TunerView] (main thread).
@@ -31,8 +34,20 @@ class MainActivity : Activity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         tunerView = TunerView(this)
         tunerView.setOnClickListener { onTunerTapped() }
-        setContentView(tunerView)
-        fitInsideSystemBars(tunerView)
+        // O metrônomo é a outra tela do app: um botão discreto no canto do afinador.
+        val toMetronome = TextView(this).apply {
+            text = getString(R.string.metronome)
+            setTextColor(getColor(R.color.tuner_muted))
+            textSize = 15f
+            val pad = (12 * resources.displayMetrics.density).toInt()
+            setPadding(pad, pad, pad, pad)
+            setOnClickListener { startActivity(Intent(this@MainActivity, MetronomeActivity::class.java)) }
+        }
+        val root = FrameLayout(this)
+        root.addView(tunerView)
+        root.addView(toMetronome, FrameLayout.LayoutParams(-2, -2, Gravity.TOP or Gravity.END))
+        setContentView(root)
+        fitInsideSystemBars(root)
         if (!hasMicPermission()) requestMicPermission()
     }
 

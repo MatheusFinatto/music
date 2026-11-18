@@ -1,5 +1,7 @@
 # Marmota Tuner (Android)
 
+Afinador e metrônomo. O metrônomo (`MetronomeActivity`, aberto pelo botão "Metrônomo" no canto do afinador) usa a mesma conta de cliques e o mesmo som do metrônomo do site (`core/Metronome.kt`).
+
 Afinador cromático de uma tela só, para guitarra. Toque uma corda: o nome da nota (ex.: **B3**), a frequência e uma agulha mostram quanto ela está desafinada (−50 a +50 cents). A agulha fica **verde** dentro de ±5 cents. A4 = 440 Hz.
 
 Cores iguais às do site: **laranja = alvo** (nota e marca central), **azul = o que está soando** (agulha e nível do microfone).
@@ -42,5 +44,7 @@ A página `/afinador` do site baixa `https://github.com/MatheusFinatto/music/rel
 | `TunerView` / `TunerPainter` | app | Desenho da tela (Canvas, sem bibliotecas). |
 | `TunerGeometry` / `TunerScene` | core | Onde cada coisa fica na tela e o que mostrar; o site usa as mesmas. |
 | `NeedleAnimator` | core | Movimento suave da agulha, igual em telas de 60 e 120 Hz. |
+| `Metronome` / `ClickSound` / `TapTempo` | core | Quando cada clique soa (tempos, acento, subdivisão), o som do clique e o andamento pelo toque. O site usa os mesmos em `/metronomo`. |
+| `MetronomeActivity` | app | Tela do metrônomo; mistura os cliques num AudioTrack amostra por amostra, então o tempo não depende da tela. |
 
 Sem AndroidX nem bibliotecas: o APK tem menos de 1 MB. Versões: AGP 9.5 / Gradle 9.6 (Android Studio Rabbit 2), Kotlin 2.2.10 (o mesmo do AGP, também no `core/`), compileSdk 35, minSdk 26 (Android 8).

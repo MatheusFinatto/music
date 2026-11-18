@@ -51,6 +51,23 @@
     "backup": "Laboratório e backup dos dados",
     "issue": "Achou um problema? Abra uma issue"
   },
+  "metronomo": {
+    "title": "Metrônomo",
+    "description": "Metrônomo no navegador: andamento de 30 a 250 bpm, tempos por compasso, subdivisões e andamento pelo toque.",
+    "start": "Tocar",
+    "stop": "Parar",
+    "tap": "Marcar o andamento",
+    "slower": "Mais devagar",
+    "faster": "Mais rápido",
+    "bpm": "bpm",
+    "bpmLabel": "Andamento, de {min} a {max} bpm",
+    "beats": "Tempos por compasso",
+    "subdivision": "Subdivisão",
+    "sub": { "1": "Tempo", "2": "Colcheia", "3": "Tercina", "4": "Semicolcheia" },
+    "accent": "Acentuar o primeiro tempo",
+    "keys": "Espaço toca e para. Setas mudam o andamento (com Shift, de 10 em 10). Toque em \"Marcar o andamento\" no ritmo da música para achar o bpm.",
+    "noAudio": "Este navegador não tocou o som. Tente outro navegador."
+  },
   "afinador": {
     "title": "Afinador",
     "description": "Afinador cromático pelo microfone, no navegador ou no app Android Marmota Tuner: a nota, a frequência e o desvio em cents.",
