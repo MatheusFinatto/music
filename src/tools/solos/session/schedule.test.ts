@@ -356,6 +356,7 @@ describe("frases das unidades", () => {
   const PARTE2 = [
     { shape: 2, vocab: "u21", join: "u22", arc: "a7.take" },
     { shape: 3, vocab: "u24", join: "u25", arc: "a8.take" },
+    { shape: 4, vocab: "u27", join: "u28", arc: "a9.take" },
   ];
   const boxOf = (shapes: number[]) => new Set(pentatonicShapes(0, shapes).map((x) => `${x.string}-${x.fret}`));
   const before = (n: number) => Array.from({ length: n - 1 }, (_, i) => i + 1);
