@@ -6,7 +6,6 @@ import "./afinador.css";
 // e o app Android Marmota Tuner, que a pessoa baixa se preferir. Ver marmota-tuner/README.md.
 // O APK é anexado a um Release do GitHub com este nome exato.
 const APK_URL = "https://github.com/MatheusFinatto/music/releases/latest/download/marmota-tuner.apk";
-const SOURCE_URL = "https://github.com/MatheusFinatto/music/tree/main/marmota-tuner";
 
 export async function Afinador() {
   const t = await getTranslations("afinador");
@@ -16,7 +15,6 @@ export async function Afinador() {
     <main className="wrap" id="conteudo">
       <section className="section mx-auto max-w-[640px]">
         <h1 className="text-[clamp(1.45rem,2.6vw,1.9rem)] font-[650] leading-[1.15] tracking-[-0.025em]">{t("title")}</h1>
-        <p className="mt-2 text-muted">{t("lead")}</p>
 
         <div className="mt-6">
           <WebTuner />
@@ -35,9 +33,6 @@ export async function Afinador() {
             {steps.map((step) => <li key={step}>{step}</li>)}
           </ol>
           <p className="text-muted">{t("notStore")}</p>
-          <p>
-            <a className="font-semibold text-accent" href={SOURCE_URL}>{t("source")}</a>
-          </p>
         </div>
       </section>
     </main>
