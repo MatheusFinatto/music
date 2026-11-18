@@ -9,6 +9,7 @@ describe("tablatura em texto", () => {
     expect(tabToken({ midi: 62, beat: 0, dur: 1 }, D)).toBe("7");
     expect(tabToken({ midi: 64, from: 62, beat: 0, dur: 1 }, D)).toBe("7b9");
     expect(tabToken({ midi: 62, from: 64, hold: 0.4, beat: 0, dur: 1 }, D)).toBe("9r7");
+    expect(tabToken({ midi: 64, from: 62, back: 1, beat: 0, dur: 2 }, D)).toBe("7b9r7");
     expect(tabToken({ midi: 62, from: 60, beat: 0, dur: 1 }, D)).toBe("5/7");
     expect(tabToken({ midi: 62, beat: 0, dur: 1, vibrato: { rate: 5, cents: 40 } }, D)).toBe("7~");
     expect(tabToken({ midi: 62, beat: 1, dur: 1, legato: true }, D, { midi: 60, beat: 0, dur: 1 })).toBe("h7");

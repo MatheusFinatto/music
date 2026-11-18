@@ -2,7 +2,7 @@
 // Conta em semicolcheias, compasso 4/4, um acorde por compasso (ou o compasso dividido em partes iguais).
 import type { Chord } from "@/core/theory";
 import { getAudio, resumeAudio, silence, type AudioGraph } from "./context";
-import { prepareLead } from "./lead";
+import { leadReady } from "./lead";
 import { STYLES, bassNote, click, hat, kick, pad, snare, voicing, type Style, type StyleName } from "./backing";
 
 /**
@@ -42,6 +42,8 @@ class Transport {
   /** Andamento pedido durante a execução, aplicado no próximo compasso. */
   private pendingBeatDur: number | null = null;
   private timer: ReturnType<typeof setInterval> | null = null;
+  /** Conta os starts: um start que ainda espera o violão carregar e foi parado (ou trocado) não começa mais. */
+  private generation = 0;
   private listeners: { [K in keyof Events]: Set<Events[K]> } = { beat: new Set(), start: new Set(), stop: new Set() };
 
   /** Assina um evento; devolve a função que cancela. */
@@ -54,24 +56,31 @@ class Transport {
   start(backing: Backing, { countIn = 0 }: { countIn?: number } = {}): boolean {
     const graph = resumeAudio();
     if (!graph || backing.chords.length === 0) return false;
-    // As gravações do violão começam a baixar já, durante a contagem.
-    prepareLead(graph);
     this.stop();
     this.graph = graph;
     this.pendingBeatDur = null;
     this.setBacking(backing);
-    this.t0 = graph.ctx.currentTime + 0.12 + countIn * 4 * this.beatDur;
-    this.nextStep = -countIn * 16;
     this.running = true;
-    this.timer = setInterval(() => this.schedule(), TICK);
-    this.schedule();
+    const gen = ++this.generation;
+    const go = () => {
+      if (!this.running || gen !== this.generation) return;
+      this.t0 = graph.ctx.currentTime + 0.12 + countIn * 4 * this.beatDur;
+      this.nextStep = -countIn * 16;
+      this.timer = setInterval(() => this.schedule(), TICK);
+      this.schedule();
+    };
+    // Já conta como tocando (o botão vira "Parar"), mas a primeira batida espera as gravações do violão.
     this.listeners.start.forEach((f) => f());
+    const wait = leadReady(graph);
+    if (wait) void wait.then(go);
+    else go();
     return true;
   }
 
   stop() {
     if (!this.running) return;
     this.running = false;
+    this.generation++;
     if (this.timer) clearInterval(this.timer);
     this.timer = null;
     if (this.graph) silence(this.graph);

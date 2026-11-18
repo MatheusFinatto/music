@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { transport } from "@/core/audio";
 import type { Exercise, Video } from "./curriculum/types";
@@ -38,7 +38,6 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
   const t = useTranslations("solos");
   const running = useRunning();
   const [rating, setRating] = useState<Rating | null>(rated ?? null);
-  const stage = useRef<HTMLDivElement>(null);
   const key = usePracticeKey();
   // O exercício no tom de prática; o escrito em outro tom de propósito não muda.
   const ex = useMemo(() => transposeExercise(written, key), [written, key]);
@@ -46,8 +45,7 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
 
   // Ao trocar de exercício ou sair, a base para.
   useEffect(() => () => transport.stop(), [ex.id, key]);
-  // Ao ligar a base, o palco sobe para o topo da tela. Nada é escondido: o texto da lição continua acima.
-  useEffect(() => { if (running) stage.current?.scrollIntoView({ block: "start", behavior: "smooth" }); }, [running]);
+  // Ligar a base não mexe na tela: quem está com a guitarra na mão não quer a página pulando (pedido do dono).
 
   return (
     <article className={running ? "frame playing" : "frame"}>
@@ -105,7 +103,7 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
         )}
       </div>
 
-      <div className="stage" ref={stage}>
+      <div className="stage">
         {ex.kind === "map" && <MapEngine ex={ex} />}
         {ex.kind === "line" && <LineEngine ex={ex} />}
         {ex.kind === "find" && <FindEngine ex={ex} onResult={onRate} />}
