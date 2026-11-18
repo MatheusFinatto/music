@@ -1,6 +1,6 @@
 # Musical Tools
 
-Site de música generalista, gratuito e não comercial, com foco em guitarra. Um **hub** (a homepage) leva a **ferramentas de prática independentes**; cada uma tem que ser excelente sozinha. Em português do Brasil. Publicado na Vercel em `adless-music.vercel.app`.
+Site de música generalista, gratuito e não comercial, com foco em guitarra. Um **hub** (a homepage) leva a **ferramentas de prática independentes**; cada uma tem que ser excelente sozinha. Em português do Brasil. Publicado na Vercel em `marmota-music.vercel.app`.
 
 Vários devs contribuem, cada um numa ferramenta. **Leia antes de mudar qualquer coisa:**
 - `docs/ARQUITETURA.md` — estrutura, regra de isolamento e **como adicionar uma ferramenta**.
