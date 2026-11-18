@@ -166,7 +166,8 @@
       "next": "Próximo",
       "prev": "Passo anterior",
       "concepts": "Para quem quiser ler sobre o assunto (abre uma busca)",
-      "video": "Vídeo: {title}, de {author}, no YouTube."
+      "video": "Vídeo: {title}, de {author}, no YouTube.",
+      "source": "Tablatura: <link>{title}</link>, transcrita pela comunidade do site."
     },
     "done": {
       "title": "Sessão feita",

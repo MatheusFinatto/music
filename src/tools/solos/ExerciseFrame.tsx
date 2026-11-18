@@ -21,7 +21,7 @@ type Props = {
   ex: Exercise;
   part: Part;
   /** Texto da lição, mostrado antes do primeiro exercício dela. */
-  intro?: { title: string; text: string; concepts?: string[]; videos?: Video[] };
+  intro?: { title: string; text: string; concepts?: string[]; videos?: Video[]; source?: { title: string; url: string } };
   progress?: { n: number; total: number };
   /** Avaliação já dada a este passo nesta sessão (ao voltar um passo). */
   rated?: Rating;
@@ -90,6 +90,11 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
                 <figcaption>{t("frame.video", { title: v.title, author: v.author })}</figcaption>
               </figure>
             ))}
+            {intro.source && (
+              <p className="source">
+                {t.rich("frame.source", { link: (chunks) => <a href={intro.source!.url} target="_blank" rel="noreferrer">{chunks}</a>, title: intro.source.title })}
+              </p>
+            )}
           </section>
         )}
         <h1>{ex.title}</h1>
