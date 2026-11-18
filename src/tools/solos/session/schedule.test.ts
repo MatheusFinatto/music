@@ -159,7 +159,7 @@ describe("conteúdo real", () => {
     expect(first.videos?.[0]?.youtube).toBeTruthy();
     expect(last.videos?.[0]?.youtube).toBe(first.videos![0]!.youtube);
     // Depois dele, na última lição, o próximo passo: a pentatônica que muda com o acorde.
-    expect(last.videos!.length).toBe(2);
+    expect(last.videos!.at(-1)!.author).toBe("Paul Davids");
   });
   it("ids únicos e exercício-chave existente em toda lição", () => {
     const lessons = real.units.flatMap((u) => u.lessons);
