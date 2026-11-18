@@ -42,6 +42,8 @@ export type EchoExercise = Common & {
   reveal: "rhythm" | "tab";
   /** Nas frases de ouvido: a seção cuja matéria a frase usa (`Section.id`). */
   section?: string;
+  /** Solo de outra pessoa, tirado do áudio: vale o que ela tocou, não as regras de conteúdo do curso. */
+  transcribed?: boolean;
 };
 
 /**
