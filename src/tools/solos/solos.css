@@ -373,3 +373,9 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .lesson-video p { margin: 0 0 10px; }
 .solos .lesson-video iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: var(--radius-sm); background: #000; }
 .solos .lesson-video figcaption { margin-top: 8px; font-size: var(--text-sm); color: var(--muted); }
+
+/* Como tocar o eco: modo e contagem antes do exemplo */
+.solos .play-mode { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
+.solos .count-before { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: var(--text-sm); font-weight: 600; color: var(--muted); cursor: pointer; }
+.solos .count-before input { width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; }
+.solos .count-before input:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }

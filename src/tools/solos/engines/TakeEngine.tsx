@@ -7,7 +7,7 @@ import { BackingBar, backingOf, ChordStrip, TempoControl } from "../components/B
 import { Banner } from "../components/Banner";
 import { chordNames, TextTab } from "../components/PhraseViews";
 import { useBeat, useRunning } from "../components/useTransport";
-import { saveBars, useSavedBars } from "../progress";
+import { saveBars, setCountBeforeExample, useCountBeforeExample, useSavedBars } from "../progress";
 import { barOptions, chosenBars } from "./bars";
 
 /**
@@ -39,6 +39,7 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
   const [sounding, setSounding] = useState(-1);
   const [tab, setTab] = useState(false);
   const bars = chosenBars(ex, useSavedBars()[ex.id]);
+  const countBefore = useCountBeforeExample();
   /** O tamanho escolhido, lido pelo relógio da base (fora do render). */
   const barsRef = useRef(bars);
   useEffect(() => { barsRef.current = bars; }, [bars]);
@@ -71,7 +72,7 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
     setPick({ ...mine, example: i });
     pending.current = examples[i]!;
     setExample(true);
-    if (!transport.start(backingOf(ex.base!, exBpm), { countIn: 1 })) { pending.current = null; setExample(false); }
+    if (!transport.start(backingOf(ex.base!, exBpm), { countIn: countBefore ? 1 : 0 })) { pending.current = null; setExample(false); }
   };
   const chooseBase = (i: number) => {
     if (transport.running) transport.stop();
@@ -126,6 +127,10 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
             })}
             <button type="button" className="btn" aria-expanded={tab} onClick={() => setTab((s) => !s)}>{tab ? t("hideTab") : t("showTab")}</button>
           </div>
+          <label className="count-before">
+            <input type="checkbox" checked={countBefore} onChange={(e) => setCountBeforeExample(e.target.checked)} />
+            <span>{t("countBefore")}</span>
+          </label>
           {/* Travado enquanto toca: o solo do exemplo é agendado inteiro na entrada e não acompanharia a mudança. */}
           <TempoControl bpm={exBpm} onChange={(n) => setPick({ ...mine, exBpm: n })} locked={example && running} />
           <ChordStrip base={ex.base!} live={example && running} />

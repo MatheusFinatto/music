@@ -227,7 +227,19 @@
       "which": "Qual frase",
       "listen": "Ouça",
       "yourTurn": "Sua vez",
-      "idle": "Ligue a base: o site toca, você responde",
+      "idle": {
+        "alternate": "Ligue a base: o site toca, você responde",
+        "example": "Ligue: o site toca a frase em loop, sem parar",
+        "base": "Ligue a base e toque a frase sozinho"
+      },
+      "mode": "Como tocar",
+      "modes": {
+        "alternate": "Ouvir e repetir",
+        "example": "Só o exemplo",
+        "base": "Só a base"
+      },
+      "countBefore": "Contagem antes do exemplo",
+      "play": "Tocar",
       "showRhythm": "Ver o ritmo escrito",
       "showTab": "Ver no braço",
       "rhythmLabel": "Ritmo: cada quadrado é uma semicolcheia",
@@ -248,6 +260,7 @@
       "example": "Exemplo",
       "idleExample": "Ouça o exemplo, ou toque a base e faça o seu.",
       "playExample": "Ouvir exemplo",
+      "countBefore": "Contagem antes do exemplo",
       "stopExample": "Parar o exemplo",
       "showTab": "Ver tab do exemplo",
       "hideTab": "Esconder a tab",
