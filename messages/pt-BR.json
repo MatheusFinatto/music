@@ -289,7 +289,7 @@
     },
     "sound": {
       "button": "Som: {instrument}",
-      "title": "Som da frase",
+      "title": "Som",
       "instrument": "Instrumento",
       "name": {
         "violao": "Violão",
@@ -303,6 +303,13 @@
       "volume": "Volume",
       "listen": "Ouvir",
       "close": "Fechar",
+      "base": "Base",
+      "baseNote": "Equalizador da bateria, do baixo e dos acordes. Vale enquanto a base toca.",
+      "low": "Graves",
+      "mid": "Médios",
+      "high": "Agudos",
+      "db": "{n} dB",
+      "flat": "Zerar",
       "credits": "Gravações do violão: Universidade de Iowa, via tonejs-instruments (CC BY 3.0)."
     },
     "key": {

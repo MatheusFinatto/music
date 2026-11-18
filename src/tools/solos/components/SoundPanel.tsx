@@ -1,9 +1,11 @@
 "use client";
 import { useRef, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
-import { playPhrase, prepareLead, resumeAudio, soundStore, type Instrument, type LeadNote, type Sound } from "@/core/audio";
+import { EQ_MAX, EQ_MIN, FLAT_EQ, eqStore, playPhrase, prepareLead, resumeAudio, soundStore, type BaseEq, type Instrument, type LeadNote, type Sound } from "@/core/audio";
 
 const useSound = (): Sound => useSyncExternalStore(soundStore.subscribe, soundStore.get, soundStore.getInitial);
+const useEq = (): BaseEq => useSyncExternalStore(eqStore.subscribe, eqStore.get, eqStore.getInitial);
+const BANDS = ["low", "mid", "high"] as const;
 
 const INSTRUMENTS: Instrument[] = ["violao", "sintetizador"];
 
@@ -14,10 +16,11 @@ const DEMO: LeadNote[] = [
   { midi: 69, beat: 1.5, dur: 2, vibrato: { rate: 5, cents: 40, delay: 0.5 } },
 ];
 
-/** Botão "Som" e a janela para escolher o instrumento da voz solista. A escolha vale para o site todo. */
+/** Botão "Som" e a janela: instrumento da voz solista e equalizador da base. A escolha vale para o site todo. */
 export function SoundPanel() {
   const t = useTranslations("solos.sound");
   const sound = useSound();
+  const eq = useEq();
   const dialog = useRef<HTMLDialogElement>(null);
   const set = (patch: Partial<Sound>) => soundStore.set((s) => ({ ...s, ...patch }));
   const listen = () => {
@@ -51,7 +54,16 @@ export function SoundPanel() {
         {sound.instrument !== "sintetizador" && (
           <p className="credits"><a href="https://github.com/nbrosowsky/tonejs-instruments" target="_blank" rel="noreferrer">{t("credits")}</a></p>
         )}
+        <h3>{t("base")}</h3>
+        <p className="note">{t("baseNote")}</p>
+        {BANDS.map((b) => (
+          <label key={b} className="slider">
+            <span>{t(b)} <output>{t("db", { n: eq[b] > 0 ? `+${eq[b]}` : String(eq[b]) })}</output></span>
+            <input type="range" min={EQ_MIN} max={EQ_MAX} step={1} value={eq[b]} onChange={(e) => eqStore.set((q) => ({ ...q, [b]: Number(e.target.value) }))} />
+          </label>
+        ))}
         <div className="row">
+          <button type="button" className="btn quiet" onClick={() => eqStore.set(FLAT_EQ)} disabled={BANDS.every((b) => eq[b] === 0)}>{t("flat")}</button>
           <button type="button" className="btn" onClick={listen}>{t("listen")}</button>
           <button type="button" className="btn primary" onClick={() => dialog.current?.close()}>{t("close")}</button>
         </div>

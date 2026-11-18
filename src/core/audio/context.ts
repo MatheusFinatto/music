@@ -1,5 +1,6 @@
 // Um único AudioContext para o site inteiro, criado no primeiro gesto do usuário.
 // Só pode ser chamado no navegador (dentro de handler de evento ou efeito).
+import { buildEq, eqStore } from "./eq";
 
 export type BusName = "drums" | "bass" | "chords" | "lead" | "click";
 
@@ -20,8 +21,12 @@ export function getAudio(): AudioGraph | null {
   const master = ctx.createGain();
   master.gain.value = MASTER;
   master.connect(comp).connect(ctx.destination);
-  const mk = (gain: number) => { const g = ctx.createGain(); g.gain.value = gain; g.connect(master); return g; };
-  graph = { ctx, master, bus: { drums: mk(0.7), bass: mk(0.75), chords: mk(0.6), lead: mk(1), click: mk(1) } };
+  // A base (bateria, baixo e acordes) passa pelo equalizador da pessoa; a voz solista e o clique, não.
+  const eq = buildEq(ctx, master);
+  eq.apply(eqStore.get());
+  eqStore.subscribe(() => eq.apply(eqStore.get()));
+  const mk = (gain: number, out: AudioNode = master) => { const g = ctx.createGain(); g.gain.value = gain; g.connect(out); return g; };
+  graph = { ctx, master, bus: { drums: mk(0.7, eq.input), bass: mk(0.75, eq.input), chords: mk(0.6, eq.input), lead: mk(1), click: mk(1) } };
   return graph;
 }
 
