@@ -49,6 +49,7 @@ export function transposeExercise(ex: Exercise, key: number): Exercise {
   if (!ex.base || ex.base.key !== 0 || ex.base.song || mod12(key) === 0) return ex;
   const off = keyOffset(key);
   const base = { ...ex.base, key: mod12(key) };
+  if (ex.demo) ex = { ...ex, demo: fit(ex.demo, off) };
   if (ex.kind === "echo") return { ...ex, base, phrases: ex.phrases.map((p) => fit(p, off)) };
   if (ex.kind === "take")
     return {

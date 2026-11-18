@@ -6,6 +6,7 @@
 // Fundamentação e fontes: docs/solos/PESQUISA.md.
 import type { LeadNote } from "@/core/audio";
 import { STANDARD_TUNING, type FretPos } from "@/core/theory";
+import { withDemos } from "./demos";
 import type { Base, Curriculum, EchoExercise, Phrase } from "./types";
 
 /** Base padrão: Am F C G, balada lenta. */
@@ -438,7 +439,7 @@ const ear = (id: string, section: "s1" | "s2" | "s3" | "s4", p: Phrase, base: Ba
 
 // ---------- conteúdo ----------
 
-export const curriculum: Curriculum = {
+const written: Curriculum = {
   units: [
     {
       id: "u0",
@@ -19192,3 +19193,6 @@ export const curriculum: Curriculum = {
     bases: OTHER_BASES,
   },
 };
+
+/** O currículo como o site usa: o escrito, mais um exemplo tocado em todo exercício que não tem. */
+export const curriculum: Curriculum = withDemos(written);

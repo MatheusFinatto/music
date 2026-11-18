@@ -7,6 +7,7 @@ import { keyName, rootFret, transposeExercise } from "./curriculum/transpose";
 import { usePracticeKey } from "./progress";
 import type { Part } from "./session/route";
 import type { Rating } from "./session/schedule";
+import { DemoPlayer } from "./components/DemoPlayer";
 import { useRunning } from "./components/useTransport";
 import { EchoEngine } from "./engines/EchoEngine";
 import { FindEngine } from "./engines/FindEngine";
@@ -102,6 +103,8 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
           <ol className="steps" aria-label={t("frame.steps")}>{ex.steps.map((s) => <li key={s}>{s}</li>)}</ol>
         )}
       </div>
+
+      {ex.demo && ex.base && <DemoPlayer key={ex.id} ex={ex} />}
 
       <div className="stage">
         {ex.kind === "map" && <MapEngine ex={ex} />}
