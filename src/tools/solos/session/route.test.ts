@@ -5,7 +5,7 @@ import { decodeView, encodeView, findLesson, hrefOf, lessonSteps, parseRoute, ro
 
 describe("endereço", () => {
   it("lê e escreve cada tela", () => {
-    for (const href of ["", "?sessao", "?licao=u5.l1", "?exercicio=f.07"]) expect(hrefOf(parseRoute(href))).toBe(href);
+    for (const href of ["", "?sessao", "?calendario", "?licao=u5.l1", "?exercicio=f.07"]) expect(hrefOf(parseRoute(href))).toBe(href);
   });
   it("parâmetro desconhecido cai na trilha", () => expect(parseRoute("?x=1")).toEqual({ kind: "home" }));
   it("lição aberta pela trilha tem o endereço da lição, inclusive no fim", () => {

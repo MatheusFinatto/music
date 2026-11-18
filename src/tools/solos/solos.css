@@ -384,3 +384,28 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .count-before { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: var(--text-sm); font-weight: 600; color: var(--muted); cursor: pointer; }
 .solos .count-before input { width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; }
 .solos .count-before input:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+/* Calendário de estudos */
+.calendar h1 { margin: 12px 0 4px; }
+.study-days { border: 0; padding: 0; margin: 16px 0; display: flex; flex-wrap: wrap; gap: 8px 14px; }
+.study-days legend { font-weight: 600; margin-bottom: 6px; padding: 0; }
+.check-day { display: inline-flex; gap: 6px; align-items: center; min-height: 44px; }
+.month-head { display: flex; align-items: center; justify-content: space-between; margin: 12px 0 8px; }
+.month-head h2 { text-transform: capitalize; margin: 0; }
+.month { display: grid; gap: 4px; }
+.week-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.week-row.head span { text-align: center; color: var(--muted); font-size: var(--text-sm); text-transform: capitalize; }
+.cell { min-height: 44px; border: 1px solid var(--border, rgba(127,127,127,.3)); border-radius: 8px; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.cell.empty { border: 0; cursor: default; }
+.cell.study { background: rgba(127,127,127,.08); }
+.cell.plan { border-style: dashed; border-color: var(--accent, #4a90d9); }
+.cell.did { background: rgba(60,170,90,.25); border-color: rgba(60,170,90,.7); }
+.cell.today { font-weight: 700; outline: 2px solid currentColor; outline-offset: -2px; }
+.cell.picked { box-shadow: 0 0 0 2px var(--accent, #4a90d9); }
+.legend { color: var(--muted); font-size: var(--text-sm); display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.swatch { width: 14px; height: 14px; border-radius: 4px; display: inline-block; border: 1px solid rgba(127,127,127,.5); }
+.swatch.did { background: rgba(60,170,90,.4); }
+.swatch.plan { border-style: dashed; }
+.day-detail { margin-top: 20px; }
+.day-detail h2 { text-transform: capitalize; }
+.day-detail ul { padding-left: 18px; }

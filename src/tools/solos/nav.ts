@@ -39,6 +39,7 @@ function resolve(href: string): View {
     const lesson = findLesson(curriculum, route.id);
     return lesson ? { name: "session", lesson: lesson.id, steps: lessonSteps(lesson, isAgain(lesson, progress)), at: 0, ratings: [] } : HOME;
   }
+  if (route.kind === "calendar") return { name: "calendar" };
   if (route.kind === "session") {
     const steps = sessionSteps(buildSession(curriculum, progress, toDay(new Date())), progress);
     return steps.length ? { name: "session", steps, at: 0, ratings: [] } : HOME;
