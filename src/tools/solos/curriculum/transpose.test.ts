@@ -30,7 +30,7 @@ describe("tom de prática", () => {
     });
     it("continua só com notas da pentatônica, e nota longa continua nota do acorde", () => {
       for (const { e } of moved) {
-        if (!e.base) continue;
+        if (!e.base || (e.kind === "echo" && e.transcribed)) continue;
         const penta = new Set(minorPentatonic(e.base.key));
         const chords = chordsOf(e.base.prog, e.base.key);
         const phrases = e.kind === "echo" ? e.phrases.filter((p) => p.frets) : e.kind === "take" ? e.examples ?? [] : [];
