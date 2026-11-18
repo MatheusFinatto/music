@@ -14,6 +14,8 @@ const BASE: Base = { key: 0, prog: [5, 3, 0, 4], bpm: 72, style: "balada" };
 const VAMP: Base = { key: 0, prog: [5], bpm: 72, style: "balada" };
 /** Dois acordes, para as frases de ouvido. */
 const AM_F: Base = { key: 0, prog: [5, 3], bpm: 72, style: "balada" };
+/** Fá, Sol e dois de Lá menor: a progressão que leva ao fim do solo, no Lá. */
+const ENDING: Base = { key: 0, prog: [3, 4, 5, 5], bpm: 72, style: "balada" };
 /** Os outros dois acordes da base: outras notas-alvo para o bend. */
 const C_G: Base = { key: 0, prog: [0, 4], bpm: 72, style: "balada" };
 /** A base padrão em rock, um pouco mais rápida: o arco do braço. */
@@ -2260,6 +2262,88 @@ export const curriculum: Curriculum = {
                 { name: "O máximo", how: "Cheio e forte: só agora." },
               ],
               bases: OTHER_BASES,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "u36",
+      title: "Como terminar o solo",
+      skill: "Avisar que vai acabar e terminar no Lá, no tempo 1 do Lá menor, deixando soar",
+      takeCheck: "Seu solo avisou que ia acabar e terminou num Lá longo, em cima do Lá menor?",
+      lessons: [
+        {
+          id: "u36.l1",
+          concepts: ["Como terminar um solo de guitarra?"],
+          title: "A última nota",
+          intro:
+            "A última frase é a que mais fica na memória. Três regras para ela: a última nota é a tônica, o Lá; ela cai no tempo 1 do acorde de Lá menor; e ela dura, com vibrato, até a base parar. Nestas frases a base toca Fá, Sol e Lá menor: a frase atravessa o Fá e o Sol e chega no Lá menor junto com a nota final.",
+          key: "u36.l1.echo",
+          exercises: [
+            {
+              id: "u36.l1.echo",
+              kind: "echo",
+              title: "Três finais",
+              goal: "Repita os três finais. Todos chegam no Lá no tempo 1 do Lá menor e seguram até o fim do compasso seguinte.",
+              steps: ["Conte: Fá, Sol, e o Lá cai no 1 do Lá menor.", "Não solte o Lá antes da hora: o vibrato é o que diz que acabou."],
+              check: "O Lá caiu junto com o Lá menor e soou até o fim?",
+              base: ENDING,
+              reveal: "tab",
+              phrases: [
+                phrase("e1", "Fim: desce até o Lá", 4, [
+                  [1, 8, 1, 0.5],
+                  [1, 5, 1.5, 0.5],
+                  [2, 8, 2, 0.5],
+                  [2, 5, 2.5, 0.5],
+                  [3, 7, 4, 1],
+                  [3, 5, 5, 0.5],
+                  [3, 7, 6, 0.5],
+                  [3, 5, 6.5, 0.5],
+                  [4, 7, 8, 6, { vib: "lento", vibDelay: 1 }],
+                ]),
+                phrase("e2", "Fim: bend que chega no Lá", 4, [
+                  [1, 5, 0.5, 1.5],
+                  [1, 8, 4, 0.5],
+                  [1, 5, 4.5, 0.5],
+                  [2, 8, 5, 1, { bend: 2 }],
+                  [2, 8, 6, 0.5, { release: 2 }],
+                  [2, 5, 6.5, 0.5],
+                  [2, 8, 7, 0.5],
+                  [1, 5, 8, 6, { vib: "lento", vibDelay: 1 }],
+                ]),
+                phrase("e3", "Fim: cada vez menos notas", 4, [
+                  [2, 5, 0.5, 1],
+                  [2, 8, 1.5, 0.5],
+                  [2, 5, 2, 1],
+                  [3, 7, 4.5, 1],
+                  [3, 5, 6, 1],
+                  [4, 7, 8, 6, { vib: "lento", vibDelay: 1 }],
+                ]),
+              ],
+            },
+          ],
+        },
+        {
+          id: "u36.l2",
+          title: "Avisar que vai acabar",
+          intro:
+            "Quem ouve precisa sentir o fim chegando antes da última nota. Três jeitos de avisar: tocar cada vez menos notas, descer para o grave, ou trazer de volta a ideia do começo do solo. Escolha um e termine no Lá, no tempo 1 do Lá menor, segurando até a base parar.",
+          key: "u36.l2.take",
+          exercises: [
+            {
+              id: "u36.l2.take",
+              kind: "take",
+              title: "Um solo com fim",
+              goal: "Oito compassos: quatro de solo, quatro para acabar. A base para sozinha no fim.",
+              steps: ["Nos quatro últimos compassos, avise: menos notas, mais grave ou a ideia do começo.", "A última nota é o Lá, no tempo 1 do Lá menor, e soa até a base parar."],
+              check: "Deu para ouvir que o solo ia acabar? Terminou no Lá, sem notas depois dele?",
+              base: ENDING,
+              bars: 8,
+              arc: [
+                { name: "Solo", how: "Frases curtas, com espaço entre elas." },
+                { name: "Fim", how: "Menos notas, e o Lá longo no Lá menor." },
+              ],
             },
           ],
         },
@@ -5998,7 +6082,7 @@ export const curriculum: Curriculum = {
     { id: "s2", title: "A harmonia", goal: "Ouvir a troca de acorde e chegar nas notas dele, com tensão que resolve.", units: ["u5", "u6", "u11", "a2"] },
     { id: "s6", title: "Vocabulário no shape 1", goal: "Licks, pergunta e resposta, frases guardadas e ideias para improvisar, tudo no shape 1.", units: ["u17", "u18", "u9", "u19", "a5"] },
     { id: "s5", title: "Velocidade I: no shape 1", goal: "Frases rápidas na pentatônica: grupos de semicolcheias, sequências e licks repetidos, sempre terminando numa nota longa.", units: ["u15", "u16", "a4"] },
-    { id: "s4", title: "O solo", goal: "Motivo e intensidade, até um solo inteiro no shape 1 que alguém pagaria para ouvir.", units: ["u8", "u14", "a6"] },
+    { id: "s4", title: "O solo", goal: "Motivo e intensidade, até um solo inteiro no shape 1 que alguém pagaria para ouvir.", units: ["u8", "u14", "u36", "a6"] },
     { id: "s8", title: "Shape 2", goal: "O shape 2 a fundo, com licks e frases dele, e depois junto com o shape 1.", units: ["u20", "u21", "u22", "a7"] },
     { id: "s9", title: "Shape 3", goal: "O shape 3 a fundo, com licks e frases dele, e depois junto com os shapes 1 e 2.", units: ["u23", "u24", "u25", "a8"] },
     { id: "s10", title: "Shape 4", goal: "O shape 4 a fundo, com licks e frases dele, e depois junto com os shapes 1 a 3.", units: ["u26", "u27", "u28", "a9"] },
