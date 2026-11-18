@@ -15,7 +15,7 @@ export function tabToken(n: LeadNote, pos: FretPos, prev?: LeadNote): string {
   const lig = n.legato && prev && !g ? (n.midi > prev.midi ? "h" : "p") : "";
   const body = !g ? `${lig}${f}`
     : g.kind === "slide" ? `${g.fromFret}/${f}`
-    : g.kind === "bend" ? `${f}b${f + g.amount}${n.back !== undefined ? `r${f}` : ""}`
+    : g.kind === "bend" ? `${f}b${g.amount < 1 ? "¼" : f + g.amount}${n.back !== undefined ? `r${f}` : ""}`
     : `${f + g.amount}r${f}`;
   return body + (n.vibrato ? "~" : "");
 }

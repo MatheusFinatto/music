@@ -27,7 +27,7 @@ export function Board({ phrase, now, label, half, full }: { phrase: Phrase; now:
     const k = `${pos.string}-${pos.fret}-${g.kind}`;
     const mark: GestureMark = g.kind === "slide"
       ? { ...pos, kind: "slide", fromFret: g.fromFret }
-      : { ...pos, kind: g.kind, text: g.amount === 1 ? half : g.amount === 2 ? full : `${g.amount / 2}` };
+      : { ...pos, kind: g.kind, text: g.amount < 1 ? "¼" : g.amount === 1 ? half : g.amount === 2 ? full : `${g.amount / 2}` };
     marks.set(k, { ...mark, now: i === now || !!marks.get(k)?.now });
   });
   const gestures = [...marks.values()];
