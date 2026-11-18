@@ -1,0 +1,49 @@
+/* Metrônomo: uma ferramenta de uso, no visual claro do hub. Azul = o tempo que está soando agora. */
+.metro { display: flex; flex-direction: column; gap: 22px; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(20px, 4vw, 32px); }
+
+.metro-beats { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; min-height: 40px; }
+.metro-beats li { width: 28px; height: 28px; border-radius: 50%; background: var(--soft); border: 2px solid var(--line); transition: background-color 0.06s, transform 0.12s var(--ease); }
+.metro-beats li.accent { width: 36px; height: 36px; margin-top: -4px; }
+.metro-beats li.on { background: var(--accent); border-color: var(--accent); transform: scale(1.12); }
+.metro-beats li.sub { background: var(--accent-soft); border-color: var(--accent); }
+
+.metro-tempo { display: flex; align-items: center; justify-content: center; gap: 16px; }
+.metro-step { width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 1.6rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s, border-color 0.2s; }
+.metro-step:hover { background: var(--soft); border-color: var(--muted); }
+.metro-bpm { display: flex; flex-direction: column; align-items: center; }
+.metro-bpm input { width: 3.2ch; border: 0; background: transparent; color: var(--ink); text-align: center; font: inherit; font-size: clamp(3.4rem, 12vw, 5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; border-radius: var(--radius-sm); }
+.metro-bpm span { color: var(--muted); font-size: var(--text-sm); font-weight: 600; }
+
+.metro-slider { width: 100%; accent-color: var(--accent); min-height: 32px; cursor: pointer; }
+
+.metro-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.metro-play { border: 0; cursor: pointer; min-width: 10rem; justify-content: center; padding: 14px 28px; font-size: 1.1rem; }
+.metro-play[aria-pressed="true"] { background: var(--ink); }
+.metro-tap { min-height: 50px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; transition: background-color 0.2s, border-color 0.2s; }
+.metro-tap:hover { background: var(--soft); border-color: var(--muted); }
+.metro-tap:active { transform: scale(0.97); }
+
+.metro-options { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; justify-content: center; border-top: 1px solid var(--line); padding-top: 20px; }
+.metro-field { display: inline-flex; align-items: center; gap: 10px; font-size: var(--text-sm); font-weight: 600; color: var(--muted); }
+.metro-field select { appearance: none; min-height: 44px; padding: 0 36px 0 16px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink); font: inherit; font-weight: 600; cursor: pointer;
+  background: var(--surface) linear-gradient(45deg, transparent 50%, var(--muted) 50%) calc(100% - 19px) 50% / 5px 5px no-repeat;
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50%; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; }
+.metro-seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.metro-seg button { min-height: 44px; padding: 0 14px; border: 0; background: var(--surface); color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; }
+.metro-seg button + button { border-left: 1px solid var(--line); }
+.metro-seg button[aria-checked="true"] { background: var(--accent); color: var(--accent-ink); }
+.metro-check { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: var(--text-sm); font-weight: 600; color: var(--muted); cursor: pointer; }
+.metro-check input { width: 20px; height: 20px; accent-color: var(--accent); }
+.metro-keys { text-align: center; color: var(--muted); font-size: var(--text-xs); }
+
+.metro :is(button, input, select):focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 520px) {
+  .metro-field { flex-direction: column; align-items: stretch; width: 100%; text-align: center; }
+  .metro-seg { display: grid; grid-template-columns: 1fr 1fr; border-radius: var(--radius-md); }
+  .metro-seg button + button { border-left: 0; }
+  .metro-seg button:nth-child(even) { border-left: 1px solid var(--line); }
+  .metro-seg button:nth-child(n + 3) { border-top: 1px solid var(--line); }
+  .metro-field select { align-self: center; }
+}

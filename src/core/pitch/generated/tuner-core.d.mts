@@ -16,6 +16,91 @@ export declare namespace KtList.$metadata$ {
         private constructor();
     }
 }
+export declare class Tick {
+    constructor(time: number, beat: number, sub: number, kind: number);
+    get time(): number;
+    get beat(): number;
+    get sub(): number;
+    get kind(): number;
+}
+/** @deprecated $metadata$ is used for internal purposes, please don't use it in your code, because it can be removed at any moment */
+export declare namespace Tick.$metadata$ {
+    const constructor: abstract new () => Tick;
+}
+export declare namespace Tick {
+    abstract class Companion extends KtSingleton<Companion.$metadata$.constructor>() {
+        private constructor();
+    }
+    /** @deprecated $metadata$ is used for internal purposes, please don't use it in your code, because it can be removed at any moment */
+    namespace Companion.$metadata$ {
+        abstract class constructor {
+            get ACCENT(): number;
+            get BEAT(): number;
+            get SUB(): number;
+            private constructor();
+        }
+    }
+}
+export declare class Metronome {
+    constructor(bpm?: number, beatsPerBar?: number, subdivision?: number);
+    get bpm(): number;
+    set bpm(value: number);
+    get beatsPerBar(): number;
+    set beatsPerBar(value: number);
+    get subdivision(): number;
+    set subdivision(value: number);
+    get accentFirst(): boolean;
+    set accentFirst(value: boolean);
+    get nextTime(): number;
+    set nextTime(value: number);
+    reset(start: number): void;
+    next(): Tick;
+}
+/** @deprecated $metadata$ is used for internal purposes, please don't use it in your code, because it can be removed at any moment */
+export declare namespace Metronome.$metadata$ {
+    const constructor: abstract new () => Metronome;
+}
+export declare namespace Metronome {
+    abstract class Companion extends KtSingleton<Companion.$metadata$.constructor>() {
+        private constructor();
+    }
+    /** @deprecated $metadata$ is used for internal purposes, please don't use it in your code, because it can be removed at any moment */
+    namespace Companion.$metadata$ {
+        abstract class constructor {
+            get MIN_BPM(): number;
+            get MAX_BPM(): number;
+            get MAX_BEATS(): number;
+            clampBpm(bpm: number): number;
+            private constructor();
+        }
+    }
+}
+export declare abstract class ClickSound {
+    static readonly getInstance: () => typeof ClickSound.$metadata$.type;
+    private constructor();
+}
+/** @deprecated $metadata$ is used for internal purposes, please don't use it in your code, because it can be removed at any moment */
+export declare namespace ClickSound.$metadata$ {
+    abstract class type extends KtSingleton<constructor>() {
+        private constructor();
+    }
+    abstract class constructor {
+        get DURATION(): number;
+        frequency(kind: number): number;
+        gain(kind: number): number;
+        render(kind: number, sampleRate: number): Float64Array;
+        private constructor();
+    }
+}
+export declare class TapTempo {
+    constructor(maxGap?: number);
+    tap(time: number): Nullable<number>;
+    reset(): void;
+}
+/** @deprecated $metadata$ is used for internal purposes, please don't use it in your code, because it can be removed at any moment */
+export declare namespace TapTempo.$metadata$ {
+    const constructor: abstract new () => TapTempo;
+}
 export declare class NeedleAnimator {
     constructor(timeConstantMs?: number);
     get target(): number;

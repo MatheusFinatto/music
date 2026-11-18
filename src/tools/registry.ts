@@ -22,7 +22,8 @@ export const TOOLS = [
   // Afina no navegador e entrega o app Android (marmota-tuner/); os dois com a mesma lógica.
   { slug: "afinador", status: "pronta", href: "/afinador" },
   { slug: "treino-de-ouvido", status: "planejada" },
-  { slug: "metronomo", status: "planejada" },
+  // Mesma lógica do app Android (marmota-tuner/core, Metronome.kt), como o afinador.
+  { slug: "metronomo", status: "pronta", href: "/metronomo" },
 ] as const satisfies readonly Tool[];
 
 export type ToolSlug = (typeof TOOLS)[number]["slug"];
