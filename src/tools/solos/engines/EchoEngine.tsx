@@ -66,9 +66,17 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
   return (
     <div className="engine">
       {ex.phrases.length > 1 && (
-        <div className="seg" role="group" aria-label={t("which")}>
+        <div className="seg" role="tablist" aria-label={t("which")}
+          onKeyDown={(e) => {
+            const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+            if (!d) return;
+            e.preventDefault();
+            const to = (index + d + ex.phrases.length) % ex.phrases.length;
+            go(to);
+            (e.currentTarget.children[to] as HTMLElement | undefined)?.focus();
+          }}>
           {ex.phrases.map((p, i) => (
-            <button key={p.id} type="button" aria-pressed={i === index} onClick={() => go(i)}>{p.label ?? i + 1}</button>
+            <button key={p.id} type="button" role="tab" aria-selected={i === index} tabIndex={i === index ? 0 : -1} onClick={() => go(i)}>{p.label ?? i + 1}</button>
           ))}
         </div>
       )}

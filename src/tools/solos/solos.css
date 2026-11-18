@@ -78,7 +78,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; background: var(--surface); align-self: flex-start; }
 .solos .seg button { border: 0; background: transparent; color: var(--ink); padding: 9px 16px; min-height: 44px; min-width: 44px; font-size: var(--text-sm); font-weight: 500; cursor: pointer; }
 .solos .seg { background: transparent; }
-.solos .seg button[aria-pressed="true"], .solos .seg button[aria-checked="true"] { background: var(--ink); color: var(--bg); }
+.solos .seg button[aria-pressed="true"], .solos .seg button[aria-selected="true"], .solos .seg button[aria-checked="true"] { background: var(--ink); color: var(--bg); }
 .solos .seg button:disabled { cursor: default; }
 .solos .phrase-about { max-width: 64ch; }
 .solos .phrase-about p { font-size: var(--text-md); text-wrap: pretty; }
@@ -200,7 +200,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .backing { display: grid; grid-template-columns: auto auto minmax(0, 1fr); gap: 12px 16px; align-items: center; }
 .solos .backing > * { min-width: 0; }
 /* a base acompanha a rolagem: dá para olhar a tablatura sem perder o play e os acordes */
-@media (min-width: 681px) { .solos .backing { position: sticky; top: 56px; z-index: 5; background: var(--bg); padding-block: 10px; box-shadow: 0 1px 0 var(--line); } }
+@media (min-width: 681px) { .solos .backing .keys { display: none; } .solos .backing { position: sticky; top: 56px; z-index: 5; background: var(--bg); padding-block: 10px; box-shadow: 0 1px 0 var(--line); } }
 .solos .backing .play { min-height: 52px; padding-inline: 20px; font-size: var(--text-lg); }
 .solos .backing .keys { grid-column: 1 / -1; color: var(--muted); font-size: var(--text-xs); }
 @media (hover: none) { .solos .backing .keys { display: none; } }
@@ -395,23 +395,25 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .study-days legend { font-weight: 600; margin-bottom: 6px; padding: 0; }
 .check-day { display: inline-flex; gap: 6px; align-items: center; min-height: 44px; }
 .month-head { display: flex; align-items: center; justify-content: space-between; margin: 12px 0 8px; }
-.month-head h2 { text-transform: capitalize; margin: 0; }
+.month-head h2 { margin: 0; }
+.month-head h2::first-letter, .day-detail h2::first-letter { text-transform: uppercase; }
 .month { display: grid; gap: 4px; }
 .week-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-.week-row.head span { text-align: center; color: var(--muted); font-size: var(--text-sm); text-transform: capitalize; }
-.cell { min-height: 44px; border: 1px solid var(--border, rgba(127,127,127,.3)); border-radius: 8px; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.week-row.head span { text-align: center; color: var(--muted); font-size: var(--text-sm); }
+.week-row.head span::first-letter { text-transform: uppercase; }
+.cell { display: grid; place-items: center; padding: 0; min-height: 44px; border: 1px solid var(--border, rgba(127,127,127,.3)); border-radius: 8px; background: transparent; color: inherit; font: inherit; cursor: pointer; }
 .cell.empty { border: 0; cursor: default; }
 .cell.study { background: rgba(127,127,127,.08); }
-.cell.plan { border-style: dashed; border-color: var(--accent, #4a90d9); }
-.cell.did { background: rgba(60,170,90,.25); border-color: rgba(60,170,90,.7); }
+.cell.plan { border-style: dashed; border-color: var(--muted); }
+.cell.did { background: color-mix(in srgb, var(--ink) 14%, transparent); border-color: var(--muted); }
 .cell.today { font-weight: 700; outline: 2px solid currentColor; outline-offset: -2px; }
-.cell.picked { box-shadow: 0 0 0 2px var(--accent, #4a90d9); }
+.cell.picked { box-shadow: 0 0 0 2px var(--ok); }
 .legend { color: var(--muted); font-size: var(--text-sm); display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 .swatch { width: 14px; height: 14px; border-radius: 4px; display: inline-block; border: 1px solid rgba(127,127,127,.5); }
-.swatch.did { background: rgba(60,170,90,.4); }
+.swatch.did { background: color-mix(in srgb, var(--ink) 25%, transparent); }
 .swatch.plan { border-style: dashed; }
 .day-detail { margin-top: 20px; }
-.day-detail h2 { text-transform: capitalize; }
+.day-detail h2 { margin: 0 0 8px; }
 .day-detail ul { padding-left: 18px; }
 
 .solos .badge.optional { margin-left: 8px; vertical-align: middle; }
@@ -425,3 +427,15 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .lesson-link:hover { text-decoration: underline; }
 
 .solos .demo { margin-top: 20px; }
+
+/* alvos de toque no celular */
+@media (max-width: 680px) {
+  .solos .plan .skip, .solos .lessons .btn.small.quiet { min-width: 44px; }
+  .solos .lesson-link { display: inline-block; padding-block: 11px; }
+}
+.solos .text-tab pre:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* calendário: coluna compacta, tudo alinhado à esquerda */
+.solos.calendar { display: flex; flex-direction: column; align-items: stretch; gap: 14px; }
+.solos.calendar > * { margin: 0; }
+.solos.calendar > .btn { align-self: flex-start; }
