@@ -28,6 +28,7 @@
   --inlay: #efe7d6;
   /* sobre a madeira escura, alvo e "tocando agora" usam a versão clara nos dois temas */
   --target-bright: #f0a634;
+  --gesture-bright: #ff7a2a; /* traço de bend e slide sobre a madeira: laranja mais forte que a bolinha */
   --now-bright: #7fb2e2;
   --ok-bright: #6fd39a;
   --bad-bright: #ef7f6c;

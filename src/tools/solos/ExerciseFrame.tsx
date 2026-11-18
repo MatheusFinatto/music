@@ -1,23 +1,27 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { transport } from "@/core/audio";
 import type { Exercise } from "./curriculum/types";
+import { keyName, rootFret, transposeExercise } from "./curriculum/transpose";
+import { usePracticeKey } from "./progress";
+import type { Part } from "./session/route";
 import type { Rating } from "./session/schedule";
 import { useRunning } from "./components/useTransport";
 import { EchoEngine } from "./engines/EchoEngine";
 import { FindEngine } from "./engines/FindEngine";
+import { LineEngine } from "./engines/LineEngine";
 import { MapEngine } from "./engines/MapEngine";
 import { PlayRestEngine } from "./engines/PlayRestEngine";
 import { TakeEngine } from "./engines/TakeEngine";
+import { TargetEngine } from "./engines/TargetEngine";
 
-export type Part = "cold" | "new" | "again" | "phrase" | "review" | "take" | "free";
 
 type Props = {
   ex: Exercise;
   part: Part;
   /** Texto da lição, mostrado antes do primeiro exercício dela. */
-  intro?: { title: string; text: string };
+  intro?: { title: string; text: string; concepts?: string[] };
   progress?: { n: number; total: number };
   /** Avaliação já dada a este passo nesta sessão (ao voltar um passo). */
   rated?: Rating;
@@ -30,15 +34,19 @@ type Props = {
 const HINTED: Part[] = ["cold", "again", "review", "phrase", "take"];
 const RATINGS = ["ok", "quase", "nao"] as const;
 
-export function ExerciseFrame({ ex, part, intro, progress, rated, onRate, onBack, onExit, exitLabel }: Props) {
+export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRate, onBack, onExit, exitLabel }: Props) {
   const t = useTranslations("solos");
   const running = useRunning();
   const [rating, setRating] = useState<Rating | null>(rated ?? null);
   const stage = useRef<HTMLDivElement>(null);
+  const key = usePracticeKey();
+  // O exercício no tom de prática; o escrito em outro tom de propósito não muda.
+  const ex = useMemo(() => transposeExercise(written, key), [written, key]);
+  const moved = ex !== written;
 
   // Ao trocar de exercício ou sair, a base para.
-  useEffect(() => () => transport.stop(), [ex.id]);
-  // Modo "tocando": ao ligar a base, o que se lê de longe sobe para o topo da tela.
+  useEffect(() => () => transport.stop(), [ex.id, key]);
+  // Ao ligar a base, o palco sobe para o topo da tela. Nada é escondido: o texto da lição continua acima.
   useEffect(() => { if (running) stage.current?.scrollIntoView({ block: "start", behavior: "smooth" }); }, [running]);
 
   return (
@@ -60,21 +68,30 @@ export function ExerciseFrame({ ex, part, intro, progress, rated, onRate, onBack
           <section className="intro">
             <h2>{intro.title}</h2>
             <p>{intro.text}</p>
+            {intro.concepts && intro.concepts.length > 0 && (
+              <ul className="concepts" aria-label={t("frame.concepts")}>
+                {intro.concepts.map((q) => (
+                  <li key={q}><a href={`https://www.google.com/search?q=${encodeURIComponent(q)}`} target="_blank" rel="noreferrer">{q}</a></li>
+                ))}
+              </ul>
+            )}
           </section>
         )}
         <h1>{ex.title}</h1>
         <p className="goal">{ex.goal}</p>
+        {moved && <p className="key-note">{t("key.note", { key: keyName(key), fret: rootFret(key) })}</p>}
         {part !== "cold" && ex.steps.length > 0 && (
           <ol className="steps" aria-label={t("frame.steps")}>{ex.steps.map((s) => <li key={s}>{s}</li>)}</ol>
         )}
       </div>
 
       <div className="stage" ref={stage}>
-        <p className="stage-title">{ex.title}</p>
         {ex.kind === "map" && <MapEngine ex={ex} />}
+        {ex.kind === "line" && <LineEngine ex={ex} />}
         {ex.kind === "find" && <FindEngine ex={ex} onResult={onRate} />}
         {ex.kind === "play-rest" && <PlayRestEngine ex={ex} />}
         {ex.kind === "echo" && <EchoEngine ex={ex} />}
+        {ex.kind === "target" && <TargetEngine ex={ex} />}
         {ex.kind === "take" && <TakeEngine ex={ex} />}
       </div>
 
@@ -94,7 +111,6 @@ export function ExerciseFrame({ ex, part, intro, progress, rated, onRate, onBack
             ))}
             <button type="button" className="btn primary next" disabled={!rating} onClick={() => rating && onRate(rating)}>{t("frame.next")}</button>
           </div>
-          {!rating && <p className="note">{t("frame.rateHint")}</p>}
         </footer>
       )}
     </article>

@@ -176,7 +176,7 @@ Raio 22px nos cards, 14px nos ícones, pílula nos botões e selos. Sem cantos v
 ### Ícones
 - Linha, traço 1.8, pontas redondas, 24px de grade. Um por ferramenta em `src/components/ToolIcon.tsx`.
 
-### O mundo de "Como fazer solos"
+### O mundo de "Como solar no violão e na guitarra"
 - A ferramenta tem ambiente próprio, sempre escuro: palco à noite. Fundo marrom quase preto com uma luz quente vinda de cima, superfícies de madeira escura, texto em marfim. Definido em `src/tools/solos/solos.css` (`body:has(.solos)`), que redefine os tokens do site enquanto a ferramenta está aberta.
 - Títulos em Bricolage Grotesque (`--font-display`); texto em Inter.
 - Ação principal em marfim. O azul fica só para "tocando agora" e o laranja só para nota-alvo e para o que está em andamento.
@@ -187,7 +187,7 @@ Raio 22px nos cards, 14px nos ícones, pílula nos botões e selos. Sem cantos v
 ### Braço da guitarra
 - `src/tools/solos/components/Fretboard.tsx`. É o único elemento com material: jacarandá com veio, trastes de alpaca, pestana de osso, cordas de aço (as três graves encapadas em bronze) e marcações de madrepérola. Tokens `--wood*`, `--fret*`, `--steel`, `--bronze`, `--inlay` em `globals.css`, iguais nos dois temas.
 - Mostra só a região de trabalho, grande; a miniatura acima diz onde ela fica no braço inteiro.
-- Bolinhas: madrepérola com o nome da nota (escala), branca com T (tônica), laranja (nota do acorde, com T, 3 ou 5), azul (soando agora), verde e vermelha (certo e errado no quiz). Sobre a madeira escura, as cores usam a versão clara (`--target-bright`, `--now-bright`) e o texto é sempre `--on-bright`.
+- Bolinhas: madrepérola com o nome da nota (escala), branca com T (tônica), laranja (nota do acorde, com T, 3 ou 5), azul (soando agora), verde e vermelha (certo e errado no quiz). Sobre a madeira escura, as cores usam a versão clara (`--target-bright`, `--now-bright`) e o texto é sempre `--on-bright`. Gestos da tablatura (seta de bend, seta de slide entre duas bolinhas) usam `--gesture-bright`, um laranja mais forte que o da bolinha, para não ler como amarelo sobre a madeira; o gesto que está soando fica azul.
 - Os tamanhos de texto dentro do SVG estão em unidades do desenho, não na escala de texto do site.
 
 ### Pauta animada (assinatura)

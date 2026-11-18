@@ -2,11 +2,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { atAudioTime, getAudio, playPhrase, transport } from "@/core/audio";
-import { fretSpan, noteName } from "@/core/theory";
 import type { EchoExercise, Phrase } from "../curriculum/types";
 import { BackingBar } from "../components/BackingBar";
 import { Banner } from "../components/Banner";
-import { Fretboard, type Dot } from "../components/Fretboard";
+import { Board, chordNames, TextTab } from "../components/PhraseViews";
 import { useBeat, useRunning } from "../components/useTransport";
 
 /** O site toca a frase, depois deixa o mesmo número de compassos para a pessoa responder. */
@@ -14,6 +13,7 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
   const t = useTranslations("solos.echo");
   const [index, setIndex] = useState(0);
   const [shown, setShown] = useState(false);
+  const [tab, setTab] = useState(false);
   /** Índice da nota que está soando agora (azul), ou -1. */
   const [sounding, setSounding] = useState(-1);
   const phrase = ex.phrases[index]!;
@@ -43,7 +43,7 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
   const live = running && !!beat && beat.beat >= 0;
   const calling = live && beat.bar % (phrase.bars * 2) < phrase.bars;
   const now = running ? sounding : -1;
-  const go = (i: number) => { setIndex(i); setShown(false); };
+  const go = (i: number) => setIndex(i);
 
   return (
     <div className="engine">
@@ -57,12 +57,20 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
       <Banner state={live ? (calling ? "call" : "play") : null} word={t(calling ? "listen" : "yourTurn")} note={phrase.name} idle={t("idle")} />
       <BackingBar base={ex.base!} />
       <div className="reveal">
-        <button type="button" className="btn" aria-expanded={shown} onClick={() => setShown((s) => !s)}>
-          {shown ? t("hide") : t(ex.reveal === "rhythm" ? "showRhythm" : "showTab")}
-        </button>
+        <div className="row">
+          <button type="button" className="btn" aria-expanded={shown} onClick={() => setShown((s) => !s)}>
+            {shown ? t(ex.reveal === "rhythm" ? "hideRhythm" : "hideBoard") : t(ex.reveal === "rhythm" ? "showRhythm" : "showTab")}
+          </button>
+          {phrase.frets && (
+            <button type="button" className="btn" aria-expanded={tab} onClick={() => setTab((s) => !s)}>
+              {tab ? t("hideText") : t("showText")}
+            </button>
+          )}
+        </div>
         {shown && (ex.reveal === "rhythm"
           ? <RhythmGrid phrase={phrase} now={now} label={t("rhythmLabel")} />
-          : <Tab phrase={phrase} now={now} label={t("tabLabel")} legend={t("tabLegend")} />)}
+          : <Board phrase={phrase} now={now} label={t("tabLabel")} half={t("bendHalf")} full={t("bendFull")} />)}
+        {tab && phrase.frets && <TextTab phrase={phrase} now={now} chords={chordNames(ex.base!)} label={t("textLabel")} />}
       </div>
     </div>
   );
@@ -83,24 +91,5 @@ function RhythmGrid({ phrase, now, label }: { phrase: Phrase; now: number; label
         <li key={s} className={`${cell(s)}${s % 4 === 0 ? " beat" : ""}`}>{s % 4 === 0 ? ((s / 4) % 4) + 1 : ""}</li>
       ))}
     </ol>
-  );
-}
-
-function Tab({ phrase, now, label, legend }: { phrase: Phrase; now: number; label: string; legend: string }) {
-  if (!phrase.frets) return null;
-  const [lo, hi] = fretSpan(phrase.frets);
-  // A mesma posição pode ser tocada mais de uma vez: mostra a ordem de todas as passagens.
-  const order = new Map<string, number[]>();
-  phrase.frets.forEach((p, i) => order.set(`${p.string}-${p.fret}`, [...(order.get(`${p.string}-${p.fret}`) ?? []), i]));
-  const dots: Dot[] = [...order.entries()].map(([k, idx]) => {
-    const [string, fret] = k.split("-").map(Number) as [number, number];
-    const ns = idx.map((i) => i + 1);
-    return { string, fret, kind: idx.includes(now) ? "now" : "target", label: ns.length > 2 ? `${ns[0]}…` : ns.join("·") };
-  });
-  return (
-    <>
-      <Fretboard minFret={lo} maxFret={hi} dots={dots} label={label} />
-      <p className="legend">{legend} <span className="notes">{phrase.notes.map((n) => noteName(n.midi)).join(" ")}</span></p>
-    </>
   );
 }

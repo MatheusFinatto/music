@@ -1,0 +1,46 @@
+import { describe, expect, it } from "vitest";
+import { curriculum } from "../curriculum/pt-BR";
+import { tabLayout, tabSystems, tabText, tabToken } from "./tab";
+
+const D = { string: 2, fret: 7 }; // 3ª corda, casa 7 (D4)
+
+describe("tablatura em texto", () => {
+  it("escreve cada gesto na notação das tabs", () => {
+    expect(tabToken({ midi: 62, beat: 0, dur: 1 }, D)).toBe("7");
+    expect(tabToken({ midi: 64, from: 62, beat: 0, dur: 1 }, D)).toBe("7b9");
+    expect(tabToken({ midi: 62, from: 64, hold: 0.4, beat: 0, dur: 1 }, D)).toBe("9r7");
+    expect(tabToken({ midi: 62, from: 60, beat: 0, dur: 1 }, D)).toBe("5/7");
+    expect(tabToken({ midi: 62, beat: 0, dur: 1, vibrato: { rate: 5, cents: 40 } }, D)).toBe("7~");
+  });
+  it("o espaço segue o tempo, com o acorde em cima e a contagem embaixo", () => {
+    const notes = [{ midi: 69, beat: 0, dur: 1 }, { midi: 67, beat: 2, dur: 1 }];
+    const frets = [{ string: 0, fret: 5 }, { string: 1, fret: 8 }];
+    const text = tabText(tabSystems(notes, frets, 1, ["Am"], { cw: 2, bpl: 1 }));
+    expect(text).toBe(
+      [
+        "  Am                              ",
+        "e|5-------------------------------|",
+        "B|----------------8---------------|",
+        "G|--------------------------------|",
+        "D|--------------------------------|",
+        "A|--------------------------------|",
+        "E|--------------------------------|",
+        "  1       2       3       4       ",
+      ].join("\n"),
+    );
+  });
+  it("em tela estreita, um compasso por linha", () => {
+    expect(tabLayout(110, 2)).toEqual({ cw: 3, bpl: 2 });
+    expect(tabLayout(70, 2)).toEqual({ cw: 2, bpl: 2 });
+    expect(tabLayout(40, 2)).toEqual({ cw: 2, bpl: 1 });
+  });
+  it("nenhuma nota do conteúdo encobre outra na tab, mesmo na mais apertada", () => {
+    const echoes = [...curriculum.units.flatMap((u) => u.lessons.flatMap((l) => l.exercises)), ...curriculum.phrases].flatMap((e) => (e.kind === "echo" ? e.phrases : []));
+    for (const p of echoes) {
+      if (!p.frets) continue;
+      const sys = tabSystems(p.notes, p.frets, p.bars, ["X"], { cw: 2, bpl: 1 });
+      const seen = new Set(sys.flatMap((s) => s.rows.flatMap((r) => r.bars.flat().map((c) => c.note))));
+      p.notes.forEach((_, i) => expect(seen.has(i), `${p.id}: nota ${i + 1} encoberta`).toBe(true));
+    }
+  });
+});
