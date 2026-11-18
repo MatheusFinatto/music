@@ -180,7 +180,8 @@ describe("conteúdo real", () => {
 });
 
 describe("frases das unidades", () => {
-  const exercises = real.units.flatMap((u) => u.lessons.flatMap((l) => l.exercises));
+  // Solos tirados de vídeo valem como foram tocados: as regras de conteúdo são para o que o curso escreve.
+  const exercises = real.units.flatMap((u) => u.lessons.flatMap((l) => l.exercises)).filter((e) => !(e.kind === "echo" && e.transcribed));
   const echoes = [...exercises, ...real.phrases].flatMap((e) => (e.kind === "echo" ? [e] : []));
   // Frases do eco e solos de exemplo dos arcos seguem as mesmas regras.
   const examples = exercises.flatMap((e) => (e.kind === "take" ? (e.examples ?? []).map((p) => ({ e, p })) : []));
