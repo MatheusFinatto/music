@@ -419,3 +419,5 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .lesson-head .check, .solos .lesson-head .btn, .solos .lesson-head button { cursor: pointer; }
 .solos .lesson-link { color: inherit; text-decoration: none; }
 .solos .lesson-link:hover { text-decoration: underline; }
+
+.solos .demo { margin-top: 20px; }

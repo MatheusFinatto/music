@@ -31,6 +31,11 @@ type Common = {
   /** Pergunta de autoavaliação, respondida com "consegui / quase / ainda não". */
   check: string;
   base?: Base;
+  /**
+   * Exemplo tocado sobre a base do exercício, com braço e tablatura: a pessoa ouve e vê o que vai fazer antes de
+   * tentar. Gerado por `withDemos` para o que não tem exemplo próprio (eco e tomada já têm); não escreva à mão.
+   */
+  demo?: Phrase;
 };
 
 /**

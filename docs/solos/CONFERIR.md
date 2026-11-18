@@ -17,6 +17,9 @@ Como conferir: abra `marmota-music.vercel.app/solos`, de preferência no celular
 - [ ] `u13.l3` Música em tom maior, penta de Lá menor: `rel1`, `rel2`
 - [ ] `u13.l4` Música com a guitarra meio tom abaixo (só texto e play-rest)
 
+## Exemplos gerados (demo) nas lições sem eco
+- [ ] As 34 lições que não tinham exemplo agora têm um **exemplo tocado, com braço e tab**, gerado pelo código (não escrito à mão): "O shape 1" e os outros mapas (sobe e desce o shape), os alvos (frase curta pousando no acorde da vez), tocar e calar e as tomadas (`u14.l3`, `u36.l2`, `u10.l2`). Ouça alguns e diga se soam bem como modelo: os de mapa são só a escala, os de alvo e tocar-e-calar são uma frase simples de três a quatro notas por compasso.
+
 ## Telas novas
 - [ ] **Calendário** (`/solos?calendario`): mês, dias de estudo, previsão e histórico por dia. Marque uma lição, volte ao calendário e veja se o dia aparece como feito.
 - [ ] **Botão "Pular"** na lição sugerida (conta como feita, selo "Pulada") e tag **"Opcional"** nas músicas.

@@ -300,6 +300,17 @@
       "hideText": "Esconder a tab",
       "textLabel": "A frase em tablatura"
     },
+    "demo": {
+      "title": "Exemplo",
+      "play": "Ouvir o exemplo",
+      "stop": "Parar o exemplo",
+      "showTab": "Ver a tablatura",
+      "hideTab": "Esconder a tablatura",
+      "boardLabel": "O exemplo no braço da guitarra",
+      "tabLabel": "O exemplo em tablatura",
+      "bendHalf": "½",
+      "bendFull": "full"
+    },
     "take": {
       "playing": "Valendo",
       "idle": "Ligue a base quando estiver pronto",
