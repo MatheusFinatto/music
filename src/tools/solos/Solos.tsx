@@ -230,12 +230,12 @@ export function Solos() {
                                   const recommended = l.id === session.lesson?.id;
                                   return (
                                     <li key={l.id} className={recommended ? "next" : undefined}>
-                                      <div className="lesson-head">
+                                      <div className="lesson-head" onClick={(ev) => { if (ev.target === ev.currentTarget) startLesson(l); }}>
                                         <label className="check">
                                           <input type="checkbox" checked={!!e} onChange={() => toggle(l)} disabled={!today} />
                                           <span className="sr-only">{t("home.mark", { lesson: l.title })}</span>
                                         </label>
-                                        <strong>{l.title}</strong>
+                                        <strong><a className="lesson-link" href={hrefOf({ kind: "lesson", id: l.id })} onClick={follow(() => startLesson(l))}>{l.title}</a></strong>
                                         {recommended && <span className="badge atual">{t("home.recommended")}</span>}
                                         {e?.cold && <span className="state lessonCold">{t("home.lessonCold")}</span>}
                                         {e?.skipped && <span className="state">{t("home.skipped")}</span>}
@@ -283,9 +283,9 @@ export function Solos() {
                   const recommended = ph.id === session.phrase?.id;
                   return (
                     <li key={ph.id} className={recommended ? "next" : undefined}>
-                      <div className="lesson-head">
+                      <div className="lesson-head" onClick={(ev) => { if (ev.target === ev.currentTarget) open(ph); }}>
                         <span className={state?.last === "ok" ? "dot ok" : state ? "dot tried" : "dot"} aria-hidden="true" />
-                        <strong>{ph.title}</strong>
+                        <strong><a className="lesson-link" href={hrefOf({ kind: "exercise", id: ph.id })} onClick={follow(() => open(ph))}>{ph.title}</a></strong>
                         {recommended && <span className="badge atual">{t("home.recommended")}</span>}
                         {state && <span className="state">{t(`frame.${state.last}`)}</span>}
                         <a className="btn small" href={hrefOf({ kind: "exercise", id: ph.id })} onClick={follow(() => open(ph))}>{state ? t("home.redo") : t("home.do")}</a>
@@ -294,9 +294,9 @@ export function Solos() {
                   );
                 })}
                 <li>
-                  <div className="lesson-head">
+                  <div className="lesson-head" onClick={(ev) => { if (ev.target === ev.currentTarget) open(curriculum.take); }}>
                     <span className="dot" aria-hidden="true" />
-                    <strong>{curriculum.take.title}</strong>
+                    <strong><a className="lesson-link" href={hrefOf({ kind: "exercise", id: curriculum.take.id })} onClick={follow(() => open(curriculum.take))}>{curriculum.take.title}</a></strong>
                     <a className="btn small" href={hrefOf({ kind: "exercise", id: curriculum.take.id })} onClick={follow(() => open(curriculum.take))}>{t("home.do")}</a>
                   </div>
                 </li>
