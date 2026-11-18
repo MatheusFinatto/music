@@ -152,6 +152,8 @@ export type Unit = {
   takeCheck?: string;
   /** Arco de fim de seção: o solo que junta o que a seção ensinou. */
   arc?: boolean;
+  /** Música que o aluno pode não querer estudar: a trilha mostra a tag "Opcional". Continua sendo sugerida. */
+  optional?: boolean;
 };
 
 /**

@@ -9,7 +9,7 @@ import { ExerciseFrame } from "./ExerciseFrame";
 import { navigate, useView } from "./nav";
 import { progressStore, useProgress, useToday } from "./progress";
 import { hrefOf, isAgain, lessonSteps, sessionSteps, type Outcome } from "./session/route";
-import { EMPTY, addDays, buildSession, daysThisWeek, learnLesson, rate, rateCold, toggleLesson, unitStatuses, type Rating } from "./session/schedule";
+import { EMPTY, addDays, buildSession, daysThisWeek, learnLesson, rate, rateCold, skipLesson, toggleLesson, unitStatuses, type Rating } from "./session/schedule";
 import "./solos.css";
 
 /** Link de verdade (dá para copiar ou abrir em outra aba); o clique simples navega sem recarregar. */
@@ -171,6 +171,11 @@ export function Solos() {
         ) : (
           <p className="note">{t("home.nothing")}</p>
         )}
+        {session.lesson && (
+          <p className="note">
+            <button type="button" className="btn small quiet" onClick={() => progressStore.set((p) => skipLesson(p, session.lesson!.id, today))} disabled={!today}>{t("home.skipLesson", { lesson: session.lesson.title })}</button>
+          </p>
+        )}
         {session.finished && <p className="note">{t("home.finished")}</p>}
       </section>
 
@@ -216,7 +221,7 @@ export function Solos() {
                                 <span className="n" aria-hidden="true">{sec.units.indexOf(id) + 1}</span>
                                 <div>
                                   {u.arc && <span className="kicker">{t("home.arc")}</span>}
-                                  <h5>{u.title}</h5>
+                                  <h5>{u.title}{u.optional && <span className="badge optional">{t("home.optional")}</span>}</h5>
                                   <p>{u.skill}</p>
                                 </div>
                                 <span className={`badge ${st}`}>{t("home.count", { done, total: u.lessons.length })}</span>
@@ -235,6 +240,8 @@ export function Solos() {
                                         <strong>{l.title}</strong>
                                         {recommended && <span className="badge atual">{t("home.recommended")}</span>}
                                         {e?.cold && <span className="state lessonCold">{t("home.lessonCold")}</span>}
+                                        {e?.skipped && <span className="state">{t("home.skipped")}</span>}
+                                        {recommended && <button type="button" className="btn small quiet" onClick={() => progressStore.set((p) => skipLesson(p, l.id, today))} disabled={!today}>{t("home.skip")}</button>}
                                         <a className={recommended ? "btn small primary" : "btn small"} href={hrefOf({ kind: "lesson", id: l.id })} onClick={follow(() => startLesson(l))}>
                                           {e ? t("home.redo") : t("home.do")}
                                         </a>

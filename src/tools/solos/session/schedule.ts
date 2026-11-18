@@ -12,7 +12,7 @@ export type Progress = {
   version: 1;
   exercises: Record<string, ExerciseState>;
   /** Lição feita (dia) e, depois, confirmada no teste a frio (dia). `manual`: a pessoa marcou por conta própria. */
-  lessons: Record<string, { learned: Day; cold?: Day; manual?: boolean }>;
+  lessons: Record<string, { learned: Day; cold?: Day; manual?: boolean; skipped?: boolean }>;
   /** Dias em que houve prática. */
   days: Day[];
   /** O que foi feito em cada dia (ids dos exercícios avaliados), para o calendário. Só existe de quando passou a ser gravado. */
@@ -37,7 +37,7 @@ export function cleanProgress(saved: unknown): Progress | null {
   if (isRecord(saved.lessons))
     for (const [id, l] of Object.entries(saved.lessons))
       if (isRecord(l) && isDay(l.learned))
-        lessons[id] = { learned: l.learned, ...(isDay(l.cold) ? { cold: l.cold } : {}), ...(l.manual === true ? { manual: true } : {}) };
+        lessons[id] = { learned: l.learned, ...(isDay(l.cold) ? { cold: l.cold } : {}), ...(l.manual === true ? { manual: true } : {}), ...(l.skipped === true ? { skipped: true } : {}) };
   const days = Array.isArray(saved.days) ? saved.days.filter(isDay) : [];
   const log: Record<Day, string[]> = {};
   if (isRecord(saved.log))
@@ -84,6 +84,12 @@ export function toggleLesson(p: Progress, lessonId: string, today: Day): Progres
   if (lessons[lessonId]) delete lessons[lessonId];
   else lessons[lessonId] = { learned: today, manual: true };
   return { ...p, lessons };
+}
+
+/** A pessoa pula a lição sugerida: conta como feita, marcada como pulada (e sem teste a frio, como toda marca manual). */
+export function skipLesson(p: Progress, lessonId: string, today: Day): Progress {
+  if (p.lessons[lessonId]) return p;
+  return { ...p, lessons: { ...p.lessons, [lessonId]: { learned: today, manual: true, skipped: true } } };
 }
 
 /** Registra o teste a frio. Só "consegui" confirma a lição. */
