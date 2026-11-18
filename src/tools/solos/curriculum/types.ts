@@ -100,6 +100,11 @@ export type Lesson = {
    * cada pergunta vira um link para a busca do Google com a frase exata.
    */
   concepts?: string[];
+  /**
+   * Vídeo de outra pessoa, incorporado do YouTube (não baixado: o vídeo é de quem fez). `note` diz por que
+   * assistir agora. `youtube` é o id do vídeo; `title` e `author` aparecem no crédito.
+   */
+  video?: { youtube: string; title: string; author: string; note: string };
 };
 
 export type Unit = {

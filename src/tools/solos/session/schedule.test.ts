@@ -152,6 +152,12 @@ describe("conteúdo real", () => {
     expect(buildSession(real, p, D1).lesson?.id).toBe("u1.l1");
     expect(buildSession(real, p, D2).cold).toBeUndefined();
   });
+  it("o mesmo vídeo abre e fecha o curso: na primeira lição e na última", () => {
+    const lessons = real.sections.flatMap((sec) => sec.units).map((id) => real.units.find((u) => u.id === id)!).flatMap((u) => u.lessons);
+    const [first, last] = [lessons[0]!, lessons.at(-1)!];
+    expect(first.video?.youtube).toBeTruthy();
+    expect(last.video?.youtube).toBe(first.video!.youtube);
+  });
   it("ids únicos e exercício-chave existente em toda lição", () => {
     const lessons = real.units.flatMap((u) => u.lessons);
     const ids = [...lessons.flatMap((l) => l.exercises.map((e) => e.id)), ...real.phrases.map((e) => e.id), real.take.id];
