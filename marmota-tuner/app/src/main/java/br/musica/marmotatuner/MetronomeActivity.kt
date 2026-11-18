@@ -7,14 +7,12 @@ import android.graphics.drawable.GradientDrawable
 import android.media.AudioAttributes
 import android.media.AudioFormat
 import android.media.AudioTrack
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
 import android.view.Gravity
 import android.view.View
-import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.CheckBox
@@ -50,7 +48,7 @@ class MetronomeActivity : Activity() {
         metronome.beatsPerBar = prefs.getInt("beats", 4)
         metronome.subdivision = prefs.getInt("sub", 1)
         metronome.accentFirst = prefs.getBoolean("accent", true)
-        setContentView(buildLayout())
+        setContentView(withBottomNav(buildLayout(), Screen.METRONOME))
     }
 
     override fun onPause() {
@@ -169,7 +167,7 @@ class MetronomeActivity : Activity() {
 
         setBpm(metronome.bpm)
         setBeats(metronome.beatsPerBar)
-        fitInsideSystemBars(root)
+        root.setPadding(dp(24), dp(24), dp(24), dp(24))
         return root
     }
 
@@ -268,16 +266,5 @@ class MetronomeActivity : Activity() {
         }
         track.stop()
         track.release()
-    }
-
-    @Suppress("DEPRECATION")
-    private fun fitInsideSystemBars(view: View) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) return
-        window.setDecorFitsSystemWindows(false)
-        view.setOnApplyWindowInsetsListener { v, insets ->
-            val bars = insets.getInsets(WindowInsets.Type.systemBars() or WindowInsets.Type.displayCutout())
-            v.setPadding(bars.left + dp(24), bars.top + dp(24), bars.right + dp(24), bars.bottom + dp(24))
-            WindowInsets.CONSUMED
-        }
     }
 }
