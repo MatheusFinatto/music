@@ -3,6 +3,7 @@
 //   /solos?licao=u3.l1           uma lição do começo (dá para mandar o link)
 //   /solos?exercicio=f.07        um exercício avulso (frase de ouvido, tomada livre ou qualquer outro)
 //   /solos?sessao                a sessão sugerida
+//   /solos?calendario            o calendário de estudos
 import type { Curriculum, Exercise, Lesson } from "../curriculum/types";
 import { allLessons, findExercise, type Progress, type Rating, type Session } from "./schedule";
 
@@ -12,12 +13,13 @@ export type Outcome = { cold?: string; done?: string; repeat?: string };
 
 export type View =
   | { name: "home" }
+  | { name: "calendar" }
   /** `lesson`: a sessão é uma lição aberta pela trilha (ou por link), não a sessão sugerida. */
   | { name: "session"; lesson?: string; steps: Step[]; at: number; ratings: (Rating | undefined)[] }
   | { name: "free"; ex: Exercise }
   | { name: "done"; lesson?: string; steps: Step[]; ratings: (Rating | undefined)[]; outcome: Outcome };
 
-export type Route = { kind: "home" } | { kind: "session" } | { kind: "lesson"; id: string } | { kind: "exercise"; id: string };
+export type Route = { kind: "home" } | { kind: "calendar" } | { kind: "session" } | { kind: "lesson"; id: string } | { kind: "exercise"; id: string };
 
 export function parseRoute(search: string): Route {
   const q = new URLSearchParams(search);
@@ -25,12 +27,14 @@ export function parseRoute(search: string): Route {
   if (lesson) return { kind: "lesson", id: lesson };
   if (exercise) return { kind: "exercise", id: exercise };
   if (q.has("sessao")) return { kind: "session" };
+  if (q.has("calendario")) return { kind: "calendar" };
   return { kind: "home" };
 }
 
 export function routeOf(v: View): Route {
   if (v.name === "free") return { kind: "exercise", id: v.ex.id };
   if (v.name === "session" || v.name === "done") return v.lesson ? { kind: "lesson", id: v.lesson } : { kind: "session" };
+  if (v.name === "calendar") return { kind: "calendar" };
   return { kind: "home" };
 }
 
@@ -39,6 +43,7 @@ export function hrefOf(r: Route): string {
   switch (r.kind) {
     case "home": return "";
     case "session": return "?sessao";
+    case "calendar": return "?calendario";
     case "lesson": return `?licao=${encodeURIComponent(r.id).replace(/%2E/gi, ".")}`;
     case "exercise": return `?exercicio=${encodeURIComponent(r.id).replace(/%2E/gi, ".")}`;
   }

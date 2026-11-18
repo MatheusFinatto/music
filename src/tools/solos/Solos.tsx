@@ -3,6 +3,7 @@ import type { MouseEvent } from "react";
 import { useTranslations } from "next-intl";
 import { curriculum } from "./curriculum/pt-BR";
 import type { Exercise, Lesson } from "./curriculum/types";
+import { Calendar } from "./Calendar";
 import { NeckHero } from "./components/NeckHero";
 import { ExerciseFrame } from "./ExerciseFrame";
 import { navigate, useView } from "./nav";
@@ -24,6 +25,8 @@ export function Solos() {
   const today = useToday();
   const view = useView();
   const home = () => navigate({ name: "home" });
+
+  if (view.name === "calendar") return <Calendar />;
 
   if (view.name === "session") {
     const step = view.steps[view.at]!;
@@ -144,6 +147,7 @@ export function Solos() {
             </button>
           )}
           <p className="week">
+            <a href={hrefOf({ kind: "calendar" })} onClick={follow(() => navigate({ name: "calendar" }))}>{t("home.calendar")}</a> ·{" "}
             {t("home.progress", { done: doneCount, total: lessons.length })}
             {week > 0 && <> · {t("home.week", { n: week })}</>}
           </p>

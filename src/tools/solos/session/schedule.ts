@@ -15,6 +15,8 @@ export type Progress = {
   lessons: Record<string, { learned: Day; cold?: Day; manual?: boolean }>;
   /** Dias em que houve prática. */
   days: Day[];
+  /** O que foi feito em cada dia (ids dos exercícios avaliados), para o calendário. Só existe de quando passou a ser gravado. */
+  log?: Record<Day, string[]>;
 };
 
 export const EMPTY: Progress = { version: 1, exercises: {}, lessons: {}, days: [] };
@@ -37,7 +39,11 @@ export function cleanProgress(saved: unknown): Progress | null {
       if (isRecord(l) && isDay(l.learned))
         lessons[id] = { learned: l.learned, ...(isDay(l.cold) ? { cold: l.cold } : {}), ...(l.manual === true ? { manual: true } : {}) };
   const days = Array.isArray(saved.days) ? saved.days.filter(isDay) : [];
-  return { version: 1, exercises, lessons, days };
+  const log: Record<Day, string[]> = {};
+  if (isRecord(saved.log))
+    for (const [day, ids] of Object.entries(saved.log))
+      if (isDay(day) && Array.isArray(ids)) log[day] = ids.filter((x): x is string => typeof x === "string");
+  return { version: 1, exercises, lessons, days, ...(Object.keys(log).length ? { log } : {}) };
 }
 
 /** Intervalos de revisão, em dias. Cresce a cada "consegui"; volta ao começo no "ainda não". */
@@ -62,7 +68,9 @@ export function rate(p: Progress, exerciseId: string, rating: Rating, today: Day
     : rating === "quase" || sameDay ? (prev?.interval ?? INTERVALS[0])
     : INTERVALS[Math.min(i + 1, INTERVALS.length - 1)]!;
   const state: ExerciseState = { last: rating, times: (prev?.times ?? 0) + 1, interval, due: addDays(today, interval), day: today };
-  return { ...p, exercises: { ...p.exercises, [exerciseId]: state }, days: markDay(p, today) };
+  const done = p.log?.[today] ?? [];
+  const log = done.includes(exerciseId) ? p.log : { ...p.log, [today]: [...done, exerciseId] };
+  return { ...p, exercises: { ...p.exercises, [exerciseId]: state }, days: markDay(p, today), ...(log ? { log } : {}) };
 }
 
 export function learnLesson(p: Progress, lessonId: string, today: Day): Progress {

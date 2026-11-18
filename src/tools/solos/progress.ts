@@ -42,3 +42,13 @@ export const countStore = createStore<{ version: 1; beforeExample: boolean }>("s
 export const useCountBeforeExample = (): boolean =>
   useSyncExternalStore(countStore.subscribe, () => countStore.get().beforeExample, () => false);
 export const setCountBeforeExample = (on: boolean) => countStore.set({ version: 1, beforeExample: on });
+
+/** Dias da semana em que a pessoa estuda (0 = segunda … 6 = domingo). Padrão: segunda a sexta. */
+export const DEFAULT_STUDY_DAYS = [0, 1, 2, 3, 4];
+export const studyDaysStore = createStore<{ version: 1; days: number[] }>("solos-dias", { version: 1, days: DEFAULT_STUDY_DAYS }, (saved) => {
+  const d = (saved as { days?: unknown } | null)?.days;
+  if (!Array.isArray(d)) return null;
+  return { version: 1, days: [...new Set(d.filter((x): x is number => Number.isInteger(x) && x >= 0 && x <= 6))].sort() };
+});
+export const useStudyDays = (): number[] =>
+  useSyncExternalStore(studyDaysStore.subscribe, () => studyDaysStore.get().days, () => DEFAULT_STUDY_DAYS);
