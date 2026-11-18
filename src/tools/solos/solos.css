@@ -373,6 +373,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .lesson-video p { margin: 0 0 10px; }
 .solos .lesson-video iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: var(--radius-sm); background: #000; }
 .solos .lesson-video figcaption { margin-top: 8px; font-size: var(--text-sm); color: var(--muted); }
+.solos .intro .source { margin-top: 12px; font-size: var(--text-sm); color: var(--muted); }
 
 /* Como tocar o eco: modo e contagem antes do exemplo */
 .solos .play-mode { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }

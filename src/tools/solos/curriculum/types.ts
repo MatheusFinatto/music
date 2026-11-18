@@ -125,6 +125,8 @@ export type Lesson = {
    * aparecem. `note` diz por que assistir agora. `youtube` é o id do vídeo; `title` e `author` vão no crédito.
    */
   videos?: Video[];
+  /** De onde veio a tablatura de um solo de gravação: o crédito, com link para a página. */
+  source?: { title: string; url: string };
 };
 
 export type Unit = {
