@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import { useTranslations } from "next-intl";
-import { chordsOf, degreeIn, fretSpan, midiAt, minorPentatonic, mod12, pcName, pentatonicShape, positionsOf } from "@/core/theory";
+import { useFormatter, useTranslations } from "next-intl";
+import { chordsOf, degreeIn, fretSpan, midiAt, minorPentatonic, mod12, pcName, pentatonicShape, pentatonicShapes, positionsOf } from "@/core/theory";
 import type { MapExercise } from "../curriculum/types";
 import { BackingBar } from "../components/BackingBar";
 import { Banner } from "../components/Banner";
@@ -10,6 +10,7 @@ import { useBeat } from "../components/useTransport";
 
 export function MapEngine({ ex }: { ex: MapExercise }) {
   const t = useTranslations("solos.map");
+  const format = useFormatter();
   const base = ex.base!;
   const [shape, setShape] = useState(ex.shapes[0]!);
   const [picked, setPicked] = useState(0);
@@ -20,7 +21,7 @@ export function MapEngine({ ex }: { ex: MapExercise }) {
   const chordIndex = live ? beat.barInCycle : picked;
   const chord = chords[chordIndex]!;
 
-  const box = pentatonicShape(base.key, shape);
+  const box = ex.together ? pentatonicShapes(base.key, ex.shapes) : pentatonicShape(base.key, shape);
   const [lo, hi] = fretSpan(box);
   const root = mod12(base.key + 9);
   const penta = new Set(minorPentatonic(base.key));
@@ -43,7 +44,7 @@ export function MapEngine({ ex }: { ex: MapExercise }) {
   return (
     <div className="engine">
       <Banner state={live ? "play" : null} word={chord.name} note={ex.layer === "chord" ? t("follow") : t("oneNote")} idle={t("idle")} />
-      {ex.shapes.length > 1 && (
+      {ex.shapes.length > 1 && !ex.together && (
         <div className="seg" role="group" aria-label={t("shape")}>
           {ex.shapes.map((s) => (
             <button key={s} type="button" aria-pressed={s === shape} onClick={() => setShape(s)}>{t("shapeN", { n: s })}</button>
@@ -57,7 +58,7 @@ export function MapEngine({ ex }: { ex: MapExercise }) {
           ))}
         </div>
       )}
-      <Fretboard minFret={lo} maxFret={hi} dots={dots} label={ex.layer === "penta" ? t("labelPenta", { n: shape }) : t("labelChord", { chord: chord.name })} />
+      <Fretboard minFret={lo} maxFret={hi} dots={dots} label={ex.layer === "chord" ? t("labelChord", { chord: chord.name }) : ex.together ? t("labelTogether", { shapes: format.list(ex.shapes.map(String)) }) : t("labelPenta", { n: shape })} />
       {anyOutside && <p className="legend">{t("legendOutside")}</p>}
       <BackingBar base={base} />
     </div>

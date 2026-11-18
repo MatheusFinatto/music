@@ -172,7 +172,8 @@
       "idle": "Ligue a base e toque junto",
       "follow": "As marcas acompanham o acorde",
       "oneNote": "Uma nota por tempo",
-      "legendOutside": "Tracejadas: notas do acorde fora da pentatônica."
+      "legendOutside": "Tracejadas: notas do acorde fora da pentatônica.",
+      "labelTogether": "Braço da guitarra: pentatônica, desenhos {shapes} juntos"
     },
     "find": {
       "start": "Começar",

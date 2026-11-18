@@ -105,6 +105,17 @@ export function pentatonicShape(key: number, shape: number, tuning: readonly Mid
   return out;
 }
 
+/** Vários desenhos juntos, sem repetir posição. Ex.: pentatonicShapes(0, [1, 2]) → desenhos 1 e 2 de Lá menor. */
+export function pentatonicShapes(key: number, shapes: readonly number[], tuning: readonly Midi[] = STANDARD_TUNING): FretPos[] {
+  const seen = new Set<string>();
+  return shapes.flatMap((s) => pentatonicShape(key, s, tuning)).filter((p) => {
+    const k = `${p.string}-${p.fret}`;
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
+}
+
 /** Menor e maior casa de um conjunto de posições. */
 export function fretSpan(positions: readonly FretPos[]): [number, number] {
   const frets = positions.map((p) => p.fret);
