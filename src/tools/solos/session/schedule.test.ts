@@ -155,8 +155,10 @@ describe("conteúdo real", () => {
   it("o mesmo vídeo abre e fecha o curso: na primeira lição e na última", () => {
     const lessons = real.sections.flatMap((sec) => sec.units).map((id) => real.units.find((u) => u.id === id)!).flatMap((u) => u.lessons);
     const [first, last] = [lessons[0]!, lessons.at(-1)!];
-    expect(first.video?.youtube).toBeTruthy();
-    expect(last.video?.youtube).toBe(first.video!.youtube);
+    expect(first.videos?.[0]?.youtube).toBeTruthy();
+    expect(last.videos?.[0]?.youtube).toBe(first.videos![0]!.youtube);
+    // Depois dele, na última lição, o próximo passo: a pentatônica que muda com o acorde.
+    expect(last.videos!.length).toBe(2);
   });
   it("ids únicos e exercício-chave existente em toda lição", () => {
     const lessons = real.units.flatMap((u) => u.lessons);

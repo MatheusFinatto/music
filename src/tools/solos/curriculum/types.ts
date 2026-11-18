@@ -87,6 +87,8 @@ export type TakeExercise = Common & {
 
 export type Exercise = MapExercise | LineExercise | FindExercise | PlayRestExercise | EchoExercise | TargetExercise | TakeExercise;
 
+export type Video = { youtube: string; title: string; author: string; note: string };
+
 export type Lesson = {
   id: string;
   title: string;
@@ -101,10 +103,10 @@ export type Lesson = {
    */
   concepts?: string[];
   /**
-   * Vídeo de outra pessoa, incorporado do YouTube (não baixado: o vídeo é de quem fez). `note` diz por que
-   * assistir agora. `youtube` é o id do vídeo; `title` e `author` aparecem no crédito.
+   * Vídeos de outras pessoas, incorporados do YouTube (não baixados: o vídeo é de quem fez), na ordem em que
+   * aparecem. `note` diz por que assistir agora. `youtube` é o id do vídeo; `title` e `author` vão no crédito.
    */
-  video?: { youtube: string; title: string; author: string; note: string };
+  videos?: Video[];
 };
 
 export type Unit = {
