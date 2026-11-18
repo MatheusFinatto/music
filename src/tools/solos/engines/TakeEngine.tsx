@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { atAudioTime, getAudio, playPhrase, transport } from "@/core/audio";
+import { atAudioTime, getAudio, NATURAL_END, playPhrase, transport } from "@/core/audio";
 import type { Phrase, TakeExercise } from "../curriculum/types";
 import { BackingBar, backingOf, ChordStrip, TempoControl } from "../components/BackingBar";
 import { Banner } from "../components/Banner";
@@ -51,7 +51,7 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
       if (info.beatInBar !== 0) return;
       // O exemplo tem o tamanho dele; a tomada da pessoa, o que ela escolheu.
       const total = pending.current ? ex.bars : barsRef.current;
-      if (info.bar === total) timers.push(atAudioTime(info.time, () => transport.stop()));
+      if (info.bar === total) timers.push(atAudioTime(info.time, () => transport.stop(NATURAL_END)));
       // No primeiro compasso da base do exemplo, agenda o solo inteiro e acende cada nota quando ela soa.
       const g = getAudio(), solo = pending.current;
       if (info.bar === 0 && solo && g) {
