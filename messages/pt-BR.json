@@ -48,7 +48,8 @@
   "footer": {
     "free": "Gratuito e sem conta.",
     "data": "O que você grava fica só neste navegador.",
-    "backup": "Laboratório e backup dos dados"
+    "backup": "Laboratório e backup dos dados",
+    "issue": "Achou um problema? Abra uma issue"
   },
   "afinador": {
     "title": "Afinador",

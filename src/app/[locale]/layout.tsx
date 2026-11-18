@@ -7,6 +7,7 @@ import { routing } from "@/i18n/routing";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -41,6 +42,8 @@ export default async function LocaleLayout({ children, params }: Props) {
           {children}
           <Footer />
         </NextIntlClientProvider>
+        {/* Visitas por página (sem cookie). Só registra na Vercel, depois de ativado no painel do projeto. */}
+        <Analytics />
       </body>
     </html>
   );
