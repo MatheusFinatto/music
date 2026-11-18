@@ -7,6 +7,11 @@ import { BackingBar } from "../components/BackingBar";
 import { Banner } from "../components/Banner";
 import { Board, chordNames, TextTab } from "../components/PhraseViews";
 import { useBeat, useRunning } from "../components/useTransport";
+import { setCountBeforeExample, useCountBeforeExample } from "../progress";
+
+/** Alternado: o site toca e deixa o mesmo tanto para a pessoa. Só o exemplo: a frase em loop. Só a base: a pessoa sozinha. */
+type Mode = "alternate" | "example" | "base";
+const MODES: Mode[] = ["alternate", "example", "base"];
 
 /** O site toca a frase, depois deixa o mesmo número de compassos para a pessoa responder. */
 export function EchoEngine({ ex }: { ex: EchoExercise }) {
@@ -16,18 +21,22 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
   const [tab, setTab] = useState(false);
   /** Índice da nota que está soando agora (azul), ou -1. */
   const [sounding, setSounding] = useState(-1);
+  const [mode, setMode] = useState<Mode>("alternate");
+  const countBefore = useCountBeforeExample();
   const phrase = ex.phrases[index]!;
   const ref = useRef<Phrase>(phrase);
   useEffect(() => { ref.current = phrase; }, [phrase]);
+  const modeRef = useRef<Mode>(mode);
+  useEffect(() => { modeRef.current = mode; }, [mode]);
 
   useEffect(() => {
     let timers: (() => void)[] = [];
     const clear = () => { timers.forEach((c) => c()); timers = []; };
     const offBeat = transport.on("beat", (info) => {
       const p = ref.current, g = getAudio();
-      if (!g || info.beatInBar !== 0 || info.bar < 0) return;
+      if (!g || info.beatInBar !== 0 || info.bar < 0 || modeRef.current === "base") return;
       // Compasso a compasso, no andamento daquele compasso: mudar o andamento no meio da frase não a desalinha.
-      const k = info.bar % (p.bars * 2);
+      const k = info.bar % (modeRef.current === "example" ? p.bars : p.bars * 2);
       if (k >= p.bars) return;
       if (k === 0) clear();
       const spb = transport.secondsPerBeat, from = k * 4;
@@ -45,7 +54,7 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
   const beat = useBeat();
   const running = useRunning();
   const live = running && !!beat && beat.beat >= 0;
-  const calling = live && beat.bar % (phrase.bars * 2) < phrase.bars;
+  const calling = live && mode !== "base" && (mode === "example" || beat.bar % (phrase.bars * 2) < phrase.bars);
   const now = running ? sounding : -1;
   const go = (i: number) => setIndex(i);
 
@@ -58,8 +67,22 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
           ))}
         </div>
       )}
-      <Banner state={live ? (calling ? "call" : "play") : null} word={t(calling ? "listen" : "yourTurn")} note={phrase.name} idle={t("idle")} />
-      <BackingBar base={ex.base!} />
+      <div className="play-mode">
+        <div className="seg" role="radiogroup" aria-label={t("mode")}>
+          {MODES.map((m) => (
+            <button key={m} type="button" role="radio" aria-checked={mode === m} onClick={() => setMode(m)}>{t(`modes.${m}`)}</button>
+          ))}
+        </div>
+        {mode !== "base" && (
+          <label className="count-before">
+            <input type="checkbox" checked={countBefore} onChange={(e) => setCountBeforeExample(e.target.checked)} />
+            <span>{t("countBefore")}</span>
+          </label>
+        )}
+      </div>
+      <Banner state={live ? (calling ? "call" : "play") : null} word={t(calling ? "listen" : "yourTurn")} note={phrase.name} idle={t(`idle.${mode}`)} />
+      {/* Quem começa é o exemplo: sem contagem, a não ser que a pessoa peça. Só a base: a pessoa começa, e conta. */}
+      <BackingBar base={ex.base!} countIn={mode === "base" || countBefore ? 1 : 0} playLabel={mode === "base" ? undefined : t("play")} />
       <div className="reveal">
         <div className="row">
           <button type="button" className="btn" aria-expanded={shown} onClick={() => setShown((s) => !s)}>

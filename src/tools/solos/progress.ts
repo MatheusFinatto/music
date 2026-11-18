@@ -33,3 +33,12 @@ export const useSavedBars = (): Record<string, number> =>
   useSyncExternalStore(barsStore.subscribe, () => barsStore.get().bars, () => noBars);
 
 export const saveBars = (id: string, n: number) => barsStore.set((prev) => ({ ...prev, bars: { ...prev.bars, [id]: n } }));
+
+/** Contagem antes do exemplo (eco e arco). Desligada por padrão: o exemplo começa direto. */
+export const countStore = createStore<{ version: 1; beforeExample: boolean }>("solos-contagem", { version: 1, beforeExample: false }, (saved) => {
+  const b = (saved as { beforeExample?: unknown } | null)?.beforeExample;
+  return typeof b === "boolean" ? { version: 1, beforeExample: b } : null;
+});
+export const useCountBeforeExample = (): boolean =>
+  useSyncExternalStore(countStore.subscribe, () => countStore.get().beforeExample, () => false);
+export const setCountBeforeExample = (on: boolean) => countStore.set({ version: 1, beforeExample: on });

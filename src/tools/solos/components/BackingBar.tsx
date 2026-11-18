@@ -17,8 +17,7 @@ export const backingOf = (base: Base, bpm = base.bpm) => ({ chords: chordsOf(bas
 export function useCountIn(): number | null {
   const running = useRunning();
   const beat = useBeat();
-  if (!running) return null;
-  if (!beat) return 1;
+  if (!running || !beat) return null;
   return beat.beat < 0 ? beat.beatInBar + 1 : null;
 }
 
@@ -97,13 +96,15 @@ type Props = {
    * se mostra parada: "Tocar base" interrompe o exemplo e começa a base daqui.
    */
   quiet?: boolean;
+  /** Texto do botão de tocar, quando não é só a base que toca (ex.: o eco, com a frase junto). */
+  playLabel?: string;
 };
 
 /**
  * Tocar/parar, andamento e os acordes da base, com o acorde que está soando em destaque.
  * `hideChords` esconde os nomes (o compasso continua marcado): para treinar ouvir a troca.
  */
-export function BackingBar({ base, countIn = 1, hideChords = false, quiet = false }: Props) {
+export function BackingBar({ base, countIn = 1, hideChords = false, quiet = false, playLabel }: Props) {
   const t = useTranslations("solos.backing");
   const [bpm, setBpm] = useState(base.bpm);
   const playing = useRunning();
@@ -154,7 +155,7 @@ export function BackingBar({ base, countIn = 1, hideChords = false, quiet = fals
   return (
     <div className="backing">
       <button type="button" className="btn primary play" onClick={toggle} aria-pressed={running} aria-keyshortcuts="Space">
-        {running ? t("stop") : t("play")}
+        {running ? t("stop") : (playLabel ?? t("play"))}
       </button>
       <TempoControl bpm={bpm} onChange={changeTempo} />
       <div className="backing-extra">
