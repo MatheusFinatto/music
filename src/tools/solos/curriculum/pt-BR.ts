@@ -10,7 +10,7 @@ import type { Base, Curriculum, EchoExercise, Phrase } from "./types";
 
 /** Base padrão: Am F C G, balada lenta. */
 const BASE: Base = { key: 0, prog: [5, 3, 0, 4], bpm: 72, style: "balada" };
-/** Um acorde só, para treinar ritmo e desenho sem pensar em troca. */
+/** Um acorde só, para treinar ritmo e shape sem pensar em troca. */
 const VAMP: Base = { key: 0, prog: [5], bpm: 72, style: "balada" };
 /** Dois acordes, para as frases de ouvido. */
 const AM_F: Base = { key: 0, prog: [5, 3], bpm: 72, style: "balada" };
@@ -82,12 +82,12 @@ function rhythm(id: string, name: string, steps: string): Phrase {
   return { id, name, bars: 1, notes };
 }
 
-/** Onde procurar a frase, conforme a seção: nas duas primeiras ela fica no desenho 1; depois, sai dele. */
+/** Onde procurar a frase, conforme a seção: nas duas primeiras ela fica no shape 1; depois, sai dele. */
 const WHERE: Record<string, string> = {
-  s1: "Agora procure no braço, no desenho 1 em Lá menor.",
-  s2: "Agora procure no braço, no desenho 1 em Lá menor.",
-  s3: "Agora procure no braço. Esta frase sai do desenho 1: pode estar numa corda só ou em outro desenho.",
-  s4: "Agora procure no braço, a partir do desenho 1 em Lá menor.",
+  s1: "Agora procure no braço, no shape 1 em Lá menor.",
+  s2: "Agora procure no braço, no shape 1 em Lá menor.",
+  s3: "Agora procure no braço. Esta frase sai do shape 1: pode estar numa corda só ou em outro shape.",
+  s4: "Agora procure no braço, a partir do shape 1 em Lá menor.",
 };
 
 /** Frase de ouvido. `section` é a seção cuja matéria a frase usa; `base` é a base por baixo (padrão: Am F). */
@@ -117,22 +117,22 @@ export const curriculum: Curriculum = {
       id: "u0",
       title: "O mapa do braço",
       skill:
-        "Os desenhos da pentatônica e onde ficam as notas de cada acorde.",
+        "Os shapes da pentatônica e onde ficam as notas de cada acorde.",
       lessons: [
         {
           id: "u0.l1",
           concepts: ["O que é a escala pentatônica menor?", "O que é a tônica de uma escala?"],
           videos: [{ youtube: "tzh1OeGUv_E", title: "Improvisation: A-Minor Pentatonic Guitar Solo", author: "Flo Guitar", note: "Antes de começar, assista a este solo improvisado em Lá menor, só com a pentatônica. Agora você não entende quase nada do que ele faz, e está tudo bem. No fim do curso, o vídeo volta." }],
-          title: "O desenho 1",
+          title: "O shape 1",
           intro:
-            "Boa parte dos solos de rock e blues que você conhece passa por este desenho. Ele tem só cinco notas, repetidas em duas oitavas. O objetivo aqui não é correr por ele: é saber, de olhos fechados, onde está a tônica.",
+            "Boa parte dos solos de rock e blues que você conhece passa por este shape. Ele tem só cinco notas, repetidas em duas oitavas. O objetivo aqui não é correr por ele: é saber, de olhos fechados, onde está a tônica.",
           key: "u0.l1.find",
           exercises: [
             {
               id: "u0.l1.map",
               kind: "map",
-              title: "Pentatônica de Lá menor, desenho 1",
-              goal: 'Toque o desenho subindo e descendo, devagar, dizendo "tônica" toda vez que passar por um A.',
+              title: "Pentatônica de Lá menor, shape 1",
+              goal: 'Toque o shape subindo e descendo, devagar, dizendo "tônica" toda vez que passar por um A.',
               steps: [
                 "Duas notas por corda, da 6ª à 1ª e de volta.",
                 "Ligue a base e repita no tempo, uma nota por tempo.",
@@ -146,7 +146,7 @@ export const curriculum: Curriculum = {
               id: "u0.l1.find",
               kind: "find",
               title: "Onde está a tônica?",
-              goal: "Aponte no braço as três tônicas do desenho.",
+              goal: "Aponte no braço as três tônicas do shape.",
               steps: [
                 "Um toque errado conta: pense antes.",
               ],
@@ -160,19 +160,19 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u0.l2",
-          concepts: ["Quais são os 5 desenhos da pentatônica?"],
-          title: "Os cinco desenhos",
+          concepts: ["Quais são os 5 shapes da pentatônica?"],
+          title: "Os cinco shapes",
           intro:
-            "O desenho 1 é uma janela do braço. As mesmas cinco notas continuam para cima e para baixo em mais quatro desenhos, e cada um encaixa no vizinho. Você não precisa dominar os cinco hoje: precisa saber que existem e como se ligam.",
+            "O shape 1 é uma janela do braço. As mesmas cinco notas continuam para cima e para baixo em mais quatro shapes, e cada um encaixa no vizinho. Você não precisa dominar os cinco hoje: precisa saber que existem e como se ligam.",
           key: "u0.l2.link",
           exercises: [
             {
               id: "u0.l2.map",
               kind: "map",
-              title: "Um desenho por vez",
-              goal: "Toque cada um dos cinco desenhos uma vez, subindo e descendo.",
+              title: "Um shape por vez",
+              goal: "Toque cada um dos cinco shapes uma vez, subindo e descendo.",
               steps: [
-                "As casas mais agudas de um desenho são as mais graves do seguinte.",
+                "As casas mais agudas de um shape são as mais graves do seguinte.",
                 "Em cada um, ache as tônicas antes de tocar.",
               ],
               check: "Passou pelos cinco achando a tônica em cada um?",
@@ -184,13 +184,13 @@ export const curriculum: Curriculum = {
               id: "u0.l2.link",
               kind: "map",
               title: "Atravessar de um para o outro",
-              goal: "Suba pelo desenho 1 e desça pelo desenho 2, sem parar.",
+              goal: "Suba pelo shape 1 e desça pelo shape 2, sem parar.",
               steps: [
-                "Na 1ª corda, escorregue da casa 8 para a 10 e você já está no desenho 2.",
+                "Na 1ª corda, escorregue da casa 8 para a 10 e você já está no shape 2.",
                 "Faça o mesmo entre o 2 e o 3.",
                 "Com a base ligada, uma nota por tempo.",
               ],
-              check: "Trocou de desenho sem interromper o tempo?",
+              check: "Trocou de shape sem interromper o tempo?",
               base: VAMP,
               shapes: [1, 2, 3],
               layer: "penta",
@@ -209,7 +209,7 @@ export const curriculum: Curriculum = {
               id: "u0.l3.map",
               kind: "map",
               title: "Tônica, 3ª e 5ª de cada acorde",
-              goal: "Para cada acorde, toque as três notas dele dentro do desenho 1.",
+              goal: "Para cada acorde, toque as três notas dele dentro do shape 1.",
               steps: [
                 "Algumas notas do acorde ficam fora da pentatônica. Neste curso, os solos usam só as de dentro.",
                 "Toque uma nota longa de cada acorde, no tempo da troca.",
@@ -225,7 +225,7 @@ export const curriculum: Curriculum = {
               kind: "find",
               title: "Ache a nota",
               goal: "O site pede uma nota de um acorde. Aponte no braço.",
-              steps: ["Responda sem contar casas: tente lembrar do desenho."],
+              steps: ["Responda sem contar casas: tente lembrar do shape."],
               check: "",
               base: BASE,
               shape: 1,
@@ -256,7 +256,7 @@ export const curriculum: Curriculum = {
               title: "Dois e dois",
               goal: "Toque nos compassos marcados e fique em silêncio total nos outros.",
               steps: [
-                "Use só o desenho 1 da pentatônica de Lá menor. Não importa o que você toca, importa parar.",
+                "Use só o shape 1 da pentatônica de Lá menor. Não importa o que você toca, importa parar.",
                 "No silêncio, abafe as cordas e ouça a base.",
                 "Termine a frase antes do silêncio começar, sem deixar nota vazando.",
               ],
@@ -493,7 +493,7 @@ export const curriculum: Curriculum = {
               id: "a1.take",
               kind: "take",
               title: "O primeiro solo",
-              goal: "Oito compassos no desenho 1, em quatro partes de dois compassos. Siga a faixa.",
+              goal: "Oito compassos no shape 1, em quatro partes de dois compassos. Siga a faixa.",
               steps: [],
               check: "Seu solo teve frases com começo e fim, silêncio entre elas e ritmos variados?",
               base: BASE,
@@ -931,7 +931,7 @@ export const curriculum: Curriculum = {
           id: "a2.l1",
           title: "Oito compassos na harmonia",
           intro:
-            "Agora o solo conversa com a base: cada troca de acorde é um lugar para chegar, de preferência vindo de perto, às vezes passando por uma nota que incomoda e resolve. Os dois exemplos fazem isso só com o desenho 1.",
+            "Agora o solo conversa com a base: cada troca de acorde é um lugar para chegar, de preferência vindo de perto, às vezes passando por uma nota que incomoda e resolve. Os dois exemplos fazem isso só com o shape 1.",
           key: "a2.take",
           exercises: [
             {
@@ -996,8 +996,8 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u17",
-      title: "Licks no desenho 1",
-      skill: "Seis licks curtos do desenho 1, de memória e no tempo",
+      title: "Licks no shape 1",
+      skill: "Seis licks curtos do shape 1, de memória e no tempo",
       takeCheck: "Você usou algum lick inteiro, no tempo, e parou depois dele?",
       lessons: [
         {
@@ -1056,7 +1056,7 @@ export const curriculum: Curriculum = {
           id: "u17.l2",
           title: "Licks com bend",
           intro:
-            "O bend é o que faz a guitarra cantar, e no desenho 1 ele mora em dois lugares: no Sol da 2ª corda (sobe até o Lá) e no Dó da 1ª corda (sobe até o Ré). Um destes licks sobe e solta o bend; o outro usa o bend como o ponto mais alto da frase.",
+            "O bend é o que faz a guitarra cantar, e no shape 1 ele mora em dois lugares: no Sol da 2ª corda (sobe até o Lá) e no Dó da 1ª corda (sobe até o Ré). Um destes licks sobe e solta o bend; o outro usa o bend como o ponto mais alto da frase.",
           key: "u17.l2.echo",
           exercises: [
             {
@@ -1347,7 +1347,7 @@ export const curriculum: Curriculum = {
     {
       id: "u19",
       title: "Ideias para improvisar",
-      skill: "Regras que tiram você do automático, sem sair do desenho 1",
+      skill: "Regras que tiram você do automático, sem sair do shape 1",
       takeCheck: "Você se deu uma regra e cumpriu até o fim da tomada?",
       lessons: [
         {
@@ -1372,7 +1372,7 @@ export const curriculum: Curriculum = {
               id: "u19.l1.strings",
               kind: "play-rest",
               title: "Só duas cordas",
-              goal: "Improvise só na 2ª e na 3ª cordas do desenho 1.",
+              goal: "Improvise só na 2ª e na 3ª cordas do shape 1.",
               steps: ["São quatro notas: C4, D4, E4 e G4.", "Termine cada frase numa nota longa."],
               check: "Ficou nas duas cordas o tempo todo?",
               base: BASE,
@@ -1453,7 +1453,7 @@ export const curriculum: Curriculum = {
               id: "a5.take",
               kind: "take",
               title: "Solo com o que você sabe",
-              goal: "Oito compassos no desenho 1, em quatro partes de dois compassos. Siga a faixa.",
+              goal: "Oito compassos no shape 1, em quatro partes de dois compassos. Siga a faixa.",
               steps: [],
               check: "Seu solo teve um lick inteiro, uma pergunta que ficou no ar e uma resposta que pousou?",
               base: BASE,
@@ -1654,7 +1654,7 @@ export const curriculum: Curriculum = {
               kind: "play-rest",
               title: "Sequência e silêncio",
               goal: "Um compasso de sequência, terminando no tempo 1 do compasso seguinte. Depois, silêncio.",
-              steps: ["Comece de notas diferentes do desenho 1.", "Alterne: uma descendo, uma subindo."],
+              steps: ["Comece de notas diferentes do shape 1.", "Alterne: uma descendo, uma subindo."],
               check: "As sequências terminaram no tempo 1, numa nota do acorde?",
               base: BASE_SLOW,
               pattern: ["play", "rest"],
@@ -1804,7 +1804,7 @@ export const curriculum: Curriculum = {
               id: "a4.take",
               kind: "take",
               title: "O solo que acelera",
-              goal: "Oito compassos no desenho 1, em quatro partes, da mais lenta à mais rápida.",
+              goal: "Oito compassos no shape 1, em quatro partes, da mais lenta à mais rápida.",
               steps: [],
               check: "Seu solo acelerou aos poucos, e cada trecho rápido terminou numa nota longa?",
               base: BASE_SLOW,
@@ -2205,8 +2205,8 @@ export const curriculum: Curriculum = {
     },
     {
       id: "a6",
-      title: "Arco 5: o solo inteiro no desenho 1",
-      skill: "Um solo de dezesseis compassos com começo, meio, pico e fim, sem sair do desenho 1",
+      title: "Arco 5: o solo inteiro no shape 1",
+      skill: "Um solo de dezesseis compassos com começo, meio, pico e fim, sem sair do shape 1",
       arc: true,
       takeCheck: "Seu solo teve um motivo que voltou no fim, e um pico mais alto que o resto?",
       lessons: [
@@ -2214,14 +2214,14 @@ export const curriculum: Curriculum = {
           id: "a6.l1",
           title: "Dezesseis compassos",
           intro:
-            "Este é o solo que fecha a primeira parte do curso: tudo num desenho só. Um motivo curto abre, depois ele muda de ritmo ou de nota, o solo sobe até o ponto mais alto, e no fim o motivo volta igual e pousa. Com um desenho bem tocado já dá para fazer um solo inteiro.",
+            "Este é o solo que fecha a primeira parte do curso: tudo num shape só. Um motivo curto abre, depois ele muda de ritmo ou de nota, o solo sobe até o ponto mais alto, e no fim o motivo volta igual e pousa. Com um shape bem tocado já dá para fazer um solo inteiro.",
           key: "a6.take",
           exercises: [
             {
               id: "a6.take",
               kind: "take",
-              title: "O solo inteiro no desenho 1",
-              goal: "Dezesseis compassos no desenho 1, em quatro partes de quatro compassos. Siga a faixa.",
+              title: "O solo inteiro no shape 1",
+              goal: "Dezesseis compassos no shape 1, em quatro partes de quatro compassos. Siga a faixa.",
               steps: [],
               check: "Seu solo teve um motivo que voltou no fim, e um pico mais alto que o resto?",
               base: BASE,
@@ -2327,25 +2327,25 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u20",
-      title: "Conhecer o desenho 2",
-      skill: "O desenho 2 de cor: onde estão as tônicas e as notas de cada acorde",
-      takeCheck: "Você tocou no desenho 2 sem voltar para o desenho 1?",
+      title: "Conhecer o shape 2",
+      skill: "O shape 2 de cor: onde estão as tônicas e as notas de cada acorde",
+      takeCheck: "Você tocou no shape 2 sem voltar para o shape 1?",
       lessons: [
         {
           id: "u20.l1",
-          concepts: ["Quais são os 5 desenhos da escala pentatônica?"],
-          title: "O desenho 2",
+          concepts: ["Quais são os 5 shapes da escala pentatônica?"],
+          title: "O shape 2",
           intro:
-            "Você já sola no desenho 1. O desenho 2 fica logo acima, nas casas 7 a 10, e tem as mesmas cinco notas. As notas mais agudas do desenho 1 são as mais graves do desenho 2: por isso eles se emendam. Comece achando as tônicas, que são o chão de qualquer desenho.",
+            "Você já sola no shape 1. O shape 2 fica logo acima, nas casas 7 a 10, e tem as mesmas cinco notas. As notas mais agudas do shape 1 são as mais graves do shape 2: por isso eles se emendam. Comece achando as tônicas, que são o chão de qualquer shape.",
           key: "u20.l1.find",
           exercises: [
             {
               id: "u20.l1.map",
               kind: "map",
-              title: "O desenho 2",
-              goal: "Toque o desenho 2 subindo e descendo, devagar, uma nota por tempo.",
+              title: "O shape 2",
+              goal: "Toque o shape 2 subindo e descendo, devagar, uma nota por tempo.",
               steps: ["Diga o nome de cada tônica (Lá) quando passar por ela.", "Depois toque só as tônicas, do grave ao agudo."],
-              check: "Tocou o desenho subindo e descendo sem olhar?",
+              check: "Tocou o shape subindo e descendo sem olhar?",
               base: VAMP,
               shapes: [2],
               layer: "penta",
@@ -2354,7 +2354,7 @@ export const curriculum: Curriculum = {
               id: "u20.l1.root",
               kind: "find",
               title: "Onde estão as tônicas?",
-              goal: "Aponte no braço todas as tônicas (Lá) do desenho 2.",
+              goal: "Aponte no braço todas as tônicas (Lá) do shape 2.",
               steps: ["Um toque errado conta: pense antes."],
               check: "",
               base: VAMP,
@@ -2366,9 +2366,9 @@ export const curriculum: Curriculum = {
               id: "u20.l1.home",
               kind: "play-rest",
               title: "Sempre de volta à tônica",
-              goal: "Improvise no desenho 2 em volta das tônicas. Toda frase termina num Lá.",
-              steps: ["Comece perto de uma tônica, saia dela e volte.", "Use as três tônicas do desenho, não só uma."],
-              check: "Todas as frases terminaram num Lá do desenho 2?",
+              goal: "Improvise no shape 2 em volta das tônicas. Toda frase termina num Lá.",
+              steps: ["Comece perto de uma tônica, saia dela e volte.", "Use as três tônicas do shape, não só uma."],
+              check: "Todas as frases terminaram num Lá do shape 2?",
               base: VAMP,
               pattern: ["play", "play", "rest", "rest"],
               rule: "Toda frase termina no Lá",
@@ -2376,9 +2376,9 @@ export const curriculum: Curriculum = {
             {
               id: "u20.l1.find",
               kind: "find",
-              title: "Ache a nota no desenho 2",
-              goal: "O site pede uma nota de um acorde. Aponte no desenho 2.",
-              steps: ["Responda sem contar casas: lembre do desenho."],
+              title: "Ache a nota no shape 2",
+              goal: "O site pede uma nota de um acorde. Aponte no shape 2.",
+              steps: ["Responda sem contar casas: lembre do shape."],
               check: "",
               base: BASE,
               shape: 2,
@@ -2389,19 +2389,19 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u12.l1",
-          concepts: ["Como ligar os desenhos da pentatônica?"],
-          title: "Desenho 2",
+          concepts: ["Como ligar os shapes da pentatônica?"],
+          title: "Shape 2",
           intro:
-            "O desenho 1 é só uma janela. Logo depois dele, em casas mais agudas, o desenho 2 tem as mesmas notas, com outro caminho para os dedos e outras notas do acorde à mão. Os alvos continuam os mesmos; muda onde eles estão.",
+            "O shape 1 é só uma janela. Logo depois dele, em casas mais agudas, o shape 2 tem as mesmas notas, com outro caminho para os dedos e outras notas do acorde à mão. Os alvos continuam os mesmos; muda onde eles estão.",
           key: "u12.l1.target",
           exercises: [
             {
               id: "u12.l1.map",
               kind: "map",
-              title: "As notas do acorde no desenho 2",
-              goal: "Para cada acorde, toque as notas dele dentro do desenho 2.",
+              title: "As notas do acorde no shape 2",
+              goal: "Para cada acorde, toque as notas dele dentro do shape 2.",
               steps: ["Uma nota longa por acorde."],
-              check: "Achou uma nota de cada acorde no desenho 2, no tempo da troca?",
+              check: "Achou uma nota de cada acorde no shape 2, no tempo da troca?",
               base: BASE,
               shapes: [2],
               layer: "chord",
@@ -2409,14 +2409,14 @@ export const curriculum: Curriculum = {
             {
               id: "u12.l1.target",
               kind: "target",
-              title: "Alvos no desenho 2",
-              goal: "Chegue em cada alvo na troca, sem sair do desenho 2.",
+              title: "Alvos no shape 2",
+              goal: "Chegue em cada alvo na troca, sem sair do shape 2.",
               steps: ["Se travar, olhe o braço por uma volta."],
-              check: "Chegou nos alvos sem voltar para o desenho 1?",
+              check: "Chegou nos alvos sem voltar para o shape 1?",
               base: BASE,
               shape: 2,
               degrees: ["T", "3", "5"],
-              rule: "Só o desenho 2",
+              rule: "Só o shape 2",
             },
           ],
         },
@@ -2424,24 +2424,24 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u21",
-      title: "Vocabulário no desenho 2",
-      skill: "Licks e frases que só existem no desenho 2",
-      takeCheck: "Seus licks saíram do desenho 2, sem voltar para o 1?",
+      title: "Vocabulário no shape 2",
+      skill: "Licks e frases que só existem no shape 2",
+      takeCheck: "Seus licks saíram do shape 2, sem voltar para o 1?",
       lessons: [
         {
           id: "u21.l1",
-          title: "Licks no desenho 2",
+          title: "Licks no shape 2",
           intro:
-            "Cada desenho tem os seus licks, porque cada um põe as notas num lugar diferente da mão. O desenho 2 tem o bend mais famoso da pentatônica: o Ré da 1ª corda subindo até o Mi. E tem uma descida longa que atravessa o desenho inteiro.",
+            "Cada shape tem os seus licks, porque cada um põe as notas num lugar diferente da mão. O shape 2 tem o bend mais famoso da pentatônica: o Ré da 1ª corda subindo até o Mi. E tem uma descida longa que atravessa o shape inteiro.",
           key: "u21.l1.echo",
           exercises: [
             {
               id: "u21.l1.echo",
               kind: "echo",
               title: "Bend e descida",
-              goal: "Tire os dois licks de ouvido, só no desenho 2.",
+              goal: "Tire os dois licks de ouvido, só no shape 2.",
               steps: ["No bend, a nota de chegada é o Mi da casa 12. Toque ela antes, sem bend, e cante.", "Repita cada lick até sair sem pensar."],
-              check: "Toca os dois de memória, sem sair do desenho 2?",
+              check: "Toca os dois de memória, sem sair do shape 2?",
               base: AM_F,
               reveal: "tab",
               phrases: [
@@ -2453,7 +2453,7 @@ export const curriculum: Curriculum = {
                   [2, 8, 3, 0.5],
                   [2, 10, 3.5, 2.5, { vib: "lento" }],
                 ]),
-                phrase("d2k2", "Lick: desce o desenho 2", 2, [
+                phrase("d2k2", "Lick: desce o shape 2", 2, [
                   [1, 10, 1, 0.5],
                   [1, 8, 1.5, 0.5],
                   [2, 10, 2, 0.5],
@@ -2468,12 +2468,12 @@ export const curriculum: Curriculum = {
               id: "u21.l1.pr",
               kind: "play-rest",
               title: "Um lick, um silêncio",
-              goal: "Nos compassos de tocar, um dos dois licks do desenho 2, inteiro.",
-              steps: ["Alterne os dois.", "Se a mão voltar para o desenho 1, pare e recomece."],
-              check: "Ficou no desenho 2 o tempo todo?",
+              goal: "Nos compassos de tocar, um dos dois licks do shape 2, inteiro.",
+              steps: ["Alterne os dois.", "Se a mão voltar para o shape 1, pare e recomece."],
+              check: "Ficou no shape 2 o tempo todo?",
               base: AM_F,
               pattern: ["play", "play", "rest", "rest"],
-              rule: "Só o desenho 2",
+              rule: "Só o shape 2",
             },
           ],
         },
@@ -2481,7 +2481,7 @@ export const curriculum: Curriculum = {
           id: "u21.l2",
           title: "Slide e cordas graves",
           intro:
-            "Mais dois licks do desenho 2: um que entra deslizando no Lá da 2ª corda, do jeito que o blues faz, e outro nas cordas graves, que soa mais escuro. Com os quatro, o desenho 2 já tem frase para o agudo e para o grave.",
+            "Mais dois licks do shape 2: um que entra deslizando no Lá da 2ª corda, do jeito que o blues faz, e outro nas cordas graves, que soa mais escuro. Com os quatro, o shape 2 já tem frase para o agudo e para o grave.",
           key: "u21.l2.pr",
           exercises: [
             {
@@ -2501,7 +2501,7 @@ export const curriculum: Curriculum = {
                   [2, 10, 2.5, 1.5, { slide: 8 }],
                   [1, 8, 4.5, 2],
                 ]),
-                phrase("d2k4", "Lick: graves do desenho 2", 2, [
+                phrase("d2k4", "Lick: graves do shape 2", 2, [
                   [6, 8, 0.5, 0.5],
                   [6, 10, 1, 0.5],
                   [5, 7, 1.5, 0.5],
@@ -2514,7 +2514,7 @@ export const curriculum: Curriculum = {
               id: "u21.l2.pr",
               kind: "play-rest",
               title: "Os quatro licks",
-              goal: "Nos compassos de tocar, qualquer um dos quatro licks do desenho 2.",
+              goal: "Nos compassos de tocar, qualquer um dos quatro licks do shape 2.",
               steps: ["Não repita o mesmo lick duas vezes seguidas.", "Mude o tempo de entrada de vez em quando."],
               check: "Lembrou dos quatro sem olhar?",
               base: BASE,
@@ -2525,22 +2525,22 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u21.l3",
-          title: "Um solo só no desenho 2",
+          title: "Um solo só no shape 2",
           intro:
-            "Tudo o que você faz no desenho 1 dá para fazer no 2: pergunta e resposta, nota longa no acorde, silêncio. Primeiro uma conversa curta no desenho 2, depois oito compassos sem sair dele.",
+            "Tudo o que você faz no shape 1 dá para fazer no 2: pergunta e resposta, nota longa no acorde, silêncio. Primeiro uma conversa curta no shape 2, depois oito compassos sem sair dele.",
           key: "u21.l3.take",
           exercises: [
             {
               id: "u21.l3.echo",
               kind: "echo",
-              title: "Uma conversa no desenho 2",
+              title: "Uma conversa no shape 2",
               goal: "Tire a frase de ouvido: a pergunta fica no ar, a resposta pousa.",
               steps: ["A pergunta termina no Sol; a resposta, no Mi, sobre o C."],
               check: "Ouviu onde cada metade termina?",
               base: BASE,
               reveal: "tab",
               phrases: [
-                phrase("d2q1", "Pergunta e resposta no desenho 2", 4, [
+                phrase("d2q1", "Pergunta e resposta no shape 2", 4, [
                   [3, 7, 0.5, 0.5],
                   [3, 9, 1, 0.5],
                   [2, 8, 1.5, 0.5],
@@ -2555,10 +2555,10 @@ export const curriculum: Curriculum = {
             {
               id: "u21.l3.take",
               kind: "take",
-              title: "Oito compassos no desenho 2",
-              goal: "Um solo inteiro sem sair do desenho 2.",
-              steps: ["Use os licks da unidade e as ideias do desenho 1.", "Se a mão escapar para o desenho 1, volte."],
-              check: "Ficou no desenho 2 os oito compassos, com frases e silêncio?",
+              title: "Oito compassos no shape 2",
+              goal: "Um solo inteiro sem sair do shape 2.",
+              steps: ["Use os licks da unidade e as ideias do shape 1.", "Se a mão escapar para o shape 1, volte."],
+              check: "Ficou no shape 2 os oito compassos, com frases e silêncio?",
               base: BASE,
               bars: 8,
               bases: OTHER_BASES,
@@ -2569,25 +2569,25 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u22",
-      title: "Juntar os desenhos 1 e 2",
-      skill: "Passar de um desenho para o outro no meio da frase",
-      takeCheck: "Alguma frase sua começou num desenho e terminou no outro?",
+      title: "Juntar os shapes 1 e 2",
+      skill: "Passar de um shape para o outro no meio da frase",
+      takeCheck: "Alguma frase sua começou num shape e terminou no outro?",
       lessons: [
         {
           id: "u22.l1",
-          concepts: ["Como ligar os desenhos da pentatônica?"],
+          concepts: ["Como ligar os shapes da pentatônica?"],
           title: "Os dois juntos",
           intro:
-            "Juntos, os desenhos 1 e 2 vão da casa 5 à 10. Eles dividem as notas do meio: o Dó e o Sol agudos, o Ré da 3ª corda, o Lá da 4ª. É por essas notas que se passa de um para o outro sem pular.",
+            "Juntos, os shapes 1 e 2 vão da casa 5 à 10. Eles dividem as notas do meio: o Dó e o Sol agudos, o Ré da 3ª corda, o Lá da 4ª. É por essas notas que se passa de um para o outro sem pular.",
           key: "u22.l1.target",
           exercises: [
             {
               id: "u22.l1.map",
               kind: "map",
-              title: "Os desenhos 1 e 2 juntos",
-              goal: "Toque cada corda do desenho 1 até o fim do desenho 2, e volte.",
-              steps: ["Repare nas notas que os dois dividem.", "Depois suba pelo desenho 1 e desça pelo desenho 2."],
-              check: "Achou as notas que os dois desenhos dividem?",
+              title: "Os shapes 1 e 2 juntos",
+              goal: "Toque cada corda do shape 1 até o fim do shape 2, e volte.",
+              steps: ["Repare nas notas que os dois dividem.", "Depois suba pelo shape 1 e desça pelo shape 2."],
+              check: "Achou as notas que os dois shapes dividem?",
               base: VAMP,
               shapes: [1, 2],
               layer: "penta",
@@ -2596,14 +2596,14 @@ export const curriculum: Curriculum = {
             {
               id: "u22.l1.target",
               kind: "target",
-              title: "Alvos nos dois desenhos",
-              goal: "Chegue em cada alvo na troca, no desenho que estiver mais perto da sua mão.",
-              steps: ["Não volte sempre para o desenho 1: se a mão está no 2, o alvo também está."],
-              check: "Usou os dois desenhos para chegar nos alvos?",
+              title: "Alvos nos dois shapes",
+              goal: "Chegue em cada alvo na troca, no shape que estiver mais perto da sua mão.",
+              steps: ["Não volte sempre para o shape 1: se a mão está no 2, o alvo também está."],
+              check: "Usou os dois shapes para chegar nos alvos?",
               base: BASE,
               shape: [1, 2],
               degrees: ["T", "3", "5"],
-              rule: "Desenhos 1 e 2",
+              rule: "Shapes 1 e 2",
             },
           ],
         },
@@ -2611,16 +2611,16 @@ export const curriculum: Curriculum = {
           id: "u22.l2",
           title: "Frases que atravessam",
           intro:
-            "Agora a frase não respeita fronteira: começa no desenho 1 e termina no 2, ou o contrário. Repare que nas três frases a passagem acontece numa nota que os dois desenhos dividem, ou num slide.",
+            "Agora a frase não respeita fronteira: começa no shape 1 e termina no 2, ou o contrário. Repare que nas três frases a passagem acontece numa nota que os dois shapes dividem, ou num slide.",
           key: "u22.l2.pr",
           exercises: [
             {
               id: "u22.l2.echo",
               kind: "echo",
               title: "Três travessias",
-              goal: "Tire as três de ouvido e repare em que nota cada uma troca de desenho.",
+              goal: "Tire as três de ouvido e repare em que nota cada uma troca de shape.",
               steps: ["Uma por vez.", "Depois de tirar, toque devagar olhando onde a mão muda de lugar."],
-              check: "Achou o ponto em que cada frase troca de desenho?",
+              check: "Achou o ponto em que cada frase troca de shape?",
               base: AM_F,
               reveal: "tab",
               phrases: [
@@ -2655,12 +2655,12 @@ export const curriculum: Curriculum = {
               id: "u22.l2.pr",
               kind: "play-rest",
               title: "Comece num, termine no outro",
-              goal: "Cada frase começa num desenho e termina no outro.",
+              goal: "Cada frase começa num shape e termina no outro.",
               steps: ["Alterne o sentido: uma sobe do 1 para o 2, a próxima desce do 2 para o 1."],
-              check: "Todas as frases trocaram de desenho no meio?",
+              check: "Todas as frases trocaram de shape no meio?",
               base: BASE,
               pattern: ["play", "play", "rest", "rest"],
-              rule: "Toda frase troca de desenho",
+              rule: "Toda frase troca de shape",
             },
           ],
         },
@@ -2668,37 +2668,37 @@ export const curriculum: Curriculum = {
     },
     {
       id: "a7",
-      title: "Arco 6: solo nos desenhos 1 e 2",
-      skill: "Um solo que começa num desenho, vai para o outro e volta",
+      title: "Arco 6: solo nos shapes 1 e 2",
+      skill: "Um solo que começa num shape, vai para o outro e volta",
       arc: true,
-      takeCheck: "Seu solo usou os dois desenhos, com frases que passaram de um para o outro?",
+      takeCheck: "Seu solo usou os dois shapes, com frases que passaram de um para o outro?",
       lessons: [
         {
           id: "a7.l1",
-          title: "Doze compassos em dois desenhos",
+          title: "Doze compassos em dois shapes",
           intro:
-            "O solo agora tem dois lugares. Comece em casa, no desenho 1, leve as ideias para o desenho 2, atravesse entre os dois e volte para terminar. São doze compassos recomendados: escolha mais, se quiser espaço.",
+            "O solo agora tem dois lugares. Comece em casa, no shape 1, leve as ideias para o shape 2, atravesse entre os dois e volte para terminar. São doze compassos recomendados: escolha mais, se quiser espaço.",
           key: "a7.take",
           exercises: [
             {
               id: "a7.take",
               kind: "take",
-              title: "Solo nos desenhos 1 e 2",
-              goal: "Doze compassos nos desenhos 1 e 2, em quatro partes. Siga a faixa.",
+              title: "Solo nos shapes 1 e 2",
+              goal: "Doze compassos nos shapes 1 e 2, em quatro partes. Siga a faixa.",
               steps: [],
-              check: "Seu solo usou os dois desenhos, com frases que passaram de um para o outro?",
+              check: "Seu solo usou os dois shapes, com frases que passaram de um para o outro?",
               base: BASE,
               bars: 12,
               arc: [
-                { name: "No desenho 1", how: "Frases no desenho 1, o de casa." },
-                { name: "No desenho 2", how: "As mesmas ideias, agora no desenho 2." },
-                { name: "Atravessa", how: "Frases que passam de um desenho ao outro." },
-                { name: "Pousa", how: "Volte ao desenho 1 e termine numa nota longa." },
+                { name: "No shape 1", how: "Frases no shape 1, o de casa." },
+                { name: "No shape 2", how: "As mesmas ideias, agora no shape 2." },
+                { name: "Atravessa", how: "Frases que passam de um shape ao outro." },
+                { name: "Pousa", how: "Volte ao shape 1 e termine numa nota longa." },
               ],
               bases: OTHER_BASES,
               examples: [
                 phrase("x8", "Exemplo do arco 6", 12, [
-                  // No desenho 1
+                  // No shape 1
                   [2, 5, 0.5, 0.5],
                   [2, 8, 1, 0.5],
                   [1, 5, 1.5, 1.5],
@@ -2706,7 +2706,7 @@ export const curriculum: Curriculum = {
                   [1, 5, 5, 2],
                   [3, 7, 8.5, 0.5],
                   [2, 5, 9, 2],
-                  // No desenho 2
+                  // No shape 2
                   [3, 9, 12.5, 0.5],
                   [2, 8, 13, 0.5],
                   [2, 10, 13.5, 0.5],
@@ -2742,7 +2742,7 @@ export const curriculum: Curriculum = {
                   [4, 5, 44, 3.5, { vib: "lento" }],
                 ]),
                 phrase("x8b", "Exemplo 2 do arco 6", 12, [
-                  // No desenho 1
+                  // No shape 1
                   [5, 5, 1, 0.5],
                   [5, 7, 1.5, 0.5],
                   [4, 5, 2, 0.5],
@@ -2751,7 +2751,7 @@ export const curriculum: Curriculum = {
                   [4, 7, 5, 2],
                   [4, 5, 8.5, 0.5],
                   [3, 5, 9, 2],
-                  // No desenho 2
+                  // No shape 2
                   [5, 7, 12.5, 0.5],
                   [5, 10, 13, 1.5],
                   [4, 7, 16.5, 0.5],
@@ -2792,24 +2792,24 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u23",
-      title: "Conhecer o desenho 3",
-      skill: "O desenho 3 de cor: onde estão as tônicas e as notas de cada acorde",
-      takeCheck: "Você tocou no desenho 3 sem voltar para os anteriores?",
+      title: "Conhecer o shape 3",
+      skill: "O shape 3 de cor: onde estão as tônicas e as notas de cada acorde",
+      takeCheck: "Você tocou no shape 3 sem voltar para os anteriores?",
       lessons: [
         {
           id: "u23.l1",
-          title: "O desenho 3",
+          title: "O shape 3",
           intro:
-            "O desenho 3 fica nas casas 9 a 13, logo acima do 2. Ele é o desenho do meio do braço: tem o Sol da 3ª corda, que aceita bend até o Lá, e o Mi agudo da 1ª corda, o ponto mais alto até aqui. Comece pelas tônicas.",
+            "O shape 3 fica nas casas 9 a 13, logo acima do 2. Ele é o shape do meio do braço: tem o Sol da 3ª corda, que aceita bend até o Lá, e o Mi agudo da 1ª corda, o ponto mais alto até aqui. Comece pelas tônicas.",
           key: "u23.l1.find",
           exercises: [
             {
               id: "u23.l1.map",
               kind: "map",
-              title: "O desenho 3",
-              goal: "Toque o desenho 3 subindo e descendo, devagar, uma nota por tempo.",
+              title: "O shape 3",
+              goal: "Toque o shape 3 subindo e descendo, devagar, uma nota por tempo.",
               steps: ["Diga o nome de cada tônica (Lá) quando passar por ela.", "Depois toque só as tônicas, do grave ao agudo."],
-              check: "Tocou o desenho subindo e descendo sem olhar?",
+              check: "Tocou o shape subindo e descendo sem olhar?",
               base: VAMP,
               shapes: [3],
               layer: "penta",
@@ -2818,7 +2818,7 @@ export const curriculum: Curriculum = {
               id: "u23.l1.root",
               kind: "find",
               title: "Onde estão as tônicas?",
-              goal: "Aponte no braço todas as tônicas (Lá) do desenho 3.",
+              goal: "Aponte no braço todas as tônicas (Lá) do shape 3.",
               steps: ["Um toque errado conta: pense antes."],
               check: "",
               base: VAMP,
@@ -2830,9 +2830,9 @@ export const curriculum: Curriculum = {
               id: "u23.l1.home",
               kind: "play-rest",
               title: "Sempre de volta à tônica",
-              goal: "Improvise no desenho 3 em volta das tônicas. Toda frase termina num Lá.",
-              steps: ["Comece perto de uma tônica, saia dela e volte.", "Use as três tônicas do desenho, não só uma."],
-              check: "Todas as frases terminaram num Lá do desenho 3?",
+              goal: "Improvise no shape 3 em volta das tônicas. Toda frase termina num Lá.",
+              steps: ["Comece perto de uma tônica, saia dela e volte.", "Use as três tônicas do shape, não só uma."],
+              check: "Todas as frases terminaram num Lá do shape 3?",
               base: VAMP,
               pattern: ["play", "play", "rest", "rest"],
               rule: "Toda frase termina no Lá",
@@ -2840,9 +2840,9 @@ export const curriculum: Curriculum = {
             {
               id: "u23.l1.find",
               kind: "find",
-              title: "Ache a nota no desenho 3",
-              goal: "O site pede uma nota de um acorde. Aponte no desenho 3.",
-              steps: ["Responda sem contar casas: lembre do desenho."],
+              title: "Ache a nota no shape 3",
+              goal: "O site pede uma nota de um acorde. Aponte no shape 3.",
+              steps: ["Responda sem contar casas: lembre do shape."],
               check: "",
               base: BASE,
               shape: 3,
@@ -2853,21 +2853,21 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u12.l2",
-          title: "Desenho 3",
-          intro: "Mais adiante, em casas ainda mais agudas, o desenho 3. Com três desenhos, a mesma nota do acorde aparece em vários lugares: a escolha passa a ser onde ela soa melhor, não onde ela está.",
+          title: "Shape 3",
+          intro: "Mais adiante, em casas ainda mais agudas, o shape 3. Com três shapes, a mesma nota do acorde aparece em vários lugares: a escolha passa a ser onde ela soa melhor, não onde ela está.",
           key: "u12.l2.target",
           exercises: [
             {
               id: "u12.l2.target",
               kind: "target",
-              title: "Alvos no desenho 3",
-              goal: "Chegue em cada alvo na troca, no desenho 3.",
-              steps: ["Repare que algumas notas do acorde estão onde estavam no desenho 2: os desenhos se encaixam."],
-              check: "Chegou nos alvos sem voltar para os desenhos 1 e 2?",
+              title: "Alvos no shape 3",
+              goal: "Chegue em cada alvo na troca, no shape 3.",
+              steps: ["Repare que algumas notas do acorde estão onde estavam no shape 2: os shapes se encaixam."],
+              check: "Chegou nos alvos sem voltar para os shapes 1 e 2?",
               base: BASE,
               shape: 3,
               degrees: ["T", "3", "5"],
-              rule: "Só o desenho 3",
+              rule: "Só o shape 3",
             },
           ],
         },
@@ -2875,24 +2875,24 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u24",
-      title: "Vocabulário no desenho 3",
-      skill: "Licks e frases que só existem no desenho 3",
-      takeCheck: "Seus licks saíram do desenho 3, sem voltar para os anteriores?",
+      title: "Vocabulário no shape 3",
+      skill: "Licks e frases que só existem no shape 3",
+      takeCheck: "Seus licks saíram do shape 3, sem voltar para os anteriores?",
       lessons: [
         {
           id: "u24.l1",
-          title: "Licks no desenho 3",
+          title: "Licks no shape 3",
           intro:
-            "No desenho 3, o bend mora no Sol da 3ª corda, casa 12: sobe um tom até o Lá. E o alto do desenho tem o Mi e o Ré da 1ª corda, para frases que soam no agudo sem esforço.",
+            "No shape 3, o bend mora no Sol da 3ª corda, casa 12: sobe um tom até o Lá. E o alto do shape tem o Mi e o Ré da 1ª corda, para frases que soam no agudo sem esforço.",
           key: "u24.l1.echo",
           exercises: [
             {
               id: "u24.l1.echo",
               kind: "echo",
               title: "Bend e agudo",
-              goal: "Tire os dois licks de ouvido, só no desenho 3.",
+              goal: "Tire os dois licks de ouvido, só no shape 3.",
               steps: ["No bend, a nota de chegada é o Lá da casa 14. Toque ela antes, sem bend, e cante.", "Repita cada lick até sair sem pensar."],
-              check: "Toca os dois de memória, sem sair do desenho 3?",
+              check: "Toca os dois de memória, sem sair do shape 3?",
               base: AM_F,
               reveal: "tab",
               phrases: [
@@ -2903,7 +2903,7 @@ export const curriculum: Curriculum = {
                   [4, 12, 2.5, 0.5],
                   [4, 10, 3, 2.5, { vib: "lento" }],
                 ]),
-                phrase("d3k2", "Lick: no alto do desenho 3", 2, [
+                phrase("d3k2", "Lick: no alto do shape 3", 2, [
                   [1, 12, 1, 0.5],
                   [1, 10, 1.5, 0.5],
                   [2, 13, 2, 0.5],
@@ -2917,12 +2917,12 @@ export const curriculum: Curriculum = {
               id: "u24.l1.pr",
               kind: "play-rest",
               title: "Um lick, um silêncio",
-              goal: "Nos compassos de tocar, um dos dois licks do desenho 3, inteiro.",
-              steps: ["Alterne os dois.", "Se a mão voltar para o desenho 2, pare e recomece."],
-              check: "Ficou no desenho 3 o tempo todo?",
+              goal: "Nos compassos de tocar, um dos dois licks do shape 3, inteiro.",
+              steps: ["Alterne os dois.", "Se a mão voltar para o shape 2, pare e recomece."],
+              check: "Ficou no shape 3 o tempo todo?",
               base: AM_F,
               pattern: ["play", "play", "rest", "rest"],
-              rule: "Só o desenho 3",
+              rule: "Só o shape 3",
             },
           ],
         },
@@ -2930,7 +2930,7 @@ export const curriculum: Curriculum = {
           id: "u24.l2",
           title: "Descida e slide",
           intro:
-            "Mais dois licks do desenho 3: uma descida que atravessa o desenho do Dó agudo até o Lá grave, e um slide até o Mi da 1ª corda, a nota mais alta que você usou até agora.",
+            "Mais dois licks do shape 3: uma descida que atravessa o shape do Dó agudo até o Lá grave, e um slide até o Mi da 1ª corda, a nota mais alta que você usou até agora.",
           key: "u24.l2.pr",
           exercises: [
             {
@@ -2943,7 +2943,7 @@ export const curriculum: Curriculum = {
               base: AM_F,
               reveal: "tab",
               phrases: [
-                phrase("d3k3", "Lick: desce o desenho 3", 2, [
+                phrase("d3k3", "Lick: desce o shape 3", 2, [
                   [2, 13, 0.5, 0.5],
                   [2, 10, 1, 0.5],
                   [3, 12, 1.5, 0.5],
@@ -2964,7 +2964,7 @@ export const curriculum: Curriculum = {
               id: "u24.l2.pr",
               kind: "play-rest",
               title: "Os quatro licks",
-              goal: "Nos compassos de tocar, qualquer um dos quatro licks do desenho 3.",
+              goal: "Nos compassos de tocar, qualquer um dos quatro licks do shape 3.",
               steps: ["Não repita o mesmo lick duas vezes seguidas.", "Mude o tempo de entrada de vez em quando."],
               check: "Lembrou dos quatro sem olhar?",
               base: BASE,
@@ -2975,22 +2975,22 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u24.l3",
-          title: "Um solo só no desenho 3",
+          title: "Um solo só no shape 3",
           intro:
-            "Agora o desenho 3 sozinho: primeiro uma conversa curta, depois oito compassos sem sair dele. O que você sabe fazer no desenho 1 vale aqui.",
+            "Agora o shape 3 sozinho: primeiro uma conversa curta, depois oito compassos sem sair dele. O que você sabe fazer no shape 1 vale aqui.",
           key: "u24.l3.take",
           exercises: [
             {
               id: "u24.l3.echo",
               kind: "echo",
-              title: "Uma conversa no desenho 3",
+              title: "Uma conversa no shape 3",
               goal: "Tire a frase de ouvido: a pergunta fica no ar, a resposta pousa.",
               steps: ["A pergunta termina no Ré; a resposta, no Sol, sobre o C."],
               check: "Ouviu onde cada metade termina?",
               base: BASE,
               reveal: "tab",
               phrases: [
-                phrase("d3q1", "Pergunta e resposta no desenho 3", 4, [
+                phrase("d3q1", "Pergunta e resposta no shape 3", 4, [
                   [3, 9, 0.5, 0.5],
                   [3, 12, 1, 0.5],
                   [4, 12, 1.5, 0.5],
@@ -3007,10 +3007,10 @@ export const curriculum: Curriculum = {
             {
               id: "u24.l3.take",
               kind: "take",
-              title: "Oito compassos no desenho 3",
-              goal: "Um solo inteiro sem sair do desenho 3.",
-              steps: ["Use os licks da unidade e as ideias dos outros desenhos.", "Se a mão escapar, volte."],
-              check: "Ficou no desenho 3 os oito compassos, com frases e silêncio?",
+              title: "Oito compassos no shape 3",
+              goal: "Um solo inteiro sem sair do shape 3.",
+              steps: ["Use os licks da unidade e as ideias dos outros shapes.", "Se a mão escapar, volte."],
+              check: "Ficou no shape 3 os oito compassos, com frases e silêncio?",
               base: BASE,
               bars: 8,
               bases: OTHER_BASES,
@@ -3021,24 +3021,24 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u25",
-      title: "Juntar os desenhos 1 a 3",
-      skill: "Andar pelos três desenhos sem pensar em fronteira",
-      takeCheck: "Suas frases passaram pelos três desenhos, sem ficar presas num só?",
+      title: "Juntar os shapes 1 a 3",
+      skill: "Andar pelos três shapes sem pensar em fronteira",
+      takeCheck: "Suas frases passaram pelos três shapes, sem ficar presas num só?",
       lessons: [
         {
           id: "u25.l1",
           title: "Os três juntos",
           intro:
-            "Os desenhos 1, 2 e 3 juntos cobrem da casa 5 à 13. Já não é uma janela: é um pedaço grande do braço, com a mesma escala inteira. Toque os três como se fossem um só.",
+            "Os shapes 1, 2 e 3 juntos cobrem da casa 5 à 13. Já não é uma janela: é um pedaço grande do braço, com a mesma escala inteira. Toque os três como se fossem um só.",
           key: "u25.l1.target",
           exercises: [
             {
               id: "u25.l1.map",
               kind: "map",
-              title: "Os desenhos 1 a 3 juntos",
-              goal: "Suba por uma corda até o fim do desenho 3 e desça pela vizinha.",
-              steps: ["Repare em onde um desenho termina e o outro começa.", "Faça todas as cordas, aos pares."],
-              check: "Atravessou os três desenhos em todas as cordas?",
+              title: "Os shapes 1 a 3 juntos",
+              goal: "Suba por uma corda até o fim do shape 3 e desça pela vizinha.",
+              steps: ["Repare em onde um shape termina e o outro começa.", "Faça todas as cordas, aos pares."],
+              check: "Atravessou os três shapes em todas as cordas?",
               base: VAMP,
               shapes: [1, 2, 3],
               layer: "penta",
@@ -3047,14 +3047,14 @@ export const curriculum: Curriculum = {
             {
               id: "u25.l1.target",
               kind: "target",
-              title: "Alvos nos três desenhos",
-              goal: "Chegue em cada alvo na troca, no desenho mais perto da sua mão.",
+              title: "Alvos nos três shapes",
+              goal: "Chegue em cada alvo na troca, no shape mais perto da sua mão.",
               steps: ["Mude de região de vez em quando: o alvo existe em todos os três."],
-              check: "Usou os três desenhos para chegar nos alvos?",
+              check: "Usou os três shapes para chegar nos alvos?",
               base: BASE,
               shape: [1, 2, 3],
               degrees: ["T", "3", "5"],
-              rule: "Desenhos 1 a 3",
+              rule: "Shapes 1 a 3",
             },
           ],
         },
@@ -3062,16 +3062,16 @@ export const curriculum: Curriculum = {
           id: "u25.l2",
           title: "Frases que atravessam três",
           intro:
-            "Três frases que vão e voltam entre o desenho 3 e os anteriores: uma sobe do 1 até o 3, outra desce do 3 para o 2, e a última anda uma corda só, de casa em casa, passando pelos três.",
+            "Três frases que vão e voltam entre o shape 3 e os anteriores: uma sobe do 1 até o 3, outra desce do 3 para o 2, e a última anda uma corda só, de casa em casa, passando pelos três.",
           key: "u25.l2.pr",
           exercises: [
             {
               id: "u25.l2.echo",
               kind: "echo",
               title: "Três travessias",
-              goal: "Tire as três de ouvido e repare onde cada uma troca de desenho.",
+              goal: "Tire as três de ouvido e repare onde cada uma troca de shape.",
               steps: ["Uma por vez.", "Depois de tirar, toque devagar olhando onde a mão muda de lugar."],
-              check: "Achou o ponto em que cada frase troca de desenho?",
+              check: "Achou o ponto em que cada frase troca de shape?",
               base: AM_F,
               reveal: "tab",
               phrases: [
@@ -3106,13 +3106,13 @@ export const curriculum: Curriculum = {
             {
               id: "u25.l2.pr",
               kind: "play-rest",
-              title: "Três desenhos por frase",
-              goal: "Cada frase passa por pelo menos dois dos três desenhos.",
+              title: "Três shapes por frase",
+              goal: "Cada frase passa por pelo menos dois dos três shapes.",
               steps: ["Uma sobe, a próxima desce.", "De vez em quando, faça uma frase numa corda só, atravessando os três."],
-              check: "As frases atravessaram, sem ficar presas num desenho?",
+              check: "As frases atravessaram, sem ficar presas num shape?",
               base: BASE,
               pattern: ["play", "play", "rest", "rest"],
-              rule: "Toda frase troca de desenho",
+              rule: "Toda frase troca de shape",
             },
           ],
         },
@@ -3120,37 +3120,37 @@ export const curriculum: Curriculum = {
     },
     {
       id: "a8",
-      title: "Arco 7: solo nos desenhos 1 a 3",
-      skill: "Um solo que sai dos desenhos conhecidos, sobe ao 3, atravessa e volta",
+      title: "Arco 7: solo nos shapes 1 a 3",
+      skill: "Um solo que sai dos shapes conhecidos, sobe ao 3, atravessa e volta",
       arc: true,
-      takeCheck: "Seu solo usou os três desenhos, com frases que passaram de um para o outro?",
+      takeCheck: "Seu solo usou os três shapes, com frases que passaram de um para o outro?",
       lessons: [
         {
           id: "a8.l1",
-          title: "Dezesseis compassos em três desenhos",
+          title: "Dezesseis compassos em três shapes",
           intro:
-            "Mais um desenho, mais espaço: dezesseis compassos recomendados. Comece nos desenhos 1 e 2, leve as ideias ao 3, atravesse os três e volte para terminar.",
+            "Mais um shape, mais espaço: dezesseis compassos recomendados. Comece nos shapes 1 e 2, leve as ideias ao 3, atravesse os três e volte para terminar.",
           key: "a8.take",
           exercises: [
             {
               id: "a8.take",
               kind: "take",
-              title: "Solo nos desenhos 1 a 3",
-              goal: "Dezesseis compassos nos desenhos 1 a 3, em quatro partes. Siga a faixa.",
+              title: "Solo nos shapes 1 a 3",
+              goal: "Dezesseis compassos nos shapes 1 a 3, em quatro partes. Siga a faixa.",
               steps: [],
-              check: "Seu solo usou os três desenhos, com frases que passaram de um para o outro?",
+              check: "Seu solo usou os três shapes, com frases que passaram de um para o outro?",
               base: BASE,
               bars: 16,
               arc: [
-                { name: "Nos desenhos 1 e 2", how: "Comece onde você já está em casa." },
-                { name: "No desenho 3", how: "As ideias sobem para o desenho 3." },
-                { name: "Atravessa", how: "Frases que passam pelos três desenhos." },
-                { name: "Pousa", how: "Volte aos desenhos 1 e 2 e termine longo." },
+                { name: "Nos shapes 1 e 2", how: "Comece onde você já está em casa." },
+                { name: "No shape 3", how: "As ideias sobem para o shape 3." },
+                { name: "Atravessa", how: "Frases que passam pelos três shapes." },
+                { name: "Pousa", how: "Volte aos shapes 1 e 2 e termine longo." },
               ],
               bases: OTHER_BASES,
               examples: [
                 phrase("x9", "Exemplo do arco 7", 16, [
-                  // Nos desenhos 1 e 2
+                  // Nos shapes 1 e 2
                   [2, 5, 0.5, 0.5],
                   [2, 8, 1, 0.5],
                   [2, 10, 1.5, 1.5],
@@ -3162,7 +3162,7 @@ export const curriculum: Curriculum = {
                   [3, 7, 12.5, 0.5],
                   [3, 5, 13, 0.5],
                   [4, 5, 13.5, 2],
-                  // No desenho 3
+                  // No shape 3
                   [3, 9, 16.5, 0.5],
                   [3, 12, 17, 0.5],
                   [2, 10, 17.5, 0.5],
@@ -3203,7 +3203,7 @@ export const curriculum: Curriculum = {
                   [4, 5, 60, 3.5, { vib: "lento" }],
                 ]),
                 phrase("x9b", "Exemplo 2 do arco 7", 16, [
-                  // Nos desenhos 1 e 2
+                  // Nos shapes 1 e 2
                   [5, 5, 1, 0.5],
                   [5, 7, 1.5, 0.5],
                   [4, 5, 2, 0.5],
@@ -3216,7 +3216,7 @@ export const curriculum: Curriculum = {
                   [4, 10, 9.5, 2],
                   [4, 7, 12.5, 0.5],
                   [5, 10, 13, 2],
-                  // No desenho 3
+                  // No shape 3
                   [6, 10, 16.5, 0.5],
                   [6, 12, 17, 0.5],
                   [5, 10, 17.5, 0.5],
@@ -3260,24 +3260,24 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u26",
-      title: "Conhecer o desenho 4",
-      skill: "O desenho 4 de cor: onde estão as tônicas e as notas de cada acorde",
-      takeCheck: "Você tocou no desenho 4 sem voltar para os anteriores?",
+      title: "Conhecer o shape 4",
+      skill: "O shape 4 de cor: onde estão as tônicas e as notas de cada acorde",
+      takeCheck: "Você tocou no shape 4 sem voltar para os anteriores?",
       lessons: [
         {
           id: "u26.l1",
-          title: "O desenho 4",
+          title: "O shape 4",
           intro:
-            "O desenho 4 fica nas casas 12 a 15, a partir da oitava do braço. É o desenho 1 uma oitava acima? Não: é outro caminho, com o Ré da 2ª corda pronto para o bend e o Sol agudo da 1ª corda, a nota mais alta do curso até aqui.",
+            "O shape 4 fica nas casas 12 a 15, a partir da oitava do braço. É o shape 1 uma oitava acima? Não: é outro caminho, com o Ré da 2ª corda pronto para o bend e o Sol agudo da 1ª corda, a nota mais alta do curso até aqui.",
           key: "u26.l1.find",
           exercises: [
             {
               id: "u26.l1.map",
               kind: "map",
-              title: "O desenho 4",
-              goal: "Toque o desenho 4 subindo e descendo, devagar, uma nota por tempo.",
+              title: "O shape 4",
+              goal: "Toque o shape 4 subindo e descendo, devagar, uma nota por tempo.",
               steps: ["Diga o nome de cada tônica (Lá) quando passar por ela.", "Depois toque só as tônicas, do grave ao agudo."],
-              check: "Tocou o desenho subindo e descendo sem olhar?",
+              check: "Tocou o shape subindo e descendo sem olhar?",
               base: VAMP,
               shapes: [4],
               layer: "penta",
@@ -3286,7 +3286,7 @@ export const curriculum: Curriculum = {
               id: "u26.l1.root",
               kind: "find",
               title: "Onde estão as tônicas?",
-              goal: "Aponte no braço todas as tônicas (Lá) do desenho 4.",
+              goal: "Aponte no braço todas as tônicas (Lá) do shape 4.",
               steps: ["Um toque errado conta: pense antes."],
               check: "",
               base: VAMP,
@@ -3298,9 +3298,9 @@ export const curriculum: Curriculum = {
               id: "u26.l1.home",
               kind: "play-rest",
               title: "Sempre de volta à tônica",
-              goal: "Improvise no desenho 4 em volta das tônicas. Toda frase termina num Lá.",
-              steps: ["Comece perto de uma tônica, saia dela e volte.", "Use as três tônicas do desenho, não só uma."],
-              check: "Todas as frases terminaram num Lá do desenho 4?",
+              goal: "Improvise no shape 4 em volta das tônicas. Toda frase termina num Lá.",
+              steps: ["Comece perto de uma tônica, saia dela e volte.", "Use as três tônicas do shape, não só uma."],
+              check: "Todas as frases terminaram num Lá do shape 4?",
               base: VAMP,
               pattern: ["play", "play", "rest", "rest"],
               rule: "Toda frase termina no Lá",
@@ -3308,9 +3308,9 @@ export const curriculum: Curriculum = {
             {
               id: "u26.l1.find",
               kind: "find",
-              title: "Ache a nota no desenho 4",
-              goal: "O site pede uma nota de um acorde. Aponte no desenho 4.",
-              steps: ["Responda sem contar casas: lembre do desenho."],
+              title: "Ache a nota no shape 4",
+              goal: "O site pede uma nota de um acorde. Aponte no shape 4.",
+              steps: ["Responda sem contar casas: lembre do shape."],
               check: "",
               base: BASE,
               shape: 4,
@@ -3321,7 +3321,7 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u26.l2",
-          title: "Notas do acorde e alvos no desenho 4",
+          title: "Notas do acorde e alvos no shape 4",
           intro:
             "Os alvos são os mesmos de sempre, em outro lugar: a tônica, a 3ª e a 5ª de cada acorde, agora nas casas 12 a 15.",
           key: "u26.l2.target",
@@ -3329,10 +3329,10 @@ export const curriculum: Curriculum = {
             {
               id: "u26.l2.map",
               kind: "map",
-              title: "As notas do acorde no desenho 4",
-              goal: "Para cada acorde, toque as notas dele dentro do desenho 4.",
+              title: "As notas do acorde no shape 4",
+              goal: "Para cada acorde, toque as notas dele dentro do shape 4.",
               steps: ["Uma nota longa por acorde."],
-              check: "Achou uma nota de cada acorde no desenho 4, no tempo da troca?",
+              check: "Achou uma nota de cada acorde no shape 4, no tempo da troca?",
               base: BASE,
               shapes: [4],
               layer: "chord",
@@ -3340,14 +3340,14 @@ export const curriculum: Curriculum = {
             {
               id: "u26.l2.target",
               kind: "target",
-              title: "Alvos no desenho 4",
-              goal: "Chegue em cada alvo na troca, sem sair do desenho 4.",
+              title: "Alvos no shape 4",
+              goal: "Chegue em cada alvo na troca, sem sair do shape 4.",
               steps: ["Se travar, olhe o braço por uma volta."],
-              check: "Chegou nos alvos sem voltar para o desenho 3?",
+              check: "Chegou nos alvos sem voltar para o shape 3?",
               base: BASE,
               shape: 4,
               degrees: ["T", "3", "5"],
-              rule: "Só o desenho 4",
+              rule: "Só o shape 4",
             },
           ],
         },
@@ -3355,24 +3355,24 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u27",
-      title: "Vocabulário no desenho 4",
-      skill: "Licks e frases que só existem no desenho 4",
-      takeCheck: "Seus licks saíram do desenho 4, sem voltar para os anteriores?",
+      title: "Vocabulário no shape 4",
+      skill: "Licks e frases que só existem no shape 4",
+      takeCheck: "Seus licks saíram do shape 4, sem voltar para os anteriores?",
       lessons: [
         {
           id: "u27.l1",
-          title: "Licks no desenho 4",
+          title: "Licks no shape 4",
           intro:
-            "O desenho 4 é o agudo do braço. O bend dele mora no Ré da 2ª corda, casa 15, subindo até o Mi. E o topo do desenho tem o Sol da 1ª corda, que deixa a frase brilhar.",
+            "O shape 4 é o agudo do braço. O bend dele mora no Ré da 2ª corda, casa 15, subindo até o Mi. E o topo do shape tem o Sol da 1ª corda, que deixa a frase brilhar.",
           key: "u27.l1.echo",
           exercises: [
             {
               id: "u27.l1.echo",
               kind: "echo",
               title: "Bend e topo",
-              goal: "Tire os dois licks de ouvido, só no desenho 4.",
+              goal: "Tire os dois licks de ouvido, só no shape 4.",
               steps: ["No bend, a nota de chegada é o Mi da 1ª corda, casa 12. Toque ela antes e cante.", "Repita cada lick até sair sem pensar."],
-              check: "Toca os dois de memória, sem sair do desenho 4?",
+              check: "Toca os dois de memória, sem sair do shape 4?",
               base: AM_F,
               reveal: "tab",
               phrases: [
@@ -3384,7 +3384,7 @@ export const curriculum: Curriculum = {
                   [3, 12, 3, 0.5],
                   [3, 14, 3.5, 2.5, { vib: "lento" }],
                 ]),
-                phrase("d4k2", "Lick: no topo do desenho 4", 2, [
+                phrase("d4k2", "Lick: no topo do shape 4", 2, [
                   [1, 12, 1, 0.5],
                   [1, 15, 1.5, 0.5],
                   [1, 12, 2, 0.5],
@@ -3397,12 +3397,12 @@ export const curriculum: Curriculum = {
               id: "u27.l1.pr",
               kind: "play-rest",
               title: "Um lick, um silêncio",
-              goal: "Nos compassos de tocar, um dos dois licks do desenho 4, inteiro.",
-              steps: ["Alterne os dois.", "Se a mão voltar para o desenho 3, pare e recomece."],
-              check: "Ficou no desenho 4 o tempo todo?",
+              goal: "Nos compassos de tocar, um dos dois licks do shape 4, inteiro.",
+              steps: ["Alterne os dois.", "Se a mão voltar para o shape 3, pare e recomece."],
+              check: "Ficou no shape 4 o tempo todo?",
               base: AM_F,
               pattern: ["play", "play", "rest", "rest"],
-              rule: "Só o desenho 4",
+              rule: "Só o shape 4",
             },
           ],
         },
@@ -3410,7 +3410,7 @@ export const curriculum: Curriculum = {
           id: "u27.l2",
           title: "Descida e cordas graves",
           intro:
-            "Mais dois licks do desenho 4: uma descida longa do Ré agudo até o Lá, e uma subida nas cordas graves, que no desenho 4 já soam mais claras que no desenho 1.",
+            "Mais dois licks do shape 4: uma descida longa do Ré agudo até o Lá, e uma subida nas cordas graves, que no shape 4 já soam mais claras que no shape 1.",
           key: "u27.l2.pr",
           exercises: [
             {
@@ -3419,11 +3419,11 @@ export const curriculum: Curriculum = {
               title: "Descida e graves",
               goal: "Tire os dois licks de ouvido.",
               steps: ["A descida tem oito notas: toque devagar até a mão decorar o caminho."],
-              check: "Os dois saíram no tempo, sem sair do desenho 4?",
+              check: "Os dois saíram no tempo, sem sair do shape 4?",
               base: AM_F,
               reveal: "tab",
               phrases: [
-                phrase("d4k3", "Lick: desce o desenho 4", 2, [
+                phrase("d4k3", "Lick: desce o shape 4", 2, [
                   [2, 15, 0.5, 0.5],
                   [2, 13, 1, 0.5],
                   [3, 14, 1.5, 0.5],
@@ -3433,7 +3433,7 @@ export const curriculum: Curriculum = {
                   [5, 15, 3.5, 0.5],
                   [5, 12, 4, 2, { vib: "lento" }],
                 ]),
-                phrase("d4k4", "Lick: graves do desenho 4", 2, [
+                phrase("d4k4", "Lick: graves do shape 4", 2, [
                   [6, 12, 0.5, 0.5],
                   [6, 15, 1, 0.5],
                   [5, 12, 1.5, 0.5],
@@ -3447,7 +3447,7 @@ export const curriculum: Curriculum = {
               id: "u27.l2.pr",
               kind: "play-rest",
               title: "Os quatro licks",
-              goal: "Nos compassos de tocar, qualquer um dos quatro licks do desenho 4.",
+              goal: "Nos compassos de tocar, qualquer um dos quatro licks do shape 4.",
               steps: ["Não repita o mesmo lick duas vezes seguidas.", "Mude o tempo de entrada de vez em quando."],
               check: "Lembrou dos quatro sem olhar?",
               base: BASE,
@@ -3458,22 +3458,22 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u27.l3",
-          title: "Um solo só no desenho 4",
+          title: "Um solo só no shape 4",
           intro:
-            "O desenho 4 sozinho: uma conversa curta e oito compassos sem sair dele. No agudo, menos notas soam mais: deixe espaço.",
+            "O shape 4 sozinho: uma conversa curta e oito compassos sem sair dele. No agudo, menos notas soam mais: deixe espaço.",
           key: "u27.l3.take",
           exercises: [
             {
               id: "u27.l3.echo",
               kind: "echo",
-              title: "Uma conversa no desenho 4",
+              title: "Uma conversa no shape 4",
               goal: "Tire a frase de ouvido: a pergunta fica no ar, a resposta pousa.",
               steps: ["A pergunta termina no Ré; a resposta, no Mi agudo, sobre o C."],
               check: "Ouviu onde cada metade termina?",
               base: BASE,
               reveal: "tab",
               phrases: [
-                phrase("d4q1", "Pergunta e resposta no desenho 4", 4, [
+                phrase("d4q1", "Pergunta e resposta no shape 4", 4, [
                   [3, 12, 0.5, 0.5],
                   [3, 14, 1, 0.5],
                   [2, 13, 1.5, 0.5],
@@ -3488,10 +3488,10 @@ export const curriculum: Curriculum = {
             {
               id: "u27.l3.take",
               kind: "take",
-              title: "Oito compassos no desenho 4",
-              goal: "Um solo inteiro sem sair do desenho 4.",
-              steps: ["Use os licks da unidade e as ideias dos outros desenhos.", "Se a mão escapar, volte."],
-              check: "Ficou no desenho 4 os oito compassos, com frases e silêncio?",
+              title: "Oito compassos no shape 4",
+              goal: "Um solo inteiro sem sair do shape 4.",
+              steps: ["Use os licks da unidade e as ideias dos outros shapes.", "Se a mão escapar, volte."],
+              check: "Ficou no shape 4 os oito compassos, com frases e silêncio?",
               base: BASE,
               bars: 8,
               bases: OTHER_BASES,
@@ -3502,24 +3502,24 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u28",
-      title: "Juntar os desenhos 1 a 4",
-      skill: "Andar pelos quatro desenhos, do meio do braço até o agudo",
-      takeCheck: "Suas frases chegaram ao desenho 4 e voltaram, sem ficar presas num desenho?",
+      title: "Juntar os shapes 1 a 4",
+      skill: "Andar pelos quatro shapes, do meio do braço até o agudo",
+      takeCheck: "Suas frases chegaram ao shape 4 e voltaram, sem ficar presas num shape?",
       lessons: [
         {
           id: "u28.l1",
           title: "Os quatro juntos",
           intro:
-            "Os desenhos 1 a 4 juntos vão da casa 5 à 15: quase todo o braço útil. Repare que, a partir daqui, cada nota aparece em vários lugares: escolher onde tocar vira parte do som.",
+            "Os shapes 1 a 4 juntos vão da casa 5 à 15: quase todo o braço útil. Repare que, a partir daqui, cada nota aparece em vários lugares: escolher onde tocar vira parte do som.",
           key: "u28.l1.target",
           exercises: [
             {
               id: "u28.l1.map",
               kind: "map",
-              title: "Os desenhos 1 a 4 juntos",
-              goal: "Suba por uma corda do desenho 1 ao 4 e desça pela vizinha.",
+              title: "Os shapes 1 a 4 juntos",
+              goal: "Suba por uma corda do shape 1 ao 4 e desça pela vizinha.",
               steps: ["Faça todas as cordas, aos pares.", "Diga o nome das tônicas ao passar por elas."],
-              check: "Atravessou os quatro desenhos em todas as cordas?",
+              check: "Atravessou os quatro shapes em todas as cordas?",
               base: VAMP,
               shapes: [1, 2, 3, 4],
               layer: "penta",
@@ -3528,14 +3528,14 @@ export const curriculum: Curriculum = {
             {
               id: "u28.l1.target",
               kind: "target",
-              title: "Alvos nos quatro desenhos",
-              goal: "Chegue em cada alvo na troca, no desenho mais perto da sua mão.",
+              title: "Alvos nos quatro shapes",
+              goal: "Chegue em cada alvo na troca, no shape mais perto da sua mão.",
               steps: ["Mude de região de vez em quando: o alvo existe em todos."],
-              check: "Usou os quatro desenhos para chegar nos alvos?",
+              check: "Usou os quatro shapes para chegar nos alvos?",
               base: BASE,
               shape: [1, 2, 3, 4],
               degrees: ["T", "3", "5"],
-              rule: "Desenhos 1 a 4",
+              rule: "Shapes 1 a 4",
             },
           ],
         },
@@ -3543,16 +3543,16 @@ export const curriculum: Curriculum = {
           id: "u28.l2",
           title: "Frases que chegam ao agudo",
           intro:
-            "Três frases entre o desenho 4 e os anteriores: uma sobe do 3 ao 4, outra desce do topo do braço até o desenho 2, e a última anda a 3ª corda de casa em casa, passando pelos quatro.",
+            "Três frases entre o shape 4 e os anteriores: uma sobe do 3 ao 4, outra desce do topo do braço até o shape 2, e a última anda a 3ª corda de casa em casa, passando pelos quatro.",
           key: "u28.l2.pr",
           exercises: [
             {
               id: "u28.l2.echo",
               kind: "echo",
               title: "Três travessias",
-              goal: "Tire as três de ouvido e repare onde cada uma troca de desenho.",
+              goal: "Tire as três de ouvido e repare onde cada uma troca de shape.",
               steps: ["Uma por vez.", "Depois de tirar, toque devagar olhando onde a mão muda de lugar."],
-              check: "Achou o ponto em que cada frase troca de desenho?",
+              check: "Achou o ponto em que cada frase troca de shape?",
               base: AM_F,
               reveal: "tab",
               phrases: [
@@ -3590,12 +3590,12 @@ export const curriculum: Curriculum = {
               id: "u28.l2.pr",
               kind: "play-rest",
               title: "Do meio ao agudo",
-              goal: "Cada frase passa por pelo menos dois desenhos, e uma em cada duas chega ao desenho 4.",
+              goal: "Cada frase passa por pelo menos dois shapes, e uma em cada duas chega ao shape 4.",
               steps: ["Uma sobe, a próxima desce."],
-              check: "As frases atravessaram, e o desenho 4 apareceu?",
+              check: "As frases atravessaram, e o shape 4 apareceu?",
               base: BASE,
               pattern: ["play", "play", "rest", "rest"],
-              rule: "Toda frase troca de desenho",
+              rule: "Toda frase troca de shape",
             },
           ],
         },
@@ -3603,37 +3603,37 @@ export const curriculum: Curriculum = {
     },
     {
       id: "a9",
-      title: "Arco 8: solo nos desenhos 1 a 4",
+      title: "Arco 8: solo nos shapes 1 a 4",
       skill: "Um solo que vai do meio do braço ao agudo e volta",
       arc: true,
-      takeCheck: "Seu solo chegou ao desenho 4 e voltou, com frases que atravessaram?",
+      takeCheck: "Seu solo chegou ao shape 4 e voltou, com frases que atravessaram?",
       lessons: [
         {
           id: "a9.l1",
-          title: "Vinte compassos em quatro desenhos",
+          title: "Vinte compassos em quatro shapes",
           intro:
-            "Vinte compassos recomendados, em quatro partes de cinco: comece nos desenhos que você já tem, suba ao 4, atravesse e volte para terminar. Cinco compassos por parte dão espaço para respirar.",
+            "Vinte compassos recomendados, em quatro partes de cinco: comece nos shapes que você já tem, suba ao 4, atravesse e volte para terminar. Cinco compassos por parte dão espaço para respirar.",
           key: "a9.take",
           exercises: [
             {
               id: "a9.take",
               kind: "take",
-              title: "Solo nos desenhos 1 a 4",
-              goal: "Vinte compassos nos desenhos 1 a 4, em quatro partes. Siga a faixa.",
+              title: "Solo nos shapes 1 a 4",
+              goal: "Vinte compassos nos shapes 1 a 4, em quatro partes. Siga a faixa.",
               steps: [],
-              check: "Seu solo chegou ao desenho 4 e voltou, com frases que atravessaram?",
+              check: "Seu solo chegou ao shape 4 e voltou, com frases que atravessaram?",
               base: BASE,
               bars: 20,
               arc: [
-                { name: "Nos desenhos 1 a 3", how: "Comece pelos três desenhos que você já tem." },
-                { name: "No desenho 4", how: "As ideias sobem para o desenho 4." },
-                { name: "Atravessa", how: "Frases que passam do desenho 4 aos outros." },
-                { name: "Pousa", how: "Volte aos desenhos de antes e termine longo." },
+                { name: "Nos shapes 1 a 3", how: "Comece pelos três shapes que você já tem." },
+                { name: "No shape 4", how: "As ideias sobem para o shape 4." },
+                { name: "Atravessa", how: "Frases que passam do shape 4 aos outros." },
+                { name: "Pousa", how: "Volte aos shapes de antes e termine longo." },
               ],
               bases: OTHER_BASES,
               examples: [
                 phrase("x10", "Exemplo do arco 8", 20, [
-                  // Nos desenhos 1 a 3
+                  // Nos shapes 1 a 3
                   [3, 9, 0.5, 0.5],
                   [3, 12, 1, 0.5],
                   [2, 10, 1.5, 1.5],
@@ -3646,7 +3646,7 @@ export const curriculum: Curriculum = {
                   [4, 10, 13, 0.5],
                   [4, 12, 13.5, 2],
                   [2, 10, 17, 2],
-                  // No desenho 4
+                  // No shape 4
                   [3, 12, 20.5, 0.5],
                   [3, 14, 21, 0.5],
                   [2, 13, 21.5, 2],
@@ -3687,7 +3687,7 @@ export const curriculum: Curriculum = {
                   [5, 10, 76, 3.5, { vib: "lento" }],
                 ]),
                 phrase("x10b", "Exemplo 2 do arco 8", 20, [
-                  // Nos desenhos 1 a 3
+                  // Nos shapes 1 a 3
                   [5, 7, 1, 0.5],
                   [5, 10, 1.5, 0.5],
                   [5, 12, 2, 1.5],
@@ -3699,7 +3699,7 @@ export const curriculum: Curriculum = {
                   [3, 9, 12.5, 0.5],
                   [4, 12, 13, 2],
                   [3, 9, 16.5, 2],
-                  // No desenho 4
+                  // No shape 4
                   [6, 12, 20.5, 0.5],
                   [6, 15, 21, 0.5],
                   [5, 12, 21.5, 2],
@@ -3744,24 +3744,24 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u29",
-      title: "Conhecer o desenho 5",
-      skill: "O desenho 5 de cor, e os cinco desenhos fechando o ciclo",
-      takeCheck: "Você tocou no desenho 5 sem voltar para os anteriores?",
+      title: "Conhecer o shape 5",
+      skill: "O shape 5 de cor, e os cinco shapes fechando o ciclo",
+      takeCheck: "Você tocou no shape 5 sem voltar para os anteriores?",
       lessons: [
         {
           id: "u29.l1",
-          title: "O desenho 5",
+          title: "O shape 5",
           intro:
-            "O desenho 5 fecha o ciclo. Em Lá menor ele fica nas casas 2 a 5, logo abaixo do desenho 1, e se repete doze casas acima, depois do desenho 4. Com ele, a pentatônica cobre o braço inteiro.",
+            "O shape 5 fecha o ciclo. Em Lá menor ele fica nas casas 2 a 5, logo abaixo do shape 1, e se repete doze casas acima, depois do shape 4. Com ele, a pentatônica cobre o braço inteiro.",
           key: "u29.l1.find",
           exercises: [
             {
               id: "u29.l1.map",
               kind: "map",
-              title: "O desenho 5",
-              goal: "Toque o desenho 5 subindo e descendo, devagar, uma nota por tempo.",
+              title: "O shape 5",
+              goal: "Toque o shape 5 subindo e descendo, devagar, uma nota por tempo.",
               steps: ["Diga o nome de cada tônica (Lá) quando passar por ela.", "Depois toque só as tônicas, do grave ao agudo."],
-              check: "Tocou o desenho subindo e descendo sem olhar?",
+              check: "Tocou o shape subindo e descendo sem olhar?",
               base: VAMP,
               shapes: [5],
               layer: "penta",
@@ -3770,7 +3770,7 @@ export const curriculum: Curriculum = {
               id: "u29.l1.root",
               kind: "find",
               title: "Onde estão as tônicas?",
-              goal: "Aponte no braço todas as tônicas (Lá) do desenho 5.",
+              goal: "Aponte no braço todas as tônicas (Lá) do shape 5.",
               steps: ["Um toque errado conta: pense antes."],
               check: "",
               base: VAMP,
@@ -3782,9 +3782,9 @@ export const curriculum: Curriculum = {
               id: "u29.l1.home",
               kind: "play-rest",
               title: "Sempre de volta à tônica",
-              goal: "Improvise no desenho 5 em volta das tônicas. Toda frase termina num Lá.",
-              steps: ["Comece perto de uma tônica, saia dela e volte.", "Use as três tônicas do desenho, não só uma."],
-              check: "Todas as frases terminaram num Lá do desenho 5?",
+              goal: "Improvise no shape 5 em volta das tônicas. Toda frase termina num Lá.",
+              steps: ["Comece perto de uma tônica, saia dela e volte.", "Use as três tônicas do shape, não só uma."],
+              check: "Todas as frases terminaram num Lá do shape 5?",
               base: VAMP,
               pattern: ["play", "play", "rest", "rest"],
               rule: "Toda frase termina no Lá",
@@ -3792,9 +3792,9 @@ export const curriculum: Curriculum = {
             {
               id: "u29.l1.find",
               kind: "find",
-              title: "Ache a nota no desenho 5",
-              goal: "O site pede uma nota de um acorde. Aponte no desenho 5.",
-              steps: ["Responda sem contar casas: lembre do desenho."],
+              title: "Ache a nota no shape 5",
+              goal: "O site pede uma nota de um acorde. Aponte no shape 5.",
+              steps: ["Responda sem contar casas: lembre do shape."],
               check: "",
               base: BASE,
               shape: 5,
@@ -3805,18 +3805,18 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u12.l4",
-          title: "Desenhos 4 e 5",
+          title: "Shapes 4 e 5",
           intro:
-            "Os dois últimos lado a lado, agora com as notas de cada acorde: o desenho 4, nas casas agudas, e o 5, encostado no 1 por baixo, que reaparece doze casas adiante. Com os cinco, não sobra região do braço sem as notas do acorde.",
+            "Os dois últimos lado a lado, agora com as notas de cada acorde: o shape 4, nas casas agudas, e o 5, encostado no 1 por baixo, que reaparece doze casas adiante. Com os cinco, não sobra região do braço sem as notas do acorde.",
           key: "u12.l4.t4",
           exercises: [
             {
               id: "u12.l4.map",
               kind: "map",
-              title: "As notas do acorde nos desenhos 4 e 5",
-              goal: "Para cada acorde, toque as notas dele dentro do desenho 4. Depois, dentro do desenho 5.",
-              steps: ["Uma nota longa por acorde.", "Ache as tônicas de cada desenho antes de ligar a base."],
-              check: "Achou uma nota de cada acorde nos dois desenhos, no tempo da troca?",
+              title: "As notas do acorde nos shapes 4 e 5",
+              goal: "Para cada acorde, toque as notas dele dentro do shape 4. Depois, dentro do shape 5.",
+              steps: ["Uma nota longa por acorde.", "Ache as tônicas de cada shape antes de ligar a base."],
+              check: "Achou uma nota de cada acorde nos dois shapes, no tempo da troca?",
               base: BASE,
               shapes: [4, 5],
               layer: "chord",
@@ -3824,26 +3824,26 @@ export const curriculum: Curriculum = {
             {
               id: "u12.l4.t4",
               kind: "target",
-              title: "Alvos no desenho 4",
-              goal: "Chegue em cada alvo na troca, sem sair do desenho 4.",
+              title: "Alvos no shape 4",
+              goal: "Chegue em cada alvo na troca, sem sair do shape 4.",
               steps: ["Se travar, olhe o braço por uma volta."],
-              check: "Chegou nos alvos sem descer para o desenho 3?",
+              check: "Chegou nos alvos sem descer para o shape 3?",
               base: BASE,
               shape: 4,
               degrees: ["T", "3", "5"],
-              rule: "Só o desenho 4",
+              rule: "Só o shape 4",
             },
             {
               id: "u12.l4.t5",
               kind: "target",
-              title: "Alvos no desenho 5",
-              goal: "Chegue em cada alvo na troca, sem sair do desenho 5.",
-              steps: ["As casas mais agudas do desenho 5 são as mais graves do desenho 1."],
-              check: "Chegou nos alvos sem subir para o desenho 1?",
+              title: "Alvos no shape 5",
+              goal: "Chegue em cada alvo na troca, sem sair do shape 5.",
+              steps: ["As casas mais agudas do shape 5 são as mais graves do shape 1."],
+              check: "Chegou nos alvos sem subir para o shape 1?",
               base: BASE,
               shape: 5,
               degrees: ["T", "3", "5"],
-              rule: "Só o desenho 5",
+              rule: "Só o shape 5",
             },
           ],
         },
@@ -3851,24 +3851,24 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u30",
-      title: "Vocabulário no desenho 5",
-      skill: "Licks e frases que só existem no desenho 5",
-      takeCheck: "Seus licks saíram do desenho 5, sem voltar para os anteriores?",
+      title: "Vocabulário no shape 5",
+      skill: "Licks e frases que só existem no shape 5",
+      takeCheck: "Seus licks saíram do shape 5, sem voltar para os anteriores?",
       lessons: [
         {
           id: "u30.l1",
-          title: "Licks no desenho 5",
+          title: "Licks no shape 5",
           intro:
-            "O desenho 5 é o mais grave dos cinco em Lá menor, e soa mais escuro. O bend dele mora no Ré da 2ª corda, casa 3, subindo até o Mi. E a descida passa por cordas soltas de perto, o que dá um peso bom às frases.",
+            "O shape 5 é o mais grave dos cinco em Lá menor, e soa mais escuro. O bend dele mora no Ré da 2ª corda, casa 3, subindo até o Mi. E a descida passa por cordas soltas de perto, o que dá um peso bom às frases.",
           key: "u30.l1.echo",
           exercises: [
             {
               id: "u30.l1.echo",
               kind: "echo",
               title: "Bend e descida",
-              goal: "Tire os dois licks de ouvido, só no desenho 5.",
+              goal: "Tire os dois licks de ouvido, só no shape 5.",
               steps: ["No bend, a nota de chegada é o Mi da casa 5. Toque ela antes, sem bend, e cante.", "Repita cada lick até sair sem pensar."],
-              check: "Toca os dois de memória, sem sair do desenho 5?",
+              check: "Toca os dois de memória, sem sair do shape 5?",
               base: AM_F,
               reveal: "tab",
               phrases: [
@@ -3880,7 +3880,7 @@ export const curriculum: Curriculum = {
                   [4, 5, 3, 0.5],
                   [3, 2, 3.5, 2.5, { vib: "lento" }],
                 ]),
-                phrase("d5k2", "Lick: desce o desenho 5", 2, [
+                phrase("d5k2", "Lick: desce o shape 5", 2, [
                   [1, 5, 1, 0.5],
                   [1, 3, 1.5, 0.5],
                   [2, 5, 2, 0.5],
@@ -3895,12 +3895,12 @@ export const curriculum: Curriculum = {
               id: "u30.l1.pr",
               kind: "play-rest",
               title: "Um lick, um silêncio",
-              goal: "Nos compassos de tocar, um dos dois licks do desenho 5, inteiro.",
-              steps: ["Alterne os dois.", "Se a mão subir para o desenho 1, pare e recomece."],
-              check: "Ficou no desenho 5 o tempo todo?",
+              goal: "Nos compassos de tocar, um dos dois licks do shape 5, inteiro.",
+              steps: ["Alterne os dois.", "Se a mão subir para o shape 1, pare e recomece."],
+              check: "Ficou no shape 5 o tempo todo?",
               base: AM_F,
               pattern: ["play", "play", "rest", "rest"],
-              rule: "Só o desenho 5",
+              rule: "Só o shape 5",
             },
           ],
         },
@@ -3908,7 +3908,7 @@ export const curriculum: Curriculum = {
           id: "u30.l2",
           title: "Slide e cordas graves",
           intro:
-            "Mais dois licks do desenho 5: um slide longo na 3ª corda, do Lá até o Dó, e uma subida pelas cordas graves, que neste desenho chegam no Sol mais grave do curso.",
+            "Mais dois licks do shape 5: um slide longo na 3ª corda, do Lá até o Dó, e uma subida pelas cordas graves, que neste shape chegam no Sol mais grave do curso.",
           key: "u30.l2.pr",
           exercises: [
             {
@@ -3927,7 +3927,7 @@ export const curriculum: Curriculum = {
                   [2, 3, 2.5, 0.5],
                   [2, 5, 3, 2.5, { vib: "lento" }],
                 ]),
-                phrase("d5k4", "Lick: graves do desenho 5", 2, [
+                phrase("d5k4", "Lick: graves do shape 5", 2, [
                   [6, 3, 0.5, 0.5],
                   [6, 5, 1, 0.5],
                   [5, 3, 1.5, 0.5],
@@ -3940,7 +3940,7 @@ export const curriculum: Curriculum = {
               id: "u30.l2.pr",
               kind: "play-rest",
               title: "Os quatro licks",
-              goal: "Nos compassos de tocar, qualquer um dos quatro licks do desenho 5.",
+              goal: "Nos compassos de tocar, qualquer um dos quatro licks do shape 5.",
               steps: ["Não repita o mesmo lick duas vezes seguidas.", "Mude o tempo de entrada de vez em quando."],
               check: "Lembrou dos quatro sem olhar?",
               base: BASE,
@@ -3951,22 +3951,22 @@ export const curriculum: Curriculum = {
         },
         {
           id: "u30.l3",
-          title: "Um solo só no desenho 5",
+          title: "Um solo só no shape 5",
           intro:
-            "O desenho 5 sozinho: uma conversa curta e oito compassos sem sair dele. É o último desenho a fundo do curso.",
+            "O shape 5 sozinho: uma conversa curta e oito compassos sem sair dele. É o último shape a fundo do curso.",
           key: "u30.l3.take",
           exercises: [
             {
               id: "u30.l3.echo",
               kind: "echo",
-              title: "Uma conversa no desenho 5",
+              title: "Uma conversa no shape 5",
               goal: "Tire a frase de ouvido: a pergunta fica no ar, a resposta pousa.",
               steps: ["A pergunta termina no Ré; a resposta, no Sol, sobre o C."],
               check: "Ouviu onde cada metade termina?",
               base: BASE,
               reveal: "tab",
               phrases: [
-                phrase("d5q1", "Pergunta e resposta no desenho 5", 4, [
+                phrase("d5q1", "Pergunta e resposta no shape 5", 4, [
                   [2, 3, 0.5, 0.5],
                   [2, 5, 1, 0.5],
                   [1, 3, 1.5, 0.5],
@@ -3983,10 +3983,10 @@ export const curriculum: Curriculum = {
             {
               id: "u30.l3.take",
               kind: "take",
-              title: "Oito compassos no desenho 5",
-              goal: "Um solo inteiro sem sair do desenho 5.",
-              steps: ["Use os licks da unidade e as ideias dos outros desenhos.", "Se a mão escapar, volte."],
-              check: "Ficou no desenho 5 os oito compassos, com frases e silêncio?",
+              title: "Oito compassos no shape 5",
+              goal: "Um solo inteiro sem sair do shape 5.",
+              steps: ["Use os licks da unidade e as ideias dos outros shapes.", "Se a mão escapar, volte."],
+              check: "Ficou no shape 5 os oito compassos, com frases e silêncio?",
               base: BASE,
               bars: 8,
               bases: OTHER_BASES,
@@ -3997,22 +3997,22 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u31",
-      title: "Juntar os cinco desenhos",
-      skill: "A pentatônica no braço inteiro, sem fronteira entre desenhos",
-      takeCheck: "Suas frases passaram pelo desenho 5 e pelos outros, sem ficar presas num só?",
+      title: "Juntar os cinco shapes",
+      skill: "A pentatônica no braço inteiro, sem fronteira entre shapes",
+      takeCheck: "Suas frases passaram pelo shape 5 e pelos outros, sem ficar presas num só?",
       lessons: [
         {
           id: "u31.l1",
           title: "Os cinco juntos",
           intro:
-            "Com os cinco desenhos juntos, a pentatônica cobre o braço todo: em Lá menor, da casa 2 à 15, e depois tudo se repete doze casas acima. Já não existe desenho: existe a escala, e você escolhe onde tocar cada nota.",
+            "Com os cinco shapes juntos, a pentatônica cobre o braço todo: em Lá menor, da casa 2 à 15, e depois tudo se repete doze casas acima. Já não existe shape: existe a escala, e você escolhe onde tocar cada nota.",
           key: "u31.l1.target",
           exercises: [
             {
               id: "u31.l1.map",
               kind: "map",
-              title: "Os cinco desenhos juntos",
-              goal: "Suba por uma corda do desenho 5 ao 4 e desça pela vizinha.",
+              title: "Os cinco shapes juntos",
+              goal: "Suba por uma corda do shape 5 ao 4 e desça pela vizinha.",
               steps: ["Faça todas as cordas, aos pares.", "Diga o nome das tônicas ao passar por elas."],
               check: "Atravessou o braço em todas as cordas?",
               base: VAMP,
@@ -4024,13 +4024,13 @@ export const curriculum: Curriculum = {
               id: "u31.l1.target",
               kind: "target",
               title: "Alvos no braço inteiro",
-              goal: "Chegue em cada alvo na troca, em qualquer desenho.",
+              goal: "Chegue em cada alvo na troca, em qualquer shape.",
               steps: ["Mude de região a cada volta da base."],
               check: "Usou o braço inteiro para chegar nos alvos?",
               base: BASE,
               shape: [1, 2, 3, 4, 5],
               degrees: ["T", "3", "5"],
-              rule: "Os cinco desenhos",
+              rule: "Os cinco shapes",
             },
           ],
         },
@@ -4038,16 +4038,16 @@ export const curriculum: Curriculum = {
           id: "u31.l2",
           title: "Frases que fecham o ciclo",
           intro:
-            "Três frases entre o desenho 5 e os vizinhos dele: uma sobe do 5 ao 1, outra desce do 1 ao 5, e a última anda a 4ª corda de casa em casa, do desenho 5 ao 2.",
+            "Três frases entre o shape 5 e os vizinhos dele: uma sobe do 5 ao 1, outra desce do 1 ao 5, e a última anda a 4ª corda de casa em casa, do shape 5 ao 2.",
           key: "u31.l2.pr",
           exercises: [
             {
               id: "u31.l2.echo",
               kind: "echo",
               title: "Três travessias",
-              goal: "Tire as três de ouvido e repare onde cada uma troca de desenho.",
+              goal: "Tire as três de ouvido e repare onde cada uma troca de shape.",
               steps: ["Uma por vez.", "Depois de tirar, toque devagar olhando onde a mão muda de lugar."],
-              check: "Achou o ponto em que cada frase troca de desenho?",
+              check: "Achou o ponto em que cada frase troca de shape?",
               base: AM_F,
               reveal: "tab",
               phrases: [
@@ -4085,12 +4085,12 @@ export const curriculum: Curriculum = {
               id: "u31.l2.pr",
               kind: "play-rest",
               title: "O braço inteiro",
-              goal: "Cada frase passa por pelo menos dois desenhos. A cada volta da base, comece numa região diferente.",
+              goal: "Cada frase passa por pelo menos dois shapes. A cada volta da base, comece numa região diferente.",
               steps: ["Uma volta no grave, uma no meio, uma no agudo."],
               check: "As frases atravessaram, e você usou o braço inteiro?",
               base: BASE,
               pattern: ["play", "play", "rest", "rest"],
-              rule: "Toda frase troca de desenho",
+              rule: "Toda frase troca de shape",
             },
           ],
         },
@@ -4098,37 +4098,37 @@ export const curriculum: Curriculum = {
     },
     {
       id: "a10",
-      title: "Arco 9: solo nos cinco desenhos",
+      title: "Arco 9: solo nos cinco shapes",
       skill: "Um solo que usa a pentatônica no braço inteiro",
       arc: true,
-      takeCheck: "Seu solo desceu ao desenho 5 e voltou, com frases que atravessaram?",
+      takeCheck: "Seu solo desceu ao shape 5 e voltou, com frases que atravessaram?",
       lessons: [
         {
           id: "a10.l1",
-          title: "Vinte e quatro compassos nos cinco desenhos",
+          title: "Vinte e quatro compassos nos cinco shapes",
           intro:
-            "O último arco dos desenhos: vinte e quatro compassos recomendados, em quatro partes de seis. Comece no meio do braço, desça ao desenho 5, atravesse e volte para terminar. Se quiser mais espaço, escolha mais compassos.",
+            "O último arco dos shapes: vinte e quatro compassos recomendados, em quatro partes de seis. Comece no meio do braço, desça ao shape 5, atravesse e volte para terminar. Se quiser mais espaço, escolha mais compassos.",
           key: "a10.take",
           exercises: [
             {
               id: "a10.take",
               kind: "take",
-              title: "Solo nos cinco desenhos",
-              goal: "Vinte e quatro compassos com os cinco desenhos, em quatro partes. Siga a faixa.",
+              title: "Solo nos cinco shapes",
+              goal: "Vinte e quatro compassos com os cinco shapes, em quatro partes. Siga a faixa.",
               steps: [],
-              check: "Seu solo desceu ao desenho 5 e voltou, com frases que atravessaram?",
+              check: "Seu solo desceu ao shape 5 e voltou, com frases que atravessaram?",
               base: BASE,
               bars: 24,
               arc: [
-                { name: "Nos desenhos 1 a 4", how: "Comece no meio do braço, onde você já mora." },
-                { name: "No desenho 5", how: "As ideias descem para o desenho 5." },
-                { name: "Atravessa", how: "Frases que passam do desenho 5 aos outros." },
-                { name: "Pousa", how: "Volte aos desenhos de antes e termine longo." },
+                { name: "Nos shapes 1 a 4", how: "Comece no meio do braço, onde você já mora." },
+                { name: "No shape 5", how: "As ideias descem para o shape 5." },
+                { name: "Atravessa", how: "Frases que passam do shape 5 aos outros." },
+                { name: "Pousa", how: "Volte aos shapes de antes e termine longo." },
               ],
               bases: OTHER_BASES,
               examples: [
                 phrase("x11", "Exemplo do arco 9", 24, [
-                  // Nos desenhos 1 a 4
+                  // Nos shapes 1 a 4
                   [2, 5, 0.5, 0.5],
                   [2, 8, 1, 0.5],
                   [2, 10, 1.5, 1.5],
@@ -4144,7 +4144,7 @@ export const curriculum: Curriculum = {
                   [3, 7, 17, 0.5],
                   [2, 5, 17.5, 2],
                   [1, 5, 20.5, 2],
-                  // No desenho 5
+                  // No shape 5
                   [2, 3, 24.5, 0.5],
                   [2, 5, 25, 2],
                   [1, 3, 28.5, 0.5],
@@ -4196,7 +4196,7 @@ export const curriculum: Curriculum = {
                   [4, 5, 92, 3.5, { vib: "lento" }],
                 ]),
                 phrase("x11b", "Exemplo 2 do arco 9", 24, [
-                  // Nos desenhos 1 a 4
+                  // Nos shapes 1 a 4
                   [5, 5, 1, 0.5],
                   [5, 7, 1.5, 0.5],
                   [4, 5, 2, 0.5],
@@ -4210,7 +4210,7 @@ export const curriculum: Curriculum = {
                   [4, 7, 16.5, 0.5],
                   [4, 10, 17, 2],
                   [4, 7, 20.5, 2],
-                  // No desenho 5
+                  // No shape 5
                   [6, 3, 24.5, 0.5],
                   [6, 5, 25, 0.5],
                   [5, 3, 25.5, 2],
@@ -4264,28 +4264,28 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u32",
-      title: "Rápido nos desenhos 2 e 3",
-      skill: "Semicolcheias limpas nos desenhos 2 e 3, sempre terminando numa nota longa",
-      takeCheck: "Suas frases rápidas ficaram no desenho e terminaram numa nota longa?",
+      title: "Rápido nos shapes 2 e 3",
+      skill: "Semicolcheias limpas nos shapes 2 e 3, sempre terminando numa nota longa",
+      takeCheck: "Suas frases rápidas ficaram no shape e terminaram numa nota longa?",
       lessons: [
         {
           id: "u32.l1",
-          title: "Rápido no desenho 2",
+          title: "Rápido no shape 2",
           intro:
-            "O que você treinou na Velocidade I, agora no desenho 2 (casas 7 a 10). Os dedos mudam de lugar, mas a regra é a mesma: um grupo curto de semicolcheias e uma nota longa do acorde.",
+            "O que você treinou na Velocidade I, agora no shape 2 (casas 7 a 10). Os dedos mudam de lugar, mas a regra é a mesma: um grupo curto de semicolcheias e uma nota longa do acorde.",
           key: "u32.l1.pr",
           exercises: [
             {
               id: "u32.l1.echo",
               kind: "echo",
-              title: "Duas frases rápidas no desenho 2",
+              title: "Duas frases rápidas no shape 2",
               goal: "Repita as duas. Cada uma tem um grupo rápido, uma nota longa, outro grupo e o pouso.",
               steps: ["Comece a 60 bpm. Quando sair limpo três vezes, suba 4 bpm.", "Palhetada alternada nas semicolcheias."],
               check: "As semicolcheias saíram iguais e a nota longa caiu no tempo?",
               base: AM_F_SLOW,
               reveal: "tab",
               phrases: [
-                phrase("r2a", "Desenho 2: desce até o Mi", 2, [
+                phrase("r2a", "Shape 2: desce até o Mi", 2, [
                   [1, 10, 1.0, 0.25],
                   [1, 8, 1.25, 0.25],
                   [2, 10, 1.5, 0.25],
@@ -4301,7 +4301,7 @@ export const curriculum: Curriculum = {
                   [3, 9, 5.75, 0.25],
                   [2, 10, 6, 1.5, { vib: "lento" }],
                 ]),
-                phrase("r2b", "Desenho 2: sobe até o Dó", 2, [
+                phrase("r2b", "Shape 2: sobe até o Dó", 2, [
                   [5, 7, 0.5, 0.25],
                   [5, 10, 0.75, 0.25],
                   [4, 7, 1.0, 0.25],
@@ -4323,33 +4323,33 @@ export const curriculum: Curriculum = {
               id: "u32.l1.pr",
               kind: "play-rest",
               title: "Rápido e calado",
-              goal: "Nos compassos de tocar, frases rápidas só no desenho 2. Nos de calar, nada.",
+              goal: "Nos compassos de tocar, frases rápidas só no shape 2. Nos de calar, nada.",
               steps: ["Um grupo de semicolcheias e uma nota longa do acorde.", "Se embolar, baixe o andamento."],
               check: "Cada frase rápida terminou numa nota longa, com silêncio depois?",
               base: BASE_SLOW,
               pattern: ["play", "play", "rest", "rest"],
-              rule: "Só o desenho 2",
+              rule: "Só o shape 2",
             },
           ],
         },
         {
           id: "u32.l2",
-          title: "Rápido no desenho 3",
+          title: "Rápido no shape 3",
           intro:
-            "O desenho 3 (casas 9 a 13) tem o Mi e o Ré no alto da 1ª corda, bons para frases rápidas que descem. A segunda frase é um lick de três notas repetido: a cada volta, o acento cai numa nota diferente.",
+            "O shape 3 (casas 9 a 13) tem o Mi e o Ré no alto da 1ª corda, bons para frases rápidas que descem. A segunda frase é um lick de três notas repetido: a cada volta, o acento cai numa nota diferente.",
           key: "u32.l2.pr",
           exercises: [
             {
               id: "u32.l2.echo",
               kind: "echo",
-              title: "Duas frases rápidas no desenho 3",
+              title: "Duas frases rápidas no shape 3",
               goal: "Repita as duas, devagar primeiro.",
               steps: ["Comece a 60 bpm. Quando sair limpo três vezes, suba 4 bpm.", "Palhetada alternada nas semicolcheias."],
               check: "As semicolcheias saíram iguais e a nota longa caiu no tempo?",
               base: AM_F_SLOW,
               reveal: "tab",
               phrases: [
-                phrase("r3a", "Desenho 3: grupos de quatro", 2, [
+                phrase("r3a", "Shape 3: grupos de quatro", 2, [
                   [1, 12, 1.0, 0.25],
                   [1, 10, 1.25, 0.25],
                   [2, 13, 1.5, 0.25],
@@ -4365,7 +4365,7 @@ export const curriculum: Curriculum = {
                   [3, 12, 5.75, 0.25],
                   [2, 10, 6, 1.5, { vib: "lento" }],
                 ]),
-                phrase("r3b", "Desenho 3: lick de três repetido", 2, [
+                phrase("r3b", "Shape 3: lick de três repetido", 2, [
                   [1, 12, 1.0, 0.25],
                   [1, 10, 1.25, 0.25],
                   [2, 13, 1.5, 0.25],
@@ -4386,12 +4386,12 @@ export const curriculum: Curriculum = {
               id: "u32.l2.pr",
               kind: "play-rest",
               title: "Rápido e calado",
-              goal: "Nos compassos de tocar, frases rápidas só no desenho 3. Nos de calar, nada.",
+              goal: "Nos compassos de tocar, frases rápidas só no shape 3. Nos de calar, nada.",
               steps: ["Um grupo de semicolcheias e uma nota longa do acorde.", "Se embolar, baixe o andamento."],
               check: "Cada frase rápida terminou numa nota longa, com silêncio depois?",
               base: BASE_SLOW,
               pattern: ["play", "play", "rest", "rest"],
-              rule: "Só o desenho 3",
+              rule: "Só o shape 3",
             },
           ],
         },
@@ -4399,28 +4399,28 @@ export const curriculum: Curriculum = {
     },
     {
       id: "u33",
-      title: "Rápido nos desenhos 4 e 5",
-      skill: "Semicolcheias limpas nos desenhos 4 e 5, sempre terminando numa nota longa",
-      takeCheck: "Suas frases rápidas ficaram no desenho e terminaram numa nota longa?",
+      title: "Rápido nos shapes 4 e 5",
+      skill: "Semicolcheias limpas nos shapes 4 e 5, sempre terminando numa nota longa",
+      takeCheck: "Suas frases rápidas ficaram no shape e terminaram numa nota longa?",
       lessons: [
         {
           id: "u33.l1",
-          title: "Rápido no desenho 4",
+          title: "Rápido no shape 4",
           intro:
-            "No desenho 4 (casas 12 a 15) a mão fica no alto do braço, onde as casas são estreitas: tocar rápido aqui pede menos abertura de dedos. Uma frase desce, a outra sobe.",
+            "No shape 4 (casas 12 a 15) a mão fica no alto do braço, onde as casas são estreitas: tocar rápido aqui pede menos abertura de dedos. Uma frase desce, a outra sobe.",
           key: "u33.l1.pr",
           exercises: [
             {
               id: "u33.l1.echo",
               kind: "echo",
-              title: "Duas frases rápidas no desenho 4",
+              title: "Duas frases rápidas no shape 4",
               goal: "Repita as duas. Atenção ao pouso: é sempre nota do acorde.",
               steps: ["Comece a 60 bpm. Quando sair limpo três vezes, suba 4 bpm.", "Palhetada alternada nas semicolcheias."],
               check: "As semicolcheias saíram iguais e a nota longa caiu no tempo?",
               base: AM_F_SLOW,
               reveal: "tab",
               phrases: [
-                phrase("r4a", "Desenho 4: desce até o Lá", 2, [
+                phrase("r4a", "Shape 4: desce até o Lá", 2, [
                   [1, 15, 0.5, 0.25],
                   [1, 12, 0.75, 0.25],
                   [2, 15, 1.0, 0.25],
@@ -4436,7 +4436,7 @@ export const curriculum: Curriculum = {
                   [3, 14, 5.25, 0.25],
                   [2, 13, 5.5, 1.5, { vib: "lento" }],
                 ]),
-                phrase("r4b", "Desenho 4: sobe até o Mi", 2, [
+                phrase("r4b", "Shape 4: sobe até o Mi", 2, [
                   [5, 12, 1.0, 0.25],
                   [5, 15, 1.25, 0.25],
                   [4, 12, 1.5, 0.25],
@@ -4458,33 +4458,33 @@ export const curriculum: Curriculum = {
               id: "u33.l1.pr",
               kind: "play-rest",
               title: "Rápido e calado",
-              goal: "Nos compassos de tocar, frases rápidas só no desenho 4. Nos de calar, nada.",
+              goal: "Nos compassos de tocar, frases rápidas só no shape 4. Nos de calar, nada.",
               steps: ["Um grupo de semicolcheias e uma nota longa do acorde.", "Se embolar, baixe o andamento."],
               check: "Cada frase rápida terminou numa nota longa, com silêncio depois?",
               base: BASE_SLOW,
               pattern: ["play", "play", "rest", "rest"],
-              rule: "Só o desenho 4",
+              rule: "Só o shape 4",
             },
           ],
         },
         {
           id: "u33.l2",
-          title: "Rápido no desenho 5",
+          title: "Rápido no shape 5",
           intro:
-            "O desenho 5 (casas 2 a 5) fica abaixo do desenho 1, perto das cordas soltas. A segunda frase é um lick de quatro notas repetido três vezes, que cai num Lá longo.",
+            "O shape 5 (casas 2 a 5) fica abaixo do shape 1, perto das cordas soltas. A segunda frase é um lick de quatro notas repetido três vezes, que cai num Lá longo.",
           key: "u33.l2.pr",
           exercises: [
             {
               id: "u33.l2.echo",
               kind: "echo",
-              title: "Duas frases rápidas no desenho 5",
+              title: "Duas frases rápidas no shape 5",
               goal: "Repita as duas, devagar primeiro.",
               steps: ["Comece a 60 bpm. Quando sair limpo três vezes, suba 4 bpm.", "Palhetada alternada nas semicolcheias."],
               check: "As semicolcheias saíram iguais e a nota longa caiu no tempo?",
               base: AM_F_SLOW,
               reveal: "tab",
               phrases: [
-                phrase("r5a", "Desenho 5: desce até o Lá", 2, [
+                phrase("r5a", "Shape 5: desce até o Lá", 2, [
                   [1, 5, 1.0, 0.25],
                   [1, 3, 1.25, 0.25],
                   [2, 5, 1.5, 0.25],
@@ -4500,7 +4500,7 @@ export const curriculum: Curriculum = {
                   [2, 5, 5.75, 0.25],
                   [1, 5, 6, 1.5, { vib: "lento" }],
                 ]),
-                phrase("r5b", "Desenho 5: lick de quatro repetido", 2, [
+                phrase("r5b", "Shape 5: lick de quatro repetido", 2, [
                   [2, 5, 0.5, 0.25],
                   [2, 3, 0.75, 0.25],
                   [3, 5, 1.0, 0.25],
@@ -4521,12 +4521,12 @@ export const curriculum: Curriculum = {
               id: "u33.l2.pr",
               kind: "play-rest",
               title: "Rápido e calado",
-              goal: "Nos compassos de tocar, frases rápidas só no desenho 5. Nos de calar, nada.",
+              goal: "Nos compassos de tocar, frases rápidas só no shape 5. Nos de calar, nada.",
               steps: ["Um grupo de semicolcheias e uma nota longa do acorde.", "Se embolar, baixe o andamento."],
               check: "Cada frase rápida terminou numa nota longa, com silêncio depois?",
               base: BASE_SLOW,
               pattern: ["play", "play", "rest", "rest"],
-              rule: "Só o desenho 5",
+              rule: "Só o shape 5",
             },
           ],
         },
@@ -4534,31 +4534,31 @@ export const curriculum: Curriculum = {
     },
     {
       id: "a11",
-      title: "Arco 10: o solo rápido fora do desenho 1",
-      skill: "Um solo que começa lento e acelera nos desenhos 2 e 3",
+      title: "Arco 10: o solo rápido fora do shape 1",
+      skill: "Um solo que começa lento e acelera nos shapes 2 e 3",
       arc: true,
-      takeCheck: "Você acelerou nos desenhos 2 e 3 e pousou numa nota longa?",
+      takeCheck: "Você acelerou nos shapes 2 e 3 e pousou numa nota longa?",
       lessons: [
         {
           id: "a11.l1",
           title: "Lento, rápido, rápido, pouso",
           intro:
-            "O arco da Velocidade I, agora fora do desenho 1: notas longas no desenho 2, frases rápidas no 2, frases rápidas no 3 e um pouso longo. Reduza o andamento para aprender.",
+            "O arco da Velocidade I, agora fora do shape 1: notas longas no shape 2, frases rápidas no 2, frases rápidas no 3 e um pouso longo. Reduza o andamento para aprender.",
           key: "a11.take",
           exercises: [
             {
               id: "a11.take",
               kind: "take",
-              title: "O solo rápido fora do desenho 1",
-              goal: "Oito compassos nos desenhos 2 e 3, do lento ao rápido.",
+              title: "O solo rápido fora do shape 1",
+              goal: "Oito compassos nos shapes 2 e 3, do lento ao rápido.",
               steps: [],
-              check: "Você acelerou nos desenhos 2 e 3 e pousou numa nota longa?",
+              check: "Você acelerou nos shapes 2 e 3 e pousou numa nota longa?",
               base: AM_F_SLOW,
               bars: 8,
               arc: [
-                { name: "Lento no desenho 2", how: "Uma nota longa por compasso." },
-                { name: "Rápido no desenho 2", how: "Semicolcheias e uma nota longa, no desenho 2." },
-                { name: "Rápido no desenho 3", how: "Semicolcheias e uma nota longa, no desenho 3." },
+                { name: "Lento no shape 2", how: "Uma nota longa por compasso." },
+                { name: "Rápido no shape 2", how: "Semicolcheias e uma nota longa, no shape 2." },
+                { name: "Rápido no shape 3", how: "Semicolcheias e uma nota longa, no shape 3." },
                 { name: "Pouso", how: "Poucas notas e uma nota longa até o fim." },
               ],
               bases: OTHER_BASES,
@@ -4640,14 +4640,14 @@ export const curriculum: Curriculum = {
     {
       id: "u7",
       title: "Uma corda só",
-      skill: "Ouvir os saltos sem o apoio do desenho",
-      takeCheck: "Você andou pelo braço na horizontal, e não só dentro do desenho 1?",
+      skill: "Ouvir os saltos sem o apoio do shape",
+      takeCheck: "Você andou pelo braço na horizontal, e não só dentro do shape 1?",
       lessons: [
         {
           id: "u7.l1",
           title: "A 2ª corda inteira",
           intro:
-            "O desenho ajuda e prende: os dedos decoram caminhos e o ouvido descansa. Numa corda só não há caminho decorado. Cada nota é um salto que você precisa ouvir antes de tocar. É assim que o braço deixa de ser uma caixa.",
+            "O shape ajuda e prende: os dedos decoram caminhos e o ouvido descansa. Numa corda só não há caminho decorado. Cada nota é um salto que você precisa ouvir antes de tocar. É assim que o braço deixa de ser uma caixa.",
           key: "u7.l1.echo",
           exercises: [
             {
@@ -4737,46 +4737,46 @@ export const curriculum: Curriculum = {
       lessons: [
         {
           id: "u12.l5",
-          title: "O mesmo lick nos cinco desenhos",
+          title: "O mesmo lick nos cinco shapes",
           intro:
-            "Um lick só é seu quando sai em qualquer lugar do braço. Aqui é o mesmo lick, Sol, Lá, Dó e Lá, tocado nos cinco desenhos: as notas são as mesmas, só muda onde a mão está. No desenho 5 ele sai uma oitava abaixo, porque é lá que essas notas estão nesse desenho.",
+            "Um lick só é seu quando sai em qualquer lugar do braço. Aqui é o mesmo lick, Sol, Lá, Dó e Lá, tocado nos cinco shapes: as notas são as mesmas, só muda onde a mão está. No shape 5 ele sai uma oitava abaixo, porque é lá que essas notas estão nesse shape.",
           key: "u12.l5.pr",
           exercises: [
             {
               id: "u12.l5.echo",
               kind: "echo",
               title: "Um lick, cinco lugares",
-              goal: "Tire o lick em cada desenho, do 1 ao 5, e repare que ele soa igual.",
-              steps: ["Um desenho por vez.", "Depois toque os cinco em seguida, sem parar a base."],
-              check: "Achou o lick nos cinco desenhos sem olhar?",
+              goal: "Tire o lick em cada shape, do 1 ao 5, e repare que ele soa igual.",
+              steps: ["Um shape por vez.", "Depois toque os cinco em seguida, sem parar a base."],
+              check: "Achou o lick nos cinco shapes sem olhar?",
               base: AM_F,
               reveal: "tab",
               phrases: [
-                phrase("m1", "O lick no desenho 1", 2, [
+                phrase("m1", "O lick no shape 1", 2, [
                   [2, 8, 0.5, 0.5],
                   [1, 5, 1, 0.5],
                   [1, 8, 1.5, 0.5],
                   [1, 5, 2, 2, { vib: "lento" }],
                 ]),
-                phrase("m2", "O lick no desenho 2", 2, [
+                phrase("m2", "O lick no shape 2", 2, [
                   [2, 8, 0.5, 0.5],
                   [2, 10, 1, 0.5],
                   [1, 8, 1.5, 0.5],
                   [2, 10, 2, 2, { vib: "lento" }],
                 ]),
-                phrase("m3", "O lick no desenho 3", 2, [
+                phrase("m3", "O lick no shape 3", 2, [
                   [3, 12, 0.5, 0.5],
                   [2, 10, 1, 0.5],
                   [2, 13, 1.5, 0.5],
                   [2, 10, 2, 2, { vib: "lento" }],
                 ]),
-                phrase("m4", "O lick no desenho 4", 2, [
+                phrase("m4", "O lick no shape 4", 2, [
                   [3, 12, 0.5, 0.5],
                   [3, 14, 1, 0.5],
                   [2, 13, 1.5, 0.5],
                   [3, 14, 2, 2, { vib: "lento" }],
                 ]),
-                phrase("m5", "O lick no desenho 5", 2, [
+                phrase("m5", "O lick no shape 5", 2, [
                   [4, 5, 0.5, 0.5],
                   [3, 2, 1, 0.5],
                   [3, 5, 1.5, 0.5],
@@ -4787,13 +4787,13 @@ export const curriculum: Curriculum = {
             {
               id: "u12.l5.pr",
               kind: "play-rest",
-              title: "Um desenho por volta",
-              goal: "A cada compasso de tocar, o lick num desenho diferente: 1, 2, 3, 4, 5 e de volta.",
-              steps: ["Use o compasso de silêncio para levar a mão ao próximo desenho.", "Depois faça na ordem contrária."],
-              check: "O lick saiu nos cinco desenhos, no tempo, sem parar a base?",
+              title: "Um shape por volta",
+              goal: "A cada compasso de tocar, o lick num shape diferente: 1, 2, 3, 4, 5 e de volta.",
+              steps: ["Use o compasso de silêncio para levar a mão ao próximo shape.", "Depois faça na ordem contrária."],
+              check: "O lick saiu nos cinco shapes, no tempo, sem parar a base?",
               base: AM_F,
               pattern: ["play", "rest"],
-              rule: "Um desenho diferente a cada vez",
+              rule: "Um shape diferente a cada vez",
             },
           ],
         },
@@ -4807,20 +4807,20 @@ export const curriculum: Curriculum = {
               id: "u12.l3.echo",
               kind: "echo",
               title: "Subir e descer",
-              goal: "Repita. As frases mudam de desenho pelo caminho.",
+              goal: "Repita. As frases mudam de shape pelo caminho.",
               steps: ["Ache no braço onde o slide leva a frase."],
               check: "Repetiu as duas sem olhar o braço?",
               base: AM_F,
               reveal: "tab",
               phrases: [
-                phrase("r1", "Sobe para o desenho 2", 2, [
+                phrase("r1", "Sobe para o shape 2", 2, [
                   [2, 5, 0.5, 0.5],
                   [2, 8, 1, 0.5],
                   [2, 10, 1.5, 1.5, { slide: 8 }],
                   [1, 10, 4, 0.5],
                   [1, 8, 4.5, 2],
                 ]),
-                phrase("r2", "Desce para o desenho 1", 2, [
+                phrase("r2", "Desce para o shape 1", 2, [
                   [1, 10, 0.5, 1],
                   [1, 8, 1.5, 0.5],
                   [2, 10, 2, 1.5],
@@ -4835,12 +4835,12 @@ export const curriculum: Curriculum = {
               id: "u12.l3.pr",
               kind: "play-rest",
               title: "Começa num, termina no outro",
-              goal: "Cada frase começa num desenho e termina em outro.",
+              goal: "Cada frase começa num shape e termina em outro.",
               steps: ["Use slides para mudar de região.", "Termine numa nota do acorde."],
               check: "Suas frases mudaram de região sem perder a ideia?",
               base: BASE,
               pattern: ["play", "play", "rest", "rest"],
-              rule: "Cada frase muda de desenho",
+              rule: "Cada frase muda de shape",
             },
           ],
         },
@@ -4850,23 +4850,23 @@ export const curriculum: Curriculum = {
       id: "u13",
       title: "Outro tom",
       skill: "A mesma pentatônica em outra casa",
-      takeCheck: "Achou as notas do acorde no tom novo sem voltar para o desenho de Lá?",
+      takeCheck: "Achou as notas do acorde no tom novo sem voltar para o shape de Lá?",
       lessons: [
         {
           id: "u13.l1",
           concepts: ["O que é tom relativo menor?", "Como mudar a pentatônica de tom?"],
           title: "Mi menor",
           intro:
-            "Na pentatônica, mudar de tom é mudar de casa: o desenho 1 de Mi menor é o de Lá menor sete casas para o agudo. O que não muda é o que você aprendeu: as notas do acorde ficam nos mesmos pontos do desenho.",
+            "Na pentatônica, mudar de tom é mudar de casa: o shape 1 de Mi menor é o de Lá menor sete casas para o agudo. O que não muda é o que você aprendeu: as notas do acorde ficam nos mesmos pontos do shape.",
           key: "u13.l1.target",
           exercises: [
             {
               id: "u13.l1.map",
               kind: "map",
-              title: "O desenho 1 em Mi menor",
-              goal: "Toque o desenho 1 em Mi menor, achando as tônicas antes.",
-              steps: ["Compare com o de Lá: é o mesmo desenho, em outra casa."],
-              check: "Achou as tônicas e tocou o desenho no tempo?",
+              title: "O shape 1 em Mi menor",
+              goal: "Toque o shape 1 em Mi menor, achando as tônicas antes.",
+              steps: ["Compare com o de Lá: é o mesmo shape, em outra casa."],
+              check: "Achou as tônicas e tocou o shape no tempo?",
               base: EM_VAMP,
               shapes: [1],
               layer: "penta",
@@ -4875,33 +4875,33 @@ export const curriculum: Curriculum = {
               id: "u13.l1.target",
               kind: "target",
               title: "Alvos em Mi menor",
-              goal: "Chegue em cada alvo na troca, no desenho 1 de Mi menor.",
+              goal: "Chegue em cada alvo na troca, no shape 1 de Mi menor.",
               steps: ["A base é Em C G D: os mesmos papéis de Am F C G, outra casa."],
               check: "Chegou nos alvos no tom novo?",
               base: EM,
               shape: 1,
               degrees: ["T", "3", "5"],
-              rule: "Mi menor, desenho 1",
+              rule: "Mi menor, shape 1",
             },
           ],
         },
         {
           id: "u13.l2",
           title: "Ré menor",
-          intro: "Mais um tom, agora mais grave que Mi menor. Na banda, quem escolhe o tom é a música, não o guitarrista: o desenho tem que ir aonde ela estiver.",
+          intro: "Mais um tom, agora mais grave que Mi menor. Na banda, quem escolhe o tom é a música, não o guitarrista: o shape tem que ir aonde ela estiver.",
           key: "u13.l2.target",
           exercises: [
             {
               id: "u13.l2.target",
               kind: "target",
               title: "Alvos em Ré menor",
-              goal: "Chegue em cada alvo na troca, no desenho 1 de Ré menor.",
+              goal: "Chegue em cada alvo na troca, no shape 1 de Ré menor.",
               steps: ["A base é Dm Bb F C.", "Ache a tônica antes de ligar a base."],
               check: "Chegou nos alvos no tom novo?",
               base: DM,
               shape: 1,
               degrees: ["T", "3", "5"],
-              rule: "Ré menor, desenho 1",
+              rule: "Ré menor, shape 1",
             },
           ],
         },
@@ -4933,7 +4933,7 @@ export const curriculum: Curriculum = {
               arc: [
                 { name: "Grave", how: "6ª e 5ª cordas, poucas notas." },
                 { name: "Meio", how: "4ª e 3ª cordas, frases um pouco mais longas." },
-                { name: "Agudo", how: "2ª e 1ª cordas; passe ao desenho seguinte com um slide." },
+                { name: "Agudo", how: "2ª e 1ª cordas; passe ao shape seguinte com um slide." },
                 { name: "Pico", how: "A nota mais alta do solo, segurada." },
               ],
               bases: OTHER_BASES,
@@ -5000,14 +5000,14 @@ export const curriculum: Curriculum = {
     {
       id: "u34",
       title: "Rápido na horizontal",
-      skill: "Frases rápidas que andam ao longo de uma ou duas cordas, de um desenho para outro",
-      takeCheck: "Suas frases rápidas mudaram de desenho sem perder o tempo?",
+      skill: "Frases rápidas que andam ao longo de uma ou duas cordas, de um shape para outro",
+      takeCheck: "Suas frases rápidas mudaram de shape sem perder o tempo?",
       lessons: [
         {
           id: "u34.l1",
           title: "Ao longo da corda",
           intro:
-            "Até aqui, cada frase rápida ficava num desenho. Agora a frase anda pela corda: sobe ou desce o braço numa ou duas cordas e chega noutro desenho. A mão desliza junto, sem parar o tempo.",
+            "Até aqui, cada frase rápida ficava num shape. Agora a frase anda pela corda: sobe ou desce o braço numa ou duas cordas e chega noutro shape. A mão desliza junto, sem parar o tempo.",
           key: "u34.l1.pr",
           exercises: [
             {
@@ -5058,7 +5058,7 @@ export const curriculum: Curriculum = {
               id: "u34.l1.pr",
               kind: "play-rest",
               title: "Rápido e calado",
-              goal: "Frases rápidas que sobem ou descem pela corda, mudando de desenho. Nos de calar, nada.",
+              goal: "Frases rápidas que sobem ou descem pela corda, mudando de shape. Nos de calar, nada.",
               steps: ["Um grupo de semicolcheias e uma nota longa do acorde.", "Se embolar, baixe o andamento."],
               check: "Cada frase rápida terminou numa nota longa, com silêncio depois?",
               base: BASE_SLOW,
@@ -5072,14 +5072,14 @@ export const curriculum: Curriculum = {
     {
       id: "u35",
       title: "Rápido na diagonal",
-      skill: "Frases rápidas que cruzam as cordas e os desenhos ao mesmo tempo, até três desenhos numa frase",
-      takeCheck: "Suas frases atravessaram desenhos e terminaram numa nota do acorde?",
+      skill: "Frases rápidas que cruzam as cordas e os shapes ao mesmo tempo, até três shapes numa frase",
+      takeCheck: "Suas frases atravessaram shapes e terminaram numa nota do acorde?",
       lessons: [
         {
           id: "u35.l1",
-          title: "Diagonal por dois desenhos",
+          title: "Diagonal por dois shapes",
           intro:
-            "Na diagonal, a frase troca de corda e de desenho ao mesmo tempo: sai do grave no desenho 1 e chega no agudo do desenho 2, ou o contrário. É o caminho mais curto entre duas regiões do braço.",
+            "Na diagonal, a frase troca de corda e de shape ao mesmo tempo: sai do grave no shape 1 e chega no agudo do shape 2, ou o contrário. É o caminho mais curto entre duas regiões do braço.",
           key: "u35.l1.pr",
           exercises: [
             {
@@ -5130,33 +5130,33 @@ export const curriculum: Curriculum = {
               id: "u35.l1.pr",
               kind: "play-rest",
               title: "Rápido e calado",
-              goal: "Frases rápidas em diagonal, de um desenho para o vizinho. Nos de calar, nada.",
+              goal: "Frases rápidas em diagonal, de um shape para o vizinho. Nos de calar, nada.",
               steps: ["Um grupo de semicolcheias e uma nota longa do acorde.", "Se embolar, baixe o andamento."],
               check: "Cada frase rápida terminou numa nota longa, com silêncio depois?",
               base: BASE_SLOW,
               pattern: ["play", "play", "rest", "rest"],
-              rule: "Diagonais de dois desenhos",
+              rule: "Diagonais de dois shapes",
             },
           ],
         },
         {
           id: "u35.l2",
-          title: "Diagonal por três desenhos",
+          title: "Diagonal por três shapes",
           intro:
-            "A mesma ideia, mais longe: uma frase só que passa pelos desenhos 1, 2 e 3. É aqui que os desenhos deixam de ser caixas e viram um braço só.",
+            "A mesma ideia, mais longe: uma frase só que passa pelos shapes 1, 2 e 3. É aqui que os shapes deixam de ser caixas e viram um braço só.",
           key: "u35.l2.pr",
           exercises: [
             {
               id: "u35.l2.echo",
               kind: "echo",
-              title: "Três desenhos numa frase",
+              title: "Três shapes numa frase",
               goal: "Repita as duas, devagar primeiro. Olhe a tab: a mão anda pelo braço.",
               steps: ["Comece a 60 bpm. Quando sair limpo três vezes, suba 4 bpm.", "Palhetada alternada nas semicolcheias."],
               check: "As semicolcheias saíram iguais e a nota longa caiu no tempo?",
               base: AM_F_SLOW,
               reveal: "tab",
               phrases: [
-                phrase("t1", "Três desenhos, subindo", 2, [
+                phrase("t1", "Três shapes, subindo", 2, [
                   [5, 5, 1.0, 0.25],
                   [5, 7, 1.25, 0.25],
                   [4, 7, 1.5, 0.25],
@@ -5172,7 +5172,7 @@ export const curriculum: Curriculum = {
                   [2, 13, 5.75, 0.25],
                   [2, 10, 6, 1.5, { vib: "lento" }],
                 ]),
-                phrase("t2", "Três desenhos, descendo", 2, [
+                phrase("t2", "Três shapes, descendo", 2, [
                   [1, 12, 0.5, 0.25],
                   [1, 10, 0.75, 0.25],
                   [2, 10, 1.0, 0.25],
@@ -5194,12 +5194,12 @@ export const curriculum: Curriculum = {
               id: "u35.l2.pr",
               kind: "play-rest",
               title: "Rápido e calado",
-              goal: "Frases rápidas que atravessam três desenhos. Nos de calar, nada.",
+              goal: "Frases rápidas que atravessam três shapes. Nos de calar, nada.",
               steps: ["Um grupo de semicolcheias e uma nota longa do acorde.", "Se embolar, baixe o andamento."],
               check: "Cada frase rápida terminou numa nota longa, com silêncio depois?",
               base: BASE_SLOW,
               pattern: ["play", "play", "rest", "rest"],
-              rule: "Diagonais de três desenhos",
+              rule: "Diagonais de três shapes",
             },
           ],
         },
@@ -5208,15 +5208,15 @@ export const curriculum: Curriculum = {
     {
       id: "a12",
       title: "Arco 12: o solo rápido pelo braço",
-      skill: "Um solo rápido que sai de um desenho, anda pela corda, cruza na diagonal e pousa",
+      skill: "Um solo rápido que sai de um shape, anda pela corda, cruza na diagonal e pousa",
       arc: true,
       takeCheck: "Seu solo atravessou o braço em velocidade e pousou numa nota longa?",
       lessons: [
         {
           id: "a12.l1",
-          title: "Um desenho, horizontal, diagonal, pouso",
+          title: "Um shape, horizontal, diagonal, pouso",
           intro:
-            "O fecho da velocidade: começa num desenho só, anda pela corda até outro desenho, cruza na diagonal e pousa. Cada trecho rápido termina numa nota longa. Reduza o andamento para aprender.",
+            "O fecho da velocidade: começa num shape só, anda pela corda até outro shape, cruza na diagonal e pousa. Cada trecho rápido termina numa nota longa. Reduza o andamento para aprender.",
           key: "a12.take",
           exercises: [
             {
@@ -5229,9 +5229,9 @@ export const curriculum: Curriculum = {
               base: AM_F_SLOW,
               bars: 8,
               arc: [
-                { name: "Num desenho só", how: "Semicolcheias e notas longas no desenho 1." },
-                { name: "Na horizontal", how: "A frase anda pela corda até outro desenho." },
-                { name: "Na diagonal", how: "Cruza cordas e desenhos ao mesmo tempo." },
+                { name: "Num shape só", how: "Semicolcheias e notas longas no shape 1." },
+                { name: "Na horizontal", how: "A frase anda pela corda até outro shape." },
+                { name: "Na diagonal", how: "Cruza cordas e shapes ao mesmo tempo." },
                 { name: "Pouso", how: "Poucas notas e uma nota longa até o fim." },
               ],
               bases: OTHER_BASES,
@@ -5361,7 +5361,7 @@ export const curriculum: Curriculum = {
         {
           id: "u10.l3",
           title: "O solo inteiro",
-          videos: [{ youtube: "tzh1OeGUv_E", title: "Improvisation: A-Minor Pentatonic Guitar Solo", author: "Flo Guitar", note: "Lembra deste vídeo, do começo do curso? Assista de novo. Agora dá para reconhecer os desenhos, os bends, as notas longas que caem no acorde e as frases que conversam. É o mesmo material que você tem nas mãos." }, { youtube: "1vuv8gF8rw0", title: "How to Play over Chords ONLY USING THE PENTATONIC scale!", author: "Paul Davids", note: "E o próximo passo, para depois do curso: aqui você usou a pentatônica do tom e mirou as notas do acorde que cabem nela. Neste vídeo, a ideia vai além: pensar a pentatônica a partir de cada acorde, e não só do tom. Está em inglês." }],
+          videos: [{ youtube: "tzh1OeGUv_E", title: "Improvisation: A-Minor Pentatonic Guitar Solo", author: "Flo Guitar", note: "Lembra deste vídeo, do começo do curso? Assista de novo. Agora dá para reconhecer os shapes, os bends, as notas longas que caem no acorde e as frases que conversam. É o mesmo material que você tem nas mãos." }, { youtube: "1vuv8gF8rw0", title: "How to Play over Chords ONLY USING THE PENTATONIC scale!", author: "Paul Davids", note: "E o próximo passo, para depois do curso: aqui você usou a pentatônica do tom e mirou as notas do acorde que cabem nela. Neste vídeo, a ideia vai além: pensar a pentatônica a partir de cada acorde, e não só do tom. Está em inglês." }],
           intro:
             "Tudo junto: respirar, ritmo, alvos na troca, tensão que resolve, o braço inteiro, um motivo que volta e intensidade que cresce. Não é para usar tudo em toda frase. É para ter tudo à mão e escolher. Só pentatônica: é o que basta.",
           key: "u10.l3.full",
@@ -5512,31 +5512,31 @@ export const curriculum: Curriculum = {
   ],
 
   sections: [
-    // Parte 1, um desenho só: tudo até "O solo" fica no desenho 1. Parte 2: os outros desenhos.
+    // Parte 1, um shape só: tudo até "O solo" fica no shape 1. Parte 2: os outros shapes.
     { id: "s1", title: "Primeiros passos", goal: "Do mapa do braço ao primeiro solo: poucas notas, silêncio e ritmo.", units: ["u0", "u1", "u2", "a1"] },
     { id: "s2", title: "A harmonia", goal: "Ouvir a troca de acorde e chegar nas notas dele, com tensão que resolve.", units: ["u5", "u6", "u11", "a2"] },
-    { id: "s6", title: "Vocabulário no desenho 1", goal: "Licks, pergunta e resposta, frases guardadas e ideias para improvisar, tudo no desenho 1.", units: ["u17", "u18", "u9", "u19", "a5"] },
-    { id: "s5", title: "Velocidade I: no desenho 1", goal: "Frases rápidas na pentatônica: grupos de semicolcheias, sequências e licks repetidos, sempre terminando numa nota longa.", units: ["u15", "u16", "a4"] },
-    { id: "s4", title: "O solo", goal: "Motivo e intensidade, até um solo inteiro no desenho 1 que alguém pagaria para ouvir.", units: ["u8", "u14", "a6"] },
-    { id: "s8", title: "Desenho 2", goal: "O desenho 2 a fundo, com licks e frases dele, e depois junto com o desenho 1.", units: ["u20", "u21", "u22", "a7"] },
-    { id: "s9", title: "Desenho 3", goal: "O desenho 3 a fundo, com licks e frases dele, e depois junto com os desenhos 1 e 2.", units: ["u23", "u24", "u25", "a8"] },
-    { id: "s10", title: "Desenho 4", goal: "O desenho 4 a fundo, com licks e frases dele, e depois junto com os desenhos 1 a 3.", units: ["u26", "u27", "u28", "a9"] },
-    { id: "s11", title: "Desenho 5", goal: "O desenho 5 a fundo, com licks e frases dele, e depois os cinco desenhos juntos.", units: ["u29", "u30", "u31", "a10"] },
-    { id: "s12", title: "Velocidade II: nos outros desenhos", goal: "Frases rápidas nos desenhos 2 a 5, cada uma terminando numa nota longa.", units: ["u32", "u33", "a11"] },
-    { id: "s3", title: "O braço todo", goal: "Uma corda só, trocar de região no meio da frase e outros tons, até atravessar o braço do grave ao agudo.", units: ["u7", "u12", "u13", "a3"] },
-    { id: "s13", title: "Velocidade III: entre os desenhos", goal: "Frases rápidas que atravessam desenhos: pela corda, na diagonal, até três desenhos numa frase.", units: ["u34", "u35", "a12"] },
+    { id: "s6", title: "Vocabulário no shape 1", goal: "Licks, pergunta e resposta, frases guardadas e ideias para improvisar, tudo no shape 1.", units: ["u17", "u18", "u9", "u19", "a5"] },
+    { id: "s5", title: "Velocidade I: no shape 1", goal: "Frases rápidas na pentatônica: grupos de semicolcheias, sequências e licks repetidos, sempre terminando numa nota longa.", units: ["u15", "u16", "a4"] },
+    { id: "s4", title: "O solo", goal: "Motivo e intensidade, até um solo inteiro no shape 1 que alguém pagaria para ouvir.", units: ["u8", "u14", "a6"] },
+    { id: "s8", title: "Shape 2", goal: "O shape 2 a fundo, com licks e frases dele, e depois junto com o shape 1.", units: ["u20", "u21", "u22", "a7"] },
+    { id: "s9", title: "Shape 3", goal: "O shape 3 a fundo, com licks e frases dele, e depois junto com os shapes 1 e 2.", units: ["u23", "u24", "u25", "a8"] },
+    { id: "s10", title: "Shape 4", goal: "O shape 4 a fundo, com licks e frases dele, e depois junto com os shapes 1 a 3.", units: ["u26", "u27", "u28", "a9"] },
+    { id: "s11", title: "Shape 5", goal: "O shape 5 a fundo, com licks e frases dele, e depois os cinco shapes juntos.", units: ["u29", "u30", "u31", "a10"] },
+    { id: "s12", title: "Velocidade II: rápido nos shapes 2 a 5", goal: "Frases rápidas nos shapes 2 a 5, cada uma terminando numa nota longa.", units: ["u32", "u33", "a11"] },
+    { id: "s3", title: "Uma corda, outra região, outro tom", goal: "Uma corda só, trocar de região no meio da frase e outros tons, até atravessar o braço do grave ao agudo.", units: ["u7", "u12", "u13", "a3"] },
+    { id: "s13", title: "Velocidade III: entre os shapes", goal: "Frases rápidas que atravessam shapes: pela corda, na diagonal, até três shapes numa frase.", units: ["u34", "u35", "a12"] },
     { id: "s7", title: "O solo pelo braço todo", goal: "O solo inteiro, agora usando o braço de ponta a ponta.", units: ["u10"] },
   ],
   chapters: [
-    { id: "c1", title: "Um desenho só", goal: "Solar inteiro no desenho 1: vale mais que conhecer os cinco.", sections: ["s1", "s2", "s6", "s5", "s4"] },
-    { id: "c2", title: "Os outros desenhos", goal: "Um desenho novo por vez, a fundo, e depois junto com os que você já sabe.", sections: ["s8", "s9", "s10", "s11", "s12"] },
+    { id: "c1", title: "O primeiro shape", goal: "Solar inteiro no shape 1: vale mais que conhecer os cinco.", sections: ["s1", "s2", "s6", "s5", "s4"] },
+    { id: "c2", title: "Os outros shapes", goal: "Um shape novo por vez, a fundo, e depois junto com os que você já sabe.", sections: ["s8", "s9", "s10", "s11", "s12"] },
     { id: "c3", title: "O braço todo", goal: "Do grave ao agudo, em qualquer tom.", sections: ["s3", "s13", "s7"] },
   ],
 
   // Frases próprias para tirar de ouvido, agrupadas pela seção cuja matéria usam e, dentro dela, em ordem de
   // dificuldade. Os ids antigos (f.a1 a f.10) continuam: o progresso é guardado por eles.
-  // Regras (conferidas por teste): só notas da pentatônica; nas seções 1 e 2, só o desenho 1; na seção 1, nenhum
-  // gesto; na 3, a frase sai do desenho 1; toda nota longa é nota do acorde que está soando; toda frase deixa
+  // Regras (conferidas por teste): só notas da pentatônica; nas seções 1 e 2, só o shape 1; na seção 1, nenhum
+  // gesto; na 3, a frase sai do shape 1; toda nota longa é nota do acorde que está soando; toda frase deixa
   // pelo menos um tempo e meio de silêncio; as entradas e as notas finais variam.
   phrases: [
     // ----- Seção 1, Primeiros passos: poucas notas, silêncio e ritmo. Sem gesto.
@@ -5923,7 +5923,7 @@ export const curriculum: Curriculum = {
       ]),
       BASE,
     ),
-    // ----- Seção 3, O braço: uma corda só, outros desenhos, mudar de região.
+    // ----- Seção 3, O braço: uma corda só, outros shapes, mudar de região.
     ear(
       "f.s3.a",
       "s3",
@@ -5963,7 +5963,7 @@ export const curriculum: Curriculum = {
     ear(
       "f.s3.c",
       "s3",
-      phrase("ps3c", "No desenho 2", 2, [
+      phrase("ps3c", "No shape 2", 2, [
         [2, 10, 0.5, 1.5],
         [1, 8, 2, 0.5],
         [1, 10, 2.5, 0.5],
@@ -5976,7 +5976,7 @@ export const curriculum: Curriculum = {
     ear(
       "f.s3.d",
       "s3",
-      phrase("ps3d", "No desenho 3", 2, [
+      phrase("ps3d", "No shape 3", 2, [
         [2, 13, 1, 1],
         [2, 10, 2, 0.5],
         [3, 12, 2.5, 1.5],
@@ -6016,7 +6016,7 @@ export const curriculum: Curriculum = {
     ear(
       "f.s3.g",
       "s3",
-      phrase("ps3g", "No desenho 4", 2, [
+      phrase("ps3g", "No shape 4", 2, [
         [3, 14, 1, 0.5],
         [2, 13, 1.5, 0.5],
         [2, 15, 2, 0.5],
@@ -6029,7 +6029,7 @@ export const curriculum: Curriculum = {
     ear(
       "f.s3.h",
       "s3",
-      phrase("ps3h", "No desenho 5", 2, [
+      phrase("ps3h", "No shape 5", 2, [
         [3, 2, 0.5, 1],
         [3, 5, 1.5, 0.5],
         [2, 3, 2, 0.5],

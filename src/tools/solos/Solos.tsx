@@ -207,7 +207,7 @@ export function Solos() {
                           <li key={u.id} className={`unit ${st}${u.arc ? " arc" : ""}`}>
                             <details open={st === "atual"}>
                               <summary className="unit-head">
-                                <span className="n" aria-hidden="true">{i + 1}</span>
+                                <span className="n" aria-hidden="true">{sec.units.indexOf(id) + 1}</span>
                                 <div>
                                   {u.arc && <span className="kicker">{t("home.arc")}</span>}
                                   <h5>{u.title}</h5>
@@ -293,7 +293,6 @@ export function Solos() {
           </li>
         </ol>
         </div>
-        <p className="note">{t("home.soon")}</p>
       </section>
 
       {started && (
