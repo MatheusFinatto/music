@@ -24,6 +24,13 @@ export const STYLES = {
     hat: [0.5, 0, 0.3, 0, 0.5, 0, 0.3, 0, 0.5, 0, 0.3, 0, 0.5, 0, 0.3, 0],
     bass: [1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0],
   },
+  // Groove: chimbal em semicolcheias, bumbo e baixo sincopados, caixa no 2 e no 4 com uma nota fantasma.
+  groove: {
+    kick: [1, 0, 0, 0, 0, 0, 0, 0.6, 0, 0, 1, 0, 0, 0, 0, 0],
+    snare: [0, 0, 0, 0, 1, 0, 0, 0.2, 0, 0, 0, 0, 1, 0, 0, 0.2],
+    hat: [0.5, 0.2, 0.35, 0.2, 0.5, 0.2, 0.35, 0.2, 0.5, 0.2, 0.35, 0.2, 0.5, 0.2, 0.35, 0.2],
+    bass: [1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0],
+  },
   acordes: { bass: [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0] },
 } satisfies Record<string, Style>;
 

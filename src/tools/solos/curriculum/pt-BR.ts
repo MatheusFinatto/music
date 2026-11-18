@@ -37,8 +37,12 @@ const AM_DM: Base = { key: 0, prog: [5, 1], bpm: 66, style: "balada" };
 const SOBE: Base = { key: 0, prog: [5, 3, 4, 4], bpm: 96, style: "pop" };
 /** Um acorde só, em rock, mais rápido. */
 const VAMP_ROCK: Base = { key: 0, prog: [5], bpm: 104, style: "rock" };
-/** Base do solo do Luca Mantovanelli: Lá menor, no andamento do vídeo. */
-const LUCA: Base = { key: 0, prog: [5], bpm: 117, style: "rock" };
+/**
+ * A base do vídeo do Luca Mantovanelli, refeita com o som do site: Am7 por três compassos e Ré maior no
+ * quarto (Lá dórico), em groove, a 117 bpm. Os acordes foram tirados do áudio. O Ré maior não existe em
+ * Lá menor, por isso a base fica escrita em Sol maior (Am = grau 1, D = grau 4) e não muda com o tom de prática.
+ */
+const LUCA: Base = { key: 7, prog: [1, 1, 1, 4], bpm: 117, style: "groove" };
 /**
  * Outras bases para as tomadas: solar sempre sobre a mesma progressão não ensina a levar o solo para outra
  * música. Todas ficam dentro da pentatônica de Lá menor, com estilos e andamentos diferentes (de 66 a 104).
@@ -5761,6 +5765,16 @@ export const curriculum: Curriculum = {
                   [5, 7, 4.0, 0.5],
                 ]),
               ],
+            },
+            {
+              id: "u10.l5.take",
+              kind: "take",
+              title: "Seu solo na base do Luca",
+              goal: "Na mesma base do vídeo, um solo seu: use os trechos dele que você gostou e misture com o que você sabe.",
+              steps: ["Am7 por três compassos e Ré no quarto: no Ré, o Fá sustenido soa bem, mas fica fora da penta. Mire o Lá e o Ré.", "Comece devagar e suba até 117 bpm."],
+              check: "Seu solo andou junto com o groove e pousou em notas do acorde?",
+              base: LUCA,
+              bars: 16,
             },
           ],
         },

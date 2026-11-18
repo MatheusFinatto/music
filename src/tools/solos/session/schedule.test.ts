@@ -234,7 +234,7 @@ describe("frases das unidades", () => {
   it("todo arco tem dois exemplos diferentes, do tamanho da tomada, menos o de compor", () => {
     for (const u of real.units.filter((x) => x.arc))
       for (const e of u.lessons.flatMap((l) => l.exercises)) {
-        if (e.kind !== "take" || e.id === "u10.l2.compose") continue;
+        if (e.kind !== "take" || !e.arc || e.id === "u10.l2.compose") continue;
         expect(e.examples, e.id).toHaveLength(2);
         for (const p of e.examples!) expect(p.bars, `${e.id}/${p.id}`).toBe(e.bars);
         const [a, b] = e.examples!.map((p) => p.notes.map((n) => `${n.beat}:${n.midi}`).join(" "));
