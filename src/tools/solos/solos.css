@@ -93,10 +93,24 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 
 /* trilha: um caminho, não uma pilha de caixas */
 .solos .trail { display: flex; flex-direction: column; margin-top: 22px; }
-.solos .trail-section { margin-top: 40px; }
+.solos .trail-extra { margin-top: 40px; }
 .solos .section-title { font-size: var(--text-xl); display: flex; flex-direction: column; gap: 2px; }
+/* capítulos e seções fecham: só o trecho da unidade atual abre sozinho */
+.solos .chapter { margin-top: 28px; border-top: 1px solid var(--line); padding-top: 20px; }
+.solos .chapter > summary, .solos .trail-section > summary { list-style: none; cursor: pointer; display: flex; gap: 16px; align-items: flex-start; border-radius: var(--radius-md); }
+.solos .chapter > summary::-webkit-details-marker, .solos .trail-section > summary::-webkit-details-marker { display: none; }
+.solos .chapter > summary > div, .solos .trail-section > summary > div { flex: 1; min-width: 0; }
+.solos .chapter > summary p, .solos .trail-section > summary p { color: var(--muted); font-size: var(--text-md); text-wrap: pretty; max-width: 56ch; margin-top: 4px; }
+.solos .chapter > summary h3 { font-size: var(--text-2xl); }
+.solos .trail-section > summary h4 { font-family: var(--font-display), var(--font-sans); font-size: var(--text-xl); letter-spacing: -0.02em; font-weight: 650; line-height: 1.15; }
+.solos .chapter > summary .badge, .solos .trail-section > summary .badge { font-variant-numeric: tabular-nums; }
+.solos .chapter > summary .badge::after, .solos .trail-section > summary .badge::after { content: "+"; margin-left: 8px; font-weight: 700; }
+.solos .chapter[open] > summary .badge::after, .solos .trail-section[open] > summary .badge::after { content: "−"; }
+.solos .chapter > summary:hover h3, .solos .trail-section > summary:hover h4 { text-decoration: underline; text-underline-offset: 0.2em; }
+.solos .trail-section { margin: 18px 0 0 16px; }
+.solos .chapter[open] > .trail-section:last-child { margin-bottom: 8px; }
 .solos .kicker { display: block; font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--target); }
-.solos .unit-head h4 { font-size: var(--text-lg); }
+.solos .unit-head h5 { font-size: var(--text-lg); }
 .solos .unit.arc .n { background: var(--target-soft); color: var(--target-ink); box-shadow: 0 0 0 6px var(--bg), 0 0 0 7px var(--target); }
 .solos .unit.arc.feita .n { background: var(--target); color: var(--on-target); }
 .solos .unit { position: relative; display: flex; flex-direction: column; gap: 14px; padding: 0 0 34px 68px; }
@@ -142,7 +156,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .unit summary .badge { font-variant-numeric: tabular-nums; }
 .solos .unit summary .badge::after { content: "+"; margin-left: 8px; font-weight: 700; }
 .solos .unit details[open] summary .badge::after { content: "−"; }
-.solos .unit summary:hover h3 { text-decoration: underline; text-underline-offset: 0.2em; }
+.solos .unit summary:hover h5 { text-decoration: underline; text-underline-offset: 0.2em; }
 .solos .unit details > .lessons { margin-top: 14px; }
 
 /* exercício: modo de leitura */

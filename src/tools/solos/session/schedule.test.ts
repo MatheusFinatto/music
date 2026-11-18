@@ -13,6 +13,7 @@ const c: Curriculum = {
     { id: "u1", title: "", skill: "", lessons: [lesson("l3")] },
   ],
   sections: [{ id: "s1", title: "", goal: "", units: ["u0", "u1"] }],
+  chapters: [{ id: "c1", title: "", goal: "", sections: ["s1"] }],
   phrases: [{ ...ex("f1"), kind: "echo", phrases: [], reveal: "tab" } as Exercise as never],
   take: ex("take") as never,
 };
@@ -456,5 +457,9 @@ describe("seções", () => {
       expect(last?.arc, s.id).toBe(true);
       expect(s.units.slice(0, -1).every((id) => !real.units.find((u) => u.id === id)?.arc), s.id).toBe(true);
     }
+  });
+  it("os capítulos cobrem todas as seções, uma vez, na ordem, sem capítulo vazio", () => {
+    expect(real.chapters.flatMap((c) => c.sections)).toEqual(real.sections.map((s) => s.id));
+    for (const c of real.chapters) expect(c.sections.length, c.id).toBeGreaterThan(0);
   });
 });
