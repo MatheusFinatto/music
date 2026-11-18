@@ -1,5 +1,6 @@
 // Tom de prática: o conteúdo é escrito em Lá menor e deslocado para o tom escolhido. Lógica pura.
-// Exercícios escritos de propósito em outro tom (a unidade "Outro tom") não mudam.
+// Exercícios escritos de propósito em outro tom (a unidade "Outro tom") e os licks de uma gravação, no tom
+// da música, não mudam.
 import { mod12, keyLabel } from "@/core/theory";
 import type { Exercise, Phrase } from "./types";
 
@@ -45,7 +46,7 @@ function fit(p: Phrase, offset: number): Phrase {
 
 /** O exercício no tom de prática `key`. Só muda o que foi escrito em Lá menor. */
 export function transposeExercise(ex: Exercise, key: number): Exercise {
-  if (!ex.base || ex.base.key !== 0 || mod12(key) === 0) return ex;
+  if (!ex.base || ex.base.key !== 0 || ex.base.song || mod12(key) === 0) return ex;
   const off = keyOffset(key);
   const base = { ...ex.base, key: mod12(key) };
   if (ex.kind === "echo") return { ...ex, base, phrases: ex.phrases.map((p) => fit(p, off)) };
@@ -55,7 +56,7 @@ export function transposeExercise(ex: Exercise, key: number): Exercise {
       base,
       ...(ex.examples ? { examples: ex.examples.map((p) => fit(p, off)) } : {}),
       // As outras bases acompanham o tom; a que foi escrita em outro tom de propósito fica.
-      ...(ex.bases ? { bases: ex.bases.map((b) => (b.key === 0 ? { ...b, key: mod12(key) } : b)) } : {}),
+      ...(ex.bases ? { bases: ex.bases.map((b) => (b.key === 0 && !b.song ? { ...b, key: mod12(key) } : b)) } : {}),
     };
   return { ...ex, base };
 }

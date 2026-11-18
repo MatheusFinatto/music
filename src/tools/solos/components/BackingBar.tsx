@@ -159,7 +159,8 @@ export function BackingBar({ base, countIn = 1, hideChords = false, quiet = fals
       </button>
       <TempoControl bpm={bpm} onChange={changeTempo} />
       <div className="backing-extra">
-        <KeyPicker />
+        {/* Base no tom de uma gravação: o tom de prática não muda nada aqui. */}
+        {!base.song && <KeyPicker />}
         <SoundPanel />
       </div>
       <ChordStrip base={base} live={running} hideChords={hideChords} />
