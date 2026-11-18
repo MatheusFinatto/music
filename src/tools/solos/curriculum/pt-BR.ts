@@ -2563,6 +2563,59 @@ export const curriculum: Curriculum = {
             },
           ],
         },
+        {
+          id: "u14.l4",
+          title: "Bend de um tom e meio e de dois tons",
+          intro:
+            "Até aqui o bend foi de meio tom ou de um tom. Os solos de rock sobem mais: um tom e meio (três casas de distância, como do Lá ao Dó) e dois tons (quatro casas, do Fá ao Lá). A mão esquerda sozinha não dá conta: apoie os outros dedos na mesma corda, atrás do dedo que empurra, e empurre a corda para cima com o pulso, não só com o dedo. Afine o bend de ouvido: a nota de chegada tem que soar como a mesma nota tocada na casa de cima. É o gesto de clímax: um bend grande, segurado, faz o solo crescer de uma vez.",
+          key: "u14.l4.echo",
+          exercises: [
+            {
+              id: "u14.l4.echo",
+              kind: "echo",
+              title: "Bends grandes",
+              goal: "Repita de ouvido. A nota de chegada do bend é a nota que você procura: confira com a mesma nota na casa de cima.",
+              steps: [
+                "Um tom e meio: o Lá da 3ª corda, casa 14, sobe até o Dó (a mesma altura da casa 17). Segure e termine com vibrato lento.",
+                "Dois tons: o Fá da 3ª corda, casa 10, sobe até o Lá (a mesma altura da casa 14). O Fá é nota de fora da penta, mas é a tônica do acorde de Fá; o bend leva para a 3ª dele.",
+                "Antes de tocar, ache a nota de chegada na casa de cima. Depois faça o bend até soar igual.",
+                "Se a nota desafinar, apoie os outros dedos na corda e empurre com o pulso.",
+              ],
+              check: "A nota de chegada soou igual à mesma nota tocada na casa de cima?",
+              base: AM_F_SLOW,
+              reveal: "tab",
+              transcribed: true,
+              phrases: [
+                phrase("bm1", "Um tom e meio", 2, [
+                  [3, 5, 0, 0.5],
+                  [3, 7, 0.5, 0.5],
+                  [3, 14, 1, 2.5, { bend: 3, vib: "lento" }],
+                ]),
+                phrase("bm2", "Dois tons sobre o Fá", 2, [
+                  [3, 5, 4, 0.5],
+                  [3, 7, 4.5, 0.5],
+                  [3, 10, 5, 2.5, { bend: 4, vib: "lento" }],
+                ]),
+                phrase("bm3", "Os dois bends", 2, [
+                  [3, 14, 0, 2, { bend: 3, vib: "lento" }],
+                  [3, 7, 3, 0.5],
+                  [3, 10, 4, 3, { bend: 4, vib: "lento" }],
+                ]),
+              ],
+            },
+            {
+              id: "u14.l4.pr",
+              kind: "play-rest",
+              title: "Um bend grande por frase",
+              goal: "Nos compassos de tocar, uma frase com um bend de um tom e meio ou de dois tons, segurado, terminando numa nota do acorde.",
+              steps: ["Ache antes a nota de chegada, na casa de cima.", "Segure o bend e feche com vibrato."],
+              check: "A nota de chegada do bend soou afinada e foi uma nota do acorde?",
+              base: BASE_SLOW,
+              pattern: ["play", "play", "rest", "rest"],
+              rule: "Um bend grande, segurado",
+            },
+          ],
+        },
       ],
     },
     {
