@@ -22,7 +22,23 @@ export type LeadNote = {
   vibrato?: { rate: number; cents: number; delay?: number };
   /** Intensidade 0..1. Padrão: 1. */
   amp?: number;
+  /**
+   * Ligado (hammer-on ou pull-off): a nota não é palhetada. Continua a voz da nota anterior, que tem que
+   * terminar onde esta começa, e só muda de altura. Sem nota anterior colada, soa palhetada.
+   */
+  legato?: boolean;
 };
+
+/** Notas ligadas seguidas viram uma voz só: cada grupo começa numa nota palhetada. */
+export function legatoChains(notes: readonly LeadNote[]): LeadNote[][] {
+  const out: LeadNote[][] = [];
+  for (const n of notes) {
+    const chain = out.at(-1), prev = chain?.at(-1);
+    if (n.legato && chain && prev && Math.abs(prev.beat + prev.dur - n.beat) < 0.02) chain.push(n);
+    else out.push([n]);
+  }
+  return out;
+}
 
 /** A cadeia de timbre de cada contexto, criada na primeira nota e atualizada quando a pessoa muda o som. */
 const chains = new WeakMap<BaseAudioContext, ReturnType<typeof buildChain>>();
@@ -43,30 +59,27 @@ function chainOf({ ctx, bus }: AudioGraph) {
   return c;
 }
 
-/** Bend ou slide: a altura sai de `from`, fica parada `hold` e vai até `target` em `glide`. */
-function glideTo(p: AudioParam, n: LeadNote, target: number, mult: number, t: number, beatDur: number) {
-  if (n.from === undefined) { p.setValueAtTime(target * mult, t); return; }
-  const hold = Math.min(n.dur * 0.6, n.hold ?? 0) * beatDur;
-  const glide = Math.min(n.dur * 0.9 - hold / beatDur, n.glide ?? 0.5) * beatDur;
-  p.setValueAtTime(hz(n.from) * mult, t);
-  if (hold > 0) p.setValueAtTime(hz(n.from) * mult, t + hold);
-  p.exponentialRampToValueAtTime(target * mult, t + hold + glide);
+/**
+ * A altura de uma voz ao longo das notas dela (uma, ou várias ligadas). Em cada nota: bend ou slide sai de
+ * `from`, fica parado `hold` e vai até `midi` em `glide`; sem gesto, a altura pula para `midi` na hora.
+ * `value` converte a altura MIDI no valor do parâmetro; `exp` usa rampa exponencial (frequência em Hz).
+ */
+function pitchCurve(p: AudioParam, chain: readonly LeadNote[], t0: number, beatDur: number, value: (midi: number) => number, exp: boolean) {
+  for (const n of chain) {
+    const t = t0 + n.beat * beatDur;
+    if (n.from === undefined) { p.setValueAtTime(value(n.midi), t); continue; }
+    const hold = Math.min(n.dur * 0.6, n.hold ?? 0) * beatDur;
+    const glide = Math.min(n.dur * 0.9 - hold / beatDur, n.glide ?? 0.5) * beatDur;
+    p.setValueAtTime(value(n.from), t);
+    if (hold > 0) p.setValueAtTime(value(n.from), t + hold);
+    if (exp) p.exponentialRampToValueAtTime(value(n.midi), t + hold + glide);
+    else p.linearRampToValueAtTime(value(n.midi), t + hold + glide);
+  }
 }
 
 /** Prepara o som escolhido (cadeia e amostras) antes da primeira nota: chame junto com o play. */
 export function prepareLead(graph: AudioGraph) {
   chainOf(graph);
-}
-
-/** Bend ou slide numa amostra: a altura sai de `from` e vai até `midi`, em cents sobre a nota de partida. */
-function glideCents(p: AudioParam, n: LeadNote, t: number, beatDur: number) {
-  p.setValueAtTime(0, t);
-  if (n.from === undefined) return;
-  const hold = Math.min(n.dur * 0.6, n.hold ?? 0) * beatDur;
-  const glide = Math.min(n.dur * 0.9 - hold / beatDur, n.glide ?? 0.5) * beatDur;
-  if (hold > 0) p.setValueAtTime(0, t + hold);
-  // Rampa linear em cents = rampa exponencial em Hz: a mesma curva da voz sintetizada.
-  p.linearRampToValueAtTime((n.midi - n.from) * 100, t + hold + glide);
 }
 
 /** Vibrato: oscila a desafinação (`detune`, em cents) de cada parâmetro dado. */
@@ -83,21 +96,32 @@ function vibrato(ctx: BaseAudioContext, n: LeadNote, params: AudioParam[], t: nu
   track(lfo).start(t); lfo.stop(end + 0.5);
 }
 
-/** Agenda uma nota. `t` é o instante (relógio do AudioContext) do começo; `beatDur` em segundos. */
+/** Agenda uma nota. `t0` é o instante (relógio do AudioContext) do tempo 0; `beatDur` em segundos. */
 export function playLead(graph: AudioGraph, n: LeadNote, t0: number, beatDur: number) {
+  playVoice(graph, [n], t0, beatDur);
+}
+
+/** Uma voz: a primeira nota é palhetada e as seguintes, ligadas, só mudam a altura. */
+function playVoice(graph: AudioGraph, chain: readonly LeadNote[], t0: number, beatDur: number) {
   const { ctx, bus } = graph;
+  const n = chain[0]!, last = chain.at(-1)!;
   const t = t0 + n.beat * beatDur;
-  const end = t + Math.max(0.06, n.dur * beatDur);
+  const end = t0 + last.beat * beatDur + Math.max(0.06, last.dur * beatDur);
+  // O vibrato é da última nota: nas do meio de um ligado, ele não teria tempo de começar.
+  const vib = last;
+  const vibAt = t0 + last.beat * beatDur;
   const sound = soundStore.get();
 
   if (sound.instrument !== "sintetizador") {
-    const chain = chainOf(graph);
+    const chain0 = chainOf(graph);
     const bank = bankOf(ctx, sound.instrument);
     if (bank) {
-      const v = sampleVoice(ctx, bank, chain.input, n.from ?? n.midi, t, end, 1.4 * (n.amp ?? 1));
+      const ref = n.from ?? n.midi;
+      const v = sampleVoice(ctx, bank, chain0.input, ref, t, end, 1.4 * (n.amp ?? 1));
       track(v.src);
-      glideCents(v.detune, n, t, beatDur);
-      vibrato(ctx, n, [v.detune], t, end, beatDur);
+      // Rampa linear em cents = rampa exponencial em Hz: a mesma curva da voz sintetizada.
+      pitchCurve(v.detune, chain, t0, beatDur, (m) => (m - ref) * 100, false);
+      vibrato(ctx, vib, [v.detune], vibAt, end, beatDur);
       return;
     }
     // Ainda baixando: esta nota sai na voz sintetizada, as próximas já gravadas.
@@ -112,9 +136,8 @@ export function playLead(graph: AudioGraph, n: LeadNote, t0: number, beatDur: nu
   f.type = "lowpass"; f.Q.value = 1.2;
   f.frequency.setValueAtTime(3600, t); f.frequency.exponentialRampToValueAtTime(1500, t + 0.5);
 
-  const target = hz(n.midi);
-  for (const [osc, mult] of [[o1, 1], [o2, 2]] as const) glideTo(osc.frequency, n, target, mult, t, beatDur);
-  vibrato(ctx, n, [o1.detune, o2.detune], t, end, beatDur);
+  for (const [osc, mult] of [[o1, 1], [o2, 2]] as const) pitchCurve(osc.frequency, chain, t0, beatDur, (m) => hz(m) * mult, true);
+  vibrato(ctx, vib, [o1.detune, o2.detune], vibAt, end, beatDur);
 
   g.gain.setValueAtTime(0, t);
   g.gain.linearRampToValueAtTime(amp, t + 0.012);
@@ -125,5 +148,5 @@ export function playLead(graph: AudioGraph, n: LeadNote, t0: number, beatDur: nu
 }
 
 export function playPhrase(graph: AudioGraph, notes: readonly LeadNote[], t0: number, beatDur: number) {
-  for (const n of notes) playLead(graph, n, t0, beatDur);
+  for (const chain of legatoChains(notes)) playVoice(graph, chain, t0, beatDur);
 }
