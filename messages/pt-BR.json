@@ -110,6 +110,7 @@
       "phrases": "Frases de ouvido",
       "phrasesNote": "Frases curtas para tirar de ouvido.",
       "unmarkConfirm": "Desmarcar \"{lesson}\"? Isso apaga o registro de que você fez esta lição.",
+      "chapter": "Capítulo {n}",
       "section": "Seção {n}",
       "arc": "Arco da seção",
       "extra": "Fora da trilha"

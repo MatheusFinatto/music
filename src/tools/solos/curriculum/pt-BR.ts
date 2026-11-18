@@ -4820,6 +4820,11 @@ export const curriculum: Curriculum = {
     { id: "s3", title: "O braço todo", goal: "Uma corda só, trocar de região no meio da frase e outros tons, até atravessar o braço do grave ao agudo.", units: ["u7", "u12", "u13", "a3"] },
     { id: "s7", title: "O solo pelo braço todo", goal: "O solo inteiro, agora usando o braço de ponta a ponta.", units: ["u10"] },
   ],
+  chapters: [
+    { id: "c1", title: "Um desenho só", goal: "Solar inteiro no desenho 1: vale mais que conhecer os cinco.", sections: ["s1", "s2", "s6", "s5", "s4"] },
+    { id: "c2", title: "Os outros desenhos", goal: "Um desenho novo por vez, a fundo, e depois junto com os que você já sabe.", sections: ["s8", "s9", "s10", "s11"] },
+    { id: "c3", title: "O braço todo", goal: "Do grave ao agudo, em qualquer tom.", sections: ["s3", "s7"] },
+  ],
 
   // Frases próprias para tirar de ouvido, agrupadas pela seção cuja matéria usam e, dentro dela, em ordem de
   // dificuldade. Os ids antigos (f.a1 a f.10) continuam: o progresso é guardado por eles.

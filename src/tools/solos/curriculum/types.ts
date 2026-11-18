@@ -123,11 +123,16 @@ export type Unit = {
 /** Um trecho da trilha. A última unidade de cada seção é o arco dela. */
 export type Section = { id: string; title: string; goal: string; units: string[] };
 
+/** Um grupo de seções, para a trilha não virar uma lista sem fim. */
+export type Chapter = { id: string; title: string; goal: string; sections: string[] };
+
 export type Curriculum = {
   /** A trilha, na ordem recomendada. Nada é travado: a pessoa faz na ordem que quiser. */
   units: Unit[];
   /** As unidades agrupadas, na mesma ordem de `units`. */
   sections: Section[];
+  /** As seções agrupadas, na mesma ordem de `sections`. */
+  chapters: Chapter[];
   /** Frases para tirar de ouvido, em ordem de dificuldade. A sessão sugerida traz uma por vez. */
   phrases: EchoExercise[];
   /** Tomada livre que fecha toda sessão. */

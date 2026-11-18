@@ -122,6 +122,12 @@ export function Solos() {
     if (e && !e.manual && !window.confirm(t("home.unmarkConfirm", { lesson: l.title }))) return;
     progressStore.set((p) => toggleLesson(p, l.id, today));
   };
+  // Só abre o capítulo e a seção da unidade atual; o resto fica fechado para a trilha caber na tela.
+  const current = curriculum.units[statuses.indexOf("atual")]?.id;
+  const count = (units: string[]) => {
+    const ls = units.flatMap((id) => curriculum.units.find((u) => u.id === id)!.lessons);
+    return { done: ls.filter((l) => progress.lessons[l.id]).length, total: ls.length };
+  };
   // Qualquer lição pode ser feita a qualquer momento; a trilha só recomenda a ordem.
   const startLesson = (lesson: Lesson) =>
     navigate({ name: "session", lesson: lesson.id, at: 0, ratings: [], steps: lessonSteps(lesson, isAgain(lesson, progress)) });
@@ -166,59 +172,84 @@ export function Solos() {
 
       <section aria-labelledby="h-trail">
         <h2 id="h-trail">{t("home.trail")}</h2>
-        {curriculum.sections.map((sec, si) => (
-        <div key={sec.id} className="trail-section">
-          <h3 className="section-title"><span className="kicker">{t("home.section", { n: si + 1 })}</span>{sec.title}</h3>
-          <p className="note">{sec.goal}</p>
-        <ol className="trail">
-          {sec.units.map((id) => {
-            const i = curriculum.units.findIndex((x) => x.id === id);
-            const u = curriculum.units[i]!;
-            const st = statuses[i]!;
-            const done = u.lessons.filter((l) => progress.lessons[l.id]).length;
-            return (
-              <li key={u.id} className={`unit ${st}${u.arc ? " arc" : ""}`}>
-                <details open={st === "atual"}>
-                  <summary className="unit-head">
-                    <span className="n" aria-hidden="true">{i + 1}</span>
-                    <div>
-                      {u.arc && <span className="kicker">{t("home.arc")}</span>}
-                      <h4>{u.title}</h4>
-                      <p>{u.skill}</p>
-                    </div>
-                    <span className={`badge ${st}`}>{t("home.count", { done, total: u.lessons.length })}</span>
-                  </summary>
-                  <ul className="lessons">
-                    {u.lessons.map((l) => {
-                      const e = progress.lessons[l.id];
-                      const recommended = l.id === session.lesson?.id;
-                      return (
-                        <li key={l.id} className={recommended ? "next" : undefined}>
-                          <div className="lesson-head">
-                            <label className="check">
-                              <input type="checkbox" checked={!!e} onChange={() => toggle(l)} disabled={!today} />
-                              <span className="sr-only">{t("home.mark", { lesson: l.title })}</span>
-                            </label>
-                            <strong>{l.title}</strong>
-                            {recommended && <span className="badge atual">{t("home.recommended")}</span>}
-                            {e?.cold && <span className="state lessonCold">{t("home.lessonCold")}</span>}
-                            <a className={recommended ? "btn small primary" : "btn small"} href={hrefOf({ kind: "lesson", id: l.id })} onClick={follow(() => startLesson(l))}>
-                              {e ? t("home.redo") : t("home.do")}
-                            </a>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </details>
-              </li>
-            );
-          })}
-        </ol>
-        </div>
-        ))}
+        {curriculum.chapters.map((ch, ci) => {
+          const secs = ch.sections.map((id) => curriculum.sections.find((x) => x.id === id)!);
+          const chCount = count(secs.flatMap((x) => x.units));
+          return (
+            <details key={ch.id} className="chapter" open={secs.some((x) => x.units.includes(current ?? ""))}>
+              <summary className="chapter-head">
+                <div>
+                  <span className="kicker">{t("home.chapter", { n: ci + 1 })}</span>
+                  <h3>{ch.title}</h3>
+                  <p>{ch.goal}</p>
+                </div>
+                <span className={`badge${chCount.done === chCount.total ? " feita" : ""}`}>{t("home.count", chCount)}</span>
+              </summary>
+              {secs.map((sec) => {
+                const secCount = count(sec.units);
+                return (
+                  <details key={sec.id} className="trail-section" open={sec.units.includes(current ?? "")}>
+                    <summary className="section-head">
+                      <div>
+                        <span className="kicker">{t("home.section", { n: curriculum.sections.indexOf(sec) + 1 })}</span>
+                        <h4>{sec.title}</h4>
+                        <p>{sec.goal}</p>
+                      </div>
+                      <span className={`badge${secCount.done === secCount.total ? " feita" : ""}`}>{t("home.count", secCount)}</span>
+                    </summary>
+                    <ol className="trail">
+                      {sec.units.map((id) => {
+                        const i = curriculum.units.findIndex((x) => x.id === id);
+                        const u = curriculum.units[i]!;
+                        const st = statuses[i]!;
+                        const done = u.lessons.filter((l) => progress.lessons[l.id]).length;
+                        return (
+                          <li key={u.id} className={`unit ${st}${u.arc ? " arc" : ""}`}>
+                            <details open={st === "atual"}>
+                              <summary className="unit-head">
+                                <span className="n" aria-hidden="true">{i + 1}</span>
+                                <div>
+                                  {u.arc && <span className="kicker">{t("home.arc")}</span>}
+                                  <h5>{u.title}</h5>
+                                  <p>{u.skill}</p>
+                                </div>
+                                <span className={`badge ${st}`}>{t("home.count", { done, total: u.lessons.length })}</span>
+                              </summary>
+                              <ul className="lessons">
+                                {u.lessons.map((l) => {
+                                  const e = progress.lessons[l.id];
+                                  const recommended = l.id === session.lesson?.id;
+                                  return (
+                                    <li key={l.id} className={recommended ? "next" : undefined}>
+                                      <div className="lesson-head">
+                                        <label className="check">
+                                          <input type="checkbox" checked={!!e} onChange={() => toggle(l)} disabled={!today} />
+                                          <span className="sr-only">{t("home.mark", { lesson: l.title })}</span>
+                                        </label>
+                                        <strong>{l.title}</strong>
+                                        {recommended && <span className="badge atual">{t("home.recommended")}</span>}
+                                        {e?.cold && <span className="state lessonCold">{t("home.lessonCold")}</span>}
+                                        <a className={recommended ? "btn small primary" : "btn small"} href={hrefOf({ kind: "lesson", id: l.id })} onClick={follow(() => startLesson(l))}>
+                                          {e ? t("home.redo") : t("home.do")}
+                                        </a>
+                                      </div>
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            </details>
+                          </li>
+                        );
+                      })}
+                    </ol>
+                  </details>
+                );
+              })}
+            </details>
+          );
+        })}
 
-        <div className="trail-section">
+        <div className="trail-extra">
           <h3 className="section-title">{t("home.extra")}</h3>
         <ol className="trail">
           {/* As frases de ouvido correm em paralelo às unidades: a sessão sugerida traz uma por vez. */}
@@ -229,7 +260,7 @@ export function Solos() {
                   <svg viewBox="0 0 24 24" width="20" height="20"><path d="M9 18V6l10-2v12" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /><circle cx="6.5" cy="18" r="2.5" fill="currentColor" /><circle cx="16.5" cy="16" r="2.5" fill="currentColor" /></svg>
                 </span>
                 <div>
-                  <h4>{t("home.phrases")}</h4>
+                  <h5>{t("home.phrases")}</h5>
                   <p>{t("home.phrasesNote")}</p>
                 </div>
                 <span className="badge">{t("home.count", { done: curriculum.phrases.filter((ph) => progress.exercises[ph.id]?.last === "ok").length, total: curriculum.phrases.length })}</span>
