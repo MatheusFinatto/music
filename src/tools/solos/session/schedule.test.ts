@@ -289,9 +289,9 @@ describe("frases das unidades", () => {
       expect(top(part(p, 3)), p.id).toBeGreaterThan(top(p.notes.filter((n) => n.beat < 24)));
     }
   });
-  it("no arco final, o motivo do começo volta igual na última parte, e a nota mais alta fica no pico", () => {
+  it("no solo inteiro (desenho 1 e braço todo), o motivo do começo volta igual na última parte, e a nota mais alta fica no pico", () => {
     const shape = (ns: Phrase["notes"], from: number) => ns.map((n) => `${n.beat - from}:${n.dur}:${n.midi}`).join(" ");
-    for (const p of take("u10.l3.full").examples!) {
+    for (const p of [...take("a6.take").examples!, ...take("u10.l3.full").examples!]) {
       // O motivo é o que soa no primeiro compasso. Ele reaparece nota por nota, no mesmo ritmo, abrindo a parte "Fecha".
       const motif = p.notes.filter((n) => n.beat < 4);
       expect(motif.length, p.id).toBeGreaterThanOrEqual(3);
@@ -316,6 +316,34 @@ describe("frases das unidades", () => {
       // Corrida e fim: a parte com mais alturas diferentes, e a nota mais longa do solo no fim.
       expect(new Set(fast(3).map((n) => n.midi)).size, `${p.id}: corrida`).toBeGreaterThan(lick + 1);
       expect(p.notes.at(-1)!.dur, p.id).toBe(Math.max(...p.notes.map((n) => n.dur)));
+    }
+  });
+  it("na Parte 1, a seção de vocabulário e o solo inteiro ficam nas posições do desenho 1", () => {
+    const box = new Set(pentatonicShape(0, 1).map((x) => `${x.string}-${x.fret}`));
+    const units = [...real.sections.find((s) => s.id === "s6")!.units, "a6"];
+    const phrases = real.units
+      .filter((u) => units.includes(u.id))
+      .flatMap((u) => u.lessons.flatMap((l) => l.exercises))
+      .flatMap((e) => (e.kind === "echo" ? e.phrases : e.kind === "take" ? (e.examples ?? []) : []));
+    expect(phrases.length).toBeGreaterThanOrEqual(12);
+    for (const p of phrases) p.frets!.forEach((f, i) => expect(box.has(`${f.string}-${f.fret}`), `${p.id}, nota ${i + 1}`).toBe(true));
+  });
+  it("no arco 3, o exemplo abre com um lick da seção, pergunta no ar, responde igual e pousa, e fecha com bend", () => {
+    const base = take("a5.take").base!;
+    const licks = exercises
+      .filter((e) => e.id.startsWith("u17."))
+      .flatMap((e) => (e.kind === "echo" ? e.phrases.map((p) => p.notes.map((n) => n.midi).join(" ")) : []));
+    for (const p of take("a5.take").examples!) {
+      expect(licks, `${p.id}: um lick da seção`).toContain(part(p, 0).map((n) => n.midi).join(" "));
+      const [ask, answer] = [part(p, 1), part(p, 2)];
+      const askEnd = ask.at(-1)!;
+      expect(degreeIn(askEnd.midi, chordAt(base, askEnd.beat)), `${p.id}: a pergunta fica no ar`).toBeNull();
+      expect(answer.slice(0, 5).map((n) => n.midi), `${p.id}: a resposta começa igual`).toEqual(ask.slice(0, 5).map((n) => n.midi));
+      const home = answer.at(-1)!;
+      expect(degreeIn(home.midi, chordAt(base, home.beat)), `${p.id}: a resposta pousa`).not.toBeNull();
+      expect(home.dur, `${p.id}: a resposta pousa`).toBeGreaterThanOrEqual(2);
+      expect(part(p, 3).some((n) => n.from !== undefined && n.midi > n.from), `${p.id}: bend`).toBe(true);
+      expect(p.notes.at(-1)!.dur, `${p.id}: nota longa no fim`).toBeGreaterThanOrEqual(3);
     }
   });
   it("as outras bases da tomada fecham o ciclo dentro dela, só com acordes que têm nota na pentatônica", () => {
