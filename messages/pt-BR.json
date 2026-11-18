@@ -255,7 +255,10 @@
         "pop": "pop",
         "acordes": "só acordes"
       },
-      "yourTurn": "Sua vez"
+      "yourTurn": "Sua vez",
+      "bars": "Compassos",
+      "barsN": "{n}",
+      "barsRecommended": "{n} (recomendado)"
     },
     "target": {
       "word": "{degree} de {chord}",
