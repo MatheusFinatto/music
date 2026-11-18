@@ -141,6 +141,7 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
       )}
       <section className={shown ? "block" : undefined} aria-labelledby={shown ? `${ex.id}-yours` : undefined}>
         {shown && <h3 id={`${ex.id}-yours`} className="block-title">{t("yourTurn")}</h3>}
+        <div className="take-options">
         {bases.length > 1 && (
           <label className="key-picker base-picker">
             <span>{t("base")}</span>
@@ -159,6 +160,7 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
             ))}
           </select>
         </label>
+        </div>
         {/* A chave recria a barra ao trocar de base: o andamento volta ao da base escolhida. */}
         <BackingBar key={`${ex.id}-${mine.base}`} base={base} quiet={example} />
       </section>
