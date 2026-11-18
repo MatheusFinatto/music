@@ -170,7 +170,7 @@ export function BackingBar({ base, countIn = 1, hideChords = false, quiet = fals
       <div className="backing-extra">
         {/* Base no tom de uma gravação: o tom de prática não muda nada aqui. */}
         {!base.song && <KeyPicker />}
-        <SoundPanel />
+        <SoundPanel preview={{ playing: running, toggle }} />
       </div>
       <ChordStrip base={base} live={running} hideChords={hideChords} />
       <p className="keys">{t("space")}</p>
