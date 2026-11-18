@@ -1,14 +1,18 @@
 // Tablatura em texto de uma frase, no formato do Piano de Ideias (legacy/src/lib/score.js): o acorde em
 // cima de cada compasso, seis linhas (1ª corda em cima), cada semicolcheia com largura fixa (o espaço
-// mostra o ritmo) e a contagem embaixo. Gestos: 7b9 bend, 9r7 dobrar e soltar, 5/7 slide, ~ vibrato.
+// mostra o ritmo) e a contagem embaixo. Gestos: 7b9 bend, 9r7 dobrar e soltar, 5/7 slide, h7 e p5 ligado, ~ vibrato.
 import type { LeadNote } from "@/core/audio";
 import type { FretPos } from "@/core/theory";
 import { gestureOf } from "./tech";
 
-/** O que se escreve na corda para esta nota: 7, 7b9, 9r7, 5/7, com ~ se houver vibrato. */
-export function tabToken(n: LeadNote, pos: FretPos): string {
+/**
+ * O que se escreve na corda para esta nota: 7, 7b9, 9r7, 5/7, com ~ se houver vibrato. Ligada à anterior
+ * (`prev`): h7 se sobe (hammer-on), p5 se desce (pull-off).
+ */
+export function tabToken(n: LeadNote, pos: FretPos, prev?: LeadNote): string {
   const g = gestureOf(n, pos), f = pos.fret;
-  const body = !g ? `${f}`
+  const lig = n.legato && prev && !g ? (n.midi > prev.midi ? "h" : "p") : "";
+  const body = !g ? `${lig}${f}`
     : g.kind === "slide" ? `${g.fromFret}/${f}`
     : g.kind === "bend" ? `${f}b${f + g.amount}`
     : `${f + g.amount}r${f}`;
@@ -35,7 +39,7 @@ function denseCw(notes: readonly LeadNote[], frets: readonly FretPos[]): number 
     const s = frets[i]!.string, prev = last.get(s);
     if (prev !== undefined) {
       const gap = (n.beat - notes[prev]!.beat) * 4;
-      if (gap > 0) need = Math.max(need, Math.ceil(tabToken(notes[prev]!, frets[prev]!).length / gap));
+      if (gap > 0) need = Math.max(need, Math.ceil(tabToken(notes[prev]!, frets[prev]!, notes[prev - 1]).length / gap));
     }
     last.set(s, i);
   });
@@ -50,7 +54,7 @@ export function tabSystems(notes: readonly LeadNote[], frets: readonly FretPos[]
   notes.forEach((n, i) => {
     const six = Math.round(n.beat * 4), bar = Math.floor(six / 16);
     if (bar >= bars) return;
-    const pos = frets[i]!, token = tabToken(n, pos);
+    const pos = frets[i]!, token = tabToken(n, pos, notes[i - 1]);
     const row = grid[pos.string]![bar]!;
     // Nota mais curta que a semicolcheia (enfeite de solo tirado de gravação) cairia em cima da anterior:
     // vai para a primeira coluna livre ao lado. A posição fica aproximada; o som continua no tempo certo.
