@@ -74,7 +74,11 @@
 }
 
 @layer base {
-  html { scroll-behavior: smooth; scrollbar-color: var(--line) var(--bg); }
+  html { scroll-padding-top: 128px; scrollbar-color: var(--line) var(--bg); }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  /* sem o atraso de duplo toque do celular: o "Marcar no toque" do metrônomo depende disso */
+  button, a, input, select, summary, [role="button"], [role="tab"], [role="radio"] { touch-action: manipulation; }
+  :root { -webkit-tap-highlight-color: color-mix(in srgb, var(--accent) 25%, transparent); }
   body {
     background:
       radial-gradient(120% 70% at 50% -10%, var(--glow-warm), transparent 60%),
@@ -93,7 +97,7 @@
   }
   ::selection { background: var(--accent); color: var(--accent-ink); }
   :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: var(--radius-sm); }
-  h1, h2, h3 { text-wrap: balance; }
+  h1, h2, h3, h4, h5 { text-wrap: balance; }
   a { text-underline-offset: 0.2em; }
 }
 
@@ -144,10 +148,16 @@
   .icon { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); margin-bottom: 6px; flex: none; }
   .icon svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-  a.card { transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); }
-  a.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-up); }
-  a.card:active { transform: translateY(-1px) scale(0.995); transition-duration: 0.12s; }
+  a.card:hover { box-shadow: var(--shadow-up); }
+  @media (prefers-reduced-motion: no-preference) {
+    a.card { transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); }
+    a.card:hover { transform: translateY(-4px); }
+    a.card:active { transform: translateY(-1px) scale(0.995); transition-duration: 0.12s; }
+  }
   .go { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 600; font-size: 0.95rem; padding: 9px 16px 9px 18px; border-radius: 999px; }
+  .go { transition: filter 0.2s; }
+  .go:hover { filter: brightness(1.1); }
+  .go:active { filter: brightness(0.95); }
   .go svg { width: 16px; height: 16px; transition: transform 0.5s var(--ease); }
   a.card:hover .go svg { transform: translateX(4px); }
 
@@ -170,9 +180,10 @@
   .card.planned p { font-size: 0.93rem; }
 
   /* rodapé */
-  .site-footer { margin-top: auto; padding-top: clamp(56px, 8vw, 96px); }
+  .site-footer { margin-top: auto; padding-top: clamp(56px, 8vw, 96px); padding-bottom: env(safe-area-inset-bottom); }
   .site-footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-block: 22px 30px; color: var(--muted); font-size: 0.9rem; }
   .site-footer a { color: var(--accent); font-weight: 500; }
+  .site-footer a:hover { text-decoration: underline; }
   .site-footer .links { display: flex; flex-wrap: wrap; gap: 8px 24px; }
 
   .notfound { text-align: center; padding-block: 96px; display: flex; flex-direction: column; gap: 16px; align-items: center; }

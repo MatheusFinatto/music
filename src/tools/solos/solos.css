@@ -52,7 +52,8 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .seg { background: transparent; }
 .solos .seg button[aria-pressed="true"], .solos .seg button[aria-selected="true"], .solos .seg button[aria-checked="true"] { background: var(--ink); color: var(--bg); }
 .solos .seg button:disabled { cursor: default; }
-.solos .phrase-about { max-width: 64ch; }
+.solos .seg button:hover:not(:disabled):not([aria-pressed="true"]):not([aria-selected="true"]):not([aria-checked="true"]) { background: var(--soft); }
+.solos .phrase-about { max-width: 60ch; }
 .solos .phrase-about p { font-size: var(--text-md); text-wrap: pretty; }
 .solos .phrase-about ol { margin: 8px 0 0; padding-left: 1.4em; color: var(--muted); display: grid; gap: 4px; text-wrap: pretty; }
 
@@ -150,8 +151,10 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .frame .hint { color: var(--muted); font-size: var(--text-sm); max-width: 64ch; }
 .solos .intro { background: var(--surface); box-shadow: var(--shadow); border-radius: var(--radius-md); padding: 18px 20px; }
 .solos .intro p { margin-top: 6px; max-width: 62ch; text-wrap: pretty; }
-.solos .frame .reading > h1 { font-size: var(--text-2xl); }
+.solos .frame .reading > .ex-title { font-size: var(--text-2xl); }
+.solos .intro .intro-title { font-size: var(--text-2xl); letter-spacing: -0.03em; font-weight: 700; line-height: 1.1; }
 .solos .frame .goal { font-size: var(--text-lg); max-width: 60ch; text-wrap: pretty; }
+.solos .steps li, .solos .intro li, .solos .arc-note p, .solos .note { text-wrap: pretty; }
 .solos .steps { list-style: decimal; padding-left: 1.3em; color: var(--muted); display: flex; flex-direction: column; gap: 4px; max-width: 68ch; }
 .solos .stage { scroll-margin-top: 68px; }
 .solos .engine { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(14px, 2.6vw, 24px); display: flex; flex-direction: column; gap: 16px; }
@@ -187,7 +190,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .engine.take > .banner { order: 0; }
 .solos .engine.take > .yours { order: 1; }
 /* a base acompanha a rolagem: dá para olhar a tablatura sem perder o play e os acordes */
-@media (min-width: 681px) { .solos .backing .keys { display: none; } .solos .backing { position: sticky; top: 56px; z-index: 5; background: var(--bg); padding-block: 10px; box-shadow: 0 1px 0 var(--line); } }
+@media (min-width: 681px) { .solos .backing .keys { display: none; } .solos .backing { position: sticky; top: 56px; z-index: 5; background: var(--surface); padding-block: 10px; box-shadow: 0 1px 0 var(--line); } }
 .solos .backing .play { min-width: 12rem; min-height: 52px; padding-inline: 20px; font-size: var(--text-lg); }
 .solos .backing .keys { grid-column: 1 / -1; color: var(--muted); font-size: var(--text-xs); }
 @media (hover: none) { .solos .backing .keys { display: none; } }
@@ -343,7 +346,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .key-picker select option { background: var(--surface); color: var(--ink); }
 .solos .take-options { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
 .solos .key-note { color: var(--target); font-size: var(--text-sm); font-weight: 600; }
-.solos .sound-panel { margin: auto; max-height: calc(100dvh - 32px); overflow-y: auto; width: min(26rem, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); padding: 24px; }
+.solos .sound-panel { overscroll-behavior: contain; margin: auto; max-height: calc(100dvh - 32px); overflow-y: auto; width: min(26rem, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); padding: 24px; }
 .solos .sound-panel[open] { display: flex; flex-direction: column; gap: 16px; }
 .solos .sound-panel::backdrop { background: rgb(0 0 0 / 0.55); }
 .solos .sound-panel h2 { font-size: var(--text-xl); margin: 0; }
@@ -395,6 +398,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .week-row.head span::first-letter { text-transform: uppercase; }
 .cell { display: grid; place-items: center; padding: 0; min-height: 44px; border: 1px solid var(--border, color-mix(in srgb, var(--ink) 30%, transparent)); border-radius: var(--radius-sm); background: transparent; color: inherit; font: inherit; cursor: pointer; }
 .cell.empty { border: 0; cursor: default; }
+.cell:hover { background: var(--soft); }
 .cell.study { background: color-mix(in srgb, var(--ink) 8%, transparent); }
 .cell.plan { border-style: dashed; border-color: var(--muted); }
 .cell.did { background: color-mix(in srgb, var(--ink) 14%, transparent); border-color: var(--muted); }

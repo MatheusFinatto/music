@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -11,6 +11,8 @@ import { Analytics } from "@vercel/analytics/next";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+
+export const viewport: Viewport = { themeColor: "#120e0b", colorScheme: "dark" };
 
 type Props = { children: ReactNode; params: Promise<{ locale: string }> };
 

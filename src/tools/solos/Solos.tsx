@@ -1,23 +1,15 @@
 "use client";
-import type { MouseEvent } from "react";
 import { useTranslations } from "next-intl";
 import { curriculum } from "./curriculum/pt-BR";
 import type { Exercise, Lesson } from "./curriculum/types";
 import { Calendar } from "./Calendar";
 import { NeckHero } from "./components/NeckHero";
 import { ExerciseFrame } from "./ExerciseFrame";
-import { navigate, useView } from "./nav";
+import { follow, navigate, useView } from "./nav";
 import { progressStore, useProgress, useToday } from "./progress";
 import { hrefOf, isAgain, lessonSteps, sessionSteps, type Outcome, type Step } from "./session/route";
 import { EMPTY, addDays, buildSession, daysThisWeek, learnLesson, nextLesson, rate, rateCold, skipLesson, toggleLesson, unitStatuses, type Rating } from "./session/schedule";
 import "./solos.css";
-
-/** Link de verdade (dá para copiar ou abrir em outra aba); o clique simples navega sem recarregar. */
-const follow = (go: () => void) => (e: MouseEvent<HTMLAnchorElement>) => {
-  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-  e.preventDefault();
-  go();
-};
 
 /** Os passos da sessão agrupados: os exercícios de uma mesma lição viram uma linha só, com um "Pular" só. */
 type Group = { part: Step["part"]; lesson?: Step["lesson"]; steps: Step[] };
@@ -114,7 +106,7 @@ export function Solos() {
             {doneLessons.length > 0 ? t("done.lessons", { n: doneLessons.length, list: doneLessons.join(", ") }) : view.outcome.cold ? t("done.learned", { lesson: view.outcome.cold }) : t("done.review")}
           </p>
           <p>{upNext ? t("done.next", { lesson: upNext.title }) : t("done.all")}</p>
-          <button type="button" className="btn primary" onClick={home}>{t("done.back")}</button>
+          <a className="btn primary" href={hrefOf({ kind: "home" }) || "?"} onClick={follow(home)}>{t("done.back")}</a>
         </section>
       </main>
     );
@@ -249,8 +241,8 @@ export function Solos() {
                                   <input type="checkbox" checked={!!e} onChange={() => toggle(l)} disabled={!today} />
                                   <span className="sr-only">{t("home.mark", { lesson: l.title })}</span>
                                 </label>
-                                {recommended && <button type="button" className="btn small" onClick={() => progressStore.set((p) => skipLesson(p, l.id, today))} disabled={!today}>{t("home.skip")}</button>}
-                                <a className={recommended ? "btn small primary" : "btn small"} href={hrefOf({ kind: "lesson", id: l.id })} onClick={follow(() => startLesson(l))}>{e ? t("home.redo") : t("home.do")}</a>
+                                {recommended && <button type="button" className="btn small" aria-label={t("home.skipLesson", { lesson: l.title })} onClick={() => progressStore.set((p) => skipLesson(p, l.id, today))} disabled={!today}>{t("home.skip")}</button>}
+                                <a className={recommended ? "btn small primary" : "btn small"} href={hrefOf({ kind: "lesson", id: l.id })} aria-label={t(e ? "home.redoLesson" : "home.doLesson", { lesson: l.title })} onClick={follow(() => startLesson(l))}>{e ? t("home.redo") : t("home.do")}</a>
                               </div>
                             </li>
                           );
@@ -281,8 +273,8 @@ export function Solos() {
                                         {recommended && <span className="badge atual">{t("home.recommended")}</span>}
                                         {e?.cold && <span className="state lessonCold">{t("home.lessonCold")}</span>}
                                         {e?.skipped && <span className="state">{t("home.skipped")}</span>}
-                                        {recommended && <button type="button" className="btn small" onClick={() => progressStore.set((p) => skipLesson(p, l.id, today))} disabled={!today}>{t("home.skip")}</button>}
-                                        <a className={recommended ? "btn small primary" : "btn small"} href={hrefOf({ kind: "lesson", id: l.id })} onClick={follow(() => startLesson(l))}>
+                                        {recommended && <button type="button" className="btn small" aria-label={t("home.skipLesson", { lesson: l.title })} onClick={() => progressStore.set((p) => skipLesson(p, l.id, today))} disabled={!today}>{t("home.skip")}</button>}
+                                        <a className={recommended ? "btn small primary" : "btn small"} href={hrefOf({ kind: "lesson", id: l.id })} aria-label={t(e ? "home.redoLesson" : "home.doLesson", { lesson: l.title })} onClick={follow(() => startLesson(l))}>
                                           {e ? t("home.redo") : t("home.do")}
                                         </a>
                                       </div>
@@ -330,7 +322,7 @@ export function Solos() {
                         <strong><a className="lesson-link" href={hrefOf({ kind: "exercise", id: ph.id })} onClick={follow(() => open(ph))}>{ph.title}</a></strong>
                         {recommended && <span className="badge atual">{t("home.recommended")}</span>}
                         {state && <span className="state">{t(`frame.${state.last}`)}</span>}
-                        <a className="btn small" href={hrefOf({ kind: "exercise", id: ph.id })} onClick={follow(() => open(ph))}>{state ? t("home.redo") : t("home.do")}</a>
+                        <a className="btn small" href={hrefOf({ kind: "exercise", id: ph.id })} aria-label={t(state ? "home.redoLesson" : "home.doLesson", { lesson: ph.title })} onClick={follow(() => open(ph))}>{state ? t("home.redo") : t("home.do")}</a>
                       </div>
                     </li>
                   );
@@ -339,7 +331,7 @@ export function Solos() {
                   <div className="lesson-head" onClick={(ev) => { if (ev.target === ev.currentTarget) open(curriculum.take); }}>
                     <span className="dot" aria-hidden="true" />
                     <strong><a className="lesson-link" href={hrefOf({ kind: "exercise", id: curriculum.take.id })} onClick={follow(() => open(curriculum.take))}>{curriculum.take.title}</a></strong>
-                    <a className="btn small" href={hrefOf({ kind: "exercise", id: curriculum.take.id })} onClick={follow(() => open(curriculum.take))}>{t("home.do")}</a>
+                    <a className="btn small" href={hrefOf({ kind: "exercise", id: curriculum.take.id })} aria-label={t("home.doLesson", { lesson: curriculum.take.title })} onClick={follow(() => open(curriculum.take))}>{t("home.do")}</a>
                   </div>
                 </li>
               </ul>

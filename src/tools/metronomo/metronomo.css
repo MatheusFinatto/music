@@ -17,6 +17,7 @@
 .metro-slider { width: 100%; accent-color: var(--accent); min-height: 32px; cursor: pointer; }
 
 .metro-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.metro-seg button:hover:not([aria-checked="true"]) { background: var(--soft); }
 .metro-play { border: 0; cursor: pointer; min-width: 10rem; justify-content: center; padding: 14px 28px; font-size: var(--text-lg); }
 .metro-play[aria-pressed="true"] { background: var(--ink); }
 .metro-tap { min-height: 50px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; transition: background-color 0.2s, border-color 0.2s; }

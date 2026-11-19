@@ -3,6 +3,7 @@ import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { transport } from "@/core/audio";
 import type { Exercise, Video } from "./curriculum/types";
+import { follow } from "./nav";
 import { keyName, rootFret, transposeExercise } from "./curriculum/transpose";
 import { usePracticeKey } from "./progress";
 import type { Part } from "./session/route";
@@ -48,9 +49,12 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
 
   // Lição de solo de uma música (tem fonte): o "Tocar" vem primeiro; a teoria e o vídeo ficam logo abaixo do palco.
   const late = Boolean(intro?.source) || (intro?.text.length ?? 0) > 420;
+  // Um h1 só por tela: o título da lição (quando vem antes) ou o do exercício (quando a teoria vem depois).
+  const IntroTitle = late ? "h2" : "h1";
+  const ExTitle = late ? "h1" : "h2";
   const introNode = intro && (
       <section className="intro">
-        <h2>{intro.title}</h2>
+        <IntroTitle className="intro-title">{intro.title}</IntroTitle>
         <p>{intro.text}</p>
         {intro.concepts && intro.concepts.length > 0 && (
           <ul className="concepts" aria-label={t("frame.concepts")}>
@@ -91,14 +95,14 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
         </p>
         <div className="row">
           {onBack && <button type="button" className="btn small" onClick={onBack}>{t("frame.prev")}</button>}
-          <button type="button" className="btn small" onClick={onExit}>{exitLabel}</button>
+          <a className="btn small" href="?" onClick={follow(onExit)}>{exitLabel}</a>
         </div>
       </header>
 
       <div className="reading">
         {HINTED.includes(part) && <p className="hint">{t(`partHint.${part as "cold"}`)}</p>}
         {intro && !late && introNode}
-        <h1>{ex.title}</h1>
+        <ExTitle className="ex-title">{ex.title}</ExTitle>
         <p className="goal">{ex.goal}</p>
         {moved && <p className="key-note">{t("key.note", { key: keyName(key), fret: rootFret(key) })}</p>}
         {part !== "cold" && ex.steps.length > 0 && (

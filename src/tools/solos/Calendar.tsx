@@ -2,7 +2,8 @@
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { curriculum } from "./curriculum/pt-BR";
-import { navigate } from "./nav";
+import { follow, navigate } from "./nav";
+import { hrefOf } from "./session/route";
 import { studyDaysStore, useProgress, useStudyDays, useToday } from "./progress";
 import { monthGrid, pastOf, planAhead, weekdayOf } from "./session/calendar";
 import type { Day } from "./session/schedule";
@@ -34,7 +35,7 @@ export function Calendar() {
 
   return (
     <main className="wrap solos calendar" id="conteudo">
-      <button type="button" className="btn small quiet" onClick={() => navigate({ name: "home" })}>{t("back")}</button>
+      <a className="btn small quiet" href={hrefOf({ kind: "home" }) || "?"} onClick={follow(() => navigate({ name: "home" }))}>{t("back")}</a>
       <h1>{t("title")}</h1>
       <p className="note">{t("lead")}</p>
 
