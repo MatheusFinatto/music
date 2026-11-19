@@ -149,7 +149,7 @@ describe("conteúdo real", () => {
   it("a trilha começa pelo mapa; quem já sabe marca como feito e a recomendação pula para Respirar", () => {
     expect(buildSession(real, EMPTY, D1).lesson?.id).toBe("u0.l0");
     let p = EMPTY;
-    for (const l of real.units[0]!.lessons) p = toggleLesson(p, l.id, D1);
+    for (const l of [...real.units[0]!.lessons, ...real.units[1]!.lessons]) p = toggleLesson(p, l.id, D1);
     expect(buildSession(real, p, D1).lesson?.id).toBe("u1.l3");
     expect(buildSession(real, p, D2).cold).toBeUndefined();
   });

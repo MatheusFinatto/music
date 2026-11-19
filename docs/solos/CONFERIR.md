@@ -93,3 +93,6 @@ Como conferir: abra `marmota-music.vercel.app/solos`, de preferência no celular
 - Correção: o exemplo de "Um e um" tocava 2 dos 4 compassos; agora cobre a base inteira.
 
 - (2026-11-19) A harmonia virou o capítulo "A harmonia no shape 1", entre o primeiro shape e os outros shapes (s2 antes de s8).
+
+- (2026-11-19) Lições novas, ideias do vídeo do Brandon D'Eon (sem copiar nada): `u73` palhetada alternada no shape 1 (depois do primeiro shape) e `u74` exercício corrente (Velocidade I, antes do arco). Conferir se a regra da palhetada (subindo, começar para cima; descendo, para baixo) bate com a mão de quem toca.
+- (2026-11-19) `u12.l1/l2/l4` e `u26.l2`: cada shape 2 a 5 tem "Notas do acorde no shape N" (mapa, ache a nota, alvos).

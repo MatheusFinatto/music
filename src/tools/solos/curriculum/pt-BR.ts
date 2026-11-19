@@ -490,6 +490,38 @@ const written: Curriculum = {
       ],
     },
     {
+      id: "u73",
+      title: "A palhetada no shape",
+      skill: "Para que lado a palheta vai em cada nota do shape 1",
+      lessons: [
+        {
+          id: "u73.l1",
+          concepts: ["O que é palhetada alternada?", "O que é inside picking?"],
+          title: "Palhetada alternada no shape 1",
+          intro:
+            "Na palhetada alternada a mão vai para baixo, para cima, para baixo, sem parar. Com duas notas por corda, a escolha de onde começar decide se a palheta chega à corda seguinte já no lugar certo. Subindo para as cordas mais finas, comece cada corda para cima: a segunda nota sai para baixo e a mão fica do lado da corda seguinte. Descendo para as mais grossas, comece cada corda para baixo: a segunda sai para cima, rumo à corda seguinte. Em velocidade isso faz diferença; devagar, só deixa o gesto mais limpo.",
+          key: "u73.l1.map",
+          exercises: [
+            {
+              id: "u73.l1.map",
+              kind: "map",
+              title: "Subir e descer com a palhetada certa",
+              goal: "Suba o shape 1 e desça, uma nota por tempo, sem nunca repetir o mesmo sentido de palheta duas vezes seguidas.",
+              steps: [
+                "Subindo: em cada corda, a primeira nota é para cima e a segunda para baixo.",
+                "Descendo: em cada corda, a primeira nota é para baixo e a segunda para cima.",
+                "Devagar, olhando a mão da palheta. Só aumente o andamento quando sair sem pensar.",
+              ],
+              check: "",
+              base: VAMP,
+              shapes: [1],
+              layer: "penta",
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: "u1",
       title: "Respirar",
       skill: "Frase tem começo e fim",
@@ -4754,6 +4786,38 @@ const written: Curriculum = {
                   steps: ["O desenho, em funções: tônica, 7ª menor, 5ª (2x), 4ª, 3ª menor, tônica. Técnica: 2 notas em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "u74",
+      title: "Exercício corrente",
+      skill: "Tocar notas contínuas, na mesma duração, por cada vez mais tempo",
+      lessons: [
+        {
+          id: "u74.l1",
+          title: "Quanto tempo você aguenta",
+          intro:
+            "Um exercício corrente é tocar sem parar notas todas da mesma duração (colcheias, semicolcheias, tercinas) e medir quanto tempo você dura limpo. Ele treina o que a velocidade pede de verdade: resistência da mão e da cabeça, não um pico de poucas notas. Parece fácil e quase ninguém passa de poucos segundos no andamento certo.",
+          key: "u74.l1.map",
+          exercises: [
+            {
+              id: "u74.l1.map",
+              kind: "map",
+              title: "Subir e descer o shape 1, sem parar",
+              goal: "Suba e desça o shape 1 em semicolcheias, no andamento da base, sem parar nem errar, e anote quanto tempo durou.",
+              steps: [
+                "Escolha um andamento que desafie sem estragar a mão. Se fica fácil demais, não conta.",
+                "Conte o tempo com o cronômetro do celular e anote.",
+                "No dia seguinte, tente passar do seu tempo. Só aumente o andamento quando durar um minuto limpo.",
+                "Notas sujas ou mão tensa encerram a contagem: pare e descanse.",
+              ],
+              check: "",
+              base: VAMP,
+              shapes: [1],
+              layer: "penta",
             },
           ],
         },
@@ -20383,9 +20447,9 @@ const written: Curriculum = {
 
   sections: [
     // Parte 1, um shape só: tudo até "O solo" fica no shape 1. Parte 2: os outros shapes.
-    { id: "s1", title: "Primeiros passos", goal: "Do primeiro shape ao primeiro solo: poucas notas e silêncio.", units: ["u0", "u1", "u70", "a1"] },
+    { id: "s1", title: "Primeiros passos", goal: "Do primeiro shape ao primeiro solo: poucas notas e silêncio.", units: ["u0", "u73", "u1", "u70", "a1"] },
     { id: "s6", title: "Vocabulário no shape 1", goal: "Licks, pergunta e resposta, frases guardadas e ideias para improvisar, tudo no shape 1.", units: ["u17", "u18", "u9", "u19", "u49", "u53", "u62", "u44", "u69", "a5"] },
-    { id: "s5", title: "Velocidade I: no shape 1", goal: "Frases rápidas na pentatônica: grupos de semicolcheias, sequências e licks repetidos, sempre terminando numa nota longa.", units: ["u15", "u16", "u60", "u57", "u61", "a4"] },
+    { id: "s5", title: "Velocidade I: no shape 1", goal: "Frases rápidas na pentatônica: grupos de semicolcheias, sequências e licks repetidos, sempre terminando numa nota longa.", units: ["u15", "u16", "u60", "u57", "u61", "u74", "a4"] },
     { id: "s4", title: "O solo", goal: "Motivo e intensidade, até um solo inteiro no shape 1 que alguém pagaria para ouvir.", units: ["u8", "u14", "u36", "u54", "u63", "u48", "a6"] },
     { id: "s2", title: "A harmonia", goal: "Ouvir a troca de acorde e chegar nas notas dele, com tensão que resolve.", units: ["u72", "u5", "u6", "u11", "u46", "u51", "u58", "a2"] },
     { id: "s8", title: "Shape 2", goal: "O shape 2 a fundo, com licks e frases dele, e depois junto com o shape 1.", units: ["u71", "u20", "u21", "u22", "a7"] },
