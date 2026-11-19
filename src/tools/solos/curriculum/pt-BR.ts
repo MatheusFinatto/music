@@ -412,7 +412,7 @@ const ear = (id: string, section: "s1" | "s2" | "s3" | "s4", p: Phrase, base: Ba
   goal: "Tire esta frase de ouvido, sem ver onde ela fica no braço.",
   steps: [
     "Ouça duas ou três vezes sem tocar.",
-    "Cante junto. Se não consegue cantar, ouça mais uma vez.",
+    "Cante junto, mesmo baixinho: cantar mostra o que ainda falta ouvir. Onde travar, ouça mais uma vez.",
     WHERE[section]!,
     "Só então abra o braço para conferir.",
   ],
@@ -805,7 +805,7 @@ const written: Curriculum = {
       lessons: [
         {
           id: "a1.l1",
-          title: "Oito compassos",
+          title: "Solo de poucas notas",
           intro:
             "Hora de juntar a seção. São quatro partes de dois compassos: frase e silêncio, uma nota só com ritmo, três notas, e uma nota longa para fechar. Os dois exemplos mostram jeitos diferentes de fazer. Ouça quantas vezes quiser, depois toque o seu: não o dos exemplos.",
           key: "a1.take",
@@ -819,7 +819,7 @@ const written: Curriculum = {
               check: "Seu solo teve frases com começo e fim, silêncio entre elas e ritmos variados?",
               base: BASE,
               bars: 8,
-              arcNote: "Uma nota só: escolha uma do shape 1. Três notas: A4 e C5 (1ª corda, casas 5 e 8) e G4 (2ª corda, casa 8). Os ritmos são fáceis mesmo; a graça é usar todos, pelo menos uma vez cada: quatro tempos iguais; uma longa e três curtas; uma longa e duas no fim; duas curtas e uma longa; entrar depois do tempo 1; começar no tempo 2; entrar no contratempo.",
+              arcNote: "Uma nota só: escolha uma do shape 1. Três notas: o Lá e o Dó da 1ª corda (casas 5 e 8) e o Sol da 2ª corda (casa 8). Os ritmos são fáceis mesmo; a graça é usar todos, pelo menos uma vez cada: quatro tempos iguais; uma longa e três curtas; uma longa e duas no fim; duas curtas e uma longa; entrar depois do tempo 1; começar no tempo 2; entrar no contratempo.",
               arc: [
                 { name: "Toca um, cala um", how: "Frase curta num compasso, silêncio no outro." },
                 { name: "Uma nota só", how: "Uma nota, vários ritmos. Tente cada um uma vez." },
@@ -1258,12 +1258,12 @@ const written: Curriculum = {
               id: "u19.l1.two",
               kind: "play-rest",
               title: "Só duas notas",
-              goal: "Improvise usando só o Lá (A4, 1ª corda, casa 5) e o Dó (C5, 1ª corda, casa 8).",
+              goal: "Improvise usando só o Lá (1ª corda, casa 5) e o Dó (1ª corda, casa 8).",
               steps: ["Varie o ritmo: notas curtas, longas, começando fora do tempo.", "Se cansar, continue mais uma volta: é aí que aparece ideia nova."],
               check: "Com duas notas, conseguiu frases diferentes umas das outras?",
               base: AM_F,
               pattern: ["play", "play", "play", "rest"],
-              rule: "Só A4 e C5",
+              rule: "Só o Lá e o Dó da 1ª corda",
             },
             {
               id: "u19.l1.strings",
@@ -2615,7 +2615,7 @@ const written: Curriculum = {
       lessons: [
         {
           id: "a5.l1",
-          title: "Oito compassos com vocabulário",
+          title: "Solo com vocabulário",
           intro:
             "Hora de juntar a seção: um lick que você aprendeu, uma pergunta, a resposta que começa igual e pousa, e um bend antes da nota final. Os dois exemplos usam licks diferentes da seção. Ouça, depois toque o seu, com os seus licks.",
           key: "a5.take",
@@ -5247,7 +5247,7 @@ const written: Curriculum = {
         },
         {
           id: "u14.l3",
-          title: "Crescer em oito compassos",
+          title: "Crescer ao longo do solo",
           intro: "Juntando as duas: oito compassos que começam vazios e fracos e terminam cheios e fortes. É o motor de qualquer arco.",
           key: "u14.l3.take",
           exercises: [
@@ -5485,7 +5485,7 @@ const written: Curriculum = {
           title: "Shine On You Crazy Diamond",
           videos: [{ youtube: "Tu7oq3VNgpY", title: "Shine On You Crazy Diamond (Pts. 1-5)", author: "Pink Floyd", note: "A gravação de estúdio (Shine On You Crazy Diamond, partes 1 a 5), no canal oficial do Pink Floyd. O primeiro solo de guitarra do David Gilmour começa por volta de 2:10 (estimado pela tab e conferido de ouvido no áudio; o andamento é livre, então vale a gravação)." }],
           source: { title: "Shine On You Crazy Diamond no Songsterr", url: "https://www.songsterr.com/a/wsa/pink-floyd-shine-on-you-crazy-diamond-parts-i-ix-tab-s15518" },
-          intro: "O primeiro solo do David Gilmour, na penta de Sol menor, shape 1 uma oitava acima: notas longas, bends de um tom a um tom e meio e vibrato sobre Sol menor, Ré menor e Dó menor. O solo está dividido em 4 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O primeiro solo do David Gilmour, guitarrista do Pink Floyd, na penta de Sol menor, shape 1 uma oitava acima: notas longas, bends de um tom a um tom e meio e vibrato sobre Sol menor, Ré menor e Dó menor. O solo está dividido em 4 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
           key: "u54.echo",
           exercises: [
             {
@@ -5797,7 +5797,7 @@ const written: Curriculum = {
           title: "Time",
           videos: [{ youtube: "Qr0-7Ds79zo", title: "Pink Floyd – Time (Official Audio)", author: "Pink Floyd", note: "O áudio oficial. O solo (andamentos de 122 a 134 bpm) começa por volta de 3:00, depois do refrão; a tab pode estar um pouco adiantada em relação à gravação. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Time no Songsterr", url: "https://www.songsterr.com/a/wsa/pink-floyd-time-tab-s15873" },
-          intro: "O solo do David Gilmour: bends longos e notas seguradas na penta de Fá# menor, que tem as mesmas notas da de Lá maior. O solo está dividido em 4 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O solo de David Gilmour, guitarrista do Pink Floyd: bends longos e notas seguradas na penta de Fá# menor, que tem as mesmas notas da de Lá maior. O solo está dividido em 4 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
           key: "u63.echo",
           exercises: [
             {
@@ -6660,23 +6660,23 @@ const written: Curriculum = {
           concepts: ["O que é uma nota do acorde?"],
           title: "Uma nota, quatro cores",
           intro:
-            "Antes de perseguir notas, ouça o que a troca de acorde faz com uma nota parada. O Dó (C5) está em três dos quatro acordes da base: é a 3ª do Am, a 5ª do F e a tônica do C. Sobre o G ele fica tenso, pedindo para mudar.",
+            "Antes de perseguir notas, ouça o que a troca de acorde faz com uma nota parada. O Dó da 1ª corda, casa 8, está em três dos quatro acordes da base: é a 3ª do Am, a 5ª do F e a tônica do C. Sobre o G ele fica tenso, pedindo para mudar.",
           key: "u5.l1.c",
           exercises: [
             {
               id: "u5.l1.c",
               kind: "play-rest",
               title: "Segure o Dó",
-              goal: "Toque o C5 no começo de cada compasso e deixe soar. Só escute.",
+              goal: "Toque o Dó da 1ª corda (casa 8) no começo de cada compasso e deixe soar. Só escute.",
               steps: [
-                "C5: 1ª corda, casa 8.",
+                "O Dó está na 1ª corda, casa 8.",
                 "Em cada troca, diga em voz alta como a nota soou: em casa ou tensa.",
-                "Depois de duas voltas, troque a nota pelo A4 (1ª corda, casa 5) e repita.",
+                "Depois de duas voltas, troque a nota pelo Lá (1ª corda, casa 5) e repita.",
               ],
               check: "Ouviu em qual acorde o Dó soa em casa e em qual soa tenso?",
               base: BASE,
               pattern: ["play", "play", "play", "play"],
-              rule: "Uma nota só: C5",
+              rule: "Uma nota só: o Dó da 1ª corda",
               demo: phrase("demo.u5.l1.c", "", 4, [
                 [1, 8, 0, 3.5],
                 [1, 8, 4, 3.5],
@@ -6690,7 +6690,7 @@ const written: Curriculum = {
               title: "A nota que não muda",
               goal: "Uma nota longa por compasso, sempre do acorde da vez, mudando o mínimo possível de uma para a outra.",
               steps: [
-                "Comece no C5 sobre o Am. No F, ele continua servindo; no C, também. No G, ande uma casa até o B ou o D.",
+                "Comece no Dó da 1ª corda (casa 8) sobre o Am. No F, ele continua servindo; no C, também. No G, ande uma casa até o B ou o D.",
                 "A ideia é ouvir que nem sempre é preciso pular: às vezes a nota certa está do lado.",
               ],
               check: "Achou uma nota do acorde em cada troca, andando pouco?",
@@ -7594,7 +7594,7 @@ const written: Curriculum = {
       lessons: [
         {
           id: "a2.l1",
-          title: "Oito compassos na harmonia",
+          title: "Solo sobre a harmonia",
           intro:
             "Agora o solo conversa com a base: cada troca de acorde é um lugar para chegar, de preferência vindo de perto, às vezes passando por uma nota que incomoda e resolve. Os dois exemplos fazem isso só com o shape 1.",
           key: "a2.take",
@@ -7947,7 +7947,7 @@ const written: Curriculum = {
             {
               id: "u21.l3.take",
               kind: "take",
-              title: "Oito compassos no shape 2",
+              title: "Solo inteiro no shape 2",
               goal: "Um solo inteiro sem sair do shape 2.",
               steps: ["Use os licks da unidade e as ideias do shape 1.", "Se a mão escapar para o shape 1, volte."],
               check: "Ficou no shape 2 os oito compassos, com frases e silêncio?",
@@ -8422,7 +8422,7 @@ const written: Curriculum = {
             {
               id: "u24.l3.take",
               kind: "take",
-              title: "Oito compassos no shape 3",
+              title: "Solo inteiro no shape 3",
               goal: "Um solo inteiro sem sair do shape 3.",
               steps: ["Use os licks da unidade e as ideias dos outros shapes.", "Se a mão escapar, volte."],
               check: "Ficou no shape 3 os oito compassos, com frases e silêncio?",
@@ -8915,7 +8915,7 @@ const written: Curriculum = {
             {
               id: "u27.l3.take",
               kind: "take",
-              title: "Oito compassos no shape 4",
+              title: "Solo inteiro no shape 4",
               goal: "Um solo inteiro sem sair do shape 4.",
               steps: ["Use os licks da unidade e as ideias dos outros shapes.", "Se a mão escapar, volte."],
               check: "Ficou no shape 4 os oito compassos, com frases e silêncio?",
@@ -9793,7 +9793,7 @@ const written: Curriculum = {
             {
               id: "u30.l3.take",
               kind: "take",
-              title: "Oito compassos no shape 5",
+              title: "Solo inteiro no shape 5",
               goal: "Um solo inteiro sem sair do shape 5.",
               steps: ["Use os licks da unidade e as ideias dos outros shapes.", "Se a mão escapar, volte."],
               check: "Ficou no shape 5 os oito compassos, com frases e silêncio?",
@@ -9917,7 +9917,7 @@ const written: Curriculum = {
           title: "Wish You Were Here",
           videos: [{ youtube: "K6qj09OHvjw", title: "Pink Floyd - Wish You Were Here (Official Video)", author: "Pink Floyd", note: "O clipe oficial no canal do Pink Floyd. Os três solos aparecem em 0:47, 2:25 e 4:07, aproximadamente; o clipe pode ter alguns segundos a mais na abertura, então vale a gravação." }],
           source: { title: "Wish You Were Here no Songsterr", url: "https://www.songsterr.com/a/wsa/pink-floyd-wish-you-were-here-tab-s153" },
-          intro: "Os três solos do David Gilmour na guitarra acústica: frases curtas na penta de Mi menor (que é também a penta maior de Sol), em posição aberta e nos shapes 3, 4 e 5, sobre Mi menor com sétima, Sol e Lá com quarta suspensa. Uma aba para cada solo, com a base dele e a explicação de como cada frase se encaixa na penta.",
+          intro: "Os três solos do David Gilmour, guitarrista do Pink Floyd, na guitarra acústica: frases curtas na penta de Mi menor (que é também a penta maior de Sol), em posição aberta e nos shapes 3, 4 e 5, sobre Mi menor com sétima, Sol e Lá com quarta suspensa. Uma aba para cada solo, com a base dele e a explicação de como cada frase se encaixa na penta.",
           key: "u56.echo",
           exercises: [
             {
@@ -11748,7 +11748,7 @@ const written: Curriculum = {
           title: "Money",
           videos: [{ youtube: "2aW7HweAf3o", title: "Pink Floyd - Money (2023 Remaster)", author: "Pink Floyd", note: "A gravação de estúdio, no canal oficial do Pink Floyd. O solo em 4/4 começa por volta de 3:05 e a primeira volta dura uns 37 segundos. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Money no Songsterr", url: "https://www.songsterr.com/a/wsa/pink-floyd-money-tab-s15761" },
-          intro: "O primeiro solo de 4/4 do David Gilmour, na penta de Si menor: bends de um tom e notas longas com vibrato sobre o riff do baixo. O solo está dividido em 4 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O primeiro solo de 4/4 do David Gilmour, guitarrista do Pink Floyd, na penta de Si menor: bends de um tom e notas longas com vibrato sobre o riff do baixo. O solo está dividido em 4 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
           key: "u64.echo",
           exercises: [
             {
@@ -18841,7 +18841,7 @@ const written: Curriculum = {
           title: "Comfortably Numb",
           videos: [{ youtube: "7f3EGjRxxNI", title: "Comfortably Numb", author: "Pink Floyd", note: "A gravação original, do The Wall. O segundo solo começa por volta de 4:30. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Comfortably Numb no Songsterr", url: "https://www.songsterr.com/a/wsa/pink-floyd-comfortably-numb-tab-s271" },
-          intro: "O segundo solo inteiro do David Gilmour, em Si menor, em sete partes: do shape 1 na casa 7 ao alto do braço. O solo está dividido em 7 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O segundo solo inteiro do David Gilmour, guitarrista do Pink Floyd, em Si menor, em sete partes: do shape 1 na casa 7 ao alto do braço. O solo está dividido em 7 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
           key: "u39.echo",
           exercises: [
             {

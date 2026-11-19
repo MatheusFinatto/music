@@ -154,7 +154,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 
 /* exercício: modo de leitura */
 .solos .frame { display: flex; flex-direction: column; gap: 16px; }
-.solos .frame-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 12px; }
+.solos .frame-head { order: -1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 12px; }
 .solos .crumb { display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: var(--text-sm); }
 .solos .reading { display: flex; flex-direction: column; gap: 12px; }
 .solos .frame .hint { color: var(--muted); font-size: var(--text-sm); max-width: 64ch; }
@@ -210,7 +210,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .chords { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(4.5rem, 1fr); gap: 6px; overflow-x: auto; max-width: 100%; padding-bottom: 4px; }
 .solos .chords li { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; background: var(--bg); color: var(--muted); }
 .solos .chords li.on { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
-.solos .chords b { font-size: var(--text-lg); letter-spacing: -0.01em; line-height: 1; }
+.solos .chords b { font-size: var(--text-lg); letter-spacing: -0.01em; line-height: 1; min-height: var(--text-xl); }
 .solos .chords .beats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
 .solos .chords .beats i { height: 6px; border-radius: 999px; background: var(--soft); }
 .solos .chords li.on .beats i { background: color-mix(in srgb, var(--accent-ink) 30%, transparent); }
@@ -224,10 +224,12 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 @media (max-width: 680px) { .solos .backing { grid-template-columns: minmax(0, 1fr) auto; } .solos .backing .play { min-width: 0; grid-column: 1 / -1; } .solos .chords { grid-column: 1 / -1; } }
 
 /* faixa de estado: lê-se a um metro de distância */
-.solos .banner { border-radius: var(--radius-md); padding: 16px 20px; display: flex; flex-direction: column; gap: 2px; min-height: 7.2rem; justify-content: center; }
+.solos .banner { border-radius: var(--radius-md); padding: 16px 20px; display: flex; flex-direction: column; gap: 2px; min-height: calc(var(--text-stage) + var(--text-xl) * 1.2 + 34px); justify-content: center; }
 .solos .banner strong { font-family: var(--font-display), var(--font-sans); font-size: var(--text-stage); letter-spacing: -0.035em; line-height: 1; font-weight: 700; }
 .solos .banner span { font-size: var(--text-xl); font-weight: 600; line-height: 1.2; min-height: 1.2em; }
-.solos .banner.idle { background: var(--soft); color: var(--muted); font-size: var(--text-md); min-height: 0; padding-block: 12px; }
+/* No celular o nome da parte pode quebrar em duas linhas, e a nota também: reserva as duas, para a tela não descer ao tocar. */
+@media (max-width: 680px) { .solos .banner { min-height: calc(var(--text-stage) * 2 + var(--text-xl) * 2.4 + 34px); } }
+.solos .banner.idle { background: var(--soft); color: var(--muted); font-size: var(--text-md); }
 .solos .banner.play { background: var(--accent); color: var(--accent-ink); }
 .solos .banner.rest { background: var(--inlay); color: var(--on-bright); }
 .solos .banner.call, .solos .banner.count { background: var(--soft); color: var(--ink); }
@@ -260,6 +262,8 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .feedback { color: var(--muted); min-height: 1.5em; flex: 1; }
 .solos .feedback.ok { color: var(--ok); font-weight: 600; }
 .solos .feedback.bad { color: var(--bad); font-weight: 600; }
+.solos .engine .result.bad { color: var(--bad); }
+.solos .engine .result:focus { outline: none; }
 .solos .result { font-size: var(--text-3xl); font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; line-height: 1.1; }
 
 /* eco */
@@ -417,11 +421,13 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .cell.did { background: color-mix(in srgb, var(--ink) 14%, transparent); border-color: var(--muted); }
 .cell.today { font-weight: 700; outline: 2px solid currentColor; outline-offset: -2px; }
 .cell.picked { box-shadow: 0 0 0 2px var(--ok); }
-.legend { color: var(--muted); font-size: var(--text-sm); display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-.swatch { width: 14px; height: 14px; border-radius: calc(var(--radius-sm) * 0.4); display: inline-block; border: 1px solid color-mix(in srgb, var(--ink) 50%, transparent); }
+.legend { color: var(--muted); font-size: var(--text-sm); display: flex; gap: 6px 8px; align-items: center; flex-wrap: wrap; }
+.legend .swatch + .swatch, .legend .swatch ~ .swatch { margin-left: 10px; }
+.solos.calendar > .legend { margin-top: -8px; }
+.swatch { width: 18px; height: 18px; border-radius: calc(var(--radius-sm) * 0.4); display: inline-block; border: 1px solid color-mix(in srgb, var(--ink) 50%, transparent); }
 .swatch.did { background: color-mix(in srgb, var(--ink) 25%, transparent); }
 .swatch.plan { border-style: dashed; }
-.day-detail { margin-top: 20px; }
+.solos.calendar > .day-detail { margin-top: 12px; }
 .day-detail h2 { margin: 0 0 8px; }
 .day-detail h3 { font-size: var(--text-lg); margin: 18px 0 6px; color: var(--muted); font-weight: 650; }
 .day-detail ul { list-style: none; padding: 0; display: flex; flex-direction: column; }

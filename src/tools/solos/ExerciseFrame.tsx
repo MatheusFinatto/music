@@ -88,17 +88,6 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
 
   return (
     <article className={running ? "frame playing" : "frame"}>
-      <header className="frame-head">
-        <p className="crumb">
-          <span className={`tag ${part}`}>{t(`part.${part}`)}</span>
-          {progress && <span>{t("frame.step", progress)}</span>}
-        </p>
-        <div className="row">
-          {onBack && <button type="button" className="btn small" onClick={onBack}>{t("frame.prev")}</button>}
-          <a className="btn small" href="?" onClick={follow(onExit)}>{exitLabel}</a>
-        </div>
-      </header>
-
       <div className="reading">
         {HINTED.includes(part) && <p className="hint">{t(`partHint.${part as "cold"}`)}</p>}
         {intro && !late && introNode}
@@ -139,6 +128,18 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
           </div>
         </footer>
       )}
+
+      {/* No fim do DOM de propósito: o Tab começa no conteúdo; o CSS (order) o mantém no topo. */}
+      <header className="frame-head">
+        <p className="crumb">
+          <span className={`tag ${part}`}>{t(`part.${part}`)}</span>
+          {progress && <span>{t("frame.step", progress)}</span>}
+        </p>
+        <div className="row">
+          {onBack && <button type="button" className="btn small" onClick={onBack}>{t("frame.prev")}</button>}
+          <a className="btn small" href="?" onClick={follow(onExit)}>{exitLabel}</a>
+        </div>
+      </header>
     </article>
   );
 }

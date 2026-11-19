@@ -37,10 +37,12 @@ function runDemo(ex: Exercise, shapes: number[], together: boolean): Phrase | nu
   return build(`demo.${ex.id}`, "", Math.ceil(end / 4), steps);
 }
 
-/** A corda do exercício, subindo e descendo pelas notas da penta entre as casas dele. */
+/** A corda do exercício, subindo e descendo pelas notas da penta, num trecho do começo do intervalo dele. */
 function lineDemo(ex: Exercise, string: number, frets: [number, number]): Phrase | null {
   if (!ex.base) return null;
-  const up = ladder(positionsOf(minorPentatonic(ex.base.key), frets[0], frets[1]).filter((p) => p.string === string)).slice(0, 8);
+  const all = ladder(positionsOf(minorPentatonic(ex.base.key), frets[0], frets[1]).filter((p) => p.string === string));
+  // Só um trecho de até 9 casas: um exemplo mais largo não cabe no braço em todos os tons de prática.
+  const up = all.filter((p) => p.fret - all[0]!.fret <= 9).slice(0, 8);
   if (up.length < 2) return null;
   const seq = [...up, ...[...up].reverse().slice(1)];
   const steps = seq.map((pos, i) => ({ pos, beat: i * 0.5, dur: i === seq.length - 1 ? 2 : 0.5 }));
@@ -129,8 +131,9 @@ export function withDemos(c: Curriculum): Curriculum {
     units: c.units.map((u) => ({
       ...u,
       lessons: u.lessons.map((l) => {
-        if (l.exercises.some((e) => (e.kind === "echo" && e.phrases.length > 0) || (e.kind === "take" && (e.examples?.length ?? 0) > 0))) return l;
-        return { ...l, exercises: l.exercises.map((e) => { const demo = e.demo ? null : demoFor(e); return demo ? { ...e, demo } : e; }) };
+        const hasOwn = l.exercises.some((e) => (e.kind === "echo" && e.phrases.length > 0) || (e.kind === "take" && (e.examples?.length ?? 0) > 0));
+        // O exercício de linha é tocado sozinho, sem o eco da lição: ele ganha o exemplo dele mesmo quando a lição já tem outro.
+        return { ...l, exercises: l.exercises.map((e) => { const demo = e.demo || (hasOwn && e.kind !== "line") ? null : demoFor(e); return demo ? { ...e, demo } : e; }) };
       }),
     })),
   };

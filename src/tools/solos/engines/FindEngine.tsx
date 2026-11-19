@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { playLead, resumeAudio } from "@/core/audio";
 import { chordsOf, fretSpan, midiAt, mod12, pcName, pentatonicShape, positionsOf, toneOf, type ChordDegree, type FretPos } from "@/core/theory";
@@ -33,6 +33,9 @@ export function FindEngine({ ex, onResult }: { ex: FindExercise; onResult: (r: R
   const [misses, setMisses] = useState(0);
   const [finished, setFinished] = useState(false);
   const [map, setMap] = useState(false);
+  const resultRef = useRef<HTMLParagraphElement>(null);
+  // Em erro, o foco vai para o resultado (o braço vem logo abaixo); em acerto, para Continuar.
+  useEffect(() => { if (finished) resultRef.current?.focus(); }, [finished]);
 
   const box = pentatonicShape(base.key, ex.shape);
   const [lo, hi] = fretSpan(box);
@@ -59,14 +62,31 @@ export function FindEngine({ ex, onResult }: { ex: FindExercise; onResult: (r: R
     const rating: Rating = single
       ? misses === 0 ? "ok" : misses === 1 ? "quase" : "nao"
       : hits / questions.length >= 0.9 ? "ok" : hits / questions.length >= 0.6 ? "quase" : "nao";
-    const again = <button key="a" type="button" className="btn" onClick={start}>{t("again")}</button>;
-    const go = <button key="c" type="button" className="btn primary" onClick={() => onResult(rating)}>{t("continue")}</button>;
+    const good = rating === "ok";
+    // Acerto: Continuar é o único primário. Erro: o aluno vê a nota certa primeiro; "Fazer de novo" fica em destaque e Continuar segue livre.
+    const again = <button key="a" type="button" className={good ? "btn" : "btn primary"} onClick={start}>{t("again")}</button>;
+    const go = <button key="c" type="button" className={good ? "btn primary" : "btn"} onClick={() => onResult(rating)} autoFocus={good}>{t("continue")}</button>;
+    // Rodada única: o braço fica à vista com as posições certas e o que o aluno apontou de errado.
+    const q0 = questions[0]!;
+    const target0 = toneOf(chords[q0.chord]!, q0.degree);
+    const resultDots: Dot[] = candidates.map((p) => {
+      const hit = mod12(midiAt(p)) === target0;
+      if (hit) return { ...p, kind: "ok", label: q0.degree };
+      if (picks.some((x) => keyOf(x) === keyOf(p))) return { ...p, kind: "bad", label: pcName(midiAt(p), base.key) };
+      return { ...p, kind: "pick" };
+    });
     return (
       <div className="engine">
-        <p className="result" role="status">{single ? t("scoreAll", { misses }) : t("score", { hits, total: questions.length })}</p>
+        <p className={good ? "result" : "result bad"} role="status" tabIndex={-1} ref={good ? undefined : resultRef}>{single ? t("scoreAll", { misses }) : t("score", { hits, total: questions.length })}</p>
         <p>{t(`verdict.${rating}`)}</p>
+        {single && (
+          <>
+            <Fretboard minFret={lo} maxFret={hi} dots={resultDots} label={t("resultBoard")} />
+            {misses > 0 && <p className="legend">{t("resultLegend")}</p>}
+          </>
+        )}
         <div className="row">
-          {[go, again]}
+          {good ? [go, again] : [again, go]}
           <button type="button" className="btn" aria-expanded={map} onClick={() => setMap((m) => !m)}>{map ? t("hideMap") : t("seeMap")}</button>
         </div>
         {map && (

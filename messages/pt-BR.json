@@ -59,11 +59,11 @@
     "start": "Tocar",
     "stop": "Parar",
     "tap": "Marcar no toque (tap)",
-    "slower": "Mais devagar",
-    "faster": "Mais rápido",
+    "slower": "Diminuir 1 bpm",
+    "faster": "Aumentar 1 bpm",
     "bpm": "bpm",
-    "bpmLabel": "Andamento, de {min} a {max} bpm",
-    "bpmSlider": "Andamento (controle deslizante)",
+    "bpmLabel": "Andamento em bpm (de {min} a {max})",
+    "bpmSlider": "Ajustar andamento arrastando",
     "beats": "Tempos por compasso",
     "subdivision": "Subdivisão",
     "sub": { "1": "Tempo", "2": "Colcheia", "3": "Tercina", "4": "Semicolcheia" },
@@ -87,7 +87,7 @@
     "inTune": "afinada",
     "screenLabel": "Afinador: nota, frequência e agulha de desvio em cents",
     "mic": {
-      "denied": "O navegador bloqueou o microfone. Clique no cadeado ao lado do endereço, libere o Microfone e toque em Tentar de novo",
+      "denied": "O microfone está bloqueado. Clique no ícone à esquerda do endereço, escolha Permitir em Microfone e toque em Tentar de novo",
       "unavailable": "Este navegador não dá acesso ao microfone. Tente outro navegador ou use o app Android",
       "failed": "O microfone não abriu. Confira se outro app não está usando e toque em Tentar de novo"
     },
@@ -274,7 +274,9 @@
       "scoreAll": "{misses, plural, =0 {Sem nenhum erro} one {# toque errado} other {# toques errados}}",
       "seeMap": "Ver o mapa",
       "hideMap": "Esconder o mapa",
-      "mapLabel": "Mapa da região, com o nome de cada nota"
+      "mapLabel": "Mapa da região, com o nome de cada nota",
+      "resultBoard": "Braço da guitarra com as posições certas marcadas",
+      "resultLegend": "As posições certas estão marcadas com o grau. As que você tocou fora aparecem em vermelho, com o nome da nota."
     },
     "drill": {
       "title": "Treino cronometrado",
