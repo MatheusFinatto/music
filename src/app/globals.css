@@ -219,3 +219,12 @@
   .staff .lines path:nth-child(even) { animation-delay: -4s; }
   @keyframes hum { 50% { transform: translateY(1.2px); } }
 }
+
+/* alvos de toque: 44px no celular, 24px no desktop */
+.site-footer a { display: inline-flex; align-items: center; min-height: 24px; }
+@media (max-width: 680px) {
+  .site-footer a, .go, .tuner-alt { min-height: 44px; }
+  .tuner-alt { display: inline-flex; align-items: center; }
+  .brand { min-width: 44px; }
+  input[type="range"] { min-height: 44px; }
+}

@@ -282,7 +282,7 @@ export function Solos() {
                                         {e?.cold && <span className="state lessonCold">{t("home.lessonCold")}</span>}
                                         {e?.skipped && <span className="state">{t("home.skipped")}</span>}
                                         {recommended && <button type="button" className="btn small" aria-label={t("home.skipLesson", { lesson: l.title })} onClick={() => progressStore.set((p) => skipLesson(p, l.id, today))} disabled={!today}>{t("home.skip")}</button>}
-                                        <a className={recommended ? "btn small primary" : "btn small"} href={hrefOf({ kind: "lesson", id: l.id })} aria-label={t(e ? "home.redoLesson" : "home.doLesson", { lesson: l.title })} onClick={follow(() => startLesson(l))}>
+                                        <a className={recommended ? "btn small primary" : "btn small"} href={hrefOf({ kind: "lesson", id: l.id })} aria-label={t(e ? "home.redoLesson" : "home.doLesson", { lesson: `${l.title} (${u.title})` })} onClick={follow(() => startLesson(l))}>
                                           {e ? t("home.redo") : t("home.do")}
                                         </a>
                                       </div>

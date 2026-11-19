@@ -48,3 +48,5 @@
   .metro-seg button:nth-child(n + 3) { border-top: 1px solid var(--line); }
   .metro-field select { align-self: center; }
 }
+
+@media (max-width: 680px) { .metro-bpm input { min-height: 44px; } }
