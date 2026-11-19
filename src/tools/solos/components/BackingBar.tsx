@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { transport } from "@/core/audio";
 import { chordsOf } from "@/core/theory";
@@ -34,6 +34,12 @@ export function useCountIn(): number | null {
 // Só fica de fora onde o espaço tem outro papel: campos de texto, caixas de marcar, links e o braço clicável.
 const keepsSpace = (el: EventTarget | null) =>
   el instanceof Element && (el.closest("input, textarea, select, a, summary, [contenteditable=true], [role=button]") !== null);
+
+/** O exemplo da lição toca pelo mesmo transporte: enquanto ele soa, a barra da base não finge que é dela (um botão de parar só). */
+let demoOn = false;
+const demoListeners = new Set<() => void>();
+export function setDemoPlaying(on: boolean) { if (demoOn === on) return; demoOn = on; demoListeners.forEach((f) => f()); }
+const subscribeDemo = (f: () => void) => { demoListeners.add(f); return () => { demoListeners.delete(f); }; };
 
 /** O andamento que a pessoa escolheu para cada base: o exemplo da mesma tela toca no mesmo andamento do campo. */
 const chosen = new Map<string, number>();
@@ -122,11 +128,12 @@ export function BackingBar({ base, countIn = 1, hideChords = false, quiet = fals
   const t = useTranslations("solos.backing");
   const [bpm, setBpm] = useState(() => chosenBpm(base));
   const playing = useRunning();
-  const running = playing && !quiet;
+  const demo = useSyncExternalStore(subscribeDemo, () => demoOn, () => false);
+  const running = playing && !quiet && !demo;
 
   const start = () => { if (!transport.start(backingOf(base, bpm), { countIn })) window.alert(t("noAudio")); };
   const toggle = () => {
-    const mine = transport.running && !quiet;
+    const mine = transport.running && !quiet && !demo;
     if (transport.running) transport.stop();
     if (!mine) start();
   };

@@ -324,6 +324,7 @@
       "playExample": "Ouvir exemplo",
       "countBefore": "Contagem antes do exemplo",
       "arcNote": "Notas e ritmos para tentar",
+      "exampleTempo": "Andamento só do exemplo; a sua base tem o próprio.",
       "stopExample": "Parar o exemplo",
       "showTab": "Ver tab do exemplo",
       "hideTab": "Esconder a tab",

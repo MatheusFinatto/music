@@ -137,6 +137,7 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
             <span>{t("countBefore")}</span>
           </label>
           {/* Travado enquanto toca: o solo do exemplo é agendado inteiro na entrada e não acompanharia a mudança. */}
+          <p className="note">{t("exampleTempo")}</p>
           <TempoControl bpm={exBpm} onChange={(n) => setPick({ ...mine, exBpm: n })} locked={example && running} />
           <ChordStrip base={ex.base!} live={example && running} />
           {tab && (
