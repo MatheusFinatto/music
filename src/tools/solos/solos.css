@@ -1,43 +1,17 @@
 /* "Como solar com a pentatônica". Usa só os tokens de src/app/globals.css (ver DESIGN.md):
    escala de texto --text-*, raios --radius*, e as três cores com significado. */
-/* O mundo desta ferramenta: palco à noite. Madeira, marfim e uma luz quente vinda de cima.
-   Vale para a página inteira enquanto a ferramenta está aberta, nos dois temas do sistema. */
-:root:has(.solos) {
-  --bg: #120e0b;
-  --surface: #1d1713;
-  --soft: #2a211b;
-  --line: #3d3027;
-  --ink: #f5ecdc;
-  --muted: #b7a896;
-  --accent: #8cc0ee;
-  --accent-ink: #0b1520;
-  --accent-soft: #1c2a37;
-  --target: #f0a634;
-  --target-soft: #3b2a0f;
-  --target-ink: #f0a634;
-  --on-target: #1a1208;
-  --ok: #7bd3a0;
-  --bad: #ef8f7c;
-  --shadow: 0 0 0 1px rgb(255 236 210 / 0.07), 0 24px 60px rgb(0 0 0 / 0.5);
-  --shadow-up: 0 0 0 1px rgb(255 236 210 / 0.16), 0 28px 70px rgb(0 0 0 / 0.6);
-  color-scheme: dark;
-}
-body:has(.solos) {
-  background:
-    radial-gradient(120% 70% at 50% -10%, rgb(240 166 52 / 0.16), transparent 60%),
-    radial-gradient(60% 40% at 85% 0%, rgb(140 192 238 / 0.07), transparent 70%),
-    var(--bg);
-  background-attachment: fixed;
-}
+/* O mundo do site (palco à noite) está em globals.css; aqui só o que é desta ferramenta. */
 body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, transparent); }
 
+/* Link direto para uma lição: a trilha do HTML do servidor fica escondida até a tela certa ser montada. */
+html.solos-deep .solos-root { visibility: hidden; }
 .solos { padding-block: clamp(20px, 3vw, 40px) 0; display: flex; flex-direction: column; gap: clamp(36px, 6vw, 72px); }
 .solos h1, .solos h2, .solos h3 { font-family: var(--font-display), var(--font-sans); }
 .solos h1 { font-size: var(--text-3xl); line-height: 1.02; letter-spacing: -0.035em; font-weight: 700; }
 .solos h2 { font-size: var(--text-2xl); letter-spacing: -0.03em; font-weight: 700; line-height: 1.1; }
 .solos h3 { font-size: var(--text-xl); letter-spacing: -0.02em; font-weight: 650; line-height: 1.15; }
 .solos .row { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; }
-.solos .note { color: var(--muted); font-size: var(--text-sm); max-width: 64ch; text-wrap: pretty; }
+.solos .note { color: var(--muted); font-size: var(--text-sm); max-width: 60ch; text-wrap: pretty; }
 
 /* abertura: título à esquerda e um trecho do braço à direita; no celular, um embaixo do outro */
 .solos-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(24px, 4vw, 56px); align-items: center; padding-top: clamp(8px, 3vw, 36px); }
@@ -45,6 +19,8 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos-hero h1 { font-size: var(--text-stage); max-width: 11ch; }
 .solos .hero-copy > p { color: var(--muted); font-size: var(--text-lg); max-width: 44ch; text-wrap: pretty; }
 .solos-hero .week { color: var(--muted); font-size: var(--text-sm); }
+/* O link do calendário é um alvo de toque de 44 px sem mudar a linha: o respiro vem de padding e margem negativa. */
+.solos-hero .week a { display: inline-block; padding: 11px 8px; margin: -11px -8px; }
 /* o braço nunca passa da largura do conteúdo: sem rolagem lateral */
 .solos .neck-hero { min-width: 0; overflow: hidden; border-radius: var(--radius-md); -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent); mask-image: linear-gradient(90deg, #000 78%, transparent); }
 .solos .neck-hero .fretboard { overflow: hidden; }
@@ -80,17 +56,33 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .seg { background: transparent; }
 .solos .seg button[aria-pressed="true"], .solos .seg button[aria-selected="true"], .solos .seg button[aria-checked="true"] { background: var(--ink); color: var(--bg); }
 .solos .seg button:disabled { cursor: default; }
-.solos .phrase-about { max-width: 64ch; }
+.solos .seg button:hover:not(:disabled):not([aria-pressed="true"]):not([aria-selected="true"]):not([aria-checked="true"]) { background: var(--soft); }
+.solos .phrase-about { max-width: 60ch; }
 .solos .phrase-about p { font-size: var(--text-md); text-wrap: pretty; }
+.solos .phrase-about details { margin-top: 8px; color: var(--muted); }
+.solos .phrase-about summary { cursor: pointer; font-size: var(--text-sm); min-height: 44px; display: flex; align-items: center; }
+.solos .phrase-about summary::after { content: "+"; margin-left: 8px; font-weight: 700; }
+.solos .phrase-about details[open] summary::after { content: "−"; }
 .solos .phrase-about ol { margin: 8px 0 0; padding-left: 1.4em; color: var(--muted); display: grid; gap: 4px; text-wrap: pretty; }
 
 /* hoje: a sessão como uma sequência numerada */
 .solos .today { display: flex; flex-direction: column; gap: 18px; }
-.solos .plan { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 12px; counter-reset: none; }
-.solos .plan li { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 18px 20px 20px; border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
-.solos .plan .n { font-family: var(--font-display), var(--font-sans); font-size: var(--text-2xl); font-weight: 700; line-height: 1; color: var(--target); font-variant-numeric: tabular-nums; margin-bottom: 8px; }
-.solos .plan .kind { font-size: var(--text-xs); font-weight: 650; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
-.solos .plan strong { font-size: var(--text-lg); font-weight: 600; line-height: 1.25; text-wrap: balance; }
+.solos ol.plan { display: flex; flex-direction: column; background: var(--surface); box-shadow: var(--shadow); border-radius: var(--radius); padding: 4px 20px; }
+.solos ol.plan > li { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; align-items: center; gap: 4px 14px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.solos ol.plan > li:last-child { border-bottom: 0; }
+.solos ol.plan > li { position: relative; }
+.solos ol.plan .plan-link { color: inherit; text-decoration: none; }
+.solos ol.plan .plan-link::after { content: ""; position: absolute; inset: 0; }
+.solos ol.plan > li:hover .plan-link { text-decoration: underline; text-underline-offset: 0.2em; }
+.solos ol.plan .plan-skip { position: relative; z-index: 1; }
+.solos ol.plan .what { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.solos ol.plan .parts { display: flex; flex-wrap: wrap; gap: 2px 14px; margin-top: 4px; color: var(--muted); font-size: var(--text-sm); }
+.solos ol.plan .parts li { display: inline; }
+.solos ol.plan .parts li + li::before { content: "·"; margin-right: 14px; }
+@media (max-width: 680px) { .solos ol.plan .parts { flex-direction: column; } .solos ol.plan .parts li + li::before { content: none; } }
+.solos ol.plan .n { font-family: var(--font-display), var(--font-sans); font-size: var(--text-2xl); font-weight: 700; line-height: 1; color: var(--target); font-variant-numeric: tabular-nums; }
+.solos ol.plan .kind { font-size: var(--text-xs); font-weight: 650; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.solos ol.plan strong { font-size: var(--text-lg); font-weight: 600; line-height: 1.25; text-wrap: balance; }
 .solos .recap { display: flex; flex-direction: column; gap: 9px; }
 .solos .recap li { display: flex; gap: 12px; align-items: baseline; }
 
@@ -113,7 +105,8 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .trail-section { margin: 18px 0 0 16px; }
 .solos .trail-section .soon { color: var(--muted); font-size: var(--text-md); text-wrap: pretty; max-width: 56ch; margin: 12px 0 0; }
 .solos .chapter[open] > .trail-section:last-child { margin-bottom: 8px; }
-.solos .kicker { display: block; font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--target); }
+.solos .ord { display: inline-block; min-width: 1.4em; margin-right: 0.35em; color: var(--target); font-variant-numeric: tabular-nums; }
+.solos .badge.arc { background: color-mix(in srgb, var(--target) 18%, transparent); color: var(--target); margin-left: 10px; vertical-align: 2px; }
 .solos .unit-head h5, .solos .unit-head h4 { font-size: var(--text-lg); }
 .solos .unit.arc .n { background: var(--target-soft); color: var(--target-ink); box-shadow: 0 0 0 6px var(--bg), 0 0 0 7px var(--target); }
 .solos .unit.arc.feita .n { background: var(--target); color: var(--on-target); }
@@ -165,13 +158,16 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 
 /* exercício: modo de leitura */
 .solos .frame { display: flex; flex-direction: column; gap: 16px; }
-.solos .frame-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 12px; }
+.solos .frame-head { order: -1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 12px; }
 .solos .crumb { display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: var(--text-sm); }
 .solos .reading { display: flex; flex-direction: column; gap: 12px; }
 .solos .frame .hint { color: var(--muted); font-size: var(--text-sm); max-width: 64ch; }
 .solos .intro { background: var(--surface); box-shadow: var(--shadow); border-radius: var(--radius-md); padding: 18px 20px; }
-.solos .intro p { margin-top: 6px; max-width: 68ch; text-wrap: pretty; }
+.solos .intro p { margin-top: 6px; max-width: 62ch; text-wrap: pretty; }
+.solos .frame .reading > .ex-title { font-size: var(--text-2xl); }
+.solos .intro .intro-title { font-size: var(--text-2xl); letter-spacing: -0.03em; font-weight: 700; line-height: 1.1; }
 .solos .frame .goal { font-size: var(--text-lg); max-width: 60ch; text-wrap: pretty; }
+.solos .steps li, .solos .intro li, .solos .arc-note p, .solos .note { text-wrap: pretty; }
 .solos .steps { list-style: decimal; padding-left: 1.3em; color: var(--muted); display: flex; flex-direction: column; gap: 4px; max-width: 68ch; }
 .solos .stage { scroll-margin-top: 68px; }
 .solos .engine { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(14px, 2.6vw, 24px); display: flex; flex-direction: column; gap: 16px; }
@@ -197,20 +193,30 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .recap .mark.ok { color: var(--ok); }
 
 /* base */
-.solos .backing { display: grid; grid-template-columns: auto auto minmax(0, 1fr); gap: 12px 16px; align-items: center; }
-.solos .backing > * { min-width: 0; }
-/* a base fica no topo do palco, perto do que a pessoa acabou de ler: o "Tocar base" não pode ficar duas telas abaixo */
-.solos .engine > .backing { order: -1; }
+.solos .backing { display: flex; flex-direction: column; gap: 12px; }
+.solos .backing-main { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.solos .backing-config { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+/* a base fica no topo do palco, perto do que a pessoa acabou de ler: o "Iniciar exercício" não pode ficar duas telas abaixo */
+.solos .engine > .backing, .solos .engine > .backing-chords { order: -2; }
+.solos .engine > .play-mode { order: -1; }
+/* Tomada: o estado, o exemplo e depois a base em que a pessoa toca; as partes e a nota vêm depois (o banner manda "ouvir o exemplo, ou tocar a base") */
+.solos .engine.take > * { order: 2; }
+.solos .engine.take > .banner { order: 0; }
+.solos .engine.take > .example { order: 1; }
 /* a base acompanha a rolagem: dá para olhar a tablatura sem perder o play e os acordes */
-@media (min-width: 681px) { .solos .backing .keys { display: none; } .solos .backing { position: sticky; top: 56px; z-index: 5; background: var(--bg); padding-block: 10px; box-shadow: 0 1px 0 var(--line); } }
-.solos .backing .play { min-height: 52px; padding-inline: 20px; font-size: var(--text-lg); }
-.solos .backing .keys { grid-column: 1 / -1; color: var(--muted); font-size: var(--text-xs); }
-@media (hover: none) { .solos .backing .keys { display: none; } }
-.solos .backing .chords { grid-column: 1 / -1; }
+@media (min-width: 681px) { .solos .backing:not(.loose) { position: sticky; top: 56px; z-index: 5; background: var(--surface); padding-block: 10px; box-shadow: 0 1px 0 var(--line); } .solos .backing-chords .keys { display: none; } }
+.solos .backing .play { min-width: 12rem; min-height: 52px; padding-inline: 20px; font-size: var(--text-lg); }
+.solos .backing-chords .demo { margin-top: 16px; }
+.solos .backing-chords .keys { color: var(--muted); font-size: var(--text-xs); margin-top: 8px; }
+@media (hover: none) { .solos .backing-chords .keys { display: none; } }
+.solos .backing-chords .chords { grid-column: 1 / -1; }
+.solos .backing .pin { min-height: 36px; padding-inline: 12px; }
+.solos .backing .pin[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+@media (max-width: 680px) { .solos .backing .pin { display: none; } }
 .solos .chords { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(4.5rem, 1fr); gap: 6px; overflow-x: auto; max-width: 100%; padding-bottom: 4px; }
 .solos .chords li { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; background: var(--bg); color: var(--muted); }
 .solos .chords li.on { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
-.solos .chords b { font-size: var(--text-lg); letter-spacing: -0.01em; line-height: 1; }
+.solos .chords b { font-size: var(--text-lg); letter-spacing: -0.01em; line-height: 1; min-height: var(--text-xl); }
 .solos .chords .beats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
 .solos .chords .beats i { height: 6px; border-radius: 999px; background: var(--soft); }
 .solos .chords li.on .beats i { background: color-mix(in srgb, var(--accent-ink) 30%, transparent); }
@@ -219,15 +225,18 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .tempo .num { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 6.5ch; text-align: center; }
 .solos .tempo small { color: var(--muted); font-weight: 400; }
 .solos .tempo label.num { display: inline-flex; align-items: baseline; justify-content: center; gap: 4px; min-width: 0; }
-.solos .tempo .num input { width: 4.2ch; box-sizing: content-box; min-height: 36px; padding: 2px 6px; text-align: center; font: inherit; font-variant-numeric: tabular-nums; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); }
+.solos .tempo .num input { width: 4.2ch; box-sizing: content-box; min-height: 44px; padding: 2px 6px; text-align: center; font: inherit; font-variant-numeric: tabular-nums; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); }
 .solos .tempo .num input:disabled { opacity: 0.6; }
-@media (max-width: 680px) { .solos .backing { grid-template-columns: minmax(0, 1fr) auto; } .solos .backing .play { min-width: 0; grid-column: 1 / -1; } .solos .chords { grid-column: 1 / -1; } }
+/* No celular: "Iniciar exercício" numa linha só, e o exemplo e a configuração lado a lado logo abaixo. */
+@media (max-width: 680px) { .solos .backing .play { min-width: 0; flex: 1 1 100%; order: -1; } .solos .backing-main .btn:not(.play) { flex: 1 1 0; } }
 
 /* faixa de estado: lê-se a um metro de distância */
-.solos .banner { border-radius: var(--radius-md); padding: 16px 20px; display: flex; flex-direction: column; gap: 2px; min-height: 7.2rem; justify-content: center; }
+.solos .banner { border-radius: var(--radius-md); padding: 16px 20px; display: flex; flex-direction: column; gap: 2px; min-height: calc(var(--text-stage) + var(--text-xl) * 1.2 + 34px); justify-content: center; }
 .solos .banner strong { font-family: var(--font-display), var(--font-sans); font-size: var(--text-stage); letter-spacing: -0.035em; line-height: 1; font-weight: 700; }
 .solos .banner span { font-size: var(--text-xl); font-weight: 600; line-height: 1.2; min-height: 1.2em; }
-.solos .banner.idle { background: var(--soft); color: var(--muted); font-size: var(--text-md); min-height: 0; padding-block: 12px; }
+/* No celular o nome da parte pode quebrar em duas linhas, e a nota também: reserva as duas, para a tela não descer ao tocar. */
+@media (max-width: 680px) { .solos .banner { min-height: calc(var(--text-stage) * 2 + var(--text-xl) * 2.4 + 34px); } }
+.solos .banner.idle { background: var(--soft); color: var(--muted); font-size: var(--text-md); }
 .solos .banner.play { background: var(--accent); color: var(--accent-ink); }
 .solos .banner.rest { background: var(--inlay); color: var(--on-bright); }
 .solos .banner.call, .solos .banner.count { background: var(--soft); color: var(--ink); }
@@ -244,10 +253,13 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .pattern.detailed li span { font-weight: 400; color: var(--muted); }
 .solos .pattern.detailed li.on span { color: var(--ink); }
 /* Blocos do arco: o exemplo e a base em que a pessoa toca, lado a lado no texto e separados na tela. */
-.solos .block { display: flex; flex-direction: column; gap: 12px; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius-md); }
+/* blocos dentro do palco: separados por uma linha, sem virar um cartão dentro do cartão */
+.solos .block { display: flex; flex-direction: column; gap: 12px; padding: 16px 0 0; border-top: 1px solid var(--line); }
 .solos .engine > section:not(.block) { display: flex; flex-direction: column; gap: 16px; }
 .solos .block-title { font-family: var(--font-sans); line-height: 1.3; font-size: var(--text-sm); font-weight: 700; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
-.solos .arc-note { font-size: var(--text-sm); color: var(--muted); padding-inline: 12px; }
+.solos .arc-note { font-size: var(--text-sm); color: var(--muted); padding-inline: 12px; max-width: 64ch; }
+.solos .arc-note summary::after { content: "+"; margin-left: 8px; font-weight: 700; }
+.solos .arc-note[open] summary::after { content: "−"; }
 .solos .arc-note summary { cursor: pointer; min-height: 32px; display: flex; align-items: center; font-weight: 600; }
 .solos .arc-note p { margin: 4px 0 0; }
 
@@ -257,6 +269,8 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .feedback { color: var(--muted); min-height: 1.5em; flex: 1; }
 .solos .feedback.ok { color: var(--ok); font-weight: 600; }
 .solos .feedback.bad { color: var(--bad); font-weight: 600; }
+.solos .engine .result.bad { color: var(--bad); }
+.solos .engine .result:focus { outline: none; }
 .solos .result { font-size: var(--text-3xl); font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; line-height: 1.1; }
 
 /* eco */
@@ -336,11 +350,12 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos-root { display: contents; }
 
 /* som da frase */
-.solos .backing-extra { justify-self: end; display: flex; gap: 8px; align-items: center; }
+.solos .backing-extra { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 /* Na tela estreita, tom e som ocupam a linha inteira: na coluna do botão eles vazavam pela esquerda. */
-@media (max-width: 680px) { .solos .backing-extra { grid-column: 1 / -1; justify-self: start; flex-wrap: wrap; } }
 .solos .key-picker { display: inline-flex; align-items: center; gap: 10px; font-size: var(--text-sm); font-weight: 600; color: var(--muted); }
 /* Select com a mesma altura e o mesmo traço dos botões; a seta é desenhada com a cor do tema, não a do sistema. */
+.solos .key-picker input { min-height: 44px; width: 6ch; padding: 0 12px; text-align: center; font: inherit; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); }
+.solos .key-picker input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 .solos .key-picker select {
   appearance: none; color-scheme: dark; cursor: pointer;
   min-height: 44px; padding: 0 40px 0 16px; border-radius: 999px;
@@ -356,7 +371,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .key-picker select option { background: var(--surface); color: var(--ink); }
 .solos .take-options { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
 .solos .key-note { color: var(--target); font-size: var(--text-sm); font-weight: 600; }
-.solos .sound-panel { margin: auto; max-height: calc(100dvh - 32px); overflow-y: auto; width: min(26rem, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); padding: 24px; }
+.solos .sound-panel { overscroll-behavior: contain; margin: auto; max-height: calc(100dvh - 32px); overflow-y: auto; width: min(26rem, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); padding: 24px; }
 .solos .sound-panel[open] { display: flex; flex-direction: column; gap: 16px; }
 .solos .sound-panel::backdrop { background: rgb(0 0 0 / 0.55); }
 .solos .sound-panel h2 { font-size: var(--text-xl); margin: 0; }
@@ -374,7 +389,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .text-tab { margin: 0; align-self: stretch; }
 .solos .text-tab pre { margin: 0; overflow-x: auto; white-space: pre; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; line-height: 1.4; color: var(--muted); }
 .solos .text-tab .head { color: var(--ink); font-weight: 700; }
-.solos .text-tab .tn { color: var(--ink); font-weight: 700; border-radius: 3px; }
+.solos .text-tab .tn { color: var(--ink); font-weight: 700; border-radius: calc(var(--radius-sm) * 0.3); }
 .solos .text-tab .tn.now { background: var(--accent); color: var(--accent-ink); }
 
 /* perguntas de teoria: links para fora */
@@ -384,8 +399,10 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .lesson-video { margin-top: 16px; max-width: 720px; }
 .solos .lesson-video p { margin: 0 0 10px; }
 .solos .lesson-video iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: var(--radius-sm); background: #000; }
-.solos .lesson-video figcaption { margin-top: 8px; font-size: var(--text-sm); color: var(--muted); }
+.solos .lesson-video figcaption { text-wrap: pretty; margin-top: 8px; font-size: var(--text-sm); color: var(--muted); }
 .solos .intro .source { margin-top: 12px; font-size: var(--text-sm); color: var(--muted); }
+/* O crédito da tablatura é um link: sublinhado, para não depender só da cor (WCAG 1.4.1). */
+.solos .intro .source a { color: var(--ink); text-decoration: underline; text-underline-offset: 0.2em; }
 
 /* Como tocar o eco: modo e contagem antes do exemplo */
 .solos .play-mode { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
@@ -401,29 +418,40 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .check-day input { width: 24px; height: 24px; accent-color: var(--target); cursor: pointer; }
 .month-head { display: flex; align-items: center; justify-content: space-between; margin: 12px 0 8px; }
 .month-head h2 { margin: 0; }
+.month-head .btn { min-width: 44px; }
 .month-head h2::first-letter, .day-detail h2::first-letter { text-transform: uppercase; }
 .month { display: grid; gap: 4px; }
 .week-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
 .week-row.head span { text-align: center; color: var(--muted); font-size: var(--text-sm); }
 .week-row.head span::first-letter { text-transform: uppercase; }
-.cell { display: grid; place-items: center; padding: 0; min-height: 44px; border: 1px solid var(--border, rgba(127,127,127,.3)); border-radius: 8px; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.cell { display: grid; place-items: center; padding: 0; min-height: 44px; border: 1px solid var(--border, color-mix(in srgb, var(--ink) 30%, transparent)); border-radius: var(--radius-sm); background: transparent; color: inherit; font: inherit; cursor: pointer; }
 .cell.empty { border: 0; cursor: default; }
-.cell.study { background: rgba(127,127,127,.08); }
+.cell:hover { background: var(--soft); }
+.cell.study { background: color-mix(in srgb, var(--ink) 8%, transparent); }
 .cell.plan { border-style: dashed; border-color: var(--muted); }
 .cell.did { background: color-mix(in srgb, var(--ink) 14%, transparent); border-color: var(--muted); }
 .cell.today { font-weight: 700; outline: 2px solid currentColor; outline-offset: -2px; }
 .cell.picked { box-shadow: 0 0 0 2px var(--ok); }
-.legend { color: var(--muted); font-size: var(--text-sm); display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-.swatch { width: 14px; height: 14px; border-radius: 4px; display: inline-block; border: 1px solid rgba(127,127,127,.5); }
+.legend { color: var(--muted); font-size: var(--text-sm); display: flex; gap: 6px 8px; align-items: center; flex-wrap: wrap; }
+.legend .swatch + .swatch, .legend .swatch ~ .swatch { margin-left: 10px; }
+.solos.calendar > .legend { margin-top: -8px; }
+.swatch { width: 18px; height: 18px; border-radius: calc(var(--radius-sm) * 0.4); display: inline-block; border: 1px solid color-mix(in srgb, var(--ink) 50%, transparent); }
 .swatch.did { background: color-mix(in srgb, var(--ink) 25%, transparent); }
 .swatch.plan { border-style: dashed; }
-.day-detail { margin-top: 20px; }
+.solos.calendar > .day-detail { margin-top: 12px; }
 .day-detail h2 { margin: 0 0 8px; }
-.day-detail ul { padding-left: 18px; }
+.day-detail h3 { font-size: var(--text-lg); margin: 18px 0 6px; color: var(--muted); font-weight: 650; }
+.day-detail ul { list-style: none; padding: 0; display: flex; flex-direction: column; }
+.day-detail li { display: grid; grid-template-columns: 6rem minmax(0, 1fr); align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.day-detail li:last-child { border-bottom: 0; }
+.day-detail li .tag { justify-self: start; }
+.day-detail li > strong { grid-column: 1 / -1; }
+/* Os links das lições do dia são alvos de toque de 44 px, sem aumentar a linha: padding e margem negativa. */
+.day-detail li a { display: inline-block; padding-block: 10px; margin-block: -10px; }
 
 .solos .badge.optional { margin-left: 8px; vertical-align: middle; }
 
-.solos .plan .skip { position: absolute; top: 12px; right: 12px; }
+.solos .plan .plan-skip { white-space: nowrap; }
 
 /* Clicar no nome ou no quadro da lição entra nela */
 .solos .lesson-head { cursor: pointer; }
@@ -435,12 +463,50 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 
 /* alvos de toque no celular */
 @media (max-width: 680px) {
-  .solos .plan .skip, .solos .lessons .btn.small.quiet { min-width: 44px; }
-  .solos .lesson-link { display: inline-block; padding-block: 11px; }
+  .solos .plan .plan-skip, .solos .lessons .btn.small.quiet { min-width: 44px; }
+  .solos .lesson-link { display: inline-flex; align-items: center; min-height: 44px; }
+  .solos .concepts a { display: inline-flex; align-items: center; min-height: 44px; }
 }
+.solos .lesson-link { display: inline-block; padding-block: 3px; }
 .solos .text-tab pre:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
 /* calendário: coluna compacta, tudo alinhado à esquerda */
 .solos.calendar { display: flex; flex-direction: column; align-items: stretch; gap: 14px; }
 .solos.calendar > * { margin: 0; }
 .solos.calendar > .btn { align-self: flex-start; }
+
+/* abas de solo em grupos: uma fileira por grupo */
+.solos .tabs-groups { display: flex; flex-direction: column; gap: 8px; }
+.solos .tabs-groups .seg { align-items: center; }
+.solos .tabs-groups .seg-name { padding: 0 12px 0 14px; font-size: var(--text-sm); font-weight: 650; color: var(--muted); white-space: nowrap; }
+
+/* unidade de uma lição só: a linha inteira entra na lição; marcar, pular e fazer à direita */
+.solos .unit.single .unit-head { align-items: center; min-height: 44px; cursor: pointer; }
+.solos .unit.single .unit-head > div { padding-top: 0; }
+.solos .unit.single .unit-head .check { margin: 0; }
+.solos .unit.single:hover h5 .lesson-link { text-decoration: underline; text-underline-offset: 0.2em; }
+@media (max-width: 680px) {
+  .solos .unit.single .unit-head { flex-wrap: wrap; row-gap: 8px; }
+  .solos .unit.single .unit-head > div { flex: 1 1 calc(100% - 60px); }
+  .solos .unit.single .unit-head .check { margin-left: 60px; }
+}
+
+/* seletores segmentados dentro do palco: fundo suave, sem contorno (não é um cartão dentro do cartão) */
+.solos .engine .seg { border-color: transparent; background: var(--soft); }
+
+/* treino cronometrado */
+.solos .drill { margin-top: 16px; }
+.solos .drill .unit-head { cursor: pointer; position: relative; padding-left: 60px; min-height: 44px; }
+.solos .drill-body { display: flex; flex-direction: column; gap: 16px; padding: 16px 0 0 60px; }
+.solos .drill-run { display: flex; flex-direction: column; gap: 8px; }
+.solos .drill-key { font-family: var(--font-display), var(--font-sans); font-size: var(--text-stage); font-weight: 700; letter-spacing: -0.035em; line-height: 1; }
+.solos .drill-time { font-variant-numeric: tabular-nums; color: var(--ink); font-size: var(--text-3xl); font-weight: 650; line-height: 1; }
+.solos .drill-history { display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
+.solos .drill .n { background: var(--soft); color: var(--ink); }
+
+@media (max-width: 680px) { .solos .arc-note summary { min-height: 44px; } }
+
+/* A tablatura abre no fim do exercício, com "Fechar" no começo e no fim; a rolagem automática para sob o cabeçalho */
+.solos .tab-dock { scroll-margin-top: 68px; }
+.solos .tab-panel { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+.solos .tab-panel > .btn { align-self: flex-start; }

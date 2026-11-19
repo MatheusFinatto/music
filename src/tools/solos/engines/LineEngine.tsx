@@ -26,6 +26,7 @@ export function LineEngine({ ex }: { ex: LineExercise }) {
 
   return (
     <div className="engine">
+      <BackingBar base={base} />
       <Banner state={live ? "play" : null} word={chord.name} note={t("follow", { n: ex.string + 1 })} idle={t("idle", { n: ex.string + 1 })} />
       {chords.length > 1 && (
         <div className="seg" role="group" aria-label={t("chord")}>
@@ -35,7 +36,6 @@ export function LineEngine({ ex }: { ex: LineExercise }) {
         </div>
       )}
       <Fretboard minFret={lo} maxFret={hi} dots={dots} label={t("label", { n: ex.string + 1, chord: chord.name })} />
-      <BackingBar base={base} />
     </div>
   );
 }

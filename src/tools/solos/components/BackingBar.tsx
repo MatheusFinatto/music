@@ -1,9 +1,11 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { transport } from "@/core/audio";
 import { chordsOf } from "@/core/theory";
 import { barsOf, type Base } from "../curriculum/types";
+import { DemoButton, DemoTab, useDemo } from "./demoCtx";
+import { TabButton } from "./tabDock";
 import { KeyPicker } from "./KeyPicker";
 import { SoundPanel } from "./SoundPanel";
 import { useBeat, useRunning } from "./useTransport";
@@ -34,6 +36,19 @@ export function useCountIn(): number | null {
 // Só fica de fora onde o espaço tem outro papel: campos de texto, caixas de marcar, links e o braço clicável.
 const keepsSpace = (el: EventTarget | null) =>
   el instanceof Element && (el.closest("input, textarea, select, a, summary, [contenteditable=true], [role=button]") !== null);
+
+/** O exemplo da lição toca pelo mesmo transporte: enquanto ele soa, a barra da base não finge que é dela (um botão de parar só). */
+let demoOn = false;
+const demoListeners = new Set<() => void>();
+export function setDemoPlaying(on: boolean) { if (demoOn === on) return; demoOn = on; demoListeners.forEach((f) => f()); }
+const subscribeDemo = (f: () => void) => { demoListeners.add(f); return () => { demoListeners.delete(f); }; };
+
+/** Barra grudada ao rolar: a pessoa pode soltar (padrão: grudada). Guardado no navegador. */
+const PIN_KEY = "musica:solos:fixar";
+const pinListeners = new Set<() => void>();
+const readPin = () => { try { return localStorage.getItem(PIN_KEY) !== "0"; } catch { return true; } };
+const subscribePin = (f: () => void) => { pinListeners.add(f); return () => { pinListeners.delete(f); }; };
+const setPin = (on: boolean) => { try { localStorage.setItem(PIN_KEY, on ? "1" : "0"); } catch { /* sem armazenamento: vale só nesta aba */ } pinListeners.forEach((f) => f()); };
 
 /** O andamento que a pessoa escolheu para cada base: o exemplo da mesma tela toca no mesmo andamento do campo. */
 const chosen = new Map<string, number>();
@@ -112,21 +127,26 @@ type Props = {
   quiet?: boolean;
   /** Texto do botão de tocar, quando não é só a base que toca (ex.: o eco, com a frase junto). */
   playLabel?: string;
+  /** O botão da tablatura na linha (padrão). A tomada o põe na linha do exemplo dela. */
+  tabButton?: boolean;
 };
 
 /**
  * Tocar/parar, andamento e os acordes da base, com o acorde que está soando em destaque.
  * `hideChords` esconde os nomes (o compasso continua marcado): para treinar ouvir a troca.
  */
-export function BackingBar({ base, countIn = 1, hideChords = false, quiet = false, playLabel }: Props) {
+export function BackingBar({ base, countIn = 1, hideChords = false, quiet = false, playLabel, tabButton = true }: Props) {
   const t = useTranslations("solos.backing");
   const [bpm, setBpm] = useState(() => chosenBpm(base));
   const playing = useRunning();
-  const running = playing && !quiet;
+  const demo = useSyncExternalStore(subscribeDemo, () => demoOn, () => false);
+  const pinned = useSyncExternalStore(subscribePin, readPin, () => true);
+  const running = playing && !quiet && !demo;
 
-  const start = () => { if (!transport.start(backingOf(base, bpm), { countIn })) window.alert(t("noAudio")); };
+  const [audioError, setAudioError] = useState(false);
+  const start = () => { setAudioError(!transport.start(backingOf(base, bpm), { countIn })); };
   const toggle = () => {
-    const mine = transport.running && !quiet;
+    const mine = transport.running && !quiet && !demo;
     if (transport.running) transport.stop();
     if (!mine) start();
   };
@@ -167,19 +187,38 @@ export function BackingBar({ base, countIn = 1, hideChords = false, quiet = fals
     return () => { cancelled = true; document.removeEventListener("visibilitychange", onVisible); void lock?.release(); };
   }, [playing]);
 
+  const demoCtx = useDemo();
+  const [config, setConfig] = useState(false);
   return (
-    <div className="backing">
-      <button type="button" className="btn primary play" onClick={toggle} aria-pressed={running} aria-keyshortcuts="Space">
-        {running ? t("stop") : (playLabel ?? t("play"))}
-      </button>
-      <TempoControl bpm={bpm} onChange={changeTempo} />
-      <div className="backing-extra">
-        {/* Base no tom de uma gravação: o tom de prática não muda nada aqui. */}
-        {!base.song && <KeyPicker />}
-        <SoundPanel preview={{ playing: running, toggle }} />
+    <>
+      {/* Só esta linha (exemplo, iniciar, configurar) fica grudada; a faixa de acordes rola com a página. */}
+      <div className={pinned ? "backing" : "backing loose"}>
+        <div className="backing-main">
+          {demoCtx && <DemoButton />}
+          <button type="button" className="btn primary play" onClick={toggle} aria-pressed={running} aria-keyshortcuts="Space">
+            {running ? t("stop") : (playLabel ?? t("play"))}
+          </button>
+          <button type="button" className="btn" aria-expanded={config} aria-controls="backing-config" onClick={() => setConfig((c) => !c)}>{t("configure")}</button>
+          {tabButton && <TabButton />}
+        </div>
+        {config && (
+          <div className="backing-config" id="backing-config" role="group" aria-label={t("configure")}>
+            <TempoControl bpm={bpm} onChange={changeTempo} />
+            <div className="backing-extra">
+              {/* Base no tom de uma gravação: o tom de prática não muda nada aqui. */}
+              {!base.song && <KeyPicker />}
+              <SoundPanel preview={{ playing: running, toggle }} />
+              <button type="button" className="btn small pin" aria-pressed={pinned} aria-label={t("pinLabel")} onClick={() => setPin(!pinned)}>{t("pin")}</button>
+            </div>
+          </div>
+        )}
       </div>
-      <ChordStrip base={base} live={running} hideChords={hideChords} />
-      <p className="keys">{t("space")}</p>
-    </div>
+      <div className="backing-chords">
+        {audioError && <p className="note" role="alert">{t("noAudio")}</p>}
+        <ChordStrip base={base} live={playing && !demo} hideChords={hideChords} />
+        <p className="keys">{t("space")}</p>
+        {demoCtx && <DemoTab />}
+      </div>
+    </>
   );
 }

@@ -17,6 +17,7 @@ type Props = {
 export function Banner({ state, word, note, idle }: Props) {
   const t = useTranslations("solos.backing");
   const count = useCountIn();
+  // A região viva fica sempre montada: só o conteúdo troca, e o leitor de tela anuncia a mudança.
   if (count !== null)
     return (
       <div className="banner count" role="status">
@@ -24,11 +25,16 @@ export function Banner({ state, word, note, idle }: Props) {
         <span>{t("counting")}</span>
       </div>
     );
-  if (!state) return <p className="banner idle">{idle}</p>;
   return (
-    <div className={`banner ${state}`} aria-live="polite">
-      <strong>{word}</strong>
-      <span>{note || " "}</span>
+    <div className={state ? `banner ${state}` : "banner idle"} role="status" aria-live="polite">
+      {state ? (
+        <>
+          <strong>{word}</strong>
+          <span>{note || " "}</span>
+        </>
+      ) : (
+        idle
+      )}
     </div>
   );
 }

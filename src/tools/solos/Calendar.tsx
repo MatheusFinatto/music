@@ -1,17 +1,30 @@
 "use client";
 import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { curriculum } from "./curriculum/pt-BR";
-import { navigate } from "./nav";
+import { follow, navigate } from "./nav";
+import { hrefOf } from "./session/route";
 import { studyDaysStore, useProgress, useStudyDays, useToday } from "./progress";
 import { monthGrid, pastOf, planAhead, weekdayOf } from "./session/calendar";
 import type { Day } from "./session/schedule";
 
 const MONDAY = new Date(2026, 0, 5); // uma segunda qualquer, para os nomes dos dias da semana
-const weekdayName = (i: number, style: "short" | "long") => new Date(MONDAY.getFullYear(), 0, 5 + i).toLocaleDateString("pt-BR", { weekday: style });
+const weekdayName = (i: number, style: "short" | "long", locale: string) => new Date(MONDAY.getFullYear(), 0, 5 + i).toLocaleDateString(locale, { weekday: style });
 
 export function Calendar() {
   const t = useTranslations("solos.calendar");
+  const locale = useLocale();
+  // O título de uma lição, frase ou tomada vira link para ela (achar a lição de ontem em 1 clique).
+  const byTitle = useMemo(() => {
+    const m = new Map<string, string>();
+    curriculum.units.flatMap((u) => u.lessons).forEach((l) => m.set(l.title, hrefOf({ kind: "lesson", id: l.id })));
+    [...curriculum.phrases, curriculum.take].forEach((e) => m.set(e.title, hrefOf({ kind: "exercise", id: e.id })));
+    return m;
+  }, []);
+  const linkTo = (title: string) => {
+    const href = byTitle.get(title);
+    return href ? <a href={`/solos${href}`}>{title}</a> : title;
+  };
   const progress = useProgress();
   const today = useToday();
   const studyDays = useStudyDays();
@@ -29,12 +42,12 @@ export function Calendar() {
   const past = pastOf(curriculum, progress, selected);
   const planned = plan[selected] ?? [];
   const toggleDay = (i: number) => studyDaysStore.set((s) => ({ ...s, days: s.days.includes(i) ? s.days.filter((x) => x !== i) : [...s.days, i].sort() }));
-  const label = new Date(view.y, view.m, 1).toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
-  const selectedLabel = (() => { const [y, m, d] = selected.split("-").map(Number) as [number, number, number]; return new Date(y, m - 1, d).toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" }); })();
+  const label = new Date(view.y, view.m, 1).toLocaleDateString(locale, { month: "long", year: "numeric" });
+  const selectedLabel = (() => { const [y, m, d] = selected.split("-").map(Number) as [number, number, number]; return new Date(y, m - 1, d).toLocaleDateString(locale, { weekday: "long", day: "numeric", month: "long" }); })();
 
   return (
     <main className="wrap solos calendar" id="conteudo">
-      <button type="button" className="btn small quiet" onClick={() => navigate({ name: "home" })}>{t("back")}</button>
+      <a className="btn small quiet" href={hrefOf({ kind: "home" }) || "?"} onClick={follow(() => navigate({ name: "home" }))}>{t("back")}</a>
       <h1>{t("title")}</h1>
       <p className="note">{t("lead")}</p>
 
@@ -43,7 +56,7 @@ export function Calendar() {
         {Array.from({ length: 7 }, (_, i) => (
           <label key={i} className="check-day">
             <input type="checkbox" checked={studyDays.includes(i)} onChange={() => toggleDay(i)} />
-            <span>{weekdayName(i, "short")}</span>
+            <span>{weekdayName(i, "short", locale)}</span>
           </label>
         ))}
       </fieldset>
@@ -55,7 +68,7 @@ export function Calendar() {
       </div>
       <div className="month">
         <div className="week-row head">
-          {Array.from({ length: 7 }, (_, i) => <span key={i}>{weekdayName(i, "short")}</span>)}
+          {Array.from({ length: 7 }, (_, i) => <span key={i}>{weekdayName(i, "short", locale)}</span>)}
         </div>
         {weeks.map((w, wi) => (
           <div className="week-row" key={wi}>
@@ -81,15 +94,15 @@ export function Calendar() {
           <>
             <h3>{t("done")}</h3>
             <ul>
-              {past.lessons.map((x, i) => <li key={`l${i}`}><strong>{x}</strong></li>)}
-              {past.exercises.map((x, i) => <li key={`e${i}`}>{x}</li>)}
+              {past.lessons.map((x, i) => <li key={`l${i}`}><strong>{linkTo(x)}</strong></li>)}
+              {past.exercises.map((x, i) => <li key={`e${i}`}>{linkTo(x)}</li>)}
             </ul>
           </>
         )}
         {planned.length > 0 && (
           <>
             <h3>{t("forecast")}</h3>
-            <ul>{planned.filter((x, i) => planned.findIndex((y) => y.title === x.title && (y.part === "cold") === (x.part === "cold")) === i).map((x, i) => <li key={i}><span className={`tag ${x.part}`}>{x.part === "new" || x.part === "again" ? t("lesson") : x.part === "cold" ? t("cold") : t("review")}</span> {x.title}</li>)}</ul>
+            <ul>{planned.filter((x, i) => planned.findIndex((y) => y.title === x.title && (y.part === "cold") === (x.part === "cold")) === i).map((x, i) => <li key={i}><span className={`tag ${x.part}`}>{x.part === "new" || x.part === "again" ? t("lesson") : x.part === "cold" ? t("cold") : t("review")}</span> {linkTo(x.title)}</li>)}</ul>
             <p className="note">{t("forecastNote")}</p>
           </>
         )}

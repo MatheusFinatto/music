@@ -77,3 +77,23 @@ export class MetronomeEngine {
     }
   }
 }
+
+/** Dois tons curtos e suaves (Lá e Mi agudos) para avisar que o timer acabou; não conflitam com o clique. */
+export function chime() {
+  const g = getAudio();
+  if (!g) return;
+  const { ctx, master } = g;
+  const t0 = ctx.currentTime + 0.05;
+  for (const [hz, at] of [[880, 0], [1318.5, 0.18]] as const) {
+    const osc = ctx.createOscillator();
+    const env = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.value = hz;
+    env.gain.setValueAtTime(0, t0 + at);
+    env.gain.linearRampToValueAtTime(0.3, t0 + at + 0.01);
+    env.gain.exponentialRampToValueAtTime(0.001, t0 + at + 0.6);
+    osc.connect(env).connect(master);
+    osc.start(t0 + at);
+    osc.stop(t0 + at + 0.65);
+  }
+}

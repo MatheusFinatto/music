@@ -1,4 +1,5 @@
 "use client";
+import { onRadioKeyDown } from "@/core/ui/radioGroup";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { atAudioTime, getAudio, playPhrase, transport } from "@/core/audio";
@@ -6,6 +7,7 @@ import type { EchoExercise, Phrase } from "../curriculum/types";
 import { BackingBar } from "../components/BackingBar";
 import { Banner } from "../components/Banner";
 import { Board, chordNames, TextTab } from "../components/PhraseViews";
+import { TabSlot } from "../components/tabDock";
 import { useBeat, useRunning } from "../components/useTransport";
 import { setCountBeforeExample, useCountBeforeExample } from "../progress";
 
@@ -14,11 +16,26 @@ type Mode = "alternate" | "example" | "base";
 const MODES: Mode[] = ["example", "base", "alternate"];
 
 /** O site toca a frase, depois deixa o mesmo número de compassos para a pessoa responder. */
+/** Abas agrupadas pelo começo do rótulo ("Solo 1: parte 2", "Solo 1 inteiro" ficam no grupo "Solo 1"). Poucas abas: um grupo só. */
+function tabGroups(phrases: Phrase[], fallback: (i: number) => string) {
+  const parse = (p: Phrase, i: number) => {
+    const raw = p.label ?? fallback(i);
+    const m = raw.match(/^(.+?)(?::\s*|\s+)(inteiro|parte\s.+)$/i);
+    return { p, i, group: phrases.length > 5 && m ? m[1]!.trim() : "", label: phrases.length > 5 && m ? m[2]! : raw };
+  };
+  const out: { name: string; items: ReturnType<typeof parse>[] }[] = [];
+  phrases.map(parse).forEach((x) => {
+    const last = out.at(-1);
+    if (last && last.name === x.group) last.items.push(x);
+    else out.push({ name: x.group, items: [x] });
+  });
+  return out;
+}
+
 export function EchoEngine({ ex }: { ex: EchoExercise }) {
   const t = useTranslations("solos.echo");
   const [index, setIndex] = useState(0);
   const [shown, setShown] = useState(false);
-  const [tab, setTab] = useState(false);
   /** Índice da nota que está soando agora (azul), ou -1. */
   const [sounding, setSounding] = useState(-1);
   const [mode, setMode] = useState<Mode>("example");
@@ -65,31 +82,12 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
 
   return (
     <div className="engine">
-      {ex.phrases.length > 1 && (
-        <div className="seg" role="tablist" aria-label={t("which")}
-          onKeyDown={(e) => {
-            const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
-            if (!d) return;
-            e.preventDefault();
-            const to = (index + d + ex.phrases.length) % ex.phrases.length;
-            go(to);
-            (e.currentTarget.children[to] as HTMLElement | undefined)?.focus();
-          }}>
-          {ex.phrases.map((p, i) => (
-            <button key={p.id} type="button" role="tab" aria-selected={i === index} tabIndex={i === index ? 0 : -1} onClick={() => go(i)}>{p.label ?? i + 1}</button>
-          ))}
-        </div>
-      )}
-      {(phrase.intro || phrase.steps) && (
-        <div className="phrase-about">
-          {phrase.intro && <p>{phrase.intro}</p>}
-          {phrase.steps && <ol>{phrase.steps.map((s) => <li key={s}>{s}</li>)}</ol>}
-        </div>
-      )}
+      {/* Quem começa é o exemplo: sem contagem, a não ser que a pessoa peça. Só a base: a pessoa começa, e conta. */}
+      <BackingBar key={phrase.id} base={base} countIn={mode === "base" || countBefore ? 1 : 0} playLabel={mode === "base" ? undefined : t("play")} />
       <div className="play-mode">
-        <div className="seg" role="radiogroup" aria-label={t("mode")}>
+        <div className="seg" role="radiogroup" aria-label={t("mode")} onKeyDown={onRadioKeyDown}>
           {MODES.map((m) => (
-            <button key={m} type="button" role="radio" aria-checked={mode === m} onClick={() => setMode(m)}>{t(`modes.${m}`)}</button>
+            <button key={m} type="button" role="radio" aria-checked={mode === m} tabIndex={mode === m ? 0 : -1} onClick={() => setMode(m)}>{t(`modes.${m}`)}</button>
           ))}
         </div>
         {mode !== "base" && (
@@ -99,25 +97,52 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
           </label>
         )}
       </div>
+      {ex.phrases.length > 1 && (
+        // Muitas abas (um solo em partes, em dois solos): uma fileira por grupo, com o nome do grupo à esquerda.
+        <div className="tabs-groups" role="tablist" aria-label={t("which")}
+          onKeyDown={(e) => {
+            const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+            if (!d) return;
+            e.preventDefault();
+            const to = (index + d + ex.phrases.length) % ex.phrases.length;
+            go(to);
+            (e.currentTarget.querySelectorAll<HTMLElement>('[role="tab"]')[to])?.focus();
+          }}>
+          {tabGroups(ex.phrases, (i) => t("phraseN", { n: i + 1 })).map((g) => (
+            <div key={g.name} className="seg">
+              {g.name && <span className="seg-name" aria-hidden="true">{g.name}</span>}
+              {g.items.map(({ p, i, label }) => (
+                <button key={p.id} type="button" role="tab" aria-selected={i === index} tabIndex={i === index ? 0 : -1} aria-label={g.name ? `${g.name}: ${label}` : undefined} onClick={() => go(i)}>{label}</button>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+      {(phrase.intro || phrase.steps) && (
+        <div className="phrase-about">
+          {phrase.intro && <p>{phrase.intro}</p>}
+          {phrase.steps && (
+            // A teoria da parte fica a um toque: não empurra o botão de tocar para fora da tela.
+            <details key={phrase.id}>
+              <summary>{t("aboutSteps", { n: phrase.steps.length })}</summary>
+              <ol>{phrase.steps.map((s) => <li key={s}>{s}</li>)}</ol>
+            </details>
+          )}
+        </div>
+      )}
       <Banner state={live ? (calling ? "call" : "play") : null} word={t(calling ? "listen" : "yourTurn")} note={phrase.name} idle={t(`idle.${mode}`)} />
-      {/* Quem começa é o exemplo: sem contagem, a não ser que a pessoa peça. Só a base: a pessoa começa, e conta. */}
-      <BackingBar key={phrase.id} base={base} countIn={mode === "base" || countBefore ? 1 : 0} playLabel={mode === "base" ? undefined : t(`modes.${mode}`)} />
       <div className="reveal">
         <div className="row">
           <button type="button" className="btn" aria-expanded={shown} onClick={() => setShown((s) => !s)}>
             {shown ? t(ex.reveal === "rhythm" ? "hideRhythm" : "hideBoard") : t(ex.reveal === "rhythm" ? "showRhythm" : "showTab")}
           </button>
-          {phrase.frets && (
-            <button type="button" className="btn" aria-expanded={tab} onClick={() => setTab((s) => !s)}>
-              {tab ? t("hideText") : t("showText")}
-            </button>
-          )}
         </div>
         {shown && (ex.reveal === "rhythm"
           ? <RhythmGrid phrase={phrase} now={now} label={t("rhythmLabel")} />
           : <Board phrase={phrase} now={now} label={t("tabLabel")} half={t("bendHalf")} full={t("bendFull")} />)}
-        {tab && phrase.frets && <TextTab phrase={phrase} now={now} chords={chordNames(base)} label={t("textLabel")} />}
       </div>
+      {/* No eco o objetivo é tirar de ouvido: a tablatura começa fechada e abre no fim do exercício. */}
+      {phrase.frets && <TabSlot label={t("textLabel")}><TextTab phrase={phrase} now={now} chords={chordNames(base)} label={t("textLabel")} /></TabSlot>}
     </div>
   );
 }

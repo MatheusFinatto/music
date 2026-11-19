@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -11,6 +11,8 @@ import { Analytics } from "@vercel/analytics/next";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+
+export const viewport: Viewport = { themeColor: "#120e0b", colorScheme: "dark" };
 
 type Props = { children: ReactNode; params: Promise<{ locale: string }> };
 
@@ -32,7 +34,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   const t = await getTranslations("site");
 
   return (
-    <html lang={locale} className={inter.variable}>
+    <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <body>
         {/* messages={null}: os textos não vão para o navegador por padrão. Ferramenta com
             componente cliente passa só o bloco dela (ver docs/ARQUITETURA.md). */}

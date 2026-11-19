@@ -18,6 +18,7 @@ export function PlayRestEngine({ ex }: { ex: PlayRestExercise }) {
 
   return (
     <div className="engine">
+      <BackingBar base={ex.base!} />
       {ex.rule && <p className="rule">{ex.rule}</p>}
       <Banner
         state={role}
@@ -30,7 +31,6 @@ export function PlayRestEngine({ ex }: { ex: PlayRestExercise }) {
           <li key={i} className={`${r}${i === at ? " on" : ""}`}>{t(r === "play" ? "shortPlay" : "shortRest")}</li>
         ))}
       </ol>
-      <BackingBar base={ex.base!} />
     </div>
   );
 }

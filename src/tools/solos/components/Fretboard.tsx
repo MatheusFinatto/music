@@ -1,6 +1,7 @@
 "use client";
-import { useId } from "react";
+import { useId, useRef } from "react";
 import type { FretPos } from "@/core/theory";
+import { useScrollable } from "./useScrollable";
 
 export type DotKind = "scale" | "root" | "target" | "pick" | "ok" | "bad" | "now";
 export type Dot = FretPos & { kind: DotKind; label?: string; outside?: boolean };
@@ -45,6 +46,8 @@ const LAST = 17; // última casa da miniatura
  */
 export function Fretboard({ minFret, maxFret, dots, onPick, label, describe, plain, gestures = [] }: Props) {
   const id = useId().replace(/:/g, "");
+  const wrap = useRef<HTMLDivElement>(null);
+  const scrollable = useScrollable(wrap);
   const lo = Math.max(1, minFret);
   const n = Math.max(4, maxFret - lo + 1); // casas mostradas
   // Corda solta (casa 0): uma faixa antes do capotraste, fora da madeira.
@@ -62,7 +65,7 @@ export function Fretboard({ minFret, maxFret, dots, onPick, label, describe, pla
   const mw = bw, cell = mw / LAST;
 
   return (
-    <div className="fretboard">
+    <div ref={wrap} className="fretboard" {...(scrollable ? { tabIndex: 0, role: "region", "aria-label": label } : {})}>
       <svg
         viewBox={plain ? `${L} ${by - 6} ${bw} ${bh + 18}` : `0 0 ${width} ${height}`}
         role={plain ? "img" : "group"}

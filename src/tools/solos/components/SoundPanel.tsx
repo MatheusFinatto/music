@@ -1,4 +1,5 @@
 "use client";
+import { onRadioKeyDown } from "@/core/ui/radioGroup";
 import { useRef, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { EQ_MAX, EQ_MIN, eqStore, playPhrase, prepareLead, resumeAudio, soundStore, type BaseEq, type Instrument, type LeadNote, type Sound } from "@/core/audio";
@@ -47,9 +48,9 @@ export function SoundPanel({ preview }: { preview?: Preview }) {
       </button>
       <dialog ref={dialog} className="sound-panel" aria-labelledby="sound-title" onClick={(e) => { if (e.target === e.currentTarget) e.currentTarget.close(); }}>
         <h2 id="sound-title">{t("title")}</h2>
-        <div className="seg" role="radiogroup" aria-label={t("instrument")}>
+        <div className="seg" role="radiogroup" aria-label={t("instrument")} onKeyDown={onRadioKeyDown}>
           {INSTRUMENTS.map((i) => (
-            <button key={i} type="button" role="radio" aria-checked={sound.instrument === i} onClick={() => set({ instrument: i })}>
+            <button key={i} type="button" role="radio" aria-checked={sound.instrument === i} tabIndex={sound.instrument === i ? 0 : -1} onClick={() => set({ instrument: i })}>
               {t(`name.${i}`)}
             </button>
           ))}

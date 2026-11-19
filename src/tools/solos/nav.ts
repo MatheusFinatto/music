@@ -1,11 +1,18 @@
 "use client";
 // A tela atual de "Como solar com a pentatônica", ligada ao endereço do navegador: o "voltar" funciona, uma lição
 // tem link próprio e recarregar a página não perde a posição na sessão (guardada no sessionStorage).
-import { useSyncExternalStore } from "react";
+import { useSyncExternalStore, type MouseEvent } from "react";
 import { curriculum } from "./curriculum/pt-BR";
 import { progressStore } from "./progress";
 import { buildSession, findExercise, toDay } from "./session/schedule";
 import { decodeView, encodeView, findLesson, hrefOf, isAgain, lessonSteps, parseRoute, routeOf, sessionSteps, type View } from "./session/route";
+
+/** Link de verdade (dá para copiar ou abrir em outra aba); o clique simples navega sem recarregar. */
+export const follow = (go: () => void) => (e: MouseEvent<HTMLAnchorElement>) => {
+  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  go();
+};
 
 const KEY = "musica:solos:tela";
 const HOME: View = { name: "home" };

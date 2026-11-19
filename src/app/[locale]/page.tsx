@@ -37,8 +37,8 @@ export default async function Hub({ params }: Props) {
           <h2 id="h-live">{t("hub.live")}</h2>
           <ul className="grid">
             {live.map((x, i) => (
-              <li key={x.slug} className="rise" style={{ "--i": i + 2 } as React.CSSProperties}>
-                <ToolLink href={x.href}>
+              <li key={x.slug} className={i === 0 && x.slug === "solos" ? "rise featured" : "rise"} style={{ "--i": i + 2 } as React.CSSProperties}>
+                <ToolLink href={x.href} featured={i === 0 && x.slug === "solos"}>
                   <ToolIcon slug={x.slug} />
                   <h3>{name(x)}</h3>
                   <p>{summary(x)}</p>
@@ -95,8 +95,9 @@ export default async function Hub({ params }: Props) {
 }
 
 /** Ferramentas novas são rotas do Next; as do Laboratório são páginas estáticas fora dele. */
-function ToolLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return href.startsWith("/laboratorio") ? <a className="card" href={href}>{children}</a> : <Link className="card" href={href}>{children}</Link>;
+function ToolLink({ href, children, featured }: { href: string; children: React.ReactNode; featured?: boolean }) {
+  const cls = featured ? "card featured" : "card";
+  return href.startsWith("/laboratorio") ? <a className={cls} href={href}>{children}</a> : <Link className={cls} href={href}>{children}</Link>;
 }
 
 function Arrow() {

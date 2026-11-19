@@ -42,7 +42,9 @@ type Common = {
  * Mostra desenhos da pentatônica ou as notas de cada acorde dentro de um desenho. Com `together`,
  * os desenhos de `shapes` aparecem juntos num braço só, em vez de um botão para cada.
  */
-export type MapExercise = Common & { kind: "map"; shapes: number[]; layer: "penta" | "chord"; together?: boolean };
+export type MapExercise = Common & { kind: "map"; shapes: number[]; layer: "penta" | "chord"; together?: boolean;
+  /** Mostra, nas bolinhas, o sentido da palhetada (⊓ para baixo, V para cima), subindo ou descendo o shape. */
+  picking?: boolean };
 
 /** Uma corda só, ao longo do braço: as notas da pentatônica e, em laranja, as do acorde que está soando. */
 export type LineExercise = Common & { kind: "line"; string: number; frets: [number, number] };
@@ -70,7 +72,7 @@ export type Phrase = {
   steps?: string[];
 };
 
-/** O site toca, a pessoa repete de ouvido. A escrita só aparece quando ela pede. */
+/** O site toca, a pessoa repete de ouvido. A tablatura de texto já vem aberta (o botão a esconde); o braço desenhado é que só aparece quando ela pede. */
 export type EchoExercise = Common & {
   kind: "echo";
   phrases: Phrase[];
@@ -79,6 +81,8 @@ export type EchoExercise = Common & {
   section?: string;
   /** Solo de outra pessoa, tirado do áudio: vale o que ela tocou, não as regras de conteúdo do curso. */
   transcribed?: boolean;
+  /** Frase escrita pelo curso com uma nota de fora da pentatônica de propósito (a nota de blues): fica fora da regra "só penta". */
+  outside?: boolean;
 };
 
 /**

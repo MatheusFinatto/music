@@ -7,7 +7,7 @@ export async function Header() {
   return (
     <header className="site-header">
       <div className="wrap">
-        <Link className="brand" href="/">
+        <Link className="brand" href="/" translate="no">
           <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
             <rect width="64" height="64" rx="14" fill="#27598a" />
             <path d="M24 44V18l22-5v26" fill="none" stroke="#fff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />

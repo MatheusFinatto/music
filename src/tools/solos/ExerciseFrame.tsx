@@ -3,11 +3,13 @@ import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { transport } from "@/core/audio";
 import type { Exercise, Video } from "./curriculum/types";
+import { follow } from "./nav";
 import { keyName, rootFret, transposeExercise } from "./curriculum/transpose";
 import { usePracticeKey } from "./progress";
 import type { Part } from "./session/route";
 import type { Rating } from "./session/schedule";
-import { DemoPlayer } from "./components/DemoPlayer";
+import { DemoProvider } from "./components/DemoPlayer";
+import { TabDockProvider } from "./components/tabDock";
 import { useRunning } from "./components/useTransport";
 import { EchoEngine } from "./engines/EchoEngine";
 import { FindEngine } from "./engines/FindEngine";
@@ -46,11 +48,17 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
   useEffect(() => () => transport.stop(), [ex.id, key]);
   // Ligar a base não mexe na tela: quem está com a guitarra na mão não quer a página pulando (pedido do dono).
 
-  // Lição de solo de uma música (tem fonte): o "Tocar" vem primeiro; a teoria e o vídeo ficam logo abaixo do palco.
-  const late = Boolean(intro?.source);
+  // A teoria, o vídeo e o crédito vêm antes do palco, e o exemplo também (auditoria do impeccable: o vídeo era a fonte
+  // do solo e ficava a mais de quatro telas do topo no celular).
+  // Um h1 só por tela: o título da lição, ou o do exercício do 2º passo em diante, quando não há teoria.
+  const IntroTitle = "h1";
+  const ExTitle = intro ? "h2" : "h1";
+  // No último passo (ou no único), "Próximo" encerra a lição: o botão diz isso.
+  const last = !progress || progress.n === progress.total;
+  const nextLabel = t(last ? "frame.finish" : "frame.next");
   const introNode = intro && (
       <section className="intro">
-        <h2>{intro.title}</h2>
+        <IntroTitle className="intro-title">{intro.title}</IntroTitle>
         <p>{intro.text}</p>
         {intro.concepts && intro.concepts.length > 0 && (
           <ul className="concepts" aria-label={t("frame.concepts")}>
@@ -68,7 +76,6 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
               title={v.title}
               loading="lazy"
               allow="encrypted-media; picture-in-picture; fullscreen"
-              allowFullScreen
               referrerPolicy="strict-origin-when-cross-origin"
             />
             <figcaption>{t("frame.video", { title: v.title, author: v.author })}</figcaption>
@@ -82,23 +89,24 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
       </section>
   );
 
+  const stage = (
+    <div className="stage">
+      {ex.kind === "map" && <MapEngine ex={ex} />}
+      {ex.kind === "line" && <LineEngine ex={ex} />}
+      {ex.kind === "find" && <FindEngine ex={ex} onResult={onRate} />}
+      {ex.kind === "play-rest" && <PlayRestEngine ex={ex} />}
+      {ex.kind === "echo" && <EchoEngine ex={ex} />}
+      {ex.kind === "target" && <TargetEngine ex={ex} />}
+      {ex.kind === "take" && <TakeEngine ex={ex} />}
+    </div>
+  );
+
   return (
     <article className={running ? "frame playing" : "frame"}>
-      <header className="frame-head">
-        <p className="crumb">
-          <span className={`tag ${part}`}>{t(`part.${part}`)}</span>
-          {progress && <span>{t("frame.step", progress)}</span>}
-        </p>
-        <div className="row">
-          {onBack && <button type="button" className="btn small" onClick={onBack}>{t("frame.prev")}</button>}
-          <button type="button" className="btn small" onClick={onExit}>{exitLabel}</button>
-        </div>
-      </header>
-
       <div className="reading">
         {HINTED.includes(part) && <p className="hint">{t(`partHint.${part as "cold"}`)}</p>}
-        {intro && !late && introNode}
-        <h1>{ex.title}</h1>
+        {intro && introNode}
+        <ExTitle className="ex-title">{ex.title}</ExTitle>
         <p className="goal">{ex.goal}</p>
         {moved && <p className="key-note">{t("key.note", { key: keyName(key), fret: rootFret(key) })}</p>}
         {part !== "cold" && ex.steps.length > 0 && (
@@ -106,35 +114,38 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
         )}
       </div>
 
-      <div className="stage">
-        {ex.kind === "map" && <MapEngine ex={ex} />}
-        {ex.kind === "line" && <LineEngine ex={ex} />}
-        {ex.kind === "find" && <FindEngine ex={ex} onResult={onRate} />}
-        {ex.kind === "play-rest" && <PlayRestEngine ex={ex} />}
-        {ex.kind === "echo" && <EchoEngine ex={ex} />}
-        {ex.kind === "target" && <TargetEngine ex={ex} />}
-        {ex.kind === "take" && <TakeEngine ex={ex} />}
-      </div>
-
-      {intro && late && introNode}
-
-      {/* O exemplo vem depois do palco: o "Tocar base" é a ação principal e tem que estar à vista (pedido do dono, 2026-11-19). */}
-      {ex.demo && ex.base && <DemoPlayer key={ex.id} ex={ex} />}
+      {/* O exemplo mora na barra da base ("Ouvir o exemplo" ao lado de "Iniciar exercício") e a tablatura dele, logo abaixo dos acordes. */}
+      {/* A tablatura abre sempre aqui, no fim do exercício; no eco, de ouvido, ela começa fechada. */}
+      <TabDockProvider key={ex.id} defaultOpen={ex.kind !== "echo"}>
+        {ex.demo && ex.base ? <DemoProvider ex={ex}>{stage}</DemoProvider> : stage}
+      </TabDockProvider>
 
       {ex.kind === "find" && rated && (
         <footer className="rate">
           <div className="row">
-            <button type="button" className="btn primary next" onClick={() => onRate(rated)}>{t("frame.next")}</button>
+            <button type="button" className="btn primary next" onClick={() => onRate(rated)}>{nextLabel}</button>
           </div>
         </footer>
       )}
       {ex.kind !== "find" && (
         <footer className="rate">
           <div className="row">
-            <button type="button" className="btn primary next" onClick={() => onRate("ok")}>{t("frame.next")}</button>
+            <button type="button" className="btn primary next" onClick={() => onRate("ok")}>{nextLabel}</button>
           </div>
         </footer>
       )}
+
+      {/* No fim do DOM de propósito: o Tab começa no conteúdo; o CSS (order) o mantém no topo. */}
+      <header className="frame-head">
+        <p className="crumb">
+          <span className={`tag ${part}`}>{t(`part.${part}`)}</span>
+          {progress && <span>{t("frame.step", progress)}</span>}
+        </p>
+        <div className="row">
+          {onBack && <button type="button" className="btn small" onClick={onBack}>{t("frame.prev")}</button>}
+          <a className="btn small" href="?" onClick={follow(onExit)}>{exitLabel}</a>
+        </div>
+      </header>
     </article>
   );
 }

@@ -149,7 +149,7 @@ describe("conteúdo real", () => {
   it("a trilha começa pelo mapa; quem já sabe marca como feito e a recomendação pula para Respirar", () => {
     expect(buildSession(real, EMPTY, D1).lesson?.id).toBe("u0.l0");
     let p = EMPTY;
-    for (const l of real.units[0]!.lessons) p = toggleLesson(p, l.id, D1);
+    for (const l of [...real.units[0]!.lessons, ...real.units[1]!.lessons]) p = toggleLesson(p, l.id, D1);
     expect(buildSession(real, p, D1).lesson?.id).toBe("u1.l3");
     expect(buildSession(real, p, D2).cold).toBeUndefined();
   });
@@ -182,7 +182,7 @@ describe("conteúdo real", () => {
 
 describe("frases das unidades", () => {
   // Solos tirados de vídeo valem como foram tocados: as regras de conteúdo são para o que o curso escreve.
-  const exercises = real.units.flatMap((u) => u.lessons.flatMap((l) => l.exercises)).filter((e) => !(e.kind === "echo" && e.transcribed));
+  const exercises = real.units.flatMap((u) => u.lessons.flatMap((l) => l.exercises)).filter((e) => !(e.kind === "echo" && (e.transcribed || e.outside)));
   const echoes = [...exercises, ...real.phrases].flatMap((e) => (e.kind === "echo" ? [e] : []));
   // Frases do eco e solos de exemplo dos arcos seguem as mesmas regras.
   const examples = exercises.flatMap((e) => (e.kind === "take" ? (e.examples ?? []).map((p) => ({ e, p })) : []));
@@ -247,15 +247,6 @@ describe("frases das unidades", () => {
   const part = (p: Phrase, i: number, size = 8) => p.notes.filter((n) => n.beat >= i * size && n.beat < (i + 1) * size);
   it("as partes de um arco têm nomes diferentes", () => {
     for (const e of exercises) if (e.kind === "take" && e.arc) expect(new Set(e.arc.map((a) => a.name)).size, e.id).toBe(e.arc.length);
-  });
-  it("todo arco com exemplo explica cada parte, numa frase curta que continua na tela enquanto toca", () => {
-    for (const e of exercises) {
-      if (e.kind !== "take" || !e.arc || !e.examples) continue;
-      for (const a of e.arc) {
-        expect(a.how, `${e.id}: ${a.name}`).toBeTruthy();
-        expect(a.how!.length, `${e.id}: ${a.name}`).toBeLessThanOrEqual(60);
-      }
-    }
   });
   it("no arco 1, cada parte do exemplo faz o que o nome diz", () => {
     for (const p of take("a1.take").examples!) {

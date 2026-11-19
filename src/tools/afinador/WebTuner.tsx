@@ -35,7 +35,7 @@ export function WebTuner() {
       engine.showMessage(t("playAString"));
       setStatus("listening");
       // No celular a tela do afinador começa abaixo dos botões: traz ela para a vista.
-      boxRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      boxRef.current?.scrollIntoView({ block: "nearest", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     } catch (err) {
       wantListening.current = false;
       const problem = err instanceof MicError ? err.problem : "failed";
@@ -84,7 +84,7 @@ export function WebTuner() {
           <button type="button" className="go" onClick={stop}>{t("stop")}</button>
         ) : (
           <button type="button" className="go" onClick={start} disabled={status === "starting"}>
-            {status === "idle" || status === "starting" ? t("start") : t("retry")}
+            {status === "starting" ? t("starting") : status === "idle" ? t("start") : t("retry")}
           </button>
         )}
         <a className="tuner-alt" href="#app">{t("useApp")}</a>

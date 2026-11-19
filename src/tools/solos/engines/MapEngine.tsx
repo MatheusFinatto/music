@@ -17,7 +17,10 @@ export function MapEngine({ ex }: { ex: MapExercise }) {
   const base = ex.base!;
   const [shape, setShape] = useState(ex.shapes[0]!);
   const [picked, setPicked] = useState(0);
-  const [functions, setFunctions] = useState(false);
+  // O que as bolinhas dizem: o nome da nota, a função dela ou, nas lições de palhetada, o sentido da palheta.
+  const [mode, setMode] = useState<"names" | "functions" | "up" | "down">(ex.picking ? "up" : "names");
+  const functions = mode === "functions";
+  const picking = mode === "up" || mode === "down";
   const beat = useBeat();
   const live = !!beat && beat.beat >= 0;
   const chords = chordsOf(base.prog, base.key);
@@ -32,10 +35,17 @@ export function MapEngine({ ex }: { ex: MapExercise }) {
   const name = (p: { string: number; fret: number }) =>
     functions ? FUNCTION[mod12(midiAt(p) - root)] ?? pcName(midiAt(p), base.key) : pcName(midiAt(p), base.key);
 
+  // Palhetada alternada: subindo, a 1ª nota de cada corda (a mais grave) é para cima e a 2ª para baixo; descendo, o contrário.
+  const pick = (p: { string: number; fret: number }) => {
+    const same = box.filter((q) => q.string === p.string).sort((a, b) => a.fret - b.fret);
+    const first = same.findIndex((q) => q.fret === p.fret) % 2 === 0;
+    return first === (mode === "up") ? "V" : "⊓";
+  };
   let dots: Dot[];
   let anyOutside = false;
   if (ex.layer === "penta") {
-    dots = box.map((p) => (mod12(midiAt(p)) === root ? { ...p, kind: "root", label: name(p) } : { ...p, kind: "scale", label: name(p) }));
+    const text = (p: { string: number; fret: number }) => (picking ? pick(p) : name(p));
+    dots = box.map((p) => (mod12(midiAt(p)) === root ? { ...p, kind: "root", label: text(p) } : { ...p, kind: "scale", label: text(p) }));
   } else {
     const tones = positionsOf(chord.tones, lo, hi);
     const isTone = new Set(tones.map((p) => `${p.string}-${p.fret}`));
@@ -48,6 +58,7 @@ export function MapEngine({ ex }: { ex: MapExercise }) {
 
   return (
     <div className="engine">
+      <BackingBar base={base} />
       <Banner state={live ? "play" : null} word={chord.name} note={ex.layer === "chord" ? t("follow") : t("oneNote")} idle={t("idle")} />
       {ex.shapes.length > 1 && !ex.together && (
         <div className="seg" role="group" aria-label={t("shape")}>
@@ -57,8 +68,10 @@ export function MapEngine({ ex }: { ex: MapExercise }) {
         </div>
       )}
       <div className="seg" role="group" aria-label={t("labels")}>
-        <button type="button" aria-pressed={!functions} onClick={() => setFunctions(false)}>{t("names")}</button>
-        <button type="button" aria-pressed={functions} onClick={() => setFunctions(true)}>{t("functions")}</button>
+        <button type="button" aria-pressed={mode === "names"} onClick={() => setMode("names")}>{t("names")}</button>
+        <button type="button" aria-pressed={functions} onClick={() => setMode("functions")}>{t("functions")}</button>
+        {ex.picking && <button type="button" aria-pressed={mode === "up"} onClick={() => setMode("up")}>{t("pickUp")}</button>}
+        {ex.picking && <button type="button" aria-pressed={mode === "down"} onClick={() => setMode("down")}>{t("pickDown")}</button>}
       </div>
       {ex.layer === "chord" && (
         <div className="seg" role="group" aria-label={t("chord")}>
@@ -69,7 +82,7 @@ export function MapEngine({ ex }: { ex: MapExercise }) {
       )}
       <Fretboard minFret={lo} maxFret={hi} dots={dots} label={ex.layer === "chord" ? t("labelChord", { chord: chord.name }) : ex.together ? t("labelTogether", { shapes: format.list(ex.shapes.map(String)) }) : t("labelPenta", { n: shape })} />
       {anyOutside && <p className="legend">{t("legendOutside")}</p>}
-      <BackingBar base={base} />
+      {picking && <p className="legend">{t("legendPick")}</p>}
     </div>
   );
 }
