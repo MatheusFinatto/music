@@ -39,7 +39,7 @@
     },
     "metronomo": {
       "name": "Metrônomo",
-      "summary": "Andamento e compasso, no navegador. No app Android a partir da versão 1.1."
+      "summary": "Andamento e compasso, no navegador. Também no app Android."
     },
     "solos": {
       "name": "Como solar com a pentatônica",
@@ -69,7 +69,7 @@
     "keys": "Espaço toca e para. Setas mudam o andamento (com Shift, de 10 em 10). Toque em \"Marcar o andamento\" no ritmo da música para achar o bpm.",
     "noAudio": "Este navegador não tocou o som. Tente outro navegador.",
     "appTitle": "No celular, sem navegador",
-    "appLead": "O mesmo metrônomo vai estar no Marmota Tuner, o app Android do afinador, a partir da versão 1.1, que ainda não saiu. É um app só, com afinador e metrônomo.",
+    "appLead": "O mesmo metrônomo está no Marmota Tuner, o app Android do afinador, desde a versão 1.1. É um app só, com afinador e metrônomo.",
     "appLink": "Ver o app"
   },
   "afinador": {
@@ -98,7 +98,7 @@
     "step2": "Abra o arquivo. Se o Android pedir, permita instalar apps desta fonte.",
     "step3": "Abra o Marmota Tuner e libere o microfone.",
     "notStore": "O app não está na loja: a instalação é direto pelo arquivo.",
-    "appVersion": "O metrônomo entra no app na versão 1.1, que ainda não saiu. A versão disponível agora tem só o afinador.",
+    "appVersion": "O app tem afinador e metrônomo desde a versão 1.1. Se você ainda está na 1.0, atualize para ter o metrônomo.",
     "updateTitle": "Como atualizar",
     "updateText": "Baixe o APK novo e instale por cima do que você tem: não precisa desinstalar, e os ajustes ficam. Para ser avisado quando sair versão nova, acompanhe o app pelo <link>Obtainium</link>, que lê os lançamentos no GitHub."
   },
