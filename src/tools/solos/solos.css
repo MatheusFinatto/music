@@ -240,7 +240,8 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .pattern.detailed li span { font-weight: 400; color: var(--muted); }
 .solos .pattern.detailed li.on span { color: var(--ink); }
 /* Blocos do arco: o exemplo e a base em que a pessoa toca, lado a lado no texto e separados na tela. */
-.solos .block { display: flex; flex-direction: column; gap: 12px; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius-md); }
+/* blocos dentro do palco: separados por uma linha, sem virar um cartão dentro do cartão */
+.solos .block { display: flex; flex-direction: column; gap: 12px; padding: 16px 0 0; border-top: 1px solid var(--line); }
 .solos .engine > section:not(.block) { display: flex; flex-direction: column; gap: 16px; }
 .solos .block-title { font-family: var(--font-sans); line-height: 1.3; font-size: var(--text-sm); font-weight: 700; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
 .solos .arc-note { font-size: var(--text-sm); color: var(--muted); padding-inline: 12px; }
@@ -382,7 +383,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .lesson-video { margin-top: 16px; max-width: 720px; }
 .solos .lesson-video p { margin: 0 0 10px; }
 .solos .lesson-video iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: var(--radius-sm); background: #000; }
-.solos .lesson-video figcaption { margin-top: 8px; font-size: var(--text-sm); color: var(--muted); }
+.solos .lesson-video figcaption { text-wrap: pretty; margin-top: 8px; font-size: var(--text-sm); color: var(--muted); }
 .solos .intro .source { margin-top: 12px; font-size: var(--text-sm); color: var(--muted); }
 
 /* Como tocar o eco: modo e contagem antes do exemplo */
@@ -466,3 +467,6 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
   .solos .unit.single .unit-head > div { flex: 1 1 calc(100% - 60px); }
   .solos .unit.single .unit-head .check { margin-left: 60px; }
 }
+
+/* seletores segmentados dentro do palco: fundo suave, sem contorno (não é um cartão dentro do cartão) */
+.solos .engine .seg { border-color: transparent; background: var(--soft); }
