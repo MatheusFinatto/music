@@ -197,7 +197,6 @@
       "quase": "Quase",
       "nao": "Ainda não",
       "back": "Voltar para a trilha",
-      "quit": "Sair da sessão",
       "steps": "Como fazer",
       "next": "Próximo",
       "prev": "Passo anterior",
@@ -306,6 +305,7 @@
       "shortRest": "cala"
     },
     "echo": {
+      "aboutSteps": "O que acontece nesta parte ({n})",
       "which": "Qual frase",
       "phraseN": "Frase {n}",
       "listen": "Ouça",

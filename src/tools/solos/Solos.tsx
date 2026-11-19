@@ -74,7 +74,7 @@ export function Solos() {
           onRate={onRate}
           onBack={view.at > 0 ? () => navigate({ ...view, at: view.at - 1 }, { replace: true }) : undefined}
           onExit={home}
-          exitLabel={t(view.steps.length > 1 ? "frame.quit" : "frame.back")}
+          exitLabel={t("frame.back")}
         />
       </main>
     );

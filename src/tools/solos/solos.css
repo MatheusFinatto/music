@@ -55,6 +55,10 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .seg button:hover:not(:disabled):not([aria-pressed="true"]):not([aria-selected="true"]):not([aria-checked="true"]) { background: var(--soft); }
 .solos .phrase-about { max-width: 60ch; }
 .solos .phrase-about p { font-size: var(--text-md); text-wrap: pretty; }
+.solos .phrase-about details { margin-top: 8px; color: var(--muted); }
+.solos .phrase-about summary { cursor: pointer; font-size: var(--text-sm); min-height: 44px; display: flex; align-items: center; }
+.solos .phrase-about summary::after { content: "+"; margin-left: 8px; font-weight: 700; }
+.solos .phrase-about details[open] summary::after { content: "−"; }
 .solos .phrase-about ol { margin: 8px 0 0; padding-left: 1.4em; color: var(--muted); display: grid; gap: 4px; text-wrap: pretty; }
 
 /* hoje: a sessão como uma sequência numerada */

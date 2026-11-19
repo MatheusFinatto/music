@@ -106,7 +106,13 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
       {(phrase.intro || phrase.steps) && (
         <div className="phrase-about">
           {phrase.intro && <p>{phrase.intro}</p>}
-          {phrase.steps && <ol>{phrase.steps.map((s) => <li key={s}>{s}</li>)}</ol>}
+          {phrase.steps && (
+            // A teoria da parte fica a um toque: não empurra o botão de tocar para fora da tela.
+            <details key={phrase.id}>
+              <summary>{t("aboutSteps", { n: phrase.steps.length })}</summary>
+              <ol>{phrase.steps.map((s) => <li key={s}>{s}</li>)}</ol>
+            </details>
+          )}
         </div>
       )}
       <div className="play-mode">
