@@ -202,6 +202,10 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .backing > * { min-width: 0; }
 /* a base fica no topo do palco, perto do que a pessoa acabou de ler: o "Tocar base" não pode ficar duas telas abaixo */
 .solos .engine > .backing { order: -1; }
+/* Tomada: a base em que a pessoa toca vem logo depois do estado; as partes, a nota e o exemplo vêm depois (o "Tocar base" não pode ficar duas telas abaixo) */
+.solos .engine.take > * { order: 2; }
+.solos .engine.take > .banner { order: 0; }
+.solos .engine.take > .yours { order: 1; }
 /* a base acompanha a rolagem: dá para olhar a tablatura sem perder o play e os acordes */
 @media (min-width: 681px) { .solos .backing .keys { display: none; } .solos .backing { position: sticky; top: 56px; z-index: 5; background: var(--bg); padding-block: 10px; box-shadow: 0 1px 0 var(--line); } }
 .solos .backing .play { min-height: 52px; padding-inline: 20px; font-size: var(--text-lg); }

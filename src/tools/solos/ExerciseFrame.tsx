@@ -47,7 +47,7 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
   // Ligar a base não mexe na tela: quem está com a guitarra na mão não quer a página pulando (pedido do dono).
 
   // Lição de solo de uma música (tem fonte): o "Tocar" vem primeiro; a teoria e o vídeo ficam logo abaixo do palco.
-  const late = Boolean(intro?.source);
+  const late = Boolean(intro?.source) || (intro?.text.length ?? 0) > 420;
   const introNode = intro && (
       <section className="intro">
         <h2>{intro.title}</h2>

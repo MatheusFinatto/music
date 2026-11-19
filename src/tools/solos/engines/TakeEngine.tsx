@@ -97,7 +97,7 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
   const note = example && part ? `${t("example")} · ${count}` : count;
 
   return (
-    <div className="engine">
+    <div className="engine take">
       <Banner state={live ? (example ? "call" : "play") : null} word={word} note={note} idle={t(shown ? "idleExample" : "idle")} />
       {arc.length > 0 && (
         // A explicação de cada parte fica aqui, dentro do palco: continua na tela com a base ou o exemplo tocando.
@@ -150,7 +150,7 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
           )}
         </section>
       )}
-      <section className={shown ? "block" : undefined} aria-labelledby={shown ? `${ex.id}-yours` : undefined}>
+      <section className={shown ? "block yours" : "yours"} aria-labelledby={shown ? `${ex.id}-yours` : undefined}>
         {shown && <h2 id={`${ex.id}-yours`} className="block-title">{t("yourTurn")}</h2>}
         <div className="take-options">
         {bases.length > 1 && (
