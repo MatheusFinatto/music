@@ -239,7 +239,7 @@ export function Solos() {
                           const recommended = l.id === session.lesson?.id;
                           return (
                             <li key={u.id} className={`unit single ${st}${u.arc ? " arc" : ""}`}>
-                              <div className="unit-head" onClick={(ev) => { if (ev.target === ev.currentTarget) startLesson(l); }}>
+                              <div className="unit-head" role="presentation" onClick={(ev) => { if (ev.target === ev.currentTarget) startLesson(l); }}>
                                 <span className="n" aria-hidden="true">{sec.units.indexOf(id) + 1}</span>
                                 <div>
                                   <h5><a className="lesson-link" href={hrefOf({ kind: "lesson", id: l.id })} onClick={follow(() => startLesson(l))}>{u.title}</a>{u.arc && <span className="badge arc">{t("home.arcShort")}</span>}{u.optional && <span className="badge optional">{t("home.optional")}</span>}{e?.skipped && <span className="state">{t("home.skipped")}</span>}</h5>
@@ -272,7 +272,7 @@ export function Solos() {
                                   const recommended = l.id === session.lesson?.id;
                                   return (
                                     <li key={l.id} className={recommended ? "next" : undefined}>
-                                      <div className="lesson-head" onClick={(ev) => { if (ev.target === ev.currentTarget) startLesson(l); }}>
+                                      <div className="lesson-head" role="presentation" onClick={(ev) => { if (ev.target === ev.currentTarget) startLesson(l); }}>
                                         <label className="check">
                                           <input type="checkbox" checked={!!e} onChange={() => toggle(l)} disabled={!today} />
                                           <span className="sr-only">{t("home.mark", { lesson: l.title })}</span>
@@ -325,7 +325,7 @@ export function Solos() {
                   const recommended = ph.id === session.phrase?.id;
                   return (
                     <li key={ph.id} className={recommended ? "next" : undefined}>
-                      <div className="lesson-head" onClick={(ev) => { if (ev.target === ev.currentTarget) open(ph); }}>
+                      <div className="lesson-head" role="presentation" onClick={(ev) => { if (ev.target === ev.currentTarget) open(ph); }}>
                         <span className={state?.last === "ok" ? "dot ok" : state ? "dot tried" : "dot"} aria-hidden="true" />
                         <strong><a className="lesson-link" href={hrefOf({ kind: "exercise", id: ph.id })} onClick={follow(() => open(ph))}>{ph.title}</a></strong>
                         {recommended && <span className="badge atual">{t("home.recommended")}</span>}
@@ -336,7 +336,7 @@ export function Solos() {
                   );
                 })}
                 <li>
-                  <div className="lesson-head" onClick={(ev) => { if (ev.target === ev.currentTarget) open(curriculum.take); }}>
+                  <div className="lesson-head" role="presentation" onClick={(ev) => { if (ev.target === ev.currentTarget) open(curriculum.take); }}>
                     <span className="dot" aria-hidden="true" />
                     <strong><a className="lesson-link" href={hrefOf({ kind: "exercise", id: curriculum.take.id })} onClick={follow(() => open(curriculum.take))}>{curriculum.take.title}</a></strong>
                     <a className="btn small" href={hrefOf({ kind: "exercise", id: curriculum.take.id })} aria-label={t("home.doLesson", { lesson: curriculum.take.title })} onClick={follow(() => open(curriculum.take))}>{t("home.do")}</a>

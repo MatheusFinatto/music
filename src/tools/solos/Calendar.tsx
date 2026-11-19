@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { curriculum } from "./curriculum/pt-BR";
 import { follow, navigate } from "./nav";
 import { hrefOf } from "./session/route";
@@ -9,10 +9,11 @@ import { monthGrid, pastOf, planAhead, weekdayOf } from "./session/calendar";
 import type { Day } from "./session/schedule";
 
 const MONDAY = new Date(2026, 0, 5); // uma segunda qualquer, para os nomes dos dias da semana
-const weekdayName = (i: number, style: "short" | "long") => new Date(MONDAY.getFullYear(), 0, 5 + i).toLocaleDateString("pt-BR", { weekday: style });
+const weekdayName = (i: number, style: "short" | "long", locale: string) => new Date(MONDAY.getFullYear(), 0, 5 + i).toLocaleDateString(locale, { weekday: style });
 
 export function Calendar() {
   const t = useTranslations("solos.calendar");
+  const locale = useLocale();
   const progress = useProgress();
   const today = useToday();
   const studyDays = useStudyDays();
@@ -30,8 +31,8 @@ export function Calendar() {
   const past = pastOf(curriculum, progress, selected);
   const planned = plan[selected] ?? [];
   const toggleDay = (i: number) => studyDaysStore.set((s) => ({ ...s, days: s.days.includes(i) ? s.days.filter((x) => x !== i) : [...s.days, i].sort() }));
-  const label = new Date(view.y, view.m, 1).toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
-  const selectedLabel = (() => { const [y, m, d] = selected.split("-").map(Number) as [number, number, number]; return new Date(y, m - 1, d).toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" }); })();
+  const label = new Date(view.y, view.m, 1).toLocaleDateString(locale, { month: "long", year: "numeric" });
+  const selectedLabel = (() => { const [y, m, d] = selected.split("-").map(Number) as [number, number, number]; return new Date(y, m - 1, d).toLocaleDateString(locale, { weekday: "long", day: "numeric", month: "long" }); })();
 
   return (
     <main className="wrap solos calendar" id="conteudo">
@@ -44,7 +45,7 @@ export function Calendar() {
         {Array.from({ length: 7 }, (_, i) => (
           <label key={i} className="check-day">
             <input type="checkbox" checked={studyDays.includes(i)} onChange={() => toggleDay(i)} />
-            <span>{weekdayName(i, "short")}</span>
+            <span>{weekdayName(i, "short", locale)}</span>
           </label>
         ))}
       </fieldset>
@@ -56,7 +57,7 @@ export function Calendar() {
       </div>
       <div className="month">
         <div className="week-row head">
-          {Array.from({ length: 7 }, (_, i) => <span key={i}>{weekdayName(i, "short")}</span>)}
+          {Array.from({ length: 7 }, (_, i) => <span key={i}>{weekdayName(i, "short", locale)}</span>)}
         </div>
         {weeks.map((w, wi) => (
           <div className="week-row" key={wi}>
