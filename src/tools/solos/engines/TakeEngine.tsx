@@ -135,7 +135,7 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
             <input type="checkbox" checked={countBefore} onChange={(e) => setCountBeforeExample(e.target.checked)} />
             <span>{t("countBefore")}</span>
           </label>
-          <ChordStrip base={ex.base!} live={example && running} />
+          {base !== ex.base && <ChordStrip base={ex.base!} live={example && running} />}
           {tab && (
             <TextTab
               phrase={shown}

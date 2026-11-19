@@ -154,7 +154,7 @@
     a.card:hover { transform: translateY(-4px); }
     a.card:active { transform: translateY(-1px) scale(0.995); transition-duration: 0.12s; }
   }
-  .go { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 600; font-size: 0.95rem; padding: 9px 16px 9px 18px; border-radius: 999px; }
+  .go { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: var(--bg); font-weight: 600; font-size: 0.95rem; padding: 9px 16px 9px 18px; border-radius: 999px; }
   .go { transition: filter 0.2s; }
   .go:hover { filter: brightness(1.1); }
   .go:active { filter: brightness(0.95); }

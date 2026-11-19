@@ -14,6 +14,17 @@ const weekdayName = (i: number, style: "short" | "long", locale: string) => new 
 export function Calendar() {
   const t = useTranslations("solos.calendar");
   const locale = useLocale();
+  // O título de uma lição, frase ou tomada vira link para ela (achar a lição de ontem em 1 clique).
+  const byTitle = useMemo(() => {
+    const m = new Map<string, string>();
+    curriculum.units.flatMap((u) => u.lessons).forEach((l) => m.set(l.title, hrefOf({ kind: "lesson", id: l.id })));
+    [...curriculum.phrases, curriculum.take].forEach((e) => m.set(e.title, hrefOf({ kind: "exercise", id: e.id })));
+    return m;
+  }, []);
+  const linkTo = (title: string) => {
+    const href = byTitle.get(title);
+    return href ? <a href={`/solos${href}`}>{title}</a> : title;
+  };
   const progress = useProgress();
   const today = useToday();
   const studyDays = useStudyDays();
@@ -83,15 +94,15 @@ export function Calendar() {
           <>
             <h3>{t("done")}</h3>
             <ul>
-              {past.lessons.map((x, i) => <li key={`l${i}`}><strong>{x}</strong></li>)}
-              {past.exercises.map((x, i) => <li key={`e${i}`}>{x}</li>)}
+              {past.lessons.map((x, i) => <li key={`l${i}`}><strong>{linkTo(x)}</strong></li>)}
+              {past.exercises.map((x, i) => <li key={`e${i}`}>{linkTo(x)}</li>)}
             </ul>
           </>
         )}
         {planned.length > 0 && (
           <>
             <h3>{t("forecast")}</h3>
-            <ul>{planned.filter((x, i) => planned.findIndex((y) => y.title === x.title && (y.part === "cold") === (x.part === "cold")) === i).map((x, i) => <li key={i}><span className={`tag ${x.part}`}>{x.part === "new" || x.part === "again" ? t("lesson") : x.part === "cold" ? t("cold") : t("review")}</span> {x.title}</li>)}</ul>
+            <ul>{planned.filter((x, i) => planned.findIndex((y) => y.title === x.title && (y.part === "cold") === (x.part === "cold")) === i).map((x, i) => <li key={i}><span className={`tag ${x.part}`}>{x.part === "new" || x.part === "again" ? t("lesson") : x.part === "cold" ? t("cold") : t("review")}</span> {linkTo(x.title)}</li>)}</ul>
             <p className="note">{t("forecastNote")}</p>
           </>
         )}

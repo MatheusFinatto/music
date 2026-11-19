@@ -477,7 +477,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .drill-body { display: flex; flex-direction: column; gap: 16px; padding: 16px 0 0 60px; }
 .solos .drill-run { display: flex; flex-direction: column; gap: 8px; }
 .solos .drill-key { font-family: var(--font-display), var(--font-sans); font-size: var(--text-stage); font-weight: 700; letter-spacing: -0.035em; line-height: 1; }
-.solos .drill-time { font-variant-numeric: tabular-nums; color: var(--muted); font-size: var(--text-xl); }
+.solos .drill-time { font-variant-numeric: tabular-nums; color: var(--ink); font-size: var(--text-3xl); font-weight: 650; line-height: 1; }
 .solos .drill-history { display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
 .solos .drill .n { background: var(--soft); color: var(--ink); }
 

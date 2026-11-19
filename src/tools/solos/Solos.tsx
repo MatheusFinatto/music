@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { curriculum } from "./curriculum/pt-BR";
 import type { Exercise, Lesson } from "./curriculum/types";
@@ -30,6 +31,10 @@ export function Solos() {
   const today = useToday();
   const view = useView();
   const home = () => navigate({ name: "home" });
+  // Pular uma lição conta como feita: avisa (região viva) e deixa desfazer.
+  const [skipped, setSkipped] = useState<{ id: string; title: string } | null>(null);
+  const skip = (l: { id: string; title: string }) => { progressStore.set((p) => skipLesson(p, l.id, today)); setSkipped({ id: l.id, title: l.title }); };
+  const undoSkip = () => { if (skipped) progressStore.set((p) => toggleLesson(p, skipped.id, today)); setSkipped(null); };
 
   if (view.name === "calendar") return <Calendar />;
 
@@ -163,6 +168,11 @@ export function Solos() {
       <section className="today" aria-labelledby="h-today">
         <h2 id="h-today">{practicedToday ? t("home.again") : t("home.today")}</h2>
         {practicedToday && <p className="note">{t("home.doneToday")}</p>}
+        <div role="status" aria-live="polite">
+          {skipped && (
+            <p className="note">{t("home.skippedNote", { lesson: skipped.title })} <button type="button" className="btn small quiet" onClick={undoSkip}>{t("home.undo")}</button></p>
+          )}
+        </div>
         {steps.length > 0 ? (
           <ol className="plan">
             {planGroups(steps).map((g, i) => {
@@ -187,7 +197,7 @@ export function Solos() {
                     )}
                   </div>
                   {lesson && (
-                    <button type="button" className="btn small plan-skip" aria-label={t("home.skipLesson", { lesson: lesson.title })} onClick={() => progressStore.set((p) => skipLesson(p, lesson.id, today))} disabled={!today}>{t("home.skipPlan")}</button>
+                    <button type="button" className="btn small plan-skip" aria-label={t("home.skipLesson", { lesson: lesson.title })} onClick={() => skip(lesson)} disabled={!today}>{t("home.skipPlan")}</button>
                   )}
                 </li>
               );
@@ -249,7 +259,7 @@ export function Solos() {
                                   <input type="checkbox" checked={!!e} onChange={() => toggle(l)} disabled={!today} />
                                   <span className="sr-only">{t("home.mark", { lesson: l.title })}</span>
                                 </label>
-                                {recommended && <button type="button" className="btn small" aria-label={t("home.skipLesson", { lesson: l.title })} onClick={() => progressStore.set((p) => skipLesson(p, l.id, today))} disabled={!today}>{t("home.skip")}</button>}
+                                {recommended && <button type="button" className="btn small" aria-label={t("home.skipLesson", { lesson: l.title })} onClick={() => skip(l)} disabled={!today}>{t("home.skip")}</button>}
                                 <a className={recommended ? "btn small primary" : "btn small"} href={hrefOf({ kind: "lesson", id: l.id })} aria-label={t(e ? "home.redoLesson" : "home.doLesson", { lesson: l.title })} onClick={follow(() => startLesson(l))}>{e ? t("home.redo") : t("home.do")}</a>
                               </div>
                             </li>
@@ -281,7 +291,7 @@ export function Solos() {
                                         {recommended && <span className="badge atual">{t("home.recommended")}</span>}
                                         {e?.cold && <span className="state lessonCold">{t("home.lessonCold")}</span>}
                                         {e?.skipped && <span className="state">{t("home.skipped")}</span>}
-                                        {recommended && <button type="button" className="btn small" aria-label={t("home.skipLesson", { lesson: l.title })} onClick={() => progressStore.set((p) => skipLesson(p, l.id, today))} disabled={!today}>{t("home.skip")}</button>}
+                                        {recommended && <button type="button" className="btn small" aria-label={t("home.skipLesson", { lesson: l.title })} onClick={() => skip(l)} disabled={!today}>{t("home.skip")}</button>}
                                         <a className={recommended ? "btn small primary" : "btn small"} href={hrefOf({ kind: "lesson", id: l.id })} aria-label={t(e ? "home.redoLesson" : "home.doLesson", { lesson: `${l.title} (${u.title})` })} onClick={follow(() => startLesson(l))}>
                                           {e ? t("home.redo") : t("home.do")}
                                         </a>

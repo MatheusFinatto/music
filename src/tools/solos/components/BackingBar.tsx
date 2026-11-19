@@ -200,7 +200,7 @@ export function BackingBar({ base, countIn = 1, hideChords = false, quiet = fals
       </div>
       <div className="backing-chords">
         {audioError && <p className="note" role="alert">{t("noAudio")}</p>}
-        <ChordStrip base={base} live={running} hideChords={hideChords} />
+        <ChordStrip base={base} live={playing && !demo} hideChords={hideChords} />
         <p className="keys">{t("space")}</p>
       </div>
     </>

@@ -78,7 +78,8 @@ export function Drill() {
           <div className="drill-run" role="status">
             <p className="drill-key">{keyName(order[at]!)}</p>
             <p className="note">{t("where", { shape, fret: rootFret(order[at]!), n: at + 1, total: order.length, bpm })}</p>
-            <p className="drill-time" aria-hidden="true">{fmt(elapsed)}</p>
+            <p className="drill-time">{fmt(elapsed)}</p>
+            <p className="note"><a href="/metronomo" target="_blank" rel="noreferrer">{t("metronome")}</a></p>
             <div className="row">
               <button type="button" className="btn primary" onClick={next} autoFocus>{at + 1 < order.length ? t("next") : t("finish")}</button>
               <button type="button" className="btn" onClick={() => setOrder(null)}>{t("cancel")}</button>
