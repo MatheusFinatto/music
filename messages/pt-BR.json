@@ -11,6 +11,7 @@
   },
   "hub": {
     "title": "Marmota Music",
+    "lead": "Ferramentas de prática para guitarra: afinar, tocar no tempo e aprender a solar. De graça, sem conta.",
     "live": "Disponíveis agora",
     "next": "A seguir",
     "planned": "Planejadas",
@@ -74,7 +75,7 @@
   "afinador": {
     "title": "Afinador",
     "description": "Afinador cromático pelo microfone, no navegador ou no app Android Marmota Tuner: a nota, a frequência e o desvio em cents.",
-    "start": "Afinar aqui",
+    "start": "Afinar no navegador",
     "stop": "Parar",
     "retry": "Tentar de novo",
     "useApp": "Prefiro o app Android",

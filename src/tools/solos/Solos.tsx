@@ -272,7 +272,7 @@ export function Solos() {
                   <svg viewBox="0 0 24 24" width="20" height="20"><path d="M9 18V6l10-2v12" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /><circle cx="6.5" cy="18" r="2.5" fill="currentColor" /><circle cx="16.5" cy="16" r="2.5" fill="currentColor" /></svg>
                 </span>
                 <div>
-                  <h5>{t("home.phrases")}</h5>
+                  <h4>{t("home.phrases")}</h4>
                   <p>{t("home.phrasesNote")}</p>
                 </div>
                 <span className="badge">{t("home.count", { done: curriculum.phrases.filter((ph) => progress.exercises[ph.id]?.last === "ok").length, total: curriculum.phrases.length })}</span>

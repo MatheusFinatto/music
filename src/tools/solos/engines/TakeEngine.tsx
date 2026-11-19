@@ -115,7 +115,7 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
           não mexe na base em que a pessoa vai tocar, e vice-versa. */}
       {shown && (
         <section className="block" aria-labelledby={`${ex.id}-example`}>
-          <h3 id={`${ex.id}-example`} className="block-title">{t("example")}</h3>
+          <h2 id={`${ex.id}-example`} className="block-title">{t("example")}</h2>
           <div className="row">
             {examples.map((p, i) => {
               const on = example && running && i === mine.example;
@@ -145,7 +145,7 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
         </section>
       )}
       <section className={shown ? "block" : undefined} aria-labelledby={shown ? `${ex.id}-yours` : undefined}>
-        {shown && <h3 id={`${ex.id}-yours`} className="block-title">{t("yourTurn")}</h3>}
+        {shown && <h2 id={`${ex.id}-yours`} className="block-title">{t("yourTurn")}</h2>}
         <div className="take-options">
         {bases.length > 1 && (
           <label className="key-picker base-picker">

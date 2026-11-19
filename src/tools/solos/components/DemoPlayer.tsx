@@ -50,7 +50,7 @@ export function DemoPlayer({ ex }: { ex: Exercise }) {
 
   return (
     <section className="block demo" aria-labelledby={`${ex.id}-demo`}>
-      <h3 id={`${ex.id}-demo`} className="block-title">{t("title")}</h3>
+      <h2 id={`${ex.id}-demo`} className="block-title">{t("title")}</h2>
       <div className="row">
         <button type="button" className="btn" onClick={live ? () => transport.stop() : play} aria-pressed={live}>{live ? t("stop") : t("play")}</button>
         <button type="button" className="btn" aria-expanded={tab} onClick={() => setTab((s) => !s)}>{tab ? t("hideTab") : t("showTab")}</button>
