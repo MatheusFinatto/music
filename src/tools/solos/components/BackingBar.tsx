@@ -41,6 +41,13 @@ const demoListeners = new Set<() => void>();
 export function setDemoPlaying(on: boolean) { if (demoOn === on) return; demoOn = on; demoListeners.forEach((f) => f()); }
 const subscribeDemo = (f: () => void) => { demoListeners.add(f); return () => { demoListeners.delete(f); }; };
 
+/** Barra grudada ao rolar: a pessoa pode soltar (padrão: grudada). Guardado no navegador. */
+const PIN_KEY = "musica:solos:fixar";
+const pinListeners = new Set<() => void>();
+const readPin = () => { try { return localStorage.getItem(PIN_KEY) !== "0"; } catch { return true; } };
+const subscribePin = (f: () => void) => { pinListeners.add(f); return () => { pinListeners.delete(f); }; };
+const setPin = (on: boolean) => { try { localStorage.setItem(PIN_KEY, on ? "1" : "0"); } catch { /* sem armazenamento: vale só nesta aba */ } pinListeners.forEach((f) => f()); };
+
 /** O andamento que a pessoa escolheu para cada base: o exemplo da mesma tela toca no mesmo andamento do campo. */
 const chosen = new Map<string, number>();
 const tempoKey = (base: Base) => `${base.key}|${base.prog.join(",")}|${base.style}|${base.bpm}`;
@@ -129,6 +136,7 @@ export function BackingBar({ base, countIn = 1, hideChords = false, quiet = fals
   const [bpm, setBpm] = useState(() => chosenBpm(base));
   const playing = useRunning();
   const demo = useSyncExternalStore(subscribeDemo, () => demoOn, () => false);
+  const pinned = useSyncExternalStore(subscribePin, readPin, () => true);
   const running = playing && !quiet && !demo;
 
   const start = () => { if (!transport.start(backingOf(base, bpm), { countIn })) window.alert(t("noAudio")); };
@@ -175,18 +183,24 @@ export function BackingBar({ base, countIn = 1, hideChords = false, quiet = fals
   }, [playing]);
 
   return (
-    <div className="backing">
-      <button type="button" className="btn primary play" onClick={toggle} aria-pressed={running} aria-keyshortcuts="Space">
-        {running ? t("stop") : (playLabel ?? t("play"))}
-      </button>
-      <TempoControl bpm={bpm} onChange={changeTempo} />
-      <div className="backing-extra">
-        {/* Base no tom de uma gravação: o tom de prática não muda nada aqui. */}
-        {!base.song && <KeyPicker />}
-        <SoundPanel preview={{ playing: running, toggle }} />
+    <>
+      {/* Só esta linha (tocar, andamento, tom, som) fica grudada; a faixa de acordes rola com a página. */}
+      <div className={pinned ? "backing" : "backing loose"}>
+        <button type="button" className="btn primary play" onClick={toggle} aria-pressed={running} aria-keyshortcuts="Space">
+          {running ? t("stop") : (playLabel ?? t("play"))}
+        </button>
+        <TempoControl bpm={bpm} onChange={changeTempo} />
+        <div className="backing-extra">
+          {/* Base no tom de uma gravação: o tom de prática não muda nada aqui. */}
+          {!base.song && <KeyPicker />}
+          <SoundPanel preview={{ playing: running, toggle }} />
+          <button type="button" className="btn small pin" aria-pressed={pinned} aria-label={t("pinLabel")} onClick={() => setPin(!pinned)}>{t("pin")}</button>
+        </div>
       </div>
-      <ChordStrip base={base} live={running} hideChords={hideChords} />
-      <p className="keys">{t("space")}</p>
-    </div>
+      <div className="backing-chords">
+        <ChordStrip base={base} live={running} hideChords={hideChords} />
+        <p className="keys">{t("space")}</p>
+      </div>
+    </>
   );
 }

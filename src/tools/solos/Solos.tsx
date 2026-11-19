@@ -171,7 +171,14 @@ export function Solos() {
                   <span className="n" aria-hidden="true">{i + 1}</span>
                   <div className="what">
                     <span className="kind">{t(`part.${g.part}`)}</span>
-                    <strong>{lesson ? lesson.title : g.steps[0]!.ex.title}</strong>
+                    <strong>
+                      {/* A linha inteira é o link (área esticada por CSS): clicar na sessão sugerida abre a lição. */}
+                      {g.lesson ? (
+                        <a className="plan-link" href={hrefOf({ kind: "lesson", id: g.lesson.id })} onClick={follow(() => startLesson(g.lesson!))}>{g.lesson.title}</a>
+                      ) : (
+                        <a className="plan-link" href={hrefOf({ kind: "exercise", id: g.steps[0]!.ex.id })} onClick={follow(() => open(g.steps[0]!.ex))}>{g.steps[0]!.ex.title}</a>
+                      )}
+                    </strong>
                     {lesson && g.steps.length > 1 && (
                       <ul className="parts" aria-label={t("home.parts")}>
                         {g.steps.map((x) => <li key={x.ex.id}>{x.ex.title}</li>)}

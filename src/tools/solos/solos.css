@@ -62,6 +62,11 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos ol.plan { display: flex; flex-direction: column; background: var(--surface); box-shadow: var(--shadow); border-radius: var(--radius); padding: 4px 20px; }
 .solos ol.plan > li { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; align-items: center; gap: 4px 14px; padding: 16px 0; border-bottom: 1px solid var(--line); }
 .solos ol.plan > li:last-child { border-bottom: 0; }
+.solos ol.plan > li { position: relative; }
+.solos ol.plan .plan-link { color: inherit; text-decoration: none; }
+.solos ol.plan .plan-link::after { content: ""; position: absolute; inset: 0; }
+.solos ol.plan > li:hover .plan-link { text-decoration: underline; text-underline-offset: 0.2em; }
+.solos ol.plan .plan-skip { position: relative; z-index: 1; }
 .solos ol.plan .what { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .solos ol.plan .parts { display: flex; flex-wrap: wrap; gap: 2px 14px; margin-top: 4px; color: var(--muted); font-size: var(--text-sm); }
 .solos ol.plan .parts li { display: inline; }
@@ -183,18 +188,21 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .backing { display: grid; grid-template-columns: auto auto minmax(0, 1fr); gap: 12px 16px; align-items: center; }
 .solos .backing > * { min-width: 0; }
 /* a base fica no topo do palco, perto do que a pessoa acabou de ler: o "Tocar base" não pode ficar duas telas abaixo */
-.solos .engine > .backing { order: -2; }
+.solos .engine > .backing, .solos .engine > .backing-chords { order: -2; }
 .solos .engine > .play-mode { order: -1; }
 /* Tomada: a base em que a pessoa toca vem logo depois do estado; as partes, a nota e o exemplo vêm depois (o "Tocar base" não pode ficar duas telas abaixo) */
 .solos .engine.take > * { order: 2; }
 .solos .engine.take > .banner { order: 0; }
 .solos .engine.take > .yours { order: 1; }
 /* a base acompanha a rolagem: dá para olhar a tablatura sem perder o play e os acordes */
-@media (min-width: 681px) { .solos .backing .keys { display: none; } .solos .backing { position: sticky; top: 56px; z-index: 5; background: var(--surface); padding-block: 10px; box-shadow: 0 1px 0 var(--line); } }
+@media (min-width: 681px) { .solos .backing:not(.loose) { position: sticky; top: 56px; z-index: 5; background: var(--surface); padding-block: 10px; box-shadow: 0 1px 0 var(--line); } .solos .backing-chords .keys { display: none; } }
 .solos .backing .play { min-width: 12rem; min-height: 52px; padding-inline: 20px; font-size: var(--text-lg); }
-.solos .backing .keys { grid-column: 1 / -1; color: var(--muted); font-size: var(--text-xs); }
-@media (hover: none) { .solos .backing .keys { display: none; } }
-.solos .backing .chords { grid-column: 1 / -1; }
+.solos .backing-chords .keys { color: var(--muted); font-size: var(--text-xs); margin-top: 8px; }
+@media (hover: none) { .solos .backing-chords .keys { display: none; } }
+.solos .backing-chords .chords { grid-column: 1 / -1; }
+.solos .backing .pin { min-height: 36px; padding-inline: 12px; }
+.solos .backing .pin[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+@media (max-width: 680px) { .solos .backing .pin { display: none; } }
 .solos .chords { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(4.5rem, 1fr); gap: 6px; overflow-x: auto; max-width: 100%; padding-bottom: 4px; }
 .solos .chords li { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; background: var(--bg); color: var(--muted); }
 .solos .chords li.on { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }

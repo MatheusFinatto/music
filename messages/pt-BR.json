@@ -215,6 +215,8 @@
     },
     "backing": {
       "play": "Tocar base",
+      "pin": "Fixar",
+      "pinLabel": "Fixar a barra da base no topo ao rolar a página",
       "stop": "Parar",
       "chords": "Acordes da base",
       "slower": "Mais lento",
