@@ -7,7 +7,8 @@
   },
   "nav": {
     "label": "Principal",
-    "lab": "Laboratório"
+    "lab": "Laboratório",
+    "short": { "solos": "Solos", "afinador": "Afinador", "metronomo": "Metrônomo" }
   },
   "hub": {
     "title": "Marmota Music",

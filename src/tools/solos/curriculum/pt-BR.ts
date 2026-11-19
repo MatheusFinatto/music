@@ -412,7 +412,7 @@ const ear = (id: string, section: "s1" | "s2" | "s3" | "s4", p: Phrase, base: Ba
   goal: "Tire esta frase de ouvido, sem ver onde ela fica no braço.",
   steps: [
     "Ouça duas ou três vezes sem tocar.",
-    "Cante junto. Se não consegue cantar, ainda não ouviu direito.",
+    "Cante junto. Se não consegue cantar, ouça mais uma vez.",
     WHERE[section]!,
     "Só então abra o braço para conferir.",
   ],
@@ -499,7 +499,7 @@ const written: Curriculum = {
           id: "u1.l3",
           title: "Mais silêncio que som",
           intro:
-            "O defeito mais comum de quem improvisa é não parar de tocar: os dedos correm mais que as ideias. Cantor respira; guitarrista esquece. Por isso o treino começa pelo extremo: um compasso tocando e três calado. Gilmour é famoso pelo que não toca: quando o silêncio é maior que a frase, cada nota pesa mais. É desconfortável no começo, porque a vontade é preencher.",
+            "O defeito mais comum de quem improvisa é não parar de tocar: os dedos correm mais que as ideias. Cantor respira; guitarrista esquece. Por isso o treino começa pelo extremo: um compasso tocando e três calado. David Gilmour, do Pink Floyd, é famoso pelo que não toca: quando o silêncio é maior que a frase, cada nota pesa mais. É desconfortável no começo, porque a vontade é preencher.",
           key: "u1.l3.a",
           exercises: [
             {
