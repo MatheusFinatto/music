@@ -150,6 +150,9 @@
       "continue": "Continuar",
       "optional": "Opcional",
       "skip": "Pular",
+      "skipPlan": "Pular lição",
+      "arcShort": "Arco",
+      "parts": "Exercícios desta lição",
       "skipped": "Pulada",
       "skipLesson": "Pular \"{lesson}\" e contar como feita",
       "calendar": "Calendário",
@@ -276,6 +279,7 @@
     },
     "echo": {
       "which": "Qual frase",
+      "phraseN": "Frase {n}",
       "listen": "Ouça",
       "yourTurn": "Sua vez",
       "idle": {

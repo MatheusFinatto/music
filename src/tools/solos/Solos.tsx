@@ -8,7 +8,7 @@ import { NeckHero } from "./components/NeckHero";
 import { ExerciseFrame } from "./ExerciseFrame";
 import { navigate, useView } from "./nav";
 import { progressStore, useProgress, useToday } from "./progress";
-import { hrefOf, isAgain, lessonSteps, sessionSteps, type Outcome } from "./session/route";
+import { hrefOf, isAgain, lessonSteps, sessionSteps, type Outcome, type Step } from "./session/route";
 import { EMPTY, addDays, buildSession, daysThisWeek, learnLesson, rate, rateCold, skipLesson, toggleLesson, unitStatuses, type Rating } from "./session/schedule";
 import "./solos.css";
 
@@ -18,6 +18,18 @@ const follow = (go: () => void) => (e: MouseEvent<HTMLAnchorElement>) => {
   e.preventDefault();
   go();
 };
+
+/** Os passos da sessão agrupados: os exercícios de uma mesma lição viram uma linha só, com um "Pular" só. */
+type Group = { part: Step["part"]; lesson?: Step["lesson"]; steps: Step[] };
+function planGroups(steps: Step[]): Group[] {
+  const out: Group[] = [];
+  for (const s of steps) {
+    const last = out.at(-1);
+    if (last && s.lesson && (s.part === "new" || s.part === "again") && last.part === s.part && last.lesson?.id === s.lesson.id) last.steps.push(s);
+    else out.push({ part: s.part, lesson: s.lesson, steps: [s] });
+  }
+  return out;
+}
 
 export function Solos() {
   const t = useTranslations("solos");
@@ -159,16 +171,26 @@ export function Solos() {
         {practicedToday && <p className="note">{t("home.doneToday")}</p>}
         {steps.length > 0 ? (
           <ol className="plan">
-            {steps.map((s, i) => (
-              <li key={i}>
-                <span className="n" aria-hidden="true">{i + 1}</span>
-                <span className="kind">{t(`part.${s.part}`)}</span>
-                <strong>{s.ex.title}</strong>
-                {(s.part === "new" || s.part === "again") && s.lesson && (
-                  <button type="button" className="btn small quiet skip" aria-label={t("home.skipLesson", { lesson: s.lesson.title })} onClick={() => progressStore.set((p) => skipLesson(p, s.lesson!.id, today))} disabled={!today}>{t("home.skip")}</button>
-                )}
-              </li>
-            ))}
+            {planGroups(steps).map((g, i) => {
+              const lesson = g.lesson && (g.part === "new" || g.part === "again") ? g.lesson : null;
+              return (
+                <li key={i}>
+                  <span className="n" aria-hidden="true">{i + 1}</span>
+                  <div className="what">
+                    <span className="kind">{t(`part.${g.part}`)}</span>
+                    <strong>{lesson ? lesson.title : g.steps[0]!.ex.title}</strong>
+                    {lesson && g.steps.length > 1 && (
+                      <ul className="parts" aria-label={t("home.parts")}>
+                        {g.steps.map((x) => <li key={x.ex.id}>{x.ex.title}</li>)}
+                      </ul>
+                    )}
+                  </div>
+                  {lesson && (
+                    <button type="button" className="btn small plan-skip" aria-label={t("home.skipLesson", { lesson: lesson.title })} onClick={() => progressStore.set((p) => skipLesson(p, lesson.id, today))} disabled={!today}>{t("home.skipPlan")}</button>
+                  )}
+                </li>
+              );
+            })}
           </ol>
         ) : (
           <p className="note">{t("home.nothing")}</p>
@@ -185,8 +207,7 @@ export function Solos() {
             <details key={ch.id} className="chapter" open={secs.some((x) => x.units.includes(current ?? ""))}>
               <summary className="chapter-head">
                 <div>
-                  <span className="kicker">{t("home.chapter", { n: ci + 1 })}</span>
-                  <h3>{ch.title}</h3>
+                  <h3><span className="ord" role="img" aria-label={t("home.chapter", { n: ci + 1 })}>{ci + 1}</span>{ch.title}</h3>
                   <p>{ch.goal}</p>
                 </div>
                 <span className={`badge${chCount.done === chCount.total ? " feita" : ""}`}>{t("home.count", chCount)}</span>
@@ -197,7 +218,6 @@ export function Solos() {
                   <details key={sec.id} className="trail-section" open={sec.units.includes(current ?? "")}>
                     <summary className="section-head">
                       <div>
-                        <span className="kicker">{t("home.section", { n: curriculum.sections.indexOf(sec) + 1 })}</span>
                         <h4>{sec.title}</h4>
                         <p>{sec.goal}</p>
                       </div>
@@ -217,8 +237,7 @@ export function Solos() {
                               <summary className="unit-head">
                                 <span className="n" aria-hidden="true">{sec.units.indexOf(id) + 1}</span>
                                 <div>
-                                  {u.arc && <span className="kicker">{t("home.arc")}</span>}
-                                  <h5>{u.title}{u.optional && <span className="badge optional">{t("home.optional")}</span>}</h5>
+                                  <h5>{u.title}{u.arc && <span className="badge arc">{t("home.arcShort")}</span>}{u.optional && <span className="badge optional">{t("home.optional")}</span>}</h5>
                                   <p>{u.skill}</p>
                                 </div>
                                 <span className={`badge ${st}`}>{t("home.count", { done, total: u.lessons.length })}</span>
@@ -238,7 +257,7 @@ export function Solos() {
                                         {recommended && <span className="badge atual">{t("home.recommended")}</span>}
                                         {e?.cold && <span className="state lessonCold">{t("home.lessonCold")}</span>}
                                         {e?.skipped && <span className="state">{t("home.skipped")}</span>}
-                                        {recommended && <button type="button" className="btn small quiet" onClick={() => progressStore.set((p) => skipLesson(p, l.id, today))} disabled={!today}>{t("home.skip")}</button>}
+                                        {recommended && <button type="button" className="btn small" onClick={() => progressStore.set((p) => skipLesson(p, l.id, today))} disabled={!today}>{t("home.skip")}</button>}
                                         <a className={recommended ? "btn small primary" : "btn small"} href={hrefOf({ kind: "lesson", id: l.id })} onClick={follow(() => startLesson(l))}>
                                           {e ? t("home.redo") : t("home.do")}
                                         </a>

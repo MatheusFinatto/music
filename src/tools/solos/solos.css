@@ -86,9 +86,15 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 
 /* hoje: a sessão como uma sequência numerada */
 .solos .today { display: flex; flex-direction: column; gap: 18px; }
-.solos .plan { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 12px; counter-reset: none; }
-.solos .plan li { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 18px 20px 20px; border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
-.solos .plan .n { font-family: var(--font-display), var(--font-sans); font-size: var(--text-2xl); font-weight: 700; line-height: 1; color: var(--target); font-variant-numeric: tabular-nums; margin-bottom: 8px; }
+.solos .plan { display: flex; flex-direction: column; background: var(--surface); box-shadow: var(--shadow); border-radius: var(--radius); padding: 4px 20px; }
+.solos .plan > li { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; align-items: center; gap: 4px 14px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.solos .plan > li:last-child { border-bottom: 0; }
+.solos .plan .what { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.solos .plan .parts { display: flex; flex-wrap: wrap; gap: 2px 14px; margin-top: 4px; color: var(--muted); font-size: var(--text-sm); }
+.solos .plan .parts li { display: inline; }
+.solos .plan .parts li + li::before { content: "·"; margin-right: 14px; }
+@media (max-width: 680px) { .solos .plan .parts { flex-direction: column; } .solos .plan .parts li + li::before { content: none; } }
+.solos .plan .n { font-family: var(--font-display), var(--font-sans); font-size: var(--text-2xl); font-weight: 700; line-height: 1; color: var(--target); font-variant-numeric: tabular-nums; }
 .solos .plan .kind { font-size: var(--text-xs); font-weight: 650; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
 .solos .plan strong { font-size: var(--text-lg); font-weight: 600; line-height: 1.25; text-wrap: balance; }
 .solos .recap { display: flex; flex-direction: column; gap: 9px; }
@@ -113,7 +119,8 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .trail-section { margin: 18px 0 0 16px; }
 .solos .trail-section .soon { color: var(--muted); font-size: var(--text-md); text-wrap: pretty; max-width: 56ch; margin: 12px 0 0; }
 .solos .chapter[open] > .trail-section:last-child { margin-bottom: 8px; }
-.solos .kicker { display: block; font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--target); }
+.solos .ord { display: inline-block; min-width: 1.4em; margin-right: 0.35em; color: var(--target); font-variant-numeric: tabular-nums; }
+.solos .badge.arc { background: color-mix(in srgb, var(--target) 18%, transparent); color: var(--target); margin-left: 10px; vertical-align: 2px; }
 .solos .unit-head h5, .solos .unit-head h4 { font-size: var(--text-lg); }
 .solos .unit.arc .n { background: var(--target-soft); color: var(--target-ink); box-shadow: 0 0 0 6px var(--bg), 0 0 0 7px var(--target); }
 .solos .unit.arc.feita .n { background: var(--target); color: var(--on-target); }
@@ -424,11 +431,16 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .swatch.plan { border-style: dashed; }
 .day-detail { margin-top: 20px; }
 .day-detail h2 { margin: 0 0 8px; }
-.day-detail ul { padding-left: 18px; }
+.day-detail h3 { font-size: var(--text-lg); margin: 18px 0 6px; color: var(--muted); font-weight: 650; }
+.day-detail ul { list-style: none; padding: 0; display: flex; flex-direction: column; }
+.day-detail li { display: grid; grid-template-columns: 6rem minmax(0, 1fr); align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.day-detail li:last-child { border-bottom: 0; }
+.day-detail li .tag { justify-self: start; }
+.day-detail li > strong { grid-column: 1 / -1; }
 
 .solos .badge.optional { margin-left: 8px; vertical-align: middle; }
 
-.solos .plan .skip { position: absolute; top: 12px; right: 12px; }
+.solos .plan .plan-skip { white-space: nowrap; }
 
 /* Clicar no nome ou no quadro da lição entra nela */
 .solos .lesson-head { cursor: pointer; }
@@ -440,7 +452,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 
 /* alvos de toque no celular */
 @media (max-width: 680px) {
-  .solos .plan .skip, .solos .lessons .btn.small.quiet { min-width: 44px; }
+  .solos .plan .plan-skip, .solos .lessons .btn.small.quiet { min-width: 44px; }
   .solos .lesson-link { display: inline-block; padding-block: 11px; }
 }
 .solos .text-tab pre:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }

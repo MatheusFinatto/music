@@ -76,7 +76,7 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
             (e.currentTarget.children[to] as HTMLElement | undefined)?.focus();
           }}>
           {ex.phrases.map((p, i) => (
-            <button key={p.id} type="button" role="tab" aria-selected={i === index} tabIndex={i === index ? 0 : -1} onClick={() => go(i)}>{p.label ?? i + 1}</button>
+            <button key={p.id} type="button" role="tab" aria-selected={i === index} tabIndex={i === index ? 0 : -1} onClick={() => go(i)}>{p.label ?? t("phraseN", { n: i + 1 })}</button>
           ))}
         </div>
       )}

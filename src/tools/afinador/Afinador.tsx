@@ -23,20 +23,20 @@ export async function Afinador() {
         </div>
         <p className="mt-4 text-[0.92rem] text-muted">{t("limits")}</p>
 
-        <div id="app" className="card mt-12 scroll-mt-20">
-          <h2 className="text-[1.2rem] font-[650] tracking-[-0.02em]">{t("appTitle")}</h2>
+        <div id="app" className="card mt-12 scroll-mt-20 [&_p]:max-w-[62ch]">
+          <h2 className="text-[1.4rem] font-[650] tracking-[-0.02em]">{t("appTitle")}</h2>
           <p>{t("appLead")}</p>
           <p className="text-muted">{t("appVersion")}</p>
           <div className="foot flex-wrap">
             <a className="go whitespace-nowrap no-underline" href={APK_URL}>{t("download")}</a>
             <span className="badge">{t("platform")}</span>
           </div>
-          <h3 className="mt-4 font-[650]">{t("installTitle")}</h3>
+          <h3 className="mt-4 text-[1.05rem] font-[650]">{t("installTitle")}</h3>
           <ol className="list-decimal space-y-2 pl-6 text-muted">
             {steps.map((step) => <li key={step}>{step}</li>)}
           </ol>
           <p className="text-muted">{t("notStore")}</p>
-          <h3 className="mt-4 font-[650]">{t("updateTitle")}</h3>
+          <h3 className="mt-4 text-[1.05rem] font-[650]">{t("updateTitle")}</h3>
           <p className="text-muted">
             {t.rich("updateText", { link: (chunks) => <a href={OBTAINIUM_URL} target="_blank" rel="noreferrer">{chunks}</a> })}
           </p>
