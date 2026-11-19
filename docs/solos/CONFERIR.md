@@ -82,3 +82,12 @@ Como conferir: abra `marmota-music.vercel.app/solos`, de preferência no celular
 - [ ] **APK 1.1 com o metrônomo:** instalar o debug num celular (`./gradlew assembleDebug` em `marmota-tuner/`), conferir, gerar o release com a sua chave e publicar o Release `marmota-tuner.apk`. O PR #39 (barra inferior do app) espera o seu merge. Quando o 1.1 sair, tirar os "ainda não saiu" de `messages/pt-BR.json`.
 - [ ] **Métricas:** ativar Web Analytics no painel da Vercel e conferir se as lições (`?licao=`) aparecem separadas.
 - [ ] Decisão: levar o visual escuro de `/solos` para o hub?
+
+## Começo do curso reorganizado (2026-11-19, a pedido do dono)
+- O vídeo do solo em Lá menor virou a primeira lição (`u0.l0`), antes do shape 1, com o texto "No final do curso, veremos ele novamente…".
+- O início ensina **um shape só**. "Os cinco shapes" (`u0.l2`) foi para o começo da seção Shape 2 (unidade `u71`); "As notas de cada acorde" (tônica, 3ª, 5ª, `u0.l3`) foi para o começo da seção A harmonia (`u72`), que agora vem **depois** dos shapes (capítulo "A harmonia"). **Dependência a conferir:** `u19.l2`, `u16.l2` e `u69` (capítulo 1) usam nota do acorde antes dessa lição; frases de ouvido da harmonia (s2) passaram para depois da seção "O solo".
+- Silêncio: ordem nova "Mais silêncio que som" (um e três, proporção torta) → "Dois compassos tocando, dois calado" → "Um e um, três e um".
+- "Ritmo com poucas notas" (`u2`) saiu do site; os ritmos fáceis aparecem como nota do Arco 1 (`a1.take`), para tentar ao menos uma vez cada.
+- Sem perguntas de autoavaliação no fim das lições: só "Próximo".
+- "Tocar base" agora aparece no topo do palco, acima do exemplo.
+- Correção: o exemplo de "Um e um" tocava 2 dos 4 compassos; agora cobre a base inteira.

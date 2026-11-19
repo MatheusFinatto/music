@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { transport } from "@/core/audio";
 import type { Exercise, Video } from "./curriculum/types";
@@ -33,12 +33,10 @@ type Props = {
 };
 
 const HINTED: Part[] = ["cold", "again", "review", "phrase", "take"];
-const RATINGS = ["ok", "quase", "nao"] as const;
 
 export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRate, onBack, onExit, exitLabel }: Props) {
   const t = useTranslations("solos");
   const running = useRunning();
-  const [rating, setRating] = useState<Rating | null>(rated ?? null);
   const key = usePracticeKey();
   // O exercício no tom de prática; o escrito em outro tom de propósito não muda.
   const ex = useMemo(() => transposeExercise(written, key), [written, key]);
@@ -104,8 +102,6 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
         )}
       </div>
 
-      {ex.demo && ex.base && <DemoPlayer key={ex.id} ex={ex} />}
-
       <div className="stage">
         {ex.kind === "map" && <MapEngine ex={ex} />}
         {ex.kind === "line" && <LineEngine ex={ex} />}
@@ -116,6 +112,9 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
         {ex.kind === "take" && <TakeEngine ex={ex} />}
       </div>
 
+      {/* O exemplo vem depois do palco: o "Tocar base" é a ação principal e tem que estar à vista (pedido do dono, 2026-11-19). */}
+      {ex.demo && ex.base && <DemoPlayer key={ex.id} ex={ex} />}
+
       {ex.kind === "find" && rated && (
         <footer className="rate">
           <div className="row">
@@ -125,14 +124,9 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
       )}
       {ex.kind !== "find" && (
         <footer className="rate">
-          <p id="rate-q"><strong>{t("frame.rate")}</strong> {ex.check}</p>
-          <div className="row" role="group" aria-labelledby="rate-q">
-            {RATINGS.map((r) => (
-              <button key={r} type="button" className="btn choice" aria-pressed={rating === r} onClick={() => setRating(r)}>{t(`frame.${r}`)}</button>
-            ))}
-            <button type="button" className="btn primary next" disabled={!rating} aria-describedby={rating ? undefined : "rate-hint"} onClick={() => rating && onRate(rating)}>{t("frame.next")}</button>
+          <div className="row">
+            <button type="button" className="btn primary next" onClick={() => onRate("ok")}>{t("frame.next")}</button>
           </div>
-          {!rating && <p id="rate-hint" className="note">{t("frame.rateHint")}</p>}
         </footer>
       )}
     </article>

@@ -128,6 +128,8 @@ export type Session = {
   finished: boolean;
 };
 
+const isWatch = (c: Curriculum, id: string): boolean => findExercise(c, id)?.kind === "watch";
+
 export function buildSession(c: Curriculum, p: Progress, today: Day, maxReviews = 2): Session {
   const lessons = allLessons(c);
   const statuses = unitStatuses(c, p);
@@ -137,7 +139,7 @@ export function buildSession(c: Curriculum, p: Progress, today: Day, maxReviews 
   // Se o teste a frio já foi tentado hoje, não se repete no mesmo dia.
   const cold = lessons
     .map((l, order) => ({ l, order, e: p.lessons[l.id] }))
-    .filter(({ l, e }) => e && !e.manual && !e.cold && e.learned < today && p.exercises[l.key]?.day !== today)
+    .filter(({ l, e }) => e && !e.manual && !e.cold && !isWatch(c, l.key) && e.learned < today && p.exercises[l.key]?.day !== today)
     .sort((a, b) => b.e!.learned.localeCompare(a.e!.learned) || b.order - a.order)[0]?.l;
 
   const lesson = nextLesson(c, p);
@@ -149,7 +151,7 @@ export function buildSession(c: Curriculum, p: Progress, today: Day, maxReviews 
     .filter(([id, s]) => s.due <= today && s.day < today && !skip.has(id))
     .sort((a, b) => a[1].due.localeCompare(b[1].due))
     .map(([id]) => findExercise(c, id))
-    .filter((e): e is Exercise => !!e);
+    .filter((e): e is Exercise => !!e && e.kind !== "watch");
 
   // Intercalar: no máximo uma revisão por lição.
   const reviews: Exercise[] = [];

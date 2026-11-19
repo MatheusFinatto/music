@@ -96,7 +96,11 @@ export function demoFor(ex: Exercise): Phrase | null {
   switch (ex.kind) {
     case "map": return ex.layer === "chord" ? chordRunDemo(ex, ex.shapes, !!ex.together) : runDemo(ex, ex.shapes, !!ex.together);
     case "target": return lickDemo(ex, ex.shape, null, Math.min(4, ex.base?.prog.length ?? 4));
-    case "play-rest": return lickDemo(ex, 1, ex.pattern, ex.pattern.length);
+    case "play-rest": {
+      // O exemplo cobre a base inteira (4 compassos), não só uma volta do padrão curto: "um e um" tem padrão de 2.
+      const n = ex.pattern.length, cycle = ex.base?.prog.length ?? n;
+      return lickDemo(ex, 1, ex.pattern, Math.max(n, Math.ceil(cycle / n) * n));
+    }
     case "take": return ex.examples?.length ? null : lickDemo(ex, 1, null, Math.min(ex.bars, 8), true);
     default: return null;
   }
@@ -104,7 +108,7 @@ export function demoFor(ex: Exercise): Phrase | null {
 
 /** Uma lição tem exemplo se algum exercício tem eco, exemplo de tomada ou demo. */
 export const hasExample = (ex: Exercise): boolean =>
-  (ex.kind === "echo" && ex.phrases.length > 0) || (ex.kind === "take" && (ex.examples?.length ?? 0) > 0) || !!ex.demo;
+  ex.kind === "watch" || (ex.kind === "echo" && ex.phrases.length > 0) || (ex.kind === "take" && (ex.examples?.length ?? 0) > 0) || !!ex.demo;
 
 /** O currículo com um exemplo em todo exercício que não tem eco nem exemplo, nas lições que ficariam sem nenhum. */
 export function withDemos(c: Curriculum): Curriculum {
