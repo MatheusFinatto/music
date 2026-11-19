@@ -7,8 +7,11 @@ import { MAX_BEATS, MAX_BPM, MIN_BPM, TapTempo, clampBpm, type Tick } from "@/co
 import { MetronomeEngine, type MetronomeSettings } from "./engine";
 import "./metronomo.css";
 
-type Saved = MetronomeSettings & { version: 1 };
-const DEFAULTS: Saved = { version: 1, bpm: 90, beatsPerBar: 4, subdivision: 1, accentFirst: true };
+type Saved = MetronomeSettings & { version: 1; minutes: number };
+const DEFAULTS: Saved = { version: 1, bpm: 90, beatsPerBar: 4, subdivision: 1, accentFirst: true, minutes: 0 };
+/** Duração do timer em minutos; 0 = sem limite. */
+const MINUTES = [0, 1, 2, 3, 5, 10, 15, 20, 30] as const;
+const clock = (ms: number) => { const s = Math.max(0, Math.ceil(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
 const SUBDIVISIONS = [1, 2, 3, 4] as const;
 
 const store = createStore<Saved>("metronomo", DEFAULTS, (saved) => {
@@ -21,6 +24,7 @@ const store = createStore<Saved>("metronomo", DEFAULTS, (saved) => {
     beatsPerBar: int(s.beatsPerBar, 1, MAX_BEATS, DEFAULTS.beatsPerBar),
     subdivision: int(s.subdivision, 1, 4, DEFAULTS.subdivision),
     accentFirst: typeof s.accentFirst === "boolean" ? s.accentFirst : true,
+    minutes: (MINUTES as readonly unknown[]).includes(s.minutes) ? (s.minutes as number) : 0,
   };
 });
 
@@ -40,10 +44,21 @@ export function Metronomo() {
     engine.current?.apply(next);
   };
   const [audioError, setAudioError] = useState(false);
+  /** Quando o timer acaba (ms do relógio), o que falta, e se acabou agora. */
+  const [left, setLeft] = useState<number | null>(null);
+  const [finished, setFinished] = useState(false);
+  const deadline = useRef<number | null>(null);
+  const halt = () => { engine.current?.stop(); deadline.current = null; setRunning(false); setNow(null); setLeft(null); };
   const toggle = () => {
+    setFinished(false);
     engine.current ??= new MetronomeEngine((tick: Tick) => setNow({ beat: tick.beat, sub: tick.sub }));
-    if (engine.current.running) { engine.current.stop(); setRunning(false); setNow(null); return; }
-    if (engine.current.start(store.get())) { setRunning(true); setAudioError(false); }
+    if (engine.current.running) { halt(); return; }
+    if (engine.current.start(store.get())) {
+      setRunning(true); setAudioError(false);
+      const min = store.get().minutes;
+      deadline.current = min > 0 ? Date.now() + min * 60_000 : null;
+      setLeft(min > 0 ? min * 60_000 : null);
+    }
     else setAudioError(true);
   };
   const onTap = () => {
@@ -69,6 +84,18 @@ export function Metronomo() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   });
+
+  // O timer: conta em tempo de relógio e para sozinho no fim.
+  useEffect(() => {
+    if (!running || deadline.current === null) return;
+    const id = setInterval(() => {
+      const d = deadline.current;
+      if (d === null) return;
+      const rest = d - Date.now();
+      if (rest <= 0) { halt(); setFinished(true); } else setLeft(rest);
+    }, 250);
+    return () => clearInterval(id);
+  }, [running]);
 
   // Para ao sair da página; mantém a tela acesa enquanto toca.
   useEffect(() => () => engine.current?.stop(), []);
@@ -122,6 +149,10 @@ export function Metronomo() {
         </button>
         <button type="button" className="metro-tap" onClick={onTap}>{t("tap")}</button>
       </div>
+      {/* Só o fim é anunciado: ler a contagem a cada segundo atrapalharia quem está tocando. */}
+      <p className="metro-left" role="status">
+        {left !== null ? <span aria-hidden="true">{t("left", { time: clock(left) })}</span> : finished ? t("finished") : null}
+      </p>
 
       <div className="metro-options">
         <label className="metro-field">
@@ -140,6 +171,12 @@ export function Metronomo() {
             ))}
           </div>
         </div>
+        <label className="metro-field">
+          <span>{t("timer")}</span>
+          <select value={s.minutes} onChange={(e) => { const minutes = Number(e.target.value); store.set({ ...store.get(), minutes }); if (running) { deadline.current = minutes > 0 ? Date.now() + minutes * 60_000 : null; setLeft(minutes > 0 ? minutes * 60_000 : null); } }}>
+            {MINUTES.map((m) => <option key={m} value={m}>{m === 0 ? t("noLimit") : t("minutes", { n: m })}</option>)}
+          </select>
+        </label>
         <label className="metro-check">
           <input type="checkbox" checked={s.accentFirst} onChange={(e) => set({ accentFirst: e.target.checked })} />
           <span>{t("accent")}</span>

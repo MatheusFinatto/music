@@ -50,3 +50,5 @@
 }
 
 @media (max-width: 680px) { .metro-bpm input { min-height: 44px; } }
+
+.metro-left { min-height: 1.6em; text-align: center; color: var(--muted); font-size: var(--text-md); font-variant-numeric: tabular-nums; margin: 0; }
