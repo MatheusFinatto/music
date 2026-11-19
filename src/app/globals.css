@@ -2,21 +2,22 @@
 
 /* Sistema visual do site. Descrição em DESIGN.md. Ferramentas usam estes tokens; não criam paleta própria. */
 :root {
-  --bg: #f5f5f7;
-  --surface: #ffffff;
-  --ink: #1d1d1f;
-  --muted: #5f5f66;
-  --line: #d9d9de;
-  --soft: #ececf0;
-  --accent: #27598a; /* ação e "tocando agora" */
-  --accent-ink: #ffffff;
-  --accent-soft: #e4edf6;
-  --target: #c27400; /* nota-alvo */
-  --target-soft: #f8ead2;
-  --target-ink: #8a5200; /* texto sobre --target-soft */
-  --on-target: #1d1d1f; /* texto sobre --target */
-  --ok: #2e7a4d; /* selecionado */
-  --bad: #b3412f;
+  /* Um tema só: palco à noite. Madeira, marfim e uma luz quente vinda de cima (o mundo do Solos vale para o site inteiro). */
+  --bg: #120e0b;
+  --surface: #1d1713;
+  --ink: #f5ecdc;
+  --muted: #b7a896;
+  --line: #3d3027;
+  --soft: #2a211b;
+  --accent: #8cc0ee; /* ação e "tocando agora" */
+  --accent-ink: #0b1520;
+  --accent-soft: #1c2a37;
+  --target: #f0a634; /* nota-alvo */
+  --target-soft: #3b2a0f;
+  --target-ink: #f0a634; /* texto sobre --target-soft */
+  --on-target: #1a1208; /* texto sobre --target */
+  --ok: #7bd3a0; /* selecionado */
+  --bad: #ef8f7c;
   /* braço da guitarra: jacarandá, alpaca, osso e madrepérola (iguais nos dois temas) */
   --wood: #4a2c21;
   --wood-2: #5e3a2b;
@@ -34,8 +35,8 @@
   --bad-bright: #ef7f6c;
   --on-bright: #1a1208; /* texto sobre qualquer bolinha clara */
   --pearl: #ffffff;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06);
-  --shadow-up: 0 2px 4px rgb(0 0 0 / 0.05), 0 18px 40px rgb(0 0 0 / 0.12);
+  --shadow: 0 0 0 1px rgb(255 236 210 / 0.07), 0 24px 60px rgb(0 0 0 / 0.5);
+  --shadow-up: 0 0 0 1px rgb(255 236 210 / 0.16), 0 28px 70px rgb(0 0 0 / 0.6);
   --radius: 22px;
   --radius-md: 14px;
   --radius-sm: 10px;
@@ -49,31 +50,8 @@
   --text-3xl: clamp(1.9rem, 4.5vw, 2.9rem);
   --text-stage: clamp(2.4rem, 9vw, 4.25rem); /* o que se lê tocando, de longe */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  color-scheme: light;
+  color-scheme: dark;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #000000;
-    --surface: #1c1c1e;
-    --ink: #f5f5f7;
-    --muted: #a1a1a8;
-    --line: #38383c;
-    --soft: #2a2a2d;
-    --accent: #7fb2e2;
-    --accent-ink: #0b1520;
-    --accent-soft: #1b2a3a;
-    --target: #f0a634;
-    --target-soft: #3d2c10;
-    --target-ink: #f0a634;
-    --on-target: #1c1c1e;
-    --ok: #62c18a;
-    --bad: #e2725f;
-    --shadow: 0 0 0 1px rgb(255 255 255 / 0.06);
-    --shadow-up: 0 0 0 1px rgb(255 255 255 / 0.16), 0 18px 40px rgb(0 0 0 / 0.6);
-    color-scheme: dark;
-  }
-}
-
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -96,7 +74,11 @@
 @layer base {
   html { scroll-behavior: smooth; scrollbar-color: var(--line) var(--bg); }
   body {
-    background: var(--bg);
+    background:
+      radial-gradient(120% 70% at 50% -10%, rgb(240 166 52 / 0.16), transparent 60%),
+      radial-gradient(60% 40% at 85% 0%, rgb(140 192 238 / 0.07), transparent 70%),
+      var(--bg);
+    background-attachment: fixed;
     color: var(--ink);
     font-family: var(--font-sans);
     font-size: 17px;
@@ -126,6 +108,7 @@
   .brand svg { width: 26px; height: 26px; border-radius: 7px; }
   .site-header nav a { color: var(--muted); text-decoration: none; font-size: 0.94rem; font-weight: 500; padding: 8px 12px; border-radius: 999px; transition: color 0.2s, background-color 0.2s; }
   .site-header nav a:hover { color: var(--ink); background: var(--soft); }
+  @media (max-width: 680px) { .site-header nav a { display: inline-flex; align-items: center; min-height: 44px; } .brand { min-height: 44px; } }
   .site-header nav { display: flex; align-items: center; gap: 2px; }
   @media (max-width: 560px) { .site-header .wrap { gap: 6px; } .brand { font-size: 0; gap: 0; } .site-header nav a { font-size: 0.84rem; padding: 8px 8px; } }
 

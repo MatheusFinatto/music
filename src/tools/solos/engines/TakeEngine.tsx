@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { atAudioTime, getAudio, NATURAL_END, playPhrase, transport } from "@/core/audio";
 import type { Phrase, TakeExercise } from "../curriculum/types";
-import { BackingBar, backingOf, ChordStrip, TempoControl } from "../components/BackingBar";
+import { BackingBar, backingOf, chosenBpm, ChordStrip } from "../components/BackingBar";
 import { Banner } from "../components/Banner";
 import { chordNames, TextTab } from "../components/PhraseViews";
 import { useBeat, useRunning } from "../components/useTransport";
@@ -25,13 +25,12 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
   const examples = ex.examples ?? [];
   const bases = [ex.base!, ...(ex.bases ?? [])];
   /** Escolhas guardadas por exercício: ao trocar de tomada, voltam ao padrão. */
-  const fresh = { id: ex.id, base: 0, example: 0, exBpm: null as number | null };
+  const fresh = { id: ex.id, base: 0, example: 0 };
   const [pick, setPick] = useState(fresh);
   const mine = pick.id === ex.id ? pick : fresh;
   const base = bases[mine.base] ?? bases[0]!;
   const shown = examples[mine.example] ?? examples[0];
   /** O andamento do exemplo, separado do andamento da base em que a pessoa toca. */
-  const exBpm = mine.exBpm ?? ex.base!.bpm;
   /** A base que está tocando é a do exemplo (com o solo por cima) ou a sua. */
   const [example, setExample] = useState(false);
   /** O exemplo que deve soar na próxima entrada da base, ou null. */
@@ -72,7 +71,7 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
     setPick({ ...mine, example: i });
     pending.current = examples[i]!;
     setExample(true);
-    if (!transport.start(backingOf(ex.base!, exBpm), { countIn: countBefore ? 1 : 0 })) { pending.current = null; setExample(false); }
+    if (!transport.start(backingOf(ex.base!, chosenBpm(ex.base!)), { countIn: countBefore ? 1 : 0 })) { pending.current = null; setExample(false); }
   };
   const chooseBase = (i: number) => {
     if (transport.running) transport.stop();
@@ -136,9 +135,6 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
             <input type="checkbox" checked={countBefore} onChange={(e) => setCountBeforeExample(e.target.checked)} />
             <span>{t("countBefore")}</span>
           </label>
-          {/* Travado enquanto toca: o solo do exemplo é agendado inteiro na entrada e não acompanharia a mudança. */}
-          <p className="note">{t("exampleTempo")}</p>
-          <TempoControl bpm={exBpm} onChange={(n) => setPick({ ...mine, exBpm: n })} locked={example && running} />
           <ChordStrip base={ex.base!} live={example && running} />
           {tab && (
             <TextTab

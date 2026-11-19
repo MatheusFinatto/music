@@ -14,6 +14,22 @@ type Mode = "alternate" | "example" | "base";
 const MODES: Mode[] = ["example", "base", "alternate"];
 
 /** O site toca a frase, depois deixa o mesmo número de compassos para a pessoa responder. */
+/** Abas agrupadas pelo começo do rótulo ("Solo 1: parte 2", "Solo 1 inteiro" ficam no grupo "Solo 1"). Poucas abas: um grupo só. */
+function tabGroups(phrases: Phrase[], fallback: (i: number) => string) {
+  const parse = (p: Phrase, i: number) => {
+    const raw = p.label ?? fallback(i);
+    const m = raw.match(/^(.+?)(?::\s*|\s+)(inteiro|parte\s.+)$/i);
+    return { p, i, group: phrases.length > 5 && m ? m[1]!.trim() : "", label: phrases.length > 5 && m ? m[2]! : raw };
+  };
+  const out: { name: string; items: ReturnType<typeof parse>[] }[] = [];
+  phrases.map(parse).forEach((x) => {
+    const last = out.at(-1);
+    if (last && last.name === x.group) last.items.push(x);
+    else out.push({ name: x.group, items: [x] });
+  });
+  return out;
+}
+
 export function EchoEngine({ ex }: { ex: EchoExercise }) {
   const t = useTranslations("solos.echo");
   const [index, setIndex] = useState(0);
@@ -66,17 +82,23 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
   return (
     <div className="engine">
       {ex.phrases.length > 1 && (
-        <div className="seg" role="tablist" aria-label={t("which")}
+        // Muitas abas (um solo em partes, em dois solos): uma fileira por grupo, com o nome do grupo à esquerda.
+        <div className="tabs-groups" role="tablist" aria-label={t("which")}
           onKeyDown={(e) => {
             const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
             if (!d) return;
             e.preventDefault();
             const to = (index + d + ex.phrases.length) % ex.phrases.length;
             go(to);
-            (e.currentTarget.children[to] as HTMLElement | undefined)?.focus();
+            (e.currentTarget.querySelectorAll<HTMLElement>('[role="tab"]')[to])?.focus();
           }}>
-          {ex.phrases.map((p, i) => (
-            <button key={p.id} type="button" role="tab" aria-selected={i === index} tabIndex={i === index ? 0 : -1} onClick={() => go(i)}>{p.label ?? t("phraseN", { n: i + 1 })}</button>
+          {tabGroups(ex.phrases, (i) => t("phraseN", { n: i + 1 })).map((g) => (
+            <div key={g.name} className="seg">
+              {g.name && <span className="seg-name" aria-hidden="true">{g.name}</span>}
+              {g.items.map(({ p, i, label }) => (
+                <button key={p.id} type="button" role="tab" aria-selected={i === index} tabIndex={i === index ? 0 : -1} onClick={() => go(i)}>{label}</button>
+              ))}
+            </div>
           ))}
         </div>
       )}
@@ -101,7 +123,7 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
       </div>
       <Banner state={live ? (calling ? "call" : "play") : null} word={t(calling ? "listen" : "yourTurn")} note={phrase.name} idle={t(`idle.${mode}`)} />
       {/* Quem começa é o exemplo: sem contagem, a não ser que a pessoa peça. Só a base: a pessoa começa, e conta. */}
-      <BackingBar key={phrase.id} base={base} countIn={mode === "base" || countBefore ? 1 : 0} playLabel={mode === "base" ? undefined : t(`modes.${mode}`)} />
+      <BackingBar key={phrase.id} base={base} countIn={mode === "base" || countBefore ? 1 : 0} playLabel={mode === "base" ? undefined : t("play")} />
       <div className="reveal">
         <div className="row">
           <button type="button" className="btn" aria-expanded={shown} onClick={() => setShown((s) => !s)}>

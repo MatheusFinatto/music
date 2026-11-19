@@ -9,7 +9,7 @@ import { ExerciseFrame } from "./ExerciseFrame";
 import { navigate, useView } from "./nav";
 import { progressStore, useProgress, useToday } from "./progress";
 import { hrefOf, isAgain, lessonSteps, sessionSteps, type Outcome, type Step } from "./session/route";
-import { EMPTY, addDays, buildSession, daysThisWeek, learnLesson, rate, rateCold, skipLesson, toggleLesson, unitStatuses, type Rating } from "./session/schedule";
+import { EMPTY, addDays, buildSession, daysThisWeek, learnLesson, nextLesson, rate, rateCold, skipLesson, toggleLesson, unitStatuses, type Rating } from "./session/schedule";
 import "./solos.css";
 
 /** Link de verdade (dá para copiar ou abrir em outra aba); o clique simples navega sem recarregar. */
@@ -95,29 +95,30 @@ export function Solos() {
       </main>
     );
 
-  if (view.name === "done")
+  if (view.name === "done") {
+    const doneLessons = planGroups(view.steps).flatMap((g) => (g.lesson && (g.part === "new" || g.part === "again") ? [g.lesson.title] : []));
+    const upNext = nextLesson(curriculum, progress);
     return (
       <main className="wrap solos" id="conteudo">
         <section className="done">
           <h1>{t("done.title")}</h1>
           <ol className="recap">
-            {view.steps.map((s, i) => (
+            {planGroups(view.steps).map((g, i) => (
               <li key={i}>
-                <span className={`tag ${s.part}`}>{t(`part.${s.part}`)}</span>
-                <span className="what">{s.ex.title}</span>
+                <span className={`tag ${g.part}`}>{t(`part.${g.part}`)}</span>
+                <span className="what">{g.lesson && (g.part === "new" || g.part === "again") ? g.lesson.title : g.steps[0]!.ex.title}</span>
               </li>
             ))}
           </ol>
           <p>
-            {view.outcome.cold ? t("done.learned", { lesson: view.outcome.cold })
-              : view.outcome.done ? t("done.done", { lesson: view.outcome.done })
-              : view.outcome.repeat ? t("done.repeat", { lesson: view.outcome.repeat })
-              : t("done.review")}
+            {doneLessons.length > 0 ? t("done.lessons", { n: doneLessons.length, list: doneLessons.join(", ") }) : view.outcome.cold ? t("done.learned", { lesson: view.outcome.cold }) : t("done.review")}
           </p>
+          <p>{upNext ? t("done.next", { lesson: upNext.title }) : t("done.all")}</p>
           <button type="button" className="btn primary" onClick={home}>{t("done.back")}</button>
         </section>
       </main>
     );
+  }
 
   const session = buildSession(curriculum, progress, today || "0000-00-00");
   const steps = sessionSteps(session, progress);
@@ -154,7 +155,7 @@ export function Solos() {
           <p>{t("lead")}</p>
           {steps.length > 0 && (
             <button type="button" className="btn primary big" onClick={start} disabled={!today}>
-              {started ? t("home.continue") : t("home.start")}
+              {practicedToday ? t("home.again") : started ? t("home.continue") : t("home.start")}
             </button>
           )}
           <p className="week">

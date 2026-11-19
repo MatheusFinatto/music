@@ -86,10 +86,11 @@
     "inTune": "afinada",
     "screenLabel": "Afinador: nota, frequência e agulha de desvio em cents",
     "mic": {
-      "denied": "Libere o microfone nas permissões do navegador",
+      "denied": "O navegador bloqueou o microfone. Clique no cadeado ao lado do endereço, libere o Microfone e toque em Tentar de novo",
       "unavailable": "Este navegador não dá acesso ao microfone",
       "failed": "Não consegui abrir o microfone"
     },
+    "stringsLabel": "Cordas do violão, da mais grave à mais aguda",
     "limits": "Feito para guitarra e violão, com o lá em 440 Hz. Não detecta as cordas mais graves do baixo. O som do microfone não sai do seu aparelho.",
     "appTitle": "Marmota Tuner, o app Android",
     "appLead": "Afinador e metrônomo num app só: sem anúncio, sem assinatura, sem internet, com menos de 1 MB. Abre direto, sem passar pelo navegador.",
@@ -202,10 +203,12 @@
     "done": {
       "title": "Sessão feita",
       "learned": "Amanhã a sessão começa revendo \"{lesson}\", sem aquecer.",
-      "repeat": "\"{lesson}\" ainda não ficou e volta na próxima sessão.",
       "review": "Sessão de frase e revisão.",
       "back": "Voltar para a trilha",
-      "done": "\"{lesson}\" está feita."
+      "done": "\"{lesson}\" está feita.",
+      "lessons": "{n, plural, one {Lição feita hoje: {list}.} other {Lições feitas hoje: {list}.}}",
+      "next": "Amanhã a trilha segue por \"{lesson}\".",
+      "all": "Você fez todas as lições da trilha. As sessões seguem com revisão e frases novas."
     },
     "backing": {
       "play": "Tocar base",
@@ -289,8 +292,8 @@
       },
       "mode": "Como tocar",
       "modes": {
-        "alternate": "Ouvir e repetir",
-        "example": "Tocar o exemplo",
+        "alternate": "Revezar com você",
+        "example": "Exemplo em loop",
         "base": "Só a base"
       },
       "countBefore": "Contagem antes do exemplo",
@@ -328,7 +331,6 @@
       "playExample": "Ouvir exemplo",
       "countBefore": "Contagem antes do exemplo",
       "arcNote": "Notas e ritmos para tentar",
-      "exampleTempo": "Andamento só do exemplo; a sua base tem o próprio.",
       "stopExample": "Parar o exemplo",
       "showTab": "Ver tab do exemplo",
       "hideTab": "Esconder a tab",

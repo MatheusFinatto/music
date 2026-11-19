@@ -21,6 +21,9 @@ export async function Afinador() {
         <div className="mt-6">
           <WebTuner />
         </div>
+        <ul className="mt-4 flex flex-wrap gap-2" aria-label={t("stringsLabel")}>
+          {["E2", "A2", "D3", "G3", "B3", "E4"].map((n) => <li key={n} className="rounded-full bg-soft px-3 py-1 text-[0.92rem] font-semibold tabular-nums text-ink">{n}</li>)}
+        </ul>
         <p className="mt-4 text-[0.92rem] text-muted">{t("limits")}</p>
 
         <div id="app" className="card mt-12 scroll-mt-20 [&_p]:max-w-[62ch]">
