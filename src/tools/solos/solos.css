@@ -398,6 +398,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .study-days { border: 0; padding: 0; margin: 16px 0; display: flex; flex-wrap: wrap; gap: 8px 14px; }
 .study-days legend { font-weight: 600; margin-bottom: 6px; padding: 0; }
 .check-day { display: inline-flex; gap: 6px; align-items: center; min-height: 44px; }
+.check-day input { width: 24px; height: 24px; accent-color: var(--target); cursor: pointer; }
 .month-head { display: flex; align-items: center; justify-content: space-between; margin: 12px 0 8px; }
 .month-head h2 { margin: 0; }
 .month-head h2::first-letter, .day-detail h2::first-letter { text-transform: uppercase; }

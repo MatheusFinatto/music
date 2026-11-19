@@ -111,7 +111,7 @@ export function Metronomo() {
         max={MAX_BPM}
         value={s.bpm}
         onChange={(e) => set({ bpm: Number(e.target.value) })}
-        aria-label={t("bpmLabel", { min: MIN_BPM, max: MAX_BPM })}
+        aria-label={t("bpmSlider")}
       />
 
       <div className="metro-actions">

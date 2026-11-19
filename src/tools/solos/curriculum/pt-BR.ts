@@ -20870,7 +20870,7 @@ const written: Curriculum = {
     id: "take.livre",
     kind: "take",
     title: "Tomada livre",
-    goal: "Oito compassos sem regra nenhuma. Toque como se fosse para valer.",
+    goal: "Toque sem regra nenhuma, como se fosse para valer.",
     steps: [
       "Esqueça os exercícios e toque.",
     ],
