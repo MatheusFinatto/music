@@ -435,7 +435,7 @@ const written: Curriculum = {
           id: "u0.l0",
           title: "O solo que você vai entender",
           intro:
-            "Este é o ponto de chegada do curso. Não é para copiar: é para saber para onde você está indo.",
+            "Assista ao solo até o fim, sem tocar. Este é o ponto de chegada do curso: não é para copiar, é para saber para onde você está indo.",
           videos: [{ youtube: "tzh1OeGUv_E", title: "Improvisation: A-Minor Pentatonic Guitar Solo", author: "Flo Guitar", note: "Antes de começar, assista a este solo improvisado em Lá menor, só com a pentatônica. Agora você não entende quase nada do que ele faz, e está tudo bem. No final do curso, veremos ele novamente e ficará claro tudo o que ele está fazendo neste solo." }],
           key: "u0.l0.watch",
           exercises: [
@@ -464,7 +464,7 @@ const written: Curriculum = {
               goal: 'Toque o shape subindo e descendo, devagar, dizendo "tônica" toda vez que passar por um A.',
               steps: [
                 "Duas notas por corda, da 6ª à 1ª e de volta.",
-                "Ligue a base e repita no tempo, uma nota por tempo.",
+                "Aperte Tocar base e repita no tempo, uma nota por tempo.",
               ],
               check: "Subiu e desceu no tempo, sem olhar para a tela?",
               base: VAMP,
@@ -3207,7 +3207,7 @@ const written: Curriculum = {
           id: "u16.l2",
           title: "Frase rápida até a troca",
           intro:
-            "A frase rápida ganha sentido quando tem destino. Aqui ela começa no fim do compasso e termina no tempo 1 do acorde novo, numa nota dele. É a mesma chegada que você já treinou, agora em semicolcheias.",
+            "A frase rápida ganha sentido quando tem destino. Aqui ela começa no fim do compasso e termina no tempo 1 do acorde novo, numa nota dele. É uma chegada na nota do acorde novo (a tônica, a 3ª ou a 5ª dele), agora em semicolcheias.",
           key: "u16.l2.target",
           exercises: [
             {
@@ -20873,7 +20873,6 @@ const written: Curriculum = {
     goal: "Oito compassos sem regra nenhuma. Toque como se fosse para valer.",
     steps: [
       "Esqueça os exercícios e toque.",
-      "Quando a base parar, responda à pergunta com honestidade.",
     ],
     check:
       "Você tocou frases, com começo, fim e silêncio, ou notas soltas sem parar?",

@@ -95,7 +95,7 @@ function lickDemo(ex: Exercise, shape: number | number[], pattern: ("play" | "re
 export function demoFor(ex: Exercise): Phrase | null {
   switch (ex.kind) {
     case "map": return ex.layer === "chord" ? chordRunDemo(ex, ex.shapes, !!ex.together) : runDemo(ex, ex.shapes, !!ex.together);
-    case "target": return lickDemo(ex, ex.shape, null, Math.min(4, ex.base?.prog.length ?? 4));
+    case "target": return lickDemo(ex, ex.shape, null, Math.min(8, ex.base?.prog.length ?? 4));
     case "play-rest": {
       // O exemplo cobre a base inteira (4 compassos), não só uma volta do padrão curto: "um e um" tem padrão de 2.
       const n = ex.pattern.length, cycle = ex.base?.prog.length ?? n;

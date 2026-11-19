@@ -19,8 +19,8 @@ describe("exemplo em toda lição", () => {
       for (const k of PRACTICE_KEYS) expect(() => transposeExercise(e, k), `${e.id} em ${k}`).not.toThrow();
     }
   });
-  it("o exemplo de tocar e calar cobre a base inteira, não só uma volta do padrão curto", () => {
-    const ex = real.units.flatMap((u) => u.lessons.flatMap((l) => l.exercises)).filter((e) => e.kind === "play-rest" && e.demo);
+  it("o exemplo de tocar e calar e o de alvo cobrem a base inteira, não só uma volta do padrão curto", () => {
+    const ex = real.units.flatMap((u) => u.lessons.flatMap((l) => l.exercises)).filter((e) => (e.kind === "play-rest" || e.kind === "target") && e.demo);
     expect(ex.length).toBeGreaterThan(3);
     for (const e of ex) expect(e.demo!.bars, e.id).toBeGreaterThanOrEqual(e.base!.prog.length);
   });

@@ -110,7 +110,12 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
           ))}
         </ol>
       )}
-      {ex.arcNote && <p className="arc-note">{ex.arcNote}</p>}
+      {ex.arcNote && (
+        <details className="arc-note">
+          <summary>{t("arcNote")}</summary>
+          <p>{ex.arcNote}</p>
+        </details>
+      )}
       {/* Exemplo e base ficam em blocos separados, cada um com seus botões e seu andamento: ouvir o exemplo
           não mexe na base em que a pessoa vai tocar, e vice-versa. */}
       {shown && (

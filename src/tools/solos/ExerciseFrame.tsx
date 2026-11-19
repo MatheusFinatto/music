@@ -46,6 +46,42 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
   useEffect(() => () => transport.stop(), [ex.id, key]);
   // Ligar a base não mexe na tela: quem está com a guitarra na mão não quer a página pulando (pedido do dono).
 
+  // Lição de solo de uma música (tem fonte): o "Tocar" vem primeiro; a teoria e o vídeo ficam logo abaixo do palco.
+  const late = Boolean(intro?.source);
+  const introNode = intro && (
+      <section className="intro">
+        <h2>{intro.title}</h2>
+        <p>{intro.text}</p>
+        {intro.concepts && intro.concepts.length > 0 && (
+          <ul className="concepts" aria-label={t("frame.concepts")}>
+            {intro.concepts.map((q) => (
+              <li key={q}><a href={`https://www.google.com/search?q=${encodeURIComponent(q)}`} target="_blank" rel="noreferrer">{q}</a></li>
+            ))}
+          </ul>
+        )}
+        {intro.videos?.map((v) => (
+          <figure key={v.youtube} className="lesson-video">
+            <p>{v.note}</p>
+            {/* Incorporado, não baixado: o vídeo continua sendo de quem fez. Só carrega quando aparece na tela. */}
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${v.youtube}`}
+              title={v.title}
+              loading="lazy"
+              allow="encrypted-media; picture-in-picture; fullscreen"
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
+            <figcaption>{t("frame.video", { title: v.title, author: v.author })}</figcaption>
+          </figure>
+        ))}
+        {intro.source && (
+          <p className="source">
+            {t.rich("frame.source", { link: (chunks) => <a href={intro.source!.url} target="_blank" rel="noreferrer">{chunks}</a>, title: intro.source.title })}
+          </p>
+        )}
+      </section>
+  );
+
   return (
     <article className={running ? "frame playing" : "frame"}>
       <header className="frame-head">
@@ -61,39 +97,7 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
 
       <div className="reading">
         {HINTED.includes(part) && <p className="hint">{t(`partHint.${part as "cold"}`)}</p>}
-        {intro && (
-          <section className="intro">
-            <h2>{intro.title}</h2>
-            <p>{intro.text}</p>
-            {intro.concepts && intro.concepts.length > 0 && (
-              <ul className="concepts" aria-label={t("frame.concepts")}>
-                {intro.concepts.map((q) => (
-                  <li key={q}><a href={`https://www.google.com/search?q=${encodeURIComponent(q)}`} target="_blank" rel="noreferrer">{q}</a></li>
-                ))}
-              </ul>
-            )}
-            {intro.videos?.map((v) => (
-              <figure key={v.youtube} className="lesson-video">
-                <p>{v.note}</p>
-                {/* Incorporado, não baixado: o vídeo continua sendo de quem fez. Só carrega quando aparece na tela. */}
-                <iframe
-                  src={`https://www.youtube-nocookie.com/embed/${v.youtube}`}
-                  title={v.title}
-                  loading="lazy"
-                  allow="encrypted-media; picture-in-picture; fullscreen"
-                  allowFullScreen
-                  referrerPolicy="strict-origin-when-cross-origin"
-                />
-                <figcaption>{t("frame.video", { title: v.title, author: v.author })}</figcaption>
-              </figure>
-            ))}
-            {intro.source && (
-              <p className="source">
-                {t.rich("frame.source", { link: (chunks) => <a href={intro.source!.url} target="_blank" rel="noreferrer">{chunks}</a>, title: intro.source.title })}
-              </p>
-            )}
-          </section>
-        )}
+        {intro && !late && introNode}
         <h1>{ex.title}</h1>
         <p className="goal">{ex.goal}</p>
         {moved && <p className="key-note">{t("key.note", { key: keyName(key), fret: rootFret(key) })}</p>}
@@ -111,6 +115,8 @@ export function ExerciseFrame({ ex: written, part, intro, progress, rated, onRat
         {ex.kind === "target" && <TargetEngine ex={ex} />}
         {ex.kind === "take" && <TakeEngine ex={ex} />}
       </div>
+
+      {intro && late && introNode}
 
       {/* O exemplo vem depois do palco: o "Tocar base" é a ação principal e tem que estar à vista (pedido do dono, 2026-11-19). */}
       {ex.demo && ex.base && <DemoPlayer key={ex.id} ex={ex} />}

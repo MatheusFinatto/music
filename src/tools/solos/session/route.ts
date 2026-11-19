@@ -65,6 +65,7 @@ export function sessionSteps(s: Session, p: Progress): Step[] {
   const steps: Step[] = [];
   if (s.cold) steps.push({ part: "cold", ex: s.cold.exercises.find((e) => e.id === s.cold!.key)!, lesson: s.cold });
   if (s.lesson) steps.push(...lessonSteps(s.lesson, isAgain(s.lesson, p)));
+  if (s.also) steps.push(...lessonSteps(s.also, false));
   if (s.phrase) steps.push({ part: "phrase", ex: s.phrase });
   s.reviews.forEach((ex) => steps.push({ part: "review", ex }));
   if (steps.length > 0) steps.push({ part: "take", ex: s.take });

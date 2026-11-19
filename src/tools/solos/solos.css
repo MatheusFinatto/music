@@ -248,6 +248,8 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .engine > section:not(.block) { display: flex; flex-direction: column; gap: 16px; }
 .solos .block-title { font-family: var(--font-sans); line-height: 1.3; font-size: var(--text-sm); font-weight: 700; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
 .solos .arc-note { font-size: var(--text-sm); color: var(--muted); padding-inline: 12px; }
+.solos .arc-note summary { cursor: pointer; min-height: 32px; display: flex; align-items: center; font-weight: 600; }
+.solos .arc-note p { margin: 4px 0 0; }
 
 /* ache a nota */
 .solos .prompt { font-size: var(--text-2xl); font-weight: 650; letter-spacing: -0.02em; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
