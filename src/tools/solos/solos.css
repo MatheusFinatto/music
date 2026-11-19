@@ -361,7 +361,7 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .text-tab { margin: 0; align-self: stretch; }
 .solos .text-tab pre { margin: 0; overflow-x: auto; white-space: pre; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; line-height: 1.4; color: var(--muted); }
 .solos .text-tab .head { color: var(--ink); font-weight: 700; }
-.solos .text-tab .tn { color: var(--ink); font-weight: 700; border-radius: 3px; }
+.solos .text-tab .tn { color: var(--ink); font-weight: 700; border-radius: calc(var(--radius-sm) * 0.3); }
 .solos .text-tab .tn.now { background: var(--accent); color: var(--accent-ink); }
 
 /* perguntas de teoria: links para fora */
@@ -393,15 +393,15 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .week-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
 .week-row.head span { text-align: center; color: var(--muted); font-size: var(--text-sm); }
 .week-row.head span::first-letter { text-transform: uppercase; }
-.cell { display: grid; place-items: center; padding: 0; min-height: 44px; border: 1px solid var(--border, rgba(127,127,127,.3)); border-radius: 8px; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.cell { display: grid; place-items: center; padding: 0; min-height: 44px; border: 1px solid var(--border, color-mix(in srgb, var(--ink) 30%, transparent)); border-radius: var(--radius-sm); background: transparent; color: inherit; font: inherit; cursor: pointer; }
 .cell.empty { border: 0; cursor: default; }
-.cell.study { background: rgba(127,127,127,.08); }
+.cell.study { background: color-mix(in srgb, var(--ink) 8%, transparent); }
 .cell.plan { border-style: dashed; border-color: var(--muted); }
 .cell.did { background: color-mix(in srgb, var(--ink) 14%, transparent); border-color: var(--muted); }
 .cell.today { font-weight: 700; outline: 2px solid currentColor; outline-offset: -2px; }
 .cell.picked { box-shadow: 0 0 0 2px var(--ok); }
 .legend { color: var(--muted); font-size: var(--text-sm); display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-.swatch { width: 14px; height: 14px; border-radius: 4px; display: inline-block; border: 1px solid rgba(127,127,127,.5); }
+.swatch { width: 14px; height: 14px; border-radius: calc(var(--radius-sm) * 0.4); display: inline-block; border: 1px solid color-mix(in srgb, var(--ink) 50%, transparent); }
 .swatch.did { background: color-mix(in srgb, var(--ink) 25%, transparent); }
 .swatch.plan { border-style: dashed; }
 .day-detail { margin-top: 20px; }
@@ -443,3 +443,14 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 .solos .tabs-groups { display: flex; flex-direction: column; gap: 8px; }
 .solos .tabs-groups .seg { align-items: center; }
 .solos .tabs-groups .seg-name { padding: 0 12px 0 14px; font-size: var(--text-sm); font-weight: 650; color: var(--muted); white-space: nowrap; }
+
+/* unidade de uma lição só: a linha inteira entra na lição; marcar, pular e fazer à direita */
+.solos .unit.single .unit-head { align-items: center; min-height: 44px; cursor: pointer; }
+.solos .unit.single .unit-head > div { padding-top: 0; }
+.solos .unit.single .unit-head .check { margin: 0; }
+.solos .unit.single:hover h5 .lesson-link { text-decoration: underline; text-underline-offset: 0.2em; }
+@media (max-width: 680px) {
+  .solos .unit.single .unit-head { flex-wrap: wrap; row-gap: 8px; }
+  .solos .unit.single .unit-head > div { flex: 1 1 calc(100% - 60px); }
+  .solos .unit.single .unit-head .check { margin-left: 60px; }
+}

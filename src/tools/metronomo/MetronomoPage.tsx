@@ -11,7 +11,7 @@ export async function MetronomoPage() {
         <Metronomo />
         {/* O app é o do afinador: um app só, com afinador e metrônomo. O download e a instalação ficam lá. */}
         <div className="card mt-12 [&_p]:max-w-[62ch]">
-          <h2 className="text-[1.2rem] font-[650] tracking-[-0.02em]">{t("appTitle")}</h2>
+          <h2 className="text-[length:var(--text-lg)] font-[650] tracking-[-0.02em]">{t("appTitle")}</h2>
           <p>{t("appLead")}</p>
           <div className="foot">
             <Link className="go whitespace-nowrap no-underline" href="/afinador#app">{t("appLink")}</Link>

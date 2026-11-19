@@ -27,7 +27,7 @@ export async function Afinador() {
         <p className="mt-4 text-[0.92rem] text-muted">{t("limits")}</p>
 
         <div id="app" className="card mt-12 scroll-mt-20 [&_p]:max-w-[62ch]">
-          <h2 className="text-[1.4rem] font-[650] tracking-[-0.02em]">{t("appTitle")}</h2>
+          <h2 className="text-[length:var(--text-xl)] font-[650] tracking-[-0.02em]">{t("appTitle")}</h2>
           <p>{t("appLead")}</p>
           <p className="text-muted">{t("appVersion")}</p>
           <div className="foot flex-wrap">

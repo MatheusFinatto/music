@@ -232,6 +232,29 @@ export function Solos() {
                         const u = curriculum.units[i]!;
                         const st = statuses[i]!;
                         const done = u.lessons.filter((l) => progress.lessons[l.id]).length;
+                        // Unidade de uma lição só: entra direto, sem abrir para depois clicar em "Fazer".
+                        if (u.lessons.length === 1) {
+                          const l = u.lessons[0]!;
+                          const e = progress.lessons[l.id];
+                          const recommended = l.id === session.lesson?.id;
+                          return (
+                            <li key={u.id} className={`unit single ${st}${u.arc ? " arc" : ""}`}>
+                              <div className="unit-head" onClick={(ev) => { if (ev.target === ev.currentTarget) startLesson(l); }}>
+                                <span className="n" aria-hidden="true">{sec.units.indexOf(id) + 1}</span>
+                                <div>
+                                  <h5><a className="lesson-link" href={hrefOf({ kind: "lesson", id: l.id })} onClick={follow(() => startLesson(l))}>{u.title}</a>{u.arc && <span className="badge arc">{t("home.arcShort")}</span>}{u.optional && <span className="badge optional">{t("home.optional")}</span>}{e?.skipped && <span className="state">{t("home.skipped")}</span>}</h5>
+                                  <p>{u.skill}</p>
+                                </div>
+                                <label className="check">
+                                  <input type="checkbox" checked={!!e} onChange={() => toggle(l)} disabled={!today} />
+                                  <span className="sr-only">{t("home.mark", { lesson: l.title })}</span>
+                                </label>
+                                {recommended && <button type="button" className="btn small" onClick={() => progressStore.set((p) => skipLesson(p, l.id, today))} disabled={!today}>{t("home.skip")}</button>}
+                                <a className={recommended ? "btn small primary" : "btn small"} href={hrefOf({ kind: "lesson", id: l.id })} onClick={follow(() => startLesson(l))}>{e ? t("home.redo") : t("home.do")}</a>
+                              </div>
+                            </li>
+                          );
+                        }
                         return (
                           <li key={u.id} className={`unit ${st}${u.arc ? " arc" : ""}`}>
                             <details open={st === "atual"}>

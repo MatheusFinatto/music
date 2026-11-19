@@ -134,6 +134,7 @@ Neutros frios e um azul de marca; o laranja e o verde têm significado musical e
 
 **Display Font:** Inter (com system-ui)
 **Body Font:** Inter
+**Mono (só dados):** `ui-monospace` (SF Mono, Menlo, Consolas), apenas na tablatura em texto, onde as colunas alinham notas e casas.
 
 **Character:** Uma família só, servida pelo próprio site. Títulos pesados e apertados (até -0.035em), corpo em 17px com entrelinha folgada.
 
