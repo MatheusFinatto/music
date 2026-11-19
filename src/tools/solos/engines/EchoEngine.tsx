@@ -1,4 +1,5 @@
 "use client";
+import { onRadioKeyDown } from "@/core/ui/radioGroup";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { atAudioTime, getAudio, playPhrase, transport } from "@/core/audio";
@@ -109,9 +110,9 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
         </div>
       )}
       <div className="play-mode">
-        <div className="seg" role="radiogroup" aria-label={t("mode")}>
+        <div className="seg" role="radiogroup" aria-label={t("mode")} onKeyDown={onRadioKeyDown}>
           {MODES.map((m) => (
-            <button key={m} type="button" role="radio" aria-checked={mode === m} onClick={() => setMode(m)}>{t(`modes.${m}`)}</button>
+            <button key={m} type="button" role="radio" aria-checked={mode === m} tabIndex={mode === m ? 0 : -1} onClick={() => setMode(m)}>{t(`modes.${m}`)}</button>
           ))}
         </div>
         {mode !== "base" && (

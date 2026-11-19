@@ -470,3 +470,13 @@ body:has(.solos) .site-header { background: color-mix(in srgb, var(--bg) 70%, tr
 
 /* seletores segmentados dentro do palco: fundo suave, sem contorno (não é um cartão dentro do cartão) */
 .solos .engine .seg { border-color: transparent; background: var(--soft); }
+
+/* treino cronometrado */
+.solos .drill { margin-top: 16px; }
+.solos .drill .unit-head { cursor: pointer; position: relative; padding-left: 60px; min-height: 44px; }
+.solos .drill-body { display: flex; flex-direction: column; gap: 16px; padding: 16px 0 0 60px; }
+.solos .drill-run { display: flex; flex-direction: column; gap: 8px; }
+.solos .drill-key { font-family: var(--font-display), var(--font-sans); font-size: var(--text-stage); font-weight: 700; letter-spacing: -0.035em; line-height: 1; }
+.solos .drill-time { font-variant-numeric: tabular-nums; color: var(--muted); font-size: var(--text-xl); }
+.solos .drill-history { display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
+.solos .drill .n { background: var(--soft); color: var(--ink); }

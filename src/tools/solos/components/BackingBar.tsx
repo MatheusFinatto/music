@@ -139,7 +139,8 @@ export function BackingBar({ base, countIn = 1, hideChords = false, quiet = fals
   const pinned = useSyncExternalStore(subscribePin, readPin, () => true);
   const running = playing && !quiet && !demo;
 
-  const start = () => { if (!transport.start(backingOf(base, bpm), { countIn })) window.alert(t("noAudio")); };
+  const [audioError, setAudioError] = useState(false);
+  const start = () => { setAudioError(!transport.start(backingOf(base, bpm), { countIn })); };
   const toggle = () => {
     const mine = transport.running && !quiet && !demo;
     if (transport.running) transport.stop();
@@ -198,6 +199,7 @@ export function BackingBar({ base, countIn = 1, hideChords = false, quiet = fals
         </div>
       </div>
       <div className="backing-chords">
+        {audioError && <p className="note" role="alert">{t("noAudio")}</p>}
         <ChordStrip base={base} live={running} hideChords={hideChords} />
         <p className="keys">{t("space")}</p>
       </div>

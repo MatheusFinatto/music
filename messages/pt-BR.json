@@ -275,6 +275,23 @@
       "hideMap": "Esconder o mapa",
       "mapLabel": "Mapa da região, com o nome de cada nota"
     },
+    "drill": {
+      "title": "Treino cronometrado",
+      "note": "Os 12 tons em ordem sorteada, num shape e andamento fixos. O tempo fica guardado para você bater.",
+      "shape": "Shape",
+      "bpm": "Andamento (bpm)",
+      "start": "Sortear e começar",
+      "where": "Shape {shape}, começa na casa {fret} da 6ª corda. Tom {n} de {total}, a {bpm} bpm. Use o metrônomo do site.",
+      "next": "Próximo tom",
+      "finish": "Terminei os 12",
+      "cancel": "Cancelar",
+      "again": "Outra rodada",
+      "close": "Fechar",
+      "record": "Seu melhor tempo neste shape e andamento.",
+      "done": "O melhor neste shape e andamento: {best}.",
+      "history": "Últimas rodadas",
+      "run": "{day}: shape {shape}, {bpm} bpm, {time}"
+    },
     "playRest": {
       "play": "Toque",
       "rest": "Silêncio",

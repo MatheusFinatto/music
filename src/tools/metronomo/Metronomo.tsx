@@ -1,4 +1,5 @@
 "use client";
+import { onRadioKeyDown } from "@/core/ui/radioGroup";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { createStore } from "@/core/storage";
@@ -38,11 +39,12 @@ export function Metronomo() {
     store.set(next);
     engine.current?.apply(next);
   };
+  const [audioError, setAudioError] = useState(false);
   const toggle = () => {
     engine.current ??= new MetronomeEngine((tick: Tick) => setNow({ beat: tick.beat, sub: tick.sub }));
     if (engine.current.running) { engine.current.stop(); setRunning(false); setNow(null); return; }
-    if (engine.current.start(store.get())) setRunning(true);
-    else window.alert(t("noAudio"));
+    if (engine.current.start(store.get())) { setRunning(true); setAudioError(false); }
+    else setAudioError(true);
   };
   const onTap = () => {
     tap.current ??= new TapTempo();
@@ -130,9 +132,9 @@ export function Metronomo() {
         </label>
         <div className="metro-field">
           <span id="metro-sub">{t("subdivision")}</span>
-          <div className="metro-seg" role="radiogroup" aria-labelledby="metro-sub">
+          <div className="metro-seg" role="radiogroup" aria-labelledby="metro-sub" onKeyDown={onRadioKeyDown}>
             {SUBDIVISIONS.map((n) => (
-              <button key={n} type="button" role="radio" aria-checked={s.subdivision === n} onClick={() => set({ subdivision: n })}>
+              <button key={n} type="button" role="radio" aria-checked={s.subdivision === n} tabIndex={s.subdivision === n ? 0 : -1} onClick={() => set({ subdivision: n })}>
                 {t(`sub.${n}`)}
               </button>
             ))}
@@ -143,6 +145,7 @@ export function Metronomo() {
           <span>{t("accent")}</span>
         </label>
       </div>
+      {audioError && <p className="metro-keys" role="alert">{t("noAudio")}</p>}
       <p className="metro-keys">{t("keys")}</p>
     </div>
   );

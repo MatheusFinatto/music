@@ -5,6 +5,7 @@ import type { Exercise, Lesson } from "./curriculum/types";
 import { Calendar } from "./Calendar";
 import { NeckHero } from "./components/NeckHero";
 import { ExerciseFrame } from "./ExerciseFrame";
+import { Drill } from "./Drill";
 import { follow, navigate, useView } from "./nav";
 import { progressStore, useProgress, useToday } from "./progress";
 import { hrefOf, isAgain, lessonSteps, sessionSteps, type Outcome, type Step } from "./session/route";
@@ -345,6 +346,7 @@ export function Solos() {
             </details>
           </li>
         </ol>
+        <Drill />
         </div>
       </section>
 
