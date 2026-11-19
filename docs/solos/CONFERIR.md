@@ -96,3 +96,4 @@ Como conferir: abra `marmota-music.vercel.app/solos`, de preferência no celular
 
 - (2026-11-19) Lições novas, ideias do vídeo do Brandon D'Eon (sem copiar nada): `u73` palhetada alternada no shape 1 (depois do primeiro shape) e `u74` exercício corrente (Velocidade I, antes do arco). Conferir se a regra da palhetada (subindo, começar para cima; descendo, para baixo) bate com a mão de quem toca.
 - (2026-11-19) `u12.l1/l2/l4` e `u26.l2`: cada shape 2 a 5 tem "Notas do acorde no shape N" (mapa, ache a nota, alvos).
+- (2026-11-19) `u75` começar de qualquer corda (s6) e `u76` mesma posição em todos os tons (s3): lições novas sem ouvido.

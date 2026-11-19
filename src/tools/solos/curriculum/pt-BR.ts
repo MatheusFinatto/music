@@ -2575,6 +2575,37 @@ const written: Curriculum = {
       ],
     },
     {
+      id: "u75",
+      title: "Sair de qualquer corda",
+      skill: "Começar o shape por qualquer uma das seis cordas",
+      lessons: [
+        {
+          id: "u75.l1",
+          title: "Começar de qualquer corda",
+          intro:
+            "Quando você improvisa, a frase nem sempre começa na 6ª corda. Saber o shape inteiro de baixo para cima não basta: é preciso sair de qualquer corda, subir e descer a partir dela, e pousar na tônica.",
+          key: "u75.l1.map",
+          exercises: [
+            {
+              id: "u75.l1.map",
+              kind: "map",
+              title: "Uma corda de cada vez",
+              goal: "Escolha uma corda, comece o shape por ela, suba e desça uma volta e termine na tônica. Depois mude de corda.",
+              steps: [
+                "Faça uma corda por volta da base: 6ª, 5ª, 4ª, 3ª, 2ª e 1ª.",
+                "Terminar na tônica dá o som de ponto final e ajuda a lembrar onde você está no braço.",
+                "Sem pressa: o objetivo é achar o caminho de qualquer lugar, não velocidade.",
+              ],
+              check: "",
+              base: VAMP,
+              shapes: [1],
+              layer: "penta",
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: "a5",
       title: "Arco 3: solo com o que você sabe",
       skill: "Licks, pergunta e resposta e bend num solo de oito compassos",
@@ -12170,6 +12201,37 @@ const written: Curriculum = {
       ],
     },
     {
+      id: "u76",
+      title: "A mesma posição em todos os tons",
+      skill: "Qual shape cai perto de uma casa, em cada tom",
+      lessons: [
+        {
+          id: "u76.l1",
+          title: "Ficar na mesma região, mudar de tom",
+          intro:
+            "Em vez de seguir um shape pelo braço, fique parado numa região (por exemplo, perto da casa 7) e mude de tom: em cada tom cai um shape diferente nessa região. É assim que você passa a ver os cinco shapes sem olhar a ordem deles.",
+          key: "u76.l1.map",
+          exercises: [
+            {
+              id: "u76.l1.map",
+              kind: "map",
+              title: "O shape que cai na casa 7",
+              goal: "Mude o Tom de prática e, em cada tom, diga qual shape fica perto da casa 7 e toque-o uma volta.",
+              steps: [
+                "Use o seletor de tom e mantenha a mão na região da casa 7 a 10.",
+                "Em alguns tons o shape começa na casa 6 ou na 11; tudo bem, vale o mais próximo.",
+                "Tente prever o shape antes de abrir o braço.",
+              ],
+              check: "",
+              base: VAMP,
+              shapes: [1, 2, 3, 4, 5],
+              layer: "penta",
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: "a3",
       title: "Arco 11: do grave ao agudo",
       skill: "Um solo que atravessa o braço e cresce até um ponto alto",
@@ -20448,7 +20510,7 @@ const written: Curriculum = {
   sections: [
     // Parte 1, um shape só: tudo até "O solo" fica no shape 1. Parte 2: os outros shapes.
     { id: "s1", title: "Primeiros passos", goal: "Do primeiro shape ao primeiro solo: poucas notas e silêncio.", units: ["u0", "u73", "u1", "u70", "a1"] },
-    { id: "s6", title: "Vocabulário no shape 1", goal: "Licks, pergunta e resposta, frases guardadas e ideias para improvisar, tudo no shape 1.", units: ["u17", "u18", "u9", "u19", "u49", "u53", "u62", "u44", "u69", "a5"] },
+    { id: "s6", title: "Vocabulário no shape 1", goal: "Licks, pergunta e resposta, frases guardadas e ideias para improvisar, tudo no shape 1.", units: ["u17", "u18", "u9", "u19", "u49", "u53", "u62", "u44", "u69", "u75", "a5"] },
     { id: "s5", title: "Velocidade I: no shape 1", goal: "Frases rápidas na pentatônica: grupos de semicolcheias, sequências e licks repetidos, sempre terminando numa nota longa.", units: ["u15", "u16", "u60", "u57", "u61", "u74", "a4"] },
     { id: "s4", title: "O solo", goal: "Motivo e intensidade, até um solo inteiro no shape 1 que alguém pagaria para ouvir.", units: ["u8", "u14", "u36", "u54", "u63", "u48", "a6"] },
     { id: "s2", title: "A harmonia", goal: "Ouvir a troca de acorde e chegar nas notas dele, com tensão que resolve.", units: ["u72", "u5", "u6", "u11", "u46", "u51", "u58", "a2"] },
@@ -20457,7 +20519,7 @@ const written: Curriculum = {
     { id: "s10", title: "Shape 4", goal: "O shape 4 a fundo, com licks e frases dele, e depois junto com os shapes 1 a 3.", units: ["u26", "u27", "u28", "u66", "a9"] },
     { id: "s11", title: "Shape 5", goal: "O shape 5 a fundo, com licks e frases dele, e depois os cinco shapes juntos.", units: ["u29", "u30", "u31", "u56", "a10"] },
     { id: "s12", title: "Velocidade II: rápido nos shapes 2 a 5", goal: "Frases rápidas nos shapes 2 a 5, cada uma terminando numa nota longa.", units: ["u32", "u33", "a11"] },
-    { id: "s3", title: "Uma corda, outra região, outro tom", goal: "Uma corda só, trocar de região no meio da frase e outros tons, até atravessar o braço do grave ao agudo.", units: ["u7", "u12", "u13", "u41", "u43", "u42", "u64", "u45", "a3"] },
+    { id: "s3", title: "Uma corda, outra região, outro tom", goal: "Uma corda só, trocar de região no meio da frase e outros tons, até atravessar o braço do grave ao agudo.", units: ["u7", "u12", "u13", "u41", "u43", "u42", "u64", "u45", "u76", "a3"] },
     { id: "s14", title: "O mesmo lick em todo shape", goal: "Os licks do shape 1, iguais, nos cinco shapes: a ideia deixa de ser uma posição e vai para o braço todo.", units: ["u37", "a13"] },
     { id: "s13", title: "Velocidade III: entre os shapes", goal: "Frases rápidas que atravessam shapes: pela corda, na diagonal, até três shapes numa frase.", units: ["u34", "u35", "u67", "u47", "u55", "u68", "u59", "a12"] },
     { id: "s7", title: "O solo pelo braço todo", goal: "O solo inteiro, agora usando o braço de ponta a ponta.", units: ["u38", "u39", "u40", "u10"] },
