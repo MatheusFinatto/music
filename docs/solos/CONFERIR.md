@@ -91,3 +91,5 @@ Como conferir: abra `marmota-music.vercel.app/solos`, de preferência no celular
 - Sem perguntas de autoavaliação no fim das lições: só "Próximo".
 - "Tocar base" agora aparece no topo do palco, acima do exemplo.
 - Correção: o exemplo de "Um e um" tocava 2 dos 4 compassos; agora cobre a base inteira.
+
+- (2026-11-19) A harmonia virou o capítulo "A harmonia no shape 1", entre o primeiro shape e os outros shapes (s2 antes de s8).
