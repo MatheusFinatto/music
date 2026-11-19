@@ -101,7 +101,7 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
       </div>
       <Banner state={live ? (calling ? "call" : "play") : null} word={t(calling ? "listen" : "yourTurn")} note={phrase.name} idle={t(`idle.${mode}`)} />
       {/* Quem começa é o exemplo: sem contagem, a não ser que a pessoa peça. Só a base: a pessoa começa, e conta. */}
-      <BackingBar key={phrase.id} base={base} countIn={mode === "base" || countBefore ? 1 : 0} playLabel={mode === "base" ? undefined : t("play")} />
+      <BackingBar key={phrase.id} base={base} countIn={mode === "base" || countBefore ? 1 : 0} playLabel={mode === "base" ? undefined : t(`modes.${mode}`)} />
       <div className="reveal">
         <div className="row">
           <button type="button" className="btn" aria-expanded={shown} onClick={() => setShown((s) => !s)}>

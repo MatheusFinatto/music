@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { atAudioTime, getAudio, NATURAL_END, playPhrase, transport } from "@/core/audio";
 import type { Exercise } from "../curriculum/types";
-import { backingOf } from "./BackingBar";
+import { backingOf, chosenBpm } from "./BackingBar";
 import { Board, chordNames, TextTab } from "./PhraseViews";
 import { useRunning } from "./useTransport";
 
@@ -44,7 +44,7 @@ export function DemoPlayer({ ex }: { ex: Exercise }) {
     if (transport.running) transport.stop();
     pending.current = true;
     setOn(true);
-    if (!transport.start(backingOf(ex.base!, ex.base!.bpm), { countIn: 0 })) { pending.current = false; setOn(false); }
+    if (!transport.start(backingOf(ex.base!, chosenBpm(ex.base!)), { countIn: 0 })) { pending.current = false; setOn(false); }
   };
   const live = on && running;
 

@@ -121,6 +121,8 @@ export type Session = {
   cold?: Lesson;
   /** Lição recomendada. Ausente só quando todas já foram feitas. */
   lesson?: Lesson;
+  /** A lição seguinte, quando a recomendada é só um vídeo: o dia 1 não acaba antes do primeiro shape. */
+  also?: Lesson;
   phrase?: Exercise;
   reviews: Exercise[];
   take: Exercise;
@@ -144,9 +146,12 @@ export function buildSession(c: Curriculum, p: Progress, today: Day, maxReviews 
 
   const lesson = nextLesson(c, p);
 
+  const all = allLessons(c);
+  const also = lesson && isWatch(c, lesson.key) ? all[all.indexOf(lesson) + 1] : undefined;
+
   const phrase = c.phrases.find((e) => !p.exercises[e.id]);
 
-  const skip = new Set<string>([cold?.key, phrase?.id, c.take.id, ...(lesson?.exercises.map((e) => e.id) ?? [])].filter(Boolean) as string[]);
+  const skip = new Set<string>([cold?.key, phrase?.id, c.take.id, ...(lesson?.exercises.map((e) => e.id) ?? []), ...(also?.exercises.map((e) => e.id) ?? [])].filter(Boolean) as string[]);
   const due = Object.entries(p.exercises)
     .filter(([id, s]) => s.due <= today && s.day < today && !skip.has(id))
     .sort((a, b) => a[1].due.localeCompare(b[1].due))
@@ -168,7 +173,7 @@ export function buildSession(c: Curriculum, p: Progress, today: Day, maxReviews 
   // A tomada livre cobra o assunto da unidade em que a pessoa está.
   const current = c.units[Math.max(0, statuses.lastIndexOf("atual"))];
   const take = current?.takeCheck ? { ...c.take, check: current.takeCheck } : c.take;
-  return { cold, lesson, phrase, reviews, take, finished };
+  return { cold, lesson, also, phrase, reviews, take, finished };
 }
 
 /** Dias com prática na semana (segunda a domingo) de `today`. */

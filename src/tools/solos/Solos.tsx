@@ -93,7 +93,6 @@ export function Solos() {
               <li key={i}>
                 <span className={`tag ${s.part}`}>{t(`part.${s.part}`)}</span>
                 <span className="what">{s.ex.title}</span>
-                {view.ratings[i] && <span className={`mark ${view.ratings[i]}`}>{t(`frame.${view.ratings[i]!}`)}</span>}
               </li>
             ))}
           </ol>

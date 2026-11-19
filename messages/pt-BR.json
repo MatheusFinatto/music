@@ -121,7 +121,7 @@
       "planned": "Previsto",
       "done": "Feito neste dia",
       "forecast": "Previsto para este dia",
-      "forecastNote": "É uma previsão: supõe que você consiga tudo nos dias que escolheu. Se faltar ou marcar \"ainda não\", ela escorrega.",
+      "forecastNote": "É uma previsão: supõe que você consiga tudo nos dias que escolheu. Se você faltar num dia, ela escorrega.",
       "lesson": "Lição",
       "cold": "A frio",
       "review": "Revisão",
@@ -176,8 +176,8 @@
       "cold": "Sem aquecer e sem reler a explicação. É assim que se descobre o que ficou de ontem.",
       "review": "Misturado parece mais difícil. É o que fixa.",
       "phrase": "De ouvido primeiro.",
-      "take": "Depois de tanta regra, toque sem nenhuma.",
-      "again": "Ficou em \"ainda não\" da última vez."
+      "take": "Agora toque sem regra nenhuma.",
+      "again": "Esta lição voltou para repetir."
     },
     "frame": {
       "step": "Passo {n} de {total}",
@@ -187,7 +187,6 @@
       "nao": "Ainda não",
       "back": "Voltar para a trilha",
       "quit": "Sair da sessão",
-      "rateHint": "Escolha como foi para seguir.",
       "steps": "Como fazer",
       "next": "Próximo",
       "prev": "Passo anterior",
@@ -197,7 +196,7 @@
     },
     "done": {
       "title": "Sessão feita",
-      "learned": "Amanhã a sessão começa refazendo \"{lesson}\" a frio.",
+      "learned": "Amanhã a sessão começa revendo \"{lesson}\", sem aquecer.",
       "repeat": "\"{lesson}\" ainda não ficou e volta na próxima sessão.",
       "review": "Sessão de frase e revisão.",
       "back": "Voltar para a trilha",
@@ -221,7 +220,7 @@
       "chord": "Acorde",
       "labelPenta": "Braço da guitarra: pentatônica, shape {n}",
       "labelChord": "Braço da guitarra: notas do acorde {chord}",
-      "idle": "Ligue a base e toque junto",
+      "idle": "Aperte Tocar base e toque junto",
       "follow": "As marcas acompanham o acorde",
       "oneNote": "Uma nota por tempo",
       "legendOutside": "Tracejadas: notas do acorde fora da pentatônica.",
@@ -266,7 +265,7 @@
     "playRest": {
       "play": "Toque",
       "rest": "Silêncio",
-      "idle": "Ligue a base para começar",
+      "idle": "Aperte Tocar base para começar",
       "nextPlay": "Prepare: você entra",
       "nextRest": "Termine a frase",
       "pattern": "Compassos de tocar e de calar",
@@ -278,9 +277,9 @@
       "listen": "Ouça",
       "yourTurn": "Sua vez",
       "idle": {
-        "alternate": "Ligue a base: o site toca, você responde",
-        "example": "Ligue: o site toca a frase em loop, sem parar",
-        "base": "Ligue a base e toque a frase sozinho"
+        "alternate": "Toque o botão: o site toca, você responde",
+        "example": "Toque o botão: o site toca a frase em loop, sem parar",
+        "base": "Aperte Tocar base e toque a frase sozinho"
       },
       "mode": "Como tocar",
       "modes": {
@@ -315,13 +314,14 @@
     },
     "take": {
       "playing": "Valendo",
-      "idle": "Ligue a base quando estiver pronto",
+      "idle": "Aperte Tocar base quando estiver pronto",
       "bar": "Compasso {bar} de {total}",
       "arc": "Partes do solo",
       "example": "Exemplo",
       "idleExample": "Ouça o exemplo, ou toque a base e faça o seu.",
       "playExample": "Ouvir exemplo",
       "countBefore": "Contagem antes do exemplo",
+      "arcNote": "Notas e ritmos para tentar",
       "stopExample": "Parar o exemplo",
       "showTab": "Ver tab do exemplo",
       "hideTab": "Esconder a tab",
@@ -345,8 +345,8 @@
       "word": "{degree} de {chord}",
       "now": "Chegou: segure",
       "next": "Próximo alvo: vá até ele",
-      "idle": "Ligue a base. Primeiro alvo: {first}",
-      "idleBlind": "Ligue a base e escute. Primeiro alvo: {first}",
+      "idle": "Aperte Tocar base. Primeiro alvo: {first}",
+      "idleBlind": "Aperte Tocar base e escute. Primeiro alvo: {first}",
       "showBoard": "Ver o braço",
       "hideBoard": "Esconder o braço",
       "board": "Braço da guitarra: {degree} de {chord}",
@@ -358,7 +358,7 @@
     },
     "line": {
       "chord": "Acorde",
-      "idle": "Ligue a base e fique na {n}ª corda",
+      "idle": "Aperte Tocar base e fique na {n}ª corda",
       "follow": "Só a {n}ª corda",
       "label": "Braço da guitarra: {n}ª corda, notas do acorde {chord}"
     },

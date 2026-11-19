@@ -35,6 +35,11 @@ export function useCountIn(): number | null {
 const keepsSpace = (el: EventTarget | null) =>
   el instanceof Element && (el.closest("input, textarea, select, a, summary, [contenteditable=true], [role=button]") !== null);
 
+/** O andamento que a pessoa escolheu para cada base: o exemplo da mesma tela toca no mesmo andamento do campo. */
+const chosen = new Map<string, number>();
+const tempoKey = (base: Base) => `${base.key}|${base.prog.join(",")}|${base.style}|${base.bpm}`;
+export const chosenBpm = (base: Base): number => chosen.get(tempoKey(base)) ?? base.bpm;
+
 /** Menos, campo digitável e mais. O andamento fica entre 40 e 200; o que se digita vale ao sair do campo ou no Enter. */
 export function TempoControl({ bpm, onChange, locked = false }: { bpm: number; onChange: (bpm: number) => void; locked?: boolean }) {
   const t = useTranslations("solos.backing");
@@ -115,7 +120,7 @@ type Props = {
  */
 export function BackingBar({ base, countIn = 1, hideChords = false, quiet = false, playLabel }: Props) {
   const t = useTranslations("solos.backing");
-  const [bpm, setBpm] = useState(base.bpm);
+  const [bpm, setBpm] = useState(() => chosenBpm(base));
   const playing = useRunning();
   const running = playing && !quiet;
 
@@ -127,6 +132,7 @@ export function BackingBar({ base, countIn = 1, hideChords = false, quiet = fals
   };
   const changeTempo = (next: number) => {
     setBpm(next);
+    chosen.set(tempoKey(base), next);
     if (transport.running && !quiet) transport.setTempo(next);
   };
 
