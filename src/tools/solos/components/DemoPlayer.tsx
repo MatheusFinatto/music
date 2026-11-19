@@ -1,22 +1,21 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { atAudioTime, getAudio, NATURAL_END, playPhrase, transport } from "@/core/audio";
 import type { Exercise } from "../curriculum/types";
 import { backingOf, chosenBpm, setDemoPlaying } from "./BackingBar";
-import { Board, chordNames, TextTab } from "./PhraseViews";
+import { DemoCtx as Ctx } from "./demoCtx";
 import { useRunning } from "./useTransport";
 
 /**
  * O exemplo de um exercício que não tem eco: um botão toca a base com a frase por cima, o braço acende nota a nota
  * e a tablatura fica à mão. Ouvir é escolha da pessoa; para sozinho no fim da frase.
+ * O provedor guarda o estado; o botão "Ouvir o exemplo" mora na barra da base, junto do "Iniciar exercício", e a
+ * tablatura, logo abaixo dos acordes, junto do botão que a esconde.
  */
-export function DemoPlayer({ ex }: { ex: Exercise }) {
-  const t = useTranslations("solos.demo");
+export function DemoProvider({ ex, children }: { ex: Exercise; children: ReactNode }) {
   const demo = ex.demo!;
   const running = useRunning();
   const [on, setOn] = useState(false);
-  const [tab, setTab] = useState(false);
   const [sounding, setSounding] = useState(-1);
   const pending = useRef(false);
 
@@ -48,17 +47,6 @@ export function DemoPlayer({ ex }: { ex: Exercise }) {
     if (!transport.start(backingOf(ex.base!, chosenBpm(ex.base!)), { countIn: 0 })) { pending.current = false; setOn(false); setDemoPlaying(false); }
   };
   const live = on && running;
-
-  return (
-    <section className="block demo" aria-labelledby={`${ex.id}-demo`}>
-      <h2 id={`${ex.id}-demo`} className="block-title">{t("title")}</h2>
-      <div className="row">
-        <button type="button" className="btn" onClick={live ? () => transport.stop() : play} aria-pressed={live}>{live ? t("stop") : t("play")}</button>
-        <button type="button" className="btn" aria-expanded={tab} onClick={() => setTab((s) => !s)}>{tab ? t("hideTab") : t("showTab")}</button>
-      </div>
-      {/* No exercício de mapa o braço já está na tela, logo acima: dois braços iguais em sequência só confundem. */}
-      {ex.kind !== "map" && <Board phrase={demo} now={live ? sounding : -1} label={t("boardLabel")} half={t("bendHalf")} full={t("bendFull")} />}
-      {tab && <TextTab phrase={demo} now={live ? sounding : -1} chords={chordNames(ex.base!)} label={t("tabLabel")} />}
-    </section>
-  );
+  return <Ctx.Provider value={{ ex, live, sounding, play }}>{children}</Ctx.Provider>;
 }
+

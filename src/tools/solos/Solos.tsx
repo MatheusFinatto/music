@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { curriculum } from "./curriculum/pt-BR";
 import type { Exercise, Lesson } from "./curriculum/types";
@@ -31,6 +31,12 @@ export function Solos() {
   const today = useToday();
   const view = useView();
   const home = () => navigate({ name: "home" });
+  // Depois de montar a tela do endereço, mostra a página (ver `DEEP_LINK` em page.tsx). Dois quadros de folga: a tela
+  // certa substitui a do servidor logo após a hidratação.
+  useEffect(() => {
+    const id = requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.remove("solos-deep")));
+    return () => cancelAnimationFrame(id);
+  }, []);
   // Pular uma lição conta como feita: avisa (região viva) e deixa desfazer.
   const [skipped, setSkipped] = useState<{ id: string; title: string } | null>(null);
   const skip = (l: { id: string; title: string }) => { progressStore.set((p) => skipLesson(p, l.id, today)); setSkipped({ id: l.id, title: l.title }); };

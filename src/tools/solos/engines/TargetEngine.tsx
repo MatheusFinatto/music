@@ -44,9 +44,9 @@ export function TargetEngine({ ex }: { ex: TargetExercise }) {
 
   return (
     <div className="engine">
+      <BackingBar base={base} hideChords={ex.blind} />
       {ex.rule && <p className="rule">{ex.rule}</p>}
       <Banner state={live ? (ahead ? "call" : "play") : null} word={word} note={note} idle={t(ex.blind ? "idleBlind" : "idle", { first: word })} />
-      <BackingBar base={base} hideChords={ex.blind} />
       {ex.blind && (
         <div className="reveal">
           <button type="button" className="btn" aria-expanded={board} onClick={() => setBoard((b) => !b)}>{board ? t("hideBoard") : t("showBoard")}</button>

@@ -65,4 +65,16 @@ describe("tablatura em texto", () => {
         bar.forEach((c, k) => { if (k > 0 && c.note >= 0 && bar[k - 1]!.note >= 0 && bar[k - 1]!.note !== c.note) throw new Error(`${p.id}: notas ${bar[k - 1]!.note + 1} e ${c.note + 1} grudadas`); });
     }
   });
+  it("com sinais de palhetada, escreve V e ⊓ sobre o começo de cada nota", () => {
+    const notes = [0, 1, 2, 3].map((beat) => ({ midi: 45 + beat, beat, dur: 1 }));
+    const frets = [{ string: 5, fret: 5 }, { string: 5, fret: 8 }, { string: 4, fret: 5 }, { string: 4, fret: 7 }];
+    const sys = tabSystems(notes, frets, 1, ["Am"], { cw: 3, bpl: 1 }, ["V", "⊓", "V", "⊓"]);
+    const lines = tabText(sys).split("\n");
+    expect(lines[1]!.replace(/\s+/g, "")).toBe("V⊓V⊓");
+    // cada sinal cai na coluna do primeiro caractere da nota que marca (linhas: cifra, sinais, 1ª a 6ª corda, contagem)
+    const [, pick, , , , , a, e] = lines;
+    expect(pick!.indexOf("V")).toBe(e!.indexOf("5"));
+    expect(pick!.indexOf("⊓")).toBe(e!.indexOf("8"));
+    expect(pick!.lastIndexOf("V")).toBe(a!.indexOf("5"));
+  });
 });

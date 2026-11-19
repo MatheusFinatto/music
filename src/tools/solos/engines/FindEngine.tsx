@@ -36,6 +36,13 @@ export function FindEngine({ ex, onResult }: { ex: FindExercise; onResult: (r: R
   const resultRef = useRef<HTMLParagraphElement>(null);
   // Em erro, o foco vai para o resultado (o braço vem logo abaixo); em acerto, para Continuar.
   useEffect(() => { if (finished) resultRef.current?.focus(); }, [finished]);
+  // Ao passar para a próxima pergunta o botão some: o foco vai para a pergunta nova, não para o início da página.
+  const promptRef = useRef<HTMLParagraphElement>(null);
+  const firstRound = useRef(true);
+  useEffect(() => {
+    if (firstRound.current) { firstRound.current = false; return; }
+    promptRef.current?.focus();
+  }, [round]);
 
   const box = pentatonicShape(base.key, ex.shape);
   const [lo, hi] = fretSpan(box);
@@ -136,8 +143,9 @@ export function FindEngine({ ex, onResult }: { ex: FindExercise; onResult: (r: R
 
   return (
     <div className="engine">
-      <p className="prompt" role="status">
+      <p className="prompt" role="status" tabIndex={-1} ref={promptRef}>
         {!single && <span className="count">{round + 1}/{questions.length}</span>}
+        {single && <span className="count">{found}/{total}</span>}
         {t(`${single ? "askAll" : "ask"}.${q.degree}`, { chord: chord.name })}
       </p>
       <Fretboard minFret={lo} maxFret={hi} dots={dots} onPick={pick} label={t("board")} describe={(p) => t("pos", { string: p.string + 1, fret: p.fret })} />

@@ -34,7 +34,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   const t = await getTranslations("site");
 
   return (
-    <html lang={locale} className={inter.variable}>
+    <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <body>
         {/* messages={null}: os textos não vão para o navegador por padrão. Ferramenta com
             componente cliente passa só o bloco dela (ver docs/ARQUITETURA.md). */}

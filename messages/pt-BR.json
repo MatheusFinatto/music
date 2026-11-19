@@ -204,6 +204,7 @@
       "back": "Voltar para a trilha",
       "steps": "Como fazer",
       "next": "Próximo",
+      "finish": "Concluir",
       "prev": "Passo anterior",
       "concepts": "Para quem quiser ler sobre o assunto (abre uma busca)",
       "video": "Vídeo: {title}, de {author}, no YouTube.",
@@ -219,8 +220,14 @@
       "next": "Amanhã a trilha segue por “{lesson}”.",
       "all": "Você fez todas as lições da trilha. As sessões seguem com revisão e frases novas."
     },
+    "tabDock": {
+      "show": "Ver a tablatura",
+      "hide": "Esconder a tablatura",
+      "close": "Fechar a tablatura"
+    },
     "backing": {
-      "play": "Tocar base",
+      "play": "Iniciar exercício",
+      "configure": "Configurar exercício",
       "pin": "Fixar",
       "pinLabel": "Fixar a barra da base no topo ao rolar a página",
       "stop": "Parar",
@@ -239,20 +246,23 @@
       "chord": "Acorde",
       "labelPenta": "Braço da guitarra: pentatônica, shape {n}",
       "labelChord": "Braço da guitarra: notas do acorde {chord}",
-      "idle": "Aperte Tocar base e toque junto",
+      "idle": "Aperte Iniciar exercício e toque junto",
       "follow": "As marcas acompanham o acorde",
       "oneNote": "Uma nota por tempo",
       "legendOutside": "Tracejadas: notas do acorde fora da pentatônica.",
       "labelTogether": "Braço da guitarra: pentatônica, shapes {shapes} juntos",
       "labels": "O que mostrar nas notas",
       "names": "Notas",
-      "functions": "Funções (1 ♭3 4 5 ♭7)"
+      "functions": "Funções (1 ♭3 4 5 ♭7)",
+      "pickUp": "Palhetada subindo",
+      "pickDown": "Palhetada descendo",
+      "legendPick": "⊓ palhetada para baixo, V para cima. Em cada corda, a ordem é a da primeira nota para a segunda."
     },
     "find": {
       "start": "Começar",
       "again": "Fazer de novo",
       "continue": "Continuar",
-      "next": "Próxima",
+      "next": "Próxima pergunta",
       "board": "Braço da guitarra: toque na nota pedida",
       "pos": "Corda {string}, casa {fret}",
       "ask": {
@@ -304,7 +314,7 @@
     "playRest": {
       "play": "Toque",
       "rest": "Silêncio",
-      "idle": "Aperte Tocar base para começar",
+      "idle": "Aperte Iniciar exercício para começar",
       "nextPlay": "Prepare: você entra",
       "nextRest": "Termine a frase",
       "pattern": "Compassos de tocar e de calar",
@@ -320,7 +330,7 @@
       "idle": {
         "alternate": "Toque o botão: o site toca, você responde",
         "example": "Toque o botão: o site toca a frase em loop, sem parar",
-        "base": "Aperte Tocar base e toque a frase sozinho"
+        "base": "Aperte Iniciar exercício e toque a frase sozinho"
       },
       "mode": "Como tocar",
       "modes": {
@@ -329,7 +339,7 @@
         "base": "Só a base"
       },
       "countBefore": "Contagem antes do exemplo",
-      "play": "Tocar",
+      "play": "Iniciar exercício",
       "showRhythm": "Ver o ritmo escrito",
       "showTab": "Ver no braço",
       "rhythmLabel": "Ritmo: cada quadrado é uma semicolcheia",
@@ -355,7 +365,7 @@
     },
     "take": {
       "playing": "Valendo",
-      "idle": "Aperte Tocar base quando estiver pronto",
+      "idle": "Aperte Iniciar exercício quando estiver pronto",
       "bar": "Compasso {bar} de {total}",
       "arc": "Partes do solo",
       "example": "Exemplo",
@@ -386,8 +396,8 @@
       "word": "{degree} de {chord}",
       "now": "Chegou: segure",
       "next": "Próximo alvo: vá até ele",
-      "idle": "Aperte Tocar base. Primeiro alvo: {first}",
-      "idleBlind": "Aperte Tocar base e escute. Primeiro alvo: {first}",
+      "idle": "Aperte Iniciar exercício. Primeiro alvo: {first}",
+      "idleBlind": "Aperte Iniciar exercício e escute. Primeiro alvo: {first}",
       "showBoard": "Ver o braço",
       "hideBoard": "Esconder o braço",
       "board": "Braço da guitarra: {degree} de {chord}",
@@ -399,7 +409,7 @@
     },
     "line": {
       "chord": "Acorde",
-      "idle": "Aperte Tocar base e fique na {n}ª corda",
+      "idle": "Aperte Iniciar exercício e fique na {n}ª corda",
       "follow": "Só a {n}ª corda",
       "label": "Braço da guitarra: {n}ª corda, notas do acorde {chord}"
     },

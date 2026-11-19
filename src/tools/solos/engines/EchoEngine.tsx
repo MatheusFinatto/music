@@ -7,6 +7,7 @@ import type { EchoExercise, Phrase } from "../curriculum/types";
 import { BackingBar } from "../components/BackingBar";
 import { Banner } from "../components/Banner";
 import { Board, chordNames, TextTab } from "../components/PhraseViews";
+import { TabSlot } from "../components/tabDock";
 import { useBeat, useRunning } from "../components/useTransport";
 import { setCountBeforeExample, useCountBeforeExample } from "../progress";
 
@@ -35,7 +36,6 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
   const t = useTranslations("solos.echo");
   const [index, setIndex] = useState(0);
   const [shown, setShown] = useState(false);
-  const [tab, setTab] = useState(false);
   /** Índice da nota que está soando agora (azul), ou -1. */
   const [sounding, setSounding] = useState(-1);
   const [mode, setMode] = useState<Mode>("example");
@@ -82,6 +82,21 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
 
   return (
     <div className="engine">
+      {/* Quem começa é o exemplo: sem contagem, a não ser que a pessoa peça. Só a base: a pessoa começa, e conta. */}
+      <BackingBar key={phrase.id} base={base} countIn={mode === "base" || countBefore ? 1 : 0} playLabel={mode === "base" ? undefined : t("play")} />
+      <div className="play-mode">
+        <div className="seg" role="radiogroup" aria-label={t("mode")} onKeyDown={onRadioKeyDown}>
+          {MODES.map((m) => (
+            <button key={m} type="button" role="radio" aria-checked={mode === m} tabIndex={mode === m ? 0 : -1} onClick={() => setMode(m)}>{t(`modes.${m}`)}</button>
+          ))}
+        </div>
+        {mode !== "base" && (
+          <label className="count-before">
+            <input type="checkbox" checked={countBefore} onChange={(e) => setCountBeforeExample(e.target.checked)} />
+            <span>{t("countBefore")}</span>
+          </label>
+        )}
+      </div>
       {ex.phrases.length > 1 && (
         // Muitas abas (um solo em partes, em dois solos): uma fileira por grupo, com o nome do grupo à esquerda.
         <div className="tabs-groups" role="tablist" aria-label={t("which")}
@@ -97,7 +112,7 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
             <div key={g.name} className="seg">
               {g.name && <span className="seg-name" aria-hidden="true">{g.name}</span>}
               {g.items.map(({ p, i, label }) => (
-                <button key={p.id} type="button" role="tab" aria-selected={i === index} tabIndex={i === index ? 0 : -1} onClick={() => go(i)}>{label}</button>
+                <button key={p.id} type="button" role="tab" aria-selected={i === index} tabIndex={i === index ? 0 : -1} aria-label={g.name ? `${g.name}: ${label}` : undefined} onClick={() => go(i)}>{label}</button>
               ))}
             </div>
           ))}
@@ -115,38 +130,19 @@ export function EchoEngine({ ex }: { ex: EchoExercise }) {
           )}
         </div>
       )}
-      <div className="play-mode">
-        <div className="seg" role="radiogroup" aria-label={t("mode")} onKeyDown={onRadioKeyDown}>
-          {MODES.map((m) => (
-            <button key={m} type="button" role="radio" aria-checked={mode === m} tabIndex={mode === m ? 0 : -1} onClick={() => setMode(m)}>{t(`modes.${m}`)}</button>
-          ))}
-        </div>
-        {mode !== "base" && (
-          <label className="count-before">
-            <input type="checkbox" checked={countBefore} onChange={(e) => setCountBeforeExample(e.target.checked)} />
-            <span>{t("countBefore")}</span>
-          </label>
-        )}
-      </div>
       <Banner state={live ? (calling ? "call" : "play") : null} word={t(calling ? "listen" : "yourTurn")} note={phrase.name} idle={t(`idle.${mode}`)} />
-      {/* Quem começa é o exemplo: sem contagem, a não ser que a pessoa peça. Só a base: a pessoa começa, e conta. */}
-      <BackingBar key={phrase.id} base={base} countIn={mode === "base" || countBefore ? 1 : 0} playLabel={mode === "base" ? undefined : t("play")} />
       <div className="reveal">
         <div className="row">
           <button type="button" className="btn" aria-expanded={shown} onClick={() => setShown((s) => !s)}>
             {shown ? t(ex.reveal === "rhythm" ? "hideRhythm" : "hideBoard") : t(ex.reveal === "rhythm" ? "showRhythm" : "showTab")}
           </button>
-          {phrase.frets && (
-            <button type="button" className="btn" aria-expanded={tab} onClick={() => setTab((s) => !s)}>
-              {tab ? t("hideText") : t("showText")}
-            </button>
-          )}
         </div>
         {shown && (ex.reveal === "rhythm"
           ? <RhythmGrid phrase={phrase} now={now} label={t("rhythmLabel")} />
           : <Board phrase={phrase} now={now} label={t("tabLabel")} half={t("bendHalf")} full={t("bendFull")} />)}
-        {tab && phrase.frets && <TextTab phrase={phrase} now={now} chords={chordNames(base)} label={t("textLabel")} />}
       </div>
+      {/* No eco o objetivo é tirar de ouvido: a tablatura começa fechada e abre no fim do exercício. */}
+      {phrase.frets && <TabSlot label={t("textLabel")}><TextTab phrase={phrase} now={now} chords={chordNames(base)} label={t("textLabel")} /></TabSlot>}
     </div>
   );
 }

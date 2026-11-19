@@ -1,5 +1,5 @@
 // Conteúdo de "Como solar com a pentatônica" em português.
-// Fase 1: O mapa do braço, Respirar e Ritmo. Fase 2: Ouvir a troca e Ligar. Bend e vibrato não têm unidade
+// Fase 1: O mapa do braço, Respirar e Ritmo. Fase 2: Ouvir a troca e Caminhos até o alvo. Bend e vibrato não têm unidade
 // própria (o público já sabe fazer): aparecem usados nas frases, como gesto até a nota do acorde.
 // Fase 3: Uma corda só, Motivo, Vocabulário e O arco do solo. Depois: cinco seções, cada uma fechando
 // com um arco (solo com exemplo). O curso é só de pentatônica: a meta é um solo que valha um couvert.
@@ -435,16 +435,16 @@ const written: Curriculum = {
           id: "u0.l0",
           title: "O solo que você vai entender",
           intro:
-            "Assista ao solo até o fim, sem tocar. Este é o ponto de chegada do curso: não é para copiar, é para saber para onde você está indo.",
-          videos: [{ youtube: "tzh1OeGUv_E", title: "Improvisation: A-Minor Pentatonic Guitar Solo", author: "Flo Guitar", note: "Antes de começar, assista a este solo improvisado em Lá menor, só com a pentatônica. Agora você não entende quase nada do que ele faz, e está tudo bem. No final do curso, veremos ele novamente e ficará claro tudo o que ele está fazendo neste solo." }],
+            "Este solo é o ponto de chegada do curso. Hoje você reconhece pouco do que ele faz; no fim, este vídeo volta e cada frase vai fazer sentido. Não precisa copiá-lo: ele mostra para onde você está indo.",
+          videos: [{ youtube: "tzh1OeGUv_E", title: "Improvisation: A-Minor Pentatonic Guitar Solo", author: "Flo Guitar", note: "Um solo improvisado em Lá menor, só com a pentatônica. Ouça como as frases começam, terminam e deixam espaço entre uma e outra." }],
           key: "u0.l0.watch",
           exercises: [
             {
               id: "u0.l0.watch",
               kind: "watch",
               title: "Assistir ao solo",
-              goal: "Assista ao vídeo até o fim, sem tocar.",
-              steps: ["Não tente entender: só ouça como as frases começam, terminam e deixam espaço."],
+              goal: "Deixe a guitarra de lado e veja o vídeo até o fim.",
+              steps: [],
               check: "",
             },
           ],
@@ -454,17 +454,17 @@ const written: Curriculum = {
           concepts: ["O que é a escala pentatônica menor?", "O que é a tônica de uma escala?"],
           title: "O shape 1",
           intro:
-            "Boa parte dos solos de rock e blues passa por este shape. Ele tem só cinco notas, repetidas em duas oitavas. Neste começo ele é o único: antes de conhecer os outros, vale saber solar bem em um. O objetivo aqui não é correr por ele: é saber, de olhos fechados, onde está a tônica.",
+            "Boa parte dos solos de rock e blues passa por este shape. Ele tem só cinco notas, repetidas em duas oitavas. Neste começo ele é o único: antes de conhecer os outros, vale aprender a solar bem em um só. O objetivo aqui é saber, de olhos fechados, onde está a tônica; correr pelo shape fica para depois.",
           key: "u0.l1.find",
           exercises: [
             {
               id: "u0.l1.map",
               kind: "map",
               title: "Pentatônica de Lá menor, shape 1",
-              goal: 'Toque o shape subindo e descendo, devagar, dizendo "tônica" toda vez que passar por um A.',
+              goal: 'Toque o shape subindo e descendo, devagar, dizendo "tônica" toda vez que passar por um Lá.',
               steps: [
                 "Duas notas por corda, da 6ª à 1ª e de volta.",
-                "Aperte Tocar base e repita no tempo, uma nota por tempo.",
+                "Com a base tocando, faça várias voltas seguidas, uma nota por tempo.",
               ],
               check: "Subiu e desceu no tempo, sem olhar para a tela?",
               base: VAMP,
@@ -477,7 +477,7 @@ const written: Curriculum = {
               title: "Onde está a tônica?",
               goal: "Aponte no braço as três tônicas do shape.",
               steps: [
-                "Um toque errado conta: pense antes.",
+                "Pense antes de cada toque.",
               ],
               check: "",
               base: VAMP,
@@ -496,19 +496,19 @@ const written: Curriculum = {
       lessons: [
         {
           id: "u73.l1",
-          concepts: ["O que é palhetada alternada?", "O que é inside picking?"],
+          concepts: ["O que é palhetada alternada?", "O que é outside picking?"],
           title: "Palhetada alternada no shape 1",
           intro:
-            "Na palhetada alternada a mão vai para baixo, para cima, para baixo, sem parar. Com duas notas por corda, a escolha de onde começar decide se a palheta chega à corda seguinte já no lugar certo. Subindo para as cordas mais finas, comece cada corda para cima: a segunda nota sai para baixo e a mão fica do lado da corda seguinte. Descendo para as mais grossas, comece cada corda para baixo: a segunda sai para cima, rumo à corda seguinte. Em velocidade isso faz diferença; devagar, só deixa o gesto mais limpo.",
+            "Na palhetada alternada, a palheta vai para baixo, para cima, para baixo, sem nunca repetir o sentido. Com duas notas por corda, a segunda nota de cada corda tem que sair na direção da corda seguinte: assim a palheta termina o movimento já perto dela. Em velocidade isso faz diferença; devagar, só deixa o gesto mais limpo.",
           key: "u73.l1.map",
           exercises: [
             {
               id: "u73.l1.map",
               kind: "map",
               title: "Subir e descer com a palhetada certa",
-              goal: "Suba o shape 1 e desça, uma nota por tempo, sem nunca repetir o mesmo sentido de palheta duas vezes seguidas.",
+              goal: "Suba e desça o shape 1 em palhetada alternada, uma nota por tempo.",
               steps: [
-                "Os sinais de palhetada: ⊓ é para baixo e V é para cima.",
+                "Os sinais de palhetada: ⊓ é para baixo e V é para cima. Os botões Palhetada subindo e Palhetada descendo mostram os sinais no braço. A tablatura do exemplo também os traz.",
                 "Subindo: em cada corda, a primeira nota é para cima e a segunda para baixo (V ⊓, V ⊓, V ⊓...).",
                 "Descendo: em cada corda, a primeira nota é para baixo e a segunda para cima (⊓ V, ⊓ V, ⊓ V...).",
                 "Devagar, olhando a mão da palheta. Só aumente o andamento quando sair sem pensar.",
@@ -517,6 +517,7 @@ const written: Curriculum = {
               base: VAMP,
               shapes: [1],
               layer: "penta",
+              picking: true,
             },
           ],
         },
@@ -532,7 +533,7 @@ const written: Curriculum = {
           id: "u1.l3",
           title: "Mais silêncio que som",
           intro:
-            "O defeito mais comum de quem improvisa é não parar de tocar: os dedos correm mais que as ideias. Cantor respira; guitarrista esquece. Por isso o treino começa pelo extremo: um compasso tocando e três calado. David Gilmour, do Pink Floyd, é famoso pelo que não toca: quando o silêncio é maior que a frase, cada nota pesa mais. É desconfortável no começo, porque a vontade é preencher.",
+            "O defeito mais comum de quem improvisa é não parar de tocar: os dedos correm mais que as ideias. O cantor é obrigado a respirar entre as frases; o guitarrista, não. David Gilmour, do Pink Floyd, é famoso pelo que não toca: quando o silêncio é maior que a frase, cada nota pesa mais. Por isso o treino começa pelo extremo. Nas primeiras vezes é desconfortável, porque a vontade é preencher.",
           key: "u1.l3.a",
           exercises: [
             {
@@ -552,9 +553,9 @@ const written: Curriculum = {
               id: "u1.l3.b",
               kind: "play-rest",
               title: "Proporção torta",
-              goal: "Dois tocando, três calado. O ciclo não fecha com os acordes.",
+              goal: "Dois compassos tocando, três calado.",
               steps: [
-                "A cada volta sua frase cai sobre acordes diferentes.",
+                "O ciclo de cinco compassos não fecha com os quatro acordes da base: a cada volta, a frase cai sobre acordes diferentes.",
                 "Siga a marcação da tela, não o costume.",
               ],
               check: "Entrou no compasso certo todas as vezes?",
@@ -568,7 +569,7 @@ const written: Curriculum = {
           concepts: ["O que é compasso na música?"],
           title: "Dois compassos tocando, dois calado",
           intro:
-            "Agora o silêncio fica do tamanho da frase: dois compassos tocando, dois calado. Calar por obrigação parece artificial, e é. É um treino, não um jeito de tocar no palco.",
+            "Agora o silêncio fica do tamanho da frase. Calar por obrigação é artificial: serve como treino, não como jeito de tocar no palco.",
           key: "u1.l1.pr",
           exercises: [
             {
@@ -579,7 +580,7 @@ const written: Curriculum = {
               steps: [
                 "Não importa o que você toca, importa parar.",
                 "No silêncio, abafe as cordas e ouça a base.",
-                "Termine a frase antes do silêncio começar, sem deixar nota vazando.",
+                "Termine a frase antes da pausa, sem deixar nota vazando.",
               ],
               check:
                 "Ficou em silêncio de verdade em todos os compassos de pausa?",
@@ -592,7 +593,7 @@ const written: Curriculum = {
           id: "u1.l2",
           title: "Um e um, três e um",
           intro:
-            "Frase curta com resposta curta soa como conversa. Frase longa com um respiro só no fim soa como discurso.",
+            "Uma frase curta seguida de um silêncio curto soa como conversa. Uma frase longa, com um respiro só no fim, soa como discurso.",
           key: "u1.l2.b",
           exercises: [
             {
@@ -615,7 +616,7 @@ const written: Curriculum = {
               goal: "Três compassos tocando, um calado.",
               steps: [
                 "Uma frase longa só, não três frases curtas coladas.",
-                "O compasso de silêncio é sagrado.",
+                "Feche a frase antes do quarto compasso: ele é todo de silêncio.",
               ],
               check:
                 "Conseguiu sustentar uma ideia por três compassos e parar no quarto?",
@@ -629,23 +630,23 @@ const written: Curriculum = {
     {
       id: "u70",
       title: "Como estudar: por setores",
-      skill: "Dividir uma frase em setores curtos e estudá-los, do lento ao andamento",
+      skill: "Dividir uma frase em setores curtos e estudá-los devagar, antes de subir o andamento",
       takeCheck: "Você estudou a frase por partes curtas antes de tocá-la inteira?",
       lessons: [
         {
           id: "u70.l1",
           title: "Estudar por setores",
           intro:
-            "Tocar a frase inteira e recomeçar a cada erro ensina bem o começo e mal o fim. O estudo por setores resolve isso: a frase é cortada em pedaços de um a dois tempos, cada pedaço é repetido até sair limpo, e só depois os vizinhos são ligados. O erro fica preso num pedaço pequeno, onde dá para consertá-lo.",
+            "Tocar a frase inteira e recomeçar a cada erro ensina bem o começo e mal o fim. No estudo por setores, você corta a frase em pedaços de um a três tempos e só liga um pedaço ao vizinho quando os dois já saem limpos. O erro fica preso num pedaço pequeno, onde dá para consertá-lo.",
           key: "u70.l1.setores",
           exercises: [
             {
               id: "u70.l1.setores",
               kind: "echo",
               title: "Uma frase em três setores",
-              goal: "Aprenda a frase por setores: cada um sozinho, depois os dois primeiros juntos, depois a frase inteira.",
+              goal: "Aprenda a frase por setores, até tocá-la inteira.",
               steps: [
-                "Ouça a frase inteira (última aba) e confira onde ela se divide em três setores. O corte cai onde a mão muda de corda ou a melodia faz uma pausa curta.",
+                "Ouça a frase inteira (última aba) e confira onde ela se divide em três setores. O segundo corte coincide com a troca de corda e com uma pausa curta.",
                 "Estude um setor por vez, devagar. A meta é sair sete vezes seguidas sem erro e sem tensão na mão; se errar na sexta, a contagem volta a zero.",
                 "Com os três prontos, junte dois vizinhos (aba \"Setores 1 e 2\") e repita do mesmo jeito. Só então toque a frase inteira.",
                 "Se o erro vem junto com mão apertada ou dedo que não obedece, é cansaço: pare e retome depois, em vez de repetir o erro.",
@@ -662,7 +663,7 @@ const written: Curriculum = {
                   ]),
                   label: "Setor 1",
                   intro: "O primeiro setor tem três notas, na 1ª e na 2ª cordas: a descida do Dó ao Lá e ao Sol.",
-                  steps: ["Entre na metade do tempo 1 e pare no fim do segundo tempo: o setor é curto de propósito.", "Repita até sair sete vezes seguidas sem erro, sem apertar a mão."],
+                  steps: ["Entre na metade do tempo 1 e pare no fim do tempo 2: o setor é curto de propósito."],
                 },
                 {
                   ...phrase("setor2", "Setores: setor 2", 2, [
@@ -673,7 +674,7 @@ const written: Curriculum = {
                   ]),
                   label: "Setor 2",
                   intro: "O segundo setor tem quatro notas, do Mi na 2ª corda às notas vizinhas da 3ª corda: Ré, Dó e Ré.",
-                  steps: ["Aqui o difícil é a troca de corda no começo: se errar sempre no mesmo ponto, estude só essas duas notas.", "Sete vezes seguidas sem erro, devagar."],
+                  steps: ["A troca da 2ª para a 3ª corda, logo no começo, é o ponto mais difícil: se o erro cai sempre ali, estude só essas duas notas."],
                 },
                 {
                   ...phrase("setor3", "Setores: setor 3", 2, [
@@ -698,7 +699,7 @@ const written: Curriculum = {
                   ]),
                   label: "Setores 1 e 2",
                   intro: "Dois setores vizinhos ligados: o ponto novo a estudar é a passagem do último Sol do setor 1 para o Mi do setor 2.",
-                  steps: ["Toque devagar, sem parar na junção.", "Se a junção falha, volte à última nota do setor 1 e à primeira do setor 2 e estude só esse par."],
+                  steps: ["Toque devagar, sem parar na junção.", "Se a junção falha, estude só o par Sol e Mi e depois volte aos dois setores."],
                 },
                 {
                   ...phrase("setoresfrase", "Setores: a frase inteira", 2, [
@@ -726,14 +727,14 @@ const written: Curriculum = {
           id: "u70.l2",
           title: "Devagar, depois mais depressa",
           intro:
-            "O andamento é o último ajuste, não o primeiro. O que sai limpo devagar pode ser levado para mais depressa em passos pequenos; o que só sai rápido erra sempre no mesmo lugar sem você perceber. Suba de 5 a 10 batidas por minuto de cada vez, e desça um degrau quando o erro voltar.",
+            "O andamento é o último ajuste, não o primeiro. Uma frase que sai limpa devagar pode ganhar velocidade em passos pequenos, de 5 a 10 batidas por minuto de cada vez. Estudada só em andamento rápido, ela erra sempre no mesmo lugar, e você nem percebe.",
           key: "u70.l2.andamento",
           exercises: [
             {
               id: "u70.l2.andamento",
               kind: "echo",
               title: "A mesma frase em três andamentos",
-              goal: "Toque a frase limpa no andamento mais lento e suba um degrau de cada vez.",
+              goal: "Leve a frase até 84 por minuto, ou até o andamento mais rápido em que ela ainda sai limpa.",
               steps: [
                 "Comece na primeira aba, a 60 por minuto, e só passe para a seguinte quando a frase sair limpa três vezes seguidas, sem tensão.",
                 "Se a frase falha no andamento novo, volte ao anterior e estude só o setor onde ela falhou.",
@@ -772,7 +773,6 @@ const written: Curriculum = {
                   ]),
                   label: "No tempo (72)",
                   intro: "A mesma descida a 72 por minuto, o andamento padrão do curso.",
-                  steps: ["O que mudou foi só o andamento: se algo que saía agora falha, volte ao degrau de 60 e estude esse setor."],
                 },
                 {
                   ...phrase("setor-rapido", "Andamento: mais depressa", 2, [
@@ -807,22 +807,22 @@ const written: Curriculum = {
           id: "a1.l1",
           title: "Solo de poucas notas",
           intro:
-            "Hora de juntar a seção. São quatro partes de dois compassos: frase e silêncio, uma nota só com ritmo, três notas, e uma nota longa para fechar. Os dois exemplos mostram jeitos diferentes de fazer. Ouça quantas vezes quiser, depois toque o seu: não o dos exemplos.",
+            "Hora de juntar a seção num solo só. Os dois exemplos fazem as mesmas partes de jeitos diferentes; ouça quantas vezes quiser, mas toque o seu, sem copiar nenhum.",
           key: "a1.take",
           exercises: [
             {
               id: "a1.take",
               kind: "take",
               title: "O primeiro solo",
-              goal: "Oito compassos no shape 1, em quatro partes de dois compassos. Siga a faixa.",
+              goal: "Oito compassos no shape 1, em quatro partes de dois compassos. A tela mostra em qual parte você está.",
               steps: [],
               check: "Seu solo teve frases com começo e fim, silêncio entre elas e ritmos variados?",
               base: BASE,
               bars: 8,
-              arcNote: "Uma nota só: escolha uma do shape 1. Três notas: o Lá e o Dó da 1ª corda (casas 5 e 8) e o Sol da 2ª corda (casa 8). Os ritmos são fáceis mesmo; a graça é usar todos, pelo menos uma vez cada: quatro tempos iguais; uma longa e três curtas; uma longa e duas no fim; duas curtas e uma longa; entrar depois do tempo 1; começar no tempo 2; entrar no contratempo.",
+              arcNote: "Uma nota só: escolha uma do shape 1. Três notas: o Lá e o Dó da 1ª corda (casas 5 e 8) e o Sol da 2ª corda (casa 8). Os ritmos são fáceis; a ideia é usar todos, pelo menos uma vez cada: quatro tempos iguais; uma longa e três curtas; uma longa e duas no fim; duas curtas e uma longa; entrar depois do tempo 1; começar no tempo 2; entrar no contratempo.",
               arc: [
                 { name: "Toca um, cala um", how: "Frase curta num compasso, silêncio no outro." },
-                { name: "Uma nota só", how: "Uma nota, vários ritmos. Tente cada um uma vez." },
+                { name: "Uma nota só", how: "Vários ritmos, sempre na mesma nota." },
                 { name: "Três notas", how: "O mesmo jogo de ritmo, com três notas." },
                 { name: "Nota longa no fim", how: "Frase curta e uma nota segurada até o fim." },
               ],
@@ -892,6 +892,50 @@ const written: Curriculum = {
       ],
     },
     {
+      id: "u72",
+      title: "As notas de cada acorde",
+      skill: "Onde ficam a tônica, a 3ª e a 5ª de cada acorde.",
+      lessons: [
+        {
+          id: "u0.l3",
+          concepts: ["O que é a tônica, a terça e a quinta de um acorde?", "O que é campo harmônico?"],
+          title: "As notas de cada acorde",
+          intro:
+            'A pentatônica serve para a música inteira, mas cada acorde tem três notas que soam "em casa" enquanto ele toca: a tônica, a 3ª e a 5ª. Solo que parece escala ignora isso. Aqui você só aprende onde elas ficam; usar vem depois.',
+          key: "u0.l3.find",
+          exercises: [
+            {
+              id: "u0.l3.map",
+              kind: "map",
+              title: "Tônica, 3ª e 5ª de cada acorde",
+              goal: "Para cada acorde, toque as três notas dele na região do shape 1.",
+              steps: [
+                "Neste curso, os solos usam só as notas do acorde que estão dentro da pentatônica.",
+                "Uma nota por tempo, trocando de notas junto com o acorde.",
+              ],
+              check:
+                "Achou pelo menos uma nota de cada acorde no tempo da troca?",
+              base: BASE,
+              shapes: [1],
+              layer: "chord",
+            },
+            {
+              id: "u0.l3.find",
+              kind: "find",
+              title: "Ache a nota",
+              goal: "O site pede uma nota de um acorde. Aponte no braço.",
+              steps: ["Responda sem contar casas: tente lembrar do shape."],
+              check: "",
+              base: BASE,
+              shape: 1,
+              ask: ["T", "3", "5"],
+              rounds: 12,
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: "u17",
       title: "Licks no shape 1",
       skill: "Seis licks curtos do shape 1, de memória e no tempo",
@@ -909,7 +953,7 @@ const written: Curriculum = {
               id: "u17.l1.echo",
               kind: "echo",
               title: "Dois licks",
-              goal: "Tire os dois licks de ouvido e toque cada um até sair sem pensar.",
+              goal: "Tire os dois licks de ouvido até tocá-los sem pensar.",
               steps: ["Um por vez. Só passe para o próximo quando acertar duas vezes seguidas.", "Depois toque os dois sem olhar a tab."],
               check: "Toca os dois de memória, no tempo?",
               base: AM_F,
@@ -961,7 +1005,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "Dois bends",
               goal: "Tire os dois licks de ouvido, com o bend chegando na altura certa.",
-              steps: ["Antes do bend, toque a nota de chegada sem bend (casa 10 da 2ª corda, casa 10 da 1ª) e cante.", "O bend tem que chegar exatamente nela."],
+              steps: ["Antes do bend, toque a nota de chegada sem dobrar a corda (casa 10 da 2ª corda, casa 10 da 1ª) e cante."],
               check: "Os bends chegaram na nota certa, sem ficar baixo?",
               base: AM_F,
               reveal: "tab",
@@ -986,8 +1030,8 @@ const written: Curriculum = {
               id: "u17.l2.pr",
               kind: "play-rest",
               title: "O bend no lugar certo",
-              goal: "Nos compassos de tocar, um lick com bend. Nos de calar, ouça se o bend chegou.",
-              steps: ["Alterne os dois.", "Grave a si mesmo uma vez e ouça: o bend chegou na nota ou ficou baixo?"],
+              goal: "Nos compassos de tocar, um dos dois licks com bend. Nos de calar, nada.",
+              steps: ["Alterne os dois.", "Grave-se uma vez e ouça: o bend chegou na nota ou ficou baixo?"],
               check: "Os bends chegaram na nota, todas as vezes?",
               base: AM_F,
               pattern: ["play", "play", "rest", "rest"],
@@ -999,15 +1043,15 @@ const written: Curriculum = {
           id: "u17.l3",
           title: "Slide e pergunta",
           intro:
-            "Mais dois: um que entra deslizando no Ré da 3ª corda, e outro que termina no ar, numa nota que não é do acorde. O primeiro dá sotaque; o segundo pede uma resposta, que é o assunto da próxima unidade.",
+            "Mais dois: um que entra deslizando no Ré da 3ª corda, e outro que termina no ar. O primeiro dá sotaque; o segundo pede uma resposta, que é o assunto da próxima unidade.",
           key: "u17.l3.pr",
           exercises: [
             {
               id: "u17.l3.echo",
               kind: "echo",
-              title: "Slide e pergunta",
+              title: "Slide no Ré, fim no ar",
               goal: "Tire os dois licks de ouvido.",
-              steps: ["No slide, o dedo não sai da corda: ele arrasta da casa 5 até a 7.", "No segundo, ouça como a última nota fica pendurada."],
+              steps: ["No slide, o dedo não sai da corda: ele arrasta da casa 5 até a 7.", "O segundo termina no Ré, que não é nota do Lá menor nem do Fá: pare nele."],
               check: "O slide soou contínuo, sem duas notas separadas?",
               base: AM_F,
               reveal: "tab",
@@ -1036,7 +1080,7 @@ const written: Curriculum = {
               steps: ["Não repita o mesmo lick duas vezes seguidas.", "Se esquecer um, volte às lições anteriores."],
               check: "Lembrou dos seis sem olhar?",
               base: BASE,
-              pattern: ["play", "rest", "play", "rest"],
+              pattern: ["play", "play", "rest", "rest"],
               rule: "Os seis licks, um por vez",
             },
           ],
@@ -1061,13 +1105,13 @@ const written: Curriculum = {
               id: "u18.l1.echo",
               kind: "echo",
               title: "Duas conversas",
-              goal: "Tire as duas de ouvido. Repare onde cada pergunta termina e onde cada resposta pousa.",
+              goal: "Tire as duas conversas de ouvido.",
               steps: ["Cante a pergunta e pare: dá vontade de continuar?", "Depois cante a resposta inteira."],
               check: "Ouviu a diferença entre terminar no ar e pousar?",
               base: BASE,
               reveal: "tab",
               phrases: [
-                phrase("q1", "Pergunta embaixo, resposta em cima", 4, [
+                phrase("q1", "Pergunta no grave, resposta no agudo", 4, [
                   [4, 7, 0.5, 0.5],
                   [3, 5, 1, 0.5],
                   [3, 7, 1.5, 0.5],
@@ -1096,7 +1140,7 @@ const written: Curriculum = {
               kind: "play-rest",
               title: "Pergunte e responda",
               goal: "No 1º compasso, uma frase que termina fora do acorde. No 3º, uma que pousa numa nota do acorde.",
-              steps: ["Na pergunta, termine no Ré ou no Sol.", "Na resposta, termine numa nota longa do acorde da vez."],
+              steps: ["Na pergunta, termine no Ré ou no Sol.", "Na resposta, o acorde é C: termine numa nota longa, no Dó, no Mi ou no Sol."],
               check: "A resposta pousou, e a pergunta ficou no ar?",
               base: BASE,
               pattern: ["play", "rest", "play", "rest"],
@@ -1108,7 +1152,7 @@ const written: Curriculum = {
           id: "u18.l2",
           title: "Respostas diferentes",
           intro:
-            "A mesma pergunta aceita muitas respostas: curta ou longa, grave ou aguda, parecida ou diferente. Aqui a pergunta é longa e a resposta tem duas notas só. Depois, você responde de três jeitos a mesma pergunta.",
+            "A mesma pergunta aceita muitas respostas: curta ou longa, grave ou aguda, parecida ou diferente. Com a pergunta fixa, quem ouve a reconhece e presta atenção no que muda na resposta.",
           key: "u18.l2.pr",
           exercises: [
             {
@@ -1116,7 +1160,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "Resposta curta",
               goal: "Tire a frase de ouvido.",
-              steps: ["A pergunta ocupa um compasso inteiro; a resposta, meio."],
+              steps: ["A pergunta ocupa um compasso inteiro; a resposta tem só duas notas."],
               check: "Tocou a pergunta inteira e a resposta curta, sem emendar?",
               base: BASE,
               reveal: "tab",
@@ -1137,8 +1181,8 @@ const written: Curriculum = {
               id: "u18.l2.pr",
               kind: "play-rest",
               title: "Três respostas",
-              goal: "Repita sempre a mesma pergunta. A cada volta, responda de um jeito: curta, longa, e mais aguda.",
-              steps: ["Escolha a pergunta antes de ligar a base e não mude.", "Só a resposta muda."],
+              goal: "Repita sempre a mesma pergunta. A cada volta, dê uma resposta diferente: curta, longa e mais aguda.",
+              steps: ["Escolha a pergunta antes de ligar a base.", "Toda resposta pousa numa nota do C, o acorde do 3º compasso."],
               check: "As três respostas soaram diferentes, e todas pousaram?",
               base: BASE,
               pattern: ["play", "rest", "play", "rest"],
@@ -1158,14 +1202,14 @@ const written: Curriculum = {
           id: "u9.l1",
           title: "Três frases para guardar",
           intro:
-            "Todo improvisador toca coisas que já tocou antes. A diferença está em guardar poucas frases, bem guardadas, e saber mudar cada uma. Aqui são três frases curtas: uma com bend, uma com slide e uma de ritmo. Guarde até tocar sem pensar.",
+            "Todo improvisador toca coisas que já tocou antes. A diferença está em ter poucas frases bem guardadas e saber mudar cada uma. Aqui são três frases curtas: uma com bend, uma com slide e uma de ritmo.",
           key: "u9.l1.echo",
           exercises: [
             {
               id: "u9.l1.echo",
               kind: "echo",
               title: "As três guardadas",
-              goal: "Tire as três de ouvido e repita cada uma até sair sem pensar.",
+              goal: "Tire as três de ouvido até tocá-las sem pensar.",
               steps: ["Uma por vez. Só passe para a próxima quando acertar duas vezes seguidas.", "Amanhã, com a base tocando, toque as três de memória antes de ouvir o exemplo de novo."],
               check: "Toca as três de memória, sem olhar?",
               base: AM_F,
@@ -1212,7 +1256,7 @@ const written: Curriculum = {
           id: "u9.l2",
           title: "Levar a frase para outro lugar",
           intro:
-            "Uma frase guardada só vira vocabulário quando muda de lugar: sobre outro acorde, começando em outro tempo, terminando em outra nota. Aqui você pega as três da lição anterior e as transporta.",
+            "Uma frase guardada só vira vocabulário quando muda de lugar: sobre outro acorde, começando em outro tempo, terminando em outra nota. Use as três da lição anterior.",
           key: "u9.l2.chord",
           exercises: [
             {
@@ -1220,7 +1264,7 @@ const written: Curriculum = {
               kind: "play-rest",
               title: "Outro tempo",
               goal: "Toque uma frase guardada começando num tempo diferente do original.",
-              steps: ["Atrase meio tempo, depois um tempo inteiro.", "As notas ficam iguais; só a entrada muda."],
+              steps: ["Atrase meio tempo, depois um tempo inteiro.", "As notas ficam iguais."],
               check: "A frase continuou reconhecível começando em outro tempo?",
               base: BASE,
               pattern: ["play", "play", "rest", "rest"],
@@ -1231,7 +1275,7 @@ const written: Curriculum = {
               kind: "play-rest",
               title: "Outro acorde",
               goal: "Toque uma frase guardada sobre C ou G, ajustando a última nota para uma nota do acorde.",
-              steps: ["Sobre C, termine em C, E ou G. Sobre G, em G, B ou D.", "Mude só o necessário: o resto da frase fica."],
+              steps: ["Sobre C, termine em Dó, Mi ou Sol. Sobre G, em Sol, Si ou Ré."],
               check: "A frase terminou numa nota do acorde novo?",
               base: C_G,
               pattern: ["play", "play", "rest", "rest"],
@@ -1251,7 +1295,7 @@ const written: Curriculum = {
           id: "u19.l1",
           title: "Pouco material",
           intro:
-            "Quando tudo é permitido, a mão repete o que já sabe. Uma regra apertada obriga a inventar: com duas notas, o que muda é o ritmo; com duas cordas, o que muda é a ordem. É o jeito mais rápido de achar ideias que são suas.",
+            "Quando tudo é permitido, a mão repete o que já sabe. Uma regra apertada obriga a inventar: com duas notas, o que muda é o ritmo; com duas cordas, o que muda é a ordem.",
           key: "u19.l1.two",
           exercises: [
             {
@@ -1264,6 +1308,18 @@ const written: Curriculum = {
               base: AM_F,
               pattern: ["play", "play", "play", "rest"],
               rule: "Só o Lá e o Dó da 1ª corda",
+              demo: phrase("demo.u19.l1.two", "", 4, [
+                [1, 5, 0.5, 0.5],
+                [1, 8, 1, 1],
+                [1, 5, 2.5, 0.5],
+                [1, 8, 3, 1],
+                [1, 8, 4, 2],
+                [1, 5, 6.5, 0.5],
+                [1, 5, 7, 1],
+                [1, 5, 8.5, 0.5],
+                [1, 8, 9, 0.5],
+                [1, 5, 10, 2],
+              ]),
             },
             {
               id: "u19.l1.strings",
@@ -1289,7 +1345,7 @@ const written: Curriculum = {
               id: "u19.l2.start",
               kind: "play-rest",
               title: "Nunca no tempo 1",
-              goal: "Toda frase começa no tempo 2, no 3, ou entre tempos. Nenhuma no tempo 1.",
+              goal: "Comece cada frase no tempo 2, no 3 ou entre dois tempos.",
               steps: ["Conte em voz alta e entre depois do 1.", "Mude o tempo de entrada a cada frase."],
               check: "Nenhuma frase começou no tempo 1?",
               base: BASE,
@@ -1301,7 +1357,7 @@ const written: Curriculum = {
               kind: "target",
               title: "A frase termina na troca",
               goal: "Toque uma frase que termina exatamente na troca, na nota pedida do acorde que chega.",
-              steps: ["Comece a frase cedo, para ter caminho até o alvo.", "O alvo é o fim da frase: depois dele, silêncio."],
+              steps: ["Comece a frase cedo, para ter caminho até o alvo.", "Depois do alvo, silêncio."],
               check: "As frases terminaram no alvo, na hora da troca?",
               base: BASE,
               shape: 1,
@@ -1314,7 +1370,7 @@ const written: Curriculum = {
           id: "u19.l3",
           title: "Repetir até virar ideia",
           intro:
-            "Repetir uma frase não é falta de ideia: é como o ouvinte entende que ela é importante. A terceira vez é que pede uma mudança. Toque a mesma frase três vezes e mude só a última nota da terceira.",
+            "Repetir uma frase não é falta de ideia: é como o ouvinte entende que ela é importante. A terceira vez é que pede uma mudança.",
           key: "u19.l3.three",
           exercises: [
             {
@@ -1322,7 +1378,7 @@ const written: Curriculum = {
               kind: "play-rest",
               title: "Três vezes",
               goal: "A mesma frase curta três vezes. Na terceira, mude só a última nota.",
-              steps: ["Escolha uma frase de três ou quatro notas.", "As duas primeiras vezes, idênticas. Na terceira, outra nota no fim."],
+              steps: ["Escolha uma frase de três ou quatro notas."],
               check: "As duas primeiras saíram iguais, e a terceira terminou diferente?",
               base: BASE,
               pattern: ["play", "play", "play", "rest"],
@@ -1341,9 +1397,9 @@ const written: Curriculum = {
         {
           id: "u49.l1",
           title: "Simple Man",
-          videos: [{ youtube: "8eNoms9wsGc", title: "Simple Man (Audio)", author: "Lynyrd Skynyrd", note: "A gravação, no canal oficial. O solo vem depois do segundo refrão. Na gravação a guitarra está afinada meio tom abaixo, então soa meio tom mais grave que aqui." }],
+          videos: [{ youtube: "8eNoms9wsGc", title: "Simple Man (Audio)", author: "Lynyrd Skynyrd", note: "A gravação, no canal oficial. O solo vem depois do segundo refrão. A guitarra está afinada meio tom abaixo, e o solo soa em Sol# menor, meio tom mais grave que aqui." }],
           source: { title: "Simple Man no Songsterr", url: "https://www.songsterr.com/a/wsa/lynyrd-skynyrd-simple-man-tab-s88906" },
-          intro: "O solo do Gary Rossington: notas longas e bends na penta de Lá menor, no shape 1 e no mesmo shape uma oitava acima. O solo está dividido em 2 partes, uma em cada aba, cada uma com a base dos seus acordes e a explicação dela; a última aba junta tudo.",
+          intro: "O solo do Gary Rossington: notas longas e bends na penta de Lá menor, no shape 1 e no mesmo shape uma oitava acima.",
           key: "u49.echo",
           exercises: [
             {
@@ -1351,7 +1407,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela Parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: a penta, de onde cada frase parte, que nota de fora aparece e onde ela chega.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela Parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, com os bends afinados?",
               base: songBars(SIMPLE_MAN, 1, 2),
               reveal: "tab",
@@ -1396,8 +1452,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(SIMPLE_MAN, 1, 5),
-                  intro: "O solo é lento, a 60 bpm, e quase só de notas longas, todas na penta de Lá menor. Começa no shape 1 e, na segunda metade, sobe ao mesmo shape uma oitava acima (casas 17 a 20), onde faz os bends.",
-                  steps: ["Afinação: na gravação, a guitarra está meio tom abaixo e o solo soa em Sol# menor. Com afinação normal, as mesmas casas soam em Lá menor, como aqui.", "Penta de Lá menor (Lá, Dó, Ré, Mi, Sol), as mesmas notas da penta de Dó maior: por isso serve sobre o Dó e o Sol e sobre o Lá menor. Começa no shape 1 (casas 5 a 8), em notas longas que buscam o acorde: o Sol (2ª corda, casa 8) é a 5ª do Dó, e o Ré (3ª corda, casa 7) é a 5ª do Sol.", "O Lá (3ª corda, casa 14) chega por um slide, saindo do Sol da casa 12, e fica soando sobre o Lá menor, onde é a tônica.", "O salto: a frase sobe do Lá ao Dó e ao Ré (3ª corda, casas 17 e 19) e chega ao Sol da 2ª corda, casa 20, o Sol do shape 1 uma oitava acima. É o mesmo desenho, mais agudo: o Sol é a 5ª do Dó e a tônica do Sol.", "Bends no agudo: o Ré sobe um tom até o Mi (da 4ª à 5ª de Lá menor), e o Sol sobe um tom até o Lá (da 7ª menor à tônica). O Sol é nota do acorde de Sol, e o bend o leva ao Lá, uma tensão leve que se resolve quando a frase cai no Mi e no Lá, notas do acorde de Lá menor.", "No fim, sobre o Lá menor, o Dó (a 3ª menor) da 1ª corda, casa 20, sobe em bends cada vez maiores: meio tom, um tom, um tom e meio, e de novo meio tom. Os de meio tom e de um tom e meio chegam em notas fora da penta (Dó# e Ré#): são o choro do bend, não notas para parar; o de um tom chega no Ré, que é da penta. A frase termina no Lá e no Mi da casa 17.", "Acordes da base, em ordem: Sol e Lá menor; Dó e Sol; Sol e Lá menor; Dó e Sol; Sol e Lá menor."],
+                  intro: "A parte é lenta, a 60 bpm. Começa no shape 1 e, na segunda metade, sobe ao mesmo shape uma oitava acima (casas 17 a 20), onde estão os bends.",
+                  steps: ["Penta de Lá menor (Lá, Dó, Ré, Mi, Sol), as mesmas notas da penta de Dó maior: por isso serve sobre o Dó e o Sol e sobre o Lá menor. No shape 1 (casas 5 a 8), as notas longas buscam o acorde: o Sol (2ª corda, casa 8) é a 5ª do Dó, e o Ré (3ª corda, casa 7) é a 5ª do Sol.", "O Lá (3ª corda, casa 14) chega por um slide, saindo do Sol da casa 12, e fica soando sobre o Lá menor, onde é a tônica.", "O salto: a frase sobe do Lá ao Dó e ao Ré (3ª corda, casas 17 e 19) e chega ao Sol da 2ª corda, casa 20, o Sol do shape 1 uma oitava acima. É o mesmo desenho, mais agudo: o Sol é a 5ª do Dó e a tônica do Sol.", "Bends no agudo: o Ré sobe um tom até o Mi (da 4ª à 5ª de Lá menor), e o Sol sobe um tom até o Lá (da 7ª menor à tônica). O Sol é nota do acorde de Sol, e o bend o leva ao Lá, uma tensão leve que se resolve quando a frase cai no Mi e no Lá, notas do acorde de Lá menor.", "No fim, sobre o Lá menor, o Dó (a 3ª menor) da 1ª corda, casa 20, sobe em bends cada vez maiores: meio tom, um tom, um tom e meio, e de novo meio tom. Os de meio tom e de um tom e meio chegam em notas fora da penta (Dó# e Ré#): são o choro do bend, não notas para parar; o de um tom chega no Ré, que é da penta. A frase termina no Lá e no Mi da casa 17.", "Acordes da base, em ordem: Sol e Lá menor; Dó e Sol; Sol e Lá menor; Dó e Sol; Sol e Lá menor."],
                 },
                 {
                   ...phrase("simplep2", "Simple Man: parte 2", 5, [
@@ -1453,7 +1509,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(SIMPLE_MAN, 0, 5),
-                  intro: "A segunda parte repete o bend do Sol ao Lá, na casa 20, até ele virar o centro do solo, e desce de volta ao shape 1 e às casas 10 a 15 para terminar, sempre na penta de Lá menor.",
+                  intro: "A segunda parte repete o bend do Sol ao Lá, na casa 20, até ele virar o centro do solo, e desce de volta ao shape 1 e às casas 10 a 15 para terminar.",
                   steps: ["Penta de Lá menor (Lá, Dó, Ré, Mi, Sol), a mesma da parte anterior. Começa no shape 1 uma oitava acima (casa 20), volta ao shape 1 (casas 5 a 8) e termina na 2ª corda, nas casas 10 a 15 (shapes 3 e 4).", "O bend do Sol ao Lá (da 7ª menor à tônica de Lá menor), na 2ª corda, casa 20, volta várias vezes no mesmo ritmo, alternando com o Ré e o Lá de outras cordas. Sobre o Dó e o Sol, o Sol é nota do acorde: o bend o estica até o Lá e ele volta ao Sol.", "Depois, o bend do Ré ao Mi na 3ª corda, casa 7, no shape 1: a mesma ideia uma oitava abaixo. Sobre o Sol, o Ré é a 5ª e o Mi, a 6ª.", "Nota fora da penta: o Si, na 2ª corda, casa 12, rápido, entre dois bends do Ré ao Mi. É a 7ª maior do Dó e a 2ª de Lá menor: nota de passagem, que escorrega do Lá e segue para o Sol.", "A subida em slides curtos pela 4ª e pela 3ª cordas (Sol, Lá, Dó, Ré, Mi, Sol, Lá) leva até o Dó e o Ré da 2ª corda. Todas as notas são da penta.", "A parte termina no Dó da 2ª corda, casa 13, depois de um último bend do Ré ao Mi. Sobre o Sol, o Dó é a 4ª: a frase fica suspensa, não pousa na tônica.", "Acordes da base, em ordem: Dó e Sol; Sol e Lá menor; Dó e Sol; Sol e Lá menor; Dó e Sol."],
                 },
                 {
@@ -1554,9 +1610,9 @@ const written: Curriculum = {
         {
           id: "u49.l2",
           title: "Licks para roubar: Simple Man",
-          videos: [{ youtube: "8eNoms9wsGc", title: "Simple Man (Audio)", author: "Lynyrd Skynyrd", note: "A gravação, no canal oficial. O solo vem depois do segundo refrão. Na gravação a guitarra está afinada meio tom abaixo, então soa meio tom mais grave que aqui." }],
+          videos: [{ youtube: "8eNoms9wsGc", title: "Simple Man (Audio)", author: "Lynyrd Skynyrd", note: "A gravação, no canal oficial. O solo vem depois do segundo refrão. A guitarra está afinada meio tom abaixo, e o solo soa em Sol# menor, meio tom mais grave que aqui." }],
           source: { title: "Simple Man no Songsterr", url: "https://www.songsterr.com/a/wsa/lynyrd-skynyrd-simple-man-tab-s88906" },
-          intro: "Trechos curtos do solo de Simple Man, de Lynyrd Skynyrd, tirados do solo transcrito na lição anterior, \"Simple Man\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Simple Man, de Lynyrd Skynyrd, tirados do solo transcrito na lição anterior, \"Simple Man\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u49.lick",
           exercises: [
             {
@@ -1584,7 +1640,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 1: o bend da 4ª à 5ª",
                   intro: "Lick de 9 notas: sai da 4ª e chega na tônica. Técnica: bend de um tom, da 4ª à 5ª (e volta na mesma palhetada); nota que começa dobrada na 5ª e solta até a 4ª.",
-                  steps: ["O desenho, em funções: 4ª, 7ª menor, 4ª, 3ª menor, 4ª (2x), tônica, 7ª menor, tônica. Técnica: bend de um tom, da 4ª à 5ª (e volta na mesma palhetada); nota que começa dobrada na 5ª e solta até a 4ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota longa, de 1,25 tempos) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 4ª no shape 2, e toque o lick ali."],
+                  steps: ["O desenho, em funções: 4ª, 7ª menor, 4ª, 3ª menor, 4ª (2x), tônica, 7ª menor, tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota longa, de 1,25 tempos) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 4ª no shape 2, e toque o lick ali."],
                 },
                 {
                   ...phrase("lk49b", "Simple Man: lick 2", 2, [
@@ -1600,7 +1656,7 @@ const written: Curriculum = {
                     [2, 15, 4.5, 0.25, { bend: 2, back: 0.167 }],
                     [2, 13, 4.75, 0.25],
                   ]),
-                  label: "Lick 2: o bend da 4ª à 5ª",
+                  label: "Lick 2: o slide até a tônica",
                   intro: "Lick de 11 notas: sai da 7ª menor e chega na 3ª menor. Técnica: slide da 7ª menor até a tônica; bend de um tom, da 4ª à 5ª (e volta na mesma palhetada). Nota de fora da penta: a 2ª, que o solo original usa.",
                   steps: ["O desenho, em funções: 7ª menor, tônica, 3ª menor, 4ª (2x), 2ª, 7ª menor, 4ª, 7ª menor, 4ª, 3ª menor. Técnica: slide da 7ª menor até a tônica; bend de um tom, da 4ª à 5ª (e volta na mesma palhetada); slide da tônica até a 2ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 3ª menor."],
                 },
@@ -1617,7 +1673,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 3: o slide até a 7ª menor",
                   intro: "Lick de 8 notas: sai da 7ª menor e chega na tônica. Técnica: slide da 6ª menor até a 7ª menor; uma nota em ligado, sem palhetar.",
-                  steps: ["O desenho, em funções: 7ª menor, 3ª menor, tônica, 7ª menor, tônica (2x), 3ª menor, tônica. Técnica: slide da 6ª menor até a 7ª menor; uma nota em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre logo depois do tempo 1, sem cair em cima dele; pouse na tônica (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: 7ª menor, 3ª menor, tônica, 7ª menor, tônica (2x), 3ª menor, tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre logo depois do tempo 1, sem cair em cima dele; pouse na tônica (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -1634,9 +1690,9 @@ const written: Curriculum = {
         {
           id: "u53.l1",
           title: "Knockin' on Heaven's Door",
-          videos: [{ youtube: "k04tX2fvh0o", title: "Guns N' Roses - Knockin' On Heaven's Door (Visualizer)", author: "Guns N' Roses", note: "A versão do álbum, no canal oficial. Pela tab, o segundo solo começa por volta de 3:00. Na gravação a guitarra está afinada meio tom abaixo, então soa meio tom mais grave que aqui." }],
+          videos: [{ youtube: "k04tX2fvh0o", title: "Guns N' Roses - Knockin' On Heaven's Door (Visualizer)", author: "Guns N' Roses", note: "A versão do álbum, no canal oficial. Pela tab, o segundo solo começa por volta de 3:00. A guitarra está afinada meio tom abaixo, e o solo soa em Ré# menor, meio tom mais grave que aqui." }],
           source: { title: "Knockin' on Heaven's Door no Songsterr", url: "https://www.songsterr.com/a/wsa/guns-n-roses-knockin-on-heavens-door-tab-s481" },
-          intro: "O segundo solo do Slash: bends de meio tom e de um tom na penta de Mi menor, no shape 1 e nas regiões agudas, e o fim em notas longas. O solo está dividido em 4 partes, uma em cada aba, cada uma com a base dos seus acordes e a explicação dela; a última aba junta tudo.",
+          intro: "O segundo solo do Slash: bends de meio tom e de um tom na penta de Mi menor, no shape 1 e nas regiões agudas, e o fim em notas longas.",
           key: "u53.echo",
           exercises: [
             {
@@ -1644,7 +1700,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela Parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: a penta, de onde cada frase parte, que nota de fora aparece e onde ela chega.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela Parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, com os bends afinados?",
               base: KNOCKIN,
               reveal: "tab",
@@ -1676,8 +1732,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(KNOCKIN, 0, 3),
-                  intro: "A primeira parte abre na 1ª corda, com um bend de meio tom que chega na tônica do Sol, e repete o Ré e o Lá em bends de um tom no shape 1 da penta de Mi menor.",
-                  steps: ["Afinação: na gravação, a guitarra está meio tom abaixo e o solo soa em Ré# menor. Com afinação normal, as mesmas casas soam em Mi menor, como aqui.", "Penta de Mi menor (Mi, Sol, Lá, Si, Ré), a relativa de Sol maior, o tom da base. Quase tudo no shape 1, casas 12 a 15.", "Abertura, sobre o Sol: o Fá# da 1ª corda, casa 14, sobe meio tom até o Sol, a tônica do acorde, e fica com vibrato. O Fá# é a 7ª maior do Sol e não é da penta: serve de ponto de partida do bend. Sobre o Ré, ele é a 3ª do acorde e soa estável.", "Sobre o Dó, o Ré da 2ª corda, casa 15, sobe um tom até o Mi, a 3ª do acorde, e volta; o Sol da 1ª corda, casa 15, é a 5ª. O Dó da 2ª corda, casa 13, não é da penta, mas é a tônica do acorde de Dó e passa rápido.", "De volta ao Sol, o Lá da 3ª corda, casa 14, sobe um tom até o Si, a 3ª do acorde, e a frase pousa no Sol da 1ª corda, casa 15, a tônica. Sobre o Ré, o Lá é a 5ª do acorde, e o bend o leva ao Si, a 6ª, repetido.", "Acordes da base, em ordem: Sol e Ré; Dó; Sol e Ré."],
+                  intro: "A primeira parte abre na 1ª corda, com um bend de meio tom que chega na tônica do Sol, e repete o Ré e o Lá em bends de um tom, no shape 1.",
+                  steps: ["Penta de Mi menor (Mi, Sol, Lá, Si, Ré), a relativa de Sol maior, o tom da base. Quase tudo no shape 1, casas 12 a 15.", "Abertura, sobre o Sol: o Fá# da 1ª corda, casa 14, sobe meio tom até o Sol, a tônica do acorde, e fica com vibrato. O Fá# é a 7ª maior do Sol e não é da penta: serve de ponto de partida do bend. Sobre o Ré, ele é a 3ª do acorde e soa estável.", "Sobre o Dó, o Ré da 2ª corda, casa 15, sobe um tom até o Mi, a 3ª do acorde, e volta; o Sol da 1ª corda, casa 15, é a 5ª. O Dó da 2ª corda, casa 13, não é da penta, mas é a tônica do acorde de Dó e passa rápido.", "De volta ao Sol, o Lá da 3ª corda, casa 14, sobe um tom até o Si, a 3ª do acorde, e a frase pousa no Sol da 1ª corda, casa 15, a tônica. Sobre o Ré, o Lá é a 5ª do acorde, e o bend o leva ao Si, a 6ª, repetido.", "Acordes da base, em ordem: Sol e Ré; Dó; Sol e Ré."],
                 },
                 {
                   ...phrase("knockp2", "Knockin' on Heaven's Door: parte 2", 3, [
@@ -1742,8 +1798,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(KNOCKIN, 1, 4),
-                  intro: "A terceira parte volta ao bend de meio tom do Fá# ao Sol, agora na 2ª corda, casa 19, e desce ao shape 2 da penta de Mi menor, terminando no bend do Si ao Dó.",
-                  steps: ["Penta de Mi menor (Mi, Sol, Lá, Si, Ré). O começo está no shape 4 (casas 19 a 22) e a descida, no shape 2 (casas 15 a 17).", "O Fá# da 2ª corda, casa 19, sobe meio tom até o Sol: o mesmo bend da abertura, na mesma altura, agora na 2ª corda. O Fá# não é da penta: sobre o Sol é a 7ª maior e sobre o Ré, a 3ª; o bend o leva à tônica do Sol.", "O Fá# segura com vibrato e alterna, em ligado, com o Mi da casa 17, que é da penta e também fica com vibrato. O Sol da 1ª corda, casa 15, se alterna com ele.", "Sobre o Dó, o Mi da 2ª corda, casa 17, é a 3ª do acorde e o Sol, a 5ª. A descida passa pelo Ré e chega ao Dó da 3ª corda, casa 17, a tônica do acorde.", "Termina no Si da 3ª corda, casa 16, a 7ª maior do Dó, com um bend de meio tom até o Dó, a tônica, e volta.", "Acordes da base, em ordem: Dó; Sol e Ré; Dó; Sol e Ré."],
+                  intro: "A terceira parte volta ao bend de meio tom do Fá# ao Sol, agora na 2ª corda, casa 19, e desce ao shape 2, até o bend do Si ao Dó.",
+                  steps: ["Penta de Mi menor (Mi, Sol, Lá, Si, Ré). O começo está no shape 4 (casas 19 a 22) e a descida, no shape 2 (casas 15 a 17).", "O Fá# da casa 19 soa na mesma altura que o da abertura, na 1ª corda, casa 14. Ele não é da penta: sobre o Sol é a 7ª maior e sobre o Ré, a 3ª; o bend o leva à tônica do Sol.", "O Fá# segura com vibrato e alterna, em ligado, com o Mi da casa 17, que é da penta e também fica com vibrato. O Sol da 1ª corda, casa 15, se alterna com ele.", "Sobre o Dó, o Mi da 2ª corda, casa 17, é a 3ª do acorde e o Sol, a 5ª. A descida passa pelo Ré e chega ao Dó da 3ª corda, casa 17, a tônica do acorde.", "Termina no Si da 3ª corda, casa 16, a 7ª maior do Dó, com um bend de meio tom até o Dó, a tônica, e volta.", "Acordes da base, em ordem: Dó; Sol e Ré; Dó; Sol e Ré."],
                 },
                 {
                   ...phrase("knockp4", "Knockin' on Heaven's Door: parte 4", 5, [
@@ -1759,7 +1815,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 4",
                   base: songBars(KNOCKIN, 0, 5),
-                  intro: "A última parte é o oposto das anteriores: poucas notas longas, com vibrato, descendo pela 3ª corda, na penta de Mi menor, e pousando no Sol.",
+                  intro: "A última parte é o oposto das anteriores: poucas notas, longas e com vibrato, até pousar no Sol.",
                   steps: ["Penta de Mi menor (Mi, Sol, Lá, Si, Ré). Desce pela 3ª corda, das casas 12 a 4, e termina no Sol da 4ª corda, casa 5, e no Sol da 2ª corda, casa 8.", "O Sol da 3ª corda, casa 12, é a tônica do acorde de Sol e fica com vibrato. O Fá# da casa 11 não é da penta: é a 3ª do acorde de Ré e, com um bend de meio tom, sobe de volta ao Sol.", "A descida segue pela penta: o Mi (casa 9), que é a 3ª do Dó, e o Ré (casa 7), cada um com vibrato, chegam por slides curtos (do Fá# ao Mi e do Mi ao Ré). O Dó da casa 5 é a tônica do acorde de Dó, mas dura pouco, e o Si da casa 4 liga ao Sol da 4ª corda.", "O Sol da 4ª corda, casa 5, dura quatro tempos, com vibrato: nos dois primeiros, é a tônica do acorde de Sol; nos dois últimos, sobre o Ré, é a 4ª do acorde. O solo fecha no Sol da 2ª corda, casa 8, por cinco tempos: a 5ª do Dó e, no fim, de novo a tônica do Sol.", "Acordes da base, em ordem: Sol e Ré; Dó; Sol e Ré; Dó; Sol e Ré."],
                 },
                 {
@@ -1857,9 +1913,9 @@ const written: Curriculum = {
         {
           id: "u53.l2",
           title: "Licks para roubar: Knockin' on Heaven's Door",
-          videos: [{ youtube: "k04tX2fvh0o", title: "Guns N' Roses - Knockin' On Heaven's Door (Visualizer)", author: "Guns N' Roses", note: "A versão do álbum, no canal oficial. Pela tab, o segundo solo começa por volta de 3:00. Na gravação a guitarra está afinada meio tom abaixo, então soa meio tom mais grave que aqui." }],
+          videos: [{ youtube: "k04tX2fvh0o", title: "Guns N' Roses - Knockin' On Heaven's Door (Visualizer)", author: "Guns N' Roses", note: "A versão do álbum, no canal oficial. Pela tab, o segundo solo começa por volta de 3:00. A guitarra está afinada meio tom abaixo, e o solo soa em Ré# menor." }],
           source: { title: "Knockin' on Heaven's Door no Songsterr", url: "https://www.songsterr.com/a/wsa/guns-n-roses-knockin-on-heavens-door-tab-s481" },
-          intro: "Trechos curtos do solo de Knockin' on Heaven's Door, de Guns N' Roses, tirados do solo transcrito na lição anterior, \"Knockin' on Heaven's Door\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Knockin' on Heaven's Door, de Guns N' Roses, tirados do solo transcrito na lição anterior, \"Knockin' on Heaven's Door\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u53.lick",
           exercises: [
             {
@@ -1908,7 +1964,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 3: desce da 4ª à 3ª menor",
                   intro: "Lick de 5 notas: sai da 4ª e chega na 3ª menor. Técnica: nota que começa dobrada na 5ª e solta até a 4ª; uma nota em ligado, sem palhetar.",
-                  steps: ["O desenho, em funções: 4ª (2x), 3ª menor, 4ª, 3ª menor. Técnica: nota que começa dobrada na 5ª e solta até a 4ª; uma nota em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: 4ª (2x), 3ª menor, 4ª, 3ª menor.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -1927,7 +1983,7 @@ const written: Curriculum = {
           title: "Sympathy for the Devil",
           videos: [{ youtube: "GgnClrx8N2k", title: "The Rolling Stones - Sympathy For The Devil (Official Lyric Video)", author: "ABKCOVEVO", note: "A gravação, no canal oficial (vídeo de letra). Pela tab, a 116 bpm, o primeiro solo começa por volta de 2:48. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Sympathy for the Devil no Songsterr", url: "https://www.songsterr.com/a/wsa/the-rolling-stones-sympathy-for-the-devil-tab-s52286" },
-          intro: "O primeiro solo do Keith Richards: licks curtos no shape 1 e notas e bends longos no shape 2, sempre na penta de Mi menor. O solo está dividido em 3 partes, uma em cada aba, cada uma com a base dos seus acordes e a explicação dela; a última aba junta tudo.",
+          intro: "O primeiro solo do Keith Richards: licks curtos no shape 1 e notas e bends longos no shape 2, sempre na penta de Mi menor.",
           key: "u62.echo",
           exercises: [
             {
@@ -1935,7 +1991,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela Parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: a penta, de onde cada frase parte e em que nota ela chega.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela Parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, com os bends afinados?",
               base: SYMPATHY,
               reveal: "tab",
@@ -1967,8 +2023,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(SYMPATHY, 0, 6),
-                  intro: "O solo abre com o mesmo lick quatro vezes, no shape 1 da penta de Mi menor, com pequenas variações no fim de cada um. É lento e todo nas casas 12 a 15.",
-                  steps: ["Penta de Mi menor (Mi, Sol, Lá, Si, Ré), a relativa de Sol maior, o tom da música. Shape 1, casas 12 a 15, nas cordas 1 a 4. Não há nota de fora: tudo é da penta, e o que muda de um acorde para outro é a função de cada nota.", "O lick desce da tônica: Mi, Ré, Si e Sol, rápidos, e o Lá da 3ª corda, casa 14, que começa dobrado em um tom e é solto; depois o Sol, ligado, e o Mi grave da 4ª corda, casa 14. A frase pousa onde começou: no Mi, a tônica.", "Sobre o Mi menor, o Sol é a 3ª menor, o Si é a 5ª e o Lá é a 4ª, a tensão que o Sol resolve ao voltar. Na segunda vez, o lick cai sobre o Lá menor: o Lá solto do bend é a tônica do acorde, e o Mi final, a 5ª.", "Na terceira vez, mais curta, o Lá recebe um bend de um tom, até o Si, a 5ª do Mi menor; na quarta, o bend é do Ré ao Mi, na 2ª corda, casa 15, e chega na tônica.", "A tab do baixo só mostra as notas, sem dizer se o acorde é maior ou menor: a base toca Mi menor e Ré. Em um compasso de cada grupo, o baixo passa por Dó# e Ré# a caminho do Mi, e a base toca Lá menor e Ré no lugar. Ordem dos acordes: Mi menor; Ré; Lá menor e Ré; Mi menor; Mi menor; Ré."],
+                  intro: "O solo abre, lento, com o mesmo lick quatro vezes no shape 1, e cada repetição muda um pouco o fim.",
+                  steps: ["Penta de Mi menor (Mi, Sol, Lá, Si, Ré), a relativa de Sol maior, o tom da música. Shape 1, casas 12 a 15, nas cordas 1 a 4. Não há nota de fora: o que muda de um acorde para outro é a função de cada nota.", "O lick desce da tônica: Mi, Ré, Si e Sol, rápidos, e o Lá da 3ª corda, casa 14, que começa dobrado em um tom e é solto; depois o Sol, ligado, e o Mi grave da 4ª corda, casa 14. A frase pousa onde começou: no Mi, a tônica.", "Sobre o Mi menor, o Sol é a 3ª menor, o Si é a 5ª e o Lá é a 4ª, a tensão que o Sol resolve ao voltar. Na segunda vez, o lick cai sobre o Lá menor: o Lá solto do bend é a tônica do acorde, e o Mi final, a 5ª.", "Na terceira vez, mais curta, o Lá recebe um bend de um tom, até o Si, a 5ª do Mi menor; na quarta, o bend é do Ré ao Mi, na 2ª corda, casa 15, e chega na tônica.", "A tab do baixo só mostra as notas, sem dizer se o acorde é maior ou menor: a base toca Mi menor e Ré. Em um compasso de cada grupo, o baixo passa por Dó# e Ré# a caminho do Mi, e a base toca Lá menor e Ré no lugar. Ordem dos acordes: Mi menor; Ré; Lá menor e Ré; Mi menor; Mi menor; Ré."],
                 },
                 {
                   ...phrase("sympathyp2", "Sympathy for the Devil: parte 2", 6, [
@@ -2007,8 +2063,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(SYMPATHY, 6, 6),
-                  intro: "Na segunda parte o solo sobe para as cordas 1 e 2, nas casas 15 e 17, e passa a segurar as notas: bends, vibrato e poucas notas por acorde, ainda na penta de Mi menor.",
-                  steps: ["Penta de Mi menor, agora no shape 2 (casas 15 a 17), nas cordas 1 e 2: Lá e Sol na 1ª corda, Mi na 2ª. Não há nota de fora.", "Abre com um bend do Lá ao Si, na 1ª corda, casa 17, e segura o Lá com vibrato. Sobre o Lá menor, o Lá é a tônica; sobre o Ré, é a 5ª. O Sol da casa 15 é a 7ª menor do Lá menor e a 4ª do Ré.", "O Mi da 2ª corda, casa 17, longo e com vibrato, cai sobre o Mi menor: é a tônica, o lugar de repouso dessa frase.", "Entre as notas longas entram grupos de semicolcheias nas mesmas três notas, com ligados do Lá ao Sol.", "Mais bends de um tom, do Lá ao Si, sobre o Ré e o Lá menor: o Si é a 6ª do Ré e a 2ª do Lá menor, uma tensão leve que volta ao Lá. A parte fecha num Sol longo, na 1ª corda, casa 15, que sobre o Mi menor é a 3ª menor.", "Acordes da base, em ordem: Lá menor e Ré; Mi menor; Mi menor; Ré; Lá menor e Ré; Mi menor."],
+                  intro: "Na segunda parte o solo sobe para as cordas 1 e 2, nas casas 15 e 17, e passa a segurar as notas: bends, vibrato e poucas notas por acorde.",
+                  steps: ["Penta de Mi menor, agora no shape 2: Lá e Sol na 1ª corda, Mi na 2ª. Não há nota de fora.", "Abre com um bend do Lá ao Si, na 1ª corda, casa 17, e segura o Lá com vibrato. Sobre o Lá menor, o Lá é a tônica; sobre o Ré, é a 5ª. O Sol da casa 15 é a 7ª menor do Lá menor e a 4ª do Ré.", "O Mi da 2ª corda, casa 17, longo e com vibrato, cai sobre o Mi menor: é a tônica, o lugar de repouso dessa frase.", "Entre as notas longas aparecem grupos de semicolcheias nas mesmas três notas, com ligados do Lá ao Sol.", "Mais bends de um tom, do Lá ao Si, sobre o Ré e o Lá menor: o Si é a 6ª do Ré e a 2ª do Lá menor, uma tensão leve que volta ao Lá. A parte fecha num Sol longo, na 1ª corda, casa 15, que sobre o Mi menor é a 3ª menor.", "Acordes da base, em ordem: Lá menor e Ré; Mi menor; Mi menor; Ré; Lá menor e Ré; Mi menor."],
                 },
                 {
                   ...phrase("sympathyp3", "Sympathy for the Devil: parte 3", 6, [
@@ -2040,7 +2096,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(SYMPATHY, 11, 6),
-                  intro: "A última parte volta às notas e frases curtas da segunda, na penta de Mi menor, e fecha o solo no Mi da 2ª corda, casa 17, com vibrato, antes do refrão.",
+                  intro: "A última parte retoma as notas e as frases curtas da segunda e fecha o solo antes do refrão.",
                   steps: ["Penta de Mi menor, shape 2, cordas 1 e 2, casas 15 e 17. Não há nota de fora.", "Abre com o Mi da 2ª corda, casa 17, a tônica do Mi menor, com vibrato, e repete a nota em ritmos diferentes. Sobre o Ré, o Mi é a 2ª: uma nota que fica no ar até o acorde voltar ao Mi menor.", "Depois, a frase Sol, Lá e Lá com bend de um tom (até o Si), e as frases com o Lá e o Sol ligados, parecidas com as da parte anterior. Sobre o Lá menor, o Lá é a tônica e o Sol, a 7ª menor.", "Os dois últimos Mi, na 2ª corda, casa 17, são longos, com vibrato, sobre o Mi menor: o solo termina na tônica.", "Acordes da base, em ordem: Mi menor; Mi menor; Ré; Lá menor e Ré; depois, no mesmo compasso, Mi menor, Mi menor, Lá menor e Ré, um tempo cada; e Mi menor."],
                 },
                 {
@@ -2138,7 +2194,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Sympathy for the Devil",
           videos: [{ youtube: "GgnClrx8N2k", title: "The Rolling Stones - Sympathy For The Devil (Official Lyric Video)", author: "ABKCOVEVO", note: "A gravação, no canal oficial (vídeo de letra). Pela tab, a 116 bpm, o primeiro solo começa por volta de 2:48. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Sympathy for the Devil no Songsterr", url: "https://www.songsterr.com/a/wsa/the-rolling-stones-sympathy-for-the-devil-tab-s52286" },
-          intro: "Trechos curtos do solo de Sympathy for the Devil, de The Rolling Stones, tirados do solo transcrito na lição anterior, \"Sympathy for the Devil\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Sympathy for the Devil, de The Rolling Stones, tirados do solo transcrito na lição anterior, \"Sympathy for the Devil\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u62.lick",
           exercises: [
             {
@@ -2164,7 +2220,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 1: o bend da 4ª à 5ª",
                   intro: "Lick de 7 notas: sai da 4ª e chega na 3ª menor. Técnica: bend de um tom, da 4ª à 5ª.",
-                  steps: ["O desenho, em funções: 4ª (4x), 3ª menor, 4ª, 3ª menor. Técnica: bend de um tom, da 4ª à 5ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota longa, de 2 tempos) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 4ª no shape 2, e toque o lick ali."],
+                  steps: ["O desenho, em funções: 4ª (4x), 3ª menor, 4ª, 3ª menor.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota longa, de 2 tempos) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 4ª no shape 2, e toque o lick ali."],
                 },
                 {
                   ...phrase("lk62b", "Sympathy for the Devil: lick 2", 2, [
@@ -2176,9 +2232,9 @@ const written: Curriculum = {
                     [1, 10, 2.25, 0.5],
                     [1, 8, 2.75, 2.0],
                   ]),
-                  label: "Lick 2: o bend da 4ª à 5ª",
+                  label: "Lick 2: começa e termina na 3ª menor",
                   intro: "Lick de 7 notas: sai da 3ª menor e chega na 3ª menor. Técnica: bend de um tom, da 4ª à 5ª.",
-                  steps: ["O desenho, em funções: 3ª menor, 4ª (3x), 3ª menor, 4ª, 3ª menor. Técnica: bend de um tom, da 4ª à 5ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota longa, de 2 tempos) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 3ª menor."],
+                  steps: ["O desenho, em funções: 3ª menor, 4ª (3x), 3ª menor, 4ª, 3ª menor.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota longa, de 2 tempos) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 3ª menor."],
                 },
                 {
                   ...phrase("lk62c", "Sympathy for the Devil: lick 3", 2, [
@@ -2192,7 +2248,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 3: desce da tônica à tônica",
                   intro: "Lick de 7 notas: sai da tônica e chega na tônica. Técnica: nota que começa dobrada na 5ª e solta até a 4ª; uma nota em ligado, sem palhetar.",
-                  steps: ["O desenho, em funções: tônica, 7ª menor, 5ª, 3ª menor, 4ª, 3ª menor, tônica. Técnica: nota que começa dobrada na 5ª e solta até a 4ª; uma nota em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na tônica (nota longa, de 1,25 tempos) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: tônica, 7ª menor, 5ª, 3ª menor, 4ª, 3ª menor, tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na tônica (nota longa, de 1,25 tempos) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -2209,9 +2265,9 @@ const written: Curriculum = {
         {
           id: "u44.l1",
           title: "Smells Like Teen Spirit",
-          videos: [{ youtube: "hTWKbfoikeg", title: "Smells Like Teen Spirit (Official Music Video)", author: "Nirvana", note: "O clipe oficial. O solo vem depois do segundo refrão: é a melodia da voz das estrofes, na guitarra. Onde a tab soar diferente, vale a gravação." }],
+          videos: [{ youtube: "hTWKbfoikeg", title: "Smells Like Teen Spirit (Official Music Video)", author: "Nirvana", note: "O clipe oficial. O solo vem depois do segundo refrão. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Smells Like Teen Spirit no Songsterr", url: "https://www.songsterr.com/a/wsa/nirvana-smells-like-teen-spirit-tab-s269" },
-          intro: "O solo do Kurt Cobain, que toca a melodia da voz na guitarra, no shape 1 da penta de Fá menor com cordas soltas. O solo está dividido em 3 partes, uma em cada aba, cada uma com a base dos seus acordes e a explicação dela; a última aba junta tudo.",
+          intro: "O solo do Kurt Cobain é a melodia que ele canta nas estrofes, tocada na guitarra, no shape 1 da penta de Fá menor com cordas soltas. É uma ideia que serve em qualquer música: quando não souber o que tocar, toque a melodia.",
           key: "u44.echo",
           exercises: [
             {
@@ -2219,7 +2275,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela Parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: a penta, a nota de fora que aparece e o que ela faz sobre cada acorde.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela Parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, sem parar?",
               base: TEEN_SPIRIT,
               reveal: "tab",
@@ -2246,8 +2302,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(TEEN_SPIRIT, 0, 5),
-                  intro: "O solo de Teen Spirit não inventa nada: é a melodia que o Kurt Cobain canta nas estrofes, tocada na guitarra, dentro da penta de Fá menor. Essa é uma ideia de solo que serve em qualquer música: quando não souber o que tocar, toque a melodia.",
-                  steps: ["Penta de Fá menor (Fá, Láb, Sib, Dó, Mib), a relativa de Láb maior, o tom da base. Shape 1, perto da pestana (casas 1 a 6, com a 3ª corda solta).", "A frase começa no Dó, sobe ao Mib (a 7ª menor) e ao Fá (a tônica), na 2ª corda, e cai no Láb (a 3ª menor), na 3ª corda, casa 1: é a nota de chegada da primeira frase.", "Depois o Mib da 2ª corda, casa 4, sobe um tom até o Fá, a tônica, e o bend chega a ela. Sobre o Láb, o Mib é a 5ª; o Fá, que ele alcança, é a 3ª do Réb que entra em seguida.", "Notas fora da penta: o Réb (2ª corda, casa 2), de passagem rápida até o Dó. É a 6ª menor de Fá menor; na primeira vez, o acorde embaixo é Réb e o Réb é a tônica dele. E o Sol da 3ª corda solta, a 2ª de Fá menor, no fim.", "Um bend de meio tom na 3ª corda, casa 3, leva o Sib ao Si natural. O Si é a 5ª diminuta de Fá, a nota do blues: o choro da frase vem dela. A parte termina no Láb e no Sol solto.", "Acordes da base, em ordem: Fá menor e Sib menor; Láb e Réb; e de novo Fá menor e Sib menor; Láb e Réb."],
+                  intro: "Dois bends marcam esta parte: o do Mib ao Fá e o do Sib ao Si, a nota do blues.",
+                  steps: ["Penta de Fá menor (Fá, Láb, Sib, Dó, Mib), a relativa de Láb maior, o tom da base. Shape 1, perto da pestana (casas 1 a 6, com a 3ª corda solta).", "A frase começa no Dó, sobe ao Mib (a 7ª menor) e ao Fá (a tônica), na 2ª corda, e cai no Láb (a 3ª menor), na 3ª corda, casa 1: é a nota de chegada da primeira frase.", "Depois o Mib da 2ª corda, casa 4, sobe com um bend de um tom até o Fá, a tônica. Sobre o Láb, o Mib é a 5ª; o Fá, que ele alcança, é a 3ª do Réb que entra em seguida.", "Notas fora da penta: o Réb (2ª corda, casa 2), de passagem rápida até o Dó. É a 6ª menor de Fá menor; na primeira vez, o acorde é Réb, e o Réb é a tônica dele. E o Sol da 3ª corda solta, a 2ª de Fá menor, no fim.", "Um bend de meio tom na 3ª corda, casa 3, leva o Sib ao Si natural. O Si é a 5ª diminuta de Fá, a nota do blues: o choro da frase vem dela. A parte termina no Láb e no Sol solto.", "Acordes da base, em ordem: Fá menor e Sib menor; Láb e Réb; e de novo Fá menor e Sib menor; Láb e Réb."],
                 },
                 {
                   ...phrase("teenp2", "Smells Like Teen Spirit: parte 2", 5, [
@@ -2270,8 +2326,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(TEEN_SPIRIT, 0, 5),
-                  intro: "A melodia repete, quase igual, na mesma penta de Fá menor. Só muda o primeiro bend: em vez de subir um tom, sobe meio tom, do Mib ao Mi natural.",
-                  steps: ["Penta de Fá menor, a mesma da Parte 1: shape 1, casas 0 a 6.", "Nota fora da penta: o bend do Mib sobe só meio tom, até o Mi natural, a 7ª maior de Fá. Ali o acorde é Láb, e o Mi não é dele: é tensão de passagem, meio tom abaixo do Fá, que resolve no Réb e no Dó logo depois.", "O resto é a frase da Parte 1: o Réb de passagem, o bend do Sib ao Si e o Sol solto no fim."],
+                  intro: "A melodia se repete quase igual. Só muda o primeiro bend: em vez de subir um tom, sobe meio tom, do Mib ao Mi natural.",
+                  steps: ["Penta de Fá menor, a mesma da Parte 1: shape 1, casas 0 a 6.", "Nota fora da penta: o Mi natural, a 7ª maior de Fá. Ali o acorde é Láb, e o Mi não é dele: é tensão de passagem, meio tom mais grave que o Fá, que resolve no Réb e no Dó logo depois.", "O resto é a frase da Parte 1: o Réb de passagem, o bend do Sib ao Si e o Sol solto no fim."],
                 },
                 {
                   ...phrase("teenp3", "Smells Like Teen Spirit: parte 3", 8, [
@@ -2317,8 +2373,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(TEEN_SPIRIT, 0, 8),
-                  intro: "A segunda metade do solo é quase só duas notas, Láb e Sol, alternadas na 3ª corda. O mesmo par de notas soa diferente a cada acorde que passa embaixo.",
-                  steps: ["Penta de Fá menor, quase toda na 3ª corda: o Láb (casa 1) e o Sol solto, alternados, e um Fá na 4ª corda, casa 3, no começo de um compasso a cada dois.", "A nota de fora é o Sol, a 2ª de Fá menor. A nota é a mesma, e o acorde muda a cor: sobre o Fá é a 9ª; sobre o Sib menor, a 6ª; sobre o Láb, a 7ª maior; sobre o Réb, a 4ª aumentada, a mais tensa.", "O Láb, da penta, é a nota que segura a frase e cabe em todos os acordes: é a 3ª menor do Fá menor, a 7ª menor do Sib menor, a tônica do Láb e a 5ª do Réb.", "O Fá da 4ª corda é a tônica do Fá menor e dá o apoio do começo de cada repetição.", "Toque em colcheias, com o ritmo exato: é a melodia, e o ritmo é o que se reconhece."],
+                  intro: "A segunda metade do solo é quase só duas notas, Láb e Sol, alternadas na 3ª corda. O mesmo par de notas soa diferente a cada acorde da base.",
+                  steps: ["Penta de Fá menor. Além do Láb (3ª corda, casa 1) e do Sol solto, entra um Fá na 4ª corda, casa 3, no começo de um compasso a cada dois.", "A nota de fora é o Sol, a 2ª de Fá menor. Sobre o Fá é a 9ª; sobre o Sib menor, a 6ª; sobre o Láb, a 7ª maior; sobre o Réb, a 4ª aumentada, a mais tensa.", "O Láb, da penta, é a nota que segura a frase e cabe em todos os acordes: é a 3ª menor do Fá menor, a 7ª menor do Sib menor, a tônica do Láb e a 5ª do Réb.", "O Fá da 4ª corda é a tônica do Fá menor e dá o apoio do começo de cada repetição.", "Toque em colcheias, com o ritmo exato: é a melodia, e o ritmo é o que se reconhece."],
                 },
                 {
                   ...phrase("teenfull", "Smells Like Teen Spirit: o solo completo", 16, [
@@ -2408,7 +2464,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Smells Like Teen Spirit",
           videos: [{ youtube: "hTWKbfoikeg", title: "Smells Like Teen Spirit (Official Music Video)", author: "Nirvana", note: "O clipe oficial. O solo vem depois do segundo refrão: é a melodia da voz das estrofes, na guitarra. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Smells Like Teen Spirit no Songsterr", url: "https://www.songsterr.com/a/wsa/nirvana-smells-like-teen-spirit-tab-s269" },
-          intro: "Trechos curtos do solo de Smells Like Teen Spirit, de Nirvana, tirados do solo transcrito na lição anterior, \"Smells Like Teen Spirit\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Smells Like Teen Spirit, de Nirvana, tirados do solo transcrito na lição anterior, \"Smells Like Teen Spirit\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u44.lick",
           exercises: [
             {
@@ -2444,7 +2500,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 2: o bend da 4ª à 5ª bemol",
                   intro: "Lick de 5 notas: sai da 4ª e chega na 3ª menor. Técnica: bend de meio tom, da 4ª à 5ª bemol (e volta na mesma palhetada).",
-                  steps: ["O desenho, em funções: 4ª, 3ª menor, 4ª (2x), 3ª menor. Técnica: bend de meio tom, da 4ª à 5ª bemol (e volta na mesma palhetada).", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 3ª menor."],
+                  steps: ["O desenho, em funções: 4ª, 3ª menor, 4ª (2x), 3ª menor.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 3ª menor."],
                 },
               ],
             },
@@ -2463,7 +2519,7 @@ const written: Curriculum = {
           concepts: ["O que é uma tríade na música?", "O que é arpejo?"],
           title: "A tríade dentro da penta",
           intro:
-            "Uma tríade são três notas de um acorde: tônica, 3ª e 5ª. Sobre a base Lá menor, Dó e Mi menor, duas tríades cabem inteiras na pentatônica de Lá menor: Lá menor (Lá, Dó, Mi) e Dó maior (Dó, Mi, Sol). Mi menor (Mi, Sol, Si) cabe pela metade: o Mi e o Sol são da penta, mas o Si, a 5ª do acorde, é nota de fora. No shape 1 o Si fica na 6ª e na 1ª cordas, casa 7, e o mapa o marca como fora da penta.",
+            "Uma tríade são três notas de um acorde: tônica, 3ª e 5ª. Sobre a base Lá menor, Dó e Mi menor, duas tríades cabem inteiras na pentatônica de Lá menor: Lá menor (Lá, Dó, Mi) e Dó maior (Dó, Mi, Sol). Mi menor (Mi, Sol, Si) cabe pela metade: o Mi e o Sol são da penta, mas o Si, a 5ª do acorde, é nota de fora.",
           key: "u69.l1.map",
           exercises: [
             {
@@ -2472,9 +2528,8 @@ const written: Curriculum = {
               title: "As três tríades no shape 1",
               goal: "Escolha cada acorde e veja quais notas da tríade o shape 1 tem.",
               steps: [
-                "Em Lá menor e em Dó, toque as notas da tríade do grave para o agudo: as três são da penta.",
-                "Em Mi menor, ache o Mi e o Sol, que são da penta, e depois o Si, marcado como fora dela. Toque-o uma vez para ouvir a diferença.",
-                "Repare que o arpejo não traz notas novas, só escolhe as que dizem o acorde: com exceção do Si, é um recorte da penta.",
+                "Em Lá menor e em Dó, toque as três notas da tríade, do grave para o agudo.",
+                "Em Mi menor, ache o Mi e o Sol e depois o Si, tracejado na 6ª e na 1ª cordas, casa 7. Toque-o uma vez para ouvir a diferença.",
               ],
               check: "Achou as notas da tríade de cada acorde e soube dizer qual delas não é da penta?",
               base: ARPEJO,
@@ -2493,12 +2548,10 @@ const written: Curriculum = {
             {
               id: "u69.l2.echo",
               kind: "echo",
-              title: "Um arpejo por compasso",
+              title: "O arpejo de cada acorde",
               goal: "Ouça e repita o arpejo de cada acorde da base, trocando junto com ela.",
               steps: [
                 "Cante as três notas do acorde antes de tocar: o ouvido precisa conhecer a tríade antes dos dedos.",
-                "Na primeira aba, um arpejo curto por compasso. O Mi menor usa só o Mi e o Sol, sem o Si. No último compasso o arpejo desce e pousa no Lá.",
-                "Na segunda aba, o arpejo ganha uma nota de passagem da penta e termina numa nota longa da tríade do acorde. Procure ouvir o pouso: ele é a nota que a harmonia pede.",
               ],
               check: "Tocou a tríade certa em cada compasso e trocou junto com a base?",
               base: ARPEJO,
@@ -2520,8 +2573,8 @@ const written: Curriculum = {
                     [4, 7, 13, 1.5],
                   ]),
                   label: "Um arpejo por compasso",
-                  intro: "Uma tríade por compasso: Lá menor (Lá, Dó, Mi), Dó (Dó, Mi, Sol), Mi menor (Mi, Sol e o Mi de volta, sem o Si) e Lá menor descendo até o Lá.",
-                  steps: ["Os dois primeiros compassos sobem da tônica; o terceiro sobe do Mi grave e passa pelo Sol; o último desce e termina no Lá, a tônica, nota longa.", "Cada compasso começa na metade do tempo 1, sem cair em cima dele.", "Repare no desenho: as notas estão todas no shape 1, nas cordas 2 a 4 e, no Mi menor, também na 5ª."],
+                  intro: "As notas de cada compasso: Lá menor (Lá, Dó, Mi), Dó (Dó, Mi, Sol), Mi menor (Mi, Sol e Mi) e, no fim, Lá menor.",
+                  steps: ["Os dois primeiros compassos sobem da tônica; o terceiro sobe do Mi grave e passa pelo Sol; o último desce e termina no Lá, a tônica, nota longa.", "Os três primeiros compassos começam na metade do tempo 1, sem cair em cima dele; o último entra no tempo 1.", "Repare no desenho: as notas estão todas no shape 1, nas cordas 2 a 4 e, no Mi menor, também na 5ª."],
                 },
                 {
                   ...phrase("arpejo-passagem", "Arpejo: com passagem e pouso", 4, [
@@ -2543,7 +2596,7 @@ const written: Curriculum = {
                   ]),
                   label: "Arpejo com passagem e pouso",
                   intro: "O arpejo desce em Lá menor e em Dó, anda pela penta no Mi menor e volta a Lá menor, sempre terminando numa nota longa da tríade.",
-                  steps: ["Lá menor: Mi, Dó e Lá descem, o Sol passa de volta ao Lá e o Lá fica. Dó: Sol, Mi e Dó, com o Dó longo.", "Mi menor: o Mi, o Sol e a nota vizinha da penta, o Lá, levam ao Sol, a 3ª do acorde, que fica. O Si não é tocado.", "Último compasso: Dó, Mi e Lá, com o Lá longo. Cada pouso é uma nota da tríade do acorde que está soando."],
+                  steps: ["Lá menor: Mi, Dó e Lá descem, o Sol passa de volta ao Lá e o Lá fica. Dó: Sol, Mi e Dó, com o Dó longo.", "Mi menor: o Mi, o Sol e a nota vizinha da penta, o Lá, levam ao Sol, a 3ª do acorde, que fica.", "Último compasso: Dó, Mi e Lá, com o Lá longo. Ouça cada pouso: é a nota que a harmonia pede."],
                 },
               ],
             },
@@ -2553,7 +2606,7 @@ const written: Curriculum = {
           id: "u69.l3",
           title: "O arpejo na sua tomada",
           intro:
-            "Agora a escolha é sua: sobre a mesma base, toque a tríade de cada acorde em cada compasso e pouse numa nota dela antes da troca. O arpejo não precisa subir sempre do grave: comece pela 3ª, repita uma nota, ou acrescente uma nota da penta entre duas da tríade.",
+            "Agora a escolha é sua, sobre a mesma base: em vez de repetir um arpejo pronto, você monta o seu a cada compasso.",
           key: "u69.l3.take",
           exercises: [
             {
@@ -2565,7 +2618,6 @@ const written: Curriculum = {
                 "Comece devagar, com três notas por compasso, sempre da tônica para cima.",
                 "Depois varie a ordem: desça, comece pela 3ª, repita uma nota ou acrescente uma nota de passagem da penta.",
                 "Sobre o Mi menor, use o Mi e o Sol; deixe o Si de fora, ou toque-o rapidamente, só de passagem.",
-                "Termine o último compasso numa nota longa da tríade de Lá menor.",
               ],
               check: "Cada compasso teve o arpejo do acorde dele, e você pousou numa nota dessa tríade antes da troca?",
               base: ARPEJO,
@@ -2584,18 +2636,18 @@ const written: Curriculum = {
           id: "u75.l1",
           title: "Começar de qualquer corda",
           intro:
-            "Quando você improvisa, a frase nem sempre começa na 6ª corda. Saber o shape inteiro de baixo para cima não basta: é preciso sair de qualquer corda, subir e descer a partir dela, e pousar na tônica.",
+            "Quando você improvisa, a frase nem sempre começa na 6ª corda. Saber o shape inteiro do grave ao agudo não basta: é preciso conseguir entrar nele por qualquer corda.",
           key: "u75.l1.map",
           exercises: [
             {
               id: "u75.l1.map",
               kind: "map",
               title: "Uma corda de cada vez",
-              goal: "Escolha uma corda, comece o shape por ela, suba e desça uma volta e termine na tônica. Depois mude de corda.",
+              goal: "Comece o shape por uma corda, suba e desça a partir dela e termine na tônica.",
               steps: [
-                "Faça uma corda por volta da base: 6ª, 5ª, 4ª, 3ª, 2ª e 1ª.",
+                "Mude a corda de partida a cada subida e descida, nesta ordem: 6ª, 5ª, 4ª, 3ª, 2ª e 1ª.",
                 "Terminar na tônica dá o som de ponto final e ajuda a lembrar onde você está no braço.",
-                "Sem pressa: o objetivo é achar o caminho de qualquer lugar, não velocidade.",
+                "Sem pressa: o objetivo é achar o caminho de qualquer lugar, não ganhar velocidade.",
               ],
               check: "",
               base: VAMP,
@@ -2617,20 +2669,20 @@ const written: Curriculum = {
           id: "a5.l1",
           title: "Solo com vocabulário",
           intro:
-            "Hora de juntar a seção: um lick que você aprendeu, uma pergunta, a resposta que começa igual e pousa, e um bend antes da nota final. Os dois exemplos usam licks diferentes da seção. Ouça, depois toque o seu, com os seus licks.",
+            "Hora de juntar a seção num solo só. Os dois exemplos usam licks diferentes da seção; ouça quantas vezes quiser, mas toque o seu, com os licks que você escolher.",
           key: "a5.take",
           exercises: [
             {
               id: "a5.take",
               kind: "take",
               title: "Solo com o que você sabe",
-              goal: "Oito compassos no shape 1, em quatro partes de dois compassos. Siga a faixa.",
+              goal: "Oito compassos no shape 1, em quatro partes de dois compassos. A tela mostra em qual parte você está.",
               steps: [],
               check: "Seu solo teve um lick inteiro, uma pergunta que ficou no ar e uma resposta que pousou?",
               base: BASE,
               bars: 8,
               arc: [
-                { name: "Um lick", how: "Um lick da seção, inteiro, e silêncio." },
+                { name: "Um lick", how: "Qualquer um da seção, inteiro, e depois silêncio." },
                 { name: "Pergunta", how: "Frase curta que termina fora do acorde." },
                 { name: "Resposta", how: "Começa igual à pergunta e pousa no acorde." },
                 { name: "Bend e fim", how: "Um bend e uma nota longa até o fim." },
@@ -2719,15 +2771,15 @@ const written: Curriculum = {
           concepts: ["O que é palhetada alternada?"],
           title: "Quatro por tempo",
           intro:
-            "Tocar rápido, aqui, é tocar quatro notas por tempo (semicolcheias) com clareza. O que faz uma frase rápida soar bem não é a velocidade: é ela ser curta e terminar numa nota longa. Comece a 60 bpm e só aumente o andamento quando a frase sair limpa três vezes seguidas.",
+            "Tocar rápido, aqui, é tocar quatro notas por tempo (semicolcheias) com clareza. Uma frase rápida soa bem quando é curta e termina numa nota longa; a velocidade importa menos.",
           key: "u15.l1.pr",
           exercises: [
             {
               id: "u15.l1.echo",
               kind: "echo",
               title: "Quatro notas e uma longa",
-              goal: "Repita. Cada frase tem um tempo de semicolcheias e uma nota longa.",
-              steps: ["Palhetada alternada: uma para baixo, uma para cima.", "Quando sair limpo três vezes, aumente o andamento em 4 bpm."],
+              goal: "Repita as duas frases: na primeira, as semicolcheias descem até a nota longa; na segunda, sobem.",
+              steps: ["Palhetada alternada: uma para baixo, uma para cima.", "Comece a 60 bpm. Quando a frase sair limpa três vezes seguidas, suba 4 bpm."],
               check: "As quatro notas rápidas saíram com o mesmo tamanho e o mesmo volume?",
               base: AM_F_SLOW,
               reveal: "tab",
@@ -2775,7 +2827,7 @@ const written: Curriculum = {
           concepts: ["O que é sequência de escala?"],
           title: "Sequências",
           intro:
-            "Tocar a escala em linha reta soa como exercício. A sequência resolve isso: a escala é percorrida em grupos de três ou de quatro notas, e cada grupo começa uma nota depois do anterior. É a base de boa parte das frases rápidas de pentatônica.",
+            "Tocar a escala em linha reta soa como exercício. Na sequência, você percorre a escala em grupos de três ou de quatro notas, e cada grupo começa uma nota depois do anterior. Boa parte das frases rápidas de pentatônica sai daí.",
           key: "u15.l2.pr",
           exercises: [
             {
@@ -2825,10 +2877,10 @@ const written: Curriculum = {
               kind: "play-rest",
               title: "Sequência e silêncio",
               goal: "Um compasso de sequência, terminando no tempo 1 do compasso seguinte. Depois, silêncio.",
-              steps: ["Comece de notas diferentes do shape 1.", "Alterne: uma descendo, uma subindo."],
+              steps: ["Comece cada sequência numa nota diferente do shape 1.", "Alterne: uma descendo, uma subindo."],
               check: "As sequências terminaram no tempo 1, numa nota do acorde?",
               base: BASE_SLOW,
-              pattern: ["play", "rest"],
+              pattern: ["play", "play", "rest", "rest"],
               rule: "Uma sequência e uma nota longa",
             },
           ],
@@ -2838,18 +2890,18 @@ const written: Curriculum = {
           concepts: ["O que são hammer-on e pull-off?"],
           title: "Ligado: hammer-on e pull-off",
           intro:
-            "Nem toda nota precisa de palhetada. No hammer-on, o dedo bate na corda e a nota de cima soa sem palhetar; no pull-off, o dedo sai puxando a corda e a nota de baixo soa. É assim que se toca rápido sem cansar a mão, e as músicas opcionais do curso usam ligado o tempo todo.",
+            "Nem toda nota precisa de palhetada. No hammer-on, o dedo bate na corda e faz soar a nota mais aguda; no pull-off, sai puxando a corda e faz soar a mais grave. É assim que se toca rápido sem cansar a mão, e as músicas opcionais do curso usam ligado o tempo todo.",
           key: "u15.l3.echo",
           exercises: [
             {
               id: "u15.l3.echo",
               kind: "echo",
               title: "Duas notas, uma palhetada",
-              goal: "Repita de ouvido. Em cada par ligado, só a primeira nota é palhetada.",
+              goal: "Repita de ouvido as três frases: hammer-on subindo, pull-off descendo e um trinado curto.",
               steps: [
                 "Na tab, h é hammer-on e p é pull-off: a nota com h ou p não é palhetada.",
-                "Hammer-on: palhete a nota de baixo e bata outro dedo na casa de cima, firme, perto do traste.",
-                "Pull-off: com os dois dedos apertando, palhete a nota de cima e tire o dedo puxando a corda de leve para baixo, como quem belisca.",
+                "Hammer-on: palhete a nota mais grave e bata outro dedo na casa mais aguda, firme, perto do traste.",
+                "Pull-off: com os dois dedos apertando, palhete a nota mais aguda e tire o dedo puxando a corda de leve para baixo, como quem belisca.",
                 "A nota ligada tem que soar quase tão alto quanto a palhetada. Se sumir, bata ou puxe com mais força, não mais rápido.",
               ],
               check: "As notas ligadas soaram claras, quase com o volume das palhetadas?",
@@ -2897,7 +2949,7 @@ const written: Curriculum = {
               kind: "play-rest",
               title: "Ligado nas suas frases",
               goal: "Nos compassos de tocar, frases curtas em que pelo menos um par de notas sai ligado.",
-              steps: ["Hammer-on para subir, pull-off para descer, na mesma corda.", "Termine numa nota longa, palhetada, do acorde que está soando."],
+              steps: ["Hammer-on para subir, pull-off para descer, na mesma corda.", "Termine numa nota do acorde que está soando, longa e palhetada."],
               check: "Cada frase teve um ligado claro e terminou numa nota longa?",
               base: BASE_SLOW,
               pattern: ["play", "play", "rest", "rest"],
@@ -2909,7 +2961,7 @@ const written: Curriculum = {
           id: "u15.l4",
           title: "Tercina: três por tempo",
           intro:
-            "A semicolcheia divide o tempo em quatro; a tercina divide em três. O tempo continua do mesmo tamanho, só que com uma nota a mais por vez, e a frase ganha um balanço de galope. Conte \"um-e-a, dois-e-a\" e deixe cada grupo de três cair num tempo. É o ritmo das descidas do Stairway to Heaven e do Comfortably Numb, nas músicas opcionais do curso.",
+            "A semicolcheia divide o tempo em quatro; a tercina divide em três. O tempo continua do mesmo tamanho, com uma nota a menos dentro dele, e a frase ganha um balanço de galope. É o ritmo das descidas do Stairway to Heaven e do Comfortably Numb, nas músicas opcionais do curso.",
           key: "u15.l4.echo",
           exercises: [
             {
@@ -2918,9 +2970,9 @@ const written: Curriculum = {
               title: "Três notas em cada tempo",
               goal: "Repita de ouvido. Cada tempo leva três notas do mesmo tamanho, e a frase termina numa nota longa.",
               steps: [
-                "Palhete alternado, para baixo e para cima, sem parar entre os grupos. Como são três notas, o primeiro tempo começa para baixo e o seguinte para cima: é normal.",
+                "Use palhetada alternada, para baixo e para cima, sem parar entre os grupos. Como são três notas, o primeiro tempo começa para baixo e o seguinte para cima: é normal.",
                 "Conte \"um-e-a, dois-e-a, três-e-a, quatro-e-a\" junto com a base, a 60 bpm.",
-                "Se as três notas saírem desiguais (duas rápidas e uma lenta), volte mais devagar. A tercina é uniforme.",
+                "Se as três notas saírem desiguais (duas rápidas e uma lenta), volte mais devagar.",
               ],
               check: "As três notas de cada tempo saíram do mesmo tamanho, sem atropelar?",
               base: AM_F_SLOW,
@@ -2976,7 +3028,7 @@ const written: Curriculum = {
               kind: "play-rest",
               title: "Tercina nas suas frases",
               goal: "Nos compassos de tocar, uma frase com pelo menos dois tempos em tercina, terminando numa nota longa.",
-              steps: ["Três notas por tempo, dentro do shape 1.", "Termine numa nota longa, do acorde que está soando."],
+              steps: ["Três notas por tempo, dentro do shape 1.", "A nota longa é do acorde que está soando."],
               check: "Os tempos de tercina saíram uniformes e a frase terminou numa nota longa?",
               base: BASE_SLOW,
               pattern: ["play", "play", "rest", "rest"],
@@ -2988,18 +3040,18 @@ const written: Curriculum = {
           id: "u15.l5",
           title: "Nota de fora que passa",
           intro:
-            "A penta é o chão, não a cerca. Uma nota que não é da penta soa bem de dois jeitos: de passagem, curta, entre duas notas da escala (cromatismo e bordadura), ou quando ela é nota do acorde que está soando. O que não funciona é pousar nela sem motivo. Regra do curso: nota de fora é curta e vai para uma nota da penta; só vira nota longa se for nota do acorde.",
+            "Uma nota que não é da penta soa bem de dois jeitos: curta, de passagem entre duas notas da escala (cromatismo e bordadura), ou longa, quando é nota do acorde que está soando. Fora desses dois casos, pousar nela não funciona.",
           key: "u15.l5.echo",
           exercises: [
             {
               id: "u15.l5.echo",
               kind: "echo",
               title: "Passar por uma nota de fora",
-              goal: "Repita de ouvido. Ache a nota de fora, que passa rápido, e a nota da penta que ela resolve.",
+              goal: "Repita de ouvido e ache a nota de fora de cada frase.",
               steps: [
                 "Bordadura: encosta meio tom acima ou abaixo de uma nota da penta e volta para ela.",
                 "Cromatismo: sobe ou desce de casa em casa até chegar numa nota da penta.",
-                "Sobre o acorde de Fá, o Fá (da 2ª corda, casa 6) é a tônica dele: pode ser longa. Sobre o Lá menor, não.",
+                "Sobre o acorde de Fá, o Fá (da 2ª corda, casa 6) é a tônica dele: pode ser longo. Sobre o Lá menor, não.",
               ],
               check: "A nota de fora passou rápido e a frase pousou numa nota da penta ou do acorde?",
               base: AM_F_SLOW,
@@ -3035,8 +3087,8 @@ const written: Curriculum = {
               id: "u15.l5.pr",
               kind: "play-rest",
               title: "Uma nota de fora por frase",
-              goal: "Nos compassos de tocar, uma frase com uma nota de fora curta, resolvendo numa nota da penta.",
-              steps: ["Escolha uma nota da penta e passe por meio tom acima ou abaixo dela.", "A nota de fora não pode ser a última nem a mais longa."],
+              goal: "Nos compassos de tocar, uma frase com uma nota de fora que resolve numa nota da penta.",
+              steps: ["Escolha uma nota da penta e chegue a ela pela nota meio tom mais grave ou mais aguda.", "A nota de fora não pode ser a última nem a mais longa."],
               check: "A nota de fora foi curta e a frase pousou numa nota da penta?",
               base: BASE_SLOW,
               pattern: ["play", "play", "rest", "rest"],
@@ -3048,15 +3100,15 @@ const written: Curriculum = {
           id: "u15.l6",
           title: "A nota de blues",
           intro:
-            "A pentatônica menor com uma nota a mais vira a escala de blues: a nota de blues (5ª diminuta) fica entre a 4ª e a 5ª, a meio tom de cada. Em Lá menor, é o Mi bemol, na 5ª corda, casa 6, entre o Ré e o Mi. Como a nota de fora de antes, ela passa; pousar nela deixa o solo tenso demais. Smells Like Teen Spirit e Nothing Else Matters usam essa nota.",
+            "A pentatônica menor com uma nota a mais vira a escala de blues: a nota de blues (5ª diminuta) fica entre a 4ª e a 5ª, a meio tom de cada. Em Lá menor, é o Mi bemol, na 5ª corda, casa 6, entre o Ré e o Mi. Como a nota de fora da lição anterior, ela passa: pousar nela deixa o solo tenso demais. Smells Like Teen Spirit e Nothing Else Matters usam essa nota.",
           key: "u15.l6.echo",
           exercises: [
             {
               id: "u15.l6.echo",
               kind: "echo",
               title: "Passar pela nota de blues",
-              goal: "Repita de ouvido. A nota de blues (casa 6 da 5ª corda) passa entre o Ré e o Mi.",
-              steps: ["Ré, Mi bemol, Mi: três casas seguidas na 5ª corda.", "Dá um tempero de blues. Não pouse nela."],
+              goal: "Repita de ouvido as três frases.",
+              steps: ["Ré, Mi bemol, Mi: três casas seguidas na 5ª corda.", "Um dedo por casa: indicador no Ré, médio no Mi bemol, anelar no Mi."],
               check: "A nota de blues passou rápido, sem pousar?",
               base: AM_F_SLOW,
               reveal: "tab",
@@ -3086,12 +3138,20 @@ const written: Curriculum = {
               id: "u15.l6.pr",
               kind: "play-rest",
               title: "Uma nota de blues por frase",
-              goal: "Nos compassos de tocar, a nota de blues passando entre o Ré e o Mi, numa frase que termina na penta.",
-              steps: ["Passe pela nota de blues rápido.", "Não termine nela."],
+              goal: "Nos compassos de tocar, uma frase que passa pela nota de blues entre o Ré e o Mi.",
+              steps: ["Não demore nela e termine a frase numa nota da penta.", "Ela também está uma oitava acima: 3ª corda, casa 8, entre o Ré (3ª corda, casa 7) e o Mi (2ª corda, casa 5)."],
               check: "A nota de blues passou entre o Ré e o Mi, sem pousar?",
               base: BASE_SLOW,
               pattern: ["play", "play", "rest", "rest"],
               rule: "Passe pela nota de blues",
+              demo: phrase("demo.u15.l6.pr", "", 4, [
+                [3, 7, 0, 1],
+                [3, 8, 1, 0.5],
+                [2, 5, 1.5, 2.5],
+                [3, 7, 4, 1],
+                [3, 8, 5, 0.5],
+                [2, 5, 5.5, 2.5],
+              ]),
             },
           ],
         },
@@ -3099,15 +3159,15 @@ const written: Curriculum = {
           id: "u15.l7",
           title: "Contar em três: 6/8",
           intro:
-            "Algumas músicas, como Nothing Else Matters, estão em 6/8: o compasso tem seis colcheias, contadas em dois grupos de três (um-dois-três, quatro-cinco-seis). No site, cada grupo de três é um tempo da base, e as notas dele são tercinas. A diferença em relação à tercina de antes é o acento: a primeira nota de cada grupo é a forte, e o resto vem pendurado nela.",
+            "Algumas músicas, como Nothing Else Matters, estão em 6/8: o compasso tem seis colcheias, em dois grupos de três. No site, cada grupo de três ocupa um tempo da base, e as notas dele são tercinas. O que muda em relação à lição de tercina é o acento: a primeira nota de cada grupo é a forte, e o resto vem pendurado nela.",
           key: "u15.l7.echo",
           exercises: [
             {
               id: "u15.l7.echo",
               kind: "echo",
               title: "Dois grupos de três",
-              goal: "Repita de ouvido. Cada tempo é um grupo de três; a primeira nota é a mais forte.",
-              steps: ["Conte \"um-dois-três, quatro-cinco-seis\" com a base.", "O acento cai no um e no quatro."],
+              goal: "Repita de ouvido, acentuando a primeira nota de cada grupo.",
+              steps: ["Conte \"um-dois-três, quatro-cinco-seis\" com a base.", "Na primeira frase, cada grupo é uma nota longa e uma curta; na segunda, três notas iguais."],
               check: "O acento caiu no começo de cada grupo de três?",
               base: AM_F_SLOW,
               reveal: "tab",
@@ -3148,15 +3208,15 @@ const written: Curriculum = {
           id: "u15.l8",
           title: "Palhetada em tremolo",
           intro:
-            "O tremolo é a mesma nota repetida o mais rápido que a palheta aguenta, para cima e para baixo, de pulso solto, sem tensão. Dá um som contínuo, quase uma nota longa que treme. Boulevard of Broken Dreams usa. Comece a 60 bpm, com semicolcheias, e só acelere quando todas as notas saírem iguais.",
+            "O tremolo é a mesma nota repetida o mais rápido que a palheta aguenta, para cima e para baixo. Dá um som contínuo, quase uma nota longa que treme, como no solo de Boulevard of Broken Dreams. Comece a 60 bpm, com semicolcheias, e só acelere quando todas as notas saírem iguais.",
           key: "u15.l8.echo",
           exercises: [
             {
               id: "u15.l8.echo",
               kind: "echo",
               title: "Uma nota que treme",
-              goal: "Repita de ouvido. A mesma nota, repetida sem parar, e depois uma nota longa.",
-              steps: ["Pulso solto, palheta alternada, perto da ponta.", "Se o braço tensionar, volte mais devagar."],
+              goal: "Repita de ouvido. Nas duas frases, o tremolo termina numa nota longa.",
+              steps: ["Pulso solto e palhetada alternada, com só a ponta da palheta na corda.", "Se o braço ficar tenso, volte mais devagar."],
               check: "Todas as notas do tremolo saíram iguais, sem tensão?",
               base: AM_F_SLOW,
               reveal: "tab",
@@ -3189,7 +3249,7 @@ const written: Curriculum = {
               kind: "play-rest",
               title: "Tremolo nas suas frases",
               goal: "Nos compassos de tocar, uma frase com um tremolo curto e uma nota longa.",
-              steps: ["Tremolo de dois tempos, numa nota da penta.", "Termine numa nota longa do acorde."],
+              steps: ["Tremolo de dois tempos, numa nota da penta.", "A nota longa é do acorde que está soando."],
               check: "O tremolo saiu uniforme e a frase terminou numa nota longa?",
               base: BASE_SLOW,
               pattern: ["play", "play", "rest", "rest"],
@@ -3202,14 +3262,14 @@ const written: Curriculum = {
     {
       id: "u16",
       title: "Licks repetidos",
-      skill: "Um lick curto repetido em sequência, e a frase rápida que termina na troca",
+      skill: "Um lick curto repetido várias vezes, e a frase rápida que termina na troca",
       takeCheck: "Você repetiu um lick curto de propósito e saiu dele numa nota longa?",
       lessons: [
         {
           id: "u16.l1",
           title: "O lick repetido",
           intro:
-            "A forma mais simples de frase rápida é um lick de três ou quatro notas repetido em sequência. O de três notas se desloca em relação ao tempo: a cada repetição, o acento cai em outra nota. O que dá sentido musical à repetição é a saída: uma nota longa, no momento escolhido.",
+            "A forma mais simples de frase rápida é um lick de três ou quatro notas repetido várias vezes seguidas. O de três notas se desloca em relação ao tempo: a cada repetição, o acento cai em outra nota. O que dá sentido musical à repetição é a saída: uma nota longa, no momento escolhido.",
           key: "u16.l1.pr",
           exercises: [
             {
@@ -3271,14 +3331,14 @@ const written: Curriculum = {
           id: "u16.l2",
           title: "Frase rápida até a troca",
           intro:
-            "A frase rápida ganha sentido quando tem destino. Aqui ela começa no fim do compasso e termina no tempo 1 do acorde novo, numa nota dele. É uma chegada na nota do acorde novo (a tônica, a 3ª ou a 5ª dele), agora em semicolcheias.",
+            "A frase rápida ganha sentido quando tem destino. Aqui ela começa no fim do compasso e termina no tempo 1 do acorde novo, numa nota dele (a tônica, a 3ª ou a 5ª). É a chegada na troca que você já treinou, agora em semicolcheias.",
           key: "u16.l2.target",
           exercises: [
             {
               id: "u16.l2.echo",
               kind: "echo",
               title: "Semicolcheias até o acorde novo",
-              goal: "Repita. As duas frases terminam na troca de acorde.",
+              goal: "Repita. As duas frases chegam ao acorde de Fá: a primeira no Dó, a 5ª dele, e a segunda no Lá, a 3ª.",
               steps: ["A primeira tem um tempo de semicolcheias; a segunda, dois."],
               check: "A última nota caiu junto com o acorde novo?",
               base: AM_F_SLOW,
@@ -3309,8 +3369,8 @@ const written: Curriculum = {
               id: "u16.l2.target",
               kind: "target",
               title: "Frase rápida até o alvo",
-              goal: "Chegue em cada alvo com um tempo de semicolcheias antes da troca.",
-              steps: ["Escolha primeiro o alvo, depois as notas que levam até ele.", "Deixe o alvo soar: a próxima frase só no fim do compasso."],
+              goal: "Chegue a cada alvo com um tempo de semicolcheias antes da troca.",
+              steps: ["Veja primeiro qual é o próximo alvo; depois escolha as notas que levam até ele.", "Depois do alvo, a próxima frase só começa no fim do compasso."],
               check: "Suas frases terminaram no alvo, no tempo da troca?",
               base: BASE_SLOW,
               shape: 1,
@@ -3322,16 +3382,16 @@ const written: Curriculum = {
         {
           id: "u16.l3",
           title: "A corrida do shape 1",
-          videos: [{ youtube: "LoHJMD202mo", title: "A Minor Pentatonic Run", author: "Tom Bailey Backing Tracks", note: "A corrida desta lição vem deste vídeo curto. A tab foi tirada de ouvido, com ajuda do computador: compare com o vídeo e, se alguma nota soar diferente, confie no vídeo." }],
+          videos: [{ youtube: "LoHJMD202mo", title: "A Minor Pentatonic Run", author: "Tom Bailey Backing Tracks", note: "A corrida desta lição vem deste vídeo curto. A tab foi tirada de ouvido, com ajuda do computador; onde alguma nota soar diferente, vale o vídeo." }],
           intro:
-            "Uma corrida que sobe o shape 1 inteiro em semicolcheias, da 5ª corda até o Dó agudo, e cai no Lá com vibrato. Ela sobe em grupos que voltam um pouco antes de avançar: é isso que faz soar como frase, e não como escala. Aprenda a 60 bpm, em pedaços de um tempo.",
+            "Uma corrida que sobe o shape 1 inteiro em semicolcheias, da 5ª corda até o Dó agudo, e termina no Lá. Ela sobe em grupos que voltam um pouco antes de avançar: é isso que a faz soar como frase, e não como escala.",
           key: "u16.l3.pr",
           exercises: [
             {
               id: "u16.l3.echo",
               kind: "echo",
               title: "A corrida",
-              goal: "Tire a corrida de ouvido, um tempo por vez, até sair inteira e no tempo.",
+              goal: "Tire a corrida de ouvido até ela sair inteira e no tempo.",
               steps: ["Primeiro só o primeiro tempo, repetido. Depois junte o segundo, e assim por diante.", "O Lá do fim é longo, com vibrato: não corte."],
               check: "A corrida saiu inteira, no tempo, e pousou no Lá?",
               base: AM_F_SLOW,
@@ -3388,7 +3448,7 @@ const written: Curriculum = {
           title: "Paranoid",
           videos: [{ youtube: "0qanF-91aJo", title: "BLACK SABBATH - \"Paranoid\" (Official Video)", author: "Black Sabbath", note: "O clipe oficial, no canal do Black Sabbath. O solo começa por volta de 1:22 (163 bpm); confira no áudio. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Paranoid no Songsterr", url: "https://www.songsterr.com/a/wsa/black-sabbath-paranoid-tab-s296" },
-          intro: "O solo do Tony Iommi na penta de Mi menor: bends de um tom e ligados rápidos, dos shapes 3 e 4 graves ao shape 1 uma oitava acima. O solo está dividido em 4 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O solo do Tony Iommi na penta de Mi menor: bends de um tom e ligados rápidos, dos shapes 3 e 4 graves ao shape 1 uma oitava acima.",
           key: "u60.echo",
           exercises: [
             {
@@ -3396,7 +3456,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, com os bends afinados?",
               base: PARANOID,
               reveal: "tab",
@@ -3427,7 +3487,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(PARANOID, 0, 4),
-                  intro: "Abre na penta de Mi menor, na região grave, com Mi e Ré da 3ª corda, desce pelas cordas 4 e 5 e para num Mi longo, com vibrato. Todas as notas são da penta; o que muda é a função que cada uma tem sobre o acorde.", steps: ["A penta é a de Mi menor (Mi, Sol, Lá, Si, Ré), nos shapes 3 e 4 graves (casas 5 a 9). A música está em Sol maior, então é a penta do relativo menor, e ela serve sobre os três acordes do trecho: Mi menor, Ré e Sol.", "O primeiro Mi (3ª corda, casa 9) já começa dobrado um tom e meio e é solto até a nota certa, ligado ao Ré (a 7ª menor). Depois o solo alterna Mi e Ré e passa ao Si e ao Lá da 4ª corda (a 5ª e a 4ª).", "Sobre o acorde de Ré, a frase vai para as cordas graves, em ligados: Sol e Lá na 4ª corda, e Ré e Mi na 5ª. O Ré é a tônica desse acorde, o Lá é a 5ª e o Sol, a 4ª.", "Na última barra, o Sol (4ª corda, casa 5) cai sobre o acorde de Sol: é a tônica dele, e o solo apoia ali antes de seguir.", "A frase resolve no Mi grave longo (5ª corda, casa 7), com vibrato: a tônica de Mi menor, sobre o acorde de Mi menor.", "Nenhuma nota de fora da penta nesta parte.", "A base segue o baixo da gravação: Mi menor por duas barras, Ré, e na última, Sol e Mi menor."],
+                  intro: "Abre na região grave, com Mi e Ré da 3ª corda, desce pelas cordas 4 e 5 e para num Mi longo, com vibrato. A mesma nota muda de função conforme o acorde que está soando.", steps: ["A penta é a de Mi menor (Mi, Sol, Lá, Si, Ré), nos shapes 3 e 4 graves (casas 5 a 9). A música está em Sol maior, então é a penta do relativo menor, e ela serve sobre os três acordes do trecho: Mi menor, Ré e Sol.", "O primeiro Mi (3ª corda, casa 9) já começa dobrado um tom e meio e é solto até a nota certa, ligado ao Ré (a 7ª menor). Depois o solo alterna Mi e Ré e passa ao Si e ao Lá da 4ª corda (a 5ª e a 4ª).", "Sobre o acorde de Ré, a frase vai para as cordas graves, em ligados: Sol e Lá na 4ª corda, e Ré e Mi na 5ª. O Ré é a tônica desse acorde, o Lá é a 5ª e o Sol, a 4ª.", "No último compasso, o Sol (4ª corda, casa 5) cai sobre o acorde de Sol: é a tônica dele, e o solo apoia ali antes de seguir.", "A frase resolve no Mi grave longo (5ª corda, casa 7), com vibrato: a tônica de Mi menor, sobre o acorde de Mi menor.", "Nenhuma nota de fora da penta nesta parte.", "A base segue o baixo da gravação: Mi menor por dois compassos, Ré, e no último, Sol e Mi menor."],
                 },
                 {
                   ...phrase("paranoidp2", "Paranoid: parte 2", 4, [
@@ -3458,7 +3518,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(PARANOID, 4, 4),
-                  intro: "Sobe até a 2ª corda e traz o primeiro bend de um tom do solo: o Lá dobrado até o Si. Continua na penta de Mi menor e termina em Mi repetido.", steps: ["A penta é a mesma, Mi menor (Mi, Sol, Lá, Si, Ré), nos shapes 3 e 4: as cordas 5 a 3 no começo e, depois, a 2ª corda (Sol e Lá, casas 8 e 10).", "A parte abre com Sol, Lá, Si, Ré e Mi, o mesmo contorno do trecho em ligados da parte 1, agora terminando na 3ª corda, no Mi longo (a tônica).", "Na 2ª corda, o Lá (a 4ª) dobra um tom até o Si, a 5ª de Mi menor: o bend leva de uma nota de tensão a uma de repouso. Logo depois, o Lá volta já dobrado e é solto até o Lá. Entre eles, o Sol (3ª menor) alterna com o Lá.", "Sobre o acorde de Ré, o Mi repetido é a 9ª dele: soa suspenso, sem resolver.", "Quando o acorde volta ao Mi menor, o Mi vira tônica e a parte termina nele, repetido: a resolução está nessa mudança de função, sem trocar de nota.", "Nenhuma nota de fora da penta nesta parte.", "A base segue o baixo da gravação: Mi menor por duas barras, Ré, e na última, Sol e Mi menor."],
+                  intro: "Sobe até a 2ª corda e traz o primeiro bend de um tom do solo: o Lá dobrado até o Si. Termina em Mi repetido.", steps: ["A penta é a mesma, Mi menor (Mi, Sol, Lá, Si, Ré), nos shapes 3 e 4: as cordas 5 a 3 no começo e, depois, a 2ª corda (Sol e Lá, casas 8 e 10).", "A parte abre com Sol, Lá, Si, Ré e Mi, o mesmo contorno do trecho em ligados da parte 1, agora terminando na 3ª corda, no Mi longo (a tônica).", "Na 2ª corda, o Lá (a 4ª) dobra um tom até o Si, a 5ª de Mi menor: o bend leva de uma nota de tensão a uma de repouso. Logo depois, o Lá começa já dobrado, soando Si, e é solto até a nota certa. Entre eles, o Sol (3ª menor) alterna com o Lá.", "Sobre o acorde de Ré, o Mi repetido é a 9ª dele: soa suspenso, sem resolver.", "Quando o acorde volta ao Mi menor, o Mi vira tônica e a parte termina nele, repetido: a resolução está nessa mudança de função, sem trocar de nota.", "Nenhuma nota de fora da penta nesta parte.", "A base segue o baixo da gravação: Mi menor por dois compassos, Ré, e no último, Sol e Mi menor."],
                 },
                 {
                   ...phrase("paranoidp3", "Paranoid: parte 3", 5, [
@@ -3497,7 +3557,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(PARANOID, 7, 5),
-                  intro: "No meio do solo, a mão sobe para o shape 1 de Mi menor, uma oitava acima, e ficam os bends mais expressivos: o Ré dobrado até o Mi e o Sol dobrado até o Lá. Termina em ligados rápidos e num Sol longo.", steps: ["Penta de Mi menor, shape 1 (casas 12 a 15), nas cordas 1 a 3: o mesmo desenho do começo, uma oitava acima.", "A subida passa por Lá, Si e Mi e chega ao Ré (2ª corda, casa 15), que já começa a dobrar. Quando o bend é de meio tom, o Ré vira Ré#, a única nota de fora da penta: é de passagem, empurra para o Mi e não é lugar para parar.", "Depois o Ré dobra um tom até o Mi, duas vezes, em notas longas: a 7ª menor que sobe e se resolve na tônica, sobre o acorde de Mi menor.", "O Sol (1ª corda, casa 15) dobra um tom até o Lá, três vezes: a 3ª menor sobe até a 4ª. Em seguida, o Sol liga ao Mi (casa 12).", "Sobre o acorde de Ré, vem a frase mais rápida: ligados em semicolcheias entre Sol, Mi, Ré, Si e Lá. Em relação ao Ré, são a 4ª, a 9ª, a tônica, a 6ª e a 5ª. No meio, o Lá (3ª corda, casa 14) dobra um tom até o Si.", "Sobre o acorde de Sol, o Lá dobrado até o Si é a 3ª maior do acorde, a nota que define o Sol maior. Depois a frase desce ao Sol (3ª corda, casa 12), com vibrato: a tônica do acorde de Sol e a 3ª menor de Mi menor.", "A base segue o baixo da gravação: Mi menor, Ré, e na última barra, Sol e Mi menor."],
+                  intro: "No meio do solo, a mão sobe para o shape 1 de Mi menor, uma oitava acima, e aparecem os bends mais expressivos: o Ré dobrado até o Mi e o Sol dobrado até o Lá. Termina em ligados rápidos e num Sol longo.", steps: ["Penta de Mi menor, shape 1 (casas 12 a 15), nas cordas 1 a 3.", "A subida passa por Lá, Si e Mi e chega ao Ré (2ª corda, casa 15), que já começa a dobrar. Quando o bend é de meio tom, o Ré vira Ré#, a única nota de fora da penta: é de passagem, empurra para o Mi e não é lugar para parar.", "Depois o Ré dobra um tom até o Mi, duas vezes, em notas longas: a 7ª menor que sobe e se resolve na tônica, sobre o acorde de Mi menor.", "O Sol (1ª corda, casa 15) dobra um tom até o Lá, três vezes: a 3ª menor sobe até a 4ª. Em seguida, o Sol liga ao Mi (casa 12).", "Sobre o acorde de Ré, vem a frase mais rápida: ligados em semicolcheias entre Sol, Mi, Ré, Si e Lá. Em relação ao Ré, são a 4ª, a 9ª, a tônica, a 6ª e a 5ª. No meio, o Lá (3ª corda, casa 14) dobra um tom até o Si.", "Sobre o acorde de Sol, o Lá dobrado até o Si é a 3ª maior do acorde, a nota que define o Sol maior. Depois a frase desce ao Sol (3ª corda, casa 12), com vibrato: a tônica do acorde de Sol e a 3ª menor de Mi menor.", "A base segue o baixo da gravação: Mi menor, Ré, e no último compasso, Sol e Mi menor."],
                 },
                 {
                   ...phrase("paranoidp4", "Paranoid: parte 4", 4, [
@@ -3531,7 +3591,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 4",
                   base: songBars(PARANOID, 12, 4),
-                  intro: "A última parte começa no shape 1, desce até o Mi da 6ª corda e volta à 4ª corda, fechando no Mi longo. É toda da penta de Mi menor, sem nota de fora: o solo termina na tônica em que começou.", steps: ["Penta de Mi menor, shape 1 (casas 12 a 14) e, na descida, as cordas 5 e 6 (casas 10 a 14).", "Abre com o Lá (3ª corda, casa 14) dobrado um tom até o Si, a 5ª de Mi menor, e alterna Sol, Lá e Mi da 4ª corda (casa 14): a 3ª menor, a 4ª e a tônica.", "Sobre o Mi menor, a frase desce pela penta até o Mi da 6ª corda (casa 12), a tônica, e volta pela 5ª corda até o Si (casa 14), a 5ª.", "Sobre o acorde de Ré, o solo gira em torno do Ré e do Mi da 4ª corda (a tônica e a 9ª do acorde) e do Sol da 3ª corda (a 4ª).", "Na última barra, o Mi da 4ª corda, casa 14, entra deslizando do Ré (casa 12). O Ré dura um tempo e meio, e o último Mi, longo, é a tônica de Mi menor: o solo fecha onde começou.", "Nenhuma nota de fora da penta nesta parte.", "A base segue o baixo da gravação: Mi menor por duas barras, Ré, e na última, Sol e Mi menor."],
+                  intro: "A última parte começa no shape 1, desce até o Mi da 6ª corda e volta à 4ª corda, fechando no Mi longo.", steps: ["Penta de Mi menor, shape 1 (casas 12 a 14) e, na descida, as cordas 5 e 6 (casas 10 a 14).", "Abre com o Lá (3ª corda, casa 14) dobrado um tom até o Si, a 5ª de Mi menor, e alterna Sol, Lá e Mi da 4ª corda (casa 14): a 3ª menor, a 4ª e a tônica.", "Sobre o Mi menor, a frase desce pela penta até o Mi da 6ª corda (casa 12), a tônica, e volta pela 5ª corda até o Si (casa 14), a 5ª.", "Sobre o acorde de Ré, o solo gira em torno do Ré e do Mi da 4ª corda (a tônica e a 9ª do acorde) e do Sol da 3ª corda (a 4ª).", "No último compasso, o Mi da 4ª corda, casa 14, entra deslizando do Ré (casa 12). O Ré dura um tempo e meio, e o último Mi, longo, é a tônica de Mi menor: o solo fecha onde começou.", "Nenhuma nota de fora da penta nesta parte.", "A base segue o baixo da gravação: Mi menor por dois compassos, Ré, e no último, Sol e Mi menor."],
                 },
                 {
                   ...phrase("paranoidfull", "Paranoid: o solo completo", 16, [
@@ -3652,7 +3712,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Paranoid",
           videos: [{ youtube: "0qanF-91aJo", title: "BLACK SABBATH - \"Paranoid\" (Official Video)", author: "Black Sabbath", note: "O clipe oficial, no canal do Black Sabbath. O solo começa por volta de 1:22 (163 bpm); confira no áudio. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Paranoid no Songsterr", url: "https://www.songsterr.com/a/wsa/black-sabbath-paranoid-tab-s296" },
-          intro: "Trechos curtos do solo de Paranoid, de Black Sabbath, tirados do solo transcrito na lição anterior, \"Paranoid\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Paranoid, de Black Sabbath, tirados do solo transcrito na lição anterior, \"Paranoid\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u60.lick",
           exercises: [
             {
@@ -3730,7 +3790,7 @@ const written: Curriculum = {
           title: "Dani California",
           videos: [{ youtube: "Sb5aq5HcS1A", title: "Red Hot Chili Peppers - Dani California [Official Music Video]", author: "Red Hot Chili Peppers", note: "O clipe oficial. O solo fecha a música e começa por volta de 3:50 (96 bpm). Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Dani California no Songsterr", url: "https://www.songsterr.com/a/wsa/red-hot-chili-peppers-dani-california-tab-s302" },
-          intro: "O solo do John Frusciante: uma frase de dois compassos repetida sobre Fá, Dó, Ré menor e Sol, na penta de Lá menor, com ligados, bends de um tom e figuras que cruzam o compasso. O solo está dividido em 4 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O solo do John Frusciante: uma frase de dois compassos repetida sobre Fá, Dó, Ré menor e Sol, na penta de Lá menor, com ligados, bends de um tom e figuras que cruzam o compasso.",
           key: "u57.echo",
           exercises: [
             {
@@ -3738,7 +3798,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, sem parar nos rolos?",
               base: DANI_CALIFORNIA,
               reveal: "tab",
@@ -3784,7 +3844,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(DANI_CALIFORNIA, 0, 4),
-                  intro: "O solo é uma frase curta de duas barras, repetida e variada até o fim, sempre na penta de Lá menor. A primeira parte traz a frase de abertura duas vezes: na primeira, ela cai em ligados e desce ao grave; na segunda, sobe ao shape 4.", steps: ["Penta de Lá menor: Lá, Dó, Ré, Mi e Sol, as mesmas notas da penta de Dó maior. Os acordes (Fá, Dó, Ré menor e Sol) são todos de Dó maior, então ela serve nos quatro sem trocar de desenho.", "A abertura, no shape 3 (casas 10 a 12), é um motivo de quatro notas: Lá, Dó, Lá (agudo) e Ré. Sobre o Fá, o Lá é a 3ª do acorde e o Dó é a 5ª. O Ré, longo e com vibrato, é a 6ª do Fá.", "Os ligados alternam Sol e Fá (5ª corda, casas 10 e 8), sem palhetar de novo, sobre o Dó e depois sobre o Ré menor. O Sol é da penta (5ª do Dó). O Fá é a nota de fora: de passagem sobre o Dó (a 4ª), e nota do acorde sobre o Ré menor (a 3ª).", "Sobre o Ré menor, a frase cai ao grave: o Ré (6ª corda, casa 10, a tônica do acorde) e depois Lá, Fá, Sol e Fá (6ª corda, casas 5, 1, 3 e 1). Sobre o Sol, o Fá é a 7ª menor, de passagem. A frase fecha no Ré da 5ª corda, casa 5, a 5ª do Sol.", "A segunda vez começa igual e alterna Lá e Dó em semicolcheias (a 6ª e a tônica do Dó), antes de segurar o Ré, a tônica do Ré menor.", "Depois, a frase sobe ao shape 4 (casas 12 a 15): Sol e Lá na 3ª corda, Dó e Ré na 2ª, e o Ré com vibrato sobre o Sol (a 5ª). O Dó# (5ª corda, casa 16) é nota de fora, de passagem: é a 3ª maior de Lá, e a frase seguinte entra no Lá deslizando a partir dele.", "A base segue a gravação: Fá e Dó numa barra, Ré menor e Sol na outra, duas vezes."],
+                  intro: "A primeira parte traz a frase de abertura duas vezes: na primeira, ela cai em ligados e desce ao grave; na segunda, sobe ao shape 4.", steps: ["Penta de Lá menor: Lá, Dó, Ré, Mi e Sol, as mesmas notas da penta de Dó maior. Os acordes (Fá, Dó, Ré menor e Sol) são todos de Dó maior, então ela serve nos quatro sem trocar de desenho.", "A abertura, no shape 3 (casas 10 a 12), é um motivo de quatro notas: Lá, Dó, Lá (agudo) e Ré. Sobre o Fá, o Lá é a 3ª do acorde e o Dó é a 5ª. O Ré, longo e com vibrato, é a 6ª do Fá.", "Os ligados alternam Sol e Fá (5ª corda, casas 10 e 8), sem palhetar de novo, sobre o Dó e depois sobre o Ré menor. O Sol é da penta (5ª do Dó). O Fá é a nota de fora: de passagem sobre o Dó (a 4ª), e nota do acorde sobre o Ré menor (a 3ª).", "Sobre o Ré menor, a frase cai ao grave: o Ré (6ª corda, casa 10, a tônica do acorde) e depois Lá, Fá, Sol e Fá (6ª corda, casas 5, 1, 3 e 1). Sobre o Sol, o Fá é a 7ª menor, de passagem. A frase fecha no Ré da 5ª corda, casa 5, a 5ª do Sol.", "A segunda vez começa igual e alterna Lá e Dó em semicolcheias (a 6ª e a tônica do Dó), antes de segurar o Ré, a tônica do Ré menor.", "Depois, a frase sobe ao shape 4 (casas 12 a 15): Sol e Lá na 3ª corda, Dó e Ré na 2ª, e o Ré com vibrato sobre o Sol (a 5ª). O Dó# (5ª corda, casa 16) é nota de fora, de passagem: é a 3ª maior de Lá, e a frase seguinte entra no Lá deslizando a partir dele.", "A base segue a gravação: Fá e Dó num compasso, Ré menor e Sol no outro, duas vezes."],
                 },
                 {
                   ...phrase("danip2", "Dani California: parte 2", 5, [
@@ -3843,7 +3903,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(DANI_CALIFORNIA, 4, 5),
-                  intro: "A abertura e a primeira resposta voltam, mas o fim é outro: a resposta chega ao Ré do shape 4 e abre um rolo de semicolcheias com uma figura de três notas, que não cabe nos quatro tempos da barra. Tudo na penta de Lá menor.", steps: ["Penta de Lá menor, sobre os mesmos acordes. O começo é a frase da parte 1, no shape 3 (casas 10 a 12): os ligados de Sol e Fá (o Fá é a nota de fora, de passagem), a ida ao grave e a alternância de Lá e Dó.", "A resposta sobe ao shape 4 (casas 12 a 15): Sol e Lá na 3ª corda, Dó e Ré na 2ª, e depois Sol, Lá, Dó e Lá de novo.", "O rolo acontece sobre o Ré menor: Ré (2ª corda, casa 15), Dó (2ª corda, casa 13) e Lá (3ª corda, casa 14), em semicolcheias. São a tônica, a 7ª menor e a 5ª do Ré menor, todas da penta de Lá menor, então o rolo não tem nota de fora.", "São três notas contra quatro semicolcheias por tempo: a figura recomeça fora do tempo a cada volta, e o Ré que a abre cai num ponto diferente da barra.", "A parte termina no Lá da 3ª corda, casa 14, a 5ª do Ré menor, onde o rolo para.", "A base segue a gravação: Fá e Dó, Ré menor e Sol, Fá e Dó; Ré menor nas duas últimas barras, as do rolo."],
+                  intro: "A abertura e a primeira resposta voltam, mas o fim é outro: a resposta chega ao Ré do shape 4 e abre um rolo de semicolcheias com uma figura de três notas, que não cabe nos quatro tempos do compasso.", steps: ["Penta de Lá menor, sobre os mesmos acordes. O começo é a frase da parte 1, no shape 3 (casas 10 a 12): os ligados de Sol e Fá (o Fá é a nota de fora, de passagem), a ida ao grave e a alternância de Lá e Dó.", "A resposta sobe ao shape 4 (casas 12 a 15): Sol e Lá na 3ª corda, Dó e Ré na 2ª, e depois Sol, Lá, Dó e Lá de novo.", "O rolo acontece sobre o Ré menor: Ré (2ª corda, casa 15), Dó (2ª corda, casa 13) e Lá (3ª corda, casa 14), em semicolcheias. São a tônica, a 7ª menor e a 5ª do Ré menor, todas da penta de Lá menor, então o rolo não tem nota de fora.", "São três notas contra quatro semicolcheias por tempo: a figura recomeça fora do tempo a cada volta, e o Ré que a abre cai num ponto diferente do compasso.", "A parte termina no Lá da 3ª corda, casa 14, a 5ª do Ré menor, onde o rolo para.", "A base segue a gravação: Fá e Dó, Ré menor e Sol, Fá e Dó; Ré menor nos dois últimos compassos, os do rolo."],
                 },
                 {
                   ...phrase("danip3", "Dani California: parte 3", 6, [
@@ -3904,7 +3964,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(DANI_CALIFORNIA, 9, 6),
-                  intro: "A terceira parte retoma a abertura e traz bends de um tom: o Ré dobrado até o Mi, duas vezes. A ida ao grave aparece duas vezes, a segunda com ligados que ocupam a barra inteira. Continua na penta de Lá menor.", steps: ["Penta de Lá menor. A abertura, no shape 3 (casas 10 a 12), é a mesma de antes: Lá, Dó, Lá e Ré, e depois Lá e Dó alternados sobre o Dó.", "Na barra seguinte, os ligados ocupam quase tudo: Sol, Fá, Ré, Fá, Sol, Lá e Dó, e de novo Sol, Fá e Ré da 6ª corda. Sobre o Ré menor, o Fá é a 3ª e o Ré, a tônica. Sobre o Sol, o Fá é a 7ª menor, nota de fora que vem do acorde. A frase termina no Lá solto (5ª corda).", "Depois da abertura de novo, o Ré (4ª corda, casa 12), a tônica do Ré menor, sobe um tom até o Mi e volta: da 4ª para a 5ª de Lá menor. No shape 4, o Ré da 2ª corda, casa 15, faz o mesmo bend, agora sobre o Sol, onde Ré e Mi são a 5ª e a 6ª.", "A nota de fora é o Dó# (5ª corda, casa 16), a 3ª maior de Lá, de passagem: o Lá que vem depois entra deslizando a partir da casa 16, e a tensão se resolve ali.", "A última frase é a da parte 1: abertura, ligados de Sol e Fá, e a ida ao grave, que fecha no Ré da 5ª corda, casa 5 (a 5ª do Sol).", "A base segue a gravação: Fá e Dó, Ré menor e Sol, três vezes."],
+                  intro: "A terceira parte retoma a abertura e traz bends de um tom: o Ré dobrado até o Mi, duas vezes. A ida ao grave aparece duas vezes: a primeira enche o compasso, com slides curtos; a segunda é a da parte 1, com ligados.", steps: ["Penta de Lá menor. A abertura, no shape 3 (casas 10 a 12), é a mesma de antes: Lá, Dó, Lá e Ré, e depois Lá e Dó alternados sobre o Dó.", "No compasso seguinte, a ida ao grave enche o compasso: Sol, Fá, Ré, Fá, Sol, Lá e Dó, e de novo Sol, Fá e Ré da 6ª corda, com slides curtos entre algumas notas. Sobre o Ré menor, o Fá é a 3ª e o Ré, a tônica. Sobre o Sol, o Fá é a 7ª menor, nota de fora que vem do acorde. A frase termina no Lá solto (5ª corda).", "Depois da abertura de novo, o Ré (4ª corda, casa 12), a tônica do Ré menor, sobe um tom até o Mi e volta: da 4ª para a 5ª de Lá menor. No shape 4, o Ré da 2ª corda, casa 15, faz o mesmo bend, agora sobre o Sol, onde Ré e Mi são a 5ª e a 6ª.", "A nota de fora é o Dó# (5ª corda, casa 16), a 3ª maior de Lá, de passagem: o Lá que vem depois entra deslizando a partir da casa 16, e a tensão se resolve ali.", "A última frase é a da parte 1: abertura, ligados de Sol e Fá, e a ida ao grave, que fecha no Ré da 5ª corda, casa 5 (a 5ª do Sol).", "A base segue a gravação: Fá e Dó, Ré menor e Sol, três vezes."],
                 },
                 {
                   ...phrase("danip4", "Dani California: parte 4", 5, [
@@ -3989,7 +4049,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 4",
                   base: songBars(DANI_CALIFORNIA, 15, 5),
-                  intro: "O fim do solo troca a frase por uma figura de quatro notas, repetida num ritmo que não coincide com a barra: o Sol dobrado até o Lá, e depois Lá, Dó e Lá. Sobe até a 1ª corda e termina numa nota longa, ainda na penta de Lá menor.", steps: ["Penta de Lá menor, shape 3 (casas 10 a 13), na 2ª e na 3ª corda; no meio da parte, a 1ª corda (casas 10 a 15).", "A figura: Sol (3ª corda, casa 12) dobrado um tom até o Lá, e depois Lá, Dó e Lá (2ª corda, casas 10, 13 e 10). Sobre o Fá, o Lá é a 3ª e o Dó, a 5ª. O Lá do bend e o da 2ª corda têm a mesma altura: o bend chega à nota que a 2ª corda toca em seguida.", "A figura dura três semicolcheias, e a barra tem dezesseis, que não se dividem por três: por isso ela se repete sem bater com o tempo, como o rolo da parte 2. Ocupa as duas barras de Fá.", "Sobre o Dó, a figura dá lugar ao Ré e ao Fá da 1ª corda (casas 10 e 13), que levam ao Sol da casa 15, repetido. O Sol é a 5ª do Dó, onde a frase apoia. O Fá é a nota de fora: a 4ª do Dó, de passagem, antes de cada Sol.", "A figura volta sobre o Lá menor e o Dó, com Fá e Ré de passagem no começo, e fecha no Sol dobrado até o Lá. O Fá da 3ª corda, casa 10, que vem logo antes do fim, é a 3ª de Ré menor e prepara a nota final.", "O solo termina no Ré da 4ª corda, casa 12, longo e com vibrato: a tônica do Ré menor, o último acorde, e a 4ª de Lá menor.", "A base segue a gravação: Fá nas duas primeiras barras, Dó, Lá menor e Dó, e Ré na última. O Ré da gravação é só a nota do baixo: a base toca Ré menor."],
+                  intro: "O fim do solo troca a frase por uma figura de quatro notas, repetida num ritmo que não coincide com o compasso: o Sol dobrado até o Lá, e depois Lá, Dó e Lá. Sobe até a 1ª corda e termina numa nota longa.", steps: ["Penta de Lá menor, shape 3 (casas 10 a 13), na 2ª e na 3ª corda; no meio da parte, a 1ª corda (casas 10 a 15).", "A figura: Sol (3ª corda, casa 12) dobrado um tom até o Lá, e depois Lá, Dó e Lá (2ª corda, casas 10, 13 e 10). Sobre o Fá, o Lá é a 3ª e o Dó, a 5ª. O Lá do bend e o da 2ª corda têm a mesma altura: o bend chega à nota que a 2ª corda toca em seguida.", "A figura dura três semicolcheias, e o compasso tem dezesseis, que não se dividem por três: por isso ela se repete sem bater com o tempo, como o rolo da parte 2. Ocupa os dois compassos de Fá.", "Sobre o Dó, a figura dá lugar ao Ré e ao Fá da 1ª corda (casas 10 e 13), que levam ao Sol da casa 15, repetido. O Sol é a 5ª do Dó, onde a frase apoia. O Fá é a nota de fora: a 4ª do Dó, de passagem, antes de cada Sol.", "A figura volta sobre o Lá menor e o Dó, com Fá e Ré de passagem no começo, e fecha no Sol dobrado até o Lá. O Fá da 3ª corda, casa 10, que vem logo antes do fim, é a 3ª de Ré menor e prepara a nota final.", "O solo termina no Ré da 4ª corda, casa 12, longo e com vibrato: a tônica do Ré menor, o último acorde, e a 4ª de Lá menor.", "A base segue a gravação: Fá nos dois primeiros compassos, Dó, Lá menor e Dó, e Ré no último. O Ré da gravação é só a nota do baixo: a base toca Ré menor."],
                 },
                 {
                   ...phrase("danifull", "Dani California: o solo completo", 20, [
@@ -4215,7 +4275,7 @@ const written: Curriculum = {
                   ]),
                   label: "Solo completo",
                   base: DANI_CALIFORNIA,
-                  intro: "As quatro partes juntas: o solo inteiro, de vinte compassos, a 96 bpm, todo na penta de Lá menor. A abertura de duas barras volta sete vezes, e cada resposta é outra: o grave, o shape 4, o rolo de três notas e o bend repetido.", steps: ["Junte as partes de duas em duas: 1 e 2, 2 e 3, 3 e 4.", "Repare no desenho: a abertura no shape 3, o fim de cada frase variando e, na última parte, a 1ª corda no registro agudo. As únicas notas de fora são o Fá, de passagem ou do acorde, e o Dó#.", "Quando sair, toque junto com a gravação, a partir de 3:50, no fim da música."],
+                  intro: "As quatro partes juntas: o solo inteiro, de vinte compassos, a 96 bpm, todo na penta de Lá menor. A abertura de dois compassos volta sete vezes, e cada resposta é outra: o grave, o shape 4, o rolo de três notas e o bend repetido.", steps: ["Junte as partes de duas em duas: 1 e 2, 2 e 3, 3 e 4.", "Repare no desenho: a abertura no shape 3, o fim de cada frase variando e, na última parte, a 1ª corda no registro agudo. As únicas notas de fora são o Fá, de passagem ou do acorde, e o Dó#.", "Quando sair, toque junto com a gravação, a partir de 3:50, no fim da música."],
                 },
               ],
             },
@@ -4226,7 +4286,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Dani California",
           videos: [{ youtube: "Sb5aq5HcS1A", title: "Red Hot Chili Peppers - Dani California [Official Music Video]", author: "Red Hot Chili Peppers", note: "O clipe oficial. O solo fecha a música e começa por volta de 3:50 (96 bpm). Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Dani California no Songsterr", url: "https://www.songsterr.com/a/wsa/red-hot-chili-peppers-dani-california-tab-s302" },
-          intro: "Trechos curtos do solo de Dani California, de Red Hot Chili Peppers, tirados do solo transcrito na lição anterior, \"Dani California\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Dani California, de Red Hot Chili Peppers, tirados do solo transcrito na lição anterior, \"Dani California\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. O solo original já usa a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u57.lick",
           exercises: [
             {
@@ -4252,7 +4312,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 1: o bend da 4ª à 5ª",
                   intro: "Lick de 7 notas: sai da 3ª menor e chega na 5ª. Técnica: bend de um tom, da 4ª à 5ª (e volta na mesma palhetada); slide da 7ª menor até a tônica.",
-                  steps: ["O desenho, em funções: 3ª menor (2x), 4ª, 7ª menor, tônica, 3ª menor, 4ª. Técnica: bend de um tom, da 4ª à 5ª (e volta na mesma palhetada); slide da 7ª menor até a tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 3ª menor no shape 2, e toque o lick ali."],
+                  steps: ["O desenho, em funções: 3ª menor (2x), 4ª, 7ª menor, tônica, 3ª menor, 4ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 3ª menor no shape 2, e toque o lick ali."],
                 },
                 {
                   ...phrase("lk57b", "Dani California: lick 2", 1, [
@@ -4263,7 +4323,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 2: o slide até a 4ª",
                   intro: "Lick de 4 notas: sai da 4ª e chega na tônica. Técnica: slide da 3ª menor até a 4ª; slide da 7ª menor até a tônica.",
-                  steps: ["O desenho, em funções: 4ª, tônica, 3ª menor, tônica. Técnica: slide da 3ª menor até a 4ª; slide da 7ª menor até a tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
+                  steps: ["O desenho, em funções: 4ª, tônica, 3ª menor, tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
                 },
                 {
                   ...phrase("lk57c", "Dani California: lick 3", 1, [
@@ -4277,7 +4337,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 3: ida e volta entre a tônica e a 4ª",
                   intro: "Lick de 7 notas: sai da tônica e chega na tônica.",
-                  steps: ["O desenho, em funções: tônica, 4ª, 3ª menor, tônica, 4ª, 3ª menor, tônica. Todas as notas saem da penta, sem técnica especial: a graça está no ritmo.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: tônica, 4ª, 3ª menor, tônica, 4ª, 3ª menor, tônica. Todas as notas saem da penta, sem técnica especial: o que conta é o ritmo.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -4296,7 +4356,7 @@ const written: Curriculum = {
           title: "Enter Sandman",
           videos: [{ youtube: "CD-E-LDc384", title: "Metallica: Enter Sandman (Official Music Video)", author: "Metallica", note: "O clipe oficial. O solo (123 bpm) começa por volta de 2:44, depois do segundo refrão. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Enter Sandman no Songsterr", url: "https://www.songsterr.com/a/wsa/metallica-enter-sandman-tab-s19" },
-          intro: "O solo do Kirk Hammett: bends e semicolcheias na penta de Mi menor, dos shapes 5 e 1 até a 22ª casa, com o Si menor no meio. O solo está dividido em 4 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O solo do Kirk Hammett: bends e semicolcheias na penta de Mi menor, dos shapes 5 e 1 até a 22ª casa, com o Si menor no meio.",
           key: "u61.echo",
           exercises: [
             {
@@ -4304,7 +4364,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, com os bends afinados?",
               base: ENTER_SANDMAN,
               reveal: "tab",
@@ -4354,7 +4414,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(ENTER_SANDMAN, 0, 5),
-                  intro: "O solo abre sobre o riff em Mi menor, na penta de Mi menor, com notas repetidas e dois bends curtos, e termina descendo até a tônica grave. É a parte mais simples do solo: tudo cabe entre as casas 10 e 15.", steps: ["Penta de Mi menor (Mi, Sol, Lá, Si, Ré), sobre um acorde só, o Mi menor: o shape 5 (casas 10 a 12) emendado no shape 1 (casas 12 a 15). Como o acorde não muda, cada nota tem sempre a mesma função.", "Começa no Ré (2ª corda, casa 15), repetido: a 7ª menor, que pede para subir à tônica. Depois passa ao Lá e ao Sol (3ª corda, casas 14 e 12): a 4ª e a 3ª menor.", "O primeiro bend leva o Lá ao Si (3ª corda, casa 14): a 4ª que vira 5ª, segurada e solta. O segundo leva o Ré ao Mi (2ª corda, casa 15), com vibrato: a 7ª menor que sobe e chega à tônica.", "Na segunda metade, semicolcheias alternam o Sol (casa 12) e o Lá (casa 14) na 3ª corda, com slides curtos de uma casa para outra: a 3ª menor e a 4ª, sem resolver.", "O fim desce pela penta: Mi e Ré na 4ª corda, Si, Lá e Sol na 5ª, e o Mi da 6ª corda, casa 12, a tônica grave, onde a frase pousa.", "Nenhuma nota de fora da penta nesta parte.", "Acorde: Mi menor. O baixo da gravação passa por Sib e Lá no riff; a base toca Mi menor o tempo todo."],
+                  intro: "O solo abre sobre o riff em Mi menor, com notas repetidas e dois bends curtos, e termina descendo até a tônica grave. É a parte mais simples do solo: tudo cabe entre as casas 10 e 15.", steps: ["Penta de Mi menor (Mi, Sol, Lá, Si, Ré), sobre um acorde só, o Mi menor: o shape 5 (casas 10 a 12) emendado no shape 1 (casas 12 a 15). Como o acorde não muda, cada nota tem sempre a mesma função.", "Começa no Ré (2ª corda, casa 15), repetido: a 7ª menor, que pede para subir à tônica. Depois passa ao Lá e ao Sol (3ª corda, casas 14 e 12): a 4ª e a 3ª menor.", "O primeiro bend leva o Lá ao Si (3ª corda, casa 14): a 4ª que vira 5ª, segurada e solta. O segundo leva o Ré ao Mi (2ª corda, casa 15), com vibrato: a 7ª menor que sobe e chega à tônica.", "Na segunda metade, semicolcheias alternam o Sol (casa 12) e o Lá (casa 14) na 3ª corda, com slides curtos de uma casa para outra: a 3ª menor e a 4ª, sem resolver.", "O fim desce pela penta: Mi e Ré na 4ª corda, Si, Lá e Sol na 5ª, e o Mi da 6ª corda, casa 12, a tônica grave, onde a frase pousa.", "Nenhuma nota de fora da penta nesta parte.", "O baixo da gravação passa por Sib e Lá no riff; a base toca Mi menor o tempo todo."],
                 },
                 {
                   ...phrase("sandmanp2", "Enter Sandman: parte 2", 5, [
@@ -4423,7 +4483,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(ENTER_SANDMAN, 4, 5),
-                  intro: "Alterna o Mi da 1ª corda com o Ré da 2ª em semicolcheias, dobra o Ré em meio tom e em um tom, e sobe a 1ª corda em grupos de três notas ligadas até a casa 22. Segue na penta de Mi menor, sobre o mesmo acorde.", steps: ["Penta de Mi menor, sobre o acorde de Mi menor. Nas cordas 1 e 2, os shapes aparecem em sequência: shape 1 (casas 12 a 15), shape 2 (14 a 17), shape 3 (16 a 19) e shape 4 (19 a 22).", "O Mi (a tônica) alterna com o Ré (a 7ª menor). O Ré é dobrado meio tom quatro vezes, e depois um tom inteiro, que chega ao Mi: a tensão cresce até a tônica.", "Os ligados de três notas na 1ª corda começam por Mi, Sol e Mi (casas 12, 15 e 12). Os grupos seguintes sobem: Lá e Fá# (casas 17 e 14) com o Ré da 2ª corda, casa 15; e Si e Sol (casas 19 e 15) com o Mi da 2ª corda, casa 17.", "O último grupo é Dó# (casa 21), Lá (casa 17) e o Mi da corda solta: um arpejo de Lá maior sobre o Mi menor. Em relação ao Mi menor, o Lá é a 4ª, o Mi é a tônica e o Dó# é a 6ª maior, nota de fora que dura pouco.", "A outra nota de fora é o Fá#, de passagem (a 2ª de Mi menor), entre o Mi e o Lá.", "A parte resolve num bend do Ré ao Mi na 1ª corda, casa 22, com vibrato: a 7ª menor chega à tônica, no agudo.", "Acorde: Mi menor. O baixo da gravação passa pelo Mi, Sol e Fá# no fim; a base toca Mi menor."],
+                  intro: "Alterna o Mi da 1ª corda com o Ré da 2ª em semicolcheias, dobra o Ré em meio tom e em um tom, e sobe a 1ª corda em grupos de três notas ligadas até a casa 22.", steps: ["Penta de Mi menor, sobre o acorde de Mi menor. Nas cordas 1 e 2, os shapes aparecem um depois do outro: shape 1 (casas 12 a 15), shape 2 (14 a 17), shape 3 (16 a 19) e shape 4 (19 a 22).", "O Mi (a tônica) alterna com o Ré (a 7ª menor). O Ré é dobrado meio tom quatro vezes, e depois um tom inteiro, que chega ao Mi: a tensão cresce até a tônica.", "Os ligados de três notas na 1ª corda começam por Mi, Sol e Mi (casas 12, 15 e 12). Os grupos seguintes sobem: Lá e Fá# (casas 17 e 14) com o Ré da 2ª corda, casa 15; e Si e Sol (casas 19 e 15) com o Mi da 2ª corda, casa 17.", "O último grupo é Dó# (casa 21), Lá (casa 17) e o Mi da corda solta: um arpejo de Lá maior sobre o Mi menor. Em relação ao Mi menor, o Lá é a 4ª, o Mi é a tônica e o Dó# é a 6ª maior, nota de fora que dura pouco.", "A outra nota de fora é o Fá#, de passagem (a 2ª de Mi menor), entre o Mi e o Lá.", "A parte resolve num bend do Ré ao Mi na 1ª corda, casa 22, com vibrato: a 7ª menor chega à tônica, no agudo.", "O baixo da gravação passa por Mi, Sol e Fá# no fim; a base toca Mi menor."],
                 },
                 {
                   ...phrase("sandmanp3", "Enter Sandman: parte 3", 9, [
@@ -4490,7 +4550,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(ENTER_SANDMAN, 8, 9),
-                  intro: "No meio do solo o acorde vira Si menor. A guitarra deixa as semicolcheias, segura notas longas e desce em corridas pelo shape 4, para voltar ao agudo com um bend largo repetido. Continua na penta de Mi menor.", steps: ["A penta de Mi menor é também a de Sol maior, e serve sobre o Si menor, o terceiro grau de Sol maior, que tem as mesmas notas. Casas 5 a 17: shape 3 (casas 5 a 7), shape 4 (7 a 10) e shape 2 (14 a 17), na ordem em que aparecem.", "Começa no Si (2ª corda, solta) e repete o Lá da 2ª corda, casa 10, em notas longas. Sobre o Si menor, o Si é a tônica e o Lá é a 7ª menor, que deixa a nota suspensa.", "A corrida usa Ré, Si, Lá e Mi (3ª, 4ª e 2ª cordas): sobre o Si menor, a 3ª menor, a tônica, a 7ª menor e a 4ª. Depois, uma descida passa por Sol, Fá#, Mi e Ré e vai ao Si grave da 6ª corda, casa 7, com vibrato.", "Nota de fora: o Fá#. Sobre o Si menor ele é a 5ª do acorde, então não destoa; sobre o Mi menor, é a 2ª. O Fá natural (5ª corda, casa 8) é só passagem cromática entre o Fá# e o Mi.", "Na segunda metade, o Si (3ª corda, casa 16) é dobrado dois tons até o Ré#: a 3ª maior do Si, nota de fora do tom (a base toca Si menor). Os bends seguintes são de um tom, do Si ao Dó# (a 9ª), e alternam com o Lá (3ª corda, casa 14) e o Fá# (4ª corda, casa 16): a 7ª menor e a 5ª.", "Termina no Mi da 2ª corda, casa 17, repetido e longo. Sobre o Si menor, é a 4ª, uma nota suspensa; ela só vira tônica quando o acorde volta ao Mi menor."],
+                  intro: "No meio do solo o acorde vira Si menor. A guitarra deixa as semicolcheias, segura notas longas e desce em corridas pelo shape 4, para voltar ao agudo com um bend largo repetido. Continua na penta de Mi menor.", steps: ["A penta de Mi menor sai do tom de Sol maior, e o Si menor é o terceiro grau desse tom: por isso ela serve sobre ele. Casas 5 a 17: shape 3 (casas 5 a 7), shape 4 (7 a 10) e shape 2 (14 a 17), na ordem em que aparecem.", "Começa no Si (2ª corda, solta) e repete o Lá da 2ª corda, casa 10, em notas longas. Sobre o Si menor, o Si é a tônica e o Lá é a 7ª menor, que deixa a nota suspensa.", "A corrida usa Ré, Si, Lá e Mi (3ª, 4ª e 2ª cordas): sobre o Si menor, a 3ª menor, a tônica, a 7ª menor e a 4ª. Depois, uma descida passa por Sol, Fá#, Mi e Ré e vai ao Si grave da 6ª corda, casa 7, com vibrato.", "Nota de fora: o Fá#. Sobre o Si menor ele é a 5ª do acorde, então não destoa; sobre o Mi menor, é a 2ª. O Fá natural (5ª corda, casa 8) é só passagem cromática entre o Fá# e o Mi.", "Na segunda metade, o Si (3ª corda, casa 16) é dobrado dois tons até o Ré#: a 3ª maior do Si, nota de fora do tom (a base toca Si menor). Os bends seguintes são de um tom, do Si ao Dó# (a 9ª), e alternam com o Lá (3ª corda, casa 14) e o Fá# (4ª corda, casa 16): a 7ª menor e a 5ª.", "Termina no Mi da 2ª corda, casa 17, repetido e longo. Sobre o Si menor, é a 4ª, uma nota suspensa; ela só vira tônica quando o acorde volta ao Mi menor."],
                 },
                 {
                   ...phrase("sandmanp4", "Enter Sandman: parte 4", 5, [
@@ -4539,7 +4599,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 4",
                   base: songBars(ENTER_SANDMAN, 17, 5),
-                  intro: "A última parte fecha o solo: o arpejo Dó#, Lá e Mi repetido sobre o Si menor, o bend do Ré ao Mi repetido na casa 22 e a descida pelo shape 4 até o Lá da corda solta. Tudo na penta de Mi menor, com o Dó# de fora.", steps: ["Penta de Mi menor, casas 4 a 22, nas cordas 1 a 5.", "O arpejo, na 1ª corda: Dó# (casa 21), Lá (casa 17) e Mi (corda solta), seis vezes, sobre o Si menor. Em relação a ele, o Dó# é a 9ª, o Lá a 7ª menor e o Mi a 11ª: notas que deixam o acorde suspenso. Em relação ao Mi menor, são a 6ª, a 4ª e a tônica.", "Quando o acorde volta ao Mi menor, o bend do Ré ao Mi na 1ª corda, casa 22, se repete: a 7ª menor chega à tônica. O último dura mais, com vibrato.", "A descida pela penta: Lá, Sol, Fá# e Mi (2ª e 3ª cordas, casas 10 a 7), Ré e Si (3ª e 4ª), Lá e Sol, com um bend do Lá ao Si na 4ª corda, casa 7. O Fá# é nota de passagem.", "O fim: Mi e Ré (5ª corda, casas 7 e 5), o Dó# da casa 4, que entra deslizando a partir do Mi e é só passagem, e o Lá da corda solta. O Lá final é a 4ª de Mi menor, nota do riff que volta."],
+                  intro: "A última parte junta o arpejo Dó#, Lá e Mi, agora sobre o Si menor, a volta do bend do Ré ao Mi na casa 22 e a descida pelo shape 4 até o Lá da corda solta. Fora da penta de Mi menor, só o Dó# e o Fá#.", steps: ["Penta de Mi menor, casas 4 a 22, nas cordas 1 a 5.", "O arpejo, na 1ª corda: Dó# (casa 21), Lá (casa 17) e Mi (corda solta), seis vezes, sobre o Si menor. Em relação a ele, o Dó# é a 9ª, o Lá a 7ª menor e o Mi a 11ª: notas que deixam o acorde suspenso. Em relação ao Mi menor, são a 6ª, a 4ª e a tônica.", "Quando o acorde volta ao Mi menor, o bend do Ré ao Mi na 1ª corda, casa 22, se repete: a 7ª menor chega à tônica. O último dura mais, com vibrato.", "A descida pela penta: Lá, Sol, Fá# e Mi (2ª e 3ª cordas, casas 10 a 7), Ré e Si (3ª e 4ª), Lá e Sol, com um bend do Lá ao Si na 4ª corda, casa 7. O Fá# é nota de passagem.", "O fim: Mi e Ré (5ª corda, casas 7 e 5), o Dó# da casa 4, que entra deslizando a partir do Mi e é só passagem, e o Lá da corda solta. O Lá final é a 4ª de Mi menor, nota do riff que volta."],
                 },
                 {
                   ...phrase("sandmanfull", "Enter Sandman: o solo completo", 22, [
@@ -4750,7 +4810,7 @@ const written: Curriculum = {
                   ]),
                   label: "Solo completo",
                   base: ENTER_SANDMAN,
-                  intro: "As quatro partes juntas: o solo inteiro, de 22 compassos, com semicolcheias, bends e o trecho em Si menor no meio, todo na penta de Mi menor.", steps: ["Junte as partes devagar.", "Repare no desenho: shapes 5 e 1, a subida pela 1ª corda até a casa 22, o meio em Si menor com notas longas e, no fim, a volta ao arpejo e ao bend da casa 22. As notas de fora são o Fá#, o Dó# e o Ré#, sempre de passagem ou em bends.", "Quando sair, toque junto com a gravação, a partir de 2:44, ou sobre a base do site."],
+                  intro: "As quatro partes juntas: o solo inteiro, de 22 compassos, com semicolcheias, bends e o trecho em Si menor no meio, na penta de Mi menor.", steps: ["Junte as partes devagar.", "Repare no desenho: shapes 5 e 1, a subida pela 1ª corda até a casa 22, o meio em Si menor com notas longas e, no fim, a volta ao arpejo e ao bend da casa 22. As notas de fora são o Fá#, o Dó#, o Ré# e um Fá natural, sempre de passagem ou em bends.", "Quando sair, toque junto com a gravação, a partir de 2:44, ou sobre a base do site."],
                 },
               ],
             },
@@ -4761,7 +4821,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Enter Sandman",
           videos: [{ youtube: "CD-E-LDc384", title: "Metallica: Enter Sandman (Official Music Video)", author: "Metallica", note: "O clipe oficial. O solo (123 bpm) começa por volta de 2:44, depois do segundo refrão. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Enter Sandman no Songsterr", url: "https://www.songsterr.com/a/wsa/metallica-enter-sandman-tab-s19" },
-          intro: "Trechos curtos do solo de Enter Sandman, de Metallica, tirados do solo transcrito na lição anterior, \"Enter Sandman\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Enter Sandman, de Metallica, tirados do solo transcrito na lição anterior, \"Enter Sandman\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u61.lick",
           exercises: [
             {
@@ -4801,7 +4861,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 2: o slide até a 3ª menor",
                   intro: "Lick de 7 notas: sai da 4ª e chega na tônica. Técnica: slide da 4ª até a 3ª menor; uma nota em ligado, sem palhetar.",
-                  steps: ["O desenho, em funções: 4ª, 3ª menor (3x), 4ª, 3ª menor, tônica. Técnica: slide da 4ª até a 3ª menor; uma nota em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
+                  steps: ["O desenho, em funções: 4ª, 3ª menor (3x), 4ª, 3ª menor, tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
                 },
                 {
                   ...phrase("lk61c", "Enter Sandman: lick 3", 2, [
@@ -4815,7 +4875,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 3: desce da tônica à tônica",
                   intro: "Lick de 7 notas: sai da tônica e chega na tônica. Técnica: 2 notas em ligado, sem palhetar.",
-                  steps: ["O desenho, em funções: tônica, 7ª menor, 5ª (2x), 4ª, 3ª menor, tônica. Técnica: 2 notas em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: tônica, 7ª menor, 5ª (2x), 4ª, 3ª menor, tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -4832,7 +4892,7 @@ const written: Curriculum = {
           id: "u74.l1",
           title: "Quanto tempo você aguenta",
           intro:
-            "Um exercício corrente é tocar sem parar notas todas da mesma duração (colcheias, semicolcheias, tercinas) e medir quanto tempo você dura limpo. Ele treina o que a velocidade pede de verdade: resistência da mão e da cabeça, não um pico de poucas notas. Parece fácil e quase ninguém passa de poucos segundos no andamento certo.",
+            "Um exercício corrente é tocar sem parar notas da mesma duração (colcheias, semicolcheias ou tercinas) e medir por quanto tempo elas saem limpas. Ele treina o que a velocidade pede de verdade: resistência da mão e da cabeça, não um pico de poucas notas. Parece fácil, mas quase ninguém passa de poucos segundos no andamento certo.",
           key: "u74.l1.map",
           exercises: [
             {
@@ -4841,9 +4901,9 @@ const written: Curriculum = {
               title: "Subir e descer o shape 1, sem parar",
               goal: "Suba e desça o shape 1 em semicolcheias, no andamento da base, sem parar nem errar, e anote quanto tempo durou.",
               steps: [
-                "Escolha um andamento que desafie sem estragar a mão. Se fica fácil demais, não conta.",
-                "Conte o tempo com o cronômetro do celular e anote.",
-                "No dia seguinte, tente passar do seu tempo. Só aumente o andamento quando durar um minuto limpo.",
+                "Escolha um andamento que desafie sem forçar a mão. Se ficar fácil demais, não conta.",
+                "Marque a duração no cronômetro do celular e anote.",
+                "No dia seguinte, tente passar da sua marca. Só aumente o andamento quando conseguir um minuto limpo.",
                 "Notas sujas ou mão tensa encerram a contagem: pare e descanse.",
               ],
               check: "",
@@ -4866,7 +4926,7 @@ const written: Curriculum = {
           id: "a4.l1",
           title: "Do lento ao rápido",
           intro:
-            "A velocidade só tem efeito quando contrasta com o que veio antes. Este solo começa com notas longas e acelera em três etapas: um grupo de semicolcheias, um lick repetido e uma sequência pela escala. Reduza o andamento para aprender.",
+            "A velocidade só tem efeito quando contrasta com o que veio antes. Os dois exemplos seguem as mesmas partes com notas diferentes. Para aprender, reduza o andamento.",
           key: "a4.take",
           exercises: [
             {
@@ -4881,8 +4941,8 @@ const written: Curriculum = {
               arc: [
                 { name: "Notas longas", how: "Uma nota longa por compasso." },
                 { name: "Quatro notas e uma longa", how: "Um tempo de semicolcheias e uma nota longa." },
-                { name: "Lick repetido", how: "O mesmo lick curto, repetido em sequência." },
-                { name: "Sequência e nota final", how: "Uma sequência pela escala e a última nota sustentada." },
+                { name: "Lick repetido", how: "Um lick de três ou quatro notas, várias vezes seguidas." },
+                { name: "Sequência e nota final", how: "Uma sequência de três em três ou de quatro em quatro, e a última nota sustentada." },
               ],
               bases: OTHER_BASES,
               examples: [
@@ -5009,15 +5069,15 @@ const written: Curriculum = {
           concepts: ["O que é motivo na música?"],
           title: "Repetir de propósito",
           intro:
-            "De um solo, quem ouve guarda pouca coisa: uma ideia que volta. Repetir parece pobre para quem toca e soa como intenção para quem ouve. Improvisadores experientes retomam o que acabaram de tocar o tempo todo.",
+            "Quem ouve um solo guarda pouca coisa dele, e o que fica costuma ser uma frase que volta. Repetir dá a quem toca a sensação de falta de ideia, mas quem ouve percebe intenção. Improvisadores experientes retomam o tempo todo o que acabaram de tocar.",
           key: "u8.l1.echo",
           exercises: [
             {
               id: "u8.l1.echo",
               kind: "echo",
               title: "A mesma frase, outro acorde",
-              goal: "Repita. Cada frase toca uma ideia curta e a repete sobre o acorde seguinte.",
-              steps: ["Ouça como a mesma frase muda de cor quando o acorde troca."],
+              goal: "Repita cada frase: uma ideia curta sobre o Lá menor, retomada sobre o Fá.",
+              steps: ["Ouça como a mesma ideia muda de cor quando o acorde troca."],
               check: "Repetiu a ideia igual, nos dois acordes?",
               base: AM_F,
               reveal: "tab",
@@ -5045,7 +5105,7 @@ const written: Curriculum = {
               kind: "play-rest",
               title: "Diga duas vezes",
               goal: "Toque uma frase curta. No próximo compasso de tocar, repita igual.",
-              steps: ["Frases de três a cinco notas: precisa caber na memória.", "Depois de repetir, invente outra e repita também."],
+              steps: ["Três a cinco notas bastam: a frase precisa caber na memória.", "Depois de repetir, invente outra e repita também."],
               check: "Conseguiu repetir suas frases iguais?",
               base: BASE,
               pattern: ["play", "rest", "play", "rest"],
@@ -5064,13 +5124,13 @@ const written: Curriculum = {
               id: "u8.l2.echo",
               kind: "echo",
               title: "O que mudou?",
-              goal: "Repita cada frase e diga o que mudou na segunda metade: o ritmo ou o fim.",
-              steps: ["Ouça duas vezes antes de tocar.", "Diga em voz alta o que mudou. Depois toque."],
+              goal: "Repita cada frase. Na segunda metade muda uma coisa só: o ritmo ou o fim.",
+              steps: ["Ouça a frase duas vezes.", "Diga em voz alta o que mudou. Depois toque."],
               check: "Ouviu o que mudou antes de abrir o braço?",
               base: AM_F,
               reveal: "tab",
               phrases: [
-                phrase("m3", "Muda o fim", 2, [
+                phrase("m3", "Frase 1", 2, [
                   [1, 5, 0, 0.5],
                   [1, 8, 0.5, 0.5],
                   [1, 5, 1, 1.5],
@@ -5078,7 +5138,7 @@ const written: Curriculum = {
                   [1, 5, 4.5, 0.5],
                   [1, 8, 5, 1.5],
                 ]),
-                phrase("m4", "Muda o ritmo", 2, [
+                phrase("m4", "Frase 2", 2, [
                   [2, 5, 0, 1],
                   [2, 8, 1, 1],
                   [1, 5, 2, 1.5],
@@ -5093,7 +5153,7 @@ const written: Curriculum = {
               kind: "play-rest",
               title: "Muda só o ritmo",
               goal: "Toque uma frase e repita com as mesmas notas, em outro ritmo.",
-              steps: ["Mesmas notas, mesma ordem.", "Experimente começar mais tarde ou alongar a última nota."],
+              steps: ["Mantenha também a ordem das notas: mude só o momento em que cada uma entra e quanto ela dura.", "Experimente começar mais tarde ou alongar a última nota."],
               check: "As notas ficaram iguais e só o ritmo mudou?",
               base: BASE,
               pattern: ["play", "rest", "play", "rest"],
@@ -5104,7 +5164,7 @@ const written: Curriculum = {
               kind: "play-rest",
               title: "Muda só o fim",
               goal: "Toque uma frase e repita igual, mudando só a última nota para uma nota do acorde novo.",
-              steps: ["Ouça qual acorde vem antes de repetir.", "Se a nota final já servir, troque por outro grau do acorde."],
+              steps: ["Antes de repetir, ouça qual acorde vem.", "Se a nota final já servir, troque por outro grau do acorde."],
               check: "A frase repetida terminou numa nota do acorde novo?",
               base: BASE,
               pattern: ["play", "rest", "play", "rest"],
@@ -5117,15 +5177,15 @@ const written: Curriculum = {
           concepts: ["O que é pergunta e resposta na música?"],
           title: "Pergunta e resposta",
           intro:
-            "Duas frases que conversam: a pergunta fica no ar, termina numa nota que pede continuação; a resposta começa parecida e pousa. É o motivo dando direção ao solo.",
+            "Duas frases que conversam: a pergunta termina numa nota que pede continuação e fica no ar; a resposta começa parecida e pousa.",
           key: "u8.l3.pr",
           exercises: [
             {
               id: "u8.l3.echo",
               kind: "echo",
               title: "Uma pergunta, uma resposta",
-              goal: "Repita. A primeira metade termina no ar; a segunda começa igual e pousa na tônica.",
-              steps: ["Cante as duas metades.", "Repare: a resposta termina mais grave e mais longa."],
+              goal: "Repita. A pergunta termina no Mi, a 5ª; a resposta começa igual e pousa no Lá, a tônica.",
+              steps: ["Cante as duas metades.", "Repare: a resposta termina mais grave."],
               check: "Sentiu a diferença entre terminar no ar e pousar?",
               base: VAMP,
               reveal: "tab",
@@ -5146,7 +5206,7 @@ const written: Curriculum = {
               id: "u8.l3.pr",
               kind: "play-rest",
               title: "Conversa",
-              goal: "Faça uma pergunta, cale, e responda com uma frase que começa igual e pousa numa nota do acorde.",
+              goal: "Faça uma pergunta, deixe um compasso em silêncio e responda com uma frase que pousa numa nota do acorde.",
               steps: ["A pergunta termina fora da tônica.", "A resposta reaproveita o começo da pergunta."],
               check: "Suas respostas começaram como as perguntas e pousaram?",
               base: BASE,
@@ -5195,7 +5255,7 @@ const written: Curriculum = {
               kind: "play-rest",
               title: "Responde com o dobro",
               goal: "A resposta repete a ideia da pergunta com o dobro de notas.",
-              steps: ["Pergunta com duas ou três notas.", "Resposta com a mesma direção, mais cheia."],
+              steps: ["Pergunta com duas ou três notas.", "A resposta segue a direção da pergunta e ganha notas no caminho, sem virar escala."],
               check: "Suas respostas encheram a ideia sem virar escala?",
               base: BASE,
               pattern: ["play", "rest", "play", "rest"],
@@ -5207,7 +5267,7 @@ const written: Curriculum = {
           id: "u14.l2",
           concepts: ["O que é dinâmica na música?"],
           title: "Fraco e forte",
-          intro: "Palhetar mais fraco ou mais forte muda tudo sem mudar uma nota. Um solo inteiro no mesmo volume cansa; uma frase fraca seguida de uma forte acorda quem está ouvindo.",
+          intro: "Palhetar mais fraco ou mais forte muda a frase sem trocar nenhuma nota. Um solo inteiro no mesmo volume cansa; uma frase fraca seguida de uma forte acorda quem está ouvindo.",
           key: "u14.l2.pr",
           exercises: [
             {
@@ -5236,8 +5296,8 @@ const written: Curriculum = {
               id: "u14.l2.pr",
               kind: "play-rest",
               title: "Pergunta fraca, resposta forte",
-              goal: "A pergunta fraca, a resposta forte. Depois, inverta.",
-              steps: ["Exagere a diferença: no começo, ela sempre parece menor do que é."],
+              goal: "Toque a pergunta com palhetada leve e a resposta com força. Depois, inverta.",
+              steps: ["Exagere a diferença: no começo, ela sempre sai menor do que você imagina."],
               check: "Dava para ouvir a diferença de volume entre as frases?",
               base: BASE,
               pattern: ["play", "rest", "play", "rest"],
@@ -5248,7 +5308,7 @@ const written: Curriculum = {
         {
           id: "u14.l3",
           title: "Crescer ao longo do solo",
-          intro: "Juntando as duas: oito compassos que começam vazios e fracos e terminam cheios e fortes. É o motor de qualquer arco.",
+          intro: "Agora as duas lições anteriores entram juntas, num solo que cresce do começo ao fim. Qualquer arco de solo precisa desse crescimento para chegar ao ponto mais alto.",
           key: "u14.l3.take",
           exercises: [
             {
@@ -5256,7 +5316,7 @@ const written: Curriculum = {
               kind: "take",
               title: "Só cresce",
               goal: "Oito compassos que só crescem: mais notas e mais volume a cada parte.",
-              steps: ["Comece com quase nada.", "Não chegue ao máximo antes da última parte."],
+              steps: ["Guarde o máximo para a última parte: se o solo começar cheio, não sobra para onde crescer.", "Pode usar a mesma ideia nas quatro partes."],
               check: "O solo cresceu aos poucos, sem chegar no máximo cedo demais?",
               base: BASE,
               bars: 8,
@@ -5274,21 +5334,21 @@ const written: Curriculum = {
           id: "u14.l4",
           title: "Bend de um tom e meio e de dois tons",
           intro:
-            "Até aqui o bend foi de meio tom ou de um tom. Os solos de rock sobem mais: um tom e meio (três casas de distância, como do Lá ao Dó) e dois tons (quatro casas, do Fá ao Lá). A mão esquerda sozinha não dá conta: apoie os outros dedos na mesma corda, atrás do dedo que empurra, e empurre a corda para cima com o pulso, não só com o dedo. Afine o bend de ouvido: a nota de chegada tem que soar como a mesma nota tocada na casa de cima. É o gesto de clímax: um bend grande, segurado, faz o solo crescer de uma vez.",
+            "Até aqui o bend foi de meio tom ou de um tom. Nos solos de rock ele vai mais longe: um tom e meio (três casas de distância, como do Lá ao Dó) e dois tons (quatro casas, do Fá ao Lá). Um bend desse tamanho, segurado, é o gesto de clímax: faz o solo crescer de uma vez.",
           key: "u14.l4.echo",
           exercises: [
             {
               id: "u14.l4.echo",
               kind: "echo",
               title: "Bends grandes",
-              goal: "Repita de ouvido. A nota de chegada do bend é a nota que você procura: confira com a mesma nota na casa de cima.",
+              goal: "Repita as três frases de ouvido, com os bends afinados.",
               steps: [
                 "Um tom e meio: o Lá da 3ª corda, casa 14, sobe até o Dó (a mesma altura da casa 17). Segure e termine com vibrato lento.",
                 "Dois tons: o Fá da 3ª corda, casa 10, sobe até o Lá (a mesma altura da casa 14). O Fá é nota de fora da penta, mas é a tônica do acorde de Fá; o bend leva para a 3ª dele.",
-                "Antes de tocar, ache a nota de chegada na casa de cima. Depois faça o bend até soar igual.",
-                "Se a nota desafinar, apoie os outros dedos na corda e empurre com o pulso.",
+                "Antes de tocar, ache a nota de chegada na casa mais aguda. Depois faça o bend até soar igual.",
+                "Apoie os outros dedos na mesma corda, atrás do que faz o bend, e empurre a corda para cima com o pulso, não só com o dedo. Um dedo sozinho não dá conta de um bend desse tamanho.",
               ],
-              check: "A nota de chegada soou igual à mesma nota tocada na casa de cima?",
+              check: "A nota de chegada soou igual à mesma nota tocada na casa mais aguda?",
               base: AM_F_SLOW,
               reveal: "tab",
               transcribed: true,
@@ -5314,8 +5374,8 @@ const written: Curriculum = {
               id: "u14.l4.pr",
               kind: "play-rest",
               title: "Um bend grande por frase",
-              goal: "Nos compassos de tocar, uma frase com um bend de um tom e meio ou de dois tons, segurado, terminando numa nota do acorde.",
-              steps: ["Ache antes a nota de chegada, na casa de cima.", "Segure o bend e feche com vibrato."],
+              goal: "Nos compassos de tocar, uma frase com um bend de um tom e meio ou de dois tons que chegue numa nota do acorde.",
+              steps: ["Ache antes a nota de chegada, na casa mais aguda.", "Segure o bend e feche com vibrato."],
               check: "A nota de chegada do bend soou afinada e foi uma nota do acorde?",
               base: BASE_SLOW,
               pattern: ["play", "play", "rest", "rest"],
@@ -5327,15 +5387,15 @@ const written: Curriculum = {
           id: "u14.l5",
           title: "Bend curto: a nota que não chega",
           intro:
-            "Nem todo bend sobe até a nota seguinte. O bend curto de blues e de choro só empurra a corda um pouco, menos de meio tom, e a nota fica entre duas: não é desafinada, é expressiva. Use em notas longas do acorde (a 3ª, por exemplo), com o dedo apoiado por outros dois. Se virar bend de meio tom, você passou do ponto.",
+            "Nem todo bend sobe até a nota seguinte. O bend curto, comum no blues e no choro, empurra a corda só um pouco: o som fica entre duas notas e soa expressivo, sem parecer desafinado. Use em notas do acorde, como a 3ª, com o dedo apoiado por outros dois.",
           key: "u14.l5.echo",
           exercises: [
             {
               id: "u14.l5.echo",
               kind: "echo",
               title: "Quase, mas não chega",
-              goal: "Repita de ouvido. Na tab, b¼ é o bend curto: a nota fica entre a casa e a seguinte.",
-              steps: ["Empurre a corda só um pouco, menos de meio tom.", "Segure a nota: o bend curto só funciona em nota longa."],
+              goal: "Repita de ouvido. Na tab, o bend curto aparece como b¼.",
+              steps: ["Empurre a corda menos de meio tom: se chegar a meio tom, passou do ponto.", "Segure a nota: o bend curto só funciona em nota longa."],
               check: "O bend ficou entre duas notas, sem chegar na seguinte?",
               base: AM_F_SLOW,
               reveal: "tab",
@@ -5362,7 +5422,7 @@ const written: Curriculum = {
               kind: "play-rest",
               title: "Um bend curto por frase",
               goal: "Nos compassos de tocar, uma nota longa do acorde com bend curto.",
-              steps: ["Empurre pouco: menos de meio tom.", "Termine na nota com o bend."],
+              steps: ["Empurre pouco: menos de meio tom.", "Termine a frase na nota com o bend."],
               check: "O bend ficou entre duas notas, sem chegar na seguinte?",
               base: BASE_SLOW,
               pattern: ["play", "play", "rest", "rest"],
@@ -5374,7 +5434,7 @@ const written: Curriculum = {
           id: "u14.l6",
           title: "Solo que segue a melodia",
           intro:
-            "Uma ideia que sustenta muito solo famoso: tocar a melodia que a voz canta, só que com a guitarra. Cante ou assobie a melodia por cima da base; o que sai fácil, na altura em que sai, é uma frase. Depois toque o que cantou, mesmo que aproximado. Teen Spirit e September seguem a melodia da voz. O solo de Smells Like Teen Spirit segue a melodia da voz.",
+            "Muito solo famoso toca na guitarra a melodia da voz: Teen Spirit e September fazem isso. Para inventar uma melodia sua, comece pela voz. O que você canta sem esforço, na altura em que sai, já é uma frase; na guitarra, vale chegar perto dela, mesmo que não saia igual.",
           key: "u14.l6.pr",
           exercises: [
             {
@@ -5403,14 +5463,14 @@ const written: Curriculum = {
           concepts: ["Como terminar um solo de guitarra?"],
           title: "A última nota",
           intro:
-            "A última frase é a que mais fica na memória. Três regras para ela: a última nota é a tônica, o Lá; ela cai no tempo 1 do acorde de Lá menor; e ela dura, com vibrato, até a base parar. Nestas frases a base toca Fá, Sol e Lá menor: a frase atravessa o Fá e o Sol e chega no Lá menor junto com a nota final.",
+            "A última frase é a que mais fica na memória, e a última nota dela segue três regras: é a tônica, o Lá; cai no tempo 1 do acorde de Lá menor; e dura, com vibrato, até a base parar.",
           key: "u36.l1.echo",
           exercises: [
             {
               id: "u36.l1.echo",
               kind: "echo",
               title: "Três finais",
-              goal: "Repita os três finais. Todos chegam no Lá no tempo 1 do Lá menor e seguram até o fim do compasso seguinte.",
+              goal: "Repita os três finais: cada um chega ao Lá por um caminho diferente.",
               steps: ["Conte: Fá, Sol, e o Lá cai no 1 do Lá menor.", "Não solte o Lá antes da hora: o vibrato é o que diz que acabou."],
               check: "O Lá caiu junto com o Lá menor e soou até o fim?",
               base: ENDING,
@@ -5453,7 +5513,7 @@ const written: Curriculum = {
           id: "u36.l2",
           title: "Avisar que vai acabar",
           intro:
-            "Quem ouve precisa sentir o fim chegando antes da última nota. Três jeitos de avisar: tocar cada vez menos notas, descer para o grave, ou trazer de volta a ideia do começo do solo. Escolha um e termine no Lá, no tempo 1 do Lá menor, segurando até a base parar.",
+            "Quem ouve precisa sentir o fim chegando antes da última nota. Três jeitos de avisar: tocar cada vez menos notas, descer para o grave ou trazer de volta a ideia do começo do solo.",
           key: "u36.l2.take",
           exercises: [
             {
@@ -5461,13 +5521,13 @@ const written: Curriculum = {
               kind: "take",
               title: "Um solo com fim",
               goal: "Oito compassos: quatro de solo, quatro para acabar. A base para sozinha no fim.",
-              steps: ["Nos quatro últimos compassos, avise: menos notas, mais grave ou a ideia do começo.", "A última nota é o Lá, no tempo 1 do Lá menor, e soa até a base parar."],
+              steps: ["Escolha um dos três avisos e use-o nos quatro últimos compassos.", "A última nota é o Lá, no tempo 1 do Lá menor, e soa até a base parar."],
               check: "Deu para ouvir que o solo ia acabar? Terminou no Lá, sem notas depois dele?",
               base: ENDING,
               bars: 8,
               arc: [
                 { name: "Solo", how: "Frases curtas, com espaço entre elas." },
-                { name: "Fim", how: "Menos notas, e o Lá longo no Lá menor." },
+                { name: "Fim", how: "O aviso escolhido e o Lá longo no Lá menor." },
               ],
             },
           ],
@@ -5483,9 +5543,9 @@ const written: Curriculum = {
         {
           id: "u54.l1",
           title: "Shine On You Crazy Diamond",
-          videos: [{ youtube: "Tu7oq3VNgpY", title: "Shine On You Crazy Diamond (Pts. 1-5)", author: "Pink Floyd", note: "A gravação de estúdio (Shine On You Crazy Diamond, partes 1 a 5), no canal oficial do Pink Floyd. O primeiro solo de guitarra do David Gilmour começa por volta de 2:10 (estimado pela tab e conferido de ouvido no áudio; o andamento é livre, então vale a gravação)." }],
+          videos: [{ youtube: "Tu7oq3VNgpY", title: "Shine On You Crazy Diamond (Pts. 1-5)", author: "Pink Floyd", note: "A gravação de estúdio (Shine On You Crazy Diamond, partes 1 a 5), no canal oficial do Pink Floyd. O primeiro solo de guitarra do David Gilmour começa por volta de 2:10 (o andamento é livre: onde a tab soar diferente, vale a gravação)." }],
           source: { title: "Shine On You Crazy Diamond no Songsterr", url: "https://www.songsterr.com/a/wsa/pink-floyd-shine-on-you-crazy-diamond-parts-i-ix-tab-s15518" },
-          intro: "O primeiro solo do David Gilmour, guitarrista do Pink Floyd, na penta de Sol menor, shape 1 uma oitava acima: notas longas, bends de um tom a um tom e meio e vibrato sobre Sol menor, Ré menor e Dó menor. O solo está dividido em 4 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O primeiro solo do David Gilmour, guitarrista do Pink Floyd, na penta de Sol menor, shape 1 uma oitava acima: notas longas, bends de um tom a um tom e meio e vibrato sobre Sol menor, Ré menor e Dó menor.",
           key: "u54.echo",
           exercises: [
             {
@@ -5493,7 +5553,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, com os bends afinados?",
               base: SHINE_ON,
               reveal: "tab",
@@ -5534,7 +5594,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(SHINE_ON, 0, 10),
-                  intro: "O solo é lento, com notas longas e bends. Esta parte tem quatro ideias, em ordem: o Fá que sobe ao Sol, o Dó que sobe ao Ré, uma passagem rápida em hammer-on e pull-off sobre o Ré menor, e o Sol que sobe um tom e meio sobre o Dó menor. Tudo na penta de Sol menor.", steps: ["A penta é a de Sol menor (Sol, Sib, Dó, Ré, Fá), quase toda no shape 1 uma oitava acima (casas 15 a 18, na 2ª e na 3ª corda); no fim, a 3ª corda desce para as casas 10 a 12 (shapes 4 e 5). Os acordes (Sol menor, Ré menor e Dó menor) são do tom de Sib maior, o relativo, e a mesma penta serve nos três: o que muda é a função de cada nota.", "No começo, sobre o Sol menor: o Fá (2ª corda, casa 18), a 7ª menor, sobe um tom até o Sol, a tônica, e fica. No meio, um bend rápido de meio tom leva o Fá ao Fá#, nota de fora da penta que passa antes de voltar ao Sol.", "Depois, Sol (4ª corda, casa 17), Sib (3ª corda, casa 15) e Dó (casa 17) levam ao bend do Dó ao Ré, a 5ª de Sol menor, segurado com vibrato por duas barras.", "Ainda sobre o Sol menor, o Dó solta o bend, liga o Sib e volta ao Dó. Quando o acorde muda para Ré menor, o Dó sobe ao Ré, que agora é a tônica do acorde. Um bend de meio tom no meio, do Dó ao Dó#, é nota de fora de passagem, e o Ré longo termina com vibrato.", "A passagem rápida, ainda sobre o Ré menor, usa hammer-on e pull-off: Lá, Sib, Lá, Sol, Lá e Fá (2ª corda, casas 10 e 11; 3ª corda, casas 12 e 10), e termina em Fá, Ré e Fá com vibrato. O Lá é a 5ª do Ré menor, mas está fora da penta de Sol menor; o Sib é a 6ª menor do Ré menor, só de passagem entre dois Lás.", "Sobre o Dó menor, o Sol da 3ª corda, casa 12, a 5ª do acorde, sobe um tom e meio até o Sib, a 7ª menor, e solta; depois Fá e Sol, e um Sol longo, a nota de chegada.", "A base segue a camada de cordas da tab: Sol menor, Ré menor e Dó menor."],
+                  intro: "Esta parte tem quatro ideias, em ordem: o Fá que sobe ao Sol, o Dó que sobe ao Ré, uma passagem rápida em hammer-on e pull-off sobre o Ré menor e o Sol que sobe um tom e meio sobre o Dó menor.", steps: ["A penta é a de Sol menor (Sol, Sib, Dó, Ré, Fá), quase toda no shape 1 uma oitava acima (casas 15 a 18, na 2ª e na 3ª corda); no fim, a 3ª corda desce para as casas 10 a 12 (shapes 4 e 5). Os acordes (Sol menor, Ré menor e Dó menor) são do tom de Sib maior, o relativo, e a mesma penta serve nos três: o que muda é a função de cada nota.", "No começo, sobre o Sol menor: o Fá (2ª corda, casa 18), a 7ª menor, sobe um tom até o Sol, a tônica, e fica. No meio, um bend rápido de meio tom leva o Fá ao Fá#, nota de fora da penta que passa antes de voltar ao Sol.", "Depois, Sol (4ª corda, casa 17), Sib (3ª corda, casa 15) e Dó (casa 17) levam ao bend do Dó ao Ré, a 5ª de Sol menor, segurado com vibrato por dois compassos.", "Ainda sobre o Sol menor, o Dó solta o bend, liga o Sib e volta ao Dó. Quando o acorde muda para Ré menor, o Dó sobe ao Ré, que agora é a tônica do acorde. Um bend de meio tom no meio, do Dó ao Dó#, é nota de fora de passagem, e o Ré longo termina com vibrato.", "A passagem rápida, ainda sobre o Ré menor, usa hammer-on e pull-off: Lá, Sib, Lá, Sol, Lá e Fá (2ª corda, casas 10 e 11; 3ª corda, casas 12 e 10), e termina em Fá, Ré e Fá com vibrato. O Lá é a 5ª do Ré menor, mas está fora da penta de Sol menor; o Sib é a 6ª menor do Ré menor, só de passagem entre dois Lás.", "Sobre o Dó menor, o Sol da 3ª corda, casa 12, a 5ª do acorde, sobe um tom e meio até o Sib, a 7ª menor, e solta; depois Fá e Sol, e um Sol longo, a nota de chegada.", "A base segue a camada de cordas da tab: Sol menor, Ré menor e Dó menor."],
                 },
                 {
                   ...phrase("shinep2", "Shine On You Crazy Diamond: parte 2", 8, [
@@ -5563,7 +5623,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(SHINE_ON, 10, 8),
-                  intro: "Começa sobre o Dó menor com o Sol que sobe ao Sib, chega ao Fá e ao Sol da tônica na 2ª corda, passa pela 1ª corda e desce de volta às casas 10 a 12, onde fecha no Sol. Tudo na penta de Sol menor.", steps: ["A penta é a de Sol menor (Sol, Sib, Dó, Ré, Fá): shape 1 uma oitava acima, com a descida para os shapes 4 e 5 (casas 10 a 12). Todas as notas são da penta, e ela serve do mesmo jeito sobre o Dó menor e o Sol menor.", "Sobre o Dó menor: o Sol da 3ª corda, casa 12, a 5ª do acorde, sobe um tom e meio até o Sib, a 7ª menor, e volta. Depois Fá e Sol, e o Dó da casa 17 sobe um tom até o Ré.", "Quando o acorde muda para Sol menor, o Fá da 2ª corda, casa 18, a 7ª menor, sobe um tom até o Sol, a tônica, e fica por quatro tempos: é a primeira chegada da parte.", "Na 1ª corda: Fá, Sol (casa 15) e Sib (casa 18), a 7ª menor, a tônica e a 3ª menor de Sol menor, com vibrato. O Sib sobe um tom até o Dó (a 4ª) e volta ao Sib longo.", "O Dó solta o bend, o Sib (3ª corda, casa 15) liga, e a frase desce em Ré, Fá e Sol (4ª corda, casa 12; 3ª corda, casas 10 e 12), com vibrato no Sol: da 5ª, passando pela 7ª menor, até a tônica.", "No fim, o Sol (3ª corda, casa 12) sobe um tom e meio até o Sib, a 3ª menor, três vezes, a última com o bend solto; fecha em Fá e num Sol longo, a tônica.", "A base segue a camada de cordas da tab: Dó menor e Sol menor."],
+                  intro: "Começa sobre o Dó menor com o Sol que sobe ao Sib, chega ao Fá e ao Sol, a tônica, na 2ª corda, passa pela 1ª corda e desce de volta às casas 10 a 12, onde fecha no Sol.", steps: ["A penta é a de Sol menor (Sol, Sib, Dó, Ré, Fá): shape 1 uma oitava acima, com a descida para os shapes 4 e 5 (casas 10 a 12). Todas as notas são da penta, e ela serve do mesmo jeito sobre o Dó menor e o Sol menor.", "Sobre o Dó menor: o Sol da 3ª corda, casa 12, a 5ª do acorde, sobe um tom e meio até o Sib, a 7ª menor, e volta. Depois Fá e Sol, e o Dó da casa 17 sobe um tom até o Ré.", "Quando o acorde muda para Sol menor, o Fá da 2ª corda, casa 18, a 7ª menor, sobe um tom até o Sol, a tônica, e fica por quatro tempos: é a primeira chegada da parte.", "Na 1ª corda: Fá, Sol (casa 15) e Sib (casa 18), a 7ª menor, a tônica e a 3ª menor de Sol menor, com vibrato. O Sib sobe um tom até o Dó (a 4ª) e volta ao Sib longo.", "O Dó solta o bend, o Sib (3ª corda, casa 15) liga, e a frase desce em Ré, Fá e Sol (4ª corda, casa 12; 3ª corda, casas 10 e 12), com vibrato no Sol: da 5ª, passando pela 7ª menor, até a tônica.", "No fim, o Sol (3ª corda, casa 12) sobe um tom e meio até o Sib, a 3ª menor, três vezes, a última com o bend solto; fecha em Fá e num Sol longo, a tônica.", "A base segue a camada de cordas da tab: Dó menor e Sol menor."],
                 },
                 {
                   ...phrase("shinep3", "Shine On You Crazy Diamond: parte 3", 5, [
@@ -5582,7 +5642,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(SHINE_ON, 18, 5),
-                  intro: "A terceira parte retoma a ideia da parte 1: o Dó solta o bend, o Sib liga ao Dó e o Dó sobe ao Ré, agora sobre o Ré menor, e passa para a 2ª corda. Penta de Sol menor.", steps: ["Penta de Sol menor, shape 1 uma oitava acima (casas 15 a 18). Nenhuma nota fica fora da penta. A progressão vai do Sol menor ao Ré menor, e as mesmas notas mudam de função.", "No começo, sobre o Sol menor, o Dó solta o bend, liga o Sib e volta ao Dó. Quando entra o Ré menor, o Dó sobe ao Ré, a tônica do acorde (e a 5ª de Sol menor), segurado por quatro tempos.", "O Dó sobe ao Ré outra vez. Em seguida, o Fá da 2ª corda, casa 18, a 3ª menor do Ré menor, sobe um tom até o Sol, a 4ª; o Sol da 1ª corda, casa 15, passa rápido.", "Perto do fim, o Fá sobe ao Sol e volta; o Ré da 2ª corda, casa 15, ligado, é a tônica; e o Dó que sobe ao Ré é segurado até o começo da parte seguinte.", "A base segue a camada de cordas da tab: Sol menor na primeira barra e Ré menor nas outras."],
+                  intro: "A terceira parte retoma a ideia da parte 1, o Dó que sobe ao Ré, agora sobre o Ré menor, e passa para a 2ª corda.", steps: ["Penta de Sol menor, shape 1 uma oitava acima (casas 15 a 18). Nenhuma nota fica fora da penta. A progressão vai do Sol menor ao Ré menor, e as mesmas notas mudam de função.", "No começo, sobre o Sol menor, o Dó solta o bend, liga o Sib e volta ao Dó. Quando entra o Ré menor, o Dó sobe ao Ré, a tônica do acorde (e a 5ª de Sol menor), segurado por quatro tempos.", "O Dó sobe ao Ré outra vez. Em seguida, o Fá da 2ª corda, casa 18, a 3ª menor do Ré menor, sobe um tom até o Sol, a 4ª; o Sol da 1ª corda, casa 15, passa rápido.", "Perto do fim, o Fá sobe ao Sol e volta; o Ré da 2ª corda, casa 15, ligado, é a tônica; e o Dó que sobe ao Ré é segurado até o começo da parte seguinte.", "A base segue a camada de cordas da tab: Sol menor no primeiro compasso e Ré menor nos outros."],
                 },
                 {
                   ...phrase("shinep4", "Shine On You Crazy Diamond: parte 4", 7, [
@@ -5612,7 +5672,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 4",
                   base: songBars(SHINE_ON, 22, 7),
-                  intro: "A parte final sobe à 1ª corda, até o Dó da casa 20, e termina no Fá da 2ª corda, que sobe ao Sol, a tônica, e fica por mais de cinco tempos. Penta de Sol menor, com um único Lá de passagem.", steps: ["Penta de Sol menor: shape 1 uma oitava acima (casas 15 a 18) e, na 1ª corda, o Dó da casa 20, no shape 2.", "No começo, a ideia da parte 1: o Dó solta o bend, liga o Sib e volta ao Dó, longo. Depois, sobre o Dó menor, o Sol da 4ª corda (casa 17, deslizando da casa 15) e o Sib da casa 15: a 5ª e a 7ª menor do acorde.", "De novo Dó, Sib e Dó, e o bend do Dó ao Ré. O Ré dura até o acorde mudar para Ré menor, quando passa a ser a tônica. Depois, o Fá (a 3ª menor), o Dó que sobe ao Ré mais uma vez, e Fá ao Sol (a 4ª).", "Sobre o Ré menor, o Sib da 1ª corda, casa 18, com vibrato: a 6ª menor, que dá tensão ao acorde. Depois o Ré da 2ª corda, casa 15, a tônica, e o bend do Dó da 1ª corda, casa 20, ao Ré, que chega à tônica de novo, uma oitava acima.", "Sobre o Sol menor, o Sib sobe um tom até o Dó (da 3ª menor à 4ª) e volta. O Lá da 1ª corda, casa 17, passa de relance: é a única nota fora da penta (a 2ª de Sol menor). O Fá da 2ª corda, casa 18, sobe um tom até o Sol, a tônica, e fica até o fim: o solo termina na tônica.", "A base segue a camada de cordas da tab: Ré menor, Dó menor, Ré menor e Sol menor."],
+                  intro: "A parte final sobe à 1ª corda, até o Dó da casa 20, e termina no Fá da 2ª corda, que sobe ao Sol, a tônica, e fica por mais de cinco tempos. Penta de Sol menor, com um único Lá de passagem.", steps: ["Penta de Sol menor: shape 1 uma oitava acima (casas 15 a 18) e, na 1ª corda, o Dó da casa 20, no shape 2.", "No começo, a ideia da parte 1: o Dó solta o bend, liga o Sib e volta ao Dó, longo. Depois, sobre o Dó menor, o Sol da 4ª corda (casa 17, deslizando da casa 15) e o Sib da 3ª corda, casa 15: a 5ª e a 7ª menor do acorde.", "De novo Dó, Sib e Dó, e o bend do Dó ao Ré. O Ré dura até o acorde mudar para Ré menor, quando passa a ser a tônica. Depois, o Fá (a 3ª menor), o Dó que sobe ao Ré mais uma vez, e Fá ao Sol (a 4ª).", "Sobre o Ré menor, o Sib da 1ª corda, casa 18, com vibrato: a 6ª menor, que dá tensão ao acorde. Depois o Ré da 2ª corda, casa 15, a tônica, e o bend do Dó da 1ª corda, casa 20, ao Ré, que chega à tônica de novo, uma oitava acima.", "Sobre o Sol menor, o Sib sobe um tom até o Dó (da 3ª menor à 4ª) e volta. O Lá da 1ª corda, casa 17, passa de relance: é a única nota fora da penta (a 2ª de Sol menor). O Fá da 2ª corda, casa 18, sobe um tom até o Sol, a tônica, e fica até o fim do solo.", "A base segue a camada de cordas da tab: Ré menor, Dó menor, Ré menor e Sol menor."],
                 },
                 {
                   ...phrase("shinefull", "Shine On You Crazy Diamond: o solo completo", 29, [
@@ -5706,7 +5766,7 @@ const written: Curriculum = {
                   ]),
                   label: "Solo completo",
                   base: SHINE_ON,
-                  intro: "As quatro partes juntas: o solo inteiro, de 29 compassos, quase todo em bends e notas longas, na penta de Sol menor.", steps: ["Junte as partes de duas em duas, devagar.", "Repare no desenho: a ideia do Dó que sobe ao Ré volta nas partes 1, 3 e 4, e o solo sobe da 3ª corda à 1ª antes de fechar no Fá que sobe ao Sol, a tônica.", "O andamento é lento: o difícil é a afinação dos bends e o vibrato nas notas longas."],
+                  intro: "As quatro partes juntas: o solo inteiro, de 29 compassos.", steps: ["Junte as partes de duas em duas, devagar.", "Repare no desenho: a ideia do Dó que sobe ao Ré volta nas partes 1, 3 e 4, e o solo sobe da 3ª corda à 1ª antes de fechar no Fá que sobe ao Sol, a tônica.", "O andamento é lento: o difícil é a afinação dos bends e o vibrato nas notas longas."],
                 },
               ],
             },
@@ -5715,9 +5775,9 @@ const written: Curriculum = {
         {
           id: "u54.l2",
           title: "Licks para roubar: Shine On You Crazy Diamond",
-          videos: [{ youtube: "Tu7oq3VNgpY", title: "Shine On You Crazy Diamond (Pts. 1-5)", author: "Pink Floyd", note: "A gravação de estúdio (Shine On You Crazy Diamond, partes 1 a 5), no canal oficial do Pink Floyd. O primeiro solo de guitarra do David Gilmour começa por volta de 2:10 (estimado pela tab e conferido de ouvido no áudio; o andamento é livre, então vale a gravação)." }],
+          videos: [{ youtube: "Tu7oq3VNgpY", title: "Shine On You Crazy Diamond (Pts. 1-5)", author: "Pink Floyd", note: "A gravação de estúdio (Shine On You Crazy Diamond, partes 1 a 5), no canal oficial do Pink Floyd. O primeiro solo de guitarra do David Gilmour começa por volta de 2:10 (o andamento é livre: onde a tab soar diferente, vale a gravação)." }],
           source: { title: "Shine On You Crazy Diamond no Songsterr", url: "https://www.songsterr.com/a/wsa/pink-floyd-shine-on-you-crazy-diamond-parts-i-ix-tab-s15518" },
-          intro: "Trechos curtos do solo de Shine On You Crazy Diamond, de Pink Floyd, tirados do solo transcrito na lição anterior, \"Shine On You Crazy Diamond\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Shine On You Crazy Diamond, de Pink Floyd, tirados do solo transcrito na lição anterior, \"Shine On You Crazy Diamond\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u54.lick",
           exercises: [
             {
@@ -5742,7 +5802,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 1: o bend da 4ª à 5ª",
                   intro: "Lick de 6 notas: sai da 4ª e chega na tônica. Técnica: bend de um tom, da 4ª à 5ª; bend de um tom, da 7ª menor à tônica.",
-                  steps: ["O desenho, em funções: 4ª (2x), 7ª menor, 4ª, 7ª menor, tônica. Técnica: bend de um tom, da 4ª à 5ª; bend de um tom, da 7ª menor à tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 4ª no shape 2, e toque o lick ali."],
+                  steps: ["O desenho, em funções: 4ª (2x), 7ª menor, 4ª, 7ª menor, tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 4ª no shape 2, e toque o lick ali."],
                 },
                 {
                   ...phrase("lk54b", "Shine On You Crazy Diamond: lick 2", 2, [
@@ -5754,7 +5814,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 2: o bend da 7ª menor à tônica",
                   intro: "Lick de 5 notas: sai da 7ª menor e chega na 5ª. Técnica: bend de um tom, da 7ª menor à tônica; uma nota em ligado, sem palhetar.",
-                  steps: ["O desenho, em funções: 7ª menor, tônica, 7ª menor (2x), 5ª. Técnica: bend de um tom, da 7ª menor à tônica; uma nota em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 5ª."],
+                  steps: ["O desenho, em funções: 7ª menor, tônica, 7ª menor (2x), 5ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 5ª."],
                 },
                 {
                   ...phrase("lk54c", "Shine On You Crazy Diamond: lick 3", 2, [
@@ -5767,7 +5827,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 3: o bend da tônica à 3ª menor",
                   intro: "Lick de 6 notas: sai da 5ª e chega na 3ª menor. Técnica: bend de um tom e meio, da tônica à 3ª menor; vibrato em uma nota longa.",
-                  steps: ["O desenho, em funções: 5ª, 7ª menor, tônica (4x). Técnica: bend de um tom e meio, da tônica à 3ª menor; vibrato em uma nota longa.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre perto do tempo 2; pouse na 3ª menor (nota longa, de 1,75 tempos) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: 5ª, 7ª menor, tônica (4x).", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre perto do tempo 2; pouse na 3ª menor (nota longa, de 1,75 tempos) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
                 {
                   ...phrase("lk54d", "Shine On You Crazy Diamond: lick 4", 2, [
@@ -5776,9 +5836,9 @@ const written: Curriculum = {
                     [1, 8, 2.5, 0.5],
                     [1, 10, 3.0, 2.0, { bend: 2 }],
                   ]),
-                  label: "Lick 4: o bend da 4ª à 5ª",
+                  label: "Lick 4: o vibrato na 3ª menor",
                   intro: "Lick de 4 notas: sai da 3ª menor e chega na 5ª. Técnica: bend de um tom, da 4ª à 5ª; vibrato em uma nota longa.",
-                  steps: ["O desenho, em funções: 3ª menor, 5ª, 3ª menor, 4ª. Técnica: bend de um tom, da 4ª à 5ª; vibrato em uma nota longa.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota longa, de 2 tempos) e deixe o resto do compasso em silêncio.", "Como variar: troque a nota de pouso por outra nota do acorde que vem a seguir, mantendo o caminho até ela."],
+                  steps: ["O desenho, em funções: 3ª menor, 5ª, 3ª menor, 4ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota longa, de 2 tempos) e deixe o resto do compasso em silêncio.", "Como variar: troque a nota de pouso por outra nota do acorde que vem a seguir, mantendo o caminho até ela."],
                 },
               ],
             },
@@ -5797,7 +5857,7 @@ const written: Curriculum = {
           title: "Time",
           videos: [{ youtube: "Qr0-7Ds79zo", title: "Pink Floyd – Time (Official Audio)", author: "Pink Floyd", note: "O áudio oficial. O solo (andamentos de 122 a 134 bpm) começa por volta de 3:00, depois do refrão; a tab pode estar um pouco adiantada em relação à gravação. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Time no Songsterr", url: "https://www.songsterr.com/a/wsa/pink-floyd-time-tab-s15873" },
-          intro: "O solo de David Gilmour, guitarrista do Pink Floyd: bends longos e notas seguradas na penta de Fá# menor, que tem as mesmas notas da de Lá maior. O solo está dividido em 4 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O solo de David Gilmour, guitarrista do Pink Floyd: bends longos e notas seguradas na penta de Fá# menor, que tem as mesmas notas da de Lá maior.",
           key: "u63.echo",
           exercises: [
             {
@@ -5805,7 +5865,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro, com os bends afinados e o vibrato firme?",
               base: TIME,
               reveal: "tab",
@@ -5837,7 +5897,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(TIME, 0, 11),
-                  intro: "O solo de Time começa devagar: poucas notas, cada uma segurada por vários tempos, com bends e vibrato. Esta primeira parte fica no shape 1 da penta de Fá# menor e termina com o mesmo bend do Si ao Dó# que aparece no meio.", steps: ["A penta é a de Fá# menor (Fá#, Lá, Si, Dó#, Mi), as mesmas notas da penta de Lá maior. A música está em Lá maior, e a penta serve sobre os acordes do trecho: Fá# menor, Lá e Mi. Shape 1 (casas 2 a 5) e a parte baixa do shape 2 (casas 4 a 7), nas cordas 1 a 4.", "Abre no Fá# (4ª corda, casa 4), a tônica de Fá# menor, com um slide vindo da casa 2 e vibrato, seguro por mais de seis tempos.", "O bend do Si (3ª corda, casa 4): primeiro de meio tom, solto; depois de um tom, até o Dó#, e solto no Lá da casa 2. Sobre o Fá# menor, o Si é a 4ª e o Dó#, a 5ª. Quando o acorde muda para Lá, o mesmo bend vai da 9ª à 3ª do acorde.", "Nota fora da penta: o Dó natural, onde o bend de meio tom para. É a nota de tensão do bend, e não se segura.", "No meio da parte, o lick passa ao Dó# (3ª corda, casa 6), a 5ª de Fá# menor, e ao Mi e ao Fá# (2ª corda, casas 5 e 7), com um bend de meio tom do Lá (1ª corda, casa 5). O Lá#, onde esse bend chega, também é fora da penta, de passagem.", "Fecha com o Fá# (4ª corda, casa 4), com vibrato, o bend do Si ao Dó# segurado e solto até o Lá da casa 2, e o Si da casa 4 dobrado um tom, por três tempos, sobre o Lá: da 9ª à 3ª do acorde.", "Acorde: Fá# menor no começo, depois Lá e Mi, com Ré e Fá no baixo de passagem; a base toca Fá# menor, Lá e Mi."],
+                  intro: "O solo de Time começa devagar: poucas notas, cada uma segurada por vários tempos. Esta primeira parte fica no shape 1 e termina com o mesmo bend do Si ao Dó# que aparece no meio.", steps: ["A penta é a de Fá# menor (Fá#, Lá, Si, Dó#, Mi), as mesmas notas da penta de Lá maior. A música está em Lá maior, e a penta serve sobre os acordes do trecho: Fá# menor, Lá e Mi. Shape 1 (casas 2 a 5) e a parte aguda do shape 2 (casas 4 a 7), nas cordas 1 a 4.", "Abre no Fá# (4ª corda, casa 4), a tônica de Fá# menor, com um slide vindo da casa 2 e vibrato, seguro por mais de seis tempos.", "O bend do Si (3ª corda, casa 4): primeiro de meio tom, solto; depois de um tom, até o Dó#, e solto no Lá da casa 2. Sobre o Fá# menor, o Si é a 4ª e o Dó#, a 5ª. Quando o acorde muda para Lá, o mesmo bend vai da 9ª à 3ª do acorde.", "Nota fora da penta: o Dó natural, onde o bend de meio tom para. É a nota de tensão do bend, e não se segura.", "No meio da parte, o lick passa ao Dó# (3ª corda, casa 6), a 5ª de Fá# menor, e ao Mi e ao Fá# (2ª corda, casas 5 e 7), com um bend de meio tom do Lá (1ª corda, casa 5). O Lá#, onde esse bend chega, também é fora da penta, de passagem.", "Fecha com o Fá# (4ª corda, casa 4), com vibrato, o bend do Si ao Dó# segurado e solto até o Lá da casa 2, e o Si da casa 4 dobrado um tom, por três tempos, sobre o Lá: da 9ª à 3ª do acorde.", "Acorde: Fá# menor no começo, depois Lá e Mi, com Ré e Fá no baixo de passagem; a base toca Fá# menor, Lá e Mi."],
                 },
                 {
                   ...phrase("timep2", "Time: parte 2", 12, [
@@ -5877,7 +5937,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(TIME, 10, 12),
-                  intro: "A segunda parte repete o desenho da primeira numa região mais aguda, no shape 4, e termina subindo ao shape 1 uma oitava acima, onde ficam os bends mais longos do solo. Continua na penta de Fá# menor.", steps: ["Penta de Fá# menor, a mesma de Lá maior. Começa no shape 4 (casas 9 a 12) e vai ao shape 1 uma oitava acima (casas 14 a 17).", "O lick do shape 4, sobre o Lá: o Mi (3ª corda, casa 9), com um slide vindo do Dó#, e o Dó# (1ª corda, casa 9), a 5ª e a 3ª do acorde. Um bend curto leva o Dó# ao Ré, nota de fora de passagem.", "Sobre o Mi, o Lá (2ª corda, casa 10) dobra um tom até o Si, com vibrato: a 4ª que vira 5ª do acorde.", "Nota fora da penta: o Sol# (2ª corda, casa 9). Sobre o Mi, é a 3ª do acorde, nota do acorde, e recebe um bend de meio tom até o Lá, que volta.", "Sobre o Fá# menor, o Mi (3ª corda, casa 9) é dobrado um tom até o Fá#, da 7ª menor à tônica, e dura sete tempos.", "Depois, o arpejo de Fá# menor sobe: Fá# (4ª corda, casa 16), Lá, Dó# e Mi, cada um numa corda mais fina. O Mi (2ª corda, casa 17) é dobrado um tom até o Fá#, várias vezes: a 7ª menor que chega à tônica.", "Sobre o Lá, o Si da 3ª corda, casa 16, é dobrado até o Dó#, da 9ª à 3ª do acorde, e um bend de um tom e meio leva ao Ré, que não é da penta: tensão de passagem, solta em seguida. Sobre o Mi, o Si é segurado, a 5ª do acorde.", "Acorde: Lá, Mi e Fá# menor; sobre o Mi, o baixo passa pelo Ré e pelo Fá. A base toca Lá, Mi e Fá# menor."],
+                  intro: "A segunda parte repete o desenho da primeira numa região mais aguda, no shape 4, e termina subindo ao shape 1 uma oitava acima, onde ficam os bends mais longos do solo.", steps: ["Penta de Fá# menor, a mesma de Lá maior. Começa no shape 4 (casas 9 a 12) e vai ao shape 1 uma oitava acima (casas 14 a 17).", "O lick do shape 4, sobre o Lá: o Mi (3ª corda, casa 9), com um slide vindo do Dó#, e o Dó# (1ª corda, casa 9), a 5ª e a 3ª do acorde. Um bend curto leva o Dó# ao Ré, nota de fora de passagem.", "Sobre o Mi, o Lá (2ª corda, casa 10) dobra um tom até o Si, com vibrato: a 4ª que vira 5ª do acorde.", "Nota fora da penta: o Sol# (2ª corda, casa 9). Sobre o Mi, é a 3ª do acorde, nota do acorde, e recebe um bend de meio tom até o Lá, que volta.", "Sobre o Fá# menor, o Mi (3ª corda, casa 9) é dobrado um tom até o Fá#, da 7ª menor à tônica, e dura sete tempos.", "Depois, o arpejo de Fá# menor sobe: Fá# (4ª corda, casa 16), Lá (3ª corda, casa 14), Dó# e Mi (2ª corda, casas 14 e 17). O Mi é dobrado um tom até o Fá#, várias vezes: a 7ª menor que chega à tônica.", "Sobre o Lá, o Si da 3ª corda, casa 16, é dobrado até o Dó#, da 9ª à 3ª do acorde, e um bend de um tom e meio leva ao Ré, que não é da penta: tensão de passagem, solta em seguida. Sobre o Mi, o Si é segurado, a 5ª do acorde.", "Acorde: Lá, Mi e Fá# menor; sobre o Mi, o baixo passa pelo Ré e pelo Fá. A base toca Lá, Mi e Fá# menor."],
                 },
                 {
                   ...phrase("timep3", "Time: parte 3", 10, [
@@ -5914,7 +5974,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(TIME, 22, 10),
-                  intro: "A terceira parte fica no agudo, nas casas 14 a 19, e leva o solo ao ponto mais alto: o Si da 1ª corda, casa 19, com bend e uma sequência longa de notas repetidas. Continua na penta de Fá# menor.", steps: ["Penta de Fá# menor, a mesma de Lá maior, nos shapes 1 e 2 uma oitava acima: casas 14 a 19. Os acordes seguem Fá# menor, Lá e Mi.", "Começa no Fá# (4ª corda, casa 16), a tônica, com vibrato, passa ao Dó# (2ª corda, casa 14), a 5ª, e ao bend de um tom do Lá (1ª corda, casa 17) até o Si: da 3ª menor à 4ª de Fá# menor, solto depois.", "O Mi (2ª corda, casa 17), a 7ª menor, é dobrado um tom até o Fá#, a tônica, com vibrato: dura quatro tempos e meio. É o mesmo movimento da parte 2.", "O Lá e o Si da 3ª corda (casas 14 e 16) em ligados, a 3ª menor e a 4ª de Fá# menor, e o bend do Si ao Dó#, longo, por cinco tempos, já sobre o Lá: da 9ª à 3ª do acorde.", "O ponto mais alto: o Mi da 1ª corda solta e o Si da casa 19, dobrado um tom até o Dó#, repetido e segurado, sobre o Lá e depois o Mi. O Si é a 9ª do Lá e a 5ª do Mi.", "Nota fora da penta: o Sol# (1ª corda, casa 16). Sobre o Mi, é a 3ª do acorde: nota do acorde.", "A frase termina no Fá# e no Mi da 2ª corda (casas 19 e 17) e no Dó# da casa 14, repetido: a 5ª de Fá# menor.", "Acorde: Lá, Mi e Fá# menor."],
+                  intro: "A terceira parte fica no agudo, nas casas 14 a 19, e leva o solo ao ponto mais alto: o Si da 1ª corda, casa 19, com bend e uma sequência longa de notas repetidas.", steps: ["Penta de Fá# menor, a mesma de Lá maior, nos shapes 1 e 2 uma oitava acima: casas 14 a 19. Os acordes seguem Fá# menor, Lá e Mi.", "Começa no Fá# (4ª corda, casa 16), a tônica, com vibrato, passa ao Dó# (2ª corda, casa 14), a 5ª, e ao bend de um tom do Lá (1ª corda, casa 17) até o Si: da 3ª menor à 4ª de Fá# menor, solto depois.", "O Mi (2ª corda, casa 17), a 7ª menor, é dobrado um tom até o Fá#, a tônica, com vibrato: dura quatro tempos e meio. É o mesmo movimento da parte 2.", "O Lá e o Si da 3ª corda (casas 14 e 16) em ligados, a 3ª menor e a 4ª de Fá# menor, e o bend do Si ao Dó#, longo, por cinco tempos, já sobre o Lá: da 9ª à 3ª do acorde.", "O ponto mais alto: o Mi da 1ª corda solta e o Si da casa 19, dobrado um tom até o Dó#, repetido e segurado, sobre o Lá e depois o Mi. O Si é a 9ª do Lá e a 5ª do Mi.", "Nota fora da penta: o Sol# (1ª corda, casa 16). Sobre o Mi, é a 3ª do acorde: nota do acorde.", "A frase termina no Fá# e no Mi da 2ª corda (casas 19 e 17) e no Dó# da casa 14, repetido: a 5ª de Fá# menor.", "Acorde: Lá, Mi e Fá# menor."],
                 },
                 {
                   ...phrase("timep4", "Time: parte 4", 16, [
@@ -6090,7 +6150,7 @@ const written: Curriculum = {
                   ]),
                   label: "Solo completo",
                   base: TIME,
-                  intro: "As quatro partes juntas: o solo inteiro, de 48 compassos, do shape 1 grave ao agudo e de volta ao grave, todo na penta de Fá# menor.", steps: ["Junte as partes devagar.", "Repare no desenho: o bend do Si ao Dó# volta várias vezes, primeiro no grave, depois no agudo e no fim, e a cada acorde ele tem uma função diferente.", "Quando sair, toque junto com a gravação ou sobre a base do site."],
+                  intro: "As quatro partes juntas: o solo inteiro, de 48 compassos, do shape 1 grave ao agudo e de volta ao grave.", steps: ["Junte as partes devagar.", "Repare no desenho: o bend do Si ao Dó# volta várias vezes, primeiro no grave, depois no agudo e no fim, e a cada acorde ele tem uma função diferente.", "Quando sair, toque junto com a gravação ou sobre a base do site."],
                 },
               ],
             },
@@ -6101,7 +6161,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Time",
           videos: [{ youtube: "Qr0-7Ds79zo", title: "Pink Floyd – Time (Official Audio)", author: "Pink Floyd", note: "O áudio oficial. O solo (andamentos de 122 a 134 bpm) começa por volta de 3:00, depois do refrão; a tab pode estar um pouco adiantada em relação à gravação. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Time no Songsterr", url: "https://www.songsterr.com/a/wsa/pink-floyd-time-tab-s15873" },
-          intro: "Trechos curtos do solo de Time, de Pink Floyd, tirados do solo transcrito na lição anterior, \"Time\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Time, de Pink Floyd, tirados do solo transcrito na lição anterior, \"Time\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u63.lick",
           exercises: [
             {
@@ -6153,9 +6213,9 @@ const written: Curriculum = {
                     [2, 5, 2.25, 0.75],
                     [2, 5, 3.0, 1.0],
                   ]),
-                  label: "Lick 3: o slide até a 5ª",
+                  label: "Lick 3: o slide da 7ª menor à 5ª",
                   intro: "Lick de 7 notas: sai da 7ª menor e chega na 5ª. Técnica: slide da 7ª menor até a 5ª; 2 notas em ligado, sem palhetar.",
-                  steps: ["O desenho, em funções: 7ª menor, tônica, 7ª menor (2x), 5ª (3x). Técnica: slide da 7ª menor até a 5ª; 2 notas em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: 7ª menor, tônica, 7ª menor (2x), 5ª (3x).", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -6174,7 +6234,7 @@ const written: Curriculum = {
           title: "Boulevard of Broken Dreams",
           videos: [{ youtube: "hBvJyi3fbtA", title: "Boulevard of Broken Dreams (Official Audio)", author: "Green Day", note: "O áudio oficial. O solo começa por volta de 2:40. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Boulevard of Broken Dreams no Songsterr", url: "https://www.songsterr.com/a/wsa/green-day-boulevard-of-broken-dreams-tab-s92866" },
-          intro: "O solo do Billie Joe Armstrong: a melodia da voz em palhetada tremolo, na 3ª corda, na penta de Fá menor. O solo está dividido em 2 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O solo do Billie Joe Armstrong: a melodia da voz em palhetada tremolo, na 3ª corda, na penta de Fá menor.",
           key: "u48.echo",
           exercises: [
             {
@@ -6182,7 +6242,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, com o tremolo igual do começo ao fim?",
               base: BOULEVARD,
               reveal: "tab",
@@ -6254,7 +6314,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(BOULEVARD, 0, 4),
-                  intro: "O solo é a melodia da voz tocada em palhetada tremolo: cada nota vira uma fila de semicolcheias, com palheta alternada, sem parar. Quase tudo fica na 3ª corda, em quatro notas da penta de Fá menor; o que importa é como cada uma soa sobre o acorde. As notas são poucas, e o difícil é manter a mão direita no tempo.", steps: ["A penta é a de Fá menor (Fá, Láb, Sib, Dó, Mib), as mesmas notas da penta de Láb maior, o tom da música. Aqui aparecem quatro delas, na 3ª corda: Fá na casa 10 (tônica), Láb na 13 (3ª menor), Sib na 15 (4ª) e Dó na 17 (5ª).", "A palhetada tremolo: semicolcheias com palheta alternada, sem pausa entre uma nota e a outra. Comece a 60 bpm.", "A entrada é um slide longo na 6ª corda, da casa 16 até a 4: um Láb grave, a 5ª do acorde de Réb, que abre o solo.", "Depois, o Sol (3ª corda, casa 12) sobe de meio tom ao Láb da casa 13, que fica em tremolo: a tônica do acorde de Láb e a 3ª menor de Fá menor. O Dó (casa 17), a 3ª do Láb, desce ao Sib (casa 15), que dura até o acorde de Mib, onde é a 5ª.", "Em seguida, o Sol volta, agora sobre o Mib, e sobe de novo ao Láb, que passa pelo Fá menor como a 3ª menor e pousa.", "A segunda metade repete a ideia: o Fá (casa 10), a 3ª do Réb, desliza para o Sol e sobe ao Láb; depois vêm o Dó, o Sib e o Sol. A parte termina no Láb em tremolo, sobre o Fá menor, esperando a parte seguinte.", "Nota fora da penta: o Sol, a 2ª de Fá menor. Quando o acorde é Mib, o Sol é a 3ª dele, nota do acorde; quando é Réb, é passagem, a 4ª aumentada, que sobe para o Láb.", "A base segue a gravação: Réb e Láb numa barra, Mib e Fá menor na outra."],
+                  intro: "Na palhetada tremolo, cada nota da melodia vira uma fila de semicolcheias, sem parar. Quase tudo cabe em quatro notas da penta, e o que importa é como cada uma soa sobre o acorde. O difícil é manter a mão da palhetada no tempo.", steps: ["A penta é a de Fá menor (Fá, Láb, Sib, Dó, Mib), as mesmas notas da penta de Láb maior, o tom da música. Aqui aparecem quatro delas, na 3ª corda: Fá na casa 10 (tônica), Láb na 13 (3ª menor), Sib na 15 (4ª) e Dó na 17 (5ª).", "No tremolo, a palheta alterna para baixo e para cima, sem pausa entre uma nota e a outra. Comece a 60 bpm.", "A entrada é um slide longo na 6ª corda, da casa 16 até a 4: um Láb grave, a 5ª do acorde de Réb, que abre o solo.", "Depois, o Sol (3ª corda, casa 12) sobe de meio tom ao Láb da casa 13, que fica em tremolo: a tônica do acorde de Láb e a 3ª menor de Fá menor. O Dó (casa 17), a 3ª do Láb, desce ao Sib (casa 15), que dura até o acorde de Mib, onde é a 5ª.", "Em seguida, o Sol volta, agora sobre o Mib, e sobe de novo ao Láb, que passa pelo Fá menor como a 3ª menor e pousa.", "A segunda metade repete a ideia: o Fá (casa 10), a 3ª do Réb, desliza para o Sol e sobe ao Láb; depois vêm o Dó, o Sib e o Sol. A parte termina no Láb em tremolo, sobre o Fá menor, esperando a parte seguinte.", "Nota fora da penta: o Sol, a 2ª de Fá menor. Quando o acorde é Mib, o Sol é a 3ª dele, nota do acorde; quando é Réb, é passagem, a 4ª aumentada, que sobe para o Láb.", "A base segue a gravação: Réb e Láb num compasso, Mib e Fá menor no outro."],
                 },
                 {
                   ...phrase("bobdp2", "Boulevard of Broken Dreams: parte 2", 5, [
@@ -6334,7 +6394,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(BOULEVARD, 4, 5),
-                  intro: "A melodia repete e, no fim, fica no Dó da casa 17 por quase duas barras de tremolo, enquanto o acorde vai para Dó. É o fim do solo: uma nota só, tremendo.", steps: ["Penta de Fá menor, a mesma de Láb maior, na 3ª corda, casas 10 a 17.", "A melodia é a da parte 1, com os mesmos movimentos: o Fá desliza para o Sol e sobe ao Láb, depois o Dó e o Sib. O Sol é a nota de fora, de passagem: a 2ª de Fá menor e a 3ª do Mib.", "No fim, o Sib sobe ao Dó (casa 17), que fica em tremolo até o fim. O Dó é a 5ª de Fá menor, e aqui é a tônica do acorde de Dó, que fecha o solo: a mesma nota muda de função e resolve. Na gravação esse acorde é Dó maior; a base do site toca Dó menor, porque só monta os acordes do tom.", "Mantenha o tremolo sem acelerar: no fim a mão cansa e tende a correr."],
+                  intro: "A melodia repete e, no fim, fica no Dó da casa 17 por quase dois compassos de tremolo, enquanto o acorde vai para Dó.", steps: ["Penta de Fá menor, a mesma de Láb maior, na 3ª corda, casas 10 a 17.", "A melodia é a da parte 1, com os mesmos movimentos: o Fá desliza para o Sol e sobe ao Láb, depois o Dó e o Sib. O Sol é a nota de fora, de passagem: a 2ª de Fá menor e a 3ª do Mib.", "No fim, o Sib sobe ao Dó (casa 17), que fica em tremolo até o fim. O Dó é a 5ª de Fá menor, e aqui é a tônica do acorde de Dó, que fecha o solo: a mesma nota muda de função e resolve. Na gravação esse acorde é Dó maior; a base do site toca Dó menor, porque só monta os acordes do tom.", "Mantenha o tremolo sem acelerar: no fim a mão cansa e tende a correr."],
                 },
                 {
                   ...phrase("bobdfull", "Boulevard of Broken Dreams: o solo completo", 9, [
@@ -6475,7 +6535,7 @@ const written: Curriculum = {
                   ]),
                   label: "Solo completo",
                   base: BOULEVARD,
-                  intro: "As duas partes juntas: o solo inteiro, de 9 compassos, na penta de Fá menor.", steps: ["Toque primeiro a melodia sem tremolo, depois com tremolo.", "Repare que a mesma nota muda de função a cada acorde: o Láb é a tônica do Láb, a 3ª menor de Fá menor e a 4ª do Mib; o Dó é a 3ª do Láb, a 5ª de Fá menor e, no fim, a tônica do Dó.", "Baixe o andamento até a mão direita aguentar o solo inteiro; depois volte aos 84 bpm.", "Quando sair, toque junto com a gravação, a partir de 2:40."],
+                  intro: "As duas partes juntas: o solo inteiro, de 9 compassos, na penta de Fá menor.", steps: ["Toque primeiro a melodia sem tremolo, depois com tremolo.", "Repare que a mesma nota muda de função a cada acorde: o Láb é a tônica do Láb, a 3ª menor de Fá menor e a 4ª do Mib; o Dó é a 3ª do Láb, a 5ª de Fá menor e, no fim, a tônica do Dó.", "Baixe o andamento até a mão da palhetada aguentar o solo inteiro; depois volte aos 84 bpm.", "Quando sair, toque junto com a gravação, a partir de 2:40."],
                 },
               ],
             },
@@ -6494,14 +6554,14 @@ const written: Curriculum = {
           id: "a6.l1",
           title: "Dezesseis compassos",
           intro:
-            "Este é o solo que fecha a primeira parte do curso: tudo num shape só. Um motivo curto abre, depois ele muda de ritmo ou de nota, o solo sobe até o ponto mais alto, e no fim o motivo volta igual e pousa. Com um shape bem tocado já dá para fazer um solo inteiro.",
+            "Este é o solo que fecha a primeira parte do curso, e um shape bem tocado basta para ele. Escolha um motivo fácil de lembrar: é com ele que o solo termina.",
           key: "a6.take",
           exercises: [
             {
               id: "a6.take",
               kind: "take",
               title: "O solo inteiro no shape 1",
-              goal: "Dezesseis compassos no shape 1, em quatro partes de quatro compassos. Siga a faixa.",
+              goal: "Dezesseis compassos no shape 1, em quatro partes de quatro compassos. A tela mostra em qual parte você está.",
               steps: [],
               check: "Seu solo teve um motivo que voltou no fim, e um pico mais alto que o resto?",
               base: BASE,
@@ -6606,50 +6666,6 @@ const written: Curriculum = {
       ],
     },
     {
-      id: "u72",
-      title: "As notas de cada acorde",
-      skill: "Onde ficam a tônica, a 3ª e a 5ª de cada acorde.",
-      lessons: [
-        {
-          id: "u0.l3",
-          concepts: ["O que é a tônica, a terça e a quinta de um acorde?", "O que é campo harmônico?"],
-          title: "As notas de cada acorde",
-          intro:
-            'A pentatônica serve para a música inteira, mas cada acorde tem três notas que soam "em casa" enquanto ele toca: a tônica, a 3ª e a 5ª. Solo que parece escala ignora isso. Aqui você só aprende onde elas ficam; usar vem depois.',
-          key: "u0.l3.find",
-          exercises: [
-            {
-              id: "u0.l3.map",
-              kind: "map",
-              title: "Tônica, 3ª e 5ª de cada acorde",
-              goal: "Para cada acorde, toque as três notas dele dentro do shape 1.",
-              steps: [
-                "Algumas notas do acorde ficam fora da pentatônica. Neste curso, os solos usam só as de dentro.",
-                "Toque uma nota longa de cada acorde, no tempo da troca.",
-              ],
-              check:
-                "Achou pelo menos uma nota de cada acorde no tempo da troca?",
-              base: BASE,
-              shapes: [1],
-              layer: "chord",
-            },
-            {
-              id: "u0.l3.find",
-              kind: "find",
-              title: "Ache a nota",
-              goal: "O site pede uma nota de um acorde. Aponte no braço.",
-              steps: ["Responda sem contar casas: tente lembrar do shape."],
-              check: "",
-              base: BASE,
-              shape: 1,
-              ask: ["T", "3", "5"],
-              rounds: 12,
-            },
-          ],
-        },
-      ],
-    },
-    {
       id: "u5",
       title: "Ouvir a troca",
       skill: "Sentir a troca de acorde e chegar numa nota dele",
@@ -6660,18 +6676,18 @@ const written: Curriculum = {
           concepts: ["O que é uma nota do acorde?"],
           title: "Uma nota, quatro cores",
           intro:
-            "Antes de perseguir notas, ouça o que a troca de acorde faz com uma nota parada. O Dó da 1ª corda, casa 8, está em três dos quatro acordes da base: é a 3ª do Am, a 5ª do F e a tônica do C. Sobre o G ele fica tenso, pedindo para mudar.",
+            "Antes de perseguir notas, ouça o que a troca de acorde faz com uma nota parada. O Dó está em três dos quatro acordes da base: é a 3ª do Am, a 5ª do F e a tônica do C. Sobre o G ele fica tenso, pedindo para mudar.",
           key: "u5.l1.c",
           exercises: [
             {
               id: "u5.l1.c",
               kind: "play-rest",
               title: "Segure o Dó",
-              goal: "Toque o Dó da 1ª corda (casa 8) no começo de cada compasso e deixe soar. Só escute.",
+              goal: "Toque o Dó da 1ª corda (casa 8) no começo de cada compasso e deixe soar.",
               steps: [
-                "O Dó está na 1ª corda, casa 8.",
+                "Sem bend nem vibrato, para a nota ficar sempre igual.",
                 "Em cada troca, diga em voz alta como a nota soou: em casa ou tensa.",
-                "Depois de duas voltas, troque a nota pelo Lá (1ª corda, casa 5) e repita.",
+                "Faça duas voltas e passe para o exercício seguinte, com outra nota.",
               ],
               check: "Ouviu em qual acorde o Dó soa em casa e em qual soa tenso?",
               base: BASE,
@@ -6685,12 +6701,32 @@ const written: Curriculum = {
               ]),
             },
             {
+              id: "u5.l1.la",
+              kind: "play-rest",
+              title: "Segure o Lá",
+              goal: "Repita com o Lá da 1ª corda (casa 5), no começo de cada compasso, deixando soar.",
+              steps: [
+                "Mesma regra: sem bend nem vibrato.",
+                "Em cada troca, diga como o Lá soou, em casa ou tensa, e compare com o Dó.",
+              ],
+              check: "Ouviu em quais acordes o Lá soa em casa e em quais soa tenso?",
+              base: BASE,
+              pattern: ["play", "play", "play", "play"],
+              rule: "Uma nota só: o Lá da 1ª corda",
+              demo: phrase("demo.u5.l1.la", "", 4, [
+                [1, 5, 0, 3.5],
+                [1, 5, 4, 3.5],
+                [1, 5, 8, 3.5],
+                [1, 5, 12, 3.5],
+              ]),
+            },
+            {
               id: "u5.l1.pick",
               kind: "play-rest",
               title: "A nota que não muda",
               goal: "Uma nota longa por compasso, sempre do acorde da vez, mudando o mínimo possível de uma para a outra.",
               steps: [
-                "Comece no Dó da 1ª corda (casa 8) sobre o Am. No F, ele continua servindo; no C, também. No G, ande uma casa até o B ou o D.",
+                "Comece no Dó da 1ª corda (casa 8) sobre o Am. No F, ele continua servindo; no C, também. No G, ande duas casas até o Ré (casa 10), a 5ª do G.",
                 "A ideia é ouvir que nem sempre é preciso pular: às vezes a nota certa está do lado.",
               ],
               check: "Achou uma nota do acorde em cada troca, andando pouco?",
@@ -6705,7 +6741,7 @@ const written: Curriculum = {
           concepts: ["O que são notas alvo no improviso?"],
           title: "Chegar na troca",
           intro:
-            "Agora o alvo muda a cada acorde. Na segunda metade do compasso, o site mostra a nota do próximo acorde; você chega nela no tempo 1. Tônica, 3ª e 5ª se revezam, para nenhuma virar prisão.",
+            "Agora é o site que escolhe a nota-alvo de cada acorde: a tônica, a 3ª ou a 5ª, em rodízio, para você não se apoiar sempre no mesmo grau.",
           key: "u5.l2.phrase",
           exercises: [
             {
@@ -6714,7 +6750,7 @@ const written: Curriculum = {
               title: "Uma nota por acorde",
               goal: "Em cada compasso, toque só a nota-alvo, longa, entrando junto com o acorde.",
               steps: [
-                "Quando a faixa avisar o próximo alvo, procure a nota no braço antes da troca.",
+                "Na segunda metade do compasso, a tela já mostra o próximo alvo: procure a nota no braço antes da troca.",
                 "Escolha a posição mais perto de onde a mão está.",
               ],
               check: "Chegou em todos os alvos no tempo da troca?",
@@ -6729,7 +6765,7 @@ const written: Curriculum = {
               title: "Frase que termina no alvo",
               goal: "Toque frases curtas que terminam na nota-alvo, bem na troca de acorde.",
               steps: [
-                "Comece a frase depois do tempo 1 e termine no tempo 1 do compasso seguinte, no alvo.",
+                "Comece a frase depois do tempo 1 e use o resto do compasso para caminhar até o próximo alvo.",
                 "Deixe a nota-alvo soar um pouco antes da próxima frase.",
               ],
               check: "Suas frases terminaram nos alvos, e não perto deles?",
@@ -6744,14 +6780,14 @@ const written: Curriculum = {
           id: "u5.l3",
           title: "Sem olhar",
           intro:
-            "Até aqui a tela dizia quando o acorde trocava. Na música de verdade, quem diz é o ouvido. Os nomes dos acordes somem e a ordem fica menos previsível: escute o baixo, que muda junto com o acorde.",
+            "Até aqui a tela dizia qual acorde estava soando. Agora os nomes somem: na música de verdade, quem diz o acorde é o ouvido.",
           key: "u5.l3.blind",
           exercises: [
             {
               id: "u5.l3.blind",
               kind: "target",
               title: "Ouça a troca e chegue",
-              goal: "A faixa só diz o grau (tônica, 3ª ou 5ª). Descubra de ouvido qual acorde está soando e ache a nota.",
+              goal: "A tela só diz o grau (tônica, 3ª ou 5ª). Descubra de ouvido qual acorde está soando e ache a nota.",
               steps: [
                 "São oito compassos com Am, F, C e G, numa ordem que não se repete a cada quatro.",
                 "Escute o baixo: ele toca a tônica de cada acorde.",
@@ -6769,7 +6805,7 @@ const written: Curriculum = {
     },
     {
       id: "u6",
-      title: "Ligar",
+      title: "Caminhos até o alvo",
       skill: "Uma nota do acorde como fim de um gesto",
       takeCheck: "Suas chegadas nas notas do acorde vieram de um caminho, e nem todas no tempo 1?",
       lessons: [
@@ -6778,7 +6814,7 @@ const written: Curriculum = {
           concepts: ["O que é nota de aproximação?"],
           title: "Chegar por um passo",
           intro:
-            "Uma nota do acorde soa mais forte quando se chega nela andando: a nota vizinha da escala, a mais aguda ou a mais grave, e então o alvo. É o que transforma uma nota certa numa frase.",
+            "Uma nota do acorde soa mais forte quando você chega nela andando: primeiro a vizinha na escala, depois o alvo.",
           key: "u6.l1.target",
           exercises: [
             {
@@ -6786,7 +6822,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "Pela vizinha",
               goal: "Repita as frases. Todas chegam no acorde novo vindo da nota vizinha.",
-              steps: ["Repare de onde vem a última nota: de uma nota mais aguda ou de uma mais grave?"],
+              steps: ["Repare se a vizinha que leva à última nota é mais aguda ou mais grave."],
               check: "Repetiu as três sem olhar o braço?",
               base: AM_F,
               reveal: "tab",
@@ -6813,7 +6849,7 @@ const written: Curriculum = {
               id: "u6.l1.target",
               kind: "target",
               title: "Alvo pela vizinha",
-              goal: "Chegue em cada alvo vindo da nota vizinha da escala, a mais aguda ou a mais grave.",
+              goal: "Chegue em cada alvo vindo da nota vizinha na escala.",
               steps: ["A vizinha toca curta, logo antes da troca; o alvo entra com o acorde.", "Alterne: uma chegada descendo, a outra subindo."],
               check: "Chegou nos alvos pela vizinha, sem pular de longe?",
               base: BASE,
@@ -6828,14 +6864,14 @@ const written: Curriculum = {
           concepts: ["O que é antecipação na música?"],
           title: "Antes e depois do tempo 1",
           intro:
-            "Chegar no alvo sempre em cima do tempo 1 fica previsível de novo. Muitos solos antecipam a troca, com o alvo entrando meio tempo antes do acorde, ou atrasam, com uma nota de passagem no tempo 1 e o alvo logo depois.",
+            "Chegar no alvo sempre em cima do tempo 1 fica previsível de novo. Muitos solos antecipam a chegada, com o alvo um pouco antes do acorde, ou a atrasam para um pouco depois dele.",
           key: "u6.l2.target",
           exercises: [
             {
               id: "u6.l2.echo",
               kind: "echo",
               title: "Antecipar e atrasar",
-              goal: "Repita as duas frases. Uma chega antes do acorde, a outra depois.",
+              goal: "Repita as duas frases e repare em que tempo cada uma chega no Lá.",
               steps: ['Na antecipada, o Lá entra no "e" do tempo 4.', "Na atrasada, a nota do tempo 1 é de passagem; o alvo vem no tempo 2."],
               check: "Acertou o lugar da chegada nas duas?",
               base: AM_F,
@@ -6873,15 +6909,15 @@ const written: Curriculum = {
           concepts: ["Como fazer bend na guitarra?", "Como fazer slide na guitarra?"],
           title: "Chegar com bend e slide",
           intro:
-            "Juntando tudo: o alvo como fim de um gesto. Um bend que chega na 3ª do acorde, um slide que escorrega até a tônica. É assim que uma nota do acorde deixa de ser exercício e vira frase.",
+            "Por último, a chegada no alvo vira um gesto: um bend que sobe até a 3ª do acorde, um slide que escorrega até a tônica. Assim, a nota do acorde já soa como frase.",
           key: "u6.l3.target",
           exercises: [
             {
               id: "u6.l3.echo",
               kind: "echo",
               title: "Gestos até o alvo",
-              goal: "Repita: uma chegada por bend, outra por slide.",
-              steps: ["Na frase 1, o alvo chega por bend. Na frase 2, chega por slide: da casa 5 à 7 da 4ª corda."],
+              goal: "Repita as duas frases.",
+              steps: ["O bend da frase 1 sobe um tom, do Sol ao Lá, na 2ª corda, casa 8. O slide da frase 2 vai da casa 5 à 7 da 4ª corda."],
               check: "As chegadas soaram como o fim de um gesto, não como uma nota solta?",
               base: AM_F,
               reveal: "tab",
@@ -6925,15 +6961,15 @@ const written: Curriculum = {
           concepts: ["O que é tensão e resolução na música?"],
           title: "A nota que pede para resolver",
           intro:
-            "Nem toda nota da pentatônica é nota do acorde. Sobre o Am, o Ré e o Sol incomodam um pouco; sobre o F, também. Essa tensão é boa: ela pede a próxima nota. O que não pode é deixar pendurada: a tensão resolve numa nota do acorde, logo ao lado.",
+            "Nem toda nota da pentatônica é nota do acorde. Sobre o Am, o Ré e o Sol incomodam um pouco; sobre o F, também. Essa tensão é boa, porque pede a próxima nota. Só não a deixe pendurada: resolva numa nota do acorde, logo ao lado.",
           key: "u11.l1.echo",
           exercises: [
             {
               id: "u11.l1.echo",
               kind: "echo",
               title: "Incomoda e resolve",
-              goal: "Repita. Em cada frase, uma nota incomoda e a seguinte resolve.",
-              steps: ["Repare na nota que pede continuação.", "Abra o braço só para conferir."],
+              goal: "Repita. Em cada compasso, uma nota incomoda e a seguinte resolve.",
+              steps: ["Descubra de ouvido qual nota é essa.", "Abra o braço só para conferir."],
               check: "Ouviu qual nota incomodava antes de abrir o braço?",
               base: AM_F,
               reveal: "tab",
@@ -6970,14 +7006,14 @@ const written: Curriculum = {
           id: "u11.l2",
           title: "Tensão na troca",
           intro:
-            "O lugar mais forte para uma tensão é em cima da troca: o acorde muda, a nota fica pendurada meio tempo e cai no alvo. É o que faz um solo simples soar como música.",
+            "O lugar mais forte para uma tensão é em cima da troca: o acorde muda e a nota fica pendurada por um instante antes de cair no alvo.",
           key: "u11.l2.target",
           exercises: [
             {
               id: "u11.l2.echo",
               kind: "echo",
               title: "Pendura e cai",
-              goal: "Repita. A nota do tempo 1 do F é uma tensão; o alvo vem meio tempo depois.",
+              goal: "Repita. No tempo 1 do F, o Ré é a tensão; o Dó, meio tempo depois, é o alvo.",
               steps: [],
               check: "Sentiu a nota pendurada caindo no alvo?",
               base: AM_F,
@@ -6994,7 +7030,7 @@ const written: Curriculum = {
               id: "u11.l2.target",
               kind: "target",
               title: "Alvo pela tensão",
-              goal: "Chegue em cada alvo passando antes pela nota da pentatônica ao lado dele.",
+              goal: "Chegue em cada alvo passando antes por uma vizinha na pentatônica que não seja do acorde.",
               steps: ["A tensão pode cair em cima da troca; o alvo vem logo depois.", "Varie: às vezes chegue direto."],
               check: "Suas tensões caíram no alvo, sem ficar penduradas?",
               base: BASE,
@@ -7025,7 +7061,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo",
               goal: "Ouça o solo e repita de ouvido, um compasso por vez.",
-              steps: ["Penta: Lá menor (Lá, Dó, Ré, Mi, Sol), o mesmo tom do curso. O solo usa só três notas dela, o Lá, o Mi e o Sol, quase todas na 2ª corda; o slide troca de região sem trocar de corda.", "Sobre o Lá menor, a nota é o Lá, a tônica, repetida no ritmo. No fim do acorde, um slide sobe até o Mi (a 5ª de Lá menor), que já anuncia o acorde seguinte.", "Sobre o Fá, o Mi repetido. O Mi é a 7ª maior do Fá: não é nota do acorde de três notas, mas a penta de Lá menor a inclui e o efeito é aberto, como o de um Fá com sétima maior.", "Sobre o Dó, o Mi é a 3ª do acorde e o Sol é a 5ª: as duas notas são do acorde e da penta ao mesmo tempo, sem tensão.", "Sobre o Sol, o Sol volta a ser a tônica do acorde, e o Mi, a 6ª. O solo fecha sobre o Lá menor, de novo no Mi (a 5ª), onde a música recomeça.", "O Mi da 1ª corda solta, no meio da frase, soa uma oitava abaixo do Mi da 2ª corda: a corda solta dá tempo para a mão se mover até o Sol.", "Não há nota de fora da penta: a escolha é a nota do acorde que cai no tempo. A base segue a gravação: Lá menor, Fá, Dó e Sol."],
+              steps: ["Penta: Lá menor (Lá, Dó, Ré, Mi, Sol), o mesmo tom do curso. O solo usa só três notas dela, o Lá, o Mi e o Sol, quase todas na 2ª corda; o slide troca de região sem trocar de corda.", "Sobre o Lá menor, a nota é o Lá, a tônica, repetida no ritmo. No fim do acorde, um slide sobe até o Mi (a 5ª de Lá menor), que já anuncia o acorde seguinte.", "Sobre o Fá, o Mi repetido. O Mi é a 7ª maior do Fá: não faz parte do acorde de três notas, mas está na penta de Lá menor, e o efeito é aberto, como o de um Fá com sétima maior.", "Sobre o Dó, o Mi é a 3ª do acorde e o Sol é a 5ª: as duas notas são do acorde e da penta ao mesmo tempo, sem tensão.", "Sobre o acorde de Sol, a nota Sol passa a ser a tônica, e o Mi, a 6ª. O solo fecha sobre o Lá menor, de novo no Mi (a 5ª), onde a música recomeça.", "O Mi da 1ª corda solta, no meio da frase, soa uma oitava abaixo do Mi da 2ª corda: a corda solta dá tempo para a mão se mover até o Sol.", "Não há nota de fora da penta. A base segue a gravação: Lá menor, Fá, Dó e Sol."],
               check: "Manteve o ritmo das notas repetidas e trocou de nota junto com o acorde?",
               base: songBars(OTHERSIDE, 0, 5),
               reveal: "tab",
@@ -7073,7 +7109,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Otherside",
           videos: [{ youtube: "rn_YodiJO6k", title: "Otherside (Official Music Video)", author: "Red Hot Chili Peppers", note: "O clipe oficial. O solo começa por volta de 3:21. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Otherside no Songsterr", url: "https://www.songsterr.com/a/wsa/red-hot-chili-peppers-otherside-tab-s23785" },
-          intro: "Trechos curtos do solo de Otherside, de Red Hot Chili Peppers, tirados do solo transcrito na lição anterior, \"Otherside\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Otherside, de Red Hot Chili Peppers, tirados do solo transcrito na lição anterior, \"Otherside\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. O solo original já usa a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u46.lick",
           exercises: [
             {
@@ -7099,7 +7135,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 1: o slide até a 5ª",
                   intro: "Lick de 7 notas: sai da tônica e chega na 5ª. Técnica: slide da tônica até a 5ª.",
-                  steps: ["O desenho, em funções: tônica (5x), 5ª (2x). Técnica: slide da tônica até a 5ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela tônica no shape 2, e toque o lick ali."],
+                  steps: ["O desenho, em funções: tônica (5x), 5ª (2x).", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela tônica no shape 2, e toque o lick ali."],
                 },
                 {
                   ...phrase("lk46b", "Otherside: lick 2", 2, [
@@ -7113,7 +7149,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 2: ida e volta entre a 5ª e a 7ª menor",
                   intro: "Lick de 7 notas: sai da 5ª e chega na 5ª.",
-                  steps: ["O desenho, em funções: 5ª (2x), 7ª menor, 5ª (2x), 7ª menor, 5ª. Todas as notas saem da penta, sem técnica especial: a graça está no ritmo.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 5ª."],
+                  steps: ["O desenho, em funções: 5ª (2x), 7ª menor, 5ª (2x), 7ª menor, 5ª. Todas as notas saem da penta, sem técnica especial: o que conta é o ritmo.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 5ª."],
                 },
               ],
             },
@@ -7132,7 +7168,7 @@ const written: Curriculum = {
           title: "Brothers in Arms",
           videos: [{ youtube: "jhdFe3evXpk", title: "Dire Straits - Brothers In Arms (Official Music Video)", author: "Dire Straits", note: "O clipe oficial é uma edição de cerca de 5 minutos. Na tab, o último solo de guitarra começa por volta de 4:50 da versão do álbum, que tem quase 7 minutos; no clipe ele pode estar cortado ou em outro ponto. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Brothers in Arms no Songsterr", url: "https://www.songsterr.com/a/wsa/dire-straits-brothers-in-arms-tab-s5798" },
-          intro: "O último solo do Mark Knopfler: poucas notas longas, bends de um tom e uma nota de chegada escolhida pelo acorde, tudo na penta de Sol# menor. O solo está dividido em 3 partes, uma em cada aba, cada uma com a base dos seus acordes e a explicação dela; a última aba junta tudo.",
+          intro: "O último solo do Mark Knopfler: poucas notas longas, bends de um tom e uma nota de chegada escolhida pelo acorde, quase tudo na penta de Sol# menor.",
           key: "u51.echo",
           exercises: [
             {
@@ -7140,7 +7176,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela Parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: a penta, de onde cada frase parte, que nota de fora aparece e em que nota ela chega.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela Parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, com as notas longas inteiras?",
               base: BROTHERS_IN_ARMS,
               reveal: "tab",
@@ -7184,8 +7220,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(BROTHERS_IN_ARMS, 0, 5),
-                  intro: "O solo é lento, a 78 bpm, e cada nota tem um destino. Esta parte fica toda na penta de Sol# menor: abre com um bend de um tom do Fá# ao Sol#, repousa num Sol# longo e fecha no Mi.",
-                  steps: ["Penta de Sol# menor (Sol#, Si, Dó#, Ré#, Fá#), a relativa de Si maior, o tom da música. Tudo no shape 1 (casas 3 a 7). Os acordes são Sol# menor, Mi, Dó# menor e Fá#, e a base segue a gravação.", "Abertura sobre o Sol# menor: o Fá# (a 7ª menor) sobe um tom até o Sol# (a tônica) e volta; em seguida o Ré# (a 5ª) leva ao acorde de Mi.", "Sobre o Mi, o Lá# é a nota de fora: é a 2ª de Sol# menor e aparece só de passagem, entre o Sol# e o Fá#, antes de voltar ao Sol#.", "O Sol# longo, com vibrato, é a nota de chegada da primeira frase. Ele atravessa três acordes: é a 3ª do Mi, a 5ª do Dó# menor e, no fim, a 2ª do Fá#.", "Segunda frase, de volta ao Sol# menor: o Sol# da 1ª corda vai e volta ao Fá#, que também sobe um tom até o Sol#. O Lá# é de novo só vizinho do Sol#.", "Sobre o Dó# menor, a frase desce: o Mi (a 3ª do Dó# menor, fora da penta de Sol# menor) liga ao Ré#, chega ao Dó# (a tônica do acorde) e ao Si, que cai com a entrada do acorde de Si, onde é a tônica.", "Fecho: o Fá# abre a última frase, repete no ritmo e alterna com o Mi; sobre o Sol# menor ele é a 7ª menor. O Mi longo, no fim, cai sobre o acorde de Mi, onde é a tônica.", "Acordes da base, em ordem: Sol# menor e Mi; Dó# menor, Mi e Fá#; Sol# menor e Mi; Dó# menor, Si e Fá#; Sol# menor e Mi."],
+                  intro: "O solo é lento, a 78 bpm, e cada nota tem um destino. Esta parte fica quase toda na penta de Sol# menor: abre com um bend de um tom do Fá# ao Sol#, repousa num Sol# longo e fecha no Mi.",
+                  steps: ["Penta de Sol# menor (Sol#, Si, Dó#, Ré#, Fá#), a relativa de Si maior, o tom da música. Tudo no shape 1 (casas 3 a 7). A base segue a gravação.", "Abertura sobre o Sol# menor: o Fá# (a 7ª menor) sobe um tom até o Sol# (a tônica) e volta; em seguida o Ré# (a 5ª) leva ao acorde de Mi.", "Sobre o Mi, o Lá# é a nota de fora: é a 2ª de Sol# menor e aparece só de passagem, entre o Ré# e o Sol#; depois a frase desce ao Fá# e volta ao Sol#.", "O Sol# longo, com vibrato, é a nota de chegada da primeira frase. Ele atravessa três acordes: é a 3ª do Mi, a 5ª do Dó# menor e, no fim, a 2ª do Fá#.", "Segunda frase, de volta ao Sol# menor: o Sol# da 1ª corda vai e volta ao Fá#, que também sobe um tom até o Sol#. O Lá# é de novo só vizinho do Sol#.", "Sobre o Dó# menor, a frase desce: o Mi (a 3ª do Dó# menor, fora da penta de Sol# menor) liga ao Ré#, chega ao Dó# (a tônica do acorde) e ao Si, que cai com a entrada do acorde de Si, onde é a tônica.", "Fecho: o Fá# abre a última frase, repete no ritmo e alterna com o Mi; sobre o Sol# menor ele é a 7ª menor. O Mi longo, no fim, cai sobre o acorde de Mi, onde é a tônica.", "Acordes da base, em ordem: Sol# menor e Mi; Dó# menor, Mi e Fá#; Sol# menor e Mi; Dó# menor, Si e Fá#; Sol# menor e Mi."],
                 },
                 {
                   ...phrase("biap2", "Brothers in Arms: parte 2", 6, [
@@ -7222,7 +7258,7 @@ const written: Curriculum = {
                   label: "Parte 2",
                   base: songBars(BROTHERS_IN_ARMS, 5, 6),
                   intro: "A segunda parte começa na região grave da penta de Sol# menor, em notas longas com vibrato, sobe até um Si de quatro tempos e meio e desliza para a casa 13, onde alterna o Sol# e o Ré#.",
-                  steps: ["Penta de Sol# menor (Sol#, Si, Dó#, Ré#, Fá#), a mesma da parte anterior. Começa no shape 1 (casas 3 a 8) e passa ao shape 5 na casa 13.", "Primeira frase: o Si (a 5ª do Mi) liga ao Dó# com vibrato. O Dó# é a 5ª do Fá# e vira a 4ª quando o Sol# menor entra, uma tensão que a descida ao Si (a 3ª menor) resolve. Depois vêm o Sol# (a 3ª do Mi) e o Si de novo.", "Segunda frase, sobre o Dó# menor: o Dó# (a tônica) liga ao Ré#, que é da penta mas não é nota do acorde, e volta ao Dó#. Em seguida o Sol# repetido, a 5ª do Dó# menor, fecha o trecho grave.", "Subida, sobre o Sol# menor: Si (3ª menor), Ré# (5ª), Sol# (tônica) e o Lá#, nota de fora, só de passagem para o Si agudo.", "O Si agudo dura quatro tempos e meio, com vibrato, e atravessa Mi, Dó# menor e Mi: é a 5ª do Mi e a 7ª menor do Dó# menor, e por isso serve nos dois.", "Fecho: o Dó# (a 5ª do Fá#) desliza até o Sol# da casa 13, a tônica do Sol# menor, e alterna com o Ré# (a 5ª). O Lá# da casa 15 é de passagem para o Si da casa 16, que dura mais de um tempo; a frase volta então ao Sol#, que é a 3ª do Mi.", "Acordes da base, em ordem: Dó# menor, Mi e Fá#; Sol# menor e Mi; Dó# menor, Si e Fá#; Sol# menor e Mi; Dó# menor, Mi e Fá#; Sol# menor e Mi."],
+                  steps: ["Penta de Sol# menor (Sol#, Si, Dó#, Ré#, Fá#), a mesma da parte anterior. Começa no shape 1 (casas 3 a 8) e passa ao shape 5 na casa 13.", "Primeira frase: o Si (a 5ª do Mi) liga ao Dó# com vibrato. O Dó# é a 5ª do Fá# e vira a 4ª quando o Sol# menor entra, uma tensão que a descida ao Si (a 3ª menor) resolve. Depois vêm o Sol# (a 3ª do Mi) e o Si de novo.", "Segunda frase, sobre o Dó# menor: o Dó# (a tônica) liga ao Ré#, que é da penta mas não é nota do acorde, e volta ao Dó#. Em seguida o Sol# repetido, a 5ª do Dó# menor, fecha o trecho grave.", "Subida, sobre o Sol# menor: Si (3ª menor), Ré# (5ª), Sol# (tônica) e o Lá#, nota de fora, só de passagem para o Si agudo.", "O Si agudo, com vibrato, atravessa Mi, Dó# menor e Mi: é a 5ª do Mi e a 7ª menor do Dó# menor, e por isso serve nos dois.", "Fecho: o Dó# (a 5ª do Fá#) desliza até o Sol# da casa 13, a tônica do Sol# menor, e alterna com o Ré# (a 5ª). O Lá# da casa 15 é de passagem para o Si da casa 16, que dura mais de um tempo; a frase volta então ao Sol#, que é a 3ª do Mi.", "Acordes da base, em ordem: Dó# menor, Mi e Fá#; Sol# menor e Mi; Dó# menor, Si e Fá#; Sol# menor e Mi; Dó# menor, Mi e Fá#; Sol# menor e Mi."],
                 },
                 {
                   ...phrase("biap3", "Brothers in Arms: parte 3", 5, [
@@ -7256,7 +7292,7 @@ const written: Curriculum = {
                   label: "Parte 3",
                   base: songBars(BROTHERS_IN_ARMS, 11, 5),
                   intro: "A última parte começa com um bend de um tom do Si ao Dó#, desce em semicolcheias pela penta de Sol# menor com o Lá# de passagem e termina em notas longas sobre o Dó# menor.",
-                  steps: ["Penta de Sol# menor (Sol#, Si, Dó#, Ré#, Fá#). O primeiro bend está no shape 5 (casa 12); a descida e o fim estão no shape 1 (casas 3 a 7).", "Os dois bends levam o Si ao Dó#, um tom acima. Sobre o Dó# menor, é da 7ª menor à tônica; sobre o Fá#, do Si (4ª) ao Dó# (5ª).", "A descida, sobre o Sol# menor e o Mi: Si, Lá#, Sol#, Fá#, Ré#, Dó#, Ré#, Si, Lá#, Dó#, Si, Lá# e Sol#.", "O Lá# é a nota de fora e aparece três vezes, sempre logo depois do Si, como passagem. Duas vezes ele desce meio tom até o Sol#, que é da penta; na outra, vai ao Dó#.", "A descida pousa no Sol# grave (4ª corda, casa 6), que dura mais de um tempo. Sobre o Dó# menor, ele é a 5ª do acorde: uma chegada estável.", "Frase final: só Si e Dó# (3ª corda, casas 4 e 6), repetidos com ritmo diferente e vibrato no Dó#. O Si é a 5ª do Mi e a 3ª menor do Sol# menor; o Dó# é a 5ª do Fá# e, no último acorde, a tônica.", "O solo termina no Sol# grave (4ª corda, casa 6), a 5ª do Dó# menor.", "Acordes da base, em ordem: Dó# menor, Si e Fá#; Sol# menor e Mi; Dó# menor, Mi e Fá#; Sol# menor e Mi; e Dó# menor sozinho no último."],
+                  steps: ["Penta de Sol# menor (Sol#, Si, Dó#, Ré#, Fá#). O primeiro bend está no shape 5 (casa 12); a descida e o fim estão no shape 1 (casas 3 a 7).", "Os dois bends levam o Si ao Dó#, um tom acima. Sobre o Dó# menor, é da 7ª menor à tônica; sobre o Fá#, do Si (4ª) ao Dó# (5ª).", "A descida, sobre o Sol# menor e o Mi: Si, Lá#, Sol#, Fá#, Ré#, Dó#, Ré#, Si, Lá#, Dó#, Si, Lá# e Sol#.", "O Lá# é a nota de fora e aparece três vezes, sempre logo depois do Si, como passagem. Duas vezes ele desce meio tom até o Sol#, que é da penta; na outra, vai ao Dó#.", "A descida pousa no Sol# grave (4ª corda, casa 6), que dura mais de um tempo. Sobre o Dó# menor, ele é a 5ª do acorde: uma chegada estável.", "Frase final: só Si e Dó# (3ª corda, casas 4 e 6), repetidos com ritmo diferente e vibrato no Dó#. O Si é a 5ª do Mi e a 3ª menor do Sol# menor; o Dó# é a 5ª do Fá# e, no último acorde, a tônica.", "O solo termina no mesmo Sol# grave em que a descida pousou.", "Acordes da base, em ordem: Dó# menor, Si e Fá#; Sol# menor e Mi; Dó# menor, Mi e Fá#; Sol# menor e Mi; e Dó# menor sozinho no último."],
                 },
                 {
                   ...phrase("biafull", "Brothers in Arms: o solo completo", 16, [
@@ -7352,7 +7388,7 @@ const written: Curriculum = {
                   label: "Solo completo",
                   base: BROTHERS_IN_ARMS,
                   intro: "As três partes juntas: o solo inteiro, em Sol# menor, quase todo na penta, com o Lá# e o Mi como únicas notas de fora.",
-                  steps: ["Junte as três partes devagar.", "Repare no desenho: shape 1 no começo, o salto à casa 13 no meio, o bend do Si ao Dó# e a descida no fim, até o Sol# grave sobre o Dó# menor.", "Quando sair, toque sobre a base do site ou com a gravação. A tab foi feita para a gravação do álbum; o andamento e o tom são os da tab."],
+                  steps: ["Toque devagar até a passagem de uma parte para a outra sair sem parar.", "Repare no desenho: shape 1 no começo, o salto à casa 13 no meio, o bend do Si ao Dó# e a descida no fim, até o Sol# grave sobre o Dó# menor.", "Quando sair, toque sobre a base do site ou com a gravação. A tab foi feita para a gravação do álbum; o andamento e o tom são os da tab."],
                 },
               ],
             },
@@ -7363,7 +7399,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Brothers in Arms",
           videos: [{ youtube: "jhdFe3evXpk", title: "Dire Straits - Brothers In Arms (Official Music Video)", author: "Dire Straits", note: "O clipe oficial é uma edição de cerca de 5 minutos. Na tab, o último solo de guitarra começa por volta de 4:50 da versão do álbum, que tem quase 7 minutos; no clipe ele pode estar cortado ou em outro ponto. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Brothers in Arms no Songsterr", url: "https://www.songsterr.com/a/wsa/dire-straits-brothers-in-arms-tab-s5798" },
-          intro: "Trechos curtos do solo de Brothers in Arms, de Dire Straits, tirados do solo transcrito na lição anterior, \"Brothers in Arms\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Brothers in Arms, de Dire Straits, tirados do solo transcrito na lição anterior, \"Brothers in Arms\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u51.lick",
           exercises: [
             {
@@ -7404,7 +7440,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 2: o slide até a 5ª",
                   intro: "Lick de 7 notas: sai da 4ª e chega na tônica. Técnica: slide da 4ª até a 5ª; uma nota em ligado, sem palhetar.",
-                  steps: ["O desenho, em funções: 4ª, 5ª, 4ª (2x), tônica (3x). Técnica: slide da 4ª até a 5ª; uma nota em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
+                  steps: ["O desenho, em funções: 4ª, 5ª, 4ª (2x), tônica (3x).", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
                 },
                 {
                   ...phrase("lk51c", "Brothers in Arms: lick 3", 1, [
@@ -7417,7 +7453,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 3: o slide até a tônica",
                   intro: "Lick de 6 notas: sai da 4ª e chega na tônica. Técnica: slide da 4ª até a tônica.",
-                  steps: ["O desenho, em funções: 4ª, tônica, 5ª, tônica, 5ª, tônica. Técnica: slide da 4ª até a tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: 4ª, tônica, 5ª, tônica, 5ª, tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -7434,7 +7470,7 @@ const written: Curriculum = {
         {
           id: "u58.l1",
           title: "Highway to Hell",
-          videos: [{ youtube: "l482T0yNkeo", title: "AC/DC - Highway to Hell (Official Video)", author: "AC/DC", note: "O clipe oficial. O solo vem depois da ponte e começa por volta de 2:10 (pela tab, a 116 bpm). Pela tab, a guitarra está meio tom abaixo, então soa meio tom mais grave que aqui. Onde a tab soar diferente, vale a gravação." }],
+          videos: [{ youtube: "l482T0yNkeo", title: "AC/DC - Highway to Hell (Official Video)", author: "AC/DC", note: "O clipe oficial. O solo vem depois da ponte e começa por volta de 2:10 (pela tab, a 116 bpm). A guitarra da gravação está meio tom abaixo, então soa meio tom mais grave que aqui. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Highway To Hell no Songsterr", url: "https://www.songsterr.com/a/wsa/ac-dc-highway-to-hell-tab-s289" },
           intro: "O solo do Angus Young: bends no Ré e no Si sobre um acorde só, o Lá, com a penta de Lá menor e a 3ª maior do acorde. Uma aba para cada trecho, com a base dos acordes e a explicação dele.",
           key: "u58.echo",
@@ -7444,7 +7480,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela Parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: a penta, a nota de fora que aparece e onde cada frase chega.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação."],
+              steps: ["Comece pela Parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação."],
               check: "O bend do Si chegou no Dó# e ficou lá, afinado, enquanto você tocava as notas agudas?",
               base: songBars(HIGHWAY_TO_HELL, 0, 5),
               reveal: "tab",
@@ -7479,8 +7515,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(HIGHWAY_TO_HELL, 0, 5),
-                  intro: "O solo é curto e fica quase todo sobre um acorde só, o Lá maior, com a penta de Lá menor, a do blues. O motivo é o bend de um tom do Ré ao Mi, repetido em grupos de três colcheias; o solo entra no último tempo do acorde de Ré.",
-                  steps: ["Afinação: pela tab, a guitarra está meio tom abaixo e o solo soa em Sol# maior. Com afinação normal, as mesmas casas soam em Lá maior, como aqui.", "Penta de Lá menor (Lá, Dó, Ré, Mi, Sol) sobre o acorde de Lá maior, como no blues. O Dó da penta é a 3ª menor, e entra em atrito com o Dó# do acorde, a 3ª maior: é esse atrito que dá o tom do solo. Shape 1, casas 5 a 7, nas cordas agudas.", "O motivo: o Ré (3ª corda, casa 7) sobe um tom até o Mi, da 4ª à 5ª de Lá, e o Mi da 2ª corda, casa 5, toca duas vezes. Cada grupo dura três colcheias e o acorde tem quatro tempos, então o bend cai em lugar diferente a cada repetição. O primeiro bend ocorre ainda sobre o acorde de Ré, onde o Ré é a tônica.", "O Lá da 1ª corda, casa 5, aparece só no começo, depois do primeiro Mi. Na tab ele vem de leve, como nota fantasma.", "Nota de fora: o Fá# da 2ª corda, casa 7, com bend de meio tom na direção do Sol. O Fá# é a 6ª de Lá, da escala maior; o bend o leva à 7ª menor, que é da penta. Na tab o bend é duplo, junto com o Ré da 3ª corda, e sobe cerca de três quartos de tom; o exemplo faz meio tom.", "Depois, Dó, Lá, Ré e Dó, na 3ª e na 4ª cordas (casas 5 e 7), ainda no shape 1. Todas são da penta: a frase pousa no Dó, a 3ª menor, antes de descer ao grave.", "O fim desce ao grave e resolve na tônica: Fá# da 4ª corda, casa 4, com bend de meio tom, Mi (casa 2) e Dó da 5ª corda, casa 3, com outro bend de meio tom, que alcança o Dó#, a 3ª maior de Lá. A parte termina no Lá solto. Fora da penta ficam só o Fá# e o Dó#.", "A base segue a gravação: um compasso de Ré no começo e Lá nos quatro seguintes. O baixo da gravação caminha Lá, Sol e Fá# no fim de alguns compassos; a base mantém o Lá."],
+                  intro: "O solo é curto e entra no último tempo do acorde de Ré. O motivo é o bend de um tom do Ré ao Mi, repetido em grupos de três colcheias.",
+                  steps: ["Afinação: pela tab, a guitarra está meio tom abaixo e o solo soa em Sol# maior. Com afinação normal, as mesmas casas soam em Lá maior, como aqui.", "Penta de Lá menor (Lá, Dó, Ré, Mi, Sol) sobre o acorde de Lá maior, como no blues. O Dó da penta é a 3ª menor, e entra em atrito com o Dó# do acorde, a 3ª maior: é esse atrito que dá o caráter do solo. Shape 1, casas 5 a 7, nas cordas agudas.", "O motivo: o Ré (3ª corda, casa 7) sobe um tom até o Mi, da 4ª à 5ª de Lá, e o Mi da 2ª corda, casa 5, toca duas vezes. Cada grupo dura três colcheias e o acorde tem quatro tempos, então o bend cai em lugar diferente a cada repetição. O primeiro bend ocorre ainda sobre o acorde de Ré, onde o Ré é a tônica.", "O Lá da 1ª corda, casa 5, aparece só no começo, depois do primeiro Mi. Na tab ele vem de leve, como nota fantasma.", "Nota de fora: o Fá# da 2ª corda, casa 7, com bend de meio tom na direção do Sol. O Fá# é a 6ª de Lá, da escala maior; o bend o leva à 7ª menor, que é da penta. Na tab o bend é duplo, junto com o Ré da 3ª corda, e sobe cerca de três quartos de tom; o exemplo faz meio tom.", "Depois, Dó, Lá, Ré e Dó, na 3ª e na 4ª cordas (casas 5 e 7), ainda no shape 1. Todas são da penta: a frase pousa no Dó, a 3ª menor, antes de descer ao grave.", "O fim desce ao grave e resolve na tônica: Fá# da 4ª corda, casa 4, com bend de meio tom, Mi (casa 2) e Dó da 5ª corda, casa 3, com outro bend de meio tom, que alcança o Dó#, a 3ª maior de Lá. A parte termina no Lá solto. Fora da penta ficam só o Fá# e o Dó#.", "A base segue a gravação: um compasso de Ré no começo e Lá nos quatro seguintes. O baixo da gravação caminha Lá, Sol e Fá# no fim de alguns compassos; a base mantém o Lá."],
                 },
                 {
                   ...phrase("hwyp2", "Highway to Hell: parte 2", 4, [
@@ -7511,8 +7547,64 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(HIGHWAY_TO_HELL, 5, 4),
-                  intro: "A segunda parte fica no grave, onde o Si ganha um bend de um tom até o Dó#, a 3ª maior do acorde, e volta às cordas agudas numa subida rápida que chega ao Lá, a tônica.",
-                  steps: ["Penta de Lá menor (Lá, Dó, Ré, Mi, Sol) sobre o Lá maior, o tempo todo. No grave, os desenhos da 3ª e da 4ª cordas, casas 2 a 7; nas cordas agudas, o shape 1 (casas 5 a 7) e, no fim, a 2ª corda até a casa 10.", "Nota de fora: o Si da 3ª corda, casa 4, com bend de um tom até o Dó#, a 3ª maior de Lá. O bend fica segurado enquanto o Lá e o Mi das cordas agudas (casa 5) tocam por cima; o exemplo toca só a nota mais aguda de cada momento.", "Bends curtos: o Fá# da 4ª corda, casa 4, sobe meio tom até o Sol, a 7ª menor. Depois o Mi da 2ª corda, casa 5, dura dois tempos; na tab ele vem junto com o Dó da 3ª corda, e os dois sobem um tom (Mi a Fá#, da 5ª à 6ª; Dó a Ré, da 3ª menor à 4ª).", "Uma escorregada rápida na 4ª corda, casas 4 a 7, do Fá# ao Lá, passando pelo Sol e pelo Sol#. O Sol# é de passagem, e o Lá é a tônica.", "O Lá da 1ª corda, casa 5, volta com o Mi e o Dó, e vem a subida final: Ré, Mi, Fá# e Sol# na 2ª corda, casas 3, 5, 7 e 9, rápidas, até o Lá da casa 10. O Fá# e o Sol# são da escala de Lá maior, fora da penta, e só passam; o Lá é a tônica e fecha a frase.", "A base segue a gravação: Lá nos quatro compassos; o baixo caminha Lá, Sol e Fá# no fim de alguns, e a base mantém o Lá."],
+                  intro: "A segunda parte começa no grave, onde o Si ganha um bend de um tom até o Dó#, a 3ª maior do acorde. Depois volta às cordas agudas numa subida rápida que chega ao Lá, a tônica.",
+                  steps: ["Penta de Lá menor (Lá, Dó, Ré, Mi, Sol) sobre o Lá maior, o tempo todo. No grave, os desenhos da 3ª e da 4ª cordas, casas 2 a 7; nas cordas agudas, o shape 1 (casas 5 a 7) e, no fim, a 2ª corda até a casa 10.", "Nota de fora: o Si da 3ª corda, casa 4, com bend de um tom até o Dó#, a 3ª maior de Lá. O bend fica segurado enquanto o Lá e o Mi das cordas agudas (casa 5) tocam por cima; o exemplo toca só a nota mais aguda de cada momento.", "Bends curtos: o Fá# da 4ª corda, casa 4, sobe meio tom até o Sol, a 7ª menor. Depois o Mi da 2ª corda, casa 5, dura dois tempos; na tab ele vem junto com o Dó da 3ª corda, e os dois sobem um tom (Mi a Fá#, da 5ª à 6ª; Dó a Ré, da 3ª menor à 4ª).", "Um slide rápido na 4ª corda, casas 4 a 7, do Fá# ao Lá, passando pelo Sol e pelo Sol#. O Sol# é de passagem, e o Lá é a tônica.", "O Lá da 1ª corda, casa 5, volta, seguido do Dó (3ª corda, casa 5) e do Lá da 4ª corda, casa 7, e vem a subida final: Ré, Mi, Fá# e Sol# na 2ª corda, casas 3, 5, 7 e 9, rápidas, até o Lá da casa 10. O Fá# e o Sol# são da escala de Lá maior, fora da penta, e só passam; o Lá é a tônica e fecha a frase.", "A base segue a gravação: Lá nos quatro compassos; o baixo caminha Lá, Sol e Fá# no fim de alguns, e a base mantém o Lá."],
+                },
+                {
+                  ...phrase("hwyfull", "Highway to Hell: o solo completo", 9, [
+                    [3, 7, 3.5, 1.0, { bend: 2 }],
+                    [2, 5, 4.5, 0.5],
+                    [1, 5, 5.0, 0.5],
+                    [3, 7, 5.5, 0.5, { bend: 2 }],
+                    [2, 5, 6.0, 0.5],
+                    [2, 5, 6.5, 0.5],
+                    [3, 7, 7.0, 0.5, { bend: 2 }],
+                    [2, 5, 7.5, 0.5],
+                    [2, 5, 8.0, 0.5],
+                    [3, 7, 8.5, 0.5, { bend: 2 }],
+                    [2, 5, 9.0, 0.5],
+                    [2, 5, 9.5, 0.5],
+                    [3, 7, 10.0, 0.5, { bend: 2 }],
+                    [2, 5, 10.5, 0.5],
+                    [2, 5, 11.0, 0.5],
+                    [2, 7, 11.5, 2.25, { bend: 1, back: 0.042 }],
+                    [3, 5, 14.0, 0.5],
+                    [4, 7, 14.5, 0.5],
+                    [3, 7, 15.0, 0.5],
+                    [3, 5, 15.5, 1.0],
+                    [4, 4, 17.0, 1.5, { bend: 1, back: 0.5 }],
+                    [4, 2, 18.5, 0.5],
+                    [5, 3, 19.0, 0.5, { bend: 1 }],
+                    [5, 0, 19.5, 0.5],
+                    [3, 2, 20.0, 1.0],
+                    [3, 4, 21.0, 1.0, { bend: 2 }],
+                    [1, 5, 22.0, 0.5],
+                    [2, 5, 22.5, 1.5],
+                    [3, 2, 24.0, 1.0],
+                    [4, 4, 25.0, 0.5, { bend: 1 }],
+                    [1, 5, 26.0, 0.5],
+                    [3, 0, 26.5, 0.5],
+                    [2, 5, 27.0, 2.0],
+                    [4, 7, 29.0, 1.0],
+                    [4, 5, 30.0, 0.5],
+                    [5, 0, 30.5, 0.5],
+                    [4, 4, 31.0, 0.125],
+                    [4, 5, 31.125, 0.125, { slide: 4 }],
+                    [4, 6, 31.25, 0.125, { slide: 5 }],
+                    [4, 7, 31.375, 0.125, { slide: 6 }],
+                    [1, 5, 31.5, 1.0],
+                    [3, 5, 32.5, 0.5],
+                    [4, 7, 33.0, 0.5],
+                    [2, 3, 33.5, 0.125],
+                    [2, 5, 33.625, 0.125, { slide: 3 }],
+                    [2, 7, 33.75, 0.125, { slide: 5 }],
+                    [2, 9, 33.875, 0.125, { slide: 7 }],
+                    [2, 10, 34.0, 2.0, { slide: 9 }],
+                  ]),
+                  label: "Solo completo",
+                  base: songBars(HIGHWAY_TO_HELL, 0, 9),
+                  intro: "As duas partes juntas: o solo inteiro, de 9 compassos, sobre o Ré e o Lá.",
+                  steps: ["Toque devagar até a passagem da parte 1 para a parte 2 sair sem parar.", "Repare no desenho: o bend do Ré ao Mi repetido no shape 1, a descida ao Lá solto e, na parte 2, o bend do Si ao Dó# no grave e a subida pela 2ª corda até o Lá da casa 10.", "Quando sair, toque junto com a gravação, afinando a guitarra meio tom abaixo, ou sobre a base do site com afinação normal."],
                 },
               ],
             },
@@ -7521,9 +7613,9 @@ const written: Curriculum = {
         {
           id: "u58.l2",
           title: "Licks para roubar: Highway to Hell",
-          videos: [{ youtube: "l482T0yNkeo", title: "AC/DC - Highway to Hell (Official Video)", author: "AC/DC", note: "O clipe oficial. O solo vem depois da ponte e começa por volta de 2:10 (pela tab, a 116 bpm). Pela tab, a guitarra está meio tom abaixo, então soa meio tom mais grave que aqui. Onde a tab soar diferente, vale a gravação." }],
+          videos: [{ youtube: "l482T0yNkeo", title: "AC/DC - Highway to Hell (Official Video)", author: "AC/DC", note: "O clipe oficial. O solo vem depois da ponte e começa por volta de 2:10 (pela tab, a 116 bpm). A guitarra da gravação está meio tom abaixo, então soa meio tom mais grave que aqui. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Highway To Hell no Songsterr", url: "https://www.songsterr.com/a/wsa/ac-dc-highway-to-hell-tab-s289" },
-          intro: "Trechos curtos do solo de Highway to Hell, de AC/DC, tirados do solo transcrito na lição anterior, \"Highway to Hell\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Highway to Hell, de AC/DC, tirados do solo transcrito na lição anterior, \"Highway to Hell\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u58.lick",
           exercises: [
             {
@@ -7552,7 +7644,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 1: o bend da 4ª à 5ª",
                   intro: "Lick de 10 notas: sai da 4ª e chega na 5ª. Técnica: bend de um tom, da 4ª à 5ª.",
-                  steps: ["O desenho, em funções: 4ª, 5ª, tônica, 4ª, 5ª (2x), 4ª, 5ª (2x), 4ª. Técnica: bend de um tom, da 4ª à 5ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 4ª no shape 2, e toque o lick ali."],
+                  steps: ["O desenho, em funções: 4ª, 5ª, tônica, 4ª, 5ª (2x), 4ª, 5ª (2x), 4ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 4ª no shape 2, e toque o lick ali."],
                 },
                 {
                   ...phrase("lk58b", "Highway to Hell: lick 2", 2, [
@@ -7563,7 +7655,7 @@ const written: Curriculum = {
                     [3, 5, 4.0, 0.5],
                     [4, 7, 4.5, 0.5],
                   ]),
-                  label: "Lick 2: o bend da 4ª à 5ª",
+                  label: "Lick 2: dois bends e a descida à tônica",
                   intro: "Lick de 6 notas: sai da 4ª e chega na tônica. Técnica: bend de um tom, da 4ª à 5ª; bend de meio tom, da 6ª maior à 7ª menor (e volta na mesma palhetada). Nota de fora da penta: a 6ª maior, que o solo original usa.",
                   steps: ["O desenho, em funções: 4ª, 5ª (2x), 6ª maior, 3ª menor, tônica. Técnica: bend de um tom, da 4ª à 5ª; bend de meio tom, da 6ª maior à 7ª menor (e volta na mesma palhetada).", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
                 },
@@ -7596,22 +7688,22 @@ const written: Curriculum = {
           id: "a2.l1",
           title: "Solo sobre a harmonia",
           intro:
-            "Agora o solo conversa com a base: cada troca de acorde é um lugar para chegar, de preferência vindo de perto, às vezes passando por uma nota que incomoda e resolve. Os dois exemplos fazem isso só com o shape 1.",
+            "Agora o solo conversa com a base: cada troca de acorde é um lugar para chegar, e as quatro partes do arco são quatro jeitos de fazer isso. Os dois exemplos usam só o shape 1.",
           key: "a2.take",
           exercises: [
             {
               id: "a2.take",
               kind: "take",
               title: "O solo que segue os acordes",
-              goal: "Oito compassos em quatro partes. Em cada uma, um jeito diferente de chegar numa nota do acorde.",
+              goal: "Oito compassos em quatro partes de dois compassos. A tela mostra em qual parte você está.",
               steps: [],
               check: "Suas frases chegaram em notas do acorde na troca, com alguma tensão resolvida no caminho?",
               base: BASE,
               bars: 8,
               arc: [
                 { name: "Uma nota por acorde", how: "Uma das notas do acorde, longa, junto com ele." },
-                { name: "Chega pela vizinha", how: "Nota curta ao lado, e uma nota do acorde na troca." },
-                { name: "Incomoda e resolve", how: "No tempo 1, uma nota de fora do acorde; depois, uma dele." },
+                { name: "Chega pela vizinha", how: "Uma vizinha curta, fora do tempo, e logo depois, no tempo, uma nota do acorde." },
+                { name: "Incomoda e resolve", how: "No tempo 1, uma nota que não é do acorde; depois, uma que é." },
                 { name: "Chega com bend ou slide", how: "Um bend ou um slide que termina numa nota do acorde." },
               ],
               arcNote: "Notas do acorde: a tônica, a 3ª ou a 5ª.",
@@ -7669,7 +7761,7 @@ const written: Curriculum = {
           concepts: ["Quais são os 5 shapes da pentatônica?"],
           title: "Os cinco shapes",
           intro:
-            "Até aqui você solou só no shape 1. Ele é uma janela do braço: as mesmas cinco notas continuam para cima e para baixo em mais quatro shapes, e cada um encaixa no vizinho. Aqui você vê os cinco e como se ligam; nas próximas seções, um por vez.",
+            "Até aqui você solou só no shape 1. Ele é uma janela do braço: as mesmas cinco notas continuam para o agudo e para o grave em mais quatro shapes, e cada um encaixa no vizinho. Aqui você vê os cinco e como se ligam; depois, cada shape ganha lições próprias, a começar pelo 2.",
           key: "u0.l2.link",
           exercises: [
             {
@@ -7716,13 +7808,13 @@ const written: Curriculum = {
           concepts: ["Quais são os 5 shapes da escala pentatônica?"],
           title: "O shape 2",
           intro:
-            "Você já sola no shape 1. O shape 2 fica logo acima, nas casas 7 a 10, e tem as mesmas cinco notas. As notas mais agudas do shape 1 são as mais graves do shape 2: por isso eles se emendam. Comece achando as tônicas, que são o chão de qualquer shape.",
+            "O shape 2 fica nas casas 7 a 10, logo depois do 1, e tem as mesmas cinco notas. As notas mais agudas do shape 1 são as mais graves do 2: por isso os dois se emendam. Comece achando as tônicas, que são o chão de qualquer shape.",
           key: "u20.l1.find",
           exercises: [
             {
               id: "u20.l1.map",
               kind: "map",
-              title: "O shape 2",
+              title: "Pentatônica de Lá menor, shape 2",
               goal: "Toque o shape 2 subindo e descendo, devagar, uma nota por tempo.",
               steps: ["Diga o nome de cada tônica (Lá) quando passar por ela.", "Depois toque só as tônicas, do grave ao agudo."],
               check: "Tocou o shape subindo e descendo sem olhar?",
@@ -7735,7 +7827,7 @@ const written: Curriculum = {
               kind: "find",
               title: "Onde estão as tônicas?",
               goal: "Aponte no braço todas as tônicas (Lá) do shape 2.",
-              steps: ["Um toque errado conta: pense antes."],
+              steps: ["Pense antes de cada toque."],
               check: "",
               base: VAMP,
               shape: 2,
@@ -7746,8 +7838,8 @@ const written: Curriculum = {
               id: "u20.l1.home",
               kind: "play-rest",
               title: "Sempre de volta à tônica",
-              goal: "Improvise no shape 2 em volta das tônicas. Toda frase termina num Lá.",
-              steps: ["Comece perto de uma tônica, saia dela e volte.", "Use as três tônicas do shape, não só uma."],
+              goal: "Improvise no shape 2 em torno das tônicas.",
+              steps: ["Comece perto de uma tônica, saia dela e volte.", "Use as duas tônicas do shape, não só uma."],
               check: "Todas as frases terminaram num Lá do shape 2?",
               base: VAMP,
               pattern: ["play", "play", "rest", "rest"],
@@ -7769,40 +7861,28 @@ const written: Curriculum = {
         },
         {
           id: "u12.l1",
-          concepts: ["Como ligar os shapes da pentatônica?"],
+          concepts: ["O que é a tônica, a terça e a quinta de um acorde?"],
           title: "Notas do acorde no shape 2",
           intro:
-            "O shape 1 é só uma janela. Logo depois dele, em casas mais agudas, o shape 2 tem as mesmas notas, com outro caminho para os dedos e outras notas do acorde à mão. Os alvos continuam os mesmos; muda onde eles estão.",
+            "Os alvos continuam os mesmos do shape 1: a tônica, a 3ª e a 5ª de cada acorde. No shape 2, eles estão em outras casas e pedem outros dedos.",
           key: "u12.l1.target",
           exercises: [
             {
               id: "u12.l1.map",
               kind: "map",
-              title: "As notas do acorde no shape 2",
+              title: "Onde ficam os alvos",
               goal: "Para cada acorde, toque as notas dele dentro do shape 2.",
-              steps: ["Uma nota longa por acorde."],
+              steps: ["Uma nota por tempo, trocando de notas junto com o acorde."],
               check: "Achou uma nota de cada acorde no shape 2, no tempo da troca?",
               base: BASE,
               shapes: [2],
               layer: "chord",
             },
             {
-              id: "u12.l1.find",
-              kind: "find",
-              title: "Ache a nota no shape 2",
-              goal: "O site pede a tônica, a 3ª ou a 5ª de um acorde. Aponte no braço, dentro do shape 2.",
-              steps: ["Responda sem contar casas: tente lembrar do shape."],
-              check: "",
-              base: BASE,
-              shape: 2,
-              ask: ["T", "3", "5"],
-              rounds: 10,
-            },
-            {
               id: "u12.l1.target",
               kind: "target",
               title: "Alvos no shape 2",
-              goal: "Chegue em cada alvo na troca, sem sair do shape 2.",
+              goal: "Chegue em cada alvo na troca de acorde.",
               steps: ["Se travar, olhe o braço por uma volta."],
               check: "Chegou nos alvos sem voltar para o shape 1?",
               base: BASE,
@@ -7817,14 +7897,14 @@ const written: Curriculum = {
     {
       id: "u21",
       title: "Vocabulário no shape 2",
-      skill: "Licks e frases que só existem no shape 2",
+      skill: "Licks e frases nas casas que só o shape 2 tem",
       takeCheck: "Seus licks saíram do shape 2, sem voltar para o 1?",
       lessons: [
         {
           id: "u21.l1",
           title: "Licks no shape 2",
           intro:
-            "Cada shape tem os seus licks, porque cada um põe as notas num lugar diferente da mão. O shape 2 tem o bend mais famoso da pentatônica: o Ré da 1ª corda subindo até o Mi. E tem uma descida longa que atravessa o shape inteiro.",
+            "Cada shape tem os seus licks, porque em cada um as notas ficam sob outros dedos. Aqui são dois: um bend de um tom no Ré da 1ª corda e uma descida longa, da 1ª à 4ª corda.",
           key: "u21.l1.echo",
           exercises: [
             {
@@ -7832,7 +7912,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "Bend e descida",
               goal: "Tire os dois licks de ouvido, só no shape 2.",
-              steps: ["No bend, a nota de chegada é o Mi da casa 12. Toque ela antes, sem bend, e cante.", "Repita cada lick até sair sem pensar."],
+              steps: ["No bend, a nota de chegada é o Mi da casa 12. Toque-a antes, sem bend, e cante.", "Repita cada lick até sair sem pensar."],
               check: "Toca os dois de memória, sem sair do shape 2?",
               base: AM_F,
               reveal: "tab",
@@ -7910,7 +7990,7 @@ const written: Curriculum = {
               steps: ["Não repita o mesmo lick duas vezes seguidas.", "Mude o tempo de entrada de vez em quando."],
               check: "Lembrou dos quatro sem olhar?",
               base: BASE,
-              pattern: ["play", "rest", "play", "rest"],
+              pattern: ["play", "play", "rest", "rest"],
               rule: "Os quatro licks, um por vez",
             },
           ],
@@ -7919,7 +7999,7 @@ const written: Curriculum = {
           id: "u21.l3",
           title: "Um solo só no shape 2",
           intro:
-            "Tudo o que você faz no shape 1 dá para fazer no 2: pergunta e resposta, nota longa no acorde, silêncio. Primeiro uma conversa curta no shape 2, depois oito compassos sem sair dele.",
+            "Tudo o que você faz no shape 1 dá para fazer no 2: pergunta e resposta, nota longa no acorde, silêncio.",
           key: "u21.l3.take",
           exercises: [
             {
@@ -7948,7 +8028,7 @@ const written: Curriculum = {
               id: "u21.l3.take",
               kind: "take",
               title: "Solo inteiro no shape 2",
-              goal: "Um solo inteiro sem sair do shape 2.",
+              goal: "Oito compassos sem sair do shape 2.",
               steps: ["Use os licks da unidade e as ideias do shape 1.", "Se a mão escapar para o shape 1, volte."],
               check: "Ficou no shape 2 os oito compassos, com frases e silêncio?",
               base: BASE,
@@ -7970,14 +8050,14 @@ const written: Curriculum = {
           concepts: ["Como ligar os shapes da pentatônica?"],
           title: "Os dois juntos",
           intro:
-            "Juntos, os shapes 1 e 2 vão da casa 5 à 10. Eles dividem as notas do meio: o Dó e o Sol agudos, o Ré da 3ª corda, o Lá da 4ª. É por essas notas que se passa de um para o outro sem pular.",
+            "Juntos, os shapes 1 e 2 vão da casa 5 à 10. Eles dividem uma nota em cada corda, na casa 7 ou na 8, e é por elas que você passa de um para o outro sem pular.",
           key: "u22.l1.target",
           exercises: [
             {
               id: "u22.l1.map",
               kind: "map",
               title: "Os shapes 1 e 2 juntos",
-              goal: "Toque cada corda do shape 1 até o fim do shape 2, e volte.",
+              goal: "Em cada corda, vá do começo do shape 1 ao fim do shape 2 e volte.",
               steps: ["Repare nas notas que os dois dividem.", "Depois suba pelo shape 1 e desça pelo shape 2."],
               check: "Achou as notas que os dois shapes dividem?",
               base: VAMP,
@@ -7989,8 +8069,8 @@ const written: Curriculum = {
               id: "u22.l1.target",
               kind: "target",
               title: "Alvos nos dois shapes",
-              goal: "Chegue em cada alvo na troca, no shape que estiver mais perto da sua mão.",
-              steps: ["Não volte sempre para o shape 1: se a mão está no 2, o alvo também está."],
+              goal: "Chegue em cada alvo na troca de acorde, no shape que estiver mais perto da mão.",
+              steps: ["Não volte sempre para o shape 1 por hábito."],
               check: "Usou os dois shapes para chegar nos alvos?",
               base: BASE,
               shape: [1, 2],
@@ -8003,7 +8083,7 @@ const written: Curriculum = {
           id: "u22.l2",
           title: "Frases que atravessam",
           intro:
-            "Agora a frase não respeita fronteira: começa no shape 1 e termina no 2, ou o contrário. Repare que nas três frases a passagem acontece numa nota que os dois shapes dividem, ou num slide.",
+            "Agora a frase muda de shape no meio: começa no shape 1 e termina no 2, ou o contrário. Nas três frases desta lição, a passagem acontece numa nota que os dois shapes dividem ou num slide.",
           key: "u22.l2.pr",
           exercises: [
             {
@@ -8046,7 +8126,7 @@ const written: Curriculum = {
             {
               id: "u22.l2.pr",
               kind: "play-rest",
-              title: "Comece num, termine no outro",
+              title: "Suas travessias",
               goal: "Cada frase começa num shape e termina no outro.",
               steps: ["Alterne o sentido: uma sobe do 1 para o 2, a próxima desce do 2 para o 1."],
               check: "Todas as frases trocaram de shape no meio?",
@@ -8069,20 +8149,20 @@ const written: Curriculum = {
           id: "a7.l1",
           title: "Doze compassos em dois shapes",
           intro:
-            "O solo agora tem dois lugares. Comece em casa, no shape 1, leve as ideias para o shape 2, atravesse entre os dois e volte para terminar. São doze compassos recomendados: escolha mais, se quiser espaço.",
+            "O solo agora tem dois lugares. Os dois exemplos fazem as mesmas partes por caminhos diferentes: o primeiro fica quase todo nas três cordas agudas; o segundo anda entre a 5ª e a 2ª corda.",
           key: "a7.take",
           exercises: [
             {
               id: "a7.take",
               kind: "take",
               title: "Solo nos shapes 1 e 2",
-              goal: "Doze compassos nos shapes 1 e 2, em quatro partes. Siga a faixa.",
+              goal: "Doze compassos nos shapes 1 e 2, em quatro partes. A tela mostra em qual parte você está.",
               steps: [],
               check: "Seu solo usou os dois shapes, com frases que passaram de um para o outro?",
               base: BASE,
               bars: 12,
               arc: [
-                { name: "No shape 1", how: "Frases no shape 1, o de casa." },
+                { name: "No shape 1", how: "Comece pelo shape de casa." },
                 { name: "No shape 2", how: "As mesmas ideias, agora no shape 2." },
                 { name: "Atravessa", how: "Frases que passam de um shape ao outro." },
                 { name: "Pousa", how: "Volte ao shape 1 e termine numa nota longa." },
@@ -8192,13 +8272,13 @@ const written: Curriculum = {
           id: "u23.l1",
           title: "O shape 3",
           intro:
-            "O shape 3 fica nas casas 9 a 13, logo acima do 2. Ele é o shape do meio do braço: tem o Sol da 3ª corda, que aceita bend até o Lá, e o Mi agudo da 1ª corda, o ponto mais alto até aqui. Comece pelas tônicas.",
+            "O shape 3 fica nas casas 9 a 13, colado ao 2, no lado agudo. Ele é o shape do meio do braço: tem o Sol da 3ª corda, que aceita bend até o Lá, e o Mi da 1ª corda, a nota mais aguda dos shapes até aqui. Comece pelas tônicas.",
           key: "u23.l1.find",
           exercises: [
             {
               id: "u23.l1.map",
               kind: "map",
-              title: "O shape 3",
+              title: "Pentatônica de Lá menor, shape 3",
               goal: "Toque o shape 3 subindo e descendo, devagar, uma nota por tempo.",
               steps: ["Diga o nome de cada tônica (Lá) quando passar por ela.", "Depois toque só as tônicas, do grave ao agudo."],
               check: "Tocou o shape subindo e descendo sem olhar?",
@@ -8211,7 +8291,7 @@ const written: Curriculum = {
               kind: "find",
               title: "Onde estão as tônicas?",
               goal: "Aponte no braço todas as tônicas (Lá) do shape 3.",
-              steps: ["Um toque errado conta: pense antes."],
+              steps: ["Pense antes de cada toque."],
               check: "",
               base: VAMP,
               shape: 3,
@@ -8222,8 +8302,8 @@ const written: Curriculum = {
               id: "u23.l1.home",
               kind: "play-rest",
               title: "Sempre de volta à tônica",
-              goal: "Improvise no shape 3 em volta das tônicas. Toda frase termina num Lá.",
-              steps: ["Comece perto de uma tônica, saia dela e volte.", "Use as três tônicas do shape, não só uma."],
+              goal: "Improvise no shape 3 em volta das tônicas.",
+              steps: ["Comece perto de uma tônica, saia dela e volte.", "Use as duas tônicas do shape, não só uma."],
               check: "Todas as frases terminaram num Lá do shape 3?",
               base: VAMP,
               pattern: ["play", "play", "rest", "rest"],
@@ -8246,31 +8326,19 @@ const written: Curriculum = {
         {
           id: "u12.l2",
           title: "Notas do acorde no shape 3",
-          intro: "Mais adiante, em casas ainda mais agudas, o shape 3. Com três shapes, a mesma nota do acorde aparece em vários lugares: a escolha passa a ser onde ela soa melhor, não onde ela está.",
+          intro: "Com três shapes, a mesma nota do acorde aparece em vários lugares do braço. Além de saber onde ela está, você passa a escolher onde ela soa melhor.",
           key: "u12.l2.target",
           exercises: [
             {
               id: "u12.l2.map",
               kind: "map",
-              title: "As notas do acorde no shape 3",
+              title: "Seguir os acordes",
               goal: "Para cada acorde, toque as notas dele dentro do shape 3.",
-              steps: ["Uma nota longa por acorde."],
+              steps: ["Uma nota por tempo, trocando de notas junto com o acorde."],
               check: "",
               base: BASE,
               shapes: [3],
               layer: "chord",
-            },
-            {
-              id: "u12.l2.find",
-              kind: "find",
-              title: "Ache a nota no shape 3",
-              goal: "O site pede a tônica, a 3ª ou a 5ª de um acorde. Aponte no braço, dentro do shape 3.",
-              steps: ["Responda sem contar casas: tente lembrar do shape."],
-              check: "",
-              base: BASE,
-              shape: 3,
-              ask: ["T", "3", "5"],
-              rounds: 10,
             },
             {
               id: "u12.l2.target",
@@ -8291,14 +8359,14 @@ const written: Curriculum = {
     {
       id: "u24",
       title: "Vocabulário no shape 3",
-      skill: "Licks e frases que só existem no shape 3",
+      skill: "Licks e frases nas casas que só o shape 3 tem",
       takeCheck: "Seus licks saíram do shape 3, sem voltar para os anteriores?",
       lessons: [
         {
           id: "u24.l1",
           title: "Licks no shape 3",
           intro:
-            "No shape 3, o bend mora no Sol da 3ª corda, casa 12: sobe um tom até o Lá. E o alto do shape tem o Mi e o Ré da 1ª corda, para frases que soam no agudo sem esforço.",
+            "No shape 3, o bend de um tom mora no Sol da 3ª corda, casa 12. E a parte aguda do shape tem o Mi e o Ré da 1ª corda, para frases que soam no agudo sem esforço.",
           key: "u24.l1.echo",
           exercises: [
             {
@@ -8306,7 +8374,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "Bend e agudo",
               goal: "Tire os dois licks de ouvido, só no shape 3.",
-              steps: ["No bend, a nota de chegada é o Lá da casa 14. Toque ela antes, sem bend, e cante.", "Repita cada lick até sair sem pensar."],
+              steps: ["No bend, a nota de chegada é o Lá da casa 14. Toque-a antes, sem bend, e cante.", "Repita cada lick até sair sem pensar."],
               check: "Toca os dois de memória, sem sair do shape 3?",
               base: AM_F,
               reveal: "tab",
@@ -8343,9 +8411,9 @@ const written: Curriculum = {
         },
         {
           id: "u24.l2",
-          title: "Descida e slide",
+          title: "Mais dois licks no shape 3",
           intro:
-            "Mais dois licks do shape 3: uma descida que atravessa o shape do Dó agudo até o Lá grave, e um slide até o Mi da 1ª corda, a nota mais alta que você usou até agora.",
+            "Um dos licks atravessa o shape descendo, do Dó agudo até o Lá grave; o outro chega com slide ao Mi da 1ª corda.",
           key: "u24.l2.pr",
           exercises: [
             {
@@ -8383,7 +8451,7 @@ const written: Curriculum = {
               steps: ["Não repita o mesmo lick duas vezes seguidas.", "Mude o tempo de entrada de vez em quando."],
               check: "Lembrou dos quatro sem olhar?",
               base: BASE,
-              pattern: ["play", "rest", "play", "rest"],
+              pattern: ["play", "play", "rest", "rest"],
               rule: "Os quatro licks, um por vez",
             },
           ],
@@ -8392,7 +8460,7 @@ const written: Curriculum = {
           id: "u24.l3",
           title: "Um solo só no shape 3",
           intro:
-            "Agora o shape 3 sozinho: primeiro uma conversa curta, depois oito compassos sem sair dele. O que você sabe fazer no shape 1 vale aqui.",
+            "Agora o shape 3 sozinho: primeiro uma conversa curta, depois um solo inteiro. O que você sabe fazer no shape 1 vale aqui.",
           key: "u24.l3.take",
           exercises: [
             {
@@ -8423,9 +8491,9 @@ const written: Curriculum = {
               id: "u24.l3.take",
               kind: "take",
               title: "Solo inteiro no shape 3",
-              goal: "Um solo inteiro sem sair do shape 3.",
+              goal: "Oito compassos sem sair do shape 3.",
               steps: ["Use os licks da unidade e as ideias dos outros shapes.", "Se a mão escapar, volte."],
-              check: "Ficou no shape 3 os oito compassos, com frases e silêncio?",
+              check: "Ficou no shape 3 durante os oito compassos, com frases e silêncio?",
               base: BASE,
               bars: 8,
               bases: OTHER_BASES,
@@ -8444,15 +8512,15 @@ const written: Curriculum = {
           id: "u25.l1",
           title: "Os três juntos",
           intro:
-            "Os shapes 1, 2 e 3 juntos cobrem da casa 5 à 13. Já não é uma janela: é um pedaço grande do braço, com a mesma escala inteira. Toque os três como se fossem um só.",
+            "Os shapes 1, 2 e 3 juntos cobrem da casa 5 à 13. Já não é uma janela: é um pedaço grande do braço, com as mesmas cinco notas. Toque os três como se fossem um só.",
           key: "u25.l1.target",
           exercises: [
             {
               id: "u25.l1.map",
               kind: "map",
-              title: "Os shapes 1 a 3 juntos",
+              title: "Corda por corda",
               goal: "Suba por uma corda até o fim do shape 3 e desça pela vizinha.",
-              steps: ["Repare em onde um shape termina e o outro começa.", "Faça todas as cordas, aos pares."],
+              steps: ["Repare onde um shape termina e o outro começa.", "Faça todas as cordas, aos pares."],
               check: "Atravessou os três shapes em todas as cordas?",
               base: VAMP,
               shapes: [1, 2, 3],
@@ -8484,8 +8552,8 @@ const written: Curriculum = {
               id: "u25.l2.echo",
               kind: "echo",
               title: "Três travessias",
-              goal: "Tire as três de ouvido e repare onde cada uma troca de shape.",
-              steps: ["Uma por vez.", "Depois de tirar, toque devagar olhando onde a mão muda de lugar."],
+              goal: "Tire as três de ouvido.",
+              steps: ["Uma por vez.", "Depois de tirar cada uma, toque devagar e repare onde ela troca de shape."],
               check: "Achou o ponto em que cada frase troca de shape?",
               base: AM_F,
               reveal: "tab",
@@ -8521,7 +8589,7 @@ const written: Curriculum = {
             {
               id: "u25.l2.pr",
               kind: "play-rest",
-              title: "Três shapes por frase",
+              title: "Improviso nos três shapes",
               goal: "Cada frase passa por pelo menos dois dos três shapes.",
               steps: ["Uma sobe, a próxima desce.", "De vez em quando, faça uma frase numa corda só, atravessando os três."],
               check: "As frases atravessaram, sem ficar presas num shape?",
@@ -8544,21 +8612,21 @@ const written: Curriculum = {
           id: "a8.l1",
           title: "Dezesseis compassos em três shapes",
           intro:
-            "Mais um shape, mais espaço: dezesseis compassos recomendados. Comece nos shapes 1 e 2, leve as ideias ao 3, atravesse os três e volte para terminar.",
+            "Mais um shape, mais espaço para o solo andar. Os dois exemplos passam pelas mesmas partes, um mais nas cordas agudas e o outro mais nas graves.",
           key: "a8.take",
           exercises: [
             {
               id: "a8.take",
               kind: "take",
               title: "Solo nos shapes 1 a 3",
-              goal: "Dezesseis compassos nos shapes 1 a 3, em quatro partes. Siga a faixa.",
+              goal: "Dezesseis compassos nos shapes 1 a 3, em quatro partes. A tela mostra em qual parte você está.",
               steps: [],
               check: "Seu solo usou os três shapes, com frases que passaram de um para o outro?",
               base: BASE,
               bars: 16,
               arc: [
                 { name: "Nos shapes 1 e 2", how: "Comece onde você já está em casa." },
-                { name: "No shape 3", how: "As ideias sobem para o shape 3." },
+                { name: "No shape 3", how: "As ideias do começo, agora mais no agudo." },
                 { name: "Atravessa", how: "Frases que passam pelos três shapes." },
                 { name: "Pousa", how: "Volte aos shapes 1 e 2 e termine longo." },
               ],
@@ -8683,13 +8751,13 @@ const written: Curriculum = {
           id: "u26.l1",
           title: "O shape 4",
           intro:
-            "O shape 4 fica nas casas 12 a 15, a partir da oitava do braço. É o shape 1 uma oitava acima? Não: é outro caminho, com o Ré da 2ª corda pronto para o bend e o Sol agudo da 1ª corda, a nota mais alta do curso até aqui.",
+            "O shape 4 fica nas casas 12 a 15, a partir da oitava do braço, e não é o shape 1 uma oitava acima: é outro caminho, com o Ré da 2ª corda pronto para o bend e o Sol da 1ª corda, a nota mais aguda dos shapes até aqui.",
           key: "u26.l1.find",
           exercises: [
             {
               id: "u26.l1.map",
               kind: "map",
-              title: "O shape 4",
+              title: "Pentatônica de Lá menor, shape 4",
               goal: "Toque o shape 4 subindo e descendo, devagar, uma nota por tempo.",
               steps: ["Diga o nome de cada tônica (Lá) quando passar por ela.", "Depois toque só as tônicas, do grave ao agudo."],
               check: "Tocou o shape subindo e descendo sem olhar?",
@@ -8702,7 +8770,7 @@ const written: Curriculum = {
               kind: "find",
               title: "Onde estão as tônicas?",
               goal: "Aponte no braço todas as tônicas (Lá) do shape 4.",
-              steps: ["Um toque errado conta: pense antes."],
+              steps: ["Pense antes de cada toque."],
               check: "",
               base: VAMP,
               shape: 4,
@@ -8713,8 +8781,8 @@ const written: Curriculum = {
               id: "u26.l1.home",
               kind: "play-rest",
               title: "Sempre de volta à tônica",
-              goal: "Improvise no shape 4 em volta das tônicas. Toda frase termina num Lá.",
-              steps: ["Comece perto de uma tônica, saia dela e volte.", "Use as três tônicas do shape, não só uma."],
+              goal: "Improvise no shape 4 em volta das tônicas.",
+              steps: ["Comece perto de uma tônica, saia dela e volte.", "Use as duas tônicas do shape, não só uma."],
               check: "Todas as frases terminaram num Lá do shape 4?",
               base: VAMP,
               pattern: ["play", "play", "rest", "rest"],
@@ -8738,37 +8806,25 @@ const written: Curriculum = {
           id: "u26.l2",
           title: "Notas do acorde no shape 4",
           intro:
-            "Os alvos são os mesmos de sempre, em outro lugar: a tônica, a 3ª e a 5ª de cada acorde, agora nas casas 12 a 15.",
+            "Os alvos são os de sempre (a tônica, a 3ª e a 5ª de cada acorde), agora nas casas 12 a 15.",
           key: "u26.l2.target",
           exercises: [
             {
               id: "u26.l2.map",
               kind: "map",
-              title: "As notas do acorde no shape 4",
+              title: "Seguir os acordes",
               goal: "Para cada acorde, toque as notas dele dentro do shape 4.",
-              steps: ["Uma nota longa por acorde."],
+              steps: ["Uma nota por tempo, trocando de notas junto com o acorde."],
               check: "Achou uma nota de cada acorde no shape 4, no tempo da troca?",
               base: BASE,
               shapes: [4],
               layer: "chord",
             },
             {
-              id: "u26.l2.find",
-              kind: "find",
-              title: "Ache a nota no shape 4",
-              goal: "O site pede a tônica, a 3ª ou a 5ª de um acorde. Aponte no braço, dentro do shape 4.",
-              steps: ["Responda sem contar casas: tente lembrar do shape."],
-              check: "",
-              base: BASE,
-              shape: 4,
-              ask: ["T", "3", "5"],
-              rounds: 10,
-            },
-            {
               id: "u26.l2.target",
               kind: "target",
               title: "Alvos no shape 4",
-              goal: "Chegue em cada alvo na troca, sem sair do shape 4.",
+              goal: "Chegue em cada alvo na troca de acorde.",
               steps: ["Se travar, olhe o braço por uma volta."],
               check: "Chegou nos alvos sem voltar para o shape 3?",
               base: BASE,
@@ -8783,14 +8839,14 @@ const written: Curriculum = {
     {
       id: "u27",
       title: "Vocabulário no shape 4",
-      skill: "Licks e frases que só existem no shape 4",
+      skill: "Licks e frases nas casas que só o shape 4 tem",
       takeCheck: "Seus licks saíram do shape 4, sem voltar para os anteriores?",
       lessons: [
         {
           id: "u27.l1",
           title: "Licks no shape 4",
           intro:
-            "O shape 4 é o agudo do braço. O bend dele mora no Ré da 2ª corda, casa 15, subindo até o Mi. E o topo do shape tem o Sol da 1ª corda, que deixa a frase brilhar.",
+            "O shape 4 é o agudo do braço. O bend dele mora no Ré da 2ª corda, casa 15, e a nota mais aguda do shape é o Sol da 1ª corda, que deixa a frase brilhar.",
           key: "u27.l1.echo",
           exercises: [
             {
@@ -8798,7 +8854,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "Bend e topo",
               goal: "Tire os dois licks de ouvido, só no shape 4.",
-              steps: ["No bend, a nota de chegada é o Mi da 1ª corda, casa 12. Toque ela antes e cante.", "Repita cada lick até sair sem pensar."],
+              steps: ["No bend, a nota de chegada é o Mi da 1ª corda, casa 12. Toque-a antes e cante.", "Repita cada lick até sair sem pensar."],
               check: "Toca os dois de memória, sem sair do shape 4?",
               base: AM_F,
               reveal: "tab",
@@ -8835,9 +8891,9 @@ const written: Curriculum = {
         },
         {
           id: "u27.l2",
-          title: "Descida e cordas graves",
+          title: "Mais dois licks no shape 4",
           intro:
-            "Mais dois licks do shape 4: uma descida longa do Ré agudo até o Lá, e uma subida nas cordas graves, que no shape 4 já soam mais claras que no shape 1.",
+            "Um dos licks desce do Ré agudo até o Lá; o outro sobe pelas cordas graves, que no shape 4 já soam mais claras que no shape 1.",
           key: "u27.l2.pr",
           exercises: [
             {
@@ -8878,7 +8934,7 @@ const written: Curriculum = {
               steps: ["Não repita o mesmo lick duas vezes seguidas.", "Mude o tempo de entrada de vez em quando."],
               check: "Lembrou dos quatro sem olhar?",
               base: BASE,
-              pattern: ["play", "rest", "play", "rest"],
+              pattern: ["play", "play", "rest", "rest"],
               rule: "Os quatro licks, um por vez",
             },
           ],
@@ -8887,7 +8943,7 @@ const written: Curriculum = {
           id: "u27.l3",
           title: "Um solo só no shape 4",
           intro:
-            "O shape 4 sozinho: uma conversa curta e oito compassos sem sair dele. No agudo, menos notas soam mais: deixe espaço.",
+            "No agudo, cada nota se destaca mais, então poucas bastam. Deixe espaço entre as frases.",
           key: "u27.l3.take",
           exercises: [
             {
@@ -8916,9 +8972,9 @@ const written: Curriculum = {
               id: "u27.l3.take",
               kind: "take",
               title: "Solo inteiro no shape 4",
-              goal: "Um solo inteiro sem sair do shape 4.",
+              goal: "Oito compassos sem sair do shape 4.",
               steps: ["Use os licks da unidade e as ideias dos outros shapes.", "Se a mão escapar, volte."],
-              check: "Ficou no shape 4 os oito compassos, com frases e silêncio?",
+              check: "Ficou no shape 4 durante os oito compassos, com frases e silêncio?",
               base: BASE,
               bars: 8,
               bases: OTHER_BASES,
@@ -8943,7 +8999,7 @@ const written: Curriculum = {
             {
               id: "u28.l1.map",
               kind: "map",
-              title: "Os shapes 1 a 4 juntos",
+              title: "Corda por corda",
               goal: "Suba por uma corda do shape 1 ao 4 e desça pela vizinha.",
               steps: ["Faça todas as cordas, aos pares.", "Diga o nome das tônicas ao passar por elas."],
               check: "Atravessou os quatro shapes em todas as cordas?",
@@ -8956,7 +9012,7 @@ const written: Curriculum = {
               id: "u28.l1.target",
               kind: "target",
               title: "Alvos nos quatro shapes",
-              goal: "Chegue em cada alvo na troca, no shape mais perto da sua mão.",
+              goal: "Chegue em cada alvo na troca de acorde, no shape mais perto da mão.",
               steps: ["Mude de região de vez em quando: o alvo existe em todos."],
               check: "Usou os quatro shapes para chegar nos alvos?",
               base: BASE,
@@ -8970,15 +9026,15 @@ const written: Curriculum = {
           id: "u28.l2",
           title: "Frases que chegam ao agudo",
           intro:
-            "Três frases entre o shape 4 e os anteriores: uma sobe do 3 ao 4, outra desce do topo do braço até o shape 2, e a última anda a 3ª corda de casa em casa, passando pelos quatro.",
+            "Três frases entre o shape 4 e os anteriores: uma sobe do 3 ao 4, outra desce das casas mais agudas até o shape 2, e a última percorre a 3ª corda de casa em casa, passando pelos quatro.",
           key: "u28.l2.pr",
           exercises: [
             {
               id: "u28.l2.echo",
               kind: "echo",
               title: "Três travessias",
-              goal: "Tire as três de ouvido e repare onde cada uma troca de shape.",
-              steps: ["Uma por vez.", "Depois de tirar, toque devagar olhando onde a mão muda de lugar."],
+              goal: "Tire as três de ouvido.",
+              steps: ["Uma por vez.", "Depois de tirar cada uma, toque devagar e repare onde ela troca de shape."],
               check: "Achou o ponto em que cada frase troca de shape?",
               base: AM_F,
               reveal: "tab",
@@ -9032,14 +9088,14 @@ const written: Curriculum = {
       id: "u66",
       optional: true,
       title: "War Pigs (Black Sabbath, 1970)",
-      skill: "O primeiro solo do Tony Iommi, na penta de Mi menor: o shape 1 na casa 12, o shape 4 na casa 7 e bends de um tom repetidos",
+      skill: "O primeiro solo de War Pigs, do Tony Iommi, na penta de Mi menor: o shape 1 na casa 12, o shape 4 na casa 7 e bends de um tom repetidos",
       lessons: [
         {
           id: "u66.l1",
           title: "War Pigs",
           videos: [{ youtube: "hZcLIsHdvss", title: "War Pigs (2009 - Remaster)", author: "Black Sabbath", note: "A gravação de estúdio, no canal oficial do Black Sabbath. Pela tab, o solo começa por volta de 3:35, no meio da música, e dura uns 35 segundos. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "War Pigs no Songsterr", url: "https://www.songsterr.com/a/wsa/black-sabbath-war-pigs-tab-s10137" },
-          intro: "O primeiro solo do Tony Iommi, na penta de Mi menor: o shape 1 na casa 12, o shape 4 na casa 7 e bends de um tom repetidos. O solo está dividido em 4 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O primeiro solo de War Pigs, do Tony Iommi, na penta de Mi menor: o shape 1 na casa 12, o shape 4 na casa 7 e bends de um tom repetidos.",
           key: "u66.echo",
           exercises: [
             {
@@ -9047,7 +9103,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, com a pausa respeitada e os bends afinados?",
               base: WAR_PIGS,
               reveal: "tab",
@@ -9085,7 +9141,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(WAR_PIGS, 0, 3),
-                  intro: "O solo entra no terceiro tempo, depois do riff, com um Si longo no shape 1 da penta de Mi menor, na casa 12. Em seguida vêm escadas de notas ligadas e um desenho de três notas com o Lá dobrado até o Si.", steps: ["A penta é a de Mi menor (Mi, Sol, Lá, Si, Ré), e o solo inteiro usa um só acorde, o Mi menor. Por isso cada nota tem sempre a mesma função: Mi é a tônica, Sol a 3ª menor, Lá a 4ª, Si a 5ª e Ré a 7ª menor. A tab está em afinação normal.", "Shape 1 de Mi menor, casas 12 a 15, nas cordas 1 a 5.", "Começa com o Si (5ª corda, casa 14), a 5ª, longo e com vibrato. Depois Lá, Si, Ré e Mi (5ª corda, casas 12 e 14; 4ª corda, casas 12 e 14), em ligados: uma escada da 4ª até a tônica. A mesma escada volta com o Sol (3ª corda, casa 12), a 3ª menor, no fim, e é tocada duas vezes.", "O desenho de três notas: o Lá da 3ª corda, casa 14, dobrado, o Si da 2ª corda, casa 12, e o Mi da 1ª corda, casa 12. Repete três vezes: o primeiro bend é de meio tom (do Lá ao Lá#), os outros dois de um tom (do Lá ao Si, da 4ª à 5ª).", "Nota fora da penta: o Lá# do primeiro bend. É a 5ª bemol de Mi menor, a nota de blues, e passa logo: o bend seguinte já chega no Si.", "Fecha com o Ré da 2ª corda, casa 15, a 7ª menor, dobrado um tom até o Mi, a tônica, duas vezes, a segunda segurada por um tempo: a parte resolve na tônica.", "A base toca Mi menor durante todo o solo. O baixo da gravação passeia pelas notas da própria penta (Mi, Sol, Lá, Si e Ré)."],
+                  intro: "O solo entra no terceiro tempo, depois do riff, com um Si longo no shape 1 da penta de Mi menor, na casa 12. Em seguida vêm escadas de notas ligadas e um desenho de três notas com o Lá dobrado até o Si.", steps: ["A penta é a de Mi menor (Mi, Sol, Lá, Si, Ré), e o solo inteiro usa um só acorde, o Mi menor. Por isso cada nota tem sempre a mesma função: Mi é a tônica, Sol a 3ª menor, Lá a 4ª, Si a 5ª e Ré a 7ª menor. A tab está em afinação normal.", "Shape 1 de Mi menor, casas 12 a 15, nas cordas 1 a 5.", "Começa com o Si (5ª corda, casa 14), a 5ª, longo e com vibrato. Depois Lá, Si, Ré e Mi (5ª corda, casas 12 e 14; 4ª corda, casas 12 e 14), em ligados: uma escada da 4ª até a tônica. A mesma escada volta com o Sol (3ª corda, casa 12), a 3ª menor, no fim, e é tocada duas vezes.", "O desenho de três notas: o Lá da 3ª corda, casa 14, dobrado, o Si da 2ª corda, casa 12, e o Mi da 1ª corda, casa 12. Repete três vezes: o primeiro bend é de meio tom (do Lá ao Lá#), os outros dois de um tom (do Lá ao Si, da 4ª à 5ª).", "Nota fora da penta: o Lá# do primeiro bend. É a 5ª bemol de Mi menor, a nota de blues, e passa logo: o bend seguinte já chega no Si.", "Fecha com o Ré da 2ª corda, casa 15, a 7ª menor, dobrado um tom até o Mi, a tônica, duas vezes, a segunda segurada por um tempo: a parte resolve na tônica.", "O baixo da gravação passeia pelas notas da própria penta (Mi, Sol, Lá, Si e Ré)."],
                 },
                 {
                   ...phrase("warpigsp2", "War Pigs: parte 2", 4, [
@@ -9142,7 +9198,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(WAR_PIGS, 0, 4),
-                  intro: "A segunda parte é a mais densa: semicolcheias que alternam o Ré e o Si da 2ª corda com o Lá da 3ª, dois bends de um tom, e uma frase que vai até a 5ª corda e volta ao agudo, terminando num Mi longo com vibrato. Continua na penta de Mi menor, sobre o mesmo acorde.", steps: ["Penta de Mi menor, ainda no shape 1 (casas 12 a 15), com uma visita ao Sol da 5ª corda, casa 10 (shape 5). O acorde continua sendo Mi menor: Mi é a tônica, Sol a 3ª menor, Lá a 4ª, Si a 5ª e Ré a 7ª menor.", "Abre com o Mi da 1ª corda, casa 12, o Ré da 2ª, casa 15, e o Si, casa 12; o Lá da 3ª corda, casa 14, é dobrado um tom até o Si: da 4ª à 5ª.", "O desenho que se repete: Ré e Si da 2ª corda (casas 15 e 12, com ligado) e o Lá da 3ª corda, casa 14, três vezes: 7ª menor, 5ª e 4ª. Depois o Sol e o Lá da 3ª corda (casas 12 e 14), com mais um bend de um tom no Lá.", "Em seguida a frase desce pela penta, nas cordas 3 a 5: Sol, Lá e Sol da 3ª corda (casas 12, 14 e 12), em tercina; Mi, Sol, Mi (4ª corda, casa 14, e 3ª corda, casa 12) e Mi e Ré ligados na 4ª corda (casas 14 e 12); depois Si, Lá, Sol, Lá e Si da 5ª corda (casas 14, 12, 10, 12 e 14), com slides entre as casas.", "Nota fora da penta: o Lá da 3ª corda, casa 14, dobrado só meio tom, até o Lá# (a 5ª bemol, a nota de blues), seguido do Si e do Mi da 2ª e da 1ª corda, que voltam à penta.", "Termina no Mi da 4ª corda, casa 14, longo, com vibrato: a tônica.", "A base é Mi menor, o mesmo acorde em todo o solo."],
+                  intro: "A segunda parte é a mais densa: semicolcheias que alternam o Ré e o Si da 2ª corda com o Lá da 3ª, dois bends de um tom, e uma frase que vai até a 5ª corda e volta ao agudo, terminando num Mi longo com vibrato.", steps: ["Penta de Mi menor, ainda no shape 1 (casas 12 a 15), com uma visita ao Sol da 5ª corda, casa 10 (shape 5). As funções são as da parte 1: Mi é a tônica, Sol a 3ª menor, Lá a 4ª, Si a 5ª e Ré a 7ª menor.", "Abre com o Mi da 1ª corda, casa 12, o Ré da 2ª, casa 15, e o Si, casa 12; o Lá da 3ª corda, casa 14, é dobrado um tom até o Si: da 4ª à 5ª.", "O desenho que se repete: Ré e Si da 2ª corda (casas 15 e 12, com ligado) e o Lá da 3ª corda, casa 14, três vezes: 7ª menor, 5ª e 4ª. Depois o Sol e o Lá da 3ª corda (casas 12 e 14), com mais um bend de um tom no Lá.", "Em seguida a frase desce pela penta, nas cordas 3 a 5: Sol, Lá e Sol da 3ª corda (casas 12, 14 e 12), em tercina; Mi, Sol, Mi (4ª corda, casa 14, e 3ª corda, casa 12) e Mi e Ré ligados na 4ª corda (casas 14 e 12); depois Si, Lá, Sol, Lá e Si da 5ª corda (casas 14, 12, 10, 12 e 14), com slides entre as casas.", "Nota fora da penta: o Lá da 3ª corda, casa 14, dobrado só meio tom, até o Lá# (a 5ª bemol, a nota de blues), seguido do Si e do Mi da 2ª e da 1ª corda, que voltam à penta.", "Termina no Mi da 4ª corda, casa 14, longo, com vibrato: a tônica.", "A base é Mi menor, o mesmo acorde em todo o solo."],
                 },
                 {
                   ...phrase("warpigsp3", "War Pigs: parte 3", 4, [
@@ -9189,7 +9245,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(WAR_PIGS, 0, 4),
-                  intro: "Depois de uma barra só de ritmo, o solo muda para o shape 4, na casa 7, ainda na penta de Mi menor. Começa com quatro bends de um tom no Mi da 3ª corda e termina num desenho em grupos de três semicolcheias que atravessa as barras.", steps: ["Penta de Mi menor no shape 4 (casas 7 a 10), nas cordas 3 e 4: Ré (casa 7) e Mi (casa 9) na 3ª corda, Lá (casa 7) e Si (casa 9) na 4ª. O acorde é sempre Mi menor: Mi é a tônica, Ré a 7ª menor, Lá a 4ª e Si a 5ª.", "Antes desta parte, o solo para por uma barra, só com o ritmo; ela começa no primeiro tempo da barra seguinte.", "Quatro bends de um tom no Mi da 3ª corda, casa 9, até o Fá#; o último volta ao Mi. O Fá# é a 2ª de Mi menor, nota de fora da penta: tensão que sempre volta à tônica.", "Depois: Ré, Si, Ré e o Mi, que desliza da casa 7 à 9 e segura com vibrato (7ª menor, 5ª, 7ª menor e a tônica: a frase pousa no Mi). Em seguida, a escada Lá, Si, Ré, Mi, tocada duas vezes, com ligados, da 4ª à tônica; e uma tercina Mi, Ré, Mi.", "O desenho em grupos de três: o Mi da 3ª corda dobrado um tom e o Ré da casa 7, repetido dez vezes, com três semicolcheias por grupo. Como a barra tem dezesseis semicolcheias, o grupo troca de posição a cada vez.", "Em cada grupo, o Fá# é a tensão e o Ré (a 7ª menor) é o apoio: depois de cada bend a mão volta ao Ré, que é da penta, e a frase nunca para no Fá#.", "A base é Mi menor."],
+                  intro: "Depois de um compasso só de ritmo, o solo muda para o shape 4, na casa 7, ainda na penta de Mi menor. Começa com quatro bends de um tom no Mi da 3ª corda e termina num desenho em grupos de três semicolcheias que atravessa os compassos.", steps: ["Penta de Mi menor no shape 4 (casas 7 a 10), nas cordas 3 e 4: Ré (casa 7) e Mi (casa 9) na 3ª corda, Lá (casa 7) e Si (casa 9) na 4ª. As funções não mudam: Mi é a tônica, Ré a 7ª menor, Lá a 4ª e Si a 5ª.", "Ao contrário das outras partes, esta começa exatamente no primeiro tempo do compasso.", "Quatro bends de um tom no Mi da 3ª corda, casa 9, até o Fá#; o último volta ao Mi. O Fá# é a 2ª de Mi menor, nota de fora da penta: uma tensão, que o último bend devolve à tônica.", "Depois: Ré, Si, Ré e o Mi, que desliza da casa 7 à 9 e segura com vibrato (7ª menor, 5ª, 7ª menor e a tônica: a frase pousa no Mi). Em seguida, a escada Lá, Si, Ré, Mi, tocada duas vezes, com ligados, da 4ª à tônica; e uma tercina Mi, Ré, Mi.", "O desenho em grupos de três: o Mi da 3ª corda dobrado um tom e o Ré da casa 7, repetido dez vezes, com três semicolcheias por grupo. Como o compasso tem dezesseis semicolcheias, o grupo troca de posição a cada vez.", "Em cada grupo, o Fá# é a tensão e o Ré (a 7ª menor) é o apoio: depois de cada bend a mão volta ao Ré, que é da penta, e a frase nunca para no Fá#.", "A base é Mi menor."],
                 },
                 {
                   ...phrase("warpigsp4", "War Pigs: parte 4", 3, [
@@ -9206,7 +9262,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 4",
                   base: songBars(WAR_PIGS, 0, 3),
-                  intro: "O solo se fecha com os mesmos bends do Mi, agora cinco vezes, um gesto curto de quatro notas e um Mi longo que dura a barra inteira. Continua no shape 4 da penta de Mi menor.", steps: ["Penta de Mi menor, no shape 4, na 3ª corda: Ré (casa 7) e Mi (casa 9).", "Cinco bends de um tom do Mi (casa 9) até o Fá#, a 2ª de Mi menor. O primeiro e o quinto são soltos e voltam ao Mi; os três do meio ficam no Fá#, em tensão, até a tônica voltar.", "Depois Mi, Ré, Ré, Mi (3ª corda, casas 9 e 7), com ligados: tônica, 7ª menor, 7ª menor e tônica.", "O Mi final, longo e com vibrato, dura quatro tempos e meio e termina junto com a última barra: a tônica de Mi menor, o repouso do solo.", "Nota fora da penta: o Fá# dos bends (a 2ª de Mi menor).", "A base é Mi menor. Depois do solo volta o riff, que a lição não inclui."],
+                  intro: "O solo se fecha com os mesmos bends do Mi, agora cinco vezes, um gesto curto de quatro notas e um Mi longo que dura o compasso inteiro.", steps: ["Penta de Mi menor, no shape 4, na 3ª corda: Ré (casa 7) e Mi (casa 9).", "Cinco bends de um tom do Mi (casa 9) até o Fá#. O primeiro e o quinto são soltos e voltam ao Mi; os três do meio ficam no Fá#, em tensão, até a tônica voltar.", "Depois Mi, Ré, Ré, Mi (3ª corda, casas 9 e 7), com ligados: tônica, 7ª menor, 7ª menor e tônica.", "O Mi final, longo e com vibrato, dura quatro tempos e meio e termina junto com o último compasso: a tônica de Mi menor, o repouso do solo.", "Nota fora da penta: o Fá# dos bends (a 2ª de Mi menor).", "A base é Mi menor. Depois do solo volta o riff, que a lição não inclui."],
                 },
                 {
                   ...phrase("warpigsfull", "War Pigs: o solo completo", 13, [
@@ -9340,7 +9396,7 @@ const written: Curriculum = {
                   ]),
                   label: "Solo completo",
                   base: WAR_PIGS,
-                  intro: "As quatro partes juntas: o primeiro solo do Tony Iommi, treze compassos, do terceiro tempo do primeiro ao fim do último, com uma pausa do solo no meio (uma barra só de ritmo). Tudo na penta de Mi menor, sobre um só acorde.", steps: ["Junte as partes de duas em duas: a 1 com a 2, depois a 3 com a 4, e só então o solo todo.", "Repare no desenho: shape 1 na casa 12 (partes 1 e 2), uma barra de pausa e shape 4 na casa 7 (partes 3 e 4). A única nota de fora é o Fá#, nos bends, e o Lá#, que passa de relance na parte 1.", "Quando sair, toque junto com a gravação, que começa o solo por volta de 3:35. A tab está em afinação normal; se a gravação soar mais grave que o seu violão, afine para ela."],
+                  intro: "As quatro partes juntas: treze compassos, do terceiro tempo do primeiro ao fim do último. No meio, o solo para por um compasso e só o ritmo toca.", steps: ["Junte as partes de duas em duas: a 1 com a 2, depois a 3 com a 4, e só então o solo todo.", "Repare no caminho: shape 1 na casa 12 (partes 1 e 2) e shape 4 na casa 7 (partes 3 e 4). As notas de fora são o Fá#, nos bends, e o Lá#, que passa de relance nas partes 1 e 2.", "Quando sair, toque junto com a gravação, que começa o solo por volta de 3:35. A tab está em afinação normal; se a gravação soar mais grave, afine a guitarra por ela."],
                 },
               ],
             },
@@ -9351,7 +9407,7 @@ const written: Curriculum = {
           title: "Licks para roubar: War Pigs",
           videos: [{ youtube: "hZcLIsHdvss", title: "War Pigs (2009 - Remaster)", author: "Black Sabbath", note: "A gravação de estúdio, no canal oficial do Black Sabbath. Pela tab, o solo começa por volta de 3:35, no meio da música, e dura uns 35 segundos. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "War Pigs no Songsterr", url: "https://www.songsterr.com/a/wsa/black-sabbath-war-pigs-tab-s10137" },
-          intro: "Trechos curtos do solo de War Pigs, de Black Sabbath, tirados do solo transcrito na lição anterior, \"War Pigs\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de War Pigs, de Black Sabbath, tirados do solo transcrito na lição anterior, \"War Pigs\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u66.lick",
           exercises: [
             {
@@ -9388,7 +9444,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 2: ida e volta entre a tônica e a 7ª menor",
                   intro: "Lick de 5 notas: sai da tônica e chega na tônica. Técnica: 2 notas em ligado, sem palhetar; vibrato na nota final.",
-                  steps: ["O desenho, em funções: tônica, 7ª menor (2x), tônica (2x). Técnica: 2 notas em ligado, sem palhetar; vibrato na nota final.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na tônica (nota longa, de 2 tempos) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
+                  steps: ["O desenho, em funções: tônica, 7ª menor (2x), tônica (2x).", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na tônica (nota longa, de 2 tempos) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
                 },
                 {
                   ...phrase("lk66c", "War Pigs: lick 3", 1, [
@@ -9403,7 +9459,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 3: sobe da 7ª menor à 3ª menor",
                   intro: "Lick de 8 notas: sai da 7ª menor e chega na 3ª menor. Técnica: 3 notas em ligado, sem palhetar.",
-                  steps: ["O desenho, em funções: 7ª menor, tônica, 3ª menor, 4ª, 5ª, 7ª menor, tônica, 3ª menor. Técnica: 3 notas em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: 7ª menor, tônica, 3ª menor, 4ª, 5ª, 7ª menor, tônica, 3ª menor.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -9422,21 +9478,21 @@ const written: Curriculum = {
           id: "a9.l1",
           title: "Vinte compassos em quatro shapes",
           intro:
-            "Vinte compassos recomendados, em quatro partes de cinco: comece nos shapes que você já tem, suba ao 4, atravesse e volte para terminar. Cinco compassos por parte dão espaço para respirar.",
+            "O solo agora chega ao agudo do braço. Com cinco compassos por parte, sobra espaço para respirar entre as frases. Os dois exemplos fazem as mesmas partes por caminhos diferentes: no shape 4, o primeiro usa o bend no Ré e o Sol agudo da 1ª corda; o segundo fica nas cordas graves.",
           key: "a9.take",
           exercises: [
             {
               id: "a9.take",
               kind: "take",
               title: "Solo nos shapes 1 a 4",
-              goal: "Vinte compassos nos shapes 1 a 4, em quatro partes. Siga a faixa.",
+              goal: "Vinte compassos nos shapes 1 a 4, em quatro partes. A tela mostra em qual parte você está.",
               steps: [],
               check: "Seu solo chegou ao shape 4 e voltou, com frases que atravessaram?",
               base: BASE,
               bars: 20,
               arc: [
-                { name: "Nos shapes 1 a 3", how: "Comece pelos três shapes que você já tem." },
-                { name: "No shape 4", how: "As ideias sobem para o shape 4." },
+                { name: "Nos shapes 1 a 3", how: "Comece pelo que você já conhece." },
+                { name: "No shape 4", how: "As ideias do começo, agora no agudo." },
                 { name: "Atravessa", how: "Frases que passam do shape 4 aos outros." },
                 { name: "Pousa", how: "Volte aos shapes de antes e termine longo." },
               ],
@@ -9555,20 +9611,20 @@ const written: Curriculum = {
     {
       id: "u29",
       title: "Conhecer o shape 5",
-      skill: "O shape 5 de cor, e os cinco shapes fechando o ciclo",
+      skill: "O shape 5 de cor: onde estão as tônicas e as notas de cada acorde",
       takeCheck: "Você tocou no shape 5 sem voltar para os anteriores?",
       lessons: [
         {
           id: "u29.l1",
           title: "O shape 5",
           intro:
-            "O shape 5 fecha o ciclo. Em Lá menor ele fica nas casas 2 a 5, logo abaixo do shape 1, e se repete doze casas acima, depois do shape 4. Com ele, a pentatônica cobre o braço inteiro.",
+            "O shape 5 fecha o ciclo. Em Lá menor ele fica nas casas 2 a 5, colado ao shape 1, no lado grave, e se repete doze casas para o agudo, depois do shape 4.",
           key: "u29.l1.find",
           exercises: [
             {
               id: "u29.l1.map",
               kind: "map",
-              title: "O shape 5",
+              title: "Pentatônica de Lá menor, shape 5",
               goal: "Toque o shape 5 subindo e descendo, devagar, uma nota por tempo.",
               steps: ["Diga o nome de cada tônica (Lá) quando passar por ela.", "Depois toque só as tônicas, do grave ao agudo."],
               check: "Tocou o shape subindo e descendo sem olhar?",
@@ -9592,7 +9648,7 @@ const written: Curriculum = {
               id: "u29.l1.home",
               kind: "play-rest",
               title: "Sempre de volta à tônica",
-              goal: "Improvise no shape 5 em volta das tônicas. Toda frase termina num Lá.",
+              goal: "Improvise no shape 5 em volta das tônicas.",
               steps: ["Comece perto de uma tônica, saia dela e volte.", "Use as três tônicas do shape, não só uma."],
               check: "Todas as frases terminaram num Lá do shape 5?",
               base: VAMP,
@@ -9603,7 +9659,7 @@ const written: Curriculum = {
               id: "u29.l1.find",
               kind: "find",
               title: "Ache a nota no shape 5",
-              goal: "O site pede uma nota de um acorde. Aponte no shape 5.",
+              goal: "Aponte no shape 5 cada nota que o site pedir.",
               steps: ["Responda sem contar casas: lembre do shape."],
               check: "",
               base: BASE,
@@ -9617,37 +9673,25 @@ const written: Curriculum = {
           id: "u12.l4",
           title: "Notas do acorde no shape 5",
           intro:
-            "O último shape, encostado no 1 por baixo: reaparece doze casas adiante e fecha o braço. Com os cinco, não sobra região sem as notas do acorde à mão.",
+            "Com o shape 5, você completa as notas do acorde nos cinco shapes, e não sobra região do braço sem elas à mão.",
           key: "u12.l4.t5",
           exercises: [
             {
               id: "u12.l4.map",
               kind: "map",
-              title: "As notas do acorde no shape 5",
+              title: "Acorde por acorde",
               goal: "Para cada acorde, toque as notas dele dentro do shape 5.",
-              steps: ["Uma nota longa por acorde."],
+              steps: ["Uma nota por tempo, trocando de notas junto com o acorde."],
               check: "",
               base: BASE,
               shapes: [5],
               layer: "chord",
             },
             {
-              id: "u12.l4.find",
-              kind: "find",
-              title: "Ache a nota no shape 5",
-              goal: "O site pede a tônica, a 3ª ou a 5ª de um acorde. Aponte no braço, dentro do shape 5.",
-              steps: ["Responda sem contar casas: tente lembrar do shape."],
-              check: "",
-              base: BASE,
-              shape: 5,
-              ask: ["T", "3", "5"],
-              rounds: 10,
-            },
-            {
               id: "u12.l4.t5",
               kind: "target",
               title: "Alvos no shape 5",
-              goal: "Chegue em cada alvo na troca, sem sair do shape 5.",
+              goal: "Chegue em cada alvo na troca de acorde.",
               steps: ["As casas mais agudas do shape 5 são as mais graves do shape 1."],
               check: "",
               base: BASE,
@@ -9662,14 +9706,14 @@ const written: Curriculum = {
     {
       id: "u30",
       title: "Vocabulário no shape 5",
-      skill: "Licks e frases que só existem no shape 5",
+      skill: "Licks e frases nas casas que só o shape 5 tem",
       takeCheck: "Seus licks saíram do shape 5, sem voltar para os anteriores?",
       lessons: [
         {
           id: "u30.l1",
           title: "Licks no shape 5",
           intro:
-            "O shape 5 é o mais grave dos cinco em Lá menor, e soa mais escuro. O bend dele mora no Ré da 2ª corda, casa 3, subindo até o Mi. E a descida passa por cordas soltas de perto, o que dá um peso bom às frases.",
+            "O shape 5 é o mais grave dos cinco em Lá menor, e as frases nele soam mais escuras e pesadas. O bend do shape fica no Ré da 2ª corda, casa 3.",
           key: "u30.l1.echo",
           exercises: [
             {
@@ -9677,7 +9721,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "Bend e descida",
               goal: "Tire os dois licks de ouvido, só no shape 5.",
-              steps: ["No bend, a nota de chegada é o Mi da casa 5. Toque ela antes, sem bend, e cante.", "Repita cada lick até sair sem pensar."],
+              steps: ["No bend, a nota de chegada é o Mi da casa 5. Toque-a antes, sem bend, e cante.", "Repita cada lick até sair sem pensar."],
               check: "Toca os dois de memória, sem sair do shape 5?",
               base: AM_F,
               reveal: "tab",
@@ -9718,7 +9762,7 @@ const written: Curriculum = {
           id: "u30.l2",
           title: "Slide e cordas graves",
           intro:
-            "Mais dois licks do shape 5: um slide longo na 3ª corda, do Lá até o Dó, e uma subida pelas cordas graves, que neste shape chegam no Sol mais grave do curso.",
+            "Mais dois licks do shape 5: um slide longo na 3ª corda, do Lá até o Dó, e uma subida pelas cordas graves que começa no Sol da 6ª corda, casa 3.",
           key: "u30.l2.pr",
           exercises: [
             {
@@ -9754,7 +9798,7 @@ const written: Curriculum = {
               steps: ["Não repita o mesmo lick duas vezes seguidas.", "Mude o tempo de entrada de vez em quando."],
               check: "Lembrou dos quatro sem olhar?",
               base: BASE,
-              pattern: ["play", "rest", "play", "rest"],
+              pattern: ["play", "play", "rest", "rest"],
               rule: "Os quatro licks, um por vez",
             },
           ],
@@ -9763,7 +9807,7 @@ const written: Curriculum = {
           id: "u30.l3",
           title: "Um solo só no shape 5",
           intro:
-            "O shape 5 sozinho: uma conversa curta e oito compassos sem sair dele. É o último shape a fundo do curso.",
+            "É o último shape que o curso estuda a fundo; na unidade seguinte, os cinco se juntam.",
           key: "u30.l3.take",
           exercises: [
             {
@@ -9815,13 +9859,13 @@ const written: Curriculum = {
           id: "u31.l1",
           title: "Os cinco juntos",
           intro:
-            "Com os cinco shapes juntos, a pentatônica cobre o braço todo: em Lá menor, da casa 2 à 15, e depois tudo se repete doze casas acima. Já não existe shape: existe a escala, e você escolhe onde tocar cada nota.",
+            "Em Lá menor, os cinco shapes cobrem o braço da casa 2 à 15, e depois tudo se repete doze casas para o agudo. A partir daqui, os shapes servem de referência, e você escolhe onde tocar cada nota.",
           key: "u31.l1.target",
           exercises: [
             {
               id: "u31.l1.map",
               kind: "map",
-              title: "Os cinco shapes juntos",
+              title: "Corda por corda",
               goal: "Suba por uma corda do shape 5 ao 4 e desça pela vizinha.",
               steps: ["Faça todas as cordas, aos pares.", "Diga o nome das tônicas ao passar por elas."],
               check: "Atravessou o braço em todas as cordas?",
@@ -9834,7 +9878,7 @@ const written: Curriculum = {
               id: "u31.l1.target",
               kind: "target",
               title: "Alvos no braço inteiro",
-              goal: "Chegue em cada alvo na troca, em qualquer shape.",
+              goal: "Chegue em cada alvo na troca de acorde.",
               steps: ["Mude de região a cada volta da base."],
               check: "Usou o braço inteiro para chegar nos alvos?",
               base: BASE,
@@ -9848,7 +9892,7 @@ const written: Curriculum = {
           id: "u31.l2",
           title: "Frases que fecham o ciclo",
           intro:
-            "Três frases entre o shape 5 e os vizinhos dele: uma sobe do 5 ao 1, outra desce do 1 ao 5, e a última anda a 4ª corda de casa em casa, do shape 5 ao 2.",
+            "Três frases entre o shape 5 e os vizinhos dele: uma sobe do 5 ao 1, outra desce do 1 ao 5, e a última percorre a 4ª corda de casa em casa, do shape 5 ao 2.",
           key: "u31.l2.pr",
           exercises: [
             {
@@ -9895,7 +9939,7 @@ const written: Curriculum = {
               id: "u31.l2.pr",
               kind: "play-rest",
               title: "O braço inteiro",
-              goal: "Cada frase passa por pelo menos dois shapes. A cada volta da base, comece numa região diferente.",
+              goal: "A cada volta da base, comece numa região diferente do braço.",
               steps: ["Uma volta no grave, uma no meio, uma no agudo."],
               check: "As frases atravessaram, e você usou o braço inteiro?",
               base: BASE,
@@ -9910,14 +9954,14 @@ const written: Curriculum = {
       id: "u56",
       optional: true,
       title: "Wish You Were Here (Pink Floyd, 1975)",
-      skill: "Os três solos do David Gilmour na guitarra acústica: frases curtas na penta de Mi menor, em posição aberta e no shape 4 e 5, sobre Mi menor com sétima, Sol e Lá com quarta suspensa",
+      skill: "Os três solos de violão do David Gilmour: frases curtas na penta de Mi menor, em posição aberta e nos shapes 4 e 5, sobre Mi menor com sétima, Sol e Lá com quarta suspensa",
       lessons: [
         {
           id: "u56.l1",
           title: "Wish You Were Here",
           videos: [{ youtube: "K6qj09OHvjw", title: "Pink Floyd - Wish You Were Here (Official Video)", author: "Pink Floyd", note: "O clipe oficial no canal do Pink Floyd. Os três solos aparecem em 0:47, 2:25 e 4:07, aproximadamente; o clipe pode ter alguns segundos a mais na abertura, então vale a gravação." }],
           source: { title: "Wish You Were Here no Songsterr", url: "https://www.songsterr.com/a/wsa/pink-floyd-wish-you-were-here-tab-s153" },
-          intro: "Os três solos do David Gilmour, guitarrista do Pink Floyd, na guitarra acústica: frases curtas na penta de Mi menor (que é também a penta maior de Sol), em posição aberta e nos shapes 3, 4 e 5, sobre Mi menor com sétima, Sol e Lá com quarta suspensa. Uma aba para cada solo, com a base dele e a explicação de como cada frase se encaixa na penta.",
+          intro: "Os três solos de violão do David Gilmour, guitarrista do Pink Floyd: frases curtas na penta de Mi menor (que é também a penta maior de Sol), sobre Mi menor com sétima, Sol e Lá com quarta suspensa.",
           key: "u56.echo",
           exercises: [
             {
@@ -9925,7 +9969,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação."],
               check: "A figura Si-Ré saiu uniforme, e os bends do Lá ao Si chegaram no Si todas as vezes?",
               base: songBars(WYWH_SOLO1, 0, 8),
               reveal: "tab",
@@ -9986,8 +10030,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo 1",
                   base: songBars(WYWH_SOLO1, 0, 8),
-                  intro: "O primeiro solo fica em posição aberta (casas 0 a 5), só com a penta de Mi menor: Mi, Sol, Lá, Si e Ré. São frases curtas, com hammer-on e pull-off, e cada uma pousa numa nota longa com vibrato.",
-                  steps: ["Tom: Mi menor, relativo de Sol maior. A penta de Mi menor (Mi, Sol, Lá, Si, Ré) tem as mesmas cinco notas da penta maior de Sol, por isso serve sobre Mi menor com sétima e sobre Sol, sem trocar de escala. Posição aberta, shapes 1 e 2. A harmonia anda um acorde por barra: Mi menor com sétima, Sol, Mi menor com sétima, Sol, Mi menor com sétima, Lá com quarta suspensa, Mi menor com sétima e Lá com quarta suspensa.", "Primeira frase, sobre Mi menor: Lá, Lá# e Si ligados na 3ª corda, e depois o Ré longo com vibrato. O Lá# é a única nota de fora da penta e só passa, entre a 4ª (Lá) e a 5ª (Si). A frase resolve no Ré, a 7ª menor.", "Sobre Sol: o Ré solto da 4ª corda e o Si da 5ª corda (casa 2), a 5ª e a 3ª do Sol, notas do acorde dentro da penta. Na barra seguinte, em Mi menor, Lá, Sol, Mi, Ré e Si descem pela 1ª e 2ª corda em pull-off, só com notas da penta.", "De volta ao Sol, o Si da 3ª corda (casa 4) dura três tempos e meio, com vibrato. É a 3ª do acorde, a nota que mais o define, e por isso o repouso é estável.", "A primeira frase volta (Lá, Si, Ré, Si, Mi), agora sobre Mi menor. O Mi da 2ª corda (casa 5), a tônica, é segurado e depois sobe um tom até o Fá# (a 9ª, de fora da penta) e solta de volta ao Mi.", "Sobre Lá com quarta suspensa: o Lá longo, com vibrato, e o Si da 3ª corda (casa 4), que sobe meio tom até o Dó e depois um tom até o Dó#. Dó e Dó# são de fora da penta de Mi menor. O Dó# é a 3ª maior de Lá, a nota que o acorde com quarta suspensa evita ao trocar a 3ª pelo Ré.", "Na última barra, também sobre Lá com quarta suspensa, o Si sobe um tom até o Dó# e volta ao Lá longo, com vibrato. O solo termina no Lá, a tônica desse acorde.","A base do site toca Mi menor, Sol e Lá menor. Os acordes da gravação são Mi menor com sétima, Sol e Lá com quarta suspensa; o Lá com quarta suspensa vira Lá menor, o mais próximo do tom de Sol maior."],
+                  intro: "O primeiro solo fica em posição aberta (casas 0 a 5). As frases têm ligados, e cada uma pousa numa nota longa com vibrato.",
+                  steps: ["Tom: Mi menor, relativo de Sol maior. A penta de Mi menor (Mi, Sol, Lá, Si, Ré) tem as mesmas cinco notas da penta maior de Sol, por isso serve sobre Mi menor com sétima e sobre Sol, sem trocar de escala. O solo usa os shapes 1 e 2. A harmonia anda um acorde por compasso: Mi menor com sétima, Sol, Mi menor com sétima, Sol, Mi menor com sétima, Lá com quarta suspensa, Mi menor com sétima e Lá com quarta suspensa.", "Primeira frase, sobre Mi menor: Lá, Lá# e Si ligados na 3ª corda, e depois o Ré longo com vibrato. O Lá#, única nota de fora da penta nesta frase, só passa entre a 4ª (Lá) e a 5ª (Si). A frase resolve no Ré, a 7ª menor.", "Sobre Sol: o Ré solto da 4ª corda e o Si da 5ª corda (casa 2), a 5ª e a 3ª do Sol, notas do acorde dentro da penta. No compasso seguinte, em Mi menor, Lá, Sol, Mi, Ré e Si descem pela 1ª e 2ª corda, com slides curtos entre as casas e um pull-off até o Si solto, só com notas da penta.", "De volta ao Sol, o Si da 3ª corda (casa 4) dura três tempos e meio, com vibrato. É a 3ª do acorde, a nota que mais o define, e por isso o repouso é estável.", "A primeira frase volta (Lá, Si, Ré, Si, Mi), de novo sobre Mi menor. O Mi da 2ª corda (casa 5), a tônica, é segurado e depois sobe um tom até o Fá# (a 9ª, de fora da penta) e solta de volta ao Mi.", "Sobre Lá com quarta suspensa: o Lá longo, com vibrato, e o Si da 3ª corda (casa 4), que sobe meio tom até o Dó e depois um tom até o Dó#. Dó e Dó# são de fora da penta de Mi menor. O Dó# é a 3ª maior de Lá, a nota que o acorde com quarta suspensa evita ao trocar a 3ª pelo Ré.", "No último compasso, também sobre Lá com quarta suspensa, o Si sobe um tom até o Dó# e volta ao Lá longo, com vibrato. O solo termina no Lá, a tônica desse acorde.","A base do site toca Mi menor, Sol e Lá menor: o Lá com quarta suspensa da gravação vira Lá menor, o acorde mais próximo dentro do tom de Sol maior."],
                 },
                 {
                   ...phrase("wywhp2", "Wish You Were Here: parte 2", 9, [
@@ -10042,8 +10086,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo 2",
                   base: songBars(WYWH_SOLO2, 0, 9),
-                  intro: "O segundo solo sobe para as casas 7 a 12 (shapes 3, 4 e 5), ainda na penta de Mi menor, e gira em torno do bend de um tom do Lá ao Si na 2ª corda (casa 10): a 4ª que sobe até a 5ª.",
-                  steps: ["Tom: Mi menor, com as mesmas cinco notas do primeiro solo (Mi, Sol, Lá, Si, Ré), agora nos shapes 3, 4 e 5. Os acordes são os mesmos, um por barra, e o solo termina sobre Sol.", "No começo, sobre Mi menor, o bend do Lá ao Si (2ª corda, casa 10) se repete: o Lá é a 4ª e o Si, onde o bend chega, é a 5ª. Sobre Sol, o Ré da 1ª corda (casa 10) sobe ao Mi e fica com vibrato; o Ré é a 5ª do Sol.", "Sobre Sol, a descida Fá# (2ª corda, casa 7), Ré (3ª corda, casa 7) e Si (4ª corda, casa 9) termina no Si longo, com vibrato. O Fá# é de fora da penta: é a 7ª maior do Sol, de passagem, e cai no Ré (5ª), que leva ao Si (3ª). O Mi da 3ª corda (casa 9) entra deslizando.", "Voltando ao Mi menor, o Lá ao Si e o Ré se repetem. Depois, sobre Lá com quarta suspensa, o Si da 2ª corda (casa 12) sobe um tom até o Dó#, o Mi da 1ª corda (casa 12) vem em seguida e o Si com bend se repete quatro vezes. O Dó# é de fora da penta: é a 3ª maior do Lá.", "De novo sobre Mi menor, o Lá ao Si e o Ré com vibrato, e uma descida por Sol, Lá, Sol, Mi e Lá, só com notas da penta. Sobre Lá com quarta suspensa, o Si sobe ao Dó# e o solo pousa no Lá longo, com vibrato: a tônica do acorde.", "Na última barra, sobre Sol, o Lá sobe um tom até o Si, a 3ª do Sol, segurado os quatro tempos. É o fecho: a nota que mais define o acorde.","A base do site toca Mi menor, Sol e Lá menor (o Lá com quarta suspensa vira Lá menor) e termina em Sol."],
+                  intro: "O segundo solo sobe para as casas 7 a 12 (shapes 4 e 5) e gira em torno do bend de um tom do Lá ao Si na 2ª corda (casa 10): a 4ª que sobe até a 5ª.",
+                  steps: ["Tom: Mi menor, com as mesmas cinco notas do primeiro solo (Mi, Sol, Lá, Si, Ré). Os acordes são os mesmos, um por compasso, e o solo termina sobre Sol.", "No começo, sobre Mi menor, o bend do Lá ao Si se repete. Sobre Sol, o Ré da 1ª corda (casa 10) sobe ao Mi e fica com vibrato; o Ré é a 5ª do Sol.", "Sobre Sol, a descida Fá# (2ª corda, casa 7), Ré (3ª corda, casa 7) e Si (4ª corda, casa 9) termina no Si longo, com vibrato. O Fá# é de fora da penta: é a 7ª maior do Sol, de passagem, e cai no Ré (5ª), que leva ao Si (3ª). O Mi da 3ª corda (casa 9) entra deslizando.", "Voltando ao Mi menor, o Lá ao Si e o Ré se repetem. Depois, sobre Lá com quarta suspensa, o Si da 2ª corda (casa 12) sobe um tom até o Dó#, o Mi da 1ª corda (casa 12) vem em seguida e o Si com bend se repete quatro vezes. O Dó# é de fora da penta: é a 3ª maior do Lá.", "De novo sobre Mi menor, o Lá ao Si e o Ré com vibrato, e uma descida por Sol, Lá, Sol, Mi e Lá, só com notas da penta. Sobre Lá com quarta suspensa, o Si sobe ao Dó# e o solo pousa no Lá longo, com vibrato: a tônica do acorde.", "No último compasso, sobre Sol, o Lá sobe um tom até o Si, a 3ª do Sol, segurado os quatro tempos. É o fecho: a nota que mais define o acorde.","A base do site toca Mi menor, Sol e Lá menor (o Lá com quarta suspensa vira Lá menor) e termina em Sol."],
                 },
                 {
                   ...phrase("wywhp3", "Wish You Were Here: parte 3", 9, [
@@ -10128,8 +10172,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo 3",
                   base: songBars(WYWH_SOLO3, 0, 9),
-                  intro: "O terceiro solo abre sobre Sol com uma figura repetida, Si e Ré alternados na 4ª e na 3ª corda, e depois mistura os bends do segundo solo com a descida por Sol e Mi. Continua na penta de Mi menor (Mi, Sol, Lá, Si, Ré).",
-                  steps: ["Tom: Mi menor, mesma penta dos outros solos, nos shapes 3, 4 e 5 (casas 7 a 12). Este solo começa sobre Sol e depois os acordes seguem: Mi menor com sétima, Sol, Mi menor com sétima, Sol, Mi menor com sétima, Lá com quarta suspensa, Mi menor com sétima e Lá com quarta suspensa.", "Na abertura, sobre Sol, o Si da 4ª corda (casa 9) e o Ré da 3ª corda (casa 7) se alternam. Si, Ré e Sol são as notas do acorde de Sol (3ª, 5ª e tônica), então a figura gira sobre notas de acorde. A mesma figura volta na terceira barra, também sobre Sol, e termina no Ré longo, com vibrato.", "Sobre Mi menor, o bend do Lá ao Si se repete duas vezes e é seguido de Sol, Ré e Mi: a 3ª menor, a 7ª menor e a tônica.", "Na barra seguinte, ainda sobre Mi menor: Sol, Mi, Sol, Lá e o bend do Lá ao Si, que desce ao Ré da 1ª corda (casa 10). O Ré, a 7ª menor, é o ponto de chegada.", "Sobre Sol, o bend do Lá ao Si, Sol, Mi e o último Lá com bend, longo, com vibrato. O Lá bendido chega ao Si, a 3ª do Sol.", "De volta ao Mi menor, o bend do Lá ao Si, seguido do Ré da 1ª corda (casa 10), se repete quatro vezes. É a figura mais insistente do solo: a 4ª sobe à 5ª e desce à 7ª menor.", "Sobre Lá com quarta suspensa, o Si da 2ª corda (casa 12) sobe um tom até o Dó# e o Mi da 1ª corda (casa 12) aparece em seguida. O Dó# é de fora da penta e é a 3ª maior do Lá.", "Nas duas últimas barras, o Mi e o Sol (3ª e 2ª corda, casas 9 e 8) se alternam em movimento rápido, o Lá longo tem vibrato e a descida passa por Sol, Mi e Ré (3ª corda, casa 7). O Ré final é a 4ª do Lá: a nota que o acorde com quarta suspensa tem no lugar da 3ª, então o solo termina sem resolver.","A base do site toca Mi menor, Sol e Lá menor (o Lá com quarta suspensa vira Lá menor)."],
+                  intro: "O terceiro solo abre com uma figura repetida e depois mistura os bends do segundo solo com a descida por Sol e Mi.",
+                  steps: ["Tom: Mi menor, mesma penta dos outros solos, nos shapes 4 e 5 (casas 7 a 12). Este solo começa sobre Sol e depois os acordes seguem: Mi menor com sétima, Sol, Mi menor com sétima, Sol, Mi menor com sétima, Lá com quarta suspensa, Mi menor com sétima e Lá com quarta suspensa.", "Na abertura, sobre Sol, o Si da 4ª corda (casa 9) e o Ré da 3ª corda (casa 7) se alternam. Si, Ré e Sol são as notas do acorde de Sol (3ª, 5ª e tônica), então a figura gira sobre notas de acorde. A mesma figura volta no terceiro compasso, também sobre Sol, e termina no Ré longo, com vibrato.", "Sobre Mi menor, o bend do Lá ao Si se repete duas vezes e é seguido de Sol, Ré e Mi: a 3ª menor, a 7ª menor e a tônica.", "No quarto compasso, de volta ao Mi menor: Sol, Mi, Sol, Lá e o bend do Lá ao Si, que desce ao Ré da 1ª corda (casa 10). O Ré, a 7ª menor, é o ponto de chegada.", "Sobre Sol, o bend do Lá ao Si, Sol, Mi e o último Lá com bend, longo, com vibrato. O Lá com bend chega ao Si, a 3ª do Sol.", "De volta ao Mi menor, o bend do Lá ao Si, seguido do Ré da 1ª corda (casa 10), se repete quatro vezes. É a figura mais insistente do solo: a 4ª sobe à 5ª e desce à 7ª menor.", "Sobre Lá com quarta suspensa, o Si da 2ª corda (casa 12) sobe um tom até o Dó# e o Mi da 1ª corda (casa 12) aparece em seguida. O Dó# é de fora da penta e é a 3ª maior do Lá.", "Nos dois últimos compassos, o Mi e o Sol (3ª e 2ª corda, casas 9 e 8) se alternam em movimento rápido, o Lá longo tem vibrato e a descida passa por Sol, Mi e Ré (3ª corda, casa 7). O Ré final é a 4ª do Lá: a nota que o acorde com quarta suspensa tem no lugar da 3ª, então o solo termina sem resolver.","A base do site toca Mi menor, Sol e Lá menor (o Lá com quarta suspensa vira Lá menor)."],
                 },
               ],
             },
@@ -10140,7 +10184,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Wish You Were Here",
           videos: [{ youtube: "K6qj09OHvjw", title: "Pink Floyd - Wish You Were Here (Official Video)", author: "Pink Floyd", note: "O clipe oficial no canal do Pink Floyd. Os três solos aparecem em 0:47, 2:25 e 4:07, aproximadamente; o clipe pode ter alguns segundos a mais na abertura, então vale a gravação." }],
           source: { title: "Wish You Were Here no Songsterr", url: "https://www.songsterr.com/a/wsa/pink-floyd-wish-you-were-here-tab-s153" },
-          intro: "Trechos curtos do solo de Wish You Were Here, de Pink Floyd, tirados do solo transcrito na lição anterior, \"Wish You Were Here\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Wish You Were Here, de Pink Floyd, tirados do solo transcrito na lição anterior, \"Wish You Were Here\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u56.lick",
           exercises: [
             {
@@ -10198,7 +10242,7 @@ const written: Curriculum = {
                     [1, 15, 3.0, 1.0, { vib: "lento" }],
                     [2, 17, 4.0, 0.5, { release: 3 }],
                   ]),
-                  label: "Lick 3: o bend da 4ª à 5ª",
+                  label: "Lick 3: o bend que solta até a 5ª",
                   intro: "Lick de 7 notas: sai da tônica e chega na 5ª. Técnica: slide da 7ª menor até a tônica; bend de um tom, da 4ª à 5ª.",
                   steps: ["O desenho, em funções: tônica, 4ª, 7ª menor, 4ª, 7ª menor (2x), 5ª. Técnica: slide da 7ª menor até a tônica; bend de um tom, da 4ª à 5ª; nota que começa dobrada na 7ª menor e solta até a 5ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
@@ -10219,20 +10263,20 @@ const written: Curriculum = {
           id: "a10.l1",
           title: "Vinte e quatro compassos nos cinco shapes",
           intro:
-            "O último arco dos shapes: vinte e quatro compassos recomendados, em quatro partes de seis. Comece no meio do braço, desça ao shape 5, atravesse e volte para terminar. Se quiser mais espaço, escolha mais compassos.",
+            "Fecha a série de arcos que junta um shape novo por vez. Cada parte tem seis compassos; se quiser mais espaço, escolha mais compassos, e as partes crescem junto.",
           key: "a10.take",
           exercises: [
             {
               id: "a10.take",
               kind: "take",
               title: "Solo nos cinco shapes",
-              goal: "Vinte e quatro compassos com os cinco shapes, em quatro partes. Siga a faixa.",
+              goal: "Vinte e quatro compassos com os cinco shapes, em quatro partes. A tela mostra em qual parte você está.",
               steps: [],
               check: "Seu solo desceu ao shape 5 e voltou, com frases que atravessaram?",
               base: BASE,
               bars: 24,
               arc: [
-                { name: "Nos shapes 1 a 4", how: "Comece no meio do braço, onde você já mora." },
+                { name: "Nos shapes 1 a 4", how: "Comece no meio do braço, nos shapes que você já conhece." },
                 { name: "No shape 5", how: "As ideias descem para o shape 5." },
                 { name: "Atravessa", how: "Frases que passam do shape 5 aos outros." },
                 { name: "Pousa", how: "Volte aos shapes de antes e termine longo." },
@@ -10435,7 +10479,7 @@ const written: Curriculum = {
               id: "u32.l1.pr",
               kind: "play-rest",
               title: "Rápido e calado",
-              goal: "Nos compassos de tocar, frases rápidas só no shape 2. Nos de calar, nada.",
+              goal: "Nos compassos de tocar, frases rápidas no shape 2. Nos de calar, nada.",
               steps: ["Um grupo de semicolcheias e uma nota longa do acorde.", "Se embolar, baixe o andamento."],
               check: "Cada frase rápida terminou numa nota longa, com silêncio depois?",
               base: BASE_SLOW,
@@ -10448,14 +10492,14 @@ const written: Curriculum = {
           id: "u32.l2",
           title: "Rápido no shape 3",
           intro:
-            "O shape 3 (casas 9 a 13) tem o Mi e o Ré no alto da 1ª corda, bons para frases rápidas que descem. A segunda frase é um lick de três notas repetido: a cada volta, o acento cai numa nota diferente.",
+            "O shape 3 (casas 9 a 13) tem o Mi e o Ré agudos da 1ª corda, bons para frases rápidas que descem. A segunda frase é um lick de três notas repetido: a cada volta, o acento cai numa nota diferente.",
           key: "u32.l2.pr",
           exercises: [
             {
               id: "u32.l2.echo",
               kind: "echo",
               title: "Duas frases rápidas no shape 3",
-              goal: "Repita as duas, devagar primeiro.",
+              goal: "Repita as duas.",
               steps: ["Comece a 60 bpm. Quando sair limpo três vezes, suba 4 bpm.", "Palhetada alternada nas semicolcheias."],
               check: "As semicolcheias saíram iguais e a nota longa caiu no tempo?",
               base: AM_F_SLOW,
@@ -10498,7 +10542,7 @@ const written: Curriculum = {
               id: "u32.l2.pr",
               kind: "play-rest",
               title: "Rápido e calado",
-              goal: "Nos compassos de tocar, frases rápidas só no shape 3. Nos de calar, nada.",
+              goal: "Nos compassos de tocar, frases rápidas no shape 3. Nos de calar, nada.",
               steps: ["Um grupo de semicolcheias e uma nota longa do acorde.", "Se embolar, baixe o andamento."],
               check: "Cada frase rápida terminou numa nota longa, com silêncio depois?",
               base: BASE_SLOW,
@@ -10519,7 +10563,7 @@ const written: Curriculum = {
           id: "u33.l1",
           title: "Rápido no shape 4",
           intro:
-            "No shape 4 (casas 12 a 15) a mão fica no alto do braço, onde as casas são estreitas: tocar rápido aqui pede menos abertura de dedos. Uma frase desce, a outra sobe.",
+            "No shape 4 (casas 12 a 15), a mão fica na região aguda do braço, onde as casas são estreitas: tocar rápido aqui pede menos abertura de dedos. Uma frase desce, a outra sobe.",
           key: "u33.l1.pr",
           exercises: [
             {
@@ -10570,7 +10614,7 @@ const written: Curriculum = {
               id: "u33.l1.pr",
               kind: "play-rest",
               title: "Rápido e calado",
-              goal: "Nos compassos de tocar, frases rápidas só no shape 4. Nos de calar, nada.",
+              goal: "Nos compassos de tocar, frases rápidas no shape 4. Nos de calar, nada.",
               steps: ["Um grupo de semicolcheias e uma nota longa do acorde.", "Se embolar, baixe o andamento."],
               check: "Cada frase rápida terminou numa nota longa, com silêncio depois?",
               base: BASE_SLOW,
@@ -10583,14 +10627,14 @@ const written: Curriculum = {
           id: "u33.l2",
           title: "Rápido no shape 5",
           intro:
-            "O shape 5 (casas 2 a 5) fica abaixo do shape 1, perto das cordas soltas. A segunda frase é um lick de quatro notas repetido três vezes, que cai num Lá longo.",
+            "O shape 5 (casas 2 a 5) fica mais grave que o shape 1, perto das cordas soltas. A segunda frase é um lick de quatro notas repetido três vezes, que cai num Lá longo.",
           key: "u33.l2.pr",
           exercises: [
             {
               id: "u33.l2.echo",
               kind: "echo",
               title: "Duas frases rápidas no shape 5",
-              goal: "Repita as duas, devagar primeiro.",
+              goal: "Repita as duas.",
               steps: ["Comece a 60 bpm. Quando sair limpo três vezes, suba 4 bpm.", "Palhetada alternada nas semicolcheias."],
               check: "As semicolcheias saíram iguais e a nota longa caiu no tempo?",
               base: AM_F_SLOW,
@@ -10633,7 +10677,7 @@ const written: Curriculum = {
               id: "u33.l2.pr",
               kind: "play-rest",
               title: "Rápido e calado",
-              goal: "Nos compassos de tocar, frases rápidas só no shape 5. Nos de calar, nada.",
+              goal: "Nos compassos de tocar, frases rápidas no shape 5. Nos de calar, nada.",
               steps: ["Um grupo de semicolcheias e uma nota longa do acorde.", "Se embolar, baixe o andamento."],
               check: "Cada frase rápida terminou numa nota longa, com silêncio depois?",
               base: BASE_SLOW,
@@ -10655,22 +10699,22 @@ const written: Curriculum = {
           id: "a11.l1",
           title: "Lento, rápido, rápido, pouso",
           intro:
-            "O arco da Velocidade I, agora fora do shape 1: notas longas no shape 2, frases rápidas no 2, frases rápidas no 3 e um pouso longo. Reduza o andamento para aprender.",
+            "O arco da Velocidade I, agora em dois shapes. Use a nota longa que fecha a primeira parte rápida para levar a mão ao shape 3. Reduza o andamento para aprender.",
           key: "a11.take",
           exercises: [
             {
               id: "a11.take",
               kind: "take",
               title: "O solo rápido fora do shape 1",
-              goal: "Oito compassos nos shapes 2 e 3, do lento ao rápido.",
+              goal: "Oito compassos nos shapes 2 e 3, em quatro partes. A tela mostra em qual parte você está.",
               steps: [],
               check: "Você acelerou nos shapes 2 e 3 e pousou numa nota longa?",
               base: AM_F_SLOW,
               bars: 8,
               arc: [
                 { name: "Lento no shape 2", how: "Uma nota longa por compasso." },
-                { name: "Rápido no shape 2", how: "Semicolcheias e uma nota longa, no shape 2." },
-                { name: "Rápido no shape 3", how: "Semicolcheias e uma nota longa, no shape 3." },
+                { name: "Rápido no shape 2", how: "Semicolcheias e uma nota longa." },
+                { name: "Rápido no shape 3", how: "Semicolcheias e uma nota longa." },
                 { name: "Pouso", how: "Poucas notas e uma nota longa até o fim." },
               ],
               bases: OTHER_BASES,
@@ -10759,7 +10803,7 @@ const written: Curriculum = {
           id: "u7.l1",
           title: "A 2ª corda inteira",
           intro:
-            "O shape ajuda e prende: os dedos decoram caminhos e o ouvido descansa. Numa corda só não há caminho decorado. Cada nota é um salto que você precisa ouvir antes de tocar. É assim que o braço deixa de ser uma caixa.",
+            "O shape ajuda e prende: os dedos decoram caminhos e o ouvido descansa. Numa corda só não há caminho decorado. Cada nota é um salto que você precisa ouvir antes de tocar.",
           key: "u7.l1.echo",
           exercises: [
             {
@@ -10783,7 +10827,7 @@ const written: Curriculum = {
               goal: "Tire as frases de ouvido. Todas ficam na 2ª corda.",
               steps: [
                 "Antes de tocar, cante e pergunte: a próxima nota sobe ou desce? Pouco ou muito?",
-                "Procure na 2ª corda.",
+                "Confira no braço só depois de achar a frase na corda.",
               ],
               check: "Achou as frases na corda sem abrir o braço?",
               base: AM_F,
@@ -10817,7 +10861,7 @@ const written: Curriculum = {
               id: "u7.l2.pr",
               kind: "play-rest",
               title: "Só a 2ª corda",
-              goal: "Improvise usando só a 2ª corda, do começo ao fim do braço.",
+              goal: "Improvise pela corda inteira, de uma ponta à outra do braço.",
               steps: ["Use slides para mudar de região.", "Faça pelo menos um salto grande por frase."],
               check: "Ficou na corda e ainda assim fez frases, não escalas?",
               base: BASE,
@@ -10829,7 +10873,7 @@ const written: Curriculum = {
               kind: "target",
               title: "Alvos numa corda",
               goal: "Chegue em cada alvo na troca, sem sair da 2ª corda.",
-              steps: ["Quase todo alvo aparece duas vezes na corda: escolha a mais perto.", "Escorregue até o alvo quando puder."],
+              steps: ["Alguns alvos aparecem duas vezes na corda: escolha a casa mais próxima.", "Quando puder, chegue ao alvo com um slide."],
               check: "Chegou nos alvos na troca sem sair da corda?",
               base: BASE,
               shape: 1,
@@ -10850,7 +10894,7 @@ const written: Curriculum = {
         {
           id: "u12.l3",
           title: "Trocar de região na frase",
-          intro: "A região não precisa ser fixa. Um slide no meio da frase leva você para cima ou para baixo sem cortar a ideia, e o ouvinte sente o solo andar.",
+          intro: "A região não precisa ser fixa. Um slide no meio da frase leva você para o agudo ou para o grave sem cortar a ideia, e o ouvinte sente o solo andar.",
           key: "u12.l3.pr",
           exercises: [
             {
@@ -10915,7 +10959,7 @@ const written: Curriculum = {
               kind: "map",
               title: "O shape 1 em Mi menor",
               goal: "Toque o shape 1 em Mi menor, achando as tônicas antes.",
-              steps: ["Compare com o de Lá: é o mesmo shape, em outra casa."],
+              steps: ["Os Mi ficam nas mesmas cordas que os Lá no shape de Lá menor: 6ª, 4ª e 1ª."],
               check: "Achou as tônicas e tocou o shape no tempo?",
               base: EM_VAMP,
               shapes: [1],
@@ -10926,7 +10970,7 @@ const written: Curriculum = {
               kind: "target",
               title: "Alvos em Mi menor",
               goal: "Chegue em cada alvo na troca, no shape 1 de Mi menor.",
-              steps: ["A base é Em C G D: os mesmos papéis de Am F C G, outra casa."],
+              steps: ["A base Em C G D faz o mesmo caminho de Am F C G, em outro tom."],
               check: "Chegou nos alvos no tom novo?",
               base: EM,
               shape: 1,
@@ -10946,7 +10990,7 @@ const written: Curriculum = {
               kind: "target",
               title: "Alvos em Ré menor",
               goal: "Chegue em cada alvo na troca, no shape 1 de Ré menor.",
-              steps: ["A base é Dm Bb F C.", "Ache a tônica antes de ligar a base."],
+              steps: ["Dm Bb F C é a mesma progressão de Am F C G e de Em C G D, agora em Ré menor.", "Ache a tônica antes de ligar a base."],
               check: "Chegou nos alvos no tom novo?",
               base: DM,
               shape: 1,
@@ -10959,15 +11003,15 @@ const written: Curriculum = {
           id: "u13.l3",
           title: "Música em tom maior, penta de Lá menor",
           intro:
-            "Muita música está em tom maior e o solo sai da pentatônica menor. Dó maior e Lá menor têm as mesmas notas: Lá menor é o tom relativo de Dó maior. Então sobre Dó e Sol, a pentatônica de Lá menor que você já tem funciona sem mudar nada. O que muda é a nota de repouso: nas pausas, procure o Dó, o Mi e o Sol (o acorde de Dó), não só o Lá. É o caso de Scar Tissue (Fá maior, penta de Ré menor) e de Wonderful Tonight.",
+            "Muita música está em tom maior e o solo sai da pentatônica menor. Dó maior e Lá menor têm as mesmas notas: Lá menor é o tom relativo de Dó maior. Então, sobre os acordes de Dó e Sol, a pentatônica de Lá menor que você já tem funciona sem mudar nada. O que muda é a nota de repouso: em vez de só o Lá, procure o Dó, o Mi e o Sol (o acorde de Dó). É o caso de Scar Tissue (Fá maior, penta de Ré menor) e de Wonderful Tonight.",
           key: "u13.l3.echo",
           exercises: [
             {
               id: "u13.l3.echo",
               kind: "echo",
               title: "Dó e Sol, penta de Lá menor",
-              goal: "Repita de ouvido. O shape é o de sempre; as notas longas caem no acorde de Dó e no de Sol.",
-              steps: ["A base é Dó e Sol. A penta é a mesma de Lá menor: mesmas notas, outro acorde por baixo.", "Nas notas longas, ouça como o Dó e o Sol repousam bem aqui."],
+              goal: "Repita as duas frases de ouvido, no shape de sempre.",
+              steps: ["Ouça as notas longas: cada uma é nota do acorde que está soando, o de Dó ou o de Sol.", "Repare que nenhuma delas é o Lá."],
               check: "As notas longas soaram firmes sobre o acorde de Dó e sobre o de Sol?",
               base: C_G,
               reveal: "tab",
@@ -10996,8 +11040,8 @@ const written: Curriculum = {
               id: "u13.l3.pr",
               kind: "play-rest",
               title: "Penta menor em tom maior",
-              goal: "Nos compassos de tocar, uma frase na penta de Lá menor, terminando numa nota do acorde de Dó ou de Sol.",
-              steps: ["Termine no Dó, no Mi ou no Sol sobre o acorde de Dó.", "Sobre o Sol, o Sol e o Ré repousam."],
+              goal: "Nos compassos de tocar, uma frase na penta de Lá menor.",
+              steps: ["Termine no Dó, no Mi ou no Sol sobre o acorde de Dó.", "Sobre o acorde de Sol, termine no Sol ou no Ré: o Si, a 3ª dele, não está na penta."],
               check: "A frase terminou numa nota do acorde que estava soando?",
               base: C_G,
               pattern: ["play", "play", "rest", "rest"],
@@ -11009,19 +11053,65 @@ const written: Curriculum = {
           id: "u13.l4",
           title: "Música com a guitarra meio tom abaixo",
           intro:
-            "Muita banda afina a guitarra meio tom abaixo (Mi bemol): Nirvana, Green Day, Jimi Hendrix, Stevie Ray Vaughan. A tab do solo vem escrita como se a afinação fosse normal, mas o som fica meio tom mais grave. Para tocar junto com a gravação, afine as cordas meio tom abaixo, ou escolha o tom de prática meio tom abaixo do da tab. O desenho não muda: o que muda é a altura.",
+            "Muitas bandas afinam a guitarra meio tom abaixo (Mi bemol): Nirvana, Green Day, Jimi Hendrix, Stevie Ray Vaughan. A tab do solo vem escrita como se a afinação fosse normal, mas o som fica meio tom mais grave. Para tocar junto com a gravação, afine as cordas meio tom abaixo, ou escolha o tom de prática meio tom abaixo do da tab. O desenho não muda: o que muda é a altura.",
           key: "u13.l4.pr",
           exercises: [
             {
               id: "u13.l4.pr",
               kind: "play-rest",
               title: "Escolher o tom da gravação",
-              goal: "Nos compassos de tocar, a frase de sempre, no tom de prática meio tom abaixo do da tab.",
-              steps: ["Escolha o tom de prática meio tom abaixo do que a tab pede.", "Compare com o vídeo da música: a altura tem que bater."],
+              goal: "Mude o tom de prática para Sol# menor (G#m), meio tom abaixo de Lá menor, e toque a frase de sempre nos compassos de tocar.",
+              steps: ["O seletor de tom fica na barra da base.", "Depois, faça o mesmo com uma música dessas bandas e compare com a gravação: a altura tem que bater."],
               check: "Sua nota de repouso bateu com a da gravação?",
               base: BASE_SLOW,
               pattern: ["play", "play", "rest", "rest"],
               rule: "Meio tom abaixo, mesma frase",
+            },
+          ],
+        },
+        {
+          id: "u13.l5",
+          concepts: ["O que é a nota de blues num tom maior?"],
+          title: "A 3ª menor num tom maior",
+          intro:
+            "Num tom maior, a pentatônica menor da relativa funciona, mas deixa de fora uma nota que dá o clima de lamento: a 3ª menor do tom. Em Dó maior é o Ré# (o Mib), que fica entre o Ré e o Mi, a 3ª maior. Você a alcança com um bend de meio tom a partir do Ré. Como ela não é da escala, pede para voltar, e o Dó, logo depois, soa como alívio.",
+          key: "u13.l5.echo",
+          exercises: [
+            {
+              id: "u13.l5.echo",
+              kind: "echo",
+              title: "Ré, Ré# e o Dó",
+              goal: "Repita a frase de ouvido.",
+              steps: [
+                "O bend sai do Ré da 3ª corda, casa 7, e sobe meio tom: o Ré#, a 3ª menor de Dó.",
+                "Solte o bend, desça ao Dó (3ª corda, casa 5) e segure a nota.",
+                "Sobre o acorde de Sol, a frase usa o Ré e o Sol, que já estão na penta: sem bend.",
+              ],
+              check: "O Ré# pediu para voltar, e o Dó foi o alívio?",
+              base: C_G,
+              reveal: "tab",
+              // O Ré# é nota de fora da penta de propósito: a lição é sobre ele.
+              outside: true,
+              phrases: [
+                phrase("m3a", "Ré#, volta e pouso no Dó", 2, [
+                  [3, 7, 0, 1, { bend: 1, back: 0.5 }],
+                  [3, 7, 1, 1, { bend: 1, back: 0.5 }],
+                  [3, 5, 2, 2],
+                  [3, 7, 4, 0.5],
+                  [4, 5, 4.5, 2],
+                ]),
+              ],
+            },
+            {
+              id: "u13.l5.pr",
+              kind: "play-rest",
+              title: "Um bend de meio tom por frase",
+              goal: "Nos compassos de tocar, uma frase na penta de Lá menor com um bend de meio tom no Ré, terminando no Dó sobre o acorde de Dó.",
+              steps: ["Entre no bend do Ré e solte antes do fim do compasso.", "Pouse no Dó, ainda sobre o acorde de Dó."],
+              check: "O bend de meio tom voltou e a frase terminou numa nota do acorde de Dó?",
+              base: C_G,
+              pattern: ["play", "play", "rest", "rest"],
+              rule: "Bend de meio tom no Ré, pouso no Dó",
             },
           ],
         },
@@ -11038,7 +11128,7 @@ const written: Curriculum = {
           title: "Scar Tissue",
           videos: [{ youtube: "mzJj5-lubeM", title: "Scar Tissue (Official Music Video)", author: "Red Hot Chili Peppers", note: "A gravação, no clipe oficial. O primeiro solo começa por volta de 1:58; o do fim, por volta de 2:47. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Scar Tissue no Songsterr", url: "https://www.songsterr.com/a/wsa/red-hot-chili-peppers-scar-tissue-tab-s49" },
-          intro: "Os dois solos do John Frusciante, na penta de Ré menor, quase sempre numa corda só, deslizando de nota em nota. As abas seguem a música: as duas partes do primeiro solo e ele inteiro; depois as quatro partes do solo final e ele inteiro. Cada parte tem a base dos seus compassos e a explicação dela.",
+          intro: "Os dois solos do John Frusciante, na penta de Ré menor, quase sempre numa corda só, deslizando de nota em nota. As abas seguem a música: as duas partes do primeiro solo e ele inteiro; depois as quatro partes do solo final e ele inteiro. Cada parte toca com a base dos seus compassos.",
           key: "u41.echo",
           exercises: [
             {
@@ -11046,7 +11136,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "As abas de solo inteiro juntam as partes: junte de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "As abas de solo inteiro juntam as partes: junte de duas em duas antes de tocar tudo."],
               check: "Tocou os dois solos inteiros no tempo, sem parar?",
               base: SCAR_TISSUE,
               reveal: "tab",
@@ -11067,8 +11157,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo 1: parte 1",
                   base: songBars(SCAR_TISSUE, 0, 4),
-                  intro: "O primeiro solo de Scar Tissue tem poucas notas, todas longas, e quase todas na 2ª corda. O Frusciante desliza o dedo de uma nota para a outra: o solo anda pelo braço numa corda só, a ideia da seção \"Uma corda só\", sempre dentro da penta de Ré menor (Ré, Fá, Sol, Lá, Dó).",
-                  steps: ["Tom: a música está em Fá maior, e o solo usa a penta de Ré menor. As cinco notas são as mesmas da penta maior de Fá: Ré menor é o tom relativo de Fá maior.", "Tudo na 2ª corda: Ré (tônica) na casa 15, Lá (5ª) na 10, Sol (4ª) na 8 e Dó (7ª menor) na 13. As casas atravessam os shapes 1 a 3 de Ré menor. Se mudar o tom de prática, o desenho continua na 2ª corda, com as casas deslocadas.", "O / na tab é slide: toque a primeira nota e arraste o dedo até a outra, sem palhetar de novo.", "Cada nota dura dois ou três tempos. O que segura o solo é o deslize, não a quantidade de notas.", "Sem nota fora da penta. Sobre o acorde de Dó, o Sol e o Dó que soam são a 5ª e a tônica dele: notas do acorde, por isso o solo parece firme ali.", "A base segue a gravação: três compassos de Ré menor e um de Dó, no terceiro lugar do ciclo. A parte pousa no Lá (5ª de Ré menor), longo."],
+                  intro: "O primeiro solo de Scar Tissue tem poucas notas, quase todas longas, e todas na 2ª corda. O Frusciante desliza o dedo de uma nota para a outra e anda pelo braço numa corda só, a ideia que abre esta seção, sempre dentro da penta de Ré menor (Ré, Fá, Sol, Lá, Dó).",
+                  steps: ["Tom: a música está em Fá maior, e o solo usa a penta de Ré menor. As cinco notas são as mesmas da penta maior de Fá: Ré menor é o tom relativo de Fá maior.", "Tudo na 2ª corda: Ré (tônica) na casa 15, Lá (5ª) na 10, Sol (4ª) na 8 e Dó (7ª menor) na 13. As casas atravessam os shapes 5, 1 e 2 de Ré menor.", "O / na tab é slide: toque a primeira nota e arraste o dedo até a outra, sem palhetar de novo.", "Deixe cada nota longa soar inteira antes do slide seguinte.", "Sem nota fora da penta. Sobre o acorde de Dó, o Sol e o Dó que soam são a 5ª e a tônica dele: notas do acorde, por isso o solo parece firme ali.", "A base segue a gravação: três compassos de Ré menor e um de Dó, no terceiro lugar do ciclo. A parte pousa no Lá (5ª de Ré menor), longo."],
                 },
                 {
                   ...phrase("scarp2", "Scar Tissue, primeiro solo: parte 2", 4, [
@@ -11087,7 +11177,7 @@ const written: Curriculum = {
                   ]),
                   label: "Solo 1: parte 2",
                   base: songBars(SCAR_TISSUE, 0, 4),
-                  intro: "A segunda metade do primeiro solo repete a primeira, com uma nota a mais no agudo: o Mi da casa 17. É a resposta da pergunta da parte 1.",
+                  intro: "A segunda metade do primeiro solo repete a primeira, com duas notas a mais no agudo: o Mi da casa 17 e o Fá da casa 18.",
                   steps: ["Tom: Ré menor, na 2ª corda, casas 8 a 18, com a mesma penta (Ré, Fá, Sol, Lá, Dó).", "O desenho é o da parte 1: Ré, Lá, Sol e Dó, deslizando. Mudam o começo e o fim de algumas frases.", "Nota fora da penta: o Mi, na 2ª corda, casa 17. Em Ré menor ele é a 2ª (ou 9ª), que a penta não tem. Sobre o Ré menor ele soa aberto, sem pedir resolução, e logo desce para o Dó (7ª menor).", "A parte termina subindo Ré, Mi, Mi e Fá (casa 18), a 3ª menor, que está na penta. Como não pousa na tônica, a frase fica aberta e puxa a volta para a música."],
                 },
                 {
@@ -11163,8 +11253,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo 2: parte 2",
                   base: songBars(SCAR_TISSUE, 0, 5),
-                  intro: "Aqui o solo troca de corda pela primeira vez: sai da 1ª, passa pela 2ª e termina na 3ª, no Lá da casa 14. A troca é a mesma ideia de subir e descer o braço, só que atravessando as cordas, ainda na penta de Ré menor.",
-                  steps: ["Tom: Ré menor. Começa na 1ª corda (Ré na casa 10, Dó na 8, Lá na 5), passa para a 2ª (Dó, Sol e Lá) e termina na 3ª.", "Do Lá da 1ª corda (casa 5, a 5ª), a mão sobe oito casas até o Dó da 2ª corda (casa 13, a 7ª menor). O Lá dura três tempos: dá tempo de trocar de região sem pressa.", "Nota fora da penta: o Mi da 3ª corda (casa 9), muito curto. É a 2ª de Ré menor, usada como bordadura: sai do Ré da casa 7 e volta a ele.", "Termina no Lá (5ª) longo da 3ª corda, casa 14."],
+                  intro: "Aqui o solo troca de corda pela primeira vez: sai da 1ª, passa pela 2ª e termina na 3ª.",
+                  steps: ["Tom: Ré menor. Na 1ª corda: Ré na casa 10, Dó na 8 e Lá na 5. Na 2ª: Dó, Sol e Lá.", "Do Lá da 1ª corda (casa 5, a 5ª), a mão sobe oito casas até o Dó da 2ª corda (casa 13, a 7ª menor). O Lá dura três tempos: dá tempo de trocar de região sem pressa.", "Nota fora da penta: o Mi da 3ª corda (casa 9), muito curto. É a 2ª de Ré menor, usada como bordadura: sai do Ré da casa 7 e volta a ele.", "Termina no Lá (5ª) longo da 3ª corda, casa 14."],
                 },
                 {
                   ...phrase("scarp5", "Scar Tissue, solo final: parte 3", 4, [
@@ -11181,8 +11271,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo 2: parte 3",
                   base: songBars(SCAR_TISSUE, 0, 4),
-                  intro: "O Lá repetido na 3ª corda, e uma descida grande, da casa 14 à 2, numa corda só, dentro da penta de Ré menor. É o mesmo Lá, do agudo ao grave.",
-                  steps: ["Tom: Ré menor, na 3ª corda: Lá (5ª) na casa 14, Ré (tônica) na 7, Dó (7ª menor) na 5 e Lá na 2.", "Nota fora da penta: o Mi da casa 9, que alterna com o Ré da casa 7 sobre o Ré menor. É a 2ª do tom: soa como nota de cor e não pede para resolver.", "A descida passa pelo Dó e pelo Ré e termina no Lá da casa 2, uma oitava abaixo do Lá do começo: a 5ª de novo, em outra região do braço."],
+                  intro: "A parte repete o Lá da 3ª corda e desce pela mesma corda, da casa 14 à 2.",
+                  steps: ["Tom: Ré menor, na 3ª corda: Lá (5ª) na casa 14, Ré (tônica) na 7, Dó (7ª menor) na 5 e Lá na 2.", "Nota fora da penta: o Mi da casa 9, que alterna com o Ré da casa 7 sobre o Ré menor. É a 2ª de Ré menor: soa como nota de cor e não pede para resolver.", "A descida passa pelo Dó e pelo Ré e termina no Lá da casa 2, uma oitava abaixo do Lá do começo: a 5ª de novo, em outra região do braço."],
                 },
                 {
                   ...phrase("scarp6", "Scar Tissue, solo final: parte 4", 4, [
@@ -11201,8 +11291,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo 2: parte 4",
                   base: songBars(SCAR_TISSUE, 0, 4),
-                  intro: "O fim do solo volta à 2ª corda e retoma as notas do primeiro solo (Mi, Fá, Dó, Ré, Lá e Sol) até parar no Lá. O solo inteiro gira em torno da penta de Ré menor, com o Mi como única nota de fora.",
-                  steps: ["Tom: Ré menor. Começa no Lá da 3ª corda, casa 14, e volta à 2ª corda, casas 8 a 18.", "Nota fora da penta: o Mi repetido na 2ª corda, casa 17, de novo como 2ª de Ré menor. Ele resolve no Dó (7ª menor) e no Ré (tônica), depois de passar pelo Fá, a 3ª menor, que está na penta.", "Termina no Lá (5ª) da 2ª corda, casa 10, com um slide descendo."],
+                  intro: "O fim do solo volta à 2ª corda e retoma as notas do primeiro solo (Mi, Fá, Dó, Ré, Lá e Sol) até parar no Lá.",
+                  steps: ["Tom: Ré menor. Começa no Lá da 3ª corda, casa 14, e volta à 2ª corda, casas 8 a 18.", "Nota fora da penta: o Mi repetido na 2ª corda, casa 17, de novo como 2ª de Ré menor. Ele chega por slide a partir do Fá (casa 18), a 3ª menor, que está na penta, e resolve no Dó (7ª menor) e no Ré (tônica).", "Termina no Lá (5ª) da 2ª corda, casa 10: a frase desce por slide até o Sol (casa 8) e sobe, também por slide, de volta ao Lá."],
                 },
                 {
                   ...phrase("scarfull2", "Scar Tissue: o solo do fim", 16, [
@@ -11261,8 +11351,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo 2 inteiro",
                   base: SCAR_TISSUE,
-                  intro: "O solo final inteiro, de dezesseis compassos: as quatro partes juntas, da 1ª corda à 3ª e de volta à 2ª, sempre na penta de Ré menor.",
-                  steps: ["Junte as partes de duas em duas: 1 e 2, 2 e 3, 3 e 4.", "Repare no desenho: vai da 1ª corda (a mais fina) para a 3ª e volta para a 2ª. Pelo caminho, só o Mi é de fora da penta, sempre como 2ª de Ré menor, e a 3ª do Dó quando o acorde muda.","Quando sair, toque junto com a gravação, a partir de 2:47."],
+                  intro: "O solo final inteiro, de dezesseis compassos: as quatro partes juntas, sempre na penta de Ré menor.",
+                  steps: ["Junte as partes de duas em duas: 1 e 2, 2 e 3, 3 e 4.", "Repare no desenho: vai da 1ª corda (a mais fina) para a 3ª e volta para a 2ª. Pelo caminho, só o Mi é de fora da penta: é a 2ª sobre o Ré menor e a 3ª quando o acorde muda para Dó.","Quando sair, toque junto com a gravação, a partir de 2:47."],
                 },
               ],
             },
@@ -11273,7 +11363,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Scar Tissue",
           videos: [{ youtube: "mzJj5-lubeM", title: "Scar Tissue (Official Music Video)", author: "Red Hot Chili Peppers", note: "A gravação, no clipe oficial. O primeiro solo começa por volta de 1:58; o do fim, por volta de 2:47. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Scar Tissue no Songsterr", url: "https://www.songsterr.com/a/wsa/red-hot-chili-peppers-scar-tissue-tab-s49" },
-          intro: "Trechos curtos do solo de Scar Tissue, de Red Hot Chili Peppers, tirados do solo transcrito na lição anterior, \"Scar Tissue\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Scar Tissue, de Red Hot Chili Peppers, tirados do solo transcrito na lição anterior, \"Scar Tissue\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u41.lick",
           exercises: [
             {
@@ -11341,7 +11431,7 @@ const written: Curriculum = {
           title: "Wonderful Tonight",
           videos: [{ youtube: "Pu5c4aEg3NM", title: "Wonderful Tonight", author: "Eric Clapton", note: "A gravação, no canal oficial. A introdução abre a música; o solo do meio começa por volta de 1:40 e o do fim por volta de 3:00. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Wonderful Tonight no Songsterr", url: "https://www.songsterr.com/a/wsa/eric-clapton-wonderful-tonight-tab-s1380" },
-          intro: "A introdução e os dois solos curtos do Eric Clapton, na penta de Mi menor, que tem as mesmas notas da penta de Sol maior. Uma aba para cada trecho, com a base dos seus compassos e a explicação dele.",
+          intro: "A introdução e os dois solos curtos do Eric Clapton, na penta de Mi menor, que tem as mesmas notas da penta de Sol maior. Uma aba para cada trecho, com a base dos compassos dele.",
           key: "u43.echo",
           exercises: [
             {
@@ -11349,7 +11439,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação."],
               check: "O bend da 5ª corda ficou no Mi até o fim?",
               base: songBars(WT_INTRO, 0, 4),
               reveal: "tab",
@@ -11369,7 +11459,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(WT_INTRO, 0, 4),
-                  intro: "A introdução de Wonderful Tonight é um dos licks mais conhecidos do rock: um bend, duas notas e uma nota longa, repetidos. A música está em Sol maior, e o lick usa a penta de Mi menor, que tem as mesmas cinco notas.",
+                  intro: "A introdução de Wonderful Tonight é um dos licks mais conhecidos do rock: um bend, uma nota curta e uma nota longa, repetidos.",
                   steps: ["Tom: Sol maior. As notas são da penta de Mi menor (Mi, Sol, Lá, Si, Ré), a relativa menor: são as mesmas cinco notas da penta maior de Sol, só com outra nota de repouso. Shape 4 de Mi menor, casas 7 a 10.", "O lick: bend do Lá ao Si na 2ª corda (casa 10), o Sol (casa 8) e o Lá (casa 10), segurado. O bend leva a 4ª até a 5ª de Mi menor e, sobre o Sol, chega à 3ª do acorde: é por isso que soa doce e não triste.", "Na segunda vez, em vez de voltar ao Lá, a frase termina no Mi da 3ª corda (casa 9), a tônica da penta, com vibrato.", "Sem nota fora da penta: o que muda, de um acorde para o outro, é a função de cada nota. O Lá longo do fim é a 5ª do Ré.","A base segue a gravação: Sol, Ré com Fá# no baixo, Dó e Ré."],
                 },
                 {
@@ -11390,8 +11480,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(WT_INTRO, 0, 5),
-                  intro: "A segunda vez do lick termina com uma subida pela 2ª corda, deslizando, até o Mi da casa 17, e desce para o Ré. É o fim da introdução, antes da voz entrar.",
-                  steps: ["Tom: Sol maior, na penta de Mi menor (Mi, Sol, Lá, Si, Ré). O começo é o lick da parte 1, no shape 4 (casas 7 a 10); depois a frase sobe a 2ª corda até a casa 17.", "A subida: Lá (casa 10), Si (12), Dó (13) e Mi (17), cada uma com slide, e cai no Ré (casa 15), longo.", "Nota fora da penta: o Dó, na casa 13. Ali o acorde é Ré, e o Dó é a 7ª menor dele: nota de passagem na subida, que não para ali e segue para o Mi.", "O Ré final é a 5ª de Sol e a 7ª menor de Mi menor: uma nota da penta e de repouso, que fecha a introdução."],
+                  intro: "Na segunda vez, o lick termina com uma subida pela 2ª corda, deslizando até o Mi da casa 17, e desce para o Ré. É o fim da introdução, antes de a voz entrar.",
+                  steps: ["Tom: Sol maior, na penta de Mi menor (Mi, Sol, Lá, Si, Ré). O começo é o lick da parte 1, no shape 4 (casas 7 a 10).", "A subida: Lá (casa 10) e, com slide, Si (12), Dó (13) e Mi (17); depois cai no Ré (casa 15), longo.", "Nota fora da penta: o Dó, na casa 13. Ali o acorde é Ré, e o Dó é a 7ª menor dele: uma nota de passagem, a caminho do Mi.", "O Ré final é a 5ª de Sol e a 7ª menor de Mi menor: uma nota da penta e de repouso, que fecha a introdução."],
                 },
                 {
                   ...phrase("wtp3", "Wonderful Tonight: parte 3", 3, [
@@ -11414,7 +11504,7 @@ const written: Curriculum = {
                   label: "Parte 3",
                   base: songBars(WT_SOLO1, 0, 3),
                   intro: "Depois do segundo refrão, o Clapton solta uma frase em colcheias que sobe pelos shapes 4 e 5 de Mi menor e volta. Ainda é lento, a 96 bpm.",
-                  steps: ["Tom: Sol maior, na penta de Mi menor (Mi, Sol, Lá, Si, Ré). Casas 7 a 12: shapes 4 e 5.", "A subida vai do Mi (3ª corda, casa 9, a tônica) ao Mi da 1ª corda (casa 12), uma oitava acima, passando por Sol, Lá, Si e Ré, e desce até o Ré da 3ª corda (casa 7), a 5ª de Sol.", "Sem nota fora da penta: todas as notas são de Mi menor. Sobre o Dó, o Sol longo e o Mi são a 5ª e a 3ª dele, notas de acorde.","Os slides curtos (casas 10 e 12) ligam as notas sem palhetar de novo."],
+                  steps: ["Tom: Sol maior, na penta de Mi menor (Mi, Sol, Lá, Si, Ré). Casas 7 a 12: shapes 4 e 5.", "A subida vai do Mi (3ª corda, casa 9, a tônica) ao Mi da 1ª corda (casa 12), uma oitava acima, passando por Sol, Lá, Si e Ré, e desce até o Ré da 3ª corda (casa 7), a 5ª de Sol.", "Sem nota fora da penta. Sobre o Dó, o Sol longo e o Mi são a 5ª e a 3ª dele, notas do acorde.","Os slides curtos (casas 10 e 12) ligam as notas sem palhetar de novo."],
                 },
                 {
                   ...phrase("wtp4", "Wonderful Tonight: parte 4", 4, [
@@ -11435,8 +11525,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 4",
                   base: songBars(WT_SOLO2, 0, 4),
-                  intro: "O solo do fim parte do shape 4 de Mi menor, desce ao shape 3 e termina num bend longo na 5ª corda. É o último lick antes da introdução voltar.",
-                  steps: ["Tom: Sol maior, na penta de Mi menor (Mi, Sol, Lá, Si, Ré). Casas 5 a 10, entre os shapes 4 e 3.", "O começo é de notas do acorde: Ré, Sol e Si sobre o Sol (5ª, tônica e 3ª).", "No meio, um bend do Lá ao Si na 2ª corda (casa 10), que volta ao Lá: o mesmo bend da introdução, agora com a volta. É a 4ª que sobe até a 5ª de Mi menor.", "A frase desce por Sol, Mi, Ré, Si, Sol, Lá e Sol, sempre dentro da penta, e fecha num bend do Ré ao Mi na 5ª corda (casa 5), segurado. O Mi é a 3ª do Dó e, quando o acorde muda para Ré, vira a 9ª dele: nota aberta, que aguenta ficar parada.", "Esta parte não tem nota de fora da penta."],
+                  intro: "O solo do fim parte do shape 4 de Mi menor, desce ao shape 3 e termina num bend longo na 5ª corda. É o último lick antes de a introdução voltar.",
+                  steps: ["Tom: Sol maior, na penta de Mi menor (Mi, Sol, Lá, Si, Ré). Casas 5 a 10, entre os shapes 4 e 3.", "O começo é de notas do acorde: Ré, Sol e Si sobre o Sol (5ª, tônica e 3ª).", "No meio, um bend do Lá ao Si na 2ª corda (casa 10), que volta ao Lá: o mesmo bend da introdução, agora com a volta. É a 4ª que sobe até a 5ª de Mi menor.", "A frase desce por Sol, Mi, Ré, Si, Sol, Lá e Sol, e fecha num bend do Ré ao Mi na 5ª corda (casa 5), segurado. O Mi é a 3ª do Dó e, quando o acorde muda para Ré, vira a 9ª dele: nota aberta, que aguenta ficar parada.", "Esta parte não tem nota de fora da penta."],
                 },
               ],
             },
@@ -11447,7 +11537,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Wonderful Tonight",
           videos: [{ youtube: "Pu5c4aEg3NM", title: "Wonderful Tonight", author: "Eric Clapton", note: "A gravação, no canal oficial. A introdução abre a música; o solo do meio começa por volta de 1:40 e o do fim por volta de 3:00. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Wonderful Tonight no Songsterr", url: "https://www.songsterr.com/a/wsa/eric-clapton-wonderful-tonight-tab-s1380" },
-          intro: "Trechos curtos do solo de Wonderful Tonight, de Eric Clapton, tirados do solo transcrito na lição anterior, \"Wonderful Tonight\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Wonderful Tonight, de Eric Clapton, tirados do solo transcrito na lição anterior, \"Wonderful Tonight\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u43.lick",
           exercises: [
             {
@@ -11471,7 +11561,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 1: o bend da 4ª à 5ª",
                   intro: "Lick de 5 notas: sai da 4ª e chega na 3ª menor. Técnica: bend de um tom, da 4ª à 5ª (e volta na mesma palhetada); vibrato em uma nota longa.",
-                  steps: ["O desenho, em funções: 4ª, 3ª menor, tônica, 4ª, 3ª menor. Técnica: bend de um tom, da 4ª à 5ª (e volta na mesma palhetada); vibrato em uma nota longa.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 4ª no shape 2, e toque o lick ali."],
+                  steps: ["O desenho, em funções: 4ª, 3ª menor, tônica, 4ª, 3ª menor.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 4ª no shape 2, e toque o lick ali."],
                 },
                 {
                   ...phrase("lk43b", "Wonderful Tonight: lick 2", 2, [
@@ -11499,7 +11589,7 @@ const written: Curriculum = {
                     [3, 12, 4.5, 0.5],
                     [4, 14, 5.0, 0.5],
                   ]),
-                  label: "Lick 3: o bend da 4ª à 5ª",
+                  label: "Lick 3: o bend longo e a descida até a 5ª",
                   intro: "Lick de 7 notas: sai da 4ª e chega na 5ª. Técnica: bend de um tom, da 4ª à 5ª; nota que começa dobrada na 5ª e solta até a 4ª.",
                   steps: ["O desenho, em funções: 4ª (2x), 3ª menor, tônica (2x), 7ª menor, 5ª. Técnica: bend de um tom, da 4ª à 5ª; nota que começa dobrada na 5ª e solta até a 4ª; slide da 7ª menor até a tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
@@ -11520,7 +11610,7 @@ const written: Curriculum = {
           title: "Californication",
           videos: [{ youtube: "YlUKcNNmywk", title: "Californication (Official Music Video)", author: "Red Hot Chili Peppers", note: "O clipe oficial. O solo começa por volta de 3:20. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Californication no Songsterr", url: "https://www.songsterr.com/a/wsa/red-hot-chili-peppers-californication-tab-s439" },
-          intro: "O solo do John Frusciante, na penta de Fá# menor, com poucas notas longas e um bend que vai para fora da penta. O solo está dividido em 3 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O solo do John Frusciante, na penta de Fá# menor, com poucas notas longas e um bend que vai para fora da penta.",
           key: "u42.echo",
           exercises: [
             {
@@ -11528,7 +11618,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, sem parar?",
               base: CALIFORNICATION,
               reveal: "tab",
@@ -11558,8 +11648,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(CALIFORNICATION, 0, 6),
-                  intro: "O solo de Californication começa com uma frase de três notas que termina num bend longo, e repete a mesma frase. É pergunta e resposta com quase nada: o que muda é onde a frase cai.",
-                  steps: ["Tom: a música está em Lá maior e o solo usa a penta de Fá# menor (Fá#, Lá, Si, Dó#, Mi), a relativa menor, com as mesmas cinco notas da penta maior de Lá. Shape 4 da penta, casas 9 a 12.", "A frase: Lá (3ª menor) na 2ª corda (casa 10), Dó# (5ª) na 1ª corda (casa 9) e um bend na 3ª corda (casa 11), a partir do Fá#, a tônica.", "Nota fora da penta: o bend sai do Fá# e sobe um tom até o Sol#, a 2ª de Fá# menor, que a penta não tem. Sobre o Fá# menor ele soa aberto, como uma pergunta. Por isso o bend é longo: a nota de fora fica ali de propósito. O Fá# que ele segura é a tônica de Fá# menor e a 3ª do Ré seguinte, então a nota funciona nos dois acordes.", "No fim, a frase repete o Fá#, desce para o Mi e chega ao Dó# da 4ª corda (casa 11), a 5ª de Fá# menor. A segunda metade repete o desenho e termina no Dó# longo, com vibrato.","A base segue a gravação: Fá# menor e Ré, duas vezes, depois Si menor e Ré, Lá e Mi."],
+                  intro: "O solo de Californication começa com uma frase de três notas que termina numa nota longa com bend, e repete a mesma frase.",
+                  steps: ["Tom: a música está em Lá maior e o solo usa a penta de Fá# menor (Fá#, Lá, Si, Dó#, Mi), a relativa menor, com as mesmas cinco notas da penta maior de Lá. Shape 4 da penta, casas 9 a 12.", "A frase: Lá (3ª menor) na 2ª corda (casa 10), Dó# (5ª) na 1ª corda (casa 9) e um bend na 3ª corda (casa 11), a partir do Fá#, a tônica.", "Nota fora da penta: o bend sai do Fá# e sobe um tom até o Sol#, a 2ª de Fá# menor, que a penta não tem, e logo volta ao Fá#. Sobre o Fá# menor, o Sol# soa aberto, como uma pergunta. O Fá# que fica soando é a tônica de Fá# menor e a 3ª do Ré seguinte, então a nota funciona nos dois acordes.", "No fim, a frase repete o Fá#, desce para o Mi e chega ao Dó# da 4ª corda (casa 11), a 5ª de Fá# menor. A segunda metade repete o desenho e termina no Dó# longo, com vibrato.","A base segue a gravação: Fá# menor e Ré, duas vezes, depois Si menor e Ré, Lá e Mi."],
                 },
                 {
                   ...phrase("calip2", "Californication: parte 2", 4, [
@@ -11607,7 +11697,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(CALIFORNICATION, 10, 6),
-                  intro: "O fim do solo fica no agudo, nos shapes 5 e 1 de Fá# menor, e vai descendo devagar. Toda nota dura um tempo ou mais: é o solo mais calmo do capítulo.",
+                  intro: "O fim do solo fica no agudo, nos shapes 5 e 1 de Fá# menor, e vai descendo devagar.",
                   steps: ["Tom: Lá maior, na penta de Fá# menor (Fá#, Lá, Si, Dó#, Mi). Casas 9 a 17: shape 1 uma oitava acima (casas 14 a 17) e shape 5 (casas 11 a 14).", "Nota fora da penta: o Sol#, na 1ª corda (casa 16), logo no começo. É a 2ª de Fá# menor, de passagem na descida do Lá ao Fá#.", "O Dó# repetido na 2ª corda (casa 14) segura o meio. Ele é a 5ª de Fá# menor e a 3ª de Lá: cabe nos dois acordes.", "Nota fora da penta no fim: o Ré, na 1ª corda (casa 10). Ali o acorde é Mi e o Ré é a 7ª menor dele, de passagem; ele cai no Dó# (5ª de Fá# menor), que prepara a volta para a música."],
                 },
                 {
@@ -11679,7 +11769,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Californication",
           videos: [{ youtube: "YlUKcNNmywk", title: "Californication (Official Music Video)", author: "Red Hot Chili Peppers", note: "O clipe oficial. O solo começa por volta de 3:20. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Californication no Songsterr", url: "https://www.songsterr.com/a/wsa/red-hot-chili-peppers-californication-tab-s439" },
-          intro: "Trechos curtos do solo de Californication, de Red Hot Chili Peppers, tirados do solo transcrito na lição anterior, \"Californication\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Californication, de Red Hot Chili Peppers, tirados do solo transcrito na lição anterior, \"Californication\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u42.lick",
           exercises: [
             {
@@ -11715,7 +11805,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 2: sobe da 3ª menor à tônica",
                   intro: "Lick de 4 notas: sai da 3ª menor e chega na tônica. Técnica: vibrato na nota final.",
-                  steps: ["O desenho, em funções: 3ª menor, 5ª, 7ª menor, tônica. Técnica: vibrato na nota final.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota longa, de 2 tempos) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
+                  steps: ["O desenho, em funções: 3ª menor, 5ª, 7ª menor, tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota longa, de 2 tempos) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
                 },
                 {
                   ...phrase("lk42c", "Californication: lick 3", 2, [
@@ -11727,7 +11817,7 @@ const written: Curriculum = {
                     [1, 3, 4.5, 1.0, { vib: "lento" }],
                     [2, 5, 5.5, 1.0],
                   ]),
-                  label: "Lick 3: o bend da tônica à 2ª",
+                  label: "Lick 3: o bend da tônica à 2ª, na 1ª corda",
                   intro: "Lick de 7 notas: sai da 7ª menor e chega na 5ª. Técnica: bend de um tom, da tônica à 2ª (e volta na mesma palhetada); vibrato em uma nota longa. Nota de fora da penta: a 2ª, que o solo original usa.",
                   steps: ["O desenho, em funções: 7ª menor, 5ª, tônica, 7ª menor, 5ª, 7ª menor, 5ª. Técnica: bend de um tom, da tônica à 2ª (e volta na mesma palhetada); vibrato em uma nota longa.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na 5ª (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
@@ -11741,14 +11831,14 @@ const written: Curriculum = {
       id: "u64",
       optional: true,
       title: "Money (Pink Floyd, 1973)",
-      skill: "O primeiro solo de 4/4 do David Gilmour, na penta de Si menor: bends de um tom e notas longas com vibrato sobre o riff do baixo",
+      skill: "O primeiro solo do David Gilmour no trecho em 4/4, na penta de Si menor: bends de um tom e notas longas com vibrato sobre o riff do baixo",
       lessons: [
         {
           id: "u64.l1",
           title: "Money",
           videos: [{ youtube: "2aW7HweAf3o", title: "Pink Floyd - Money (2023 Remaster)", author: "Pink Floyd", note: "A gravação de estúdio, no canal oficial do Pink Floyd. O solo em 4/4 começa por volta de 3:05 e a primeira volta dura uns 37 segundos. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Money no Songsterr", url: "https://www.songsterr.com/a/wsa/pink-floyd-money-tab-s15761" },
-          intro: "O primeiro solo de 4/4 do David Gilmour, guitarrista do Pink Floyd, na penta de Si menor: bends de um tom e notas longas com vibrato sobre o riff do baixo. O solo está dividido em 4 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O primeiro solo do David Gilmour, guitarrista do Pink Floyd, no trecho em 4/4 de Money, na penta de Si menor: bends de um tom e notas longas com vibrato sobre o riff do baixo.",
           key: "u64.echo",
           exercises: [
             {
@@ -11756,7 +11846,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou os vinte compassos no tempo, com os bends afinados e a descida uniforme?",
               base: MONEY,
               reveal: "tab",
@@ -11795,8 +11885,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(MONEY, 0, 8),
-                  intro: "O solo de Money vem depois do trecho em 7/4 e passa para 4/4, perto de 131 bpm, sobre o mesmo riff do baixo, com tercinas no meio das frases. Esta parte, de oito compassos, fica toda sobre o Si menor, na penta de Si menor: bends de um tom e notas longas, com muito espaço entre as frases.",
-                  steps: ["Tom: Si menor, penta de Si menor: Si (tônica), Ré (3ª menor), Mi (4ª), Fá# (5ª) e Lá (7ª menor). A tab está em afinação normal.", "Tudo entre as casas 7 e 12, nas cordas 1 a 4: o shape 1 (casas 7 a 10) e o shape 2 (casas 9 a 12) de Si menor.", "Primeira frase: o Mi da 3ª corda (casa 9) dobrado um tom até o Fá# (a 4ª que sobe à 5ª) e o Ré da casa 7, longo, com vibrato. Depois o Lá da 2ª corda (casa 10) dobrado um tom até o Si: a 7ª menor que chega na tônica, a resolução da frase, que dura três tempos e meio.", "A segunda frase repete o começo, com o Mi dobrado e o Ré longo, e continua: o Si da 2ª corda (casa 12), com um slide a partir da casa 10, passa pelo Ré da 1ª corda (casa 10) e volta ao Si, que segura dois tempos. Mais uma vez a frase pousa na tônica.", "Depois: o Mi da 1ª corda (casa 12) dobrado um tom até o Fá#, e o Si da 2ª corda (casa 12), longo.", "Na sequência, o Mi da 3ª corda dobrado outra vez, o Si longo da 4ª corda (casa 9), uma oitava mais grave, e mais um Mi dobrado.", "A parte fecha com Si, Lá, Lá, Si, Ré e Mi nas cordas 1 e 2, e o Mi da 1ª corda (casa 12) dobrado um tom até o Fá# e solto. O bend termina na 5ª, sem pousar na tônica, e deixa a frase aberta para o acorde seguinte.", "Sem nota fora da penta: as cinco notas bastam sobre o Si menor.","A base toca Si menor nos oito compassos. O baixo da gravação faz Si, Lá, Ré, Dó# e Dó; a base fica só no acorde de Si menor."],
+                  intro: "O solo de Money vem depois do trecho em 7/4 e passa para 4/4, perto de 131 bpm, sobre o mesmo riff do baixo, com tercinas no meio das frases. Esta parte, de oito compassos, fica toda sobre o Si menor, com muito espaço entre as frases.",
+                  steps: ["Tom: Si menor, penta de Si menor: Si (tônica), Ré (3ª menor), Mi (4ª), Fá# (5ª) e Lá (7ª menor). A tab está em afinação normal.", "Tudo entre as casas 7 e 12, nas cordas 1 a 4: o shape 1 (casas 7 a 10) e o shape 2 (casas 9 a 12) de Si menor.", "Primeira frase: o Mi da 3ª corda (casa 9) dobrado um tom até o Fá# (a 4ª que sobe à 5ª) e o Ré da casa 7, longo, com vibrato. Depois o Lá da 2ª corda (casa 10) dobrado um tom até o Si: a 7ª menor que chega na tônica, a resolução da frase, que dura três tempos e meio.", "A segunda frase repete o começo, com o Mi dobrado e o Ré longo, e continua: o Si da 2ª corda (casa 12), com um slide a partir da casa 10, passa pelo Ré da 1ª corda (casa 10) e volta ao Si, que segura dois tempos. Mais uma vez a frase pousa na tônica.", "Depois: o Mi da 1ª corda (casa 12) dobrado um tom até o Fá#, e o Si da 2ª corda (casa 12), longo.", "Na sequência, o Mi da 3ª corda dobrado outra vez, o Si longo da 4ª corda (casa 9), uma oitava mais grave, e mais um Mi dobrado.", "A parte fecha com Si, Lá, Lá, Si, Ré e Mi nas cordas 1 e 2, e o Mi da 1ª corda (casa 12) dobrado um tom até o Fá# e solto. O bend termina na 5ª, sem pousar na tônica, e deixa a frase aberta para o acorde seguinte.", "Sem nota fora da penta: as cinco notas bastam sobre o Si menor.","A base toca só Si menor nos oito compassos; na gravação, o baixo faz Si, Lá, Ré, Dó# e Dó."],
                 },
                 {
                   ...phrase("moneyp2", "Money: parte 2", 5, [
@@ -11818,7 +11908,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(MONEY, 8, 5),
-                  intro: "O acorde muda para Mi menor por quatro compassos. O solo começa no agudo, com um bend longo, e depois desce, do agudo ao grave, com um desenho de quatro notas, Si, Lá, Mi e Ré, repetido uma oitava mais grave.",
+                  intro: "Sobre o Mi menor, o solo começa no agudo, com um bend longo, e depois desce com um desenho de quatro notas, Si, Lá, Mi e Ré, repetido uma oitava mais grave.",
                   steps: ["Tom: Si menor. As notas Si, Ré, Mi e Lá são da penta de Si menor e também da penta de Mi menor, o acorde que está soando: sobre o Mi menor elas são a 5ª, a 7ª menor, a tônica e a 4ª. A penta de Mi menor ainda tem o Sol, que esta parte não usa.", "Começa com o Si da 2ª corda (casa 12), o Ré da 1ª corda (casa 10) e o Mi da 1ª corda (casa 12) dobrado um tom até o Fá#, que fica soando por três tempos e meio. Sobre o Mi menor o Fá# é a 2ª (9ª), fora da penta de Mi menor; é a 5ª de Si menor, o tom do solo. Ao soltar o bend, a frase volta ao Ré e ao Mi.", "A descida, uma nota por tempo (o Ré grave dura meio tempo): Si e Lá na 2ª corda (casas 12 e 10), Mi e Ré na 3ª (casas 9 e 7); e o mesmo desenho uma oitava mais grave, Si e Lá na 4ª corda (casas 9 e 7), Mi e Ré na 5ª (casas 7 e 5). É sempre a mesma figura, 5ª, 4ª, tônica e 7ª menor de Mi menor.","O desenho é do shape 1 de Si menor, menos o Si da casa 12 (shape 2) e o Ré da 5ª corda, casa 5 (shape 5).", "O Si da 2ª corda e o da 4ª levam vibrato. A descida termina no Si grave da 6ª corda, casa 7, que segura até a volta do Si menor.", "Sem nota fora da penta de Si menor.", "A base toca Mi menor por quatro compassos, e o Si menor volta no fim, onde o Si grave termina."],
                 },
                 {
@@ -11848,7 +11938,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(MONEY, 12, 5),
-                  intro: "De volta ao Si menor, o solo avança em tercinas da 4ª à 1ª corda, repete o Si e chega ao Fá# da casa 14. Esse Fá# é dobrado um tom e fica segurado até o compasso do Fá# menor.",
+                  intro: "De volta ao Si menor, o solo avança em tercinas da 4ª à 1ª corda, repete o Si e termina num bend longo no Fá# da casa 14.",
                   steps: ["Tom: Si menor, na penta de Si menor (Si, Ré, Mi, Fá#, Lá). A parte começa no segundo tempo, depois de uma pausa de um tempo.", "O começo usa ligados nas cordas 5 e 4: Mi (casa 7) e Fá# (casa 9, ligado) na 5ª, Lá (casa 7) e Si (casa 9) na 4ª: a 4ª, a 5ª, a 7ª menor e a tônica, no shape 1 de Si menor.", "Em seguida, o Ré da 3ª corda (casa 7), a 3ª menor, duas vezes, e o Si da 4ª corda (casa 9), longo, com vibrato. Depois o Mi da 3ª corda dobrado até o Fá#, o Fá# da 2ª corda (casa 7) e o Si da 1ª (casa 7), em tercinas: a frase sobe e pousa no Si, a tônica.", "Mais adiante: Lá da 2ª corda (casa 10), três Si da casa 12 e o Ré e o Mi da 1ª corda (casas 10 e 12), em tercinas. Aqui o solo passa do shape 1 para o shape 2.", "Depois: o Mi da 1ª corda (casa 12) dobrado um tom e solto, o Ré da casa 10 e o Si da 2ª corda (casa 12), longo, com vibrato. É o fecho do trecho em Si menor, de novo na tônica.", "Nota fora da penta: no fim, o Fá# da 1ª corda (casa 14, shape 3) é dobrado um tom até o Sol#, que é a 6ª maior de Si menor e a 9ª do Fá#. O bend dura dois tempos e meio, até o meio do acorde de Fá# menor; a próxima frase recomeça no Fá# sem bend.","A base toca Si menor por quatro compassos e Fá# menor no quinto."],
                 },
                 {
@@ -11873,7 +11963,7 @@ const written: Curriculum = {
                   label: "Parte 4",
                   base: songBars(MONEY, 16, 4),
                   intro: "Os últimos quatro compassos fecham a progressão: na 1ª corda o solo vai do Fá# ao Ré, passa para as cordas 2 e 3 e termina numa descida de uma nota por tempo, com notas de passagem, até o Si.",
-                  steps: ["Tom: Si menor, penta de Si menor (Si, Ré, Mi, Fá#, Lá). A parte começa no terceiro tempo do primeiro acorde, ainda sobre o Fá#. A gravação toca só a nota Fá# no baixo, sem terça; a base toca Fá# menor, o acorde do tom, e o Lá do solo é a 3ª menor dele.", "Na 1ª corda: Fá#, Mi e Ré (casas 14, 12 e 10), a 5ª, a 4ª e a 3ª menor de Si menor; depois a 2ª corda em Si e Lá (casas 12 e 10) e o Mi da 3ª corda (casa 9), que desliza até o Fá# da casa 11, com vibrato.", "Em seguida, o Lá da 2ª corda (casa 10) dobrado um tom até o Si, a tônica, que segura até o começo do acorde seguinte.", "Depois: Lá, Sol e Fá# na 2ª corda (casas 10, 8 e 7), um por tempo, acompanhando o baixo da gravação, que faz Si, Lá, Sol, Fá#. A base segue o baixo, um acorde por tempo: Si menor, Lá, Sol e Fá# menor. O solo toca a tônica de cada acorde: Lá sobre o Lá, Sol sobre o Sol, Fá# sobre o Fá# menor.", "No último acorde, Mi menor: Mi, Ré, Dó# e Dó, um por tempo, na 3ª e na 4ª corda (casas 9, 7, 6 e 10), e o Si da 4ª corda (casa 9), que segue soando até a volta do Si menor.", "Notas fora da penta: o Sol (6ª menor de Si menor, mas ali é a tônica do acorde de Sol) e a descida cromática Dó#, Dó. São passagem: o ouvido espera o Si, e elas só vão até ele.", "A base toca Fá# menor, Si menor (com Lá, Sol e Fá# menor, um por tempo) e Mi menor."],
+                  steps: ["Tom: Si menor, penta de Si menor (Si, Ré, Mi, Fá#, Lá). A parte começa no terceiro tempo do primeiro acorde, ainda sobre o Fá#. A gravação toca só a nota Fá# no baixo, sem terça; a base toca Fá# menor, o acorde do tom, e o Lá do solo é a 3ª menor dele.", "Na 1ª corda: Fá#, Mi e Ré (casas 14, 12 e 10), a 5ª, a 4ª e a 3ª menor de Si menor; depois a 2ª corda em Si e Lá (casas 12 e 10) e o Mi da 3ª corda (casa 9), que desliza até o Fá# da casa 11, com vibrato.", "Em seguida, o Lá da 2ª corda (casa 10) dobrado um tom até o Si, a tônica, que segura até o começo do acorde seguinte.", "Depois: Lá, Sol e Fá# na 2ª corda (casas 10, 8 e 7), um por tempo, junto com o baixo da gravação. Cada nota é a tônica do acorde que soa: Lá sobre o Lá, Sol sobre o Sol, Fá# sobre o Fá# menor.", "No último acorde, Mi menor: Mi, Ré, Dó# e Dó, um por tempo, na 3ª e na 4ª corda (casas 9, 7, 6 e 10), e o Si da 4ª corda (casa 9), que segue soando até a volta do Si menor.", "Notas fora da penta: o Sol (6ª menor de Si menor, mas ali é a tônica do acorde de Sol) e a descida cromática Dó#, Dó. São notas de passagem, a caminho do Si que o ouvido espera.", "A base toca Fá# menor, Si menor (com Lá, Sol e Fá# menor, um por tempo) e Mi menor."],
                 },
                 {
                   ...phrase("moneyfull", "Money: o solo completo", 20, [
@@ -11973,7 +12063,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Money",
           videos: [{ youtube: "2aW7HweAf3o", title: "Pink Floyd - Money (2023 Remaster)", author: "Pink Floyd", note: "A gravação de estúdio, no canal oficial do Pink Floyd. O solo em 4/4 começa por volta de 3:05 e a primeira volta dura uns 37 segundos. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Money no Songsterr", url: "https://www.songsterr.com/a/wsa/pink-floyd-money-tab-s15761" },
-          intro: "Trechos curtos do solo de Money, de Pink Floyd, tirados do solo transcrito na lição anterior, \"Money\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Money, de Pink Floyd, tirados do solo transcrito na lição anterior, \"Money\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u64.lick",
           exercises: [
             {
@@ -12022,9 +12112,9 @@ const written: Curriculum = {
                     [1, 10, 3.333, 0.667],
                     [1, 10, 4.0, 0.75, { bend: 2, back: 0.312 }],
                   ]),
-                  label: "Lick 3: o bend da 4ª à 5ª",
+                  label: "Lick 3: a tônica três vezes e o bend que volta",
                   intro: "Lick de 7 notas: sai da 7ª menor e chega na 5ª. Técnica: bend de um tom, da 4ª à 5ª (e volta na mesma palhetada).",
-                  steps: ["O desenho, em funções: 7ª menor, tônica (3x), 3ª menor, 4ª (2x). Técnica: bend de um tom, da 4ª à 5ª (e volta na mesma palhetada).", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: 7ª menor, tônica (3x), 3ª menor, 4ª (2x).", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -12043,7 +12133,7 @@ const written: Curriculum = {
           title: "Nothing Else Matters",
           videos: [{ youtube: "tAGnKpE4NCI", title: "Nothing Else Matters (Official Music Video)", author: "Metallica", note: "O clipe oficial. O solo começa por volta de 5:00. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Nothing Else Matters no Songsterr", url: "https://www.songsterr.com/a/wsa/metallica-nothing-else-matters-tab-s439171" },
-          intro: "O solo do James Hetfield, no shape 1 de Mi menor uma oitava acima, em compasso composto e com notas de fora que são do acorde. O solo está dividido em 2 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O solo do James Hetfield, no shape 1 de Mi menor uma oitava acima, em compasso composto e com notas de fora que são do acorde.",
           key: "u45.echo",
           exercises: [
             {
@@ -12051,7 +12141,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, sem parar?",
               base: NOTHING_ELSE_MATTERS,
               reveal: "tab",
@@ -12094,7 +12184,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(NOTHING_ELSE_MATTERS, 0, 2),
-                  intro: "O solo de Nothing Else Matters está em 6/8: cada tempo se divide em três, não em dois. Aqui a base toca em 4/4 bem lento, com cada tempo dividido em três: soa igual. A primeira metade sai de um bend no Lá e desce pelo shape 1 da penta de Mi menor, uma oitava acima.",
+                  intro: "O solo de Nothing Else Matters está em 6/8: cada tempo se divide em três, não em dois. Aqui a base toca em 4/4 bem lento, com tercinas, e soa igual. A primeira metade sai de um bend no Lá e desce pelo shape 1.",
                   steps: ["Tom: Mi menor, na penta de Mi menor (Mi, Sol, Lá, Si, Ré). Shape 1 da penta uma oitava acima, casas 12 a 15.", "O bend leva o Lá (4ª) ao Si (5ª), na 3ª corda (casa 14). Ele volta duas vezes, e a frase gira em torno do Sol (3ª menor) e do Lá.", "Nota fora da penta: o Fá#, na 3ª corda (casa 11), repetido, sobre o acorde de Ré. É a 2ª de Mi menor, mas sobre o Ré ele é a 3ª do acorde: nota de fora da escala que é nota do acorde.", "Nota fora da penta: o Lá#, na 3ª corda (casa 15), entre o Lá e o Si. É a 5ª diminuta de Mi, a nota do blues, usada só de passagem.", "O Dó# e o Dó da 2ª corda (casas 14 e 13), sobre o Ré, descem de meio em meio tom: cromatismo, notas de passagem. A parte pousa no Sol longo, com vibrato, a 3ª menor de Mi menor.","A base segue a gravação: Mi menor e Ré, duas vezes; depois Mi menor, Ré e Dó; Sol e Mi menor."],
                 },
                 {
@@ -12131,7 +12221,7 @@ const written: Curriculum = {
                   label: "Parte 2",
                   base: songBars(NOTHING_ELSE_MATTERS, 2, 2),
                   intro: "A segunda metade sobe para a 1ª corda, no Fá# da casa 14, com um trinado rápido, e termina num bend longo na 2ª corda, do Ré ao Mi: a tônica.",
-                  steps: ["Tom: Mi menor, na mesma penta (Mi, Sol, Lá, Si, Ré). Shapes 1 e 2 uma oitava acima, casas 12 a 17.", "Nota fora da penta: o Fá# da 1ª corda (casa 14), repetido. Sobre o Mi menor ele é a 2ª; sobre o Ré, é a 3ª do acorde.", "O trinado: o Fá# (casa 14) e o Sol (casa 15) alternados o mais rápido que der, com hammer-on e pull-off.", "Quando o acorde muda para Sol, a frase usa o Ré, o Sol e o Si (5ª, tônica e 3ª do acorde) e o bend do Lá ao Si na 3ª corda (casa 14).", "O fim: bend do Ré (7ª menor) ao Mi (tônica) na 2ª corda (casa 15), segurado sobre o Mi menor. O solo resolve na tônica."],
+                  steps: ["Tom: Mi menor, na mesma penta (Mi, Sol, Lá, Si, Ré). Shapes 1 e 2 uma oitava acima, casas 12 a 17.", "Nota fora da penta: o Fá# da 1ª corda (casa 14), repetido. Sobre o Mi menor ele é a 2ª; sobre o Ré, é a 3ª do acorde.", "O trinado: o Fá# (casa 14) e o Sol (casa 15) alternados o mais rápido que der, com ligados.", "Quando o acorde muda para Sol, a frase usa o Ré, o Sol e o Si (5ª, tônica e 3ª do acorde) e o bend do Lá ao Si na 3ª corda (casa 14).", "O fim: bend do Ré (7ª menor) ao Mi (tônica) na 2ª corda (casa 15), segurado sobre o Mi menor."],
                 },
                 {
                   ...phrase("nemfull", "Nothing Else Matters: o solo completo", 4, [
@@ -12216,18 +12306,18 @@ const written: Curriculum = {
           id: "u76.l1",
           title: "Ficar na mesma região, mudar de tom",
           intro:
-            "Em vez de seguir um shape pelo braço, fique parado numa região (por exemplo, perto da casa 7) e mude de tom: em cada tom cai um shape diferente nessa região. É assim que você passa a ver os cinco shapes sem olhar a ordem deles.",
+            "Quando o tom muda, o shape 1 anda pelo braço. Aqui é o contrário: a região fica parada e, conforme o tom, um shape diferente cai nela. É assim que você passa a ver os cinco shapes sem depender da ordem deles.",
           key: "u76.l1.map",
           exercises: [
             {
               id: "u76.l1.map",
               kind: "map",
               title: "O shape que cai na casa 7",
-              goal: "Mude o Tom de prática e, em cada tom, diga qual shape fica perto da casa 7 e toque-o uma volta.",
+              goal: "Mude o tom de prática e, em cada tom, ache o shape que fica perto da casa 7 e toque uma volta nele.",
               steps: [
-                "Use o seletor de tom e mantenha a mão na região da casa 7 a 10.",
+                "O seletor de tom fica na barra da base. A mão não sai das casas 7 a 10.",
                 "Em alguns tons o shape começa na casa 6 ou na 11; tudo bem, vale o mais próximo.",
-                "Tente prever o shape antes de abrir o braço.",
+                "Diga o número do shape antes de conferir no braço.",
               ],
               check: "",
               base: VAMP,
@@ -12249,14 +12339,14 @@ const written: Curriculum = {
           id: "a3.l1",
           title: "Atravessar o braço",
           intro:
-            'Os solos que ficam na memória têm forma: começam calmos e graves, crescem e chegam a um ponto alto. O segundo solo de "Comfortably Numb" começa grave e termina agudo. Aqui a base é de rock, um pouco mais rápida, e a faixa diz em que parte do arco você está.',
+            'Muitos solos que ficam na memória têm a mesma forma: começam calmos e graves, crescem e chegam a um ponto alto. O segundo solo de "Comfortably Numb" começa grave e termina agudo. Aqui a base é de rock, um pouco mais rápida.',
           key: "a3.take",
           exercises: [
             {
               id: "a3.take",
               kind: "take",
               title: "Do grave ao agudo",
-              goal: "Oito compassos em quatro partes, do grave ao agudo. Siga a faixa.",
+              goal: "Oito compassos em quatro partes, do grave ao agudo. A tela mostra em qual parte você está.",
               steps: [],
               check: "Seu solo subiu de região aos poucos e chegou num ponto alto?",
               base: ROCK,
@@ -12330,22 +12420,22 @@ const written: Curriculum = {
     },
     {
       id: "u37",
-      title: "O mesmo lick em todo shape",
-      skill: "Tocar os licks do shape 1, iguais, nos cinco shapes",
+      title: "Quatro licks nos cinco shapes",
+      skill: "Achar em cada shape os licks que você já toca no shape 1",
       takeCheck: "Você tocou o mesmo lick em mais de um shape?",
       lessons: [
         {
           id: "u12.l5",
           title: "O mesmo lick nos cinco shapes",
           intro:
-            "Um lick só é seu quando sai em qualquer lugar do braço. Aqui é o mesmo lick, Sol, Lá, Dó e Lá, tocado nos cinco shapes: as notas são as mesmas, só muda onde a mão está. No shape 5 ele sai uma oitava abaixo, porque é lá que essas notas estão nesse shape.",
+            "Um lick só é seu quando sai em qualquer lugar do braço. Este tem quatro notas, Sol, Lá, Dó e Lá, e elas são as mesmas em todos os shapes: só muda onde a mão está. No shape 5, nas casas 2 a 5, o lick sai uma oitava mais grave.",
           key: "u12.l5.pr",
           exercises: [
             {
               id: "u12.l5.echo",
               kind: "echo",
               title: "Um lick, cinco lugares",
-              goal: "Tire o lick em cada shape, do 1 ao 5, e repare que ele soa igual.",
+              goal: "Tire o lick em cada shape, do 1 ao 5. O número da frase é o do shape.",
               steps: ["Um shape por vez.", "Depois toque os cinco em seguida, sem parar a base."],
               check: "Achou o lick nos cinco shapes sem olhar?",
               base: AM_F,
@@ -12387,7 +12477,7 @@ const written: Curriculum = {
               id: "u12.l5.pr",
               kind: "play-rest",
               title: "Um shape por volta",
-              goal: "A cada compasso de tocar, o lick num shape diferente: 1, 2, 3, 4, 5 e de volta.",
+              goal: "A cada compasso de tocar, o lick num shape diferente: 1, 2, 3, 4 e 5.",
               steps: ["Use o compasso de silêncio para levar a mão ao próximo shape.", "Depois faça na ordem contrária."],
               check: "O lick saiu nos cinco shapes, no tempo, sem parar a base?",
               base: AM_F,
@@ -12400,13 +12490,13 @@ const written: Curriculum = {
           id: "u37.l1",
           title: "Vai e volta no Lá, nos cinco shapes",
           intro:
-            "O primeiro lick do shape 1 (Lá e Sol balançando, um bend no Ré e o pouso no Lá) tocado em cada um dos cinco shapes. As notas são as mesmas; só muda onde a mão está. É assim que um lick deixa de ser uma posição e vira uma ideia que você leva para o braço inteiro.",
+            "O primeiro lick do shape 1: Lá e Sol balançando, um bend no Ré e o pouso no Lá. Nos shapes 1 e 2, o bend fica na 3ª corda; nos shapes 3 e 4, passa para a 4ª, mais grossa, que pede mais força para chegar ao Mi.",
           key: "u37.l1.echo",
           exercises: [
             {
               id: "u37.l1.echo",
               kind: "echo",
-              title: "Vai e volta no Lá nos cinco shapes",
+              title: "As cinco versões do vai e volta no Lá",
               goal: "O mesmo lick, as mesmas notas e o mesmo ritmo, em cada shape. Escolha a versão pelo número.",
               steps: ["Toque a versão do shape 1 primeiro, a que você já sabe. Depois a do shape 2, e assim por diante.", "Em cada shape, ache antes a nota onde o lick termina."],
               check: "Tocou o lick igual nos cinco shapes?",
@@ -12482,13 +12572,13 @@ const written: Curriculum = {
           id: "u37.l2",
           title: "Bend no Sol, nos cinco shapes",
           intro:
-            "O bend que sobe do Sol ao Lá e solta, em cada shape. Em cada um, o Sol fica numa corda e numa casa diferente: ache primeiro onde ele está e o bend vem junto.",
+            "O bend que sobe do Sol ao Lá e solta. Os shapes 1 e 2 dividem um Sol, os shapes 3 e 4 dividem outro, e o shape 5 tem o seu. Quando você sabe onde está o Sol, o bend vem junto.",
           key: "u37.l2.echo",
           exercises: [
             {
               id: "u37.l2.echo",
               kind: "echo",
-              title: "Bend no Sol nos cinco shapes",
+              title: "As cinco versões do bend no Sol",
               goal: "O mesmo lick, as mesmas notas e o mesmo ritmo, em cada shape. Escolha a versão pelo número.",
               steps: ["Toque a versão do shape 1 primeiro, a que você já sabe. Depois a do shape 2, e assim por diante.", "Em cada shape, ache antes a nota onde o lick termina."],
               check: "Tocou o lick igual nos cinco shapes?",
@@ -12549,13 +12639,13 @@ const written: Curriculum = {
           id: "u37.l3",
           title: "Slide no Ré, nos cinco shapes",
           intro:
-            "O slide que chega no Ré, o Mi segurado e o pouso no Lá agudo, em cada shape. O slide sempre vem de duas casas abaixo, na mesma corda.",
+            "O slide que chega no Ré, o Mi segurado e o pouso no Lá agudo. Em todo shape, o slide sobe duas casas, na mesma corda.",
           key: "u37.l3.echo",
           exercises: [
             {
               id: "u37.l3.echo",
               kind: "echo",
-              title: "Slide no Ré nos cinco shapes",
+              title: "As cinco versões do slide no Ré",
               goal: "O mesmo lick, as mesmas notas e o mesmo ritmo, em cada shape. Escolha a versão pelo número.",
               steps: ["Toque a versão do shape 1 primeiro, a que você já sabe. Depois a do shape 2, e assim por diante.", "Em cada shape, ache antes a nota onde o lick termina."],
               check: "Tocou o lick igual nos cinco shapes?",
@@ -12623,9 +12713,9 @@ const written: Curriculum = {
       lessons: [
         {
           id: "a13.l1",
-          title: "O lick que sobe o braço",
+          title: "O lick que anda pelo braço",
           intro:
-            "Um solo inteiro com um lick só: ele aparece no shape 1, repete no 2, repete no 3, e o solo pousa de volta no shape 1. Quem ouve reconhece a ideia, e ela soa cada vez mais aguda. Use qualquer lick desta seção.",
+            "Um solo inteiro com um lick só. As notas não mudam de um shape para outro, então quem ouve reconhece a ideia a cada repetição. Muda só o timbre, porque parte das notas passa para cordas mais grossas. Use qualquer lick desta seção.",
           key: "a13.take",
           exercises: [
             {
@@ -12638,9 +12728,9 @@ const written: Curriculum = {
               base: AM_F,
               bars: 8,
               arc: [
-                { name: "No shape 1", how: "O lick, inteiro, no shape 1." },
-                { name: "No shape 2", how: "O mesmo lick, igual, no shape 2." },
-                { name: "No shape 3", how: "O mesmo lick, igual, no shape 3." },
+                { name: "No shape 1", how: "O lick escolhido, inteiro." },
+                { name: "No shape 2", how: "O mesmo lick, igual." },
+                { name: "No shape 3", how: "O mesmo lick, igual." },
                 { name: "Pouso", how: "De volta ao shape 1, um Lá longo." },
               ],
               bases: OTHER_BASES,
@@ -12710,14 +12800,14 @@ const written: Curriculum = {
           id: "u34.l1",
           title: "Ao longo da corda",
           intro:
-            "Até aqui, cada frase rápida ficava num shape. Agora a frase anda pela corda: sobe ou desce o braço numa ou duas cordas e chega noutro shape. A mão desliza junto, sem parar o tempo.",
+            "Até aqui, cada frase rápida ficava num shape. Agora a frase anda pela corda: sobe ou desce o braço numa ou duas cordas e chega noutro shape. A mão desliza junto, sem perder o tempo.",
           key: "u34.l1.pr",
           exercises: [
             {
               id: "u34.l1.echo",
               kind: "echo",
               title: "Duas frases na horizontal",
-              goal: "Repita as duas, devagar primeiro. Olhe a tab: a mão anda pelo braço.",
+              goal: "Repita as duas frases. Na tab, veja em que casa a mão troca de shape.",
               steps: ["Comece a 60 bpm. Quando sair limpo três vezes, suba 4 bpm.", "Palhetada alternada nas semicolcheias."],
               check: "As semicolcheias saíram iguais e a nota longa caiu no tempo?",
               base: AM_F_SLOW,
@@ -12761,7 +12851,7 @@ const written: Curriculum = {
               id: "u34.l1.pr",
               kind: "play-rest",
               title: "Rápido e calado",
-              goal: "Frases rápidas que sobem ou descem pela corda, mudando de shape. Nos de calar, nada.",
+              goal: "Improvise frases rápidas nos compassos de tocar; nos de calar, nada.",
               steps: ["Um grupo de semicolcheias e uma nota longa do acorde.", "Se embolar, baixe o andamento."],
               check: "Cada frase rápida terminou numa nota longa, com silêncio depois?",
               base: BASE_SLOW,
@@ -12789,7 +12879,7 @@ const written: Curriculum = {
               id: "u35.l1.echo",
               kind: "echo",
               title: "Duas diagonais",
-              goal: "Repita as duas, devagar primeiro. Olhe a tab: a mão anda pelo braço.",
+              goal: "Repita as duas frases. Na tab, veja em que corda a mão troca de shape.",
               steps: ["Comece a 60 bpm. Quando sair limpo três vezes, suba 4 bpm.", "Palhetada alternada nas semicolcheias."],
               check: "As semicolcheias saíram iguais e a nota longa caiu no tempo?",
               base: AM_F_SLOW,
@@ -12812,8 +12902,8 @@ const written: Curriculum = {
                   [1, 8, 6, 1.5, { vib: "lento" }],
                 ]),
                 phrase("d2", "Diagonal descendo", 2, [
-                  [1, 12, 0.5, 0.25],
-                  [1, 10, 0.75, 0.25],
+                  [1, 10, 0.5, 0.25],
+                  [1, 8, 0.75, 0.25],
                   [2, 10, 1.0, 0.25],
                   [2, 8, 1.25, 0.25],
                   [3, 7, 1.5, 0.25],
@@ -12833,7 +12923,7 @@ const written: Curriculum = {
               id: "u35.l1.pr",
               kind: "play-rest",
               title: "Rápido e calado",
-              goal: "Frases rápidas em diagonal, de um shape para o vizinho. Nos de calar, nada.",
+              goal: "Improvise frases rápidas nos compassos de tocar; nos de calar, nada.",
               steps: ["Um grupo de semicolcheias e uma nota longa do acorde.", "Se embolar, baixe o andamento."],
               check: "Cada frase rápida terminou numa nota longa, com silêncio depois?",
               base: BASE_SLOW,
@@ -12853,7 +12943,7 @@ const written: Curriculum = {
               id: "u35.l2.echo",
               kind: "echo",
               title: "Três shapes numa frase",
-              goal: "Repita as duas, devagar primeiro. Olhe a tab: a mão anda pelo braço.",
+              goal: "Repita as duas frases. Na tab, veja em que corda a mão entra em cada shape.",
               steps: ["Comece a 60 bpm. Quando sair limpo três vezes, suba 4 bpm.", "Palhetada alternada nas semicolcheias."],
               check: "As semicolcheias saíram iguais e a nota longa caiu no tempo?",
               base: AM_F_SLOW,
@@ -12897,7 +12987,7 @@ const written: Curriculum = {
               id: "u35.l2.pr",
               kind: "play-rest",
               title: "Rápido e calado",
-              goal: "Frases rápidas que atravessam três shapes. Nos de calar, nada.",
+              goal: "Improvise frases rápidas nos compassos de tocar; nos de calar, nada.",
               steps: ["Um grupo de semicolcheias e uma nota longa do acorde.", "Se embolar, baixe o andamento."],
               check: "Cada frase rápida terminou numa nota longa, com silêncio depois?",
               base: BASE_SLOW,
@@ -12917,9 +13007,9 @@ const written: Curriculum = {
         {
           id: "u67.l1",
           title: "All Along the Watchtower",
-          videos: [{ youtube: "TLV4_xaYynY", title: "All Along The Watchtower (Official Audio)", author: "The Jimi Hendrix Experience", note: "A gravação, no canal oficial. Pelo andamento da tab, os solos começam por volta de 0:50 (primeiro), 1:40 (segundo, o longo) e 3:20 (final); o tempo é estimado e a gravação oscila. A guitarra está meio tom abaixo, então soa meio tom mais grave que aqui." }],
+          videos: [{ youtube: "TLV4_xaYynY", title: "All Along The Watchtower (Official Audio)", author: "The Jimi Hendrix Experience", note: "A gravação, no canal oficial. Pelo andamento da tab, os solos começam por volta de 0:50 (o primeiro), 1:40 (o segundo, o longo) e 3:20 (o final); são estimativas, porque o andamento da gravação oscila. A guitarra está afinada meio tom abaixo, então a gravação soa meio tom mais grave que aqui." }],
           source: { title: "All Along the Watchtower no Songsterr", url: "https://www.songsterr.com/a/wsa/jimi-hendrix-experience-all-along-the-watchtower-tab-s340" },
-          intro: "Os três solos do Jimi Hendrix: bends de um tom na penta de Dó# menor, o longo com slides e acordes de três notas, e o final que sobe até a casa 19. O solo está dividido em 7 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "Os três solos do Jimi Hendrix, na penta de Dó# menor e com bends de um tom: o segundo, o longo, tem slides e acordes de três notas, e o final sobe até a casa 19. São 7 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela.",
           key: "u67.echo",
           exercises: [
             {
@@ -12927,7 +13017,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Nos solos 1 e 2, depois das partes vem uma aba com o solo inteiro: junte as partes de duas em duas antes de tocar o solo todo. O solo 3 cabe numa aba só."],
               check: "Tocou cada solo inteiro no tempo, com os bends afinados?",
               base: WATCHTOWER,
               reveal: "tab",
@@ -12959,8 +13049,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo 1: parte 1",
                   base: songBars(WATCHTOWER, 0, 4),
-                  intro: "O primeiro solo vem depois do primeiro verso e dura oito compassos. Começa com o bend de um tom do Si ao Dó# na 2ª corda, casa 12, e desce pelo shape 1 de Dó# menor, sobre uma base que alterna Dó# menor e Si, e Lá. Esta aba traz a primeira metade.",
-                  steps: ["Afinação: a tab marca a guitarra meio tom abaixo, então as notas soam meio tom mais graves que aqui. Com afinação normal, as mesmas casas soam em Dó# menor, o tom da base.", "Tom: Dó# menor, penta de Dó# menor: Dó# (tônica), Mi (3ª menor), Fá# (4ª), Sol# (5ª) e Si (7ª menor). Quase tudo no shape 1, casas 9 a 12; no fim, o shape 2 (casas 11 a 14).","Os bends: o Si da 2ª corda, casa 12, sobe um tom até o Dó# (7ª menor à tônica); o Fá# da 3ª corda, casa 11, sobe um tom até o Sol# (4ª à 5ª).", "Na gravação, o Si dobrado da 2ª corda soa junto com o Dó# da 1ª corda, casa 9: o bend chega no unísono com ele. O site mostra só a nota que dobra.", "Sobre o Lá, o Sol# de chegada do bend (o Fá# da 3ª corda, casa 11, sobe um tom até ele) é a 7ª maior do acorde, e o Mi (3ª corda, casa 9) e o Dó# (4ª corda, casa 11) que vêm depois são notas do acorde (5ª e 3ª).", "Na segunda metade, o Sol# (3ª corda, casa 13) e o Dó# da 2ª corda (casa 14) levam ao shape 2. O Dó# dobra um tom até o Ré# (fora da penta: a 2ª de Dó# menor e a 3ª do Si) e, no fim da aba, mais meio tom, até o Mi (3ª menor). O Ré# é só passagem a caminho do Mi.", "A primeira frase pousa no Dó#, a tônica; a aba termina num bend do Dó# até o Mi, a 3ª menor, e a aba seguinte continua dali.", "A base segue a gravação: Dó# menor e Si, depois Lá, repetidos duas vezes."],
+                  intro: "O primeiro solo vem depois do primeiro verso e dura oito compassos. Começa com o bend de um tom do Si ao Dó# na 2ª corda, casa 12, e desce pelo shape 1 de Dó# menor. Esta aba traz a primeira metade.",
+                  steps: ["Afinação: a tab marca a guitarra meio tom abaixo, então as notas soam meio tom mais graves que aqui. Com afinação normal, as mesmas casas soam em Dó# menor, o tom da base.", "Tom: Dó# menor, penta de Dó# menor: Dó# (tônica), Mi (3ª menor), Fá# (4ª), Sol# (5ª) e Si (7ª menor). Quase tudo no shape 1, casas 9 a 12; no fim, o shape 2 (casas 11 a 14).","Os bends: o Si da 2ª corda, casa 12, sobe um tom até o Dó# (7ª menor à tônica); o Fá# da 3ª corda, casa 11, sobe um tom até o Sol# (4ª à 5ª).", "Na gravação, o Si dobrado da 2ª corda soa junto com o Dó# da 1ª corda, casa 9: o bend chega ao uníssono com ele. O site mostra só a nota que dobra.", "Sobre o Lá, o Sol# a que chega o bend do Fá# é a 7ª maior do acorde, e o Mi (3ª corda, casa 9) e o Dó# (4ª corda, casa 11) que vêm depois são notas do acorde (5ª e 3ª).", "Na segunda metade, o Sol# (3ª corda, casa 13) e o Dó# da 2ª corda (casa 14) levam ao shape 2. O Dó# dobra um tom até o Ré# (fora da penta: a 2ª de Dó# menor e a 3ª do Si), só de passagem a caminho do Mi.", "A primeira frase pousa no Dó#, a tônica; a aba termina num bend do Dó# até o Mi, a 3ª menor, e a aba seguinte continua dali.", "A base segue a gravação: Dó# menor e Si, depois Lá, repetidos duas vezes."],
                 },
                 {
                   ...phrase("watchp2", "All Along the Watchtower: parte 2", 4, [
@@ -12995,7 +13085,7 @@ const written: Curriculum = {
                   label: "Solo 1: parte 2",
                   base: songBars(WATCHTOWER, 0, 4),
                   intro: "Na segunda metade, o Dó# da casa 14 dobra um tom e meio até o Mi e fica soando; depois o solo volta ao shape 1 numa sequência rápida de bends e desce até o Mi.",
-                  steps: ["Tom: Dó# menor, na penta de Dó# menor. Começa no shape 2, na 2ª corda (casa 14), e volta ao shape 1 (casas 9 a 12); a última nota é o Dó# da 3ª corda (casa 18), com slide a partir da casa 9 (shape 4).", "O bend de um tom e meio: Dó# a Mi (tônica à 3ª menor), na 2ª corda (casa 14), com vibrato, repetido e depois solto até o Si da casa 12 (a 7ª menor). Mais adiante, sobre o Lá, o Dó# (4ª corda, casa 11) e o Mi (3ª corda, casa 9) são a 3ª e a 5ª do acorde.", "Na sequência rápida, sobre Dó# menor e Si, o Dó# da 1ª corda (casa 9) alterna com o Si da 2ª corda (casa 12), dobrado até o Dó#, e o Fá# da 3ª corda (casa 11) dobra de novo até o Sol#.", "Nota fora da penta: o Sol natural, na 3ª corda (casa 12), no fim da sequência. É a 5ª diminuta de Dó# menor, só passagem entre o Sol# e o Fá#, antes de descer ao Mi e ao Dó#.", "Sobre o último Lá, o Fá# dobra até o Sol# (a 7ª maior do acorde), o Mi fica longo, com vibrato, e o solo termina com um slide do Mi da casa 9 ao Dó# da casa 18, na 3ª corda: um pico agudo, na tônica, antes do verso.", "A base segue a gravação: Dó# menor e Si, Lá; de novo, Dó# menor e Si, Lá."],
+                  steps: ["Tom: Dó# menor, na penta de Dó# menor. Começa no shape 2, na 2ª corda (casa 14), e volta ao shape 1 (casas 9 a 12); a última nota, já no shape 4, é o Dó# da 3ª corda (casa 18).", "O bend de um tom e meio: Dó# a Mi (tônica à 3ª menor), na 2ª corda (casa 14), com vibrato, repetido e depois solto até o Si da casa 12 (a 7ª menor). Mais adiante, sobre o Lá, o Dó# (4ª corda, casa 11) e o Mi (3ª corda, casa 9) são a 3ª e a 5ª do acorde.", "Na sequência rápida, sobre Dó# menor e Si, o Dó# da 1ª corda (casa 9) alterna com o Si da 2ª corda (casa 12), dobrado até o Dó#, e o Fá# da 3ª corda (casa 11) dobra de novo até o Sol#.", "Nota fora da penta: o Sol natural, na 3ª corda (casa 12), no fim da sequência. É a 5ª diminuta de Dó# menor, só passagem entre o Sol# e o Fá#, antes de descer ao Mi e ao Dó#.", "Sobre o último Lá, o Fá# dobra até o Sol# (a 7ª maior do acorde), o Mi fica longo, com vibrato, e o solo termina com um slide do Mi da casa 9 ao Dó# da casa 18, na 3ª corda: um pico agudo, na tônica, antes do verso.", "A base segue a gravação: Dó# menor e Si, Lá; de novo, Dó# menor e Si, Lá."],
                 },
                 {
                   ...phrase("watchfull1", "O primeiro solo completo", 8, [
@@ -13050,8 +13140,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo 1 inteiro",
                   base: WATCHTOWER,
-                  intro: "Os três solos de Hendrix, cada um inteiro: o primeiro, com 8 compassos, o segundo, com 32, e o final, com 9.",
-                  steps: ["Junte as partes de duas em duas, devagar, antes de tocar o solo todo.", "Repare no desenho: bends no shape 1, slides e acordes de três notas no segundo solo, e a subida pela 1ª corda no final.", "Quando sair, toque com a gravação (afinando a guitarra meio tom abaixo) ou sobre a base do site com afinação normal."],
+                  intro: "O primeiro solo inteiro, com 8 compassos.",
+                  steps: ["Repare no desenho: os bends no shape 1, a ida ao shape 2 com o bend do Dó# até o Mi, a volta ao shape 1 e o slide final até o Dó# da casa 18.", "Quando sair, toque com a gravação (afinando a guitarra meio tom abaixo) ou sobre a base do site com afinação normal."],
                 },
                 {
                   ...phrase("watchp3", "All Along the Watchtower: parte 3", 8, [
@@ -13105,8 +13195,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo 2: parte 1",
                   base: songBars(WATCHTOWER, 0, 8),
-                  intro: "O segundo solo é o mais longo da música, com 32 compassos. Abre com um Mi repetido na 3ª corda, casa 9, que sobe ao Fá# e a um Dó# longo, e depois sobe ao shape 2 na 1ª e na 2ª cordas. Esta parte tem oito compassos.",
-                  steps: ["Afinação: a tab marca a guitarra meio tom abaixo, então as notas soam meio tom mais graves que aqui. Com afinação normal, as mesmas casas soam em Dó# menor, o tom da base.", "Tom: Dó# menor, penta de Dó# menor (Dó#, Mi, Fá#, Sol#, Si). Começa no shape 1 (casas 9 a 12) e, na segunda metade, vai ao shape 2 (casas 11 a 14) na 1ª e na 2ª cordas.", "O Mi (3ª menor) da 3ª corda, casa 9, é repetido, e o Fá# (4ª) da casa 11 vem com slide da casa 9 e dobra um tom até o Sol# (5ª). O Dó# da 4ª corda, casa 11, dura dois tempos, com vibrato: é a tônica e, sobre o Lá que chega, a 3ª do acorde.", "Depois, sobre o Lá, o Si da 2ª corda (casa 12) dobra um tom até o Dó# várias vezes seguidas, junto com o Dó# da 1ª corda (casa 9), em unísono. O bend chega à 3ª do Lá. O site mostra a nota que dobra.", "Na segunda metade, o shape 2: Mi (1ª corda, casa 12), Fá# (casa 14), que dobra até o Sol#, e o Dó# da 2ª corda (casa 14), que dobra um tom até o Ré# e, mais para o fim, um tom e meio até o Mi.", "O Ré# é fora da penta (2ª de Dó# menor, 3ª do Si): é o ponto do bend, de passagem a caminho do Mi. O trecho termina no Sol# da 3ª corda (casa 13), longo, a 5ª de Dó# menor.", "A base segue a gravação: Dó# menor e Si, depois Lá, repetidos quatro vezes."],
+                  intro: "O segundo solo é o mais longo da música, com 32 compassos. Abre com um Mi repetido na 3ª corda, casa 9, que sobe ao Fá# e a um Dó# longo, e depois vai ao shape 2 na 1ª e na 2ª cordas. Esta parte tem oito compassos.",
+                  steps: ["Afinação: a tab marca a guitarra meio tom abaixo, então as notas soam meio tom mais graves que aqui. Com afinação normal, as mesmas casas soam em Dó# menor, o tom da base.", "Tom: Dó# menor, penta de Dó# menor (Dó#, Mi, Fá#, Sol#, Si). Começa no shape 1 (casas 9 a 12) e, na segunda metade, vai ao shape 2 (casas 11 a 14) na 1ª e na 2ª cordas.", "O Mi (3ª menor) da 3ª corda, casa 9, é repetido, e o Fá# (4ª) da casa 11 vem com slide da casa 9 e dobra um tom até o Sol# (5ª). O Dó# da 4ª corda, casa 11, dura dois tempos, com vibrato: é a tônica e, sobre o Lá que chega, a 3ª do acorde.", "Depois, sobre o Lá, o Si da 2ª corda (casa 12) dobra um tom até o Dó# várias vezes seguidas, junto com o Dó# da 1ª corda (casa 9), em uníssono. O bend chega à 3ª do Lá. O site mostra a nota que dobra.", "Na segunda metade, o shape 2: Mi (1ª corda, casa 12), Fá# (casa 14), que dobra até o Sol#, e o Dó# da 2ª corda (casa 14), que dobra um tom até o Ré# e, mais para o fim, um tom e meio até o Mi.", "O Ré# é fora da penta (2ª de Dó# menor, 3ª do Si): é o ponto do bend, de passagem a caminho do Mi. O trecho termina no Sol# da 3ª corda (casa 13), longo, a 5ª de Dó# menor.", "A base segue a gravação: Dó# menor e Si, depois Lá, repetidos quatro vezes."],
                 },
                 {
                   ...phrase("watchp4", "All Along the Watchtower: parte 4", 8, [
@@ -13134,7 +13224,7 @@ const written: Curriculum = {
                   label: "Solo 2: parte 2",
                   base: songBars(WATCHTOWER, 0, 8),
                   intro: "No meio do segundo solo, o ritmo quase para: poucas notas longas, ligadas por slides, na 4ª corda, e uma queda em slide logo no começo. É o trecho mais lento dos três solos.",
-                  steps: ["Tom: Dó# menor, na penta de Dó# menor. As notas longas são da 4ª corda: Fá# (casa 4), Dó# (casa 11) e Mi (casa 14), ligadas por slide; depois vêm as da 3ª corda, casas 9 a 13 (shapes 1 e 2).", "O trecho abre com duas notas juntas, na 2ª e na 3ª cordas, casa 18, que deslizam até a casa 2. O site mostra a da 2ª corda: o Fá da casa 18 cai fora da penta e serve só de ponto de partida; a nota de chegada é o Dó# da casa 2, a tônica. A 3ª corda chega na casa 2, o Lá: a tônica do acorde nessa barra, também fora da penta.", "O padrão que se repete duas vezes: o Dó# da casa 11, com slide da casa 4, sobre o Dó# menor, e o Mi da casa 14, com slide da casa 11 e vibrato, sobre o Lá. O Dó# é a tônica do Dó# menor, e o Mi, a 5ª do Lá: por isso as notas longas soam como repouso.", "Entre uma nota longa e a seguinte, o Mi e o Fá# da 3ª corda (casas 9 e 11) fazem uma volta curta, duas vezes.", "No fim, no shape 1: Fá# (3ª corda, casa 11), Sol# (casa 13, com slide da 11 e vibrato), Fá# e Mi (casa 9), e o trecho para no Mi, a 3ª menor.", "A base segue a gravação: Dó# menor e Si, e Lá."],
+                  steps: ["Tom: Dó# menor, na penta de Dó# menor. As notas longas são da 4ª corda: Fá# (casa 4), Dó# (casa 11) e Mi (casa 14), ligadas por slide; depois vêm as da 3ª corda, casas 9 a 13 (shapes 1 e 2).", "O trecho abre com duas notas juntas, na 2ª e na 3ª cordas, casa 18, que deslizam até a casa 2. O site mostra a da 2ª corda: o Fá da casa 18 cai fora da penta e serve só de ponto de partida; a nota de chegada é o Dó# da casa 2, a tônica. A 3ª corda chega na casa 2, o Lá: a tônica do acorde nesse compasso, também fora da penta.", "O padrão que se repete duas vezes: o Dó# da casa 11, com slide da casa 4, sobre o Dó# menor, e o Mi da casa 14, com slide da casa 11 e vibrato, sobre o Lá. O Dó# é a tônica do Dó# menor, e o Mi, a 5ª do Lá: por isso as notas longas soam como repouso.", "Entre uma nota longa e a seguinte, o Mi e o Fá# da 3ª corda (casas 9 e 11) fazem uma volta curta, duas vezes.", "No fim, no shape 1: Fá# (3ª corda, casa 11), Sol# (casa 13, com slide da 11 e vibrato), Fá# e Mi (casa 9), e o trecho para no Mi, a 3ª menor.", "A base segue a gravação: Dó# menor e Si, e Lá."],
                 },
                 {
                   ...phrase("watchp5", "All Along the Watchtower: parte 5", 7, [
@@ -13304,7 +13394,7 @@ const written: Curriculum = {
                   label: "Solo 2: parte 4",
                   base: songBars(WATCHTOWER, 1, 9),
                   intro: "A última parte do segundo solo repete o bend do Dó# ao Ré#, troca as notas soltas por acordes de três notas e termina numa subida rápida pela 2ª corda, em bends de um tom, até a casa 19.",
-                  steps: ["Tom: Dó# menor, na penta de Dó# menor, com notas de acorde fora dela. Começa na casa 14, passa pelos acordes das casas 5 a 8 e termina nas casas 15 a 19 da 2ª corda.", "No começo, o Dó# da 2ª corda (casa 14) dobra um tom até o Ré#, repetido, em unísono com o Ré# da 1ª corda (casa 11). Depois, três vezes ao longo da aba, o Ré# e o Dó# da 1ª corda (casas 11 e 9) alternam sobre o Sol# da 2ª corda (casa 9). O Ré# é fora da penta: 2ª de Dó# menor e 3ª do Si.", "Os acordes de três notas nas cordas 1 a 3: o Si maior, nas casas 7, 7 e 8 (Si, Fá# e Ré#), no tempo do Si, e o Lá maior, nas casas 5, 5 e 6 (Lá, Mi e Dó#), sobre o Lá. São notas de acorde, e a única que sai da penta em cada um é o Ré# (no Si) e o Lá (no Lá).", "Duas vezes na aba, terças menores paralelas e fora da penta, subindo: Mi e Sol (3ª e 2ª cordas, casas 9 e 8), Fá# e Lá (casas 11 e 10) e Lá e Dó (casas 14 e 13), antes da corda solta (o Si da 2ª na primeira vez, o Mi da 1ª na segunda).", "O desenho se repete: os dois acordes de três notas e, no fim, as terças.", "A subida, no fim: a 2ª corda, nas casas 12, 14, 15, 17 e 19, dobra um tom e chega, em unísono, nas notas da 1ª corda, nas casas 9, 11, 12, 14 e 16: Dó#, Ré#, Mi, Fá# e Sol#. O Ré da casa 15 é de fora da penta, mas é só o ponto de partida do bend que chega ao Mi (3ª menor).", "A base começa no Lá e segue a gravação: Lá, depois Dó# menor e Si, repetidos."],
+                  steps: ["Tom: Dó# menor, na penta de Dó# menor, com notas de acorde fora dela. Começa na casa 14, passa pelos acordes das casas 5 a 8 e termina nas casas 15 a 19 da 2ª corda.", "No começo, o Dó# da 2ª corda (casa 14) dobra um tom até o Ré#, repetido, em uníssono com o Ré# da 1ª corda (casa 11). Depois, três vezes ao longo da aba, o Ré# e o Dó# da 1ª corda (casas 11 e 9) alternam sobre o Sol# da 2ª corda (casa 9). O Ré# é fora da penta: 2ª de Dó# menor e 3ª do Si.", "Os acordes de três notas nas cordas 1 a 3: o Si maior, nas casas 7, 7 e 8 (Si, Fá# e Ré#), no tempo do Si, e o Lá maior, nas casas 5, 5 e 6 (Lá, Mi e Dó#), sobre o Lá. São notas de acorde, e em cada um só uma sai da penta: o Ré#, no Si, e o Lá, no Lá.", "Duas vezes na aba, terças menores paralelas e fora da penta, subindo: Mi e Sol (3ª e 2ª cordas, casas 9 e 8), Fá# e Lá (casas 11 e 10) e Lá e Dó (casas 14 e 13), antes da corda solta (o Si da 2ª na primeira vez, o Mi da 1ª na segunda).", "O desenho se repete: os dois acordes de três notas e, no fim, as terças.", "A subida, no fim: a 2ª corda, nas casas 12, 14, 15, 17 e 19, dobra um tom e chega, em uníssono, nas notas da 1ª corda, nas casas 9, 11, 12, 14 e 16: Dó#, Ré#, Mi, Fá# e Sol#. O Ré da casa 15 é de fora da penta, mas é só o ponto de partida do bend que chega ao Mi (3ª menor).", "A base começa no Lá e segue a gravação: Lá, depois Dó# menor e Si, repetidos."],
                 },
                 {
                   ...phrase("watchfull2", "O segundo solo completo", 32, [
@@ -13532,8 +13622,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo 2 inteiro",
                   base: WATCHTOWER,
-                  intro: "Os três solos de Hendrix, cada um inteiro: o primeiro, com 8 compassos, o segundo, com 32, e o final, com 9.",
-                  steps: ["Junte as partes de duas em duas, devagar, antes de tocar o solo todo.", "Repare no desenho: bends no shape 1, slides e acordes de três notas no segundo solo, e a subida pela 1ª corda no final.", "Quando sair, toque com a gravação (afinando a guitarra meio tom abaixo) ou sobre a base do site com afinação normal."],
+                  intro: "O segundo solo inteiro, com 32 compassos.",
+                  steps: ["Repare no desenho: bends nos shapes 1 e 2, notas longas ligadas por slides na 4ª corda, a subida em oitavas pela 1ª e pela 3ª cordas, os acordes de três notas e, no fim, a subida em bends pela 2ª corda até a casa 19.", "Quando sair, toque com a gravação (afinando a guitarra meio tom abaixo) ou sobre a base do site com afinação normal."],
                 },
                 {
                   ...phrase("watchp7", "All Along the Watchtower: parte 7", 9, [
@@ -13605,85 +13695,10 @@ const written: Curriculum = {
                     [1, 19, 35.5, 0.25, { bend: 2 }],
                     [1, 19, 35.75, 0.25, { bend: 2 }],
                   ]),
-                  label: "Solo 3: parte 1",
+                  label: "Solo 3",
                   base: songBars(WATCHTOWER_FINAL, 0, 9),
-                  intro: "O solo final fecha a música com nove compassos: repete o lick do Si dobrado até o Dó#, passa pelo Ré# e sobe pela 2ª corda, em bends de um tom, até o Si agudo, que a tab segue repetindo até o fim.",
-                  steps: ["Afinação: a tab marca a guitarra meio tom abaixo, então as notas soam meio tom mais graves que aqui. Com afinação normal, as mesmas casas soam em Dó# menor, o tom da base.", "Tom: Dó# menor, penta de Dó# menor (Dó#, Mi, Fá#, Sol#, Si). Do shape 1 (casas 9 a 12) ao shape 4 (casas 16 a 19), na 1ª e na 2ª cordas.", "Nas duas primeiras barras, o Si da 2ª corda (casa 12) dobra um tom até o Dó#, em unísono com o Dó# da 1ª corda (casa 9): a 7ª menor que sobe à tônica. O site mostra a nota que dobra.", "Depois, o Dó# da 2ª corda (casa 14) dobra um tom até o Ré#. Em seguida, o Ré# da 1ª corda (casa 11) dobra meio tom até o Mi (3ª menor) e volta, e o Dó# da casa 14 dobra de novo até o Ré#. É o mesmo desenho um tom acima, com uma nota fora da penta: o Ré#, a 2ª de Dó# menor e a 3ª do Si.", "O lick do Si ao Dó# volta, como no começo.", "Depois vem a subida: o Dó# (casa 14) dobra até o Ré#, o Ré (casa 15) dobra até o Mi e, na barra seguinte, o Mi (casa 17) dobra até o Fá# e o Fá# (casa 19) até o Sol#, cada nota em unísono com a 1ª corda, casas 11, 12, 14 e 16. O Ré da casa 15 é de fora da penta, mas é só o ponto de partida do bend que chega ao Mi.", "No fim, o Si da 1ª corda (casa 19), dobrado um tom até o Dó# (a 7ª menor que chega à tônica), repetido em semicolcheias, no ponto mais agudo do solo. A tab segue com a mesma nota por muito mais tempo; aqui entra só o primeiro trecho.", "A base segue a gravação: Dó# menor e Si, Lá, e na penúltima barra o baixo anda por Fá#, Dó# e Sol#; a base toca Fá# menor, Dó# menor e Sol# menor, que são do tom."],
-                },
-                {
-                  ...phrase("watchfull3", "O solo final completo", 9, [
-                    [2, 12, 0.0, 0.75, { bend: 2 }],
-                    [2, 12, 0.75, 0.25, { bend: 2 }],
-                    [2, 12, 1.0, 0.5, { bend: 2 }],
-                    [2, 12, 1.5, 0.5, { bend: 2, vib: "lento" }],
-                    [2, 12, 2.0, 1.5, { bend: 2, vib: "lento" }],
-                    [2, 12, 3.5, 0.25, { bend: 2 }],
-                    [2, 12, 3.75, 0.25, { bend: 2 }],
-                    [2, 12, 4.0, 0.5, { bend: 2 }],
-                    [2, 12, 4.5, 0.5, { bend: 2 }],
-                    [2, 12, 5.0, 0.5, { bend: 2 }],
-                    [2, 12, 5.5, 0.5, { bend: 2 }],
-                    [2, 12, 6.0, 2.0, { bend: 2, vib: "lento" }],
-                    [2, 14, 8.5, 0.5, { bend: 2 }],
-                    [2, 14, 9.0, 0.5, { bend: 2 }],
-                    [2, 14, 9.5, 0.5, { bend: 2 }],
-                    [2, 14, 10.0, 2.0, { bend: 2, vib: "lento" }],
-                    [1, 11, 12.0, 0.5],
-                    [1, 11, 12.5, 0.5, { bend: 1 }],
-                    [1, 11, 13.0, 0.5, { release: 1 }],
-                    [1, 11, 13.5, 0.5],
-                    [2, 14, 14.0, 2.0, { bend: 2 }],
-                    [2, 12, 16.5, 0.5, { bend: 2 }],
-                    [2, 12, 17.0, 0.5, { bend: 2 }],
-                    [2, 12, 17.5, 0.5, { bend: 2 }],
-                    [2, 12, 18.0, 2.0, { bend: 2, vib: "lento" }],
-                    [2, 12, 20.0, 0.5, { bend: 2 }],
-                    [2, 12, 20.5, 0.5, { bend: 2 }],
-                    [2, 12, 21.0, 0.5, { bend: 2 }],
-                    [2, 12, 21.5, 0.5, { bend: 2 }],
-                    [2, 12, 22.0, 2.0, { bend: 2, vib: "lento" }],
-                    [2, 14, 24.5, 0.5, { bend: 2 }],
-                    [2, 14, 25.0, 0.5, { bend: 2 }],
-                    [2, 14, 25.5, 0.5, { bend: 2 }],
-                    [2, 15, 26.0, 0.5, { bend: 2 }],
-                    [2, 15, 26.5, 0.25, { bend: 2 }],
-                    [2, 15, 26.75, 0.25, { bend: 2 }],
-                    [2, 15, 27.0, 0.25, { bend: 2 }],
-                    [2, 15, 27.25, 0.25, { bend: 2 }],
-                    [2, 15, 27.5, 0.5, { bend: 2 }],
-                    [2, 17, 28.0, 0.5, { bend: 2 }],
-                    [2, 17, 28.5, 0.25, { bend: 2 }],
-                    [2, 17, 28.75, 0.25, { bend: 2 }],
-                    [2, 17, 29.0, 0.25, { bend: 2 }],
-                    [2, 17, 29.25, 0.25, { bend: 2 }],
-                    [2, 17, 29.5, 0.5, { bend: 2 }],
-                    [2, 19, 30.0, 0.5, { bend: 2 }],
-                    [2, 19, 30.5, 0.25, { bend: 2 }],
-                    [2, 19, 30.75, 0.25, { bend: 2 }],
-                    [2, 19, 31.0, 0.25, { bend: 2 }],
-                    [2, 19, 31.25, 0.25, { bend: 2 }],
-                    [2, 19, 31.5, 0.25, { bend: 2 }],
-                    [2, 19, 31.75, 0.25, { bend: 2 }],
-                    [1, 19, 32.0, 0.5, { bend: 2 }],
-                    [1, 19, 32.5, 0.25, { bend: 2 }],
-                    [1, 19, 32.75, 0.25, { bend: 2 }],
-                    [1, 19, 33.0, 0.25, { bend: 2 }],
-                    [1, 19, 33.25, 0.25, { bend: 2 }],
-                    [1, 19, 33.5, 0.25, { bend: 2 }],
-                    [1, 19, 33.75, 0.25, { bend: 2 }],
-                    [1, 19, 34.0, 0.25, { bend: 2 }],
-                    [1, 19, 34.25, 0.25, { bend: 2 }],
-                    [1, 19, 34.5, 0.25, { bend: 2 }],
-                    [1, 19, 34.75, 0.25, { bend: 2 }],
-                    [1, 19, 35.0, 0.25, { bend: 2 }],
-                    [1, 19, 35.25, 0.25, { bend: 2 }],
-                    [1, 19, 35.5, 0.25, { bend: 2 }],
-                    [1, 19, 35.75, 0.25, { bend: 2 }],
-                  ]),
-                  label: "Solo 3 inteiro",
-                  base: WATCHTOWER_FINAL,
-                  intro: "Os três solos de Hendrix, cada um inteiro: o primeiro, com 8 compassos, o segundo, com 32, e o final, com 9.",
-                  steps: ["Junte as partes de duas em duas, devagar, antes de tocar o solo todo.", "Repare no desenho: bends no shape 1, slides e acordes de três notas no segundo solo, e a subida pela 1ª corda no final.", "Quando sair, toque com a gravação (afinando a guitarra meio tom abaixo) ou sobre a base do site com afinação normal."],
+                  intro: "O solo final fecha a música com nove compassos: repete o lick do Si dobrado até o Dó#, passa pelo Ré# e sobe pela 2ª corda, em bends de um tom, até o Si agudo.",
+                  steps: ["Afinação: a tab marca a guitarra meio tom abaixo, então as notas soam meio tom mais graves que aqui. Com afinação normal, as mesmas casas soam em Dó# menor, o tom da base.", "Tom: Dó# menor, penta de Dó# menor (Dó#, Mi, Fá#, Sol#, Si). Do shape 1 (casas 9 a 12) ao shape 4 (casas 16 a 19), na 1ª e na 2ª cordas.", "Nos dois primeiros compassos, o Si da 2ª corda (casa 12) dobra um tom até o Dó#, em uníssono com o Dó# da 1ª corda (casa 9): a 7ª menor que sobe à tônica. O site mostra a nota que dobra.", "Depois, o Dó# da 2ª corda (casa 14) dobra um tom até o Ré#. Em seguida, o Ré# da 1ª corda (casa 11) dobra meio tom até o Mi (3ª menor) e volta, e o Dó# da casa 14 dobra de novo até o Ré#. É o mesmo desenho um tom acima, com uma nota fora da penta: o Ré#, a 2ª de Dó# menor e a 3ª do Si.", "O lick do Si ao Dó# volta, como no começo.", "Depois vem a subida: o Dó# (casa 14) dobra até o Ré#, o Ré (casa 15) dobra até o Mi e, no compasso seguinte, o Mi (casa 17) dobra até o Fá# e o Fá# (casa 19) até o Sol#, cada nota em uníssono com a 1ª corda, casas 11, 12, 14 e 16. O Ré da casa 15 é de fora da penta, mas é só o ponto de partida do bend que chega ao Mi.", "No fim, o Si da 1ª corda (casa 19), dobrado um tom até o Dó# (a 7ª menor que chega à tônica), repetido em semicolcheias, no ponto mais agudo do solo. A tab segue com a mesma nota por muito mais tempo; aqui entra só o primeiro trecho.", "A base segue a gravação: Dó# menor e Si, Lá, e no penúltimo compasso o baixo anda por Fá#, Dó# e Sol#; a base toca Fá# menor, Dó# menor e Sol# menor, que são do tom.", "Quando sair, toque com a gravação (afinando a guitarra meio tom abaixo) ou sobre a base do site com afinação normal."],
                 },
               ],
             },
@@ -13692,9 +13707,9 @@ const written: Curriculum = {
         {
           id: "u67.l2",
           title: "Licks para roubar: All Along the Watchtower",
-          videos: [{ youtube: "TLV4_xaYynY", title: "All Along The Watchtower (Official Audio)", author: "The Jimi Hendrix Experience", note: "A gravação, no canal oficial. Pelo andamento da tab, os solos começam por volta de 0:50 (primeiro), 1:40 (segundo, o longo) e 3:20 (final); o tempo é estimado e a gravação oscila. A guitarra está meio tom abaixo, então soa meio tom mais grave que aqui." }],
+          videos: [{ youtube: "TLV4_xaYynY", title: "All Along The Watchtower (Official Audio)", author: "The Jimi Hendrix Experience", note: "A gravação, no canal oficial. Pelo andamento da tab, os solos começam por volta de 0:50 (o primeiro), 1:40 (o segundo, o longo) e 3:20 (o final); são estimativas, porque o andamento da gravação oscila. A guitarra está afinada meio tom abaixo, então a gravação soa meio tom mais grave que aqui." }],
           source: { title: "All Along the Watchtower no Songsterr", url: "https://www.songsterr.com/a/wsa/jimi-hendrix-experience-all-along-the-watchtower-tab-s340" },
-          intro: "Trechos curtos do solo de All Along the Watchtower, de Jimi Hendrix, tirados do solo transcrito na lição anterior, \"All Along the Watchtower\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de All Along the Watchtower, de Jimi Hendrix, tirados do solo transcrito na lição anterior, \"All Along the Watchtower\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u67.lick",
           exercises: [
             {
@@ -13722,7 +13737,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 1: o bend da 4ª à 5ª",
                   intro: "Lick de 9 notas: sai da tônica e chega na 5ª. Técnica: slide da 7ª menor até a tônica; bend de um tom, da 4ª à 5ª.",
-                  steps: ["O desenho, em funções: tônica (2x), 3ª menor, 4ª (3x), 3ª menor, 4ª (2x). Técnica: slide da 7ª menor até a tônica; bend de um tom, da 4ª à 5ª; nota que começa dobrada na 5ª e solta até a 4ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela tônica no shape 2, e toque o lick ali."],
+                  steps: ["O desenho, em funções: tônica (2x), 3ª menor, 4ª (3x), 3ª menor, 4ª (2x). Há também uma nota que começa dobrada na 5ª e solta até a 4ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela tônica no shape 2, e toque o lick ali."],
                 },
                 {
                   ...phrase("lk67b", "All Along the Watchtower: lick 2", 2, [
@@ -13737,7 +13752,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 2: o bend da tônica à 3ª menor",
                   intro: "Lick de 8 notas: sai da tônica e chega na 5ª. Técnica: bend de um tom e meio, da tônica à 3ª menor (e volta na mesma palhetada); bend de um tom, da 7ª menor à tônica.",
-                  steps: ["O desenho, em funções: tônica, 7ª menor, tônica, 7ª menor (2x), tônica, 3ª menor, 4ª. Técnica: bend de um tom e meio, da tônica à 3ª menor (e volta na mesma palhetada); bend de um tom, da 7ª menor à tônica; slide da 7ª menor até a tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 5ª."],
+                  steps: ["O desenho, em funções: tônica, 7ª menor, tônica, 7ª menor (2x), tônica, 3ª menor, 4ª. Há também um slide da 7ª menor até a tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 5ª."],
                 },
                 {
                   ...phrase("lk67c", "All Along the Watchtower: lick 3", 2, [
@@ -13753,7 +13768,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 3: o bend da 4ª à 5ª bemol",
                   intro: "Lick de 9 notas: sai da 7ª menor e chega na tônica. Técnica: bend de meio tom, da 4ª à 5ª bemol; bend de um tom, da 7ª menor à tônica.",
-                  steps: ["O desenho, em funções: 7ª menor, 5ª, 4ª (2x), 3ª menor, 7ª menor (4x). Técnica: bend de meio tom, da 4ª à 5ª bemol; bend de um tom, da 7ª menor à tônica; uma nota em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: 7ª menor, 5ª, 4ª (2x), 3ª menor, 7ª menor (4x). Uma das notas sai em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -13765,14 +13780,14 @@ const written: Curriculum = {
       id: "u47",
       optional: true,
       title: "Don't Look Back in Anger (Oasis, 1995)",
-      skill: "O segundo solo do Noel Gallagher, na penta de Lá menor sobre uma música em Dó maior, do shape 1 ao shape 5 uma oitava acima",
+      skill: "O segundo solo do Noel Gallagher, na penta de Lá menor sobre uma música em Dó maior, do shape 1 até o mesmo shape uma oitava acima",
       lessons: [
         {
           id: "u47.l1",
           title: "Don't Look Back in Anger",
           videos: [{ youtube: "r8OipmKFDeM", title: "Don't Look Back In Anger (Official Video)", author: "Oasis", note: "O clipe oficial. O solo começa por volta de 3:06. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Don't Look Back in Anger no Songsterr", url: "https://www.songsterr.com/a/wsa/oasis-dont-look-back-in-anger-tab-s15472" },
-          intro: "O segundo solo do Noel Gallagher, na penta de Lá menor sobre uma música em Dó maior, do shape 1 ao shape 5 uma oitava acima. O solo está dividido em 3 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O segundo solo do Noel Gallagher, na penta de Lá menor sobre uma música em Dó maior, do shape 1 até o mesmo shape uma oitava acima.",
           key: "u47.echo",
           exercises: [
             {
@@ -13780,7 +13795,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, sem parar?",
               base: DONT_LOOK_BACK,
               reveal: "tab",
@@ -13823,8 +13838,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(DONT_LOOK_BACK, 0, 4),
-                  intro: "A música está em Dó maior, e o Noel sola com a penta de Lá menor, a relativa: Lá, Dó, Ré, Mi e Sol, as mesmas cinco notas da penta de Dó maior. A parte abre com bends de meio tom no Ré e resolve no Dó, a tônica da música.",
-                  steps: ["A penta de Lá menor serve sobre os dois acordes desta parte, Fá e Dó. Sobre o Dó, o Dó, o Mi e o Sol são notas do acorde; sobre o Fá, o Lá e o Dó são a 3ª e a 5ª. Shape 1, casas 5 a 7.", "O bend parte do Ré (a 4ª de Lá menor, a 9ª de Dó) e sobe meio tom até o Ré#. O Ré# não está na penta: é a 3ª menor de Dó, a nota de blues num tom maior, e dá o tom de lamento. A tensão se desfaz quando a nota volta ao Ré.", "Depois do primeiro grupo, um bend de tom inteiro leva o Ré ao Mi, a 5ª de Lá menor e a 3ª de Dó, uma nota de acorde. Na segunda metade, os bends de meio tom voltam, agora sobre o Fá.", "No fim, a frase passa por Dó, Ré, Mi e Sol, no shape 1, e chega ao Dó (5ª corda, casa 3), a tônica, com vibrato lento: é a nota de chegada. Base desta parte: Fá, Dó, Fá, Dó."],
+                  intro: "A penta de Lá menor é a relativa da penta de Dó maior: as duas têm as mesmas cinco notas, Lá, Dó, Ré, Mi e Sol. A parte abre com bends de meio tom no Ré e resolve no Dó, a tônica da música.",
+                  steps: ["A penta de Lá menor serve sobre os dois acordes desta parte, Fá e Dó. Sobre o Dó, o Dó, o Mi e o Sol são notas do acorde; sobre o Fá, o Lá e o Dó são a 3ª e a 5ª. Shape 1, casas 5 a 7.", "O bend parte do Ré (a 4ª de Lá menor, a 9ª de Dó) e sobe meio tom até o Ré#. O Ré# não está na penta: é a 3ª menor de Dó, a nota de blues num tom maior, e dá o clima de lamento. A tensão se desfaz quando a nota volta ao Ré.", "Depois do primeiro grupo, um bend de tom inteiro leva o Ré ao Mi, a 5ª de Lá menor e a 3ª de Dó, uma nota de acorde. Na segunda metade, os bends de meio tom voltam, agora sobre o Fá.", "No fim, a frase passa por Dó, Ré, Mi e Sol, no shape 1, e chega ao Dó (5ª corda, casa 3), a tônica, com vibrato lento. Base desta parte: Fá, Dó, Fá, Dó."],
                 },
                 {
                   ...phrase("dlbp2", "Don't Look Back in Anger: parte 2", 4, [
@@ -13886,8 +13901,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(DONT_LOOK_BACK, 4, 4),
-                  intro: "Ainda na penta de Lá menor, sobre Dó maior: a frase sobe do shape 5 grave pelas cordas até o shape 2 e para num lick de três notas repetido em semicolcheias. É o lick repetido da Velocidade I, aqui num solo de rádio.",
-                  steps: ["A subida começa nas notas graves da penta, Sol e Lá (6ª corda, casas 3 e 5, shape 5), e passa por Dó, Ré e Mi até o shape 1. No meio da subida, o Ré é puxado um tom inteiro até o Mi, a 7ª maior do Fá.", "O lick usa Sol, Lá e Dó, com hammer-on do Sol ao Lá (2ª corda, casas 8 e 10, e 1ª corda, casa 8), no shape 2. Sobre o Dó, as três notas são a 5ª, a 6ª e a tônica.", "Quando o acorde muda para Sol, o lick não muda: o Sol vira a tônica, o Lá a 9ª e o Dó a 4ª, uma nota de tensão. Sobre o acorde de passagem, que não é da penta, a repetição mantém a frase firme.", "Não há nota de fora da penta. A parte termina no Sol, sem resolver: a resolução fica para a parte 3."],
+                  intro: "A frase sobe do shape 5 grave pelas cordas até o shape 2 e para num lick de três notas repetido em semicolcheias. É o lick repetido da Velocidade I, aqui num solo de rádio.",
+                  steps: ["A subida começa nas notas graves da penta, Sol e Lá (6ª corda, casas 3 e 5, shape 5), e passa por Dó, Ré e Mi até o shape 1. No meio da subida, o Ré é puxado um tom inteiro até o Mi, a 7ª maior do Fá.", "O lick usa Sol, Lá e Dó, com hammer-on do Sol ao Lá (2ª corda, casas 8 e 10, e 1ª corda, casa 8), no shape 2. Sobre o Dó, as três notas são a 5ª, a 6ª e a tônica.", "Quando o acorde muda para Sol, o lick não muda: o Sol vira a tônica, o Lá a 9ª e o Dó a 4ª, uma nota de tensão. Sobre o acorde de passagem (na base, Si diminuto), que tem notas fora da penta, a repetição mantém a frase firme.", "Não há nota de fora da penta. A parte termina no Sol, sem resolver: a resolução fica para a parte 3."],
                 },
                 {
                   ...phrase("dlbp3", "Don't Look Back in Anger: parte 3", 3, [
@@ -13935,8 +13950,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(DONT_LOOK_BACK, 8, 3),
-                  intro: "O fim do solo sobe uma oitava e repete o Mi em semicolcheias, como uma guitarra que canta uma nota só, ainda na penta de Lá menor. No meio, uma volta rápida por Dó, Ré, Lá e Mi.",
-                  steps: ["A penta é a mesma, uma oitava acima do shape 1 (casas 17 a 19). O Mi é a 5ª de Lá menor, a 3ª de Dó e uma nota do acorde de Lá menor.", "O Mi repetido soa bem sobre os acordes desta parte: é a 5ª do Lá menor e a 6ª do Sol, uma nota de cor que não incomoda.", "No meio, o Ré é puxado um tom inteiro até o Mi (3ª corda, casa 19) sobre o Fá: o Mi é a 7ª maior do Fá, uma nota de cor, antes de a frase voltar ao Mi repetido.", "Sem nota fora da penta. O solo termina no Mi, a 6ª do Sol: a nota fica suspensa, sem fechar na tônica."],
+                  intro: "O fim do solo sobe uma oitava e repete o Mi em semicolcheias, como uma guitarra que canta uma nota só. No meio, uma volta rápida por Dó, Ré, Lá e Mi.",
+                  steps: ["A penta é a mesma, uma oitava acima do shape 1 (casas 17 a 19). O Mi é a 5ª de Lá menor e a 3ª de Dó.", "O Mi repetido soa bem sobre os acordes desta parte: é a 5ª do Lá menor e a 6ª do Sol, uma nota de cor que não incomoda.", "No meio, o Ré (3ª corda, casa 19) é puxado um tom inteiro até o Mi, sobre o Fá: o Mi é a 7ª maior do Fá, uma nota de cor, antes de a frase voltar ao Mi repetido.", "Sem nota fora da penta. O solo termina no Mi, a 6ª do Sol: a nota fica suspensa, sem fechar na tônica."],
                 },
                 {
                   ...phrase("dlbfull", "Don't Look Back in Anger: o solo completo", 11, [
@@ -14071,8 +14086,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo completo",
                   base: DONT_LOOK_BACK,
-                  intro: "As três partes juntas: o solo inteiro, sempre na penta de Lá menor sobre Dó maior.",
-                  steps: ["Junte as partes 1 e 2, depois 2 e 3.", "Baixe o andamento até sair inteiro; depois volte aos 81 bpm.", "Repare no desenho: o solo começa no Ré bendido (o bend da parte 1) e chega ao Dó, passa pelo shape 5 grave, sobe ao shape 2 com o lick Sol, Lá e Dó e termina no Mi, uma oitava acima do shape 1.", "Quando sair, toque junto com a gravação, a partir de 3:06."],
+                  intro: "As três partes juntas: o solo inteiro.",
+                  steps: ["Junte as partes 1 e 2, depois 2 e 3.", "Repare no desenho: o solo começa no Ré dobrado (o bend da parte 1) e chega ao Dó, passa pelo shape 5 grave, sobe ao shape 2 com o lick Sol, Lá e Dó e termina no Mi, uma oitava acima do shape 1.", "Quando sair, toque junto com a gravação, a partir de 3:06."],
                 },
               ],
             },
@@ -14083,7 +14098,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Don't Look Back in Anger",
           videos: [{ youtube: "r8OipmKFDeM", title: "Don't Look Back In Anger (Official Video)", author: "Oasis", note: "O clipe oficial. O solo começa por volta de 3:06. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Don't Look Back in Anger no Songsterr", url: "https://www.songsterr.com/a/wsa/oasis-dont-look-back-in-anger-tab-s15472" },
-          intro: "Trechos curtos do solo de Don't Look Back in Anger, de Oasis, tirados do solo transcrito na lição anterior, \"Don't Look Back in Anger\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Don't Look Back in Anger, de Oasis, tirados do solo transcrito na lição anterior, \"Don't Look Back in Anger\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. O solo original já usa a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u47.lick",
           exercises: [
             {
@@ -14108,7 +14123,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 1: o slide até a 5ª",
                   intro: "Lick de 6 notas: sai da 4ª e chega na 3ª menor. Técnica: slide da 4ª até a 5ª; slide da 7ª menor até a tônica.",
-                  steps: ["O desenho, em funções: 4ª, 5ª, 7ª menor (2x), tônica, 3ª menor. Técnica: slide da 4ª até a 5ª; slide da 7ª menor até a tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 4ª no shape 2, e toque o lick ali."],
+                  steps: ["O desenho, em funções: 4ª, 5ª, 7ª menor (2x), tônica, 3ª menor.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 4ª no shape 2, e toque o lick ali."],
                 },
                 {
                   ...phrase("lk47b", "Don't Look Back in Anger: lick 2", 2, [
@@ -14122,7 +14137,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 2: o slide até a 4ª",
                   intro: "Lick de 7 notas: sai da 3ª menor e chega na 3ª menor. Técnica: slide da 5ª até a 4ª; uma nota em ligado, sem palhetar.",
-                  steps: ["O desenho, em funções: 3ª menor, 4ª, 5ª, 7ª menor, 5ª, 4ª, 3ª menor. Técnica: slide da 5ª até a 4ª; uma nota em ligado, sem palhetar; vibrato na nota final.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 3ª menor."],
+                  steps: ["O desenho, em funções: 3ª menor, 4ª, 5ª, 7ª menor, 5ª, 4ª, 3ª menor. A nota final leva vibrato.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 3ª menor."],
                 },
                 {
                   ...phrase("lk47c", "Don't Look Back in Anger: lick 3", 2, [
@@ -14139,7 +14154,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 3: o bend da 4ª à 5ª",
                   intro: "Lick de 10 notas: sai da 7ª menor e chega na 5ª. Técnica: slide da 4ª até a 5ª; bend de um tom, da 4ª à 5ª.",
-                  steps: ["O desenho, em funções: 7ª menor, tônica, 3ª menor, 4ª, 5ª, 7ª menor, tônica, 3ª menor (2x), 4ª. Técnica: slide da 4ª até a 5ª; bend de um tom, da 4ª à 5ª; 2 notas em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: 7ª menor, tônica, 3ª menor, 4ª, 5ª, 7ª menor, tônica, 3ª menor (2x), 4ª. Duas notas saem em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -14158,7 +14173,7 @@ const written: Curriculum = {
           title: "Sunshine of Your Love",
           videos: [{ youtube: "f3y8jf01UY8", title: "Sunshine Of Your Love", author: "Cream", note: "A gravação de estúdio, no canal oficial do Cream. O solo começa por volta de 1:59 (116 bpm); confira no áudio. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Sunshine of Your Love no Songsterr", url: "https://www.songsterr.com/a/wsa/cream-sunshine-of-your-love-tab-s256" },
-          intro: "O solo do Eric Clapton: o Sol dobrado até o Lá, a nota de blues e as semicolcheias na penta de Ré menor. O solo está dividido em 4 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O solo do Eric Clapton: o Sol dobrado até o Lá, a nota de blues e as semicolcheias na penta de Ré menor.",
           key: "u55.echo",
           exercises: [
             {
@@ -14166,7 +14181,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, com os bends afinados?",
               base: SUNSHINE_OF_YOUR_LOVE,
               reveal: "tab",
@@ -14187,7 +14202,7 @@ const written: Curriculum = {
                   label: "Parte 1",
                   base: songBars(SUNSHINE_OF_YOUR_LOVE, 0, 4),
                   intro: "A música está em Fá maior, e o solo usa a penta de Ré menor, a relativa: Ré, Fá, Sol, Lá e Dó. A parte abre com uma nota só, o Sol dobrado um tom até o Lá, e é nesse Lá, a 5ª de Ré menor, que ela chega e fica.",
-                  steps: ["A penta de Ré menor tem as mesmas notas da penta de Fá maior, e todas cabem sobre o Ré menor do riff. A mão fica no shape 1 (casas 10 a 13).", "O Sol (3ª corda, casa 12) é a 4ª de Ré menor. Com o bend de um tom, ele sobe até o Lá, a 5ª, e fica ali com vibrato. A nota que entra um pouco antes do tempo, no início, já traz esse bend.", "Na segunda metade da parte, o Sol volta em tercinas de semínima, ora reto, ora dobrado até o Lá. Quem segura a frase é o ritmo da repetição, e não a variedade de notas. A parte termina de novo no Lá dobrado, com vibrato lento.", "Nota fora da penta: o Si (2ª corda, casa 12), curto, entre dois Sol. É a 6ª de Ré menor, nota de passagem.", "Acorde: na entrada, o baixo toca Lá e a base toca Lá menor, e o Sol dobrado até o Lá é a tônica desse acorde. Dali em diante o baixo toca o riff em Ré, e a base toca Ré menor."],
+                  steps: ["A penta de Ré menor tem as mesmas notas da penta de Fá maior, e todas cabem sobre o Ré menor do riff. A mão fica no shape 1 (casas 10 a 13).", "O Sol (3ª corda, casa 12) é a 4ª de Ré menor. Com o bend de um tom, ele sobe até o Lá, a 5ª, e fica ali com vibrato. A nota que entra um pouco antes do tempo, no início, já traz esse bend.", "Na segunda metade da parte, o Sol volta em tercinas de semínima, ora reto, ora dobrado até o Lá. O que segura a frase é o ritmo da repetição: as notas quase não mudam. A parte termina de novo no Lá dobrado, com vibrato lento.", "Nota fora da penta: o Si (2ª corda, casa 12), curto, entre dois Sol. É a 6ª de Ré menor, nota de passagem.", "Acorde: na entrada, o baixo toca Lá e a base toca Lá menor, e o Sol dobrado até o Lá é a tônica desse acorde. Dali em diante o baixo toca o riff em Ré, e a base toca Ré menor."],
                 },
                 {
                   ...phrase("sunp2", "Sunshine of Your Love: parte 2", 6, [
@@ -14216,8 +14231,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(SUNSHINE_OF_YOUR_LOVE, 4, 6),
-                  intro: "Ainda na penta de Ré menor, a mão desce para as cordas 3 e 4 (casas 7 a 11), perto do Ré, a tônica. O solo gira em volta dele e acrescenta notas de fora da penta, dobradas de meio tom e de um tom.",
-                  steps: ["O Ré (3ª corda, casa 7) é a tônica de Ré menor e a nota de chegada: o solo sai dele e volta a ele, com notas longas, com vibrato, na primeira e na segunda metade da parte.", "Notas de fora da penta, todas perto do Ré: o Mi (3ª corda, casa 9) e o Si (4ª corda, casa 9) são a 2ª e a 6ª de Ré, de passagem; o Sol# (2ª corda, casa 9) é a 5ª diminuta, a nota de blues; e o Fá# (3ª corda, casa 11) é a 3ª maior de Ré.", "Bends: o Mi sobe meio tom até o Fá (a 3ª menor de Ré) e volta; o Sol# sobe meio tom até o Lá (a 5ª, nota do acorde). Perto do fim, o Fá# sobe um tom até o Sol#, a nota de blues, e o Fá (casa 10) sobe um tom até o Sol.", "Acorde: nas cinco primeiras barras, o baixo toca o riff em Ré e a base toca Ré menor; na última, o baixo passa ao Sol e a base toca Sol menor. Aí o Fá, a 7ª menor de Sol menor, sobe até o Sol, a tônica do novo acorde. O baixo não toca a 3ª do Ré, e o solo usa as duas: o Fá (menor) e o Fá# (maior), que dão o tom de blues."],
+                  intro: "A mão desce para as cordas 3 e 4 (casas 7 a 11), perto do Ré, a tônica. O solo gira em volta dele e acrescenta notas de fora da penta, dobradas de meio tom e de um tom.",
+                  steps: ["O Ré (3ª corda, casa 7) é a nota de chegada: o solo sai dele e volta a ele, em notas longas com vibrato, na primeira e na segunda metade da parte.", "Notas de fora da penta, todas perto do Ré: o Mi (3ª corda, casa 9) e o Si (4ª corda, casa 9) são a 2ª e a 6ª de Ré, de passagem; o Sol# (2ª corda, casa 9) é a 5ª diminuta, a nota de blues; e o Fá# (3ª corda, casa 11) é a 3ª maior de Ré.", "Bends: o Mi sobe meio tom até o Fá (a 3ª menor de Ré) e volta; o Sol# sobe meio tom até o Lá (a 5ª, nota do acorde). Perto do fim, o Fá# sobe um tom até o Sol#, a nota de blues, e o Fá (casa 10) sobe um tom até o Sol.", "Acorde: nos cinco primeiros compassos, o baixo toca o riff em Ré e a base toca Ré menor; no último, o baixo passa ao Sol e a base toca Sol menor. Aí o Fá, a 7ª menor de Sol menor, sobe até o Sol, a tônica do novo acorde. O baixo não toca a 3ª do Ré, e o solo usa as duas: o Fá (menor) e o Fá# (maior), que dão a cor de blues."],
                 },
                 {
                   ...phrase("sunp3", "Sunshine of Your Love: parte 3", 7, [
@@ -14258,8 +14273,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(SUNSHINE_OF_YOUR_LOVE, 10, 7),
-                  intro: "Penta de Ré menor de novo, sobre Sol menor e depois Ré menor: o Mi sobe um tom até o Fá# e o Fá até o Sol. No fim, a mão sobe para o shape 1 e desce por ele até o Fá# longo.",
-                  steps: ["A penta de Ré menor (Ré, Fá, Sol, Lá, Dó) também serve sobre o Sol menor: o Sol é a tônica do acorde, o Ré a 5ª, o Fá a 7ª menor e o Dó a 4ª. Na primeira metade da parte, a mão fica nas cordas 3 e 4 (casas 7 a 10); na segunda, passa ao shape 1 (casas 10 a 12).", "Bends de um tom: o Mi (3ª corda, casa 9) sobe até o Fá# duas vezes, no começo, sobre o Sol menor, e o Fá (casa 10) sobe até o Sol, a tônica do acorde. O Mi também sobe meio tom até o Fá, a 7ª menor do Sol.", "O Ré da 3ª corda, casa 7, é a nota de chegada: fecha a primeira frase e abre a parte sobre o Ré menor, em notas longas.", "Notas de fora da penta: o Mi (2ª de Ré) e o Si (6ª de Ré), de passagem, e o Fá# (3ª maior de Ré), longo perto do fim, onde chega escorregando entre o Fá# e o Fá.", "Na segunda metade: o Lá (2ª corda, casa 10, a 5ª de Ré) e a descida Sol, Fá, Fá#, Ré; depois Fá, Ré, Dó e Ré, na 3ª e na 4ª corda. O Fá# volta a aparecer perto do Fá, a mistura de 3ª menor e maior que dá o tom de blues.", "Acorde: na primeira metade, o baixo toca o Sol e a base toca Sol menor. Dali em diante o baixo volta ao Ré, e a base toca Ré menor."],
+                  intro: "Sobre Sol menor e depois Ré menor, o Mi sobe um tom até o Fá# e o Fá até o Sol. No fim, a mão sobe para o shape 1 e desce por ele até o Fá# longo.",
+                  steps: ["A penta de Ré menor (Ré, Fá, Sol, Lá, Dó) também serve sobre o Sol menor: o Sol é a tônica do acorde, o Ré a 5ª, o Fá a 7ª menor e o Dó a 4ª. Na primeira metade da parte, a mão fica nas cordas 3 e 4 (casas 7 a 10); na segunda, passa ao shape 1 (casas 10 a 12).", "Bends de um tom: o Mi (3ª corda, casa 9) sobe até o Fá# duas vezes, no começo, sobre o Sol menor, e o Fá (casa 10) sobe até o Sol, a tônica do acorde. O Mi também sobe meio tom até o Fá, a 7ª menor do Sol.", "O Ré da 3ª corda, casa 7, é a nota de chegada: fecha a primeira frase e abre a parte sobre o Ré menor, em notas longas.", "Notas de fora da penta: o Mi (2ª de Ré) e o Si (6ª de Ré), de passagem, e o Fá# (3ª maior de Ré), longo perto do fim, que chega por slide a partir do Fá (3ª corda, casa 10).", "Na segunda metade: o Lá (2ª corda, casa 10, a 5ª de Ré) e a descida Sol, Fá, Fá#, Ré; depois Fá, Ré, Dó e Ré, na 3ª e na 4ª corda. O Fá# volta a aparecer perto do Fá, a mistura de 3ª menor e maior que dá a cor de blues.", "Acorde: na primeira metade, o baixo toca o Sol e a base toca Sol menor. Dali em diante o baixo volta ao Ré, e a base toca Ré menor."],
                 },
                 {
                   ...phrase("sunp4", "Sunshine of Your Love: parte 4", 9, [
@@ -14335,8 +14350,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 4",
                   base: songBars(SUNSHINE_OF_YOUR_LOVE, 17, 9),
-                  intro: "O baixo passa a alternar Lá, Dó e Sol, e o solo continua na penta de Ré menor, sem nota de fora: bends do Sol ao Lá, o Dó da 2ª corda e, na segunda metade, semicolcheias que terminam no Ré grave.",
-                  steps: ["A penta é a de Ré menor, nos shapes 1 e 2 (casas 10 a 15), sem nota fora dela.", "Acordes: o baixo alterna o Lá (uma barra inteira) com o Dó e o Sol (dois tempos cada), e termina no Ré. A base toca Lá menor, Dó e Sol menor: os acordes de Lá e Sol da gravação viram os menores, que são do tom de Fá maior.", "Na abertura, sobre o Lá, o Sol (3ª corda, casa 12) dobra um tom e chega no Lá, a tônica do acorde. Logo depois, sobre o Dó e o Sol, o Sol da casa 12 é a 5ª do Dó e a tônica do Sol.", "Na segunda metade vêm as semicolcheias: quase todas as barras abrem com o Sol (casa 12) escorregando até o Lá (casa 14), e seguem com o Dó e o Ré da 2ª corda (casas 13 e 15). Sobre o Lá menor, o Lá é a tônica, o Dó a 3ª menor e o Sol a 7ª. Aprenda uma barra de cada vez, devagar.", "A frase desce por Lá, Dó e Ré e termina no Ré grave (6ª corda, casa 10): a tônica de Ré menor, a nota de chegada do solo."],
+                  intro: "O baixo passa a alternar Lá, Dó e Sol, e o solo fica na penta, sem nota de fora: bends do Sol ao Lá, o Dó da 2ª corda e, na segunda metade, semicolcheias que terminam no Ré grave.",
+                  steps: ["A mão fica nos shapes 1 e 2 (casas 10 a 15).", "Acordes: o baixo alterna o Lá (um compasso inteiro) com o Dó e o Sol (dois tempos cada), e termina no Ré. A base toca Lá menor, Dó e Sol menor: os acordes de Lá e Sol da gravação viram os menores, que são do tom de Fá maior.", "Na abertura, sobre o Lá, o Sol (3ª corda, casa 12) dobra um tom e chega no Lá, a tônica do acorde. Logo depois, sobre o Dó e o Sol, o Sol da casa 12 é a 5ª do Dó e a tônica do Sol.", "Na segunda metade vêm as semicolcheias: quase todos os compassos abrem com o Sol (casa 12) escorregando até o Lá (casa 14), e seguem com o Dó e o Ré da 2ª corda (casas 13 e 15). Sobre o Lá menor, o Lá é a tônica, o Dó a 3ª menor e o Sol a 7ª.", "A frase desce por Lá, Dó e Ré e termina no Ré grave (6ª corda, casa 10): a tônica de Ré menor, a nota de chegada do solo."],
                 },
                 {
                   ...phrase("sunfull", "Sunshine of Your Love: o solo completo", 26, [
@@ -14477,8 +14492,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo completo",
                   base: SUNSHINE_OF_YOUR_LOVE,
-                  intro: "As quatro partes juntas: o solo inteiro, a 116 bpm, sempre na penta de Ré menor sobre uma música em Fá maior.",
-                  steps: ["Junte as partes de duas em duas, devagar.", "Repare no desenho: o Sol dobrado até o Lá (4ª e 5ª de Ré menor), a descida para o Ré, as notas de blues (Sol# e Fá#), os bends de um tom e, no fim, as semicolcheias no shape 2, que chegam ao Ré grave.", "Quando sair, toque junto com a gravação, a partir de 1:59, ou sobre a base do site."],
+                  intro: "As quatro partes juntas: o solo inteiro.",
+                  steps: ["Repare no desenho: o Sol dobrado até o Lá (4ª e 5ª de Ré menor), a descida para o Ré, as notas de blues (Sol# e Fá#), os bends de um tom e, no fim, as semicolcheias no shape 2, que chegam ao Ré grave.", "Quando sair, toque junto com a gravação, a partir de 1:59, ou sobre a base do site."],
                 },
               ],
             },
@@ -14489,7 +14504,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Sunshine of Your Love",
           videos: [{ youtube: "f3y8jf01UY8", title: "Sunshine Of Your Love", author: "Cream", note: "A gravação de estúdio, no canal oficial do Cream. O solo começa por volta de 1:59 (116 bpm); confira no áudio. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Sunshine of Your Love no Songsterr", url: "https://www.songsterr.com/a/wsa/cream-sunshine-of-your-love-tab-s256" },
-          intro: "Trechos curtos do solo de Sunshine of Your Love, de Cream, tirados do solo transcrito na lição anterior, \"Sunshine of Your Love\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Sunshine of Your Love, de Cream, tirados do solo transcrito na lição anterior, \"Sunshine of Your Love\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u55.lick",
           exercises: [
             {
@@ -14515,7 +14530,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 1: o slide até a 3ª menor",
                   intro: "Lick de 7 notas: sai da 3ª menor e chega na 5ª. Técnica: slide da 4ª até a 3ª menor; slide da 4ª até a 5ª.",
-                  steps: ["O desenho, em funções: 3ª menor, 4ª, 3ª menor, 4ª, 5ª, 7ª menor, 5ª. Técnica: slide da 4ª até a 3ª menor; slide da 4ª até a 5ª; uma nota em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 3ª menor no shape 2, e toque o lick ali."],
+                  steps: ["O desenho, em funções: 3ª menor, 4ª, 3ª menor, 4ª, 5ª, 7ª menor, 5ª. Uma das notas sai em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 3ª menor no shape 2, e toque o lick ali."],
                 },
                 {
                   ...phrase("lk55b", "Sunshine of Your Love: lick 2", 2, [
@@ -14532,7 +14547,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 2: o bend da 4ª à 5ª",
                   intro: "Lick de 10 notas: sai da 4ª e chega na tônica. Técnica: bend de um tom, da 4ª à 5ª.",
-                  steps: ["O desenho, em funções: 4ª, 7ª menor, 4ª, 3ª menor, 4ª, 5ª, tônica, 4ª, 3ª menor, tônica. Técnica: bend de um tom, da 4ª à 5ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
+                  steps: ["O desenho, em funções: 4ª, 7ª menor, 4ª, 3ª menor, 4ª, 5ª, tônica, 4ª, 3ª menor, tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
                 },
                 {
                   ...phrase("lk55c", "Sunshine of Your Love: lick 3", 2, [
@@ -14546,7 +14561,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 3: o slide até a 4ª",
                   intro: "Lick de 7 notas: sai da 3ª menor e chega na tônica. Técnica: slide da 5ª até a 4ª; bend de meio tom, da 3ª menor à 3ª maior. Nota de fora da penta: a 3ª maior, que o solo original usa.",
-                  steps: ["O desenho, em funções: 3ª menor, tônica, 7ª menor, 5ª, 4ª, 3ª menor, tônica. Técnica: slide da 5ª até a 4ª; bend de meio tom, da 3ª menor à 3ª maior; uma nota em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: 3ª menor, tônica, 7ª menor, 5ª, 4ª, 3ª menor, tônica. Uma das notas sai em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -14563,9 +14578,9 @@ const written: Curriculum = {
         {
           id: "u68.l1",
           title: "Free Bird",
-          videos: [{ youtube: "MQNRKX8GwPo", title: "Free Bird", author: "Lynyrd Skynyrd", note: "A gravação do álbum, no canal oficial. O solo final começa por volta de 4:55, quando o andamento acelera (tempo estimado pelo compasso e pelo andamento da tab; confira na gravação)." }],
+          videos: [{ youtube: "MQNRKX8GwPo", title: "Free Bird", author: "Lynyrd Skynyrd", note: "A gravação do álbum, no canal oficial. O solo final começa por volta de 4:55, quando o andamento acelera (a marca é uma estimativa, feita pelo compasso e pelo andamento da tab; confira na gravação)." }],
           source: { title: "Free Bird no Songsterr", url: "https://www.songsterr.com/a/wsa/lynyrd-skynyrd-free-bird-tab-s21" },
-          intro: "O solo final do Allen Collins: 156 compassos a 150 bpm na penta de Sol menor, de bends no shape 1 a grupos de notas rápidos. O solo está dividido em 6 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O solo final do Allen Collins: 156 compassos a 150 bpm na penta de Sol menor, de bends no shape 1 a grupos de notas rápidos.",
           key: "u68.echo",
           exercises: [
             {
@@ -14573,7 +14588,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, sem parar entre as partes?",
               base: FREE_BIRD,
               reveal: "tab",
@@ -14910,8 +14925,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(FREE_BIRD, 0, 32),
-                  intro: "O solo final de Free Bird, dividido aqui em seis partes, usa a penta de Sol menor (Sol, Sib, Dó, Ré, Fá) sobre Sol, Sib e Dó. A parte 1 fica no shape 1 uma oitava acima (casas 15 a 18): bends de um tom no Fá, que resolvem no Sol, e depois sequências repetidas de três e de quatro notas.",
-                  steps: ["A gravação está em Sol maior, e o solo usa a penta de Sol menor sobre os acordes de Sol, Sib e Dó; a base do site toca o Sol maior como Sol menor. Tudo no shape 1, casas 15 a 18, nas cordas 1 a 5.", "No começo, o Fá (2ª corda, casa 18) dobra um tom até o Sol: a 7ª menor sobe à tônica, a nota de chegada. O Sol (1ª corda, casa 15), o Ré (2ª corda, casa 15) e o Sib (1ª corda, casa 18) dão apoio. Mais adiante, o Fá dobrado e o Sib da 1ª corda alternam, com vibrato.", "Depois vêm grupos de três notas repetidos em semicolcheias: Fá (com bend de um tom), Ré e Fá.", "Em seguida, grupos de quatro notas: Fá, Ré (ligado), Dó (3ª corda, casa 17) e Ré; e depois Sib (3ª corda, casa 15), Sol e Fá (4ª corda, casas 17 e 15).", "Na segunda metade, o Dó (3ª corda, casa 17) dobra um tom até o Ré, da 4ª à 5ª, e alterna com o Fá (2ª corda, casa 18). No fim da parte voltam os grupos de quatro notas: Sib (3ª corda, casa 15), Sol e Fá (4ª corda, casas 17 e 15) e Ré (5ª corda, casa 17).", "Sem nota fora da penta. O Fá soa como 7ª menor sobre o Sol, 5ª sobre o Sib e 4ª sobre o Dó: é por isso que ele aguenta ficar repetido enquanto o acorde muda.", "A base segue a gravação, com o Sol maior tocado como Sol menor: Sol, Sib, Dó e Dó, seis vezes. O último Dó da terceira e o da quinta volta ganham um Fá no fim, e a sexta termina em Ré menor e Fá. Nas oito últimas barras: Sol; Fá e Sib; Sol e Dó; Sol e Sib; Sol; Fá; Dó; Dó."],
+                  intro: "A parte 1 fica no shape 1 de Sol menor uma oitava acima (casas 15 a 18): bends de um tom no Fá, que resolvem no Sol, e depois sequências repetidas de três e de quatro notas.",
+                  steps: ["A gravação está em Sol maior, e o solo usa a penta de Sol menor (Sol, Sib, Dó, Ré, Fá) sobre os acordes de Sol, Sib e Dó. Tudo nas cordas 1 a 5.", "No começo, o Fá (2ª corda, casa 18) dobra um tom até o Sol: a 7ª menor sobe à tônica, a nota de chegada. O Sol (1ª corda, casa 15), o Ré (2ª corda, casa 15) e o Sib (1ª corda, casa 18) dão apoio. Mais adiante, o Fá dobrado e o Sib da 1ª corda alternam, com vibrato.", "Depois vêm grupos de três notas repetidos em semicolcheias: Fá (com bend de um tom), Ré e Fá.", "Em seguida, grupos de quatro notas: Fá, Ré (ligado), Dó (3ª corda, casa 17) e Ré; e depois Sib (3ª corda, casa 15), Sol e Fá (4ª corda, casas 17 e 15).", "Na segunda metade, o Dó (3ª corda, casa 17) dobra um tom até o Ré, da 4ª à 5ª, e alterna com o Fá (2ª corda, casa 18). No fim da parte voltam os grupos de quatro notas: Sib (3ª corda, casa 15), Sol e Fá (4ª corda, casas 17 e 15) e Ré (5ª corda, casa 17).", "Sem nota fora da penta. O Fá soa como 7ª menor sobre o Sol, 5ª sobre o Sib e 4ª sobre o Dó: é por isso que ele aguenta ficar repetido enquanto o acorde muda.", "A base segue a gravação, com o Sol maior tocado como Sol menor: Sol, Sib, Dó e Dó, seis vezes. O último Dó da terceira e o da quinta volta ganham um Fá no fim, e a sexta termina em Ré menor e Fá. Nos oito últimos compassos: Sol; Fá e Sib; Sol e Dó; Sol e Sib; Sol; Fá; Dó; Dó."],
                 },
                 {
                   ...phrase("freebirdp2", "Free Bird: parte 2", 28, [
@@ -15124,8 +15139,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(FREE_BIRD, 32, 28),
-                  intro: "A parte 2 continua na penta de Sol menor com os grupos de quatro notas, passa ao bend do Dó e, na segunda fase, desce uma oitava: o mesmo desenho de bends do Fá ao Sol, agora no shape 1 das casas 3 a 6 e depois no shape 2, com bends de um tom e meio.",
-                  steps: ["A penta é a de Sol menor (Sol, Sib, Dó, Ré, Fá), sobre Sol, Sib e Dó. Nas oito primeiras barras, a mão fica no shape 1 das casas 15 a 17; nas demais, no shape 1 grave (casas 3 a 6) e no shape 2 (casas 5 a 8).", "No começo, grupos de quatro notas: Sol (4ª corda, casa 17, com vibrato), Fá (casa 15), Ré (5ª corda, casa 17) e Fá. Depois o Dó (3ª corda, casa 17) dobra um tom, com Sib, Sol e Fá em volta; ao fim dessa fase, o Dó dobra e solta, de um tom e de meio tom.", "Na fase seguinte, a frase de bends do Fá ao Sol da parte 1 volta uma oitava abaixo: Sol (1ª corda, casa 3), Fá (2ª corda, casa 6, que dobra um tom até o Sol, a tônica), Ré (2ª corda, casa 3) e Sib (1ª corda, casa 6).", "Depois, o Sol (2ª corda, casa 8) repetido, com vibrato, e o Fá da casa 6. Em dois pontos dessa fase o Sol dobra um tom e meio, até o Sib, quatro vezes, sobre o Dó, onde o Sib é a 7ª menor.", "Nas quatro últimas barras: Sol (1ª corda, casa 3) e Mi (2ª corda, casa 5), com o Lá (1ª corda, casa 5) entre eles. Mi e Lá são de fora da penta de Sol menor: são da penta de Sol maior (a 6ª e a 2ª de Sol), uma passagem curta para voltar ao Sol.", "No início da frase grave, o Fá# (4ª corda, casa 4) e o Si (3ª corda, casa 4) aparecem de passagem, e o Si volta pouco depois: são a 7ª maior e a 3ª de Sol, fora da penta.", "A base segue a gravação, com o Sol maior tocado como Sol menor: Sol, Sib, Dó e Dó, com Fá no fim de várias barras; duas vezes o Sib dura uma barra a mais; a parte termina em Fá."],
+                  intro: "A parte 2 continua com os grupos de quatro notas, passa ao bend do Dó e, na segunda fase, desce uma oitava: o mesmo desenho de bends do Fá ao Sol, agora no shape 1 das casas 3 a 6 e depois no shape 2, com bends de um tom e meio.",
+                  steps: ["A penta é a de Sol menor (Sol, Sib, Dó, Ré, Fá), sobre Sol, Sib e Dó. Nos oito primeiros compassos, a mão fica no shape 1 das casas 15 a 17; nos demais, no shape 1 grave (casas 3 a 6) e no shape 2 (casas 5 a 8).", "No começo, grupos de quatro notas: Sol (4ª corda, casa 17, com vibrato), Fá (casa 15), Ré (5ª corda, casa 17) e Fá. Depois o Dó (3ª corda, casa 17) dobra um tom, com Sib, Sol e Fá em volta; ao fim dessa fase, o Dó dobra e solta, de um tom e de meio tom.", "Na fase seguinte, a frase de bends do Fá ao Sol da parte 1 volta uma oitava abaixo: Sol (1ª corda, casa 3), Fá (2ª corda, casa 6, que dobra um tom até o Sol, a tônica), Ré (2ª corda, casa 3) e Sib (1ª corda, casa 6).", "Depois, o Sol (2ª corda, casa 8) repetido, com vibrato, e o Fá da casa 6. Em dois pontos dessa fase o Sol dobra um tom e meio, até o Sib, quatro vezes, sobre o Dó, onde o Sib é a 7ª menor.", "Nos quatro últimos compassos: Sol (1ª corda, casa 3) e Mi (2ª corda, casa 5), com o Lá (1ª corda, casa 5) entre eles. Mi e Lá são de fora da penta de Sol menor: são da penta de Sol maior (a 6ª e a 2ª de Sol), uma passagem curta para voltar ao Sol.", "No início da frase grave, o Fá# (4ª corda, casa 4) e o Si (3ª corda, casa 4) aparecem de passagem, e o Si volta pouco depois: são a 7ª maior e a 3ª de Sol, fora da penta.", "A base segue a gravação, com o Sol maior tocado como Sol menor: Sol, Sib, Dó e Dó, com Fá no fim de vários compassos; duas vezes o Sib dura um compasso a mais; a parte termina em Fá."],
                 },
                 {
                   ...phrase("freebirdp3", "Free Bird: parte 3", 32, [
@@ -15533,8 +15548,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(FREE_BIRD, 60, 32),
-                  intro: "A parte 3, a mais rápida do solo, abre com um desenho de seis notas repetido nas casas 3 a 6, volta ao grupo de quatro notas da parte 1 e termina em Mi, Sol e Lá, nas casas 12 a 15. A penta continua a de Sol menor; no fim, o Sib dobra até o Dó.",
-                  steps: ["A penta é a de Sol menor (Sol, Sib, Dó, Ré, Fá), sobre Sol, Sib e Dó. A mão passa por três regiões: casas 3 a 6 no começo, 15 a 18 na maior parte da parte e 12 a 15 no fim. Sobre os acordes de Fá desta parte, a mesma penta continua servindo: o Fá é a tônica, o Dó a 5ª e o Ré a 6ª.", "No começo: Sib (1ª corda, casa 6), Sol (casa 3), Lá (casa 5, fora da penta, de passagem), Sol, Fá (2ª corda, casa 6) e Sol, repetidos em semicolcheias: o trecho mais rápido do solo. O Lá é nota vizinha do Sol, que é a tônica.", "Depois, por uma boa parte da parte, o grupo de quatro notas Fá (2ª corda, casa 18), Ré (casa 15, ligado), Dó (3ª corda, casa 17) e Sol (1ª corda, casa 15), repetido. Segue-se um desenho de grupos de três: Sib (1ª corda, casa 18), Sol e Ré.", "Em seguida, mais grupos de três notas: Fá (2ª corda, casa 18), Ré (casa 15, ligado) e Sib (3ª corda, casa 15). O Dó# (3ª corda, casa 18), no início do grupo, é de fora da penta, só de passagem.", "Mais à frente, o Fá (2ª corda, casa 18) dobra um tom e solta, várias vezes. Depois, o Sol (1ª corda, casa 15) é repetido em semicolcheias, com um bend do Dó (3ª corda, casa 17). No fim dessa fase, o Mi (2ª corda, casa 17, fora da penta, de passagem) e o Ré.", "Nas quatro barras seguintes, grupos de quatro notas, Sol, Fá, Ré (5ª corda) e Sib, no shape 1 das casas 15 a 17.", "Na fase final: Sol (3ª corda, casa 12), Mi (4ª corda, casa 14) e Lá (3ª corda, casa 14), com o Lá dobrado um tom até o Si. Mi, Lá e Si são da penta de Sol maior, o tom da gravação (a 6ª, a 2ª e a 3ª maior de Sol), fora da de Sol menor. O Sib e o Fá voltam no fim, e o Sib dobra um tom até o Dó, a nota de chegada.", "A base segue a gravação, com o Sol maior tocado como Sol menor: Sol, Fá, Sol e (Sib, Dó), quatro vezes; depois Sol, Sib e Dó, com Sol, Fá e Sib e Fá no fim de algumas barras da segunda metade."],
+                  intro: "A parte 3, a mais rápida do solo, abre com um desenho de seis notas repetido nas casas 3 a 6, volta ao grupo de quatro notas da parte 1 e passa a Mi, Sol e Lá, nas casas 12 a 15, antes de terminar no Sib dobrado até o Dó.",
+                  steps: ["A penta é a de Sol menor (Sol, Sib, Dó, Ré, Fá), sobre Sol, Sib e Dó. A mão passa por três regiões: casas 3 a 6 no começo, 15 a 18 na maior parte da aba e 12 a 15 no fim. Sobre os acordes de Fá desta parte, a mesma penta continua servindo: o Fá é a tônica, o Dó a 5ª e o Ré a 6ª.", "No começo: Sib (1ª corda, casa 6), Sol (casa 3), Lá (casa 5, fora da penta, de passagem), Sol, Fá (2ª corda, casa 6) e Sol, repetidos em semicolcheias: o trecho mais rápido do solo. O Lá é nota vizinha do Sol, que é a tônica.", "Depois, por boa parte da aba, o grupo de quatro notas Fá (2ª corda, casa 18), Ré (casa 15, ligado), Dó (3ª corda, casa 17) e Sol (1ª corda, casa 15), repetido. Segue-se um desenho de grupos de três: Sib (1ª corda, casa 18), Sol e Ré.", "Em seguida, mais grupos de três notas: Fá (2ª corda, casa 18), Ré (casa 15, ligado) e Sib (3ª corda, casa 15). O Dó# (3ª corda, casa 18), no início do grupo, é de fora da penta, só de passagem.", "Mais à frente, o Fá (2ª corda, casa 18) dobra um tom e solta, várias vezes. Depois, o Sol (1ª corda, casa 15) é repetido em semicolcheias, com um bend do Dó (3ª corda, casa 17). No fim dessa fase, o Mi (2ª corda, casa 17, fora da penta, de passagem) e o Ré.", "Nos quatro compassos seguintes, grupos de quatro notas, Sol, Fá, Ré (5ª corda) e Sib, no shape 1 das casas 15 a 17.", "Na fase final: Sol (3ª corda, casa 12), Mi (4ª corda, casa 14) e Lá (3ª corda, casa 14), com o Lá dobrado um tom até o Si. Mi, Lá e Si são da penta de Sol maior, o tom da gravação (a 6ª, a 2ª e a 3ª maior de Sol), fora da de Sol menor. O Sib e o Fá voltam no fim, e o Sib dobra um tom até o Dó, a nota de chegada.", "A base segue a gravação, com o Sol maior tocado como Sol menor: Sol, Fá, Sol e, no mesmo compasso, Sib e Dó, quatro vezes. Depois, quatro grupos de Sol, Sib e Dó, cada um com um quarto compasso diferente: Sol, Fá, Sib com Fá, e Dó."],
                 },
                 {
                   ...phrase("freebirdp4", "Free Bird: parte 4", 32, [
@@ -15938,8 +15953,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 5",
                   base: songBars(FREE_BIRD, 124, 16),
-                  intro: "A parte 5 retoma o desenho da parte 1, na penta de Sol menor: grupos de três e de quatro notas, o bend do Fá de um tom e depois de um tom e meio, e, no fim, Sol, Mi e Lá, as notas da cor de Sol maior.",
-                  steps: ["A penta é a de Sol menor (Sol, Sib, Dó, Ré, Fá), sobre Sol, Sib e Dó. Casas 15 a 18 até perto do fim e casas 12 a 15 nas quatro últimas barras.", "No começo: Sib (3ª corda, casa 15), Sol (4ª corda, casa 17) e Dó (3ª corda, casa 17), em grupos de três notas. A fase seguinte abre com um slide da casa 15 até a corda solta da 3ª corda (Sol).", "Depois, o grupo Fá (2ª corda, casa 18), Ré (casa 15, ligado), Dó (3ª corda, casa 17) e Sol (1ª corda, casa 15), repetido durante seis barras: é o desenho mais repetido do solo. Sobre cada acorde ele funciona porque as quatro notas são da penta.", "Perto do fim do trecho nas casas 15 a 18, o Fá (2ª corda, casa 18) dobra um tom até o Sol, a tônica; ao final, dobra um tom e meio, até o Láb, que fica fora da penta: é o ponto mais agudo do bend, de passagem.", "Nas quatro últimas barras: Sol (3ª corda, casa 12), Mi e Lá (cordas 4 e 3, casa 14), e o Ré (2ª corda, casa 15) dobrado um tom até o Mi. Mi e Lá são da penta de Sol maior, fora da de Sol menor, e dão a cor do tom da gravação.", "A base segue a gravação, com o Sol maior tocado como Sol menor: Sol, Sib, Dó e Dó, quatro vezes."],
+                  intro: "A parte 5 retoma o desenho da parte 1: grupos de três e de quatro notas, o bend do Fá de um tom e depois de um tom e meio, e, no fim, Sol, Mi e Lá, as notas da cor de Sol maior.",
+                  steps: ["A penta é a de Sol menor (Sol, Sib, Dó, Ré, Fá), sobre Sol, Sib e Dó. Casas 15 a 18 até perto do fim e casas 12 a 15 nos quatro últimos compassos.", "No começo: Sib (3ª corda, casa 15), Sol (4ª corda, casa 17) e Dó (3ª corda, casa 17), em grupos de três notas. A fase seguinte abre com um slide da casa 15 até a corda solta da 3ª corda (Sol).", "Depois, o grupo Fá (2ª corda, casa 18), Ré (casa 15, ligado), Dó (3ª corda, casa 17) e Sol (1ª corda, casa 15), repetido durante seis compassos: é o desenho mais repetido do solo. Sobre cada acorde ele funciona porque as quatro notas são da penta.", "Perto do fim do trecho nas casas 15 a 18, o Fá (2ª corda, casa 18) dobra um tom até o Sol, a tônica; ao final, dobra um tom e meio, até o Láb, que fica fora da penta: é o ponto mais agudo do bend, de passagem.", "Nos quatro últimos compassos: Sol (3ª corda, casa 12), Mi e Lá (cordas 4 e 3, casa 14), e o Ré (2ª corda, casa 15) dobrado um tom até o Mi. Mi e Lá são da penta de Sol maior, fora da de Sol menor, e dão a cor do tom da gravação.", "A base segue a gravação, com o Sol maior tocado como Sol menor: Sol, Sib, Dó e Dó, quatro vezes."],
                 },
                 {
                   ...phrase("freebirdp6", "Free Bird: parte 6", 16, [
@@ -16055,7 +16070,7 @@ const written: Curriculum = {
                   label: "Parte 6",
                   base: songBars(FREE_BIRD, 140, 16),
                   intro: "A parte 6 fecha o solo: começa com as notas de Sol maior (Sol, Mi, Lá e o bend do Lá ao Si), volta à penta de Sol menor nos bends do Fá e do Sib e termina no Si, a 3ª maior de Sol, a cor do tom da gravação.",
-                  steps: ["A penta é a de Sol menor (Sol, Sib, Dó, Ré, Fá), sobre Sol, Sib e Dó. A mão usa as casas 12 a 17 na primeira metade, as casas 7 a 14 nas cordas 5 e 6 no meio e as casas 12 a 18 no fim.", "No começo: Sol (3ª corda, casa 12), Lá (casa 14, ligado) e Mi (4ª corda, casa 14), e o Lá dobrado um tom até o Si e repetido, alternando com o Ré (2ª corda, casa 15). Lá, Mi e Si são de fora da penta de Sol menor: são a 2ª, a 6ª e a 3ª maior de Sol.", "A seguir, o Mi (2ª corda, casa 17, fora da penta) e o Ré (casa 15), com slides, e a descida Ré, Dó (casa 13) e Si (casa 12, fora da penta), que fecha o desenho.", "No meio da parte, uma frase nas cordas 5 e 6, casas 7 a 14: Sol (5ª corda, casa 10), Si (6ª corda, casa 7), Ré (casa 10), Mi (casa 12) e Lá (5ª corda, casa 12). Si, Mi e Lá são de fora da penta de Sol menor.", "Depois, o Lá dobra um tom, até o Si, e na repetição seguinte um tom e meio, até o Dó: o Dó é a 4ª de Sol e volta a ser nota da penta.", "Perto do fim: o Fá dobra um tom até o Sol e alterna com o Sol (1ª corda, casa 15); o Dó (3ª corda, casa 17) dobra um tom. Nas duas últimas barras: Sib, Sol, Dó e Fá, nas cordas 3 e 4 (casas 15 a 17), e o solo termina no Sib (3ª corda, casa 15) dobrado meio tom até o Si: a nota de chegada.", "A base segue a gravação, com o Sol maior tocado como Sol menor, em quatro grupos de quatro barras: Sol, Sib, Dó, Sib; Sol, Sib, Dó, Fá; Sol, Sib, Dó e Sib, Sib e Fá; Sol, Sib, Dó, Sib."],
+                  steps: ["A penta é a de Sol menor (Sol, Sib, Dó, Ré, Fá), sobre Sol, Sib e Dó. A mão usa as casas 12 a 17 na primeira metade, as casas 7 a 14 nas cordas 5 e 6 no meio e as casas 12 a 18 no fim.", "No começo: Sol (3ª corda, casa 12), Lá (casa 14, ligado) e Mi (4ª corda, casa 14), e o Lá dobrado um tom até o Si e repetido, alternando com o Ré (2ª corda, casa 15). Lá, Mi e Si são de fora da penta de Sol menor: são a 2ª, a 6ª e a 3ª maior de Sol.", "A seguir, o Mi (2ª corda, casa 17, fora da penta) e o Ré (casa 15), com slides, e a descida Ré, Dó (casa 13) e Si (casa 12, fora da penta), que fecha o desenho.", "No meio da parte, uma frase nas cordas 5 e 6, casas 7 a 14: Sol (5ª corda, casa 10), Si (6ª corda, casa 7), Ré (casa 10), Mi (casa 12) e Lá (5ª corda, casa 12). Si, Mi e Lá são de fora da penta de Sol menor.", "Depois, o Lá dobra um tom, até o Si, e na repetição seguinte um tom e meio, até o Dó: o Dó é a 4ª de Sol e volta a ser nota da penta.", "Perto do fim: o Fá dobra um tom até o Sol e alterna com o Sol (1ª corda, casa 15); o Dó (3ª corda, casa 17) dobra um tom. Nos dois últimos compassos: Sib, Sol, Dó e Fá, nas cordas 3 e 4 (casas 15 a 17), e o solo termina no Sib (3ª corda, casa 15) dobrado meio tom até o Si: a nota de chegada.", "A base segue a gravação, com o Sol maior tocado como Sol menor, em quatro grupos de quatro compassos: Sol, Sib, Dó, Sib; Sol, Sib, Dó, Fá; Sol, Sib, Dó e Sib, Sib e Fá; Sol, Sib, Dó, Sib."],
                 },
                 {
                   ...phrase("freebirdfull", "Free Bird: o solo completo", 156, [
@@ -17493,7 +17508,7 @@ const written: Curriculum = {
                   label: "Solo completo",
                   base: FREE_BIRD,
                   intro: "As seis partes juntas: o solo final de Free Bird, inteiro, com 156 compassos.",
-                  steps: ["Junte as partes de duas em duas, devagar, antes de tocar o solo todo.", "Repare no desenho: bends no shape 1 de Sol menor, das casas 15 a 18 (a 7ª menor, o Fá, sobe à tônica, o Sol), grupos de três e de quatro notas repetidos, e as notas de Sol maior (Mi, Lá, Si) nos trechos mais calmos, que dão a cor do tom da gravação.", "Quando sair, toque com a gravação, ou sobre a base do site a 150 bpm, e só então o solo todo sem pausa."],
+                  steps: ["Repare no desenho: bends no shape 1 de Sol menor, das casas 15 a 18 (a 7ª menor, o Fá, sobe à tônica, o Sol), grupos de três e de quatro notas repetidos, e as notas de Sol maior (Mi, Lá, Si) nos trechos mais calmos, que dão a cor do tom da gravação.", "Quando sair, toque o solo todo sem pausa, com a gravação ou sobre a base do site, a 150 bpm."],
                 },
               ],
             },
@@ -17502,9 +17517,9 @@ const written: Curriculum = {
         {
           id: "u68.l2",
           title: "Licks para roubar: Free Bird",
-          videos: [{ youtube: "MQNRKX8GwPo", title: "Free Bird", author: "Lynyrd Skynyrd", note: "A gravação do álbum, no canal oficial. O solo final começa por volta de 4:55, quando o andamento acelera (tempo estimado pelo compasso e pelo andamento da tab; confira na gravação)." }],
+          videos: [{ youtube: "MQNRKX8GwPo", title: "Free Bird", author: "Lynyrd Skynyrd", note: "A gravação do álbum, no canal oficial. O solo final começa por volta de 4:55, quando o andamento acelera (a marca é uma estimativa, feita pelo compasso e pelo andamento da tab; confira na gravação)." }],
           source: { title: "Free Bird no Songsterr", url: "https://www.songsterr.com/a/wsa/lynyrd-skynyrd-free-bird-tab-s21" },
-          intro: "Trechos curtos do solo de Free Bird, de Lynyrd Skynyrd, tirados do solo transcrito na lição anterior, \"Free Bird\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Free Bird, de Lynyrd Skynyrd, tirados do solo transcrito na lição anterior, \"Free Bird\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u68.lick",
           exercises: [
             {
@@ -17530,7 +17545,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 1: o bend da 7ª menor à tônica",
                   intro: "Lick de 7 notas: sai da 7ª menor e chega na 5ª. Técnica: bend de um tom, da 7ª menor à tônica; nota que começa dobrada na tônica e solta até a 7ª menor.",
-                  steps: ["O desenho, em funções: 7ª menor, 3ª menor, 7ª menor, 3ª menor, 7ª menor (2x), 5ª. Técnica: bend de um tom, da 7ª menor à tônica; nota que começa dobrada na tônica e solta até a 7ª menor; slide da 4ª até a 5ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 7ª menor no shape 2, e toque o lick ali."],
+                  steps: ["O desenho, em funções: 7ª menor, 3ª menor, 7ª menor, 3ª menor, 7ª menor (2x), 5ª. Há também um slide da 4ª até a 5ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 7ª menor no shape 2, e toque o lick ali."],
                 },
                 {
                   ...phrase("lk68b", "Free Bird: lick 2", 2, [
@@ -17543,9 +17558,9 @@ const written: Curriculum = {
                     [2, 8, 4.0, 0.5, { bend: 2 }],
                     [2, 8, 4.5, 1.0, { bend: 2 }],
                   ]),
-                  label: "Lick 2: o bend da 7ª menor à tônica",
+                  label: "Lick 2: o pouso na tônica dobrada",
                   intro: "Lick de 8 notas: sai da 7ª menor e chega na tônica. Técnica: nota que começa dobrada na tônica e solta até a 7ª menor; bend de um tom, da 7ª menor à tônica.",
-                  steps: ["O desenho, em funções: 7ª menor (2x), 5ª, 7ª menor (2x), 5ª, 7ª menor (2x). Técnica: nota que começa dobrada na tônica e solta até a 7ª menor; bend de um tom, da 7ª menor à tônica; vibrato em uma nota longa.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
+                  steps: ["O desenho, em funções: 7ª menor (2x), 5ª, 7ª menor (2x), 5ª, 7ª menor (2x). Uma nota longa leva vibrato.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
                 },
                 {
                   ...phrase("lk68c", "Free Bird: lick 3", 2, [
@@ -17557,9 +17572,9 @@ const written: Curriculum = {
                     [2, 8, 3.5, 1.0, { bend: 2 }],
                     [1, 8, 4.5, 1.0],
                   ]),
-                  label: "Lick 3: o bend da 7ª menor à tônica",
+                  label: "Lick 3: o pouso na 3ª menor",
                   intro: "Lick de 7 notas: sai da 7ª menor e chega na 3ª menor. Técnica: bend de um tom, da 7ª menor à tônica.",
-                  steps: ["O desenho, em funções: 7ª menor (2x), 3ª menor, 7ª menor, 3ª menor, 7ª menor, 3ª menor. Técnica: bend de um tom, da 7ª menor à tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: 7ª menor (2x), 3ª menor, 7ª menor, 3ª menor, 7ª menor, 3ª menor.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -17576,9 +17591,9 @@ const written: Curriculum = {
         {
           id: "u59.l1",
           title: "November Rain",
-          videos: [{ youtube: "8SbUC-UaAxE", title: "Guns N' Roses - November Rain", author: "Guns N' Roses", note: "O clipe oficial. O solo final do Slash começa por volta de 7:15 a 7:25: a tab dá 7:12 e o clipe é uns 13 s mais longo que a tab, então confira na gravação. Pela tab, a guitarra está meio tom abaixo, então soa meio tom mais grave que aqui." }],
+          videos: [{ youtube: "8SbUC-UaAxE", title: "Guns N' Roses - November Rain", author: "Guns N' Roses", note: "O clipe oficial. O solo final do Slash começa entre 7:15 e 7:25: a tab marca 7:12, mas o clipe tem uns 13 s a mais, então confira na gravação. Pela tab, a guitarra está afinada meio tom abaixo, então a gravação soa meio tom mais grave que aqui." }],
           source: { title: "November Rain no Songsterr", url: "https://www.songsterr.com/a/wsa/guns-n-roses-november-rain-tab-s8452" },
-          intro: "O solo final do Slash: uma frase de cinco compassos que volta seis vezes, da sensível à tônica em bend, na penta de Dó menor, com corridas muito rápidas e bends de um tom e meio. O solo está dividido em 3 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O solo final do Slash: uma frase de cinco compassos que volta seis vezes, da sensível à tônica em bend, na penta de Dó menor, com corridas muito rápidas e bends de um tom e meio.",
           key: "u59.echo",
           exercises: [
             {
@@ -17586,7 +17601,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, com os bends afinados e o último Ré até o fim?",
               base: NOVEMBER_RAIN,
               reveal: "tab",
@@ -17711,8 +17726,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(NOVEMBER_RAIN, 0, 10),
-                  intro: "O solo final de November Rain é uma frase de cinco compassos que volta seis vezes, na penta de Dó menor (Dó, Mib, Fá, Sol e Sib). Abre com um bend de meio tom do Si ao Dó, no registro agudo, e fecha numa corrida de semicolcheias. Esta parte traz a frase duas vezes: na segunda, a corrida é mais rápida.",
-                  steps: ["Afinação: pela tab, a guitarra está meio tom abaixo e o solo soa em Si menor. Com afinação normal, as mesmas casas soam em Dó menor, como aqui.", "A penta de Dó menor tem as mesmas notas da penta de Mib maior, o tom relativo da música. Duas notas da escala de Dó menor ficam de fora dela, o Láb e o Ré, e aparecem como notas de acorde ou de passagem. A frase abre no shape 5 (1ª corda, casas 18 a 20) e fecha no shape 4 (casas 15 a 18).", "O Si (1ª corda, casa 19) sobe meio tom até o Dó, a tônica. O Si é a sensível de Dó menor, não é da penta, e o bend o leva à nota que resolve. Depois o Dó (casa 20) fica longo, e a abertura volta a passar por Si e Dó.", "A resposta desce ao shape 4: Sol (1ª corda, casa 15), a 5ª, e Mib (2ª corda, casa 16), a 3ª menor, e Sol de novo. O Láb (casa 16), com vibrato, cai sobre o acorde de Láb, onde é a tônica: nota fora da penta, mas do acorde. Seguem ligados rápidos entre Sol, Láb e Fá (casas 15, 16 e 13) e um Sol longo.", "Depois, semicolcheias alternadas entre Láb, Sol, Fá e Mib (1ª e 2ª cordas, casas 13 a 16), sobre o Dó menor. O Ré (2ª corda, casa 15), a 9ª, aparece de passagem; mais adiante, dois bends de meio tom o levam ao Mib, a 3ª menor. A frase termina no Si (3ª corda, casa 16), a sensível, que prepara a volta da abertura.", "Na segunda vez, o fim muda: a corrida fica mais rápida, com seis a oito notas por tempo, pelas três cordas agudas, entre as casas 9 e 18, e fecha no Ré (4ª corda, casa 12), longo, com vibrato: a 9ª de Dó menor, que fica suspensa.", "A base segue a gravação: Dó menor e Sol menor, Fá e Mib, Láb e Sib, Dó menor em dois compassos, duas vezes. A tab do piano traz o Sol sem a 3ª; a base toca Sol menor. O Fá é maior na gravação, fora do tom de Dó menor; a base toca Fá menor."],
+                  intro: "A frase, na penta de Dó menor (Dó, Mib, Fá, Sol e Sib), abre com um bend de meio tom do Si ao Dó, no registro agudo, e fecha numa corrida de semicolcheias. Esta parte traz a frase duas vezes: na segunda, a corrida é mais rápida.",
+                  steps: ["Afinação: pela tab, a guitarra está meio tom abaixo e o solo soa em Si menor. Com afinação normal, as mesmas casas soam em Dó menor, como aqui.", "A penta de Dó menor tem as mesmas notas da penta de Mib maior, o tom relativo da música. Duas notas da escala de Dó menor ficam de fora dela, o Láb e o Ré, e aparecem como notas de acorde ou de passagem. A frase abre no shape 5 (1ª corda, casas 18 a 20) e fecha no shape 4 (casas 15 a 18).", "O Si (1ª corda, casa 19) sobe meio tom até o Dó, a tônica. O Si é a sensível de Dó menor, não é da penta, e o bend o leva à nota que resolve. Depois o Dó (casa 20) fica longo, e a abertura volta a passar por Si e Dó.", "A resposta desce ao shape 4: Sol (1ª corda, casa 15), a 5ª, e Mib (2ª corda, casa 16), a 3ª menor, e Sol de novo. O Láb (1ª corda, casa 16), com vibrato, cai sobre o acorde de Láb, onde é a tônica: nota fora da penta, mas do acorde. Seguem ligados rápidos entre Sol, Láb e Fá (casas 15, 16 e 13) e um Sol longo.", "Depois, semicolcheias alternadas entre Láb, Sol, Fá e Mib (1ª e 2ª cordas, casas 13 a 16), sobre o Dó menor. O Ré (2ª corda, casa 15), a 9ª, aparece de passagem; mais adiante, dois bends de meio tom o levam ao Mib, a 3ª menor. A frase termina no Si (3ª corda, casa 16), a sensível, que prepara a volta da abertura.", "Na segunda vez, a corrida tem seis a oito notas por tempo, pelas três cordas agudas, entre as casas 9 e 18, e fecha no Ré (4ª corda, casa 12), longo, com vibrato: a 9ª de Dó menor, que fica suspensa.", "A base segue a gravação: Dó menor e Sol menor, Fá e Mib, Láb e Sib, Dó menor em dois compassos, duas vezes. A tab do piano traz o Sol sem a 3ª; a base toca Sol menor. O Fá é maior na gravação, fora do tom de Dó menor; a base toca Fá menor."],
                 },
                 {
                   ...phrase("novp2", "November Rain: parte 2", 10, [
@@ -17789,8 +17804,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(NOVEMBER_RAIN, 10, 10),
-                  intro: "A segunda parte volta à frase, na penta de Dó menor, mas a resposta muda de lugar: em vez da 1ª e da 2ª cordas, ela vai à 3ª corda, no shape 5, com bends altos. A parte fecha com uma descida pelas 3ª, 4ª e 5ª cordas, até o Dó grave, a tônica.",
-                  steps: ["A abertura é a mesma da parte 1: o Si (1ª corda, casa 19) sobe meio tom até o Dó, a tônica, e o Dó (casa 20) fica longo.", "A resposta na 3ª corda, no shape 5 (casas 17 a 20): o Ré (casa 19) sobe meio tom até o Mib (o Ré é a 9ª, fora da penta, e o Mib é a 3ª menor, que resolve). Depois, o Mib (casa 20) sobe um tom até o Fá, a 4ª de Dó menor, que é da penta.", "Em seguida, o Dó (1ª corda, casa 20) dura mais de dois tempos, e o Sol (casa 15), o Dó e o Si voltam.", "Em semicolcheias, a 1ª e a 2ª cordas: Sol, Sib e Láb (casas 15, 18 e 16), o Fá (2ª corda, casa 18) e depois o Sol (1ª corda, casa 15), alternando com o Mib (2ª corda, casa 16). O Láb é nota de passagem, fora da penta.", "Na segunda frase da parte, o Sib (1ª corda, casa 18) sobe um tom até o Dó, e a nota fica soando mais de dois tempos. O Sib é a 7ª menor, e o bend o leva à tônica: a nota de chegada.", "A descida do fim, no shape 4, nas 3ª, 4ª e 5ª cordas (casas 15 a 17): Dó, Sib, Sol, Fá, Mib e o Dó da 5ª corda, casa 15, o Dó grave em que a parte resolve. Nota fora da penta: o Solb (4ª corda, casa 16), de passagem entre o Sol e o Fá. O Fá leva um bend de meio tom.", "A base é a mesma da parte 1."],
+                  intro: "A segunda parte volta à frase, mas a resposta muda de lugar: em vez da 1ª e da 2ª cordas, ela vai à 3ª corda, no shape 5, com bends altos. A parte fecha com uma descida pelas 3ª, 4ª e 5ª cordas, até o Dó grave, a tônica.",
+                  steps: ["A abertura é a mesma da parte 1: o Si (1ª corda, casa 19) sobe meio tom até o Dó, a tônica, e o Dó (casa 20) fica longo.", "A resposta na 3ª corda, no shape 5 (casas 17 a 20): o Ré (casa 19) sobe meio tom até o Mib (o Ré é a 9ª, fora da penta, e o Mib é a 3ª menor, que resolve). Depois, o Mib (casa 20) sobe um tom até o Fá, a 4ª de Dó menor, que é da penta.", "Em seguida, o Dó (1ª corda, casa 20) dura mais de dois tempos, e o Sol (casa 15), o Dó e o Si voltam.", "Depois vêm semicolcheias na 1ª e na 2ª cordas: Sol, Sib e Láb (casas 15, 18 e 16), o Fá (2ª corda, casa 18) e depois o Sol (1ª corda, casa 15), alternando com o Mib (2ª corda, casa 16). O Láb é nota de passagem, fora da penta.", "Na segunda frase da parte, o Sib (1ª corda, casa 18) sobe um tom até o Dó, e a nota fica soando mais de dois tempos. O Sib é a 7ª menor, e o bend o leva à tônica: a nota de chegada.", "A descida do fim, no shape 4, nas 3ª, 4ª e 5ª cordas (casas 15 a 17): Dó, Sib, Sol, Fá, Mib e o Dó da 5ª corda, casa 15, o Dó grave em que a parte resolve. Nota fora da penta: o Solb (4ª corda, casa 16), de passagem entre o Sol e o Fá. O Fá leva um bend de meio tom.", "A base é a mesma da parte 1."],
                 },
                 {
                   ...phrase("novp3", "November Rain: parte 3", 12, [
@@ -17856,8 +17871,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(NOVEMBER_RAIN, 20, 12),
-                  intro: "A terceira parte traz a frase pela última vez, na penta de Dó menor, com outra corrida de semicolcheias, e termina nos bends de um tom e meio: o Fá é levado ao Láb, a 6ª menor. O solo fecha numa nota só, o Ré com bend de meio tom, segurada por quatro compassos até o fim da música.",
-                  steps: ["A abertura (Si ao Dó em bend, depois um bend de tom do Dó ao Ré, Sol, Mib e Sol) é a das partes anteriores, e o Láb com vibrato vem logo depois, sobre o acorde de Láb. O Ré do bend é a 9ª de Dó menor, de fora da penta.", "As duas barras seguintes alternam Láb e Sib (1ª corda, casas 16 e 18) com Sol e Fá (1ª e 2ª cordas, casas 15 e 18), em semicolcheias. Terminam em bends: o Fá (2ª corda, casa 18) sobe um tom até o Sol, e depois o Ré (2ª corda, casa 15) sobe meio tom até o Mib, a 3ª menor.", "A abertura volta pela última vez. Perto do fim, o Fá (2ª corda, casa 18) sobe um tom e meio até o Láb, com o Mib (casa 16) logo depois; em seguida, sobe um tom até o Sol. O Láb é a 6ª menor, fora da penta: a nota de chegada do bend.", "O fim: o Ré (2ª corda, casa 15) com um bend de meio tom até o Mib, e de volta ao Ré, durante quatro compassos. O Ré é a 9ª de Dó menor, fora da penta, e a nota fica suspensa até o fim. Na gravação o andamento vai diminuindo; aqui o exemplo fica em 91 bpm.", "A base segue a gravação: a mesma sequência de cinco compassos, mais três, e Dó menor nos quatro compassos finais."],
+                  intro: "A terceira parte traz a frase pela última vez, com outra corrida de semicolcheias, e termina nos bends de um tom e meio: o Fá é levado ao Láb, a 6ª menor. O solo fecha numa nota só, o Ré com bend de meio tom, segurada por quatro compassos até o fim da música.",
+                  steps: ["A abertura (Si ao Dó em bend, depois um bend de tom do Dó ao Ré, Sol, Mib e Sol) é a das partes anteriores, e o Láb com vibrato vem logo depois, sobre o acorde de Láb. O Ré do bend é a 9ª de Dó menor, de fora da penta.", "Os dois compassos seguintes alternam Láb e Sib (1ª corda, casas 16 e 18) com Sol e Fá (1ª e 2ª cordas, casas 15 e 18), em semicolcheias. Terminam em bends: o Fá (2ª corda, casa 18) sobe um tom até o Sol, e depois o Ré (2ª corda, casa 15) sobe meio tom até o Mib, a 3ª menor.", "A abertura volta pela última vez. Perto do fim, o Fá (2ª corda, casa 18) sobe um tom e meio até o Láb, com o Mib (casa 16) logo depois; em seguida, sobe um tom até o Sol. O Láb é a 6ª menor, fora da penta: a nota de chegada do bend.", "O fim: o Ré (2ª corda, casa 15) com um bend de meio tom até o Mib, e de volta ao Ré, durante quatro compassos. O Ré é a 9ª de Dó menor, fora da penta, e a nota fica suspensa até o fim. Na gravação o andamento vai diminuindo; aqui o exemplo fica em 91 bpm.", "A base segue a gravação: a mesma sequência de cinco compassos, mais três, e Dó menor nos quatro compassos finais."],
                 },
                 {
                   ...phrase("novfull", "November Rain: o solo completo", 32, [
@@ -18107,8 +18122,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo completo",
                   base: NOVEMBER_RAIN,
-                  intro: "As três partes juntas: o solo inteiro, a 91 bpm, na penta de Dó menor. A frase de cinco compassos volta seis vezes (a última, só até o terceiro compasso), sempre com a mesma abertura e uma resposta diferente: a corrida na 1ª e na 2ª cordas, os bends altos da 3ª corda, a descida e o bend de um tom e meio.",
-                  steps: ["Junte as partes de duas em duas: 1 e 2, depois 2 e 3.", "Repare no desenho: a abertura no shape 5, que resolve a sensível (Si) na tônica (Dó); a resposta no shape 4 e, na parte 2, na 3ª corda; a descida ao Dó grave no fim da parte 2; e o Ré final, a 9ª de Dó menor, deixado em suspenso.", "Quando sair, toque junto com a gravação, a partir de 7:15 a 7:25, afinando a guitarra meio tom abaixo, ou toque sobre a base do site com afinação normal."],
+                  intro: "As três partes juntas: o solo inteiro. A frase de cinco compassos volta seis vezes (a última, só até o terceiro compasso), sempre com a mesma abertura e uma resposta diferente: a corrida na 1ª e na 2ª cordas, os bends altos da 3ª corda, a descida e o bend de um tom e meio.",
+                  steps: ["Junte as partes 1 e 2, depois 2 e 3.", "Repare no desenho: a abertura no shape 5, que resolve a sensível (Si) na tônica (Dó); a resposta no shape 4 e, na parte 2, na 3ª corda; a descida ao Dó grave no fim da parte 2; e o Ré final, a 9ª de Dó menor, deixado em suspenso.", "Quando sair, toque junto com a gravação (o solo começa entre 7:15 e 7:25), afinando a guitarra meio tom abaixo, ou sobre a base do site com afinação normal."],
                 },
               ],
             },
@@ -18117,9 +18132,9 @@ const written: Curriculum = {
         {
           id: "u59.l2",
           title: "Licks para roubar: November Rain",
-          videos: [{ youtube: "8SbUC-UaAxE", title: "Guns N' Roses - November Rain", author: "Guns N' Roses", note: "O clipe oficial. O solo final do Slash começa por volta de 7:15 a 7:25: a tab dá 7:12 e o clipe é uns 13 s mais longo que a tab, então confira na gravação. Pela tab, a guitarra está meio tom abaixo, então soa meio tom mais grave que aqui." }],
+          videos: [{ youtube: "8SbUC-UaAxE", title: "Guns N' Roses - November Rain", author: "Guns N' Roses", note: "O clipe oficial. O solo final do Slash começa entre 7:15 e 7:25: a tab marca 7:12, mas o clipe tem uns 13 s a mais, então confira na gravação. Pela tab, a guitarra está afinada meio tom abaixo, então a gravação soa meio tom mais grave que aqui." }],
           source: { title: "November Rain no Songsterr", url: "https://www.songsterr.com/a/wsa/guns-n-roses-november-rain-tab-s8452" },
-          intro: "Trechos curtos do solo de November Rain, de Guns N' Roses, tirados do solo transcrito na lição anterior, \"November Rain\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de November Rain, de Guns N' Roses, tirados do solo transcrito na lição anterior, \"November Rain\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u59.lick",
           exercises: [
             {
@@ -18144,7 +18159,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 1: o bend da 7ª menor à tônica",
                   intro: "Lick de 6 notas: sai da 7ª menor e chega na tônica. Técnica: bend de um tom, da 7ª menor à tônica (e volta na mesma palhetada); vibrato na nota final.",
-                  steps: ["O desenho, em funções: 7ª menor, 5ª, 3ª menor, 5ª, 3ª menor, tônica. Técnica: bend de um tom, da 7ª menor à tônica (e volta na mesma palhetada); vibrato na nota final.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 7ª menor no shape 2, e toque o lick ali."],
+                  steps: ["O desenho, em funções: 7ª menor, 5ª, 3ª menor, 5ª, 3ª menor, tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: procure a mesma sequência de funções em outro shape, começando pela 7ª menor no shape 2, e toque o lick ali."],
                 },
                 {
                   ...phrase("lk59b", "November Rain: lick 2", 2, [
@@ -18161,7 +18176,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 2: o bend da 4ª à 5ª",
                   intro: "Lick de 10 notas: sai da 4ª e chega na 5ª. Técnica: bend de um tom, da 4ª à 5ª (e volta na mesma palhetada); uma nota em ligado, sem palhetar.",
-                  steps: ["O desenho, em funções: 4ª, 5ª, 4ª, 3ª menor, tônica, 4ª, 3ª menor, 4ª, 3ª menor, 5ª. Técnica: bend de um tom, da 4ª à 5ª (e volta na mesma palhetada); uma nota em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota longa, de 1,25 tempos) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 5ª."],
+                  steps: ["O desenho, em funções: 4ª, 5ª, 4ª, 3ª menor, tônica, 4ª, 3ª menor, 4ª, 3ª menor, 5ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 5ª, e o do III (Dó), onde é a 3ª. Entre no tempo 1; pouse na 5ª (nota longa, de 1,25 tempos) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na 5ª."],
                 },
                 {
                   ...phrase("lk59c", "November Rain: lick 3", 1, [
@@ -18174,7 +18189,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 3: o bend da 4ª à 5ª bemol",
                   intro: "Lick de 6 notas: sai da 4ª e chega na tônica. Técnica: bend de meio tom, da 4ª à 5ª bemol (e volta na mesma palhetada).",
-                  steps: ["O desenho, em funções: 4ª (2x), 3ª menor, 4ª, 3ª menor, tônica. Técnica: bend de meio tom, da 4ª à 5ª bemol (e volta na mesma palhetada).", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: 4ª (2x), 3ª menor, 4ª, 3ª menor, tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -18193,7 +18208,7 @@ const written: Curriculum = {
           id: "a12.l1",
           title: "Um shape, horizontal, diagonal, pouso",
           intro:
-            "O fecho da velocidade: começa num shape só, anda pela corda até outro shape, cruza na diagonal e pousa. Cada trecho rápido termina numa nota longa. Reduza o andamento para aprender.",
+            "Este solo fecha as seções de velocidade: cada trecho rápido termina numa nota longa. Para aprender, baixe o andamento.",
           key: "a12.take",
           exercises: [
             {
@@ -18311,7 +18326,7 @@ const written: Curriculum = {
           title: "Stairway to Heaven",
           videos: [{ youtube: "QkF3oxziUI4", title: "Stairway To Heaven (Official Audio)", author: "Led Zeppelin", note: "A gravação original. O solo começa por volta de 5:55. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Stairway to Heaven no Songsterr", url: "https://www.songsterr.com/a/wsa/led-zeppelin-stairway-to-heaven-tab-s27" },
-          intro: "O solo inteiro do Jimmy Page, em Lá menor, em cinco partes: do shape 1 ao shape 4 e ao shape 1 uma oitava acima. O solo está dividido em 5 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O solo inteiro do Jimmy Page, em Lá menor: do shape 1 ao shape 4 e ao shape 1 uma oitava acima.",
           key: "u38.echo",
           exercises: [
             {
@@ -18319,7 +18334,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, sem parar?",
               base: STAIRWAY,
               reveal: "tab",
@@ -18358,8 +18373,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(STAIRWAY, 0, 4),
-                  intro: "A abertura do solo do Jimmy Page em Stairway to Heaven, na penta de Lá menor (Lá, Dó, Ré, Mi, Sol), o tom do curso. Fica no shape 1, na casa 5, o primeiro desenho que você aprendeu: um bend do Ré ao Mi, a descida do shape em semicolcheias, um Fá longo e a chegada no Lá, a tônica.",
-                  steps: ["A penta de Lá menor serve sobre os três acordes desta parte, Lá menor, Sol e Fá, que são do tom de Dó maior, o relativo. Começa no shape 1, na casa 5.", "O primeiro bend leva o Ré (4ª de Lá menor, uma nota de tensão) ao Mi (5ª, nota firme do acorde), na 3ª corda, casa 7. Depois a frase desce o shape inteiro.", "Nota fora da penta: o Fá (5ª corda, casa 8), logo depois da descida. Na escala de Lá menor ele é a 6ª menor, que a penta não tem. Ali o acorde é Fá, e o Fá é a tônica dele: nota de fora da penta que é nota do acorde soa certo.", "Mais adiante, dois bends de um tom: o Sol (2ª corda, casa 8), a 7ª menor, sobe até o Lá, a tônica; e o Dó (1ª corda, casa 8), a 3ª menor, sobe até o Ré, a 4ª.", "No fim, a frase sobe para as casas 8 e 10 das duas primeiras cordas, o começo do shape 2, e pousa no Lá da 2ª corda, casa 10: a tônica de Lá menor e, sobre o acorde de Fá, a 3ª dele. O Fá da 3ª corda, casa 10, é bordadura: sai do Sol, encosta um tom abaixo e volta.", "O p na tab é pull-off: a nota de baixo soa sem palhetar.", "A base segue a gravação: Lá menor e Sol no mesmo compasso, depois Fá."],
+                  intro: "Na abertura, o Page fica no shape 1 da penta de Lá menor (Lá, Dó, Ré, Mi, Sol), na casa 5: o primeiro desenho que você aprendeu, no tom do curso. A parte tem um bend do Ré ao Mi, a descida do shape em semicolcheias, um Fá longo e a chegada no Lá, a tônica.",
+                  steps: ["A penta de Lá menor serve sobre os três acordes desta parte, Lá menor, Sol e Fá, que são do tom de Dó maior, o relativo.", "O primeiro bend leva o Ré (4ª de Lá menor, uma nota de tensão) ao Mi (5ª, nota firme do acorde), na 3ª corda, casa 7.", "Nota fora da penta: o Fá (5ª corda, casa 8), logo depois da descida. Na escala de Lá menor ele é a 6ª menor, que a penta não tem. Ali o acorde é Fá, e o Fá é a tônica dele: nota de fora da penta que é nota do acorde soa certo.", "Mais adiante, dois bends de um tom: o Sol (2ª corda, casa 8), a 7ª menor, sobe até o Lá, a tônica; e o Dó (1ª corda, casa 8), a 3ª menor, sobe até o Ré, a 4ª.", "No fim, a frase sobe para as casas 8 e 10 das duas primeiras cordas, o começo do shape 2, e pousa no Lá da 2ª corda, casa 10: a tônica de Lá menor e, sobre o acorde de Fá, a 3ª dele. O Fá da 3ª corda, casa 10, é bordadura: sai do Sol, encosta um tom abaixo e volta.", "O p na tab é pull-off: a nota mais grave soa sem palhetar.", "A base segue a gravação: Lá menor e Sol no mesmo compasso, depois Fá."],
                 },
                 {
                   ...phrase("stwp2", "Stairway to Heaven: parte 2", 5, [
@@ -18424,8 +18439,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(STAIRWAY, 3, 5),
-                  intro: "A segunda parte desce o shape 1 de novo, ainda na penta de Lá menor, e atravessa o braço: um slide leva a mão da casa 5 para a casa 12, onde o solo vai ficar. É o momento em que o solo sobe de região e chega a bends no Mi e no Lá.",
-                  steps: ["A penta de Lá menor segue valendo sobre Fá, Lá menor e Sol. A primeira metade fica no shape 1, na casa 5; a segunda, nos shapes 3 e 4, das casas 10 a 15.", "Começa com o mesmo bend do Ré (4ª) ao Mi (5ª) da abertura, e um bend curto no Ré, de menos de meio tom: o choro do blues, que não chega em nota nenhuma da escala.", "O Sol da 3ª corda solta é a mesma nota da 4ª corda, casa 5: continua no shape 1.", "Nota fora da penta: o Fá (6ª menor de Lá menor) aparece três vezes. Na 5ª corda, casa 8, e na 1ª corda, casa 13, o acorde é Fá: é a tônica dele. Na 3ª corda, casa 10, é só passagem rápida entre o Dó e o Ré.", "A virada: o slide na 5ª corda, da casa 10 à casa 12, leva a mão para o shape 4. Daí a frase sobe até o bend do Ré (4ª) ao Mi (5ª) na 2ª corda, casa 15, e o bend do Sol (7ª menor) ao Lá (tônica) na 1ª corda, casa 15: a nota de chegada é o Lá."],
+                  intro: "O Page desce o shape 1 de novo e atravessa o braço: um slide na 5ª corda leva a mão à casa 12, onde o solo vai ficar, e ali a frase chega a bends até o Mi e até o Lá.",
+                  steps: ["A penta de Lá menor segue valendo sobre Fá, Lá menor e Sol. A primeira metade fica no shape 1, na casa 5; a segunda, nos shapes 3 e 4, das casas 10 a 15.", "Começa com o mesmo bend do Ré (4ª) ao Mi (5ª) da abertura, e um bend curto no Ré, de meio tom, até o Ré#: o choro do blues, numa nota fora da escala, só de passagem.", "O Sol da 3ª corda solta é a mesma nota da 4ª corda, casa 5: continua no shape 1.", "Nota fora da penta: o Fá (6ª menor de Lá menor) aparece três vezes. Na 5ª corda, casa 8, e na 1ª corda, casa 13, o acorde é Fá: é a tônica dele. Na 3ª corda, casa 10, é só passagem rápida entre o Dó e o Ré.", "A virada: o slide na 5ª corda, da casa 10 à casa 12, leva a mão para o shape 4. Daí a frase sobe até o bend do Ré (4ª) ao Mi (5ª) na 2ª corda, casa 15, e o bend do Sol (7ª menor) ao Lá (tônica) na 1ª corda, casa 15: a nota de chegada é o Lá."],
                 },
                 {
                   ...phrase("stwp3", "Stairway to Heaven: parte 3", 4, [
@@ -18474,8 +18489,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 3",
                   base: songBars(STAIRWAY, 8, 4),
-                  intro: "O Page repete o mesmo lick de quatro notas por quase três compassos, na penta de Lá menor, no shape 4, e só então solta um bend longo. É o lick repetido da Velocidade I, num dos solos mais conhecidos do rock.",
-                  steps: ["Shape 4 da penta de Lá menor, casas 12 a 15. O lick usa só notas da penta, por isso serve sobre os três acordes, Lá menor, Sol e Fá, sem mudar nada.", "O lick: Dó (3ª menor), bend do Ré (4ª) ao Mi (5ª), Dó em pull-off e Lá (tônica), em tercinas. Comece devagar: o andamento baixa sem mudar o desenho.", "Quando entra o acorde de Sol, vem o bend longo na 1ª corda, casa 15: sai do Sol, a tônica desse acorde, e sobe um tom até o Lá, a nota de chegada.", "Sem nota fora da penta."],
+                  intro: "O Page repete o mesmo lick de quatro notas por quase três compassos, no shape 4, e só então solta um bend longo. É o lick repetido da Velocidade I, num dos solos mais conhecidos do rock.",
+                  steps: ["Shape 4 da penta de Lá menor, casas 12 a 15. O lick usa só notas da penta, por isso serve sobre os três acordes, Lá menor, Sol e Fá, sem mudar nada.", "O lick: Dó (3ª menor), bend do Ré (4ª) ao Mi (5ª), Dó em pull-off e Lá (tônica), em tercinas.", "Quando entra o acorde de Sol, vem o bend longo na 1ª corda, casa 15: sai do Sol, a tônica desse acorde, e sobe um tom até o Lá, a nota de chegada.", "Sem nota fora da penta."],
                 },
                 {
                   ...phrase("stwp4", "Stairway to Heaven: parte 4", 4, [
@@ -18511,8 +18526,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 4",
                   base: songBars(STAIRWAY, 11, 4),
-                  intro: "Depois de descer o shape 4 e pousar no Lá, o Page sobe para o ponto mais alto do solo: o shape 1 uma oitava acima, nas casas 17 a 20, o mesmo desenho da abertura doze casas acima. Um bend só, segurado um compasso inteiro, vira o pico.",
-                  steps: ["Começa no shape 4 da penta de Lá menor (casas 12 a 15) e sobe ao shape 1 uma oitava acima (casas 17 a 20). Todas as notas são da penta e cabem sobre Fá, Lá menor e Sol.", "No começo, a frase desce o shape 4 em semicolcheias (Mi, Sol, Mi, Ré, Dó, Lá) e termina num bend do Ré (4ª) ao Mi (5ª).", "Pousa no Lá (3ª corda, casa 14), a tônica, e deixa soar três tempos: a primeira chegada do trecho.", "Em seguida, o desenho da abertura volta doze casas acima. O bend do Ré ao Mi na 3ª corda, casa 19, fica os últimos quatro tempos, sobre o Lá menor e o Sol: o Mi é a 5ª do Lá menor, nota firme para segurar.", "Sem nota fora da penta. Precisa de 20 casas: no violão sem cutaway, toque uma oitava abaixo."],
+                  intro: "Depois de descer o shape 4 e pousar no Lá, o Page sobe para o ponto mais alto do solo: o shape 1 da abertura, agora uma oitava acima, nas casas 17 a 20. Um bend só, segurado um compasso inteiro, vira o pico.",
+                  steps: ["O shape 4 fica nas casas 12 a 15. Todas as notas são da penta de Lá menor e cabem sobre Fá, Lá menor e Sol.", "No começo, a frase desce o shape 4 em semicolcheias (Mi, Sol, Mi, Ré, Dó, Lá) e termina num bend do Ré (4ª) ao Mi (5ª).", "Pousa no Lá (3ª corda, casa 14), a tônica, e deixa soar três tempos: a primeira chegada do trecho.", "No alto do braço, o bend da abertura, do Ré ao Mi na 3ª corda, volta na casa 19: abre a frase e, no fim, é o bend segurado sobre o Lá menor e o Sol. O Mi é a 5ª do Lá menor, uma nota firme.", "Sem nota fora da penta. Precisa de 20 casas: no violão sem cutaway, toque uma oitava abaixo."],
                 },
                 {
                   ...phrase("stwp5", "Stairway to Heaven: parte 5", 5, [
@@ -18555,7 +18570,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 5",
                   base: songBars(STAIRWAY, 15, 5),
-                  intro: "O fim do solo junta três ideias: um bend de um tom e meio, um bend de dois tons que desce o shape 1 até o Lá grave, e o lick de três notas em tercinas lá em cima. Do agudo ao grave e de volta ao agudo.",
+                  intro: "O fim do solo junta três ideias: um bend de um tom e meio, um bend de dois tons seguido da descida do shape 1 até o Lá grave, e o lick de três notas em tercinas no agudo.",
                   steps: ["Na penta de Lá menor: começa no shape 4, desce o shape 1 e termina no shape 1 uma oitava acima.", "O primeiro bend leva o Lá (tônica) ao Dó (3ª menor), um tom e meio, na 3ª corda, casa 14. Ali o acorde é Fá, e o Dó é a 5ª dele.", "Nota fora da penta: o Fá (6ª menor de Lá menor), na 3ª corda, casa 10. Ali o acorde é Fá, e o Fá é a tônica dele. Mesmo assim quase não se ouve: é o ponto de partida de um bend de dois tons até o Lá, a 3ª do Fá.", "A descida pela 3ª corda pousa no Lá da 4ª corda, casa 7, a tônica, com vibrato: a chegada do solo ao grave.", "O lick final: Mi (5ª), Dó (3ª menor) e Lá (tônica) nas casas 17 e 20, em tercinas, com pull-off do Dó ao Lá. Sobre o Fá, as três notas são a 7ª maior, a 5ª e a 3ª do acorde. Fecha com um bend do Dó ao Ré, a 6ª do Fá."],
                 },
                 {
@@ -18756,8 +18771,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo completo",
                   base: STAIRWAY,
-                  intro: "As cinco partes juntas: o solo inteiro, como na gravação, sempre na penta de Lá menor sobre Lá menor, Sol e Fá. Junte as partes aos poucos antes de tocar tudo.",
-                  steps: ["Junte as partes de duas em duas: 1 e 2, 2 e 3, e assim por diante.", "Baixe o andamento até sair inteiro, sem parar; depois volte aos 98 bpm.", "Repare no desenho do solo: começa no shape 1, atravessa para o shape 4 na parte 2, chega ao alto na parte 4 e desce na parte 5.", "Quando sair, toque junto com a gravação, a partir de 5:55."],
+                  intro: "Do começo ao fim, como na gravação: sempre na penta de Lá menor, sobre os acordes de Lá menor, Sol e Fá.",
+                  steps: ["Junte as partes em pares que se sobrepõem (1 e 2, depois 2 e 3, e assim por diante), para treinar cada passagem de uma parte para a seguinte.", "Baixe o andamento até sair inteiro, sem parar; depois volte aos 98 bpm.", "Repare no desenho do solo: começa no shape 1, atravessa para o shape 4 na parte 2, chega ao alto na parte 4, e na parte 5 desce ao grave e volta ao agudo.", "Quando sair, toque junto com a gravação, a partir de 5:55."],
                 },
               ],
             },
@@ -18768,7 +18783,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Stairway to Heaven",
           videos: [{ youtube: "QkF3oxziUI4", title: "Stairway To Heaven (Official Audio)", author: "Led Zeppelin", note: "A gravação original. O solo começa por volta de 5:55. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Stairway to Heaven no Songsterr", url: "https://www.songsterr.com/a/wsa/led-zeppelin-stairway-to-heaven-tab-s27" },
-          intro: "Trechos curtos do solo de Stairway to Heaven, de Led Zeppelin, tirados do solo transcrito na lição anterior, \"Stairway to Heaven\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Stairway to Heaven, de Led Zeppelin, tirados do solo transcrito na lição anterior, \"Stairway to Heaven\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. O solo original já usa a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u38.lick",
           exercises: [
             {
@@ -18822,7 +18837,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 3: o bend da tônica à 3ª menor",
                   intro: "Lick de 7 notas: sai da tônica e chega na tônica. Técnica: bend de um tom e meio, da tônica à 3ª menor; slide da 7ª menor até a tônica.",
-                  steps: ["O desenho, em funções: tônica (3x), 7ª menor, tônica, 7ª menor, tônica. Técnica: bend de um tom e meio, da tônica à 3ª menor; slide da 7ª menor até a tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na tônica (nota longa, de 2 tempos) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: tônica (3x), 7ª menor, tônica, 7ª menor, tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na tônica (nota longa, de 2 tempos) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -18841,7 +18856,7 @@ const written: Curriculum = {
           title: "Comfortably Numb",
           videos: [{ youtube: "7f3EGjRxxNI", title: "Comfortably Numb", author: "Pink Floyd", note: "A gravação original, do The Wall. O segundo solo começa por volta de 4:30. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Comfortably Numb no Songsterr", url: "https://www.songsterr.com/a/wsa/pink-floyd-comfortably-numb-tab-s271" },
-          intro: "O segundo solo inteiro do David Gilmour, guitarrista do Pink Floyd, em Si menor, em sete partes: do shape 1 na casa 7 ao alto do braço. O solo está dividido em 7 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O segundo solo inteiro do David Gilmour, guitarrista do Pink Floyd, em Si menor: do shape 1 na casa 7 ao alto do braço.",
           key: "u39.echo",
           exercises: [
             {
@@ -18849,7 +18864,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, sem parar?",
               base: NUMB,
               reveal: "tab",
@@ -18885,7 +18900,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(NUMB, 0, 4),
-                  intro: "O segundo solo de Comfortably Numb, do David Gilmour, é quase todo na penta de Si menor (Si, Ré, Mi, Fá# e Lá). O começo é pouca nota e muito bend: uma nota segurada quase um compasso e frases curtas que respondem a ela, até pousar no Si, a tônica.",
+                  intro: "O solo é quase todo na penta de Si menor (Si, Ré, Mi, Fá# e Lá). O começo é pouca nota e muito bend: uma nota segurada quase um compasso e frases curtas que respondem a ela, até pousar no Si, a tônica.",
                   steps: ["A música está em Ré maior, e o solo usa a penta do relativo menor, Si menor, que tem as mesmas notas da penta de Ré maior. Começa no shape 1, na casa 7 (em Lá menor ele começaria na 5).", "O primeiro bend leva o Mi (4ª de Si menor, nota de tensão) ao Fá# (5ª, nota firme do acorde), na 3ª corda, casa 9, e fica quase três tempos em cima do Si menor.", "Na segunda metade da parte, sobre o acorde de Sol, a frase sobe para a 2ª corda, casas 10 e 12 (o shape 2), com um bend de um tom e meio do Si (tônica) ao Ré (3ª menor). Si e Ré também são notas do Sol: a 3ª e a 5ª.", "Pousa no Si da 4ª corda, casa 9, a tônica, segurado: a nota de chegada da primeira frase.", "Sem nota fora da penta.", "A base segue a gravação: Si menor, Lá, Sol e Mi menor no mesmo compasso, e Si menor. O Ré com Fá# no baixo, entre o Sol e o Mi menor, ficou de fora."],
                 },
                 {
@@ -18951,7 +18966,7 @@ const written: Curriculum = {
                   label: "Parte 3",
                   base: songBars(NUMB, 6, 3),
                   intro: "A primeira frase rápida do solo: bends curtos e uma descida em tercinas de semicolcheia pelo shape 1 da penta de Si menor, inteiro, até o Ré grave, a 3ª menor.",
-                  steps: ["Penta de Si menor, shape 1, casa 7, descendo até a 6ª corda.", "Começa com bends rápidos do Mi (4ª) ao Fá# (5ª), e um bend curto no Ré, de menos de meio tom: o choro do blues, que não chega em nota nenhuma da escala.", "Nota fora da penta: o Fá (5ª corda, casa 8), na descida. É cromatismo, o meio tom entre o Fá# (5ª) e o Mi (4ª), só de passagem.", "Pousa no Ré (3ª menor) da 5ª corda, casa 5, e repete o Ré na 3ª corda, casa 7, uma oitava acima: a 3ª do Si menor, a nota que deixa o som triste, a chegada da frase.", "São as notas do shape 1, só que rápidas: aprenda a descida lenta e acelere aos poucos."],
+                  steps: ["Penta de Si menor, shape 1, casa 7, descendo até a 6ª corda.", "Começa com bends rápidos do Mi (4ª) ao Fá# (5ª). Dois bends curtos, de meio tom, ficam no caminho: o Mi sobe ao Fá e o Ré ao Ré#, o choro do blues, em notas fora da escala, só de passagem.", "Na descida, o Fá da 5ª corda, casa 8, também é de fora. É cromatismo, o meio tom entre o Fá# (5ª) e o Mi (4ª), só de passagem.", "Pousa no Ré da 5ª corda, casa 5, e repete o Ré uma oitava acima, na 3ª corda, casa 7. É a chegada da frase: a 3ª menor do Si menor, a nota que deixa o som triste.", "As tercinas de semicolcheia põem seis notas em cada tempo: conte em grupos de três."],
                 },
                 {
                   ...phrase("numbp4", "Comfortably Numb: parte 4", 5, [
@@ -19020,8 +19035,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 4",
                   base: songBars(NUMB, 8, 5),
-                  intro: "A frase mais comprida do solo: quatro compassos quase sem respirar, na penta de Si menor, que repetem o mesmo gesto, o bend do Mi ao Fá# e a descida pelo shape, e só param no Si, a tônica.",
-                  steps: ["Penta de Si menor, shape 1, casa 7, de cima a baixo, com a 5ª corda solta (Lá, a 7ª menor) num momento.", "O gesto que se repete: bend do Mi (4ª) ao Fá# (5ª) na 3ª corda, casa 9, e uma descida pelo shape. Como todas as notas são da penta, o gesto serve sobre Si menor, Lá e Sol sem mudar.", "Nota fora da penta: de novo o Fá (5ª corda, casa 8), cromatismo entre o Fá# e o Mi, na descida da penúltima barra.", "Pousa no Si (tônica) da 4ª corda, casa 9, segurado três tempos: a nota de chegada."],
+                  intro: "A frase mais comprida do solo: quatro compassos quase sem respirar, que repetem o mesmo gesto e só param no Si, a tônica.",
+                  steps: ["Penta de Si menor, shape 1, casa 7, do agudo ao grave, com a 5ª corda solta (Lá, a 7ª menor) num momento.", "O gesto que se repete: bend do Mi (4ª) ao Fá# (5ª) na 3ª corda, casa 9, e uma descida pelo shape. Como todas as notas do gesto são da penta, ele serve sobre Si menor, Lá e Sol sem mudar.", "Nota fora da penta: de novo o Fá (5ª corda, casa 8), cromatismo entre o Fá# e o Mi, na descida do penúltimo compasso.", "Pousa no Si (tônica) da 4ª corda, casa 9, segurado três tempos: a nota de chegada."],
                 },
                 {
                   ...phrase("numbp5", "Comfortably Numb: parte 5", 5, [
@@ -19071,7 +19086,7 @@ const written: Curriculum = {
                   label: "Parte 5",
                   base: songBars(NUMB, 12, 5),
                   intro: "Depois da frase longa, o Gilmour volta a deixar espaço: notas longas, cada uma escolhida para o acorde que está soando.",
-                  steps: ["Penta de Si menor, shape 1, casa 7. A parte se apoia em poucas notas longas, e cada uma tem uma função diferente conforme o acorde.", "O Si (tônica) segurado sobre o acorde de Lá é a 9ª do acorde; o Mi segurado sobre o Sol é a 6ª. Tensão suave, que pede continuação.", "O bend do Lá (7ª menor) ao Si (tônica), na 2ª corda, casa 10, cai em cima do Mi menor: o Si é a 5ª dele, uma nota firme.", "Nota fora da penta: o Fá (5ª corda, casa 8), cromatismo na descida perto do fim da parte."],
+                  steps: ["Penta de Si menor, shape 1, casa 7.", "O Si (tônica) segurado sobre o acorde de Lá é a 9ª do acorde; o Mi segurado sobre o Sol é a 6ª. As duas são tensões suaves, que pedem continuação.", "O bend do Lá (7ª menor) ao Si (tônica), na 2ª corda, casa 10, cai em cima do Mi menor: o Si é a 5ª dele, uma nota firme.", "Nota fora da penta: o Fá (5ª corda, casa 8), cromatismo na descida perto do fim da parte."],
                 },
                 {
                   ...phrase("numbp6", "Comfortably Numb: parte 6", 4, [
@@ -19116,8 +19131,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 6",
                   base: songBars(NUMB, 16, 4),
-                  intro: "Aqui o Gilmour quase não muda de nota: repete o Fá# e o Lá, e o que muda é o ritmo. É a ideia da unidade Ritmo com poucas notas, num solo famoso.",
-                  steps: ["Penta de Si menor, shape 1, casa 7, nas cordas 2 a 5.", "As duas notas que se repetem: o Fá# (5ª) da 2ª corda, casa 7, e o Lá (7ª menor) da 4ª corda, casa 7. Entre elas, ligados rápidos no Si e no Lá da 4ª corda. O Fá# é a 5ª de Si menor e a 5ª do acorde de Lá; o Lá é a tônica do acorde de Lá.", "Na gravação, algumas notas são abafadas, quase sem altura: aqui elas soam como as outras.", "Termina no Si (tônica) da 1ª corda, casa 7.", "Sem nota fora da penta."],
+                  intro: "Aqui o Gilmour quase não muda de nota: repete o Fá# e o Lá e varia o ritmo, como no exercício Muda só o ritmo, da unidade Motivo.",
+                  steps: ["Penta de Si menor, shape 1, casa 7, nas cordas 2 a 5.", "As duas notas que se repetem: o Fá# (5ª) da 2ª corda, casa 7, e o Lá (7ª menor) da 4ª corda, casa 7. Entre elas, ligados rápidos no Si e no Lá da 4ª corda. O Fá# é a 5ª de Si menor e a 6ª do acorde de Lá; o Lá é a tônica do acorde de Lá.", "Na gravação, algumas notas são abafadas, quase sem altura: aqui elas soam como as outras.", "Termina no Si (tônica) da 1ª corda, casa 7.", "Sem nota fora da penta."],
                 },
                 {
                   ...phrase("numbp7", "Comfortably Numb: parte 7", 5, [
@@ -19155,8 +19170,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 7",
                   base: songBars(NUMB, 19, 5),
-                  intro: "O pico do solo fica no alto do braço, na 1ª corda, entre as casas 17 e 21, ainda na penta de Si menor. A ideia é a da parte 2: o Dó# com bend de meio tom até o Ré, agora repetido, uma oitava e meia acima.",
-                  steps: ["Penta de Si menor, shapes 4 e 5, das casas 14 a 21.", "Entra com um slide até o Lá (7ª menor) da 1ª corda, casa 17, e um bend dele até o Si, a tônica.", "Nota fora da penta: o Dó# (2ª de Si menor), casa 21, repetido, sempre com bend de meio tom até o Ré (3ª menor). Em cima do Si menor ele é tensão, a 9ª; sobre o acorde de Lá, é a 3ª maior do acorde. O bend o leva ao Ré, de volta à penta.", "Desce para a 2ª corda, casa 17, com bends do Mi (4ª) ao Fá# (5ª), e pousa no Si (tônica) da 3ª corda, casa 16, com vibrato: a chegada do solo.", "Precisa de 21 casas: numa guitarra de 20, ou no violão, toque o trecho uma oitava abaixo."],
+                  intro: "O pico do solo fica no alto do braço, na 1ª corda, entre as casas 17 e 21. A ideia é a da parte 2: o Dó# com bend de meio tom até o Ré, agora repetido, uma oitava acima.",
+                  steps: ["Penta de Si menor, shapes 4 e 5, das casas 14 a 21.", "Entra com um slide até o Lá (7ª menor) da 1ª corda, casa 17, e um bend dele até o Si, a tônica.", "Nota fora da penta: o Dó# (2ª de Si menor), casa 21, sempre com bend de meio tom até o Ré (3ª menor), de volta à penta. Em cima do Si menor ele é tensão, a 9ª; sobre o acorde de Lá, é a 3ª maior do acorde.", "Desce para a 2ª corda, casa 17, com bends do Mi (4ª) ao Fá# (5ª), e pousa no Si (tônica) da 3ª corda, casa 16, com vibrato: a chegada do solo.", "Precisa de 21 casas: numa guitarra de 20, ou no violão, toque o trecho uma oitava abaixo."],
                 },
                 {
                   ...phrase("numbpfull", "Comfortably Numb: o solo completo", 24, [
@@ -19410,8 +19425,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo completo",
                   base: NUMB,
-                  intro: "As sete partes juntas: o segundo solo inteiro, como na gravação, na penta de Si menor sobre uma música em Ré maior. Junte as partes aos poucos antes de tocar tudo.",
-                  steps: ["Junte as partes de duas em duas: 1 e 2, 2 e 3, e assim por diante.", "Baixe o andamento até sair inteiro, sem parar; depois volte aos 64 bpm.", "Repare no desenho do solo: começa com pouca nota no shape 1, repete o mesmo gesto com cada vez mais notas (partes 1 a 5), quase para no ritmo (parte 6) e explode no alto (parte 7).", "Quando sair, toque junto com a gravação, a partir de 4:30."],
+                  intro: "Do começo ao fim, como na gravação: na penta de Si menor, sobre uma música em Ré maior.",
+                  steps: ["Junte as partes em pares que se sobrepõem (1 e 2, depois 2 e 3, e assim por diante), para treinar cada passagem de uma parte para a seguinte.", "Baixe o andamento até sair inteiro, sem parar; depois volte aos 64 bpm.", "Repare no desenho do solo: começa com pouca nota no shape 1, repete o mesmo gesto com cada vez mais notas (partes 1 a 4), volta a deixar espaço (parte 5), fica em duas notas variando só o ritmo (parte 6) e chega ao pico no alto do braço (parte 7).", "Quando sair, toque junto com a gravação, a partir de 4:30."],
                 },
               ],
             },
@@ -19422,7 +19437,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Comfortably Numb",
           videos: [{ youtube: "7f3EGjRxxNI", title: "Comfortably Numb", author: "Pink Floyd", note: "A gravação original, do The Wall. O segundo solo começa por volta de 4:30. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Comfortably Numb no Songsterr", url: "https://www.songsterr.com/a/wsa/pink-floyd-comfortably-numb-tab-s271" },
-          intro: "Trechos curtos do solo de Comfortably Numb, de Pink Floyd, tirados do solo transcrito na lição anterior, \"Comfortably Numb\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Comfortably Numb, de Pink Floyd, tirados do solo transcrito na lição anterior, \"Comfortably Numb\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u39.lick",
           exercises: [
             {
@@ -19465,7 +19480,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 2: o slide até a 5ª",
                   intro: "Lick de 8 notas: sai da 5ª e chega na tônica. Técnica: slide da 4ª até a 5ª; uma nota em ligado, sem palhetar.",
-                  steps: ["O desenho, em funções: 5ª, 7ª menor (2x), tônica, 3ª menor, tônica, 7ª menor, tônica. Técnica: slide da 4ª até a 5ª; uma nota em ligado, sem palhetar.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na tônica (nota longa, de 2 tempos) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
+                  steps: ["O desenho, em funções: 5ª, 7ª menor (2x), tônica, 3ª menor, tônica, 7ª menor, tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre na metade do tempo 1, sem cair em cima dele; pouse na tônica (nota longa, de 2 tempos) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
                 },
                 {
                   ...phrase("lk39c", "Comfortably Numb: lick 3", 1, [
@@ -19495,7 +19510,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 4: o bend da 4ª à 5ª",
                   intro: "Lick de 9 notas: sai da tônica e chega na 3ª menor. Técnica: bend de um tom, da 4ª à 5ª.",
-                  steps: ["O desenho, em funções: tônica, 3ª menor, 4ª, 5ª, tônica, 7ª menor, 4ª, 5ª, 3ª menor. Técnica: bend de um tom, da 4ª à 5ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: troque a nota de pouso por outra nota do acorde que vem a seguir, mantendo o caminho até ela."],
+                  steps: ["O desenho, em funções: tônica, 3ª menor, 4ª, 5ª, tônica, 7ª menor, 4ª, 5ª, 3ª menor.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: troque a nota de pouso por outra nota do acorde que vem a seguir, mantendo o caminho até ela."],
                 },
               ],
             },
@@ -19514,7 +19529,7 @@ const written: Curriculum = {
           title: "Back in Black",
           videos: [{ youtube: "pAgnJDJN4VA", title: "Back In Black (Official 4K Video)", author: "AC/DC", note: "O clipe oficial. O solo começa por volta de 1:48. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Back in Black no Songsterr", url: "https://www.songsterr.com/a/wsa/ac-dc-back-in-black-tab-s1024" },
-          intro: "O solo inteiro do Angus Young, em Mi menor, em cinco partes: do grave ao shape 1 na casa 12. O solo está dividido em 5 partes, uma em cada aba, cada uma com a base dos seus compassos e a explicação dela; a última aba junta tudo.",
+          intro: "O solo inteiro do Angus Young, em Mi menor: do grave ao shape 1 na casa 12.",
           key: "u40.echo",
           exercises: [
             {
@@ -19522,7 +19537,7 @@ const written: Curriculum = {
               kind: "echo",
               title: "O solo, parte por parte",
               goal: "Escolha a parte nas abas, ouça e repita de ouvido, um compasso por vez.",
-              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Cada aba explica a sua parte: o tom, o shape e o que cada nota de fora está fazendo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "A última aba é o solo inteiro: junte as partes de duas em duas antes de tocar tudo."],
+              steps: ["Comece pela parte 1 e só passe para a seguinte quando ela sair no tempo.", "Se uma parte for rápida demais, baixe o andamento; depois volte ao da gravação.", "Antes do solo completo, junte as partes de duas em duas, devagar."],
               check: "Tocou o solo inteiro no tempo, sem parar?",
               base: BACK_IN_BLACK,
               reveal: "tab",
@@ -19552,8 +19567,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 1",
                   base: songBars(BACK_IN_BLACK, 0, 4),
-                  intro: "O solo do Angus Young em Back in Black é rock na penta de Mi menor (Mi, Sol, Lá, Si, Ré) sobre os acordes maiores do riff: Mi, Ré e Lá. A entrada é quase um riff: notas longas na região grave que descem junto com os acordes, de Mi a Dó#.",
-                  steps: ["A penta de Mi menor funciona sobre os acordes maiores do riff, como no blues e no rock: sobre o Mi, o Sol é a 3ª menor, a blue note; sobre o Ré e o Lá, as cinco notas são da escala ou notas de acorde. Começa na região grave, com a 6ª corda solta (Mi) e a 5ª corda nas casas 4 a 7.", "As notas longas na 5ª corda descem Mi, Ré e Dó#, cada uma sobre o acorde do riff: Mi sobre o Mi, Ré sobre o Ré e Dó# sobre o Lá.", "Nota fora da penta: o Dó# (5ª corda, casa 4). Em Mi menor ele é a 6ª maior, o som do modo dórico. Ali o acorde é Lá, e o Dó# é a 3ª maior dele: nota do acorde.", "Entre as notas longas, uma frase curta na corda Sol solta e na casa 2, com bend do Lá ao Si: Mi, Sol, Lá e Si, de volta ao Mi.", "A base segue o riff da gravação: Mi, Ré e Lá."],
+                  intro: "O solo usa a penta de Mi menor (Mi, Sol, Lá, Si, Ré) sobre os acordes maiores do riff: Mi, Ré e Lá. A entrada é quase um riff: notas longas na região grave que descem junto com os acordes, de Mi a Dó#.",
+                  steps: ["Penta menor sobre acorde maior é som de blues e de rock: sobre o Mi, o Sol é a 3ª menor, a blue note; sobre o Ré e o Lá, as cinco notas são da escala ou notas de acorde. Começa com a 6ª corda solta (Mi) e a 5ª corda nas casas 4 a 7.", "As notas longas na 5ª corda descem Mi, Ré e Dó#, cada uma sobre o acorde do riff: Mi sobre o Mi, Ré sobre o Ré e Dó# sobre o Lá.", "Nota fora da penta: o Dó# (5ª corda, casa 4). Em Mi menor ele é a 6ª maior, o som do modo dórico. Ali o acorde é Lá, e o Dó# é a 3ª maior dele: nota do acorde.", "Entre as notas longas, uma frase curta na 3ª corda solta (Sol) e na casa 2, com bend do Lá ao Si: Mi, Sol, Lá e Si, de volta ao Mi.", "A base segue o riff da gravação, um acorde por tempo."],
                 },
                 {
                   ...phrase("bibp2", "Back in Black: parte 2", 4, [
@@ -19586,8 +19601,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 2",
                   base: songBars(BACK_IN_BLACK, 3, 4),
-                  intro: "O Angus sobe para o meio do braço com o mesmo bend da abertura do Stairway, do Ré ao Mi, em outro tom e outro shape, ainda na penta de Mi menor, e passa por uma nota de blues num piscar.",
-                  steps: ["Penta de Mi menor. Começa no shape 4, casa 7, e termina no shape 1, na casa 12.", "Bend do Ré (7ª menor) ao Mi (tônica) na 3ª corda, casa 7, segurado dois tempos, e repetido: a tensão do Ré se resolve no Mi, que é a nota do acorde.", "Nota fora da penta: o Lá# (2ª corda, casa 11), num ligado rápido entre dois Lás. Em Mi menor ele é a 5ª diminuta, a blue note. Aqui é bordadura cromática: encosta meio tom acima do Lá e volta. Passagem, nunca pouso.", "Termina no shape 1 da casa 12, com bend do Lá (4ª) ao Si (5ª) e o Ré da 2ª corda, casa 15: a frase chega ao alto do shape."],
+                  intro: "O Angus sobe para o meio do braço com o mesmo bend da abertura do Stairway, do Ré ao Mi, em outro tom e outro shape, e passa rápido por uma nota de blues.",
+                  steps: ["Penta de Mi menor. Começa no shape 4, casa 7, e termina no shape 1, na casa 12.", "Bend do Ré (7ª menor) ao Mi (tônica) na 3ª corda, casa 7, segurado dois tempos, e repetido: a tensão do Ré se resolve no Mi, que é a nota do acorde.", "Nota fora da penta: o Lá# (2ª corda, casa 11), num ligado rápido entre dois Lás. Em Mi menor ele é a 5ª diminuta, a blue note. Aqui é bordadura cromática, só de passagem: encosta meio tom acima do Lá e volta.", "Termina no shape 1 da casa 12, com bend do Lá (4ª) ao Si (5ª) e o Ré da 2ª corda, casa 15: a frase chega ao alto do shape."],
                 },
                 {
                   ...phrase("bibp3", "Back in Black: parte 3", 3, [
@@ -19649,7 +19664,7 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 4",
                   base: songBars(BACK_IN_BLACK, 8, 4),
-                  intro: "Ainda no shape 1 da casa 12, uma frase em tercinas passa rápido por uma nota que não é da penta, e o trecho termina num bend longo.",
+                  intro: "Ainda no shape 1 da casa 12, uma frase rápida abre em tercinas, segue em semicolcheias, passa por uma nota que não é da penta e termina num bend longo.",
                   steps: ["Penta de Mi menor, shape 1, casa 12.", "Nota fora da penta: o Dó# (2ª corda, casa 14), de passagem. Em Mi menor ele é a 6ª maior, o som do modo dórico, e vem do riff, que passa pelo acorde de Lá (o Dó# é a 3ª maior do Lá).", "Termina num bend longo do Ré (7ª menor) ao Mi (tônica), na 2ª corda, casa 15: a nota de chegada. Ali o acorde é Lá, e o Mi é a 5ª dele."],
                 },
                 {
@@ -19695,8 +19710,8 @@ const written: Curriculum = {
                   ]),
                   label: "Parte 5",
                   base: songBars(BACK_IN_BLACK, 11, 5),
-                  intro: "Um truque do rock: a corda solta repetida em rajada. O Mi da 1ª corda solta é a mesma nota da casa 12, então o Angus não sai do shape 1, só ganha uma nota que soa sem a mão esquerda.",
-                  steps: ["Penta de Mi menor, shape 1 na casa 12, mais a 1ª corda solta.", "A rajada: quatro Mis (a tônica) na 1ª corda solta, o último longo. Duas rajadas por compasso. O Mi é nota firme sobre o Mi, o Ré e o Lá: por isso pode repetir sem mudar enquanto o acorde troca.", "Entre as rajadas, uma resposta curta no shape 1, com bends do Lá ao Si (3ª corda, casa 14) e do Ré ao Mi (2ª corda, casa 15).", "Sem nota fora da penta."],
+                  intro: "Um truque do rock: a corda solta repetida em rajada. O Mi da 1ª corda solta é o Mi da casa 12, uma oitava mais grave, então o Angus não sai do shape 1: só ganha uma nota que soa sem apertar a corda.",
+                  steps: ["Penta de Mi menor, shape 1 na casa 12, mais a 1ª corda solta.", "A rajada: quatro Mis (a tônica) na 1ª corda solta, o último longo. Duas rajadas por compasso. O Mi é a tônica do Mi e a 5ª do Lá; sobre o Ré, é a 9ª, uma tensão suave: por isso pode repetir sem mudar enquanto o acorde troca.", "Entre as rajadas, uma resposta curta no shape 1, com bends do Lá ao Si (3ª corda, casa 14) e do Ré ao Mi (2ª corda, casa 15).", "Sem nota fora da penta."],
                 },
                 {
                   ...phrase("bibpfull", "Back in Black: o solo completo", 16, [
@@ -19833,8 +19848,8 @@ const written: Curriculum = {
                   ]),
                   label: "Solo completo",
                   base: BACK_IN_BLACK,
-                  intro: "As cinco partes juntas: o solo inteiro, como na gravação, na penta de Mi menor sobre Mi, Ré e Lá. Junte as partes aos poucos antes de tocar tudo.",
-                  steps: ["Junte as partes de duas em duas: 1 e 2, 2 e 3, e assim por diante.", "Baixe o andamento até sair inteiro, sem parar; depois volte aos 94 bpm.", "Repare no desenho do solo: começa no grave, sobe para o shape 4 na parte 2, fica no shape 1 da casa 12 e fecha com a corda solta.", "Quando sair, toque junto com a gravação, a partir de 1:48."],
+                  intro: "Do começo ao fim, como na gravação: na penta de Mi menor, sobre os acordes de Mi, Ré e Lá.",
+                  steps: ["Junte as partes em pares que se sobrepõem (1 e 2, depois 2 e 3, e assim por diante), para treinar cada passagem de uma parte para a seguinte.", "Baixe o andamento até sair inteiro, sem parar; depois volte aos 94 bpm.", "Repare no desenho do solo: começa no grave, sobe para o shape 4 na parte 2, fica no shape 1 da casa 12 e fecha com a corda solta.", "Quando sair, toque junto com a gravação, a partir de 1:48."],
                 },
               ],
             },
@@ -19845,7 +19860,7 @@ const written: Curriculum = {
           title: "Licks para roubar: Back in Black",
           videos: [{ youtube: "pAgnJDJN4VA", title: "Back In Black (Official 4K Video)", author: "AC/DC", note: "O clipe oficial. O solo começa por volta de 1:48. Onde a tab soar diferente, vale a gravação." }],
           source: { title: "Back in Black no Songsterr", url: "https://www.songsterr.com/a/wsa/ac-dc-back-in-black-tab-s1024" },
-          intro: "Trechos curtos do solo de Back in Black, de AC/DC, tirados do solo transcrito na lição anterior, \"Back in Black\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso: no tom que você escolher, o desenho se desloca no braço e as funções (tônica, 3ª menor, 4ª, 5ª, 7ª menor) continuam as mesmas. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
+          intro: "Trechos curtos do solo de Back in Black, de AC/DC, tirados do solo transcrito na lição anterior, \"Back in Black\", para estudo da técnica: de cada um se aprende o caminho entre as notas e como ele chega a uma nota firme. Os licks foram levados para a penta de Lá menor, o tom de prática padrão do curso. Os trechos são recortes para estudo de uma análise e não substituem a música: o crédito é da gravação original, a tablatura vem da fonte indicada nesta lição e o vídeo oficial toca o original.",
           key: "u40.lick",
           exercises: [
             {
@@ -19886,7 +19901,7 @@ const written: Curriculum = {
                   ]),
                   label: "Lick 2: desce da tônica à tônica",
                   intro: "Lick de 7 notas: sai da tônica e chega na tônica. Técnica: uma nota em ligado, sem palhetar; vibrato na nota final.",
-                  steps: ["O desenho, em funções: tônica, 7ª menor, 5ª, 4ª, 5ª, 3ª menor, tônica. Técnica: uma nota em ligado, sem palhetar; vibrato na nota final.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
+                  steps: ["O desenho, em funções: tônica, 7ª menor, 5ª, 4ª, 5ª, 3ª menor, tônica.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a tônica; o do VI (Fá), onde é a 3ª; e o do iv (Ré menor), onde é a 5ª. Entre no tempo 1; pouse na tônica (nota longa, de 1 tempo) e deixe o resto do compasso em silêncio.", "Como variar: mude o ritmo, tocando as mesmas notas primeiro devagar e depois mais depressa, sempre com o pouso firme na tônica."],
                 },
                 {
                   ...phrase("lk40c", "Back in Black: lick 3", 1, [
@@ -19897,9 +19912,9 @@ const written: Curriculum = {
                     [2, 8, 1.0, 0.75],
                     [1, 8, 1.75, 0.5],
                   ]),
-                  label: "Lick 3: o bend da 4ª à 5ª",
+                  label: "Lick 3: o bend da 4ª à 5ª e o pouso na 3ª menor",
                   intro: "Lick de 6 notas: sai da 4ª e chega na 3ª menor. Técnica: bend de um tom, da 4ª à 5ª.",
-                  steps: ["O desenho, em funções: 4ª, 5ª, 3ª menor, 4ª, 7ª menor, 3ª menor. Técnica: bend de um tom, da 4ª à 5ª.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
+                  steps: ["O desenho, em funções: 4ª, 5ª, 3ª menor, 4ª, 7ª menor, 3ª menor.", "Onde serve: sobre o acorde da tônica (Lá menor, i), onde ela é a 3ª; o do III (Dó), onde é a tônica; e o do VI (Fá), onde é a 5ª. Entre no tempo 1; pouse na 3ª menor (nota curta) e deixe o resto do compasso em silêncio.", "Como variar: use só a segunda metade do lick como resposta curta, ou só a primeira como pergunta que fica no ar."],
                 },
               ],
             },
@@ -19918,14 +19933,14 @@ const written: Curriculum = {
           id: "u10.l2",
           title: "Compor o solo",
           intro:
-            'O segundo solo de "Comfortably Numb" foi montado com as melhores partes de várias tomadas: o improviso virou composição. Sem gravador dá para fazer parecido: tocar, guardar o que funcionou e tocar de novo mantendo essa parte.',
+            'O segundo solo de "Comfortably Numb" foi montado com as melhores partes de várias tomadas: o improviso virou composição. Sem gravador dá para fazer parecido, de memória.',
           key: "u10.l2.compose",
           exercises: [
             {
               id: "u10.l2.compose",
               kind: "take",
               title: "Três tomadas",
-              goal: "Toque os oito compassos três vezes. A cada vez, guarde uma frase que funcionou e mantenha no mesmo lugar.",
+              goal: "Toque os oito compassos três vezes e, a cada tomada, guarde mais uma frase.",
               steps: [
                 "Primeira: livre.",
                 "Segunda: mantenha a melhor frase da primeira, no mesmo compasso.",
@@ -19946,16 +19961,16 @@ const written: Curriculum = {
           id: "u10.l3",
           title: "O solo inteiro",
           intro:
-            "Tudo junto: respirar, ritmo, alvos na troca, tensão que resolve, o braço inteiro, um motivo que volta e intensidade que cresce. Não é para usar tudo em toda frase. É para ter tudo à mão e escolher. Só pentatônica: é o que basta.",
+            "Tudo junto, só com a pentatônica: respirar, ritmo, alvos na troca, tensão que resolve, o braço inteiro, um motivo que volta e intensidade que cresce. Você não precisa usar tudo em toda frase: tenha tudo à mão e escolha.",
           key: "u10.l3.full",
           exercises: [
             {
               id: "u10.l3.full",
               kind: "take",
               title: "Dezesseis compassos",
-              goal: "Um solo inteiro, com começo, desenvolvimento, pico e fim.",
+              goal: "Um solo inteiro, em quatro partes de quatro compassos. A tela mostra em qual parte você está.",
               steps: [
-                "Escolha um motivo para o começo e faça ele voltar, variado, perto do fim.",
+                "Escolha o motivo antes de apertar Iniciar exercício.",
                 "Guarde o ponto mais alto para a terceira parte.",
               ],
               check: "Seu solo teve começo, pico e fim, com uma ideia que voltou?",
@@ -20095,21 +20110,21 @@ const written: Curriculum = {
           title: "O solo do Luca, trecho por trecho",
           videos: [{ youtube: "2aiassz5C_o", title: "Full solo - JTC Pentatonic Masterclass (beginner package)", author: "Luca Mantovanelli", note: "O solo desta lição. A tab foi tirada do áudio pelo computador, sem revisão de ouvido: compare trecho por trecho com o vídeo e, onde soar diferente, confie no vídeo." }],
           intro:
-            "Um solo de verdade, de um guitarrista, no nível que o curso mira: o solo inteiro do pacote para iniciantes do Pentatonic Masterclass do Luca Mantovanelli, em nove trechos de quatro compassos. Quase tudo no shape 1, nas cordas do meio. Repare como ele repete ideias, deixa espaço e segura poucas notas.",
+            "Um solo de verdade, no nível que o curso mira: o solo inteiro do pacote para iniciantes do Pentatonic Masterclass do Luca Mantovanelli, em nove trechos de quatro compassos. Quase tudo no shape 1, nas cordas do meio. Repare como ele repete ideias, deixa espaço e usa poucas notas diferentes em cada trecho.",
           key: "u10.l5.echo",
           exercises: [
             {
               id: "u10.l5.echo",
               kind: "echo",
               title: "Nove trechos",
-              goal: "Um trecho por vez: ouça, repita, e só passe para o próximo quando sair duas vezes seguidas.",
+              goal: "Um trecho por vez: ouça, repita e só passe para o próximo quando ele sair duas vezes seguidas.",
               steps: ["Baixe o andamento até o trecho sair limpo.", "No fim, toque os nove em sequência junto com o vídeo."],
               check: "Tocou os trechos no tempo, do jeito que soam no vídeo?",
               base: LUCA,
               reveal: "tab",
               transcribed: true,
               phrases: [
-                phrase("luca1", "Solo do Luca: trecho 1", 4, [
+                { ...phrase("luca1", "Solo do Luca: trecho 1", 4, [
                   [5, 7, 2.75, 0.5],
                   [4, 5, 3.5, 0.25],
                   [4, 5, 4.0, 1.0, { vib: "lento" }],
@@ -20129,8 +20144,8 @@ const written: Curriculum = {
                   [4, 5, 13.25, 0.25],
                   [4, 7, 13.5, 0.75],
                   [5, 7, 15.25, 0.75],
-                ]),
-                phrase("luca2", "Solo do Luca: trecho 2", 4, [
+                ]), label: "Trecho 1" },
+                { ...phrase("luca2", "Solo do Luca: trecho 2", 4, [
                   [3, 5, 1.5, 0.25],
                   [4, 7, 1.75, 0.5],
                   [3, 5, 2.25, 0.25],
@@ -20149,8 +20164,8 @@ const written: Curriculum = {
                   [4, 7, 12.75, 1.0],
                   [4, 5, 13.75, 0.75],
                   [3, 7, 15.0, 1.0],
-                ]),
-                phrase("luca3", "Solo do Luca: trecho 3", 4, [
+                ]), label: "Trecho 2" },
+                { ...phrase("luca3", "Solo do Luca: trecho 3", 4, [
                   [3, 5, 0.25, 0.25],
                   [3, 5, 0.75, 0.5],
                   [4, 7, 1.25, 0.5],
@@ -20170,8 +20185,8 @@ const written: Curriculum = {
                   [5, 7, 14.25, 0.25],
                   [4, 7, 14.5, 0.5],
                   [5, 7, 15.0, 1.0, { vib: "lento" }],
-                ]),
-                phrase("luca4", "Solo do Luca: trecho 4", 4, [
+                ]), label: "Trecho 3" },
+                { ...phrase("luca4", "Solo do Luca: trecho 4", 4, [
                   [4, 5, 0.0, 0.25],
                   [5, 7, 1.0, 1.25],
                   [4, 5, 2.25, 0.75],
@@ -20190,8 +20205,8 @@ const written: Curriculum = {
                   [2, 5, 14.25, 0.25],
                   [2, 8, 14.75, 0.5],
                   [2, 5, 15.25, 0.5],
-                ]),
-                phrase("luca5", "Solo do Luca: trecho 5", 4, [
+                ]), label: "Trecho 4" },
+                { ...phrase("luca5", "Solo do Luca: trecho 5", 4, [
                   [4, 7, 0.75, 0.5],
                   [5, 7, 1.25, 0.5],
                   [4, 5, 1.75, 0.5],
@@ -20212,8 +20227,8 @@ const written: Curriculum = {
                   [1, 5, 11.5, 1.5],
                   [1, 5, 13.5, 1.25],
                   [5, 7, 15.25, 0.25],
-                ]),
-                phrase("luca6", "Solo do Luca: trecho 6", 4, [
+                ]), label: "Trecho 5" },
+                { ...phrase("luca6", "Solo do Luca: trecho 6", 4, [
                   [5, 7, 0.75, 0.25],
                   [4, 7, 4.25, 0.25],
                   [4, 5, 4.5, 0.5],
@@ -20235,8 +20250,8 @@ const written: Curriculum = {
                   [3, 5, 13.5, 1.0],
                   [4, 7, 14.5, 0.5],
                   [3, 5, 15.0, 1.0],
-                ]),
-                phrase("luca7", "Solo do Luca: trecho 7", 4, [
+                ]), label: "Trecho 6" },
+                { ...phrase("luca7", "Solo do Luca: trecho 7", 4, [
                   [4, 7, 0.5, 0.5],
                   [4, 5, 1.75, 0.25],
                   [4, 7, 2.0, 0.75],
@@ -20259,8 +20274,8 @@ const written: Curriculum = {
                   [4, 5, 14.5, 0.5],
                   [3, 5, 15.0, 0.25],
                   [4, 5, 15.25, 0.25],
-                ]),
-                phrase("luca8", "Solo do Luca: trecho 8", 4, [
+                ]), label: "Trecho 7" },
+                { ...phrase("luca8", "Solo do Luca: trecho 8", 4, [
                   [5, 7, 1.0, 0.5],
                   [4, 7, 2.0, 0.25],
                   [4, 5, 2.25, 0.25],
@@ -20280,21 +20295,21 @@ const written: Curriculum = {
                   [3, 7, 13.5, 0.25],
                   [3, 5, 13.75, 0.75],
                   [5, 7, 15.75, 0.25],
-                ]),
-                phrase("luca9", "Solo do Luca: trecho 9", 4, [
+                ]), label: "Trecho 8" },
+                { ...phrase("luca9", "Solo do Luca: trecho 9", 4, [
                   [5, 7, 1.5, 1.75],
                   [5, 7, 3.5, 0.5],
                   [5, 7, 4.0, 0.5],
-                ]),
+                ]), label: "Trecho 9" },
               ],
             },
             {
               id: "u10.l5.take",
               kind: "take",
               title: "Seu solo na base do Luca",
-              goal: "Na mesma base do vídeo, um solo seu: use os trechos dele que você gostou e misture com o que você sabe.",
-              steps: ["Am7 por três compassos e Ré no quarto: no Ré, o Fá sustenido soa bem, mas fica fora da penta. Mire o Lá e o Ré.", "Comece devagar e suba até 117 bpm."],
-              check: "Seu solo andou junto com o groove e pousou em notas do acorde?",
+              goal: "Misture os trechos do Luca de que você gostou com o que você já sabe.",
+              steps: ["Am7 por três compassos e D no quarto. No D, o Fá# soa bem, mas fica fora da penta: mire o Lá e o Ré.", "Comece devagar e suba até 117 bpm."],
+              check: "Seu solo andou junto com a levada e pousou em notas do acorde?",
               base: LUCA,
               bars: 16,
             },
@@ -20303,16 +20318,16 @@ const written: Curriculum = {
         {
           id: "u10.l4",
           title: "O solo de chegada",
-          videos: [{ youtube: "tzh1OeGUv_E", title: "Improvisation: A-Minor Pentatonic Guitar Solo", author: "Flo Guitar", note: "Lembra deste vídeo, do começo do curso? Assista de novo. Agora dá para reconhecer os shapes, os bends, as notas longas que caem no acorde e as frases que conversam. É o mesmo material que você tem nas mãos." }, { youtube: "1vuv8gF8rw0", title: "How to Play over Chords ONLY USING THE PENTATONIC scale!", author: "Paul Davids", note: "E o próximo passo, para depois do curso: aqui você usou a pentatônica do tom e mirou as notas do acorde que cabem nela. Neste vídeo, a ideia vai além: pensar a pentatônica a partir de cada acorde, e não só do tom. Está em inglês." }],
+          videos: [{ youtube: "tzh1OeGUv_E", title: "Improvisation: A-Minor Pentatonic Guitar Solo", author: "Flo Guitar", note: "Lembra deste vídeo, do começo do curso? Assista de novo. Agora dá para reconhecer os shapes, os bends, as notas longas que caem no acorde e as frases que conversam. É o mesmo material que você tem nas mãos." }, { youtube: "1vuv8gF8rw0", title: "How to Play over Chords ONLY USING THE PENTATONIC scale!", author: "Paul Davids", note: "E o próximo passo, para depois do curso: até aqui você usou a pentatônica do tom e mirou as notas do acorde que cabem nela. Neste vídeo, a ideia vai além: pensar a pentatônica a partir de cada acorde, e não só do tom. Está em inglês." }],
           intro:
-            "O ponto de chegada do curso: um solo de 24 compassos, mais de um minuto, só com a pentatônica. Um motivo que fica na memória, pergunta e resposta, um trecho rápido, uma travessia pelo braço, o pico no Mi agudo e o motivo de volta. É tudo o que você treinou, numa música só.",
+            "O ponto de chegada do curso: um solo de mais de um minuto, só com a pentatônica.",
           key: "u10.l4.full",
           exercises: [
             {
               id: "u10.l4.full",
               kind: "take",
               title: "Vinte e quatro compassos",
-              goal: "Um solo de mais de um minuto, em seis partes, usando o braço todo.",
+              goal: "Um solo com o braço todo, em seis partes de quatro compassos. A tela mostra em qual parte você está.",
               steps: [
                 "Aprenda um exemplo parte por parte, devagar, antes de tocar inteiro.",
                 "Depois troque as partes pelas suas, uma de cada vez, mantendo o motivo.",
@@ -20517,16 +20532,16 @@ const written: Curriculum = {
   sections: [
     // Parte 1, um shape só: tudo até "O solo" fica no shape 1. Parte 2: os outros shapes.
     { id: "s1", title: "Primeiros passos", goal: "Do primeiro shape ao primeiro solo: poucas notas e silêncio.", units: ["u0", "u73", "u1", "u70", "a1"] },
-    { id: "s6", title: "Vocabulário no shape 1", goal: "Licks, pergunta e resposta, frases guardadas e ideias para improvisar, tudo no shape 1.", units: ["u17", "u18", "u9", "u19", "u49", "u53", "u62", "u44", "u69", "u75", "a5"] },
+    { id: "s6", title: "Vocabulário no shape 1", goal: "Licks, pergunta e resposta, frases guardadas e ideias para improvisar, tudo no shape 1.", units: ["u72", "u17", "u18", "u9", "u19", "u49", "u53", "u62", "u44", "u69", "u75", "a5"] },
     { id: "s5", title: "Velocidade I: no shape 1", goal: "Frases rápidas na pentatônica: grupos de semicolcheias, sequências e licks repetidos, sempre terminando numa nota longa.", units: ["u15", "u16", "u60", "u57", "u61", "u74", "a4"] },
     { id: "s4", title: "O solo", goal: "Motivo e intensidade, até um solo inteiro no shape 1 que alguém pagaria para ouvir.", units: ["u8", "u14", "u36", "u54", "u63", "u48", "a6"] },
-    { id: "s2", title: "A harmonia", goal: "Ouvir a troca de acorde e chegar nas notas dele, com tensão que resolve.", units: ["u72", "u5", "u6", "u11", "u46", "u51", "u58", "a2"] },
+    { id: "s2", title: "A harmonia", goal: "Ouvir a troca de acorde e chegar nas notas dele, com tensão que resolve.", units: ["u5", "u6", "u11", "u46", "u51", "u58", "a2"] },
     { id: "s8", title: "Shape 2", goal: "O shape 2 a fundo, com licks e frases dele, e depois junto com o shape 1.", units: ["u71", "u20", "u21", "u22", "a7"] },
     { id: "s9", title: "Shape 3", goal: "O shape 3 a fundo, com licks e frases dele, e depois junto com os shapes 1 e 2.", units: ["u23", "u24", "u25", "a8"] },
     { id: "s10", title: "Shape 4", goal: "O shape 4 a fundo, com licks e frases dele, e depois junto com os shapes 1 a 3.", units: ["u26", "u27", "u28", "u66", "a9"] },
     { id: "s11", title: "Shape 5", goal: "O shape 5 a fundo, com licks e frases dele, e depois os cinco shapes juntos.", units: ["u29", "u30", "u31", "u56", "a10"] },
     { id: "s12", title: "Velocidade II: rápido nos shapes 2 a 5", goal: "Frases rápidas nos shapes 2 a 5, cada uma terminando numa nota longa.", units: ["u32", "u33", "a11"] },
-    { id: "s3", title: "Uma corda, outra região, outro tom", goal: "Uma corda só, trocar de região no meio da frase e outros tons, até atravessar o braço do grave ao agudo.", units: ["u7", "u12", "u13", "u41", "u43", "u42", "u64", "u45", "u76", "a3"] },
+    { id: "s3", title: "Uma corda, outra região, outro tom", goal: "Uma corda só, troca de região no meio da frase e outros tons, até atravessar o braço do grave ao agudo.", units: ["u7", "u12", "u13", "u41", "u43", "u42", "u64", "u45", "u76", "a3"] },
     { id: "s14", title: "O mesmo lick em todo shape", goal: "Os licks do shape 1, iguais, nos cinco shapes: a ideia deixa de ser uma posição e vai para o braço todo.", units: ["u37", "a13"] },
     { id: "s13", title: "Velocidade III: entre os shapes", goal: "Frases rápidas que atravessam shapes: pela corda, na diagonal, até três shapes numa frase.", units: ["u34", "u35", "u67", "u47", "u55", "u68", "u59", "a12"] },
     { id: "s7", title: "O solo pelo braço todo", goal: "O solo inteiro, agora usando o braço de ponta a ponta.", units: ["u38", "u39", "u40", "u10"] },

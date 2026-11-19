@@ -6,6 +6,7 @@ import type { Phrase, TakeExercise } from "../curriculum/types";
 import { BackingBar, backingOf, chosenBpm, ChordStrip } from "../components/BackingBar";
 import { Banner } from "../components/Banner";
 import { chordNames, TextTab } from "../components/PhraseViews";
+import { TabButton, TabSlot } from "../components/tabDock";
 import { useBeat, useRunning } from "../components/useTransport";
 import { saveBars, setCountBeforeExample, useCountBeforeExample, useSavedBars } from "../progress";
 import { barOptions, chosenBars } from "./bars";
@@ -36,7 +37,6 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
   /** O exemplo que deve soar na próxima entrada da base, ou null. */
   const pending = useRef<Phrase | null>(null);
   const [sounding, setSounding] = useState(-1);
-  const [tab, setTab] = useState(false);
   const bars = chosenBars(ex, useSavedBars()[ex.id]);
   const countBefore = useCountBeforeExample();
   /** O tamanho escolhido, lido pelo relógio da base (fora do render). */
@@ -98,27 +98,11 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
   return (
     <div className="engine take">
       <Banner state={live ? (example ? "call" : "play") : null} word={word} note={note} idle={t(shown ? "idleExample" : "idle")} />
-      {arc.length > 0 && (
-        // A explicação de cada parte fica aqui, dentro do palco: continua na tela com a base ou o exemplo tocando.
-        <ol className={detailed ? "pattern detailed" : "pattern"} aria-label={t("arc")}>
-          {arc.map((a, i) => (
-            <li key={i} className={`play${i === at ? " on" : ""}`} aria-current={i === at ? "step" : undefined}>
-              <b>{a.name}</b>
-              {a.how && <span>{a.how}</span>}
-            </li>
-          ))}
-        </ol>
-      )}
-      {ex.arcNote && (
-        <details className="arc-note">
-          <summary>{t("arcNote")}</summary>
-          <p>{ex.arcNote}</p>
-        </details>
-      )}
       {/* Exemplo e base ficam em blocos separados, cada um com seus botões e seu andamento: ouvir o exemplo
-          não mexe na base em que a pessoa vai tocar, e vice-versa. */}
+          não mexe na base em que a pessoa vai tocar, e vice-versa. O exemplo vem primeiro: a instrução
+          do banner é "ouça o exemplo, ou toque a base", e a ordem da tela é a do Tab. */}
       {shown && (
-        <section className="block" aria-labelledby={`${ex.id}-example`}>
+        <section className="block example" aria-labelledby={`${ex.id}-example`}>
           <h2 id={`${ex.id}-example`} className="block-title">{t("example")}</h2>
           <div className="row">
             {examples.map((p, i) => {
@@ -129,21 +113,16 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
                 </button>
               );
             })}
-            <button type="button" className="btn" aria-expanded={tab} onClick={() => setTab((s) => !s)}>{tab ? t("hideTab") : t("showTab")}</button>
+            <TabButton />
           </div>
           <label className="count-before">
             <input type="checkbox" checked={countBefore} onChange={(e) => setCountBeforeExample(e.target.checked)} />
             <span>{t("countBefore")}</span>
           </label>
           {base !== ex.base && <ChordStrip base={ex.base!} live={example && running} />}
-          {tab && (
-            <TextTab
-              phrase={shown}
-              now={running && example ? sounding : -1}
-              chords={chordNames(ex.base!)}
-              label={examples.length > 1 ? t("tabLabelN", { n: mine.example + 1 }) : t("tabLabel")}
-            />
-          )}
+          <TabSlot label={examples.length > 1 ? t("tabLabelN", { n: mine.example + 1 }) : t("tabLabel")}>
+            <TextTab phrase={shown} now={running && example ? sounding : -1} chords={chordNames(ex.base!)} label={examples.length > 1 ? t("tabLabelN", { n: mine.example + 1 }) : t("tabLabel")} />
+          </TabSlot>
         </section>
       )}
       <section className={shown ? "block yours" : "yours"} aria-labelledby={shown ? `${ex.id}-yours` : undefined}>
@@ -169,8 +148,25 @@ export function TakeEngine({ ex }: { ex: TakeExercise }) {
         </label>
         </div>
         {/* A chave recria a barra ao trocar de base: o andamento volta ao da base escolhida. */}
-        <BackingBar key={`${ex.id}-${mine.base}`} base={base} quiet={example} />
+        <BackingBar key={`${ex.id}-${mine.base}`} base={base} quiet={example} tabButton={false} />
       </section>
+      {arc.length > 0 && (
+        // A explicação de cada parte fica aqui, dentro do palco: continua na tela com a base ou o exemplo tocando.
+        <ol className={detailed ? "pattern detailed" : "pattern"} aria-label={t("arc")}>
+          {arc.map((a, i) => (
+            <li key={i} className={`play${i === at ? " on" : ""}`} aria-current={i === at ? "step" : undefined}>
+              <b>{a.name}</b>
+              {a.how && <span>{a.how}</span>}
+            </li>
+          ))}
+        </ol>
+      )}
+      {ex.arcNote && (
+        <details className="arc-note">
+          <summary>{t("arcNote")}</summary>
+          <p>{ex.arcNote}</p>
+        </details>
+      )}
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { createStore } from "@/core/storage";
 import { MAX_BEATS, MAX_BPM, MIN_BPM, TapTempo, clampBpm, type Tick } from "@/core/rhythm";
-import { MetronomeEngine, type MetronomeSettings } from "./engine";
+import { MetronomeEngine, chime, type MetronomeSettings } from "./engine";
 import "./metronomo.css";
 
 type Saved = MetronomeSettings & { version: 1; minutes: number };
@@ -92,7 +92,7 @@ export function Metronomo() {
       const d = deadline.current;
       if (d === null) return;
       const rest = d - Date.now();
-      if (rest <= 0) { halt(); setFinished(true); } else setLeft(rest);
+      if (rest <= 0) { halt(); setFinished(true); chime(); } else setLeft(rest);
     }, 250);
     return () => clearInterval(id);
   }, [running]);

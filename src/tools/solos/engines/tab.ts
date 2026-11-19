@@ -23,7 +23,13 @@ export function tabToken(n: LeadNote, pos: FretPos, prev?: LeadNote): string {
 /** Um caractere da tab e a nota a que ele pertence (-1: traço). */
 export type TabCell = { ch: string; note: number };
 /** Uma linha de compassos: cifra em cima, seis cordas, contagem embaixo. */
-export type TabSystem = { head: string; rows: { name: string; bars: TabCell[][] }[]; count: string };
+export type TabSystem = {
+  head: string;
+  /** Sentido da palhetada (⊓ para baixo, V para cima) sobre cada nota, quando a tab o traz. */
+  pick?: TabCell[][];
+  rows: { name: string; bars: TabCell[][] }[];
+  count: string;
+};
 /** `cw`: caracteres por semicolcheia; `bpl`: compassos por linha. */
 export type TabLayout = { cw: number; bpl: number };
 
@@ -48,11 +54,12 @@ function denseCw(notes: readonly LeadNote[], frets: readonly FretPos[]): number 
   return Math.min(need, 6);
 }
 
-export function tabSystems(notes: readonly LeadNote[], frets: readonly FretPos[], bars: number, chords: readonly string[], layout: TabLayout): TabSystem[] {
+export function tabSystems(notes: readonly LeadNote[], frets: readonly FretPos[], bars: number, chords: readonly string[], layout: TabLayout, picks?: readonly string[]): TabSystem[] {
   const { bpl } = layout;
   const cw = Math.max(layout.cw, denseCw(notes, frets));
   const perBar = 16 * cw;
   const grid = NAMES.map(() => Array.from({ length: bars }, () => Array.from({ length: perBar }, (): TabCell => ({ ch: "-", note: -1 }))));
+  const pickGrid = Array.from({ length: bars }, () => Array.from({ length: perBar }, (): TabCell => ({ ch: " ", note: -1 })));
   // A nota anterior na mesma corda: é dela que sai o hammer-on ou o pull-off.
   const lastOn = new Map<number, LeadNote>();
   notes.forEach((n, i) => {
@@ -71,6 +78,7 @@ export function tabSystems(notes: readonly LeadNote[], frets: readonly FretPos[]
     for (let d = 1; !free(c) && d < perBar; d++) c = free(want + d) ? want + d : free(want - d) ? want - d : c;
     if (!free(c)) c = want;
     for (let k = 0; k < token.length && c + k < perBar; k++) row[c + k] = { ch: token[k]!, note: i };
+    if (picks?.[i]) pickGrid[bar]![c] = { ch: picks[i]!, note: i };
   });
   const systems: TabSystem[] = [];
   for (let b0 = 0; b0 < bars; b0 += bpl) {
@@ -78,6 +86,7 @@ export function tabSystems(notes: readonly LeadNote[], frets: readonly FretPos[]
     const pad = (s: string, w: number) => (s + " ".repeat(w)).slice(0, w);
     systems.push({
       head: "  " + idx.map((b) => pad(chords[b % chords.length] ?? "", perBar)).join(" "),
+      ...(picks ? { pick: idx.map((b) => pickGrid[b]!) } : {}),
       rows: NAMES.map((name, s) => ({ name, bars: idx.map((b) => grid[s]![b]!) })),
       count: "  " + idx.map(() => [1, 2, 3, 4].map((k) => pad(String(k), 4 * cw)).join("")).join(" "),
     });
@@ -94,5 +103,5 @@ export function tabLayout(chars: number, bars: number): TabLayout {
 /** A tab como texto puro (para leitor de tela e para testes). */
 export const tabText = (systems: readonly TabSystem[]) =>
   systems
-    .map((s) => [s.head, ...s.rows.map((r) => `${r.name}|${r.bars.map((b) => b.map((c) => c.ch).join("")).join("|")}|`), s.count].join("\n"))
+    .map((s) => [s.head, ...(s.pick ? ["  " + s.pick.map((b) => b.map((c) => c.ch).join("")).join(" ")] : []), ...s.rows.map((r) => `${r.name}|${r.bars.map((b) => b.map((c) => c.ch).join("")).join("|")}|`), s.count].join("\n"))
     .join("\n\n");
