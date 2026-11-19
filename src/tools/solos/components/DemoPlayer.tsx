@@ -56,7 +56,8 @@ export function DemoPlayer({ ex }: { ex: Exercise }) {
         <button type="button" className="btn" onClick={live ? () => transport.stop() : play} aria-pressed={live}>{live ? t("stop") : t("play")}</button>
         <button type="button" className="btn" aria-expanded={tab} onClick={() => setTab((s) => !s)}>{tab ? t("hideTab") : t("showTab")}</button>
       </div>
-      <Board phrase={demo} now={live ? sounding : -1} label={t("boardLabel")} half={t("bendHalf")} full={t("bendFull")} />
+      {/* No exercício de mapa o braço já está na tela, logo acima: dois braços iguais em sequência só confundem. */}
+      {ex.kind !== "map" && <Board phrase={demo} now={live ? sounding : -1} label={t("boardLabel")} half={t("bendHalf")} full={t("bendFull")} />}
       {tab && <TextTab phrase={demo} now={live ? sounding : -1} chords={chordNames(ex.base!)} label={t("tabLabel")} />}
     </section>
   );

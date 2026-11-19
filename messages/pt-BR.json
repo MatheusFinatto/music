@@ -254,8 +254,8 @@
       "score": "{hits} de {total}",
       "verdict": {
         "ok": "Está no dedo. Pode seguir.",
-        "quase": "Quase. Vale repetir antes de seguir.",
-        "nao": "Ainda não. Volte ao mapa, olhe de novo e repita."
+        "quase": "Quase. Dá para seguir; refazer firma mais.",
+        "nao": "Ainda não ficou. Veja o mapa e refaça quando quiser, ou siga: você volta a isto depois."
       },
       "askAll": {
         "T": "Toque em todas as tônicas de {chord}",

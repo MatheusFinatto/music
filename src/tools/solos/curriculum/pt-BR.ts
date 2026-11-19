@@ -508,8 +508,9 @@ const written: Curriculum = {
               title: "Subir e descer com a palhetada certa",
               goal: "Suba o shape 1 e desça, uma nota por tempo, sem nunca repetir o mesmo sentido de palheta duas vezes seguidas.",
               steps: [
-                "Subindo: em cada corda, a primeira nota é para cima e a segunda para baixo.",
-                "Descendo: em cada corda, a primeira nota é para baixo e a segunda para cima.",
+                "Os sinais de palhetada: ⊓ é para baixo e V é para cima.",
+                "Subindo: em cada corda, a primeira nota é para cima e a segunda para baixo (V ⊓, V ⊓, V ⊓...).",
+                "Descendo: em cada corda, a primeira nota é para baixo e a segunda para cima (⊓ V, ⊓ V, ⊓ V...).",
                 "Devagar, olhando a mão da palheta. Só aumente o andamento quando sair sem pensar.",
               ],
               check: "",
@@ -6676,6 +6677,12 @@ const written: Curriculum = {
               base: BASE,
               pattern: ["play", "play", "play", "play"],
               rule: "Uma nota só: C5",
+              demo: phrase("demo.u5.l1.c", "", 4, [
+                [1, 8, 0, 3.5],
+                [1, 8, 4, 3.5],
+                [1, 8, 8, 3.5],
+                [1, 8, 12, 3.5],
+              ]),
             },
             {
               id: "u5.l1.pick",

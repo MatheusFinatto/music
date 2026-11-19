@@ -59,14 +59,14 @@ export function FindEngine({ ex, onResult }: { ex: FindExercise; onResult: (r: R
     const rating: Rating = single
       ? misses === 0 ? "ok" : misses === 1 ? "quase" : "nao"
       : hits / questions.length >= 0.9 ? "ok" : hits / questions.length >= 0.6 ? "quase" : "nao";
-    const again = <button key="a" type="button" className={rating === "nao" ? "btn primary" : "btn"} onClick={start}>{t("again")}</button>;
-    const go = <button key="c" type="button" className={rating === "nao" ? "btn" : "btn primary"} onClick={() => onResult(rating)}>{t("continue")}</button>;
+    const again = <button key="a" type="button" className="btn" onClick={start}>{t("again")}</button>;
+    const go = <button key="c" type="button" className="btn primary" onClick={() => onResult(rating)}>{t("continue")}</button>;
     return (
       <div className="engine">
         <p className="result" role="status">{single ? t("scoreAll", { misses }) : t("score", { hits, total: questions.length })}</p>
         <p>{t(`verdict.${rating}`)}</p>
         <div className="row">
-          {rating === "nao" ? [again, go] : [go, again]}
+          {[go, again]}
           <button type="button" className="btn" aria-expanded={map} onClick={() => setMap((m) => !m)}>{map ? t("hideMap") : t("seeMap")}</button>
         </div>
         {map && (
@@ -107,7 +107,7 @@ export function FindEngine({ ex, onResult }: { ex: FindExercise; onResult: (r: R
 
   const dots: Dot[] = candidates.map((p) => {
     const picked = picks.some((x) => keyOf(x) === keyOf(p));
-    if (picked) return isTarget(p) ? { ...p, kind: "ok", label: q.degree } : { ...p, kind: "bad" };
+    if (picked) return isTarget(p) ? { ...p, kind: "ok", label: q.degree } : { ...p, kind: "bad", label: pcName(midiAt(p), base.key) };
     if (answered && isTarget(p)) return { ...p, kind: "ok", label: q.degree };
     return { ...p, kind: "pick" };
   });
