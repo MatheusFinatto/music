@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { TOOLS, isLive, type Tool } from "@/tools/registry";
 
 export async function Header() {
   const t = await getTranslations();
@@ -16,6 +17,10 @@ export async function Header() {
           {t("site.name")}
         </Link>
         <nav aria-label={t("nav.label")}>
+          {/* As ferramentas vêm do registro: dá para ir de uma a outra sem passar pela home. */}
+          {(TOOLS as readonly Tool[]).filter(isLive).map((x) => (
+            <Link key={x.slug} href={x.href}>{t.has(`nav.short.${x.slug}` as "nav.short.solos") ? t(`nav.short.${x.slug}` as "nav.short.solos") : t(`tools.${x.slug}.name` as "tools.afinador.name")}</Link>
+          ))}
           {/* O Laboratório é estático, fora do Next: link comum, sem prefixo de idioma. */}
           {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a href="/laboratorio">{t("nav.lab")}</a>
