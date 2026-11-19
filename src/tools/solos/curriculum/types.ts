@@ -28,7 +28,7 @@ type Common = {
   /** O que fazer, em uma frase. */
   goal: string;
   steps: string[];
-  /** Pergunta de autoavaliação, respondida com "consegui / quase / ainda não". */
+  /** Não é mostrada: as lições não pedem autoavaliação (pedido do dono, 2026-11-19). Fica vazia ou como nota de quem escreve. */
   check: string;
   base?: Base;
   /**
@@ -122,7 +122,10 @@ export type TakeExercise = Common & {
   examples?: Phrase[];
 };
 
-export type Exercise = MapExercise | LineExercise | FindExercise | PlayRestExercise | EchoExercise | TargetExercise | TakeExercise;
+/** Só assistir ao vídeo da lição (ele está em `Lesson.videos`): sem tentativa, sem avaliação. */
+export type WatchExercise = Common & { kind: "watch" };
+
+export type Exercise = WatchExercise | MapExercise | LineExercise | FindExercise | PlayRestExercise | EchoExercise | TargetExercise | TakeExercise;
 
 export type Video = { youtube: string; title: string; author: string; note: string };
 

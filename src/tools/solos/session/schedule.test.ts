@@ -147,10 +147,10 @@ describe("frases de ouvido", () => {
 
 describe("conteúdo real", () => {
   it("a trilha começa pelo mapa; quem já sabe marca como feito e a recomendação pula para Respirar", () => {
-    expect(buildSession(real, EMPTY, D1).lesson?.id).toBe("u0.l1");
+    expect(buildSession(real, EMPTY, D1).lesson?.id).toBe("u0.l0");
     let p = EMPTY;
     for (const l of real.units[0]!.lessons) p = toggleLesson(p, l.id, D1);
-    expect(buildSession(real, p, D1).lesson?.id).toBe("u1.l1");
+    expect(buildSession(real, p, D1).lesson?.id).toBe("u1.l3");
     expect(buildSession(real, p, D2).cold).toBeUndefined();
   });
   it("o mesmo vídeo abre e fecha o curso: na primeira lição e na última", () => {
@@ -190,7 +190,7 @@ describe("frases das unidades", () => {
   const chordAt = (base: { prog: number[]; key: number }, beat: number) => chordsOf(base.prog, base.key)[Math.floor(beat / 4) % base.prog.length]!;
 
   it("todo exercício tem base", () => {
-    for (const e of exercises) expect(e.base, e.id).toBeDefined();
+    for (const e of exercises) if (e.kind !== "watch") expect(e.base, e.id).toBeDefined();
   });
   it("no eco, a resposta cai sobre os mesmos acordes da chamada", () => {
     for (const e of echoes) for (const p of e.phrases) expect(p.bars % (p.base ?? e.base!).prog.length, `${e.id}/${p.id}`).toBe(0);
