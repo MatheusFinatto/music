@@ -28,6 +28,7 @@ export default async function Hub({ params }: Props) {
     <main className="wrap" id="conteudo">
       <section className="hero">
         <h1 className="rise">{t("hub.title")}</h1>
+        <p className="rise">{t("hub.lead")}</p>
         <Staff notes={notes} />
       </section>
 
