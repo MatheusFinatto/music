@@ -28,6 +28,8 @@ O app tem dois módulos:
 
 Mudou algo em `core/src/commonMain`? Rode `./gradlew :core:exportToSite` e commite o JS que mudou em `src/core/pitch/generated/` junto. A Vercel não tem JDK, então o site usa o JS commitado; a CI recompila e falha se ele estiver velho. O desenho da tela não é compartilhado: `TunerPainter.kt` aqui, `src/tools/afinador/painter.ts` no site.
 
+A lógica do treino tem um teste de paridade com o TypeScript: `src/tools/treino-de-ouvido/paridade.test.ts` grava `core/src/jvmTest/resources/treino-fixtures.json` (sementes fixas, todas as combinações de exercício) e `TreinoParidadeTest` confere que o Kotlin dá o mesmo resultado. Mudou uma regra de propósito? `ATUALIZAR_FIXTURES=1 npx vitest run paridade` na raiz do site e depois `./gradlew :core:jvmTest`.
+
 O código de `core/` não pode usar nada só da JVM (`Math.*`, `System.*`, `java.*`): use o equivalente de `kotlin.math` e da biblioteca padrão. Tudo em `core/` é exportado para o TypeScript (`@file:JsExport`); por isso a API pública usa `Double` no lugar de `Long`.
 
 ## Publicar
@@ -46,6 +48,7 @@ A página `/afinador` do site baixa `https://github.com/MatheusFinatto/music/rel
 | `NeedleAnimator` | core | Movimento suave da agulha, igual em telas de 60 e 120 Hz. |
 | `Metronome` / `ClickSound` / `TapTempo` | core | Quando cada clique soa (tempos, acento forte/normal/mudo por tempo), o som do clique, o aviso do timer e o andamento pelo toque. O site usa os mesmos em `/metronomo`. |
 | `Subdivisions` | core | As divisões do tempo (semínima, colcheias, tercina, galope, pontuada, shuffle…): onde cai cada clique e as notas para desenhar a figura. O id é o que se salva. |
+| `treino/` (`Engine`, `Voz`, `Programas`, `Cantar`, `Violao`) | core | A lógica do treino de ouvido e de voz do site (sorteio das perguntas, segurar a nota, alcance, programas por tempo, cantar músicas, posições no violão). As tabelas vêm de `src/tools/treino-de-ouvido/dados.json` e `musicas.json`, convertidas em Kotlin pela tarefa `:core:generateTreinoData`. |
 | `MetronomeActivity` | app | Tela do metrônomo (figura, tempos, favoritos, roda de bpm, Tap, Timer com contagem grande e pausa, ▶ ❚❚ ■); mistura os cliques num AudioTrack amostra por amostra, então o tempo não depende da tela. |
 | `BpmWheel` | app | A roda de bpm: arrastar, arremessar, assenta num número inteiro, com vibração a cada número. |
 | `FigureDrawable` | app | Desenha a figura rítmica. Mesmas medidas de `src/tools/metronomo/Figure.tsx` no site: mudou uma, mude a outra. |
