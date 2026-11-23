@@ -54,7 +54,7 @@ export class TunerEngine {
     };
   }
 
-  /** reading null = silêncio: a última nota fica apagada e a agulha volta ao centro. */
+  /** reading null = silêncio: a última nota e a agulha ficam onde estavam, apagadas, para dar para ler a última leitura. */
   show(reading: NoteReading | null, level: number) {
     const { scene } = this;
     scene.active = reading !== null;
@@ -64,8 +64,8 @@ export class TunerEngine {
       scene.message = null;
       const note = `${reading.name}${reading.octave}${reading.isInTune ? "+" : ""}`;
       if (note !== this.lastNote) { this.lastNote = note; this.onNoteChange(reading); }
+      this.needle.target = reading.cents;
     }
-    this.needle.target = reading?.cents ?? 0;
     this.draw();
   }
 
