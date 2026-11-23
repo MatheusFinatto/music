@@ -10,6 +10,8 @@ import { CLASSICA_INICIAL, IDS, INTERVALOS, nomeNota, PADROES, perguntaClassica 
 import { Instrumento } from "./Instrumento";
 import { useInstrumento } from "./instrumento";
 import type { Marca } from "./Teclado";
+import type { ProgramaProp } from "./Programas";
+import { anotarDuracao } from "./ritmo";
 import { usePiano } from "./usePiano";
 import { formaDoArpejo } from "./violao";
 import {
@@ -40,6 +42,9 @@ const store = createStore<Saved>("treino-de-ouvido-voz", DEFAULTS, (saved) => {
   };
 });
 
+/** O relógio, fora do componente (a regra de pureza do React não aceita chamá-lo direto nele). */
+const agoraMs = () => performance.now();
+
 /** Quanto tempo a pessoa tem para a tentativa inteira antes de ela acabar (mais, nas notas longas e nas sequências). */
 const LIMITE_MS = 15000;
 const limiteDe = (n: number, segurarMs: number) => LIMITE_MS + n * 4000 + segurarMs;
@@ -50,9 +55,11 @@ type Resultado = { ok: boolean; media: number; oscilacao: number; passos: number
 const classe = (midi: number) => nomeNota(midi).replace(/-?\d+$/, "");
 
 /** Treino de voz: o piano toca e a pessoa canta; o microfone confere a altura com a mesma detecção do afinador. */
-export function Voz() {
+export function Voz({ programa }: { programa?: ProgramaProp }) {
   const t = useTranslations("treino-de-ouvido");
   const s = useSyncExternalStore(store.subscribe, store.get, store.getInitial);
+  // Num programa, o exercício vem do bloco (a config salva da pessoa não muda).
+  const exercicioDaVez = (programa?.exercicio as Exercicio | undefined) ?? s.exercicio;
   const piano = usePiano();
   const [instrumento, setInstrumento] = useInstrumento();
   const [fase, setFase] = useState<Fase>("parado");
@@ -78,9 +85,11 @@ export function Voz() {
   const espera = useRef<ReturnType<typeof setTimeout> | null>(null);
   const ultimoCents = useRef<number | null>(null);
   const ultimoMidi = useRef<number | null>(null);
+  /** Quando a tentativa começou: a duração entra no ritmo da pessoa, que calibra o tempo dos programas. */
+  const inicioTentativa = useRef(0);
   // O que o microfone precisa saber a cada bloco, sem refazer a captura.
-  const atual = useRef({ fase: "parado" as Fase, tarefa: null as Tarefa | null, s, exercicio: s.exercicio });
-  useEffect(() => { atual.current = { fase, tarefa, s, exercicio: s.exercicio }; });
+  const atual = useRef({ fase: "parado" as Fase, tarefa: null as Tarefa | null, s, exercicio: exercicioDaVez, programa });
+  useEffect(() => { atual.current = { fase, tarefa, s, exercicio: exercicioDaVez, programa }; });
 
   const limparTempos = () => { if (limite.current) clearTimeout(limite.current); if (espera.current) clearTimeout(espera.current); limite.current = espera.current = null; };
   const fecharMic = useCallback(() => {
@@ -104,6 +113,8 @@ export function Voz() {
     const alvoFinal = atual.current.tarefa?.alvos[passoRef.current] ?? null;
     setResultado({ ok, media: n > 1 ? abs : media, oscilacao: oscilacao.current, passos: n, alvo: alvoFinal, ouvi: ultimoMidi.current });
     setPlacar((p) => ({ a: p.a + (ok ? 1 : 0), t: p.t + 1 }));
+    anotarDuracao(atual.current.exercicio, agoraMs() - inicioTentativa.current);
+    atual.current.programa?.aoResponder(ok);
   }, [fecharMic, piano]);
 
   const abrir = async () => {
@@ -113,7 +124,7 @@ export function Voz() {
       if (!pipe) return;
       const amostra = pipe.process(chunk, chunk.length);
       const midi = suavizador.current.push(amostra.midi ?? null) ?? null;
-      const agora = performance.now();
+      const agora = agoraMs();
       setLeitura(midi);
       if (midi !== null) ultimoMidi.current = midi;
       const v = atual.current;
@@ -174,7 +185,8 @@ export function Voz() {
     espera.current = setTimeout(() => void escutar(t0), dur * 1000 + 300);
   };
   const comecar = () => {
-    const e = s.exercicio;
+    const e = exercicioDaVez;
+    inicioTentativa.current = agoraMs();
     if (e === "alcance") { void medir(); return; }
     let t0: Tarefa;
     if (e === "igualar" || e === "longa") {
@@ -217,11 +229,19 @@ export function Voz() {
     try { await abrir(); setErroMic(null); } catch (e) { setErroMic(e instanceof MicError ? e.problem : "failed"); return; }
     setFase("cantando");
   };
-  const terminarAlcance = () => { fecharMic(); setFase("feito"); };
+  const terminarAlcance = () => { fecharMic(); setFase("feito"); programa?.aoResponder(true); };
   /** Mudar exercício ou ajuste interrompe o que está em andamento. */
   const mudar = (next: Saved) => { store.set(next); parar(); setTarefa(null); setResultado(null); setAlcance(ALCANCE_ZERO); setRodada(0); };
 
-  const ex = s.exercicio;
+  // Dentro de um programa o bloco começa sozinho: o toque em "Começar" ou "Próximo bloco" já liberou o áudio.
+  useEffect(() => {
+    if (!programa) return;
+    const id = setTimeout(() => comecar(), 0);
+    return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const ex = exercicioDaVez;
   const cantando = fase === "cantando";
   const alvoAtual = tarefa ? tarefa.alvos[passo]! : null;
   const dicaBase = ex === "tonica" ? t(s.ajuda === "guia" ? "voz.dicaTonicaGuia" : "voz.dicaTonicaSo") : t(`voz.dica.${ex}` as "voz.dica.igualar");
@@ -240,14 +260,14 @@ export function Voz() {
   if (mostraPadrao && tarefa) { tarefa.alvos.forEach((m) => marcas.set(m, "alvo")); if (cantando && alvoAtual !== null) marcas.set(alvoAtual, "dada"); }
   const ext = alcance.min !== null && alcance.max !== null ? extensao(alcance.max - alcance.min) : null;
   const sinal = (n: number) => (Math.abs(n) < 1 ? t("voz.mediaCentro") : t(n > 0 ? "voz.mediaAcima" : "voz.mediaAbaixo", { n: Math.round(Math.abs(n)) }));
-  const textoResultado = !resultado ? "" : !resultado.ok ? (resultado.ouvi === null || resultado.alvo === null ? t("voz.naoOuvi") : t("voz.naoFoi", { alvo: classe(resultado.alvo), ouvi: nomeNota(Math.round(resultado.ouvi)) }))
+  const textoResultado = !resultado ? "" : !resultado.ok ? (resultado.ouvi === null || resultado.alvo === null ? t(programa ? "voz.naoOuviSegue" : "voz.naoOuvi") : t(programa ? "voz.naoFoiSegue" : "voz.naoFoi", { alvo: classe(resultado.alvo), ouvi: nomeNota(Math.round(resultado.ouvi)) }))
     : ex === "longa" ? t("voz.longaFeito", { n: Math.round(resultado.oscilacao) })
     : ex === "sequencia" ? t("voz.sequenciaFeito", { passos: resultado.passos, n: Math.round(resultado.media) })
     : `${t("voz.afinou")} ${sinal(resultado.media)}`;
 
   return (
     <div className="treino voz">
-      <div className="treino-topo">
+      {!programa && <div className="treino-topo">
         <div className="treino-escolhas">
           <div className="treino-exs" role="radiogroup" aria-label={t("exercicio")} onKeyDown={onRadioKeyDown}>
             <div className="treino-exs-linha" role="presentation">
@@ -262,7 +282,7 @@ export function Voz() {
             <div><dd>{t("placar", { acertos: placar.a, total: placar.t })}</dd><dt>{t("acertos")}</dt></div>
           </dl>
         )}
-      </div>
+      </div>}
 
       <section className="treino-palco" aria-label={t("voz.titulo")}>
         <div className="treino-pergunta">
@@ -310,14 +330,18 @@ export function Voz() {
         {piano.erro && <p className="treino-estado" role="alert">{piano.erro === "audio" ? t("erroAudio") : t("erroPiano")}</p>}
 
         <div className="treino-acoes">
-          {fase === "feito" && resultado && !resultado.ok && ex !== "alcance" && tarefa && (
-            <button type="button" className="go treino-proxima" onClick={() => void prepararEOuvir(tarefa, true)} disabled={piano.carregando}>{t("voz.tentarDeNovo")}</button>
+          {fase === "feito" && resultado && !resultado.ok && ex !== "alcance" && tarefa && !programa && (
+            <button type="button" className="go treino-proxima" onClick={() => { inicioTentativa.current = agoraMs(); void prepararEOuvir(tarefa, true); }} disabled={piano.carregando}>{t("voz.tentarDeNovo")}</button>
           )}
-          {(fase === "parado" || fase === "feito") && (
-            <button type="button" className={fase === "feito" && resultado && !resultado.ok && ex !== "alcance" ? "treino-btn" : "go treino-proxima"} onClick={comecar} disabled={piano.carregando}>
-              {ex === "alcance" ? t("voz.medir") : fase === "feito" ? t("voz.proxima") : t("voz.comecar")}
-            </button>
-          )}
+          {(fase === "parado" || fase === "feito") && (() => {
+            // Na última tentativa de um bloco do programa, o botão leva ao próximo bloco.
+            const fechaBloco = programa !== undefined && fase === "feito" && programa.restante === 0;
+            return (
+              <button type="button" className={!fechaBloco && fase === "feito" && resultado && !resultado.ok && ex !== "alcance" && !programa ? "treino-btn" : "go treino-proxima"} onClick={fechaBloco ? programa.aoAvancar : comecar} disabled={piano.carregando}>
+                {fechaBloco ? programa.rotuloFim : ex === "alcance" ? t("voz.medir") : fase === "feito" ? t("voz.proxima") : t("voz.comecar")}
+              </button>
+            );
+          })()}
           {fase === "piano" && <button type="button" className="go treino-proxima" disabled>{t(tarefa?.bordao != null ? "voz.ligandoBordao" : "voz.ouvindo")}</button>}
           {cantando && ex !== "alcance" && tarefa && (
             <>
@@ -331,7 +355,7 @@ export function Voz() {
         <p className="treino-estado">{t("voz.fone")}</p>
       </section>
 
-      <details className="treino-ajustes">
+      {!programa && <details className="treino-ajustes">
         <summary>{t("ajustes")}</summary>
         <div className="treino-ajustes-corpo">
           <div className="treino-field" role="group" aria-label={t("instrumento")}>
@@ -413,7 +437,7 @@ export function Voz() {
             </div>
           )}
         </div>
-      </details>
+      </details>}
       <p className="treino-creditos">{t("voz.privado")}</p>
     </div>
   );

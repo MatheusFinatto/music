@@ -8,6 +8,8 @@ import {
   CLASSICA_INICIAL, compararAfinacao, DIRECOES, EXERCICIOS, FUNCIONAL_INICIAL, HARMONIA, IDS, INTERVALOS, MARGENS, nomeAcorde, nomeNota, nomeTom, PLACAR_ZERO, RESPOSTAS_AFINACAO, perguntaClassica, perguntaFuncional, registrar, somar,
   type ConfigClassica, type ConfigFuncional, type Direcao, type Exercicio, type Historico, type PerguntaClassica, type PerguntaFuncional,
 } from "./engine";
+import { Programa, type ProgramaProp } from "./Programas";
+import { anotarDuracao } from "./ritmo";
 import { Regua } from "./Regua";
 import { Instrumento } from "./Instrumento";
 import { useInstrumento } from "./instrumento";
@@ -15,6 +17,9 @@ import type { Marca } from "./Teclado";
 import { acordeNoBraco } from "./violao";
 import { Voz } from "./Voz";
 import "./treino.css";
+
+/** O relógio, fora dos componentes (a regra de pureza do React não aceita chamá-lo direto neles). */
+const agoraMs = () => performance.now();
 
 type Modo = "classico" | "funcional";
 const MODOS: readonly Modo[] = ["classico", "funcional"];
@@ -62,7 +67,7 @@ const store = createStore<Saved>("treino-de-ouvido", DEFAULTS, (saved) => {
 type Pergunta = { modo: "classico"; p: PerguntaClassica } | { modo: "funcional"; p: PerguntaFuncional };
 
 /** Treino de ouvido no navegador: ouvir, escolher a resposta e ver no teclado o que foi tocado. Clássico (intervalos e acordes); o funcional (graus numa tonalidade) está escondido. */
-function Ouvido() {
+function Ouvido({ programa }: { programa?: ProgramaProp }) {
   const t = useTranslations("treino-de-ouvido");
   const s = useSyncExternalStore(store.subscribe, store.get, store.getInitial);
   const [instrumento, setInstrumento] = useInstrumento();
@@ -78,6 +83,10 @@ function Ouvido() {
   const titulo = useRef<HTMLHeadingElement>(null);
   const proxima = useRef<HTMLButtonElement>(null);
   const fim = useRef(0);
+  /** Quando a pergunta da vez começou: a duração entra no ritmo da pessoa, que calibra o tempo dos programas. */
+  const inicioPergunta = useRef(0);
+  // Num programa, o exercício vem do bloco (a config salva da pessoa não muda).
+  const exercicioDaVez = (programa?.exercicio as Exercicio | undefined) ?? s.classica.exercicio;
 
   // Aquece o cache das amostras sem criar o áudio (que só nasce no primeiro toque).
   useEffect(() => { PIANO_SAMPLES.forEach((m) => { void fetch(`/sons/piano/${m}.mp3`).catch(() => {}); }); }, []);
@@ -99,8 +108,9 @@ function Ouvido() {
   const nova = (modo: Modo = s.modo, cfg: Saved = s) => {
     // Com o reforço ligado, o sorteio favorece o que a pessoa mais erra.
     const h = cfg.reforco ? cfg.historico : undefined;
-    const p: Pergunta = modo === "classico" ? { modo, p: perguntaClassica(cfg.classica, Math.random, h) } : { modo, p: perguntaFuncional(cfg.funcional, Math.random, h) };
+    const p: Pergunta = modo === "classico" ? { modo, p: perguntaClassica({ ...cfg.classica, exercicio: exercicioDaVez }, Math.random, h) } : { modo, p: perguntaFuncional(cfg.funcional, Math.random, h) };
     setQ(p);
+    inicioPergunta.current = agoraMs();
     setEscolha(null);
     setSelecionada(null);
     void tocar(p.modo === "classico" ? p.p.notas : p.p.tudo);
@@ -116,9 +126,13 @@ function Ouvido() {
     setSelecionada(null);
     if (zerar) setPlacar(PLACAR_ZERO);
   };
+  /** Depois da resposta: a próxima pergunta, ou, na última do bloco de um programa, o próximo bloco. */
+  const avancar = () => (programa && programa.restante === 0 ? programa.aoAvancar() : nova());
   const finalizar = (id: string, certo: boolean) => {
     if (!q) return;
     setEscolha(id);
+    anotarDuracao(exercicioDaVez, agoraMs() - inicioPergunta.current);
+    programa?.aoResponder(certo);
     setPlacar((p) => somar(p, certo));
     store.set((x) => ({ ...x, historico: registrar(x.historico, q.p.chave, certo) }));
   };
@@ -141,8 +155,16 @@ function Ouvido() {
     if (achar && q && escolha === null) setSelecionada(midi);
   };
 
+  // Dentro de um programa o bloco começa sozinho: o toque em "Começar" ou "Próximo bloco" já liberou o áudio.
+  useEffect(() => {
+    if (!programa) return;
+    const id = setTimeout(() => nova(), 0);
+    return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const modo = VISIVEIS.includes(s.modo) ? s.modo : VISIVEIS[0]!;
-  const exercicio = s.classica.exercicio;
+  const exercicio = exercicioDaVez;
   const grupoDeIds: readonly string[] = modo === "funcional" ? s.funcional.graus : s.classica.itens[exercicio];
   const nomeGrupo = modo === "funcional" ? "graus" : exercicio;
   // Afinação: os itens (chips) são intervalos, mas as respostas são baixo, afinado e alto.
@@ -221,7 +243,7 @@ function Ouvido() {
         e.preventDefault();
         if (e.repeat || carregando) return;
         if (achar && q && escolha === null && selecionada !== null) { confirmar(); return; }
-        if (!q || escolha !== null) nova(); else void tocar(q.modo === "classico" ? q.p.notas : q.p.tudo);
+        if (!q) nova(); else if (escolha !== null) avancar(); else void tocar(q.modo === "classico" ? q.p.notas : q.p.tudo);
       }
     };
     window.addEventListener("keydown", onKey);
@@ -230,7 +252,7 @@ function Ouvido() {
 
   return (
     <div className="treino">
-      <div className="treino-topo">
+      {!programa && <div className="treino-topo">
         <div className="treino-escolhas">
           {VISIVEIS.length > 1 && (
             <div className="treino-seg" role="radiogroup" aria-label={t("modo")} onKeyDown={onRadioKeyDown}>
@@ -256,7 +278,7 @@ function Ouvido() {
           <div><dd>{t("placar", { acertos: placar.acertos, total: placar.total })}</dd><dt>{t("acertos")}</dt></div>
           <div><dd>{placar.sequencia}</dd><dt>{t("sequenciaRotulo")}</dt></div>
         </dl>
-      </div>
+      </div>}
 
       <section className="treino-palco" aria-label={t("perguntaTitulo")}>
         <div className="treino-linha">
@@ -305,7 +327,7 @@ function Ouvido() {
               </div>
             )}
             <p className="treino-detalhe">{detalhe}</p>
-            <button ref={proxima} type="button" className="go treino-proxima" onClick={() => nova()} disabled={carregando}>{t("proxima")}<kbd aria-hidden="true">{t("espaco")}</kbd></button>
+            <button ref={proxima} type="button" className="go treino-proxima" onClick={avancar} disabled={carregando}>{programa && programa.restante === 0 ? programa.rotuloFim : t("proxima")}<kbd aria-hidden="true">{t("espaco")}</kbd></button>
           </div>
         )}
         <p className="treino-estado" role="status">
@@ -313,7 +335,7 @@ function Ouvido() {
         </p>
       </section>
 
-      <details className="treino-ajustes">
+      {!programa && <details className="treino-ajustes">
         <summary>{t("ajustes")}</summary>
         <div className="treino-ajustes-corpo">
           {modo === "classico" && harmonia && (
@@ -374,9 +396,9 @@ function Ouvido() {
             </div>
           </div>
         </div>
-      </details>
+      </details>}
 
-      <details className="treino-ajustes">
+      {!programa && <details className="treino-ajustes">
         <summary>{t("fracos")}</summary>
         <div className="treino-ajustes-corpo">
           {fracos.length === 0 ? <p className="treino-vazio">{t("fracosVazio")}</p> : (
@@ -388,7 +410,7 @@ function Ouvido() {
           )}
           {fracos.length > 0 && <button type="button" className="treino-btn" onClick={() => store.set((x) => ({ ...x, historico: {} }))}>{t("apagar")}</button>}
         </div>
-      </details>
+      </details>}
 
       <p className="treino-creditos">{t("creditos")} {t("atalhos")}</p>
     </div>
@@ -400,14 +422,24 @@ export function TreinoDeOuvido() {
   const t = useTranslations("treino-de-ouvido");
   const s = useSyncExternalStore(store.subscribe, store.get, store.getInitial);
   const trocar = (secao: Secao) => store.set((x) => ({ ...x, secao }));
+  // Com um programa rodando a pessoa fica na seção dele: trocar no meio descartaria o andamento.
+  const [rodando, setRodando] = useState(false);
   return (
     <div className="treino-secoes">
-      <div className="treino-seg" role="radiogroup" aria-label={t("secoes.rotulo")} onKeyDown={onRadioKeyDown}>
-        {(["ouvido", "voz"] as const).map((x) => (
-          <button key={x} type="button" role="radio" aria-checked={s.secao === x} tabIndex={s.secao === x ? 0 : -1} onClick={() => trocar(x)}>{t(`secoes.${x}`)}</button>
-        ))}
-      </div>
-      {s.secao === "voz" ? <Voz /> : <Ouvido />}
+      {!rodando && (
+        <div className="treino-seg" role="radiogroup" aria-label={t("secoes.rotulo")} onKeyDown={onRadioKeyDown}>
+          {(["ouvido", "voz"] as const).map((x) => (
+            <button key={x} type="button" role="radio" aria-checked={s.secao === x} tabIndex={s.secao === x ? 0 : -1} onClick={() => trocar(x)}>{t(`secoes.${x}`)}</button>
+          ))}
+        </div>
+      )}
+      <Programa
+        key={s.secao}
+        secao={s.secao}
+        onRodando={setRodando}
+        livre={s.secao === "voz" ? <Voz /> : <Ouvido />}
+        bloco={(p, chave) => (s.secao === "voz" ? <Voz key={chave} programa={p} /> : <Ouvido key={chave} programa={p} />)}
+      />
     </div>
   );
 }

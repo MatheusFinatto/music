@@ -182,3 +182,22 @@
 /* sem palavra sozinha na última linha; títulos equilibrados */
 .treino p, .treino li { text-wrap: pretty; }
 .treino h2 { text-wrap: balance; }
+
+/* programas por tempo: o seletor antes do treino livre, a barra durante o programa e o resumo */
+.treino-programas, .treino-andamento, .treino-resumo { gap: 18px; }
+.treino-programas-topo h2, .treino-resumo h2 { margin: 0; font-family: var(--font-display), var(--font-sans); font-weight: 650; font-size: var(--text-xl); line-height: 1.15; letter-spacing: -0.025em; }
+.treino-programas-topo p { margin: 6px 0 0; color: var(--muted); font-size: var(--text-sm); max-width: 52ch; }
+.treino-prog-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; font-variant-numeric: tabular-nums; }
+.treino-prog-lista li { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-top: 1px solid var(--line); font-size: var(--text-sm); }
+.treino-prog-lista li:first-child { border-top: 0; }
+.treino-prog-lista .treino-fraco-n { color: var(--muted); }
+.treino-prog-aprox { margin: 0; color: var(--muted); font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
+.treino-andamento .treino-btn { padding: 0 16px; font-size: var(--text-sm); }
+.treino-andamento-topo { display: flex; flex-direction: column; gap: 4px; }
+.treino-andamento-topo p { margin: 0; font-size: var(--text-sm); }
+.treino-andamento-nome strong { font-weight: 650; }
+.treino-andamento-n { color: var(--muted); font-variant-numeric: tabular-nums; }
+.treino-prog-barra { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.treino-prog-barra i { display: block; height: 100%; border-radius: inherit; background: var(--ok); transition: width 0.4s var(--ease); }
+@media (prefers-reduced-motion: reduce) { .treino-prog-barra i { transition: none; } }
+.treino-resumo > p { margin: 0; color: var(--muted); font-size: var(--text-sm); }

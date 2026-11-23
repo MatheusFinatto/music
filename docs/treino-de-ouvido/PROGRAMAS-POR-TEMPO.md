@@ -1,27 +1,24 @@
-# Programas por tempo (próximo passo)
+# Programas por tempo (implementado no experimento 9)
 
-Pedido do dono (2026-11-23): no início da página, **antes dos exercícios separados**, programas prontos por tempo, para o **ouvido** e para a **voz**: **5, 10, 15, 20 e 30 minutos**. O tempo é uma aproximação, porque depende de quanto a pessoa demora para cantar ou para adivinhar a nota; usar **médias** para estimar.
+Pedido do dono (2026-11-23): no início da página, **antes dos exercícios separados**, programas prontos por tempo, para o **ouvido** e para a **voz**: **5, 10, 15, 20 e 30 minutos**. O tempo é aproximado, porque depende de quanto a pessoa demora para cantar ou para adivinhar; a estimativa usa **medianas**.
 
-Ainda **não implementado**. Esboço para a conversa:
+## Como funciona
+- Em cada seção (Ouvido, Voz) o cartão **Programas** vem antes do treino livre: escolhe-se a duração (lembra a última), vê-se o que vem dentro e quantas perguntas, e "Começar programa de N min".
+- Durante o programa: barra com bloco, perguntas respondidas e minutos restantes; o bloco começa sozinho; "Pular bloco" e "Parar programa". O seletor Ouvido/Voz, o seletor de exercícios, o placar, Ajustes e Pontos fracos somem até acabar. Na última pergunta de um bloco o botão vira "Próximo bloco: …" (ou "Terminar programa"). Na Voz, "Tentar de novo" some e a falha conta como erro.
+- No fim, o resumo: acertos por bloco, tempo real × previsto, "Fazer de novo".
+- Os programas usam os itens e ajustes que a pessoa escolheu (intervalos, margem, instrumento, tônica…).
 
-## O que a pessoa vê
-- Acima dos exercícios, uma seção "Programas" com cinco botões de tempo (5, 10, 15, 20, 30 min), uma para Ouvido e outra para Voz (cada seção já tem o seu espaço na página).
-- Cada botão mostra o que vem dentro, em uma linha: "6 intervalos, 4 acordes, 4 cadências…" e o tempo estimado ("≈ 10 min").
-- Durante o programa: o exercício de sempre, mais uma barra de progresso (blocos feitos e tempo) e "Pular bloco" / "Parar". No fim: resumo (acertos por bloco, tempo real contra o previsto, pontos fracos).
-- O treino livre (os exercícios separados de hoje) continua logo abaixo.
+## Como o tempo é estimado
+- Cada bloco tem uma fatia de tempo; perguntas = fatia ÷ (mediana por pergunta + 2 s). Mínimo de 2 perguntas por bloco; o alcance é uma medição só.
+- A mediana é das últimas 30 respostas **da própria pessoa** (treino livre também conta), guardadas em `musica:treino-de-ouvido-ritmo`. Com menos de 5 respostas vale o palpite (`MEDIANAS_INICIAIS` em `programas.ts`); piso de 3 s e teto de 60 s por resposta.
+- Palpites iniciais (s): intervalos 10, acordes 10, afinação 14, achar 25, graus 15, cadências 16, progressões 20; voz: igualar 14, nota longa 14, arpejos 25, tônica 20, cantar o intervalo 18.
 
-## Como estimar o tempo
-- Cada exercício tem uma **duração mediana por pergunta**, em segundos. Começa com um palpite e passa a usar a mediana das últimas ~30 perguntas **da própria pessoa**, guardadas no navegador (como o placar). Mediana, e não média, para uma pergunta em que ela saiu para tomar água não estragar a conta.
-- Palpites iniciais (a conferir com o uso): intervalos 10 s, acordes 10 s, afinação 14 s, achar 25 s, graus do campo 15 s, cadências 16 s, progressões 20 s; voz: igualar a nota 14 s, nota longa 14 s, arpejos e escalas 25 s por rodada, com a tônica 20 s, cantar o intervalo 18 s.
-- Um bloco recebe uma fatia do tempo do programa e vira "N perguntas" = fatia ÷ mediana. O programa de 10 minutos tem o mesmo desenho do de 30, só com blocos menores.
-- Depois de cada programa, as medianas se atualizam e o próximo já estima melhor.
+## Programas
+- **Ouvido** — 5: intervalos, acordes · 10: + afinação, graus do campo · 15: + cadências, achar · 20 e 30: os sete exercícios, com mais tempo em intervalos, afinação e achar.
+- **Voz** — 5: igualar a nota, arpejos · 10: igualar, arpejos, com a tônica · 15: + nota longa, cantar o intervalo · 20 e 30: começam pelo alcance e dão mais tempo à tônica e ao intervalo.
 
-## O que entra em cada programa (proposta, a decidir)
-- **Voz**: aquecimento (arpejo maior e escala de cinco notas, subindo meio tom), depois nota longa, depois o núcleo (igualar a nota, cantar sobre a tônica, cantar o intervalo), e nos programas de 20 e 30 min a escala maior e o alcance no começo.
-- **Ouvido**: mistura de intervalos, acordes e afinação, mais harmonia (graus do campo, cadências, progressões) nos de 15 min em diante, e o **Achar** nos de 20 e 30. As perguntas favorecem os pontos fracos (o reforço que já existe).
-- Os programas usam os **itens que a pessoa escolheu** nos Ajustes (quais intervalos, margem, instrumento), para não recomeçar do zero.
+## Decisões
+Programa fixo (não adapta dificuldade); sem programa misto ouvido+voz; sem histórico de programas; o andamento não sobrevive a recarregar a página.
 
-## Perguntas em aberto
-- O programa é fixo por tempo ou adapta (sobe a dificuldade quando acerta muito)? Sugestão: fixo na primeira versão.
-- Um programa "completo" que mistura ouvido e voz? Sugestão: não agora.
-- Guardar o histórico de programas feitos (dia, tempo, acertos) para ver a evolução? Sugestão: sim, só no navegador, depois.
+## Ideias para depois
+Histórico dos programas (dia, tempo, acertos) só no navegador; adaptar a dificuldade; programa que junta ouvido e voz; escolher os blocos.

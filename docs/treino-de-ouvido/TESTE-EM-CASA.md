@@ -29,4 +29,4 @@ Para cada item: anote o que sentiu e, se mudou algum ajuste, qual. "Justo" quer 
 - [ ] O que está sobrando? O que falta? Qual exercício eu abriria sem pensar?
 
 ## Anotações
-
+- [ ] **Programas por tempo (5 a 30 min):** o tempo real bate com o previsto? (o resumo mostra os dois). Depois de uns dois programas a estimativa melhora? A quantidade de perguntas por bloco está boa? O fluxo (começa sozinho, "Próximo bloco") atrapalha ou ajuda? Falta pular/repetir algo?
