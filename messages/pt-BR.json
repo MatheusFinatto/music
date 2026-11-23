@@ -128,7 +128,10 @@
     "exercicios": {
       "intervalos": "Intervalos",
       "acordes": "Acordes",
-      "afinacao": "Afinação"
+      "afinacao": "Afinação",
+      "campo": "Graus do campo",
+      "cadencias": "Cadências",
+      "progressoes": "Progressões"
     },
     "direcao": "Direção",
     "direcoes": {
@@ -196,6 +199,29 @@
         "baixo": "Baixo",
         "afinado": "Afinado",
         "alto": "Alto"
+      },
+      "campo": {
+        "I": "I",
+        "ii": "ii",
+        "iii": "iii",
+        "IV": "IV",
+        "V": "V",
+        "vi": "vi",
+        "viio": "vii°"
+      },
+      "cadencias": {
+        "autentica": "Autêntica (V → I)",
+        "plagal": "Plagal (IV → I)",
+        "deceptiva": "De engano (V → vi)",
+        "meia": "Meia cadência (termina no V)"
+      },
+      "progressoes": {
+        "I-IV-V-I": "I – IV – V – I",
+        "I-V-vi-IV": "I – V – vi – IV",
+        "vi-IV-I-V": "vi – IV – I – V",
+        "I-vi-IV-V": "I – vi – IV – V",
+        "ii-V-I": "ii – V – I",
+        "I-IV-vi-V": "I – IV – vi – V"
       }
     },
     "perguntaInicial": "Toque para ouvir",
@@ -229,7 +255,20 @@
       "intervalos": "Intervalos",
       "acordes": "Acordes",
       "graus": "Graus",
-      "afinacao": "Afinação"
-    }
+      "afinacao": "Afinação",
+      "campo": "Graus do campo",
+      "cadencias": "Cadências",
+      "progressoes": "Progressões"
+    },
+    "pergunta_campo": "Que acorde do tom é este?",
+    "pergunta_cadencias": "Que cadência é esta?",
+    "pergunta_progressoes": "Que progressão é esta?",
+    "dica_campo": "Ouça a cadência que fixa o tom e, depois, um acorde. Qual é o grau do campo harmônico?",
+    "dica_cadencias": "Primeiro a tônica, depois dois acordes. Como a frase termina?",
+    "dica_progressoes": "Primeiro a tônica, depois quatro acordes. Qual é a sequência?",
+    "tomMaior": "{nota} maior",
+    "ouvirComoEstava": "Ouvir como estava",
+    "ouvirAfinado": "Ouvir afinado",
+    "compararDois": "Comparar os dois"
   }
 }

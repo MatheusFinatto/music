@@ -15,6 +15,8 @@
 .treino-seg button { min-height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font: inherit; font-weight: 600; cursor: pointer; transition: background-color 0.15s, color 0.15s; }
 .treino-seg button:hover:not([aria-checked="true"]) { color: var(--ink); }
 .treino-seg button[aria-checked="true"] { background: var(--ink); color: var(--bg); }
+.treino-seg.amplo { flex-wrap: wrap; border-radius: var(--radius-md); }
+.treino-seg.amplo button { flex: 1 1 auto; padding: 0 16px; }
 .treino-placar { display: flex; gap: 22px; margin: 0; font-variant-numeric: tabular-nums; }
 .treino-placar > div { display: flex; flex-direction: column; }
 .treino-placar dd { margin: 0; font-family: var(--font-display), var(--font-sans); font-weight: 700; font-size: var(--text-xl); line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); }
@@ -67,6 +69,7 @@
 .treino-proxima { border: 0; cursor: pointer; align-self: stretch; justify-content: center; gap: 12px; min-height: 56px; font-size: var(--text-md); }
 .treino-proxima:disabled { opacity: 0.6; cursor: progress; }
 .treino-proxima kbd { padding: 3px 7px; border: 1px solid currentColor; border-radius: 6px; font: 600 0.75rem var(--font-sans); opacity: 0.7; }
+.treino-vazio { margin: 0; color: var(--muted); font-size: var(--text-sm); }
 .treino-estado { margin: 0; color: var(--muted); font-size: var(--text-sm); }
 .treino-estado:empty { display: none; }
 

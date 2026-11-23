@@ -13,9 +13,11 @@ export const mulberry32 = (seed: number): Rng => () => {
   return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
 };
 
-export type Exercicio = "intervalos" | "acordes" | "afinacao";
+export type Exercicio = "intervalos" | "acordes" | "afinacao" | "campo" | "cadencias" | "progressoes";
 export type Direcao = "asc" | "desc" | "harm" | "misto";
-export const EXERCICIOS: readonly Exercicio[] = ["intervalos", "acordes", "afinacao"];
+export const EXERCICIOS: readonly Exercicio[] = ["intervalos", "acordes", "afinacao", "campo", "cadencias", "progressoes"];
+/** Os exercícios de harmonia: acordes dentro de um tom maior. */
+export const HARMONIA: readonly Exercicio[] = ["campo", "cadencias", "progressoes"];
 /** Margem da afinação, em cents: do óbvio ao fino. */
 export const MARGENS = [50, 30, 20, 10] as const;
 /** As respostas da afinação: a segunda nota está baixa, afinada ou alta. */
@@ -25,27 +27,43 @@ export const DIRECOES: readonly Direcao[] = ["asc", "desc", "harm", "misto"];
 export const INTERVALOS = dados.intervalos;
 export const ACORDES = dados.acordes;
 export const GRAUS = dados.graus;
+export const CAMPO = dados.campo;
+export const CADENCIAS = dados.cadencias;
+export const PROGRESSOES = dados.progressoes;
 export const IDS: Record<Exercicio | "graus", readonly string[]> = {
   intervalos: INTERVALOS.map((i) => i.id),
   acordes: ACORDES.map((a) => a.id),
   /** Na afinação, os itens são os intervalos que entram. */
   afinacao: INTERVALOS.map((i) => i.id),
   graus: GRAUS.map((g) => g.id),
+  campo: CAMPO.map((c) => c.id),
+  cadencias: CADENCIAS.map((c) => c.id),
+  progressoes: PROGRESSOES.map((p) => p.id),
 };
 
-export type ConfigClassica = { exercicio: Exercicio; itens: Record<Exercicio, string[]>; direcao: Direcao; margem: number };
+export type ConfigClassica = { exercicio: Exercicio; itens: Record<Exercicio, string[]>; direcao: Direcao; margem: number; /** Tonalidade dos exercícios de harmonia. */ tonica: "do" | "sorteada" };
 export type ConfigFuncional = { tonica: "do" | "sorteada"; graus: string[] };
 
 export const CLASSICA_INICIAL: ConfigClassica = {
   exercicio: "intervalos",
-  itens: { intervalos: ["3m", "3M", "4J", "5J", "8J"], acordes: ["maior", "menor"], afinacao: ["3M", "5J", "8J"] },
+  itens: { intervalos: ["3m", "3M", "4J", "5J", "8J"], acordes: ["maior", "menor"], afinacao: ["3M", "5J", "8J"],
+    campo: ["I", "IV", "V", "vi"], cadencias: ["autentica", "plagal", "deceptiva", "meia"], progressoes: ["I-IV-V-I", "I-V-vi-IV", "vi-IV-I-V"] },
   direcao: "asc",
   margem: 30,
+  tonica: "do",
 };
 export const FUNCIONAL_INICIAL: ConfigFuncional = { tonica: "do", graus: ["1", "3", "5"] };
 
 /** A pergunta do modo clássico: o que tocar e o que é a resposta certa. */
-export type PerguntaClassica = { chave: string; resposta: string; notas: PianoNote[]; /** Só na afinação: quantos cents a segunda nota saiu do lugar (0 = afinada). */ cents?: number };
+export type PerguntaClassica = {
+  chave: string; resposta: string; notas: PianoNote[];
+  /** Só na afinação: quantos cents a segunda nota saiu do lugar (0 = afinada). */
+  cents?: number;
+  /** Só na harmonia: a tônica (MIDI) e os graus da pergunta, na ordem (sem o acorde de tônica que antecede e fixa o tom). */
+  tonica?: number; acordes?: string[];
+  /** Notas a acender no teclado depois da resposta, se houver (o acorde do campo). */
+  reveal?: number[];
+};
 /** A pergunta do modo funcional: a cadência que fixa o tom e a nota, juntas ou cada uma por si. */
 export type PerguntaFuncional = { chave: string; resposta: string; tonica: number; cadencia: PianoNote[]; nota: PianoNote[]; tudo: PianoNote[] };
 
@@ -96,8 +114,55 @@ export function perguntaAfinacao(cfg: ConfigClassica, rng: Rng = Math.random): P
   return { chave: `afinacao:${cfg.margem}`, resposta, notas, cents };
 }
 
+const NOMES_SUSTENIDO = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+const NOMES_BEMOL = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
+/** Nome da tônica em letra: bemóis nas tonalidades que usam bemol (Db, Eb, F, Ab, Bb), sustenidos nas outras. */
+export function nomeTom(tonica: number): string {
+  const pc = ((tonica % 12) + 12) % 12;
+  return ([1, 3, 5, 8, 10].includes(pc) ? NOMES_BEMOL : NOMES_SUSTENIDO)[pc]!;
+}
+/** Cifra do acorde de um grau do campo na tonalidade: I em Dó é C, vi é Am, vii° é Bdim. */
+export function nomeAcorde(tonica: number, grau: string): string {
+  const c = CAMPO.find((x) => x.id === grau)!;
+  const pc = (((tonica + c.raiz) % 12) + 12) % 12;
+  const letra = ([1, 3, 5, 8, 10].includes(((tonica % 12) + 12) % 12) ? NOMES_BEMOL : NOMES_SUSTENIDO)[pc]!;
+  return letra + (["ii", "iii", "vi"].includes(grau) ? "m" : grau === "viio" ? "dim" : "");
+}
+/** Um acorde do campo: baixo uma oitava abaixo da fundamental e a tríade acima. */
+function acorde(tonica: number, grau: string, at: number, dur: number): PianoNote[] {
+  const c = CAMPO.find((x) => x.id === grau)!;
+  return [{ midi: tonica + c.raiz - 12, at, dur }, ...c.semitons.map((s) => ({ midi: tonica + s, at, dur }))];
+}
+
+/** Harmonia: a tônica fixa o tom e depois vêm um acorde (graus do campo), dois (cadências) ou quatro (progressões). */
+export function perguntaHarmonia(cfg: ConfigClassica, rng: Rng = Math.random, historico?: Historico): PerguntaClassica {
+  const tonica = cfg.tonica === "do" ? 60 : inteiro(rng, 55, 62);
+  const ex = cfg.exercicio;
+  if (ex === "campo") {
+    const g = sortearComPeso(piscina(CAMPO, cfg.itens.campo), (x) => `campo:${x.id}`, historico, rng);
+    const notas = [...cadencia(tonica), ...acorde(tonica, g.id, INICIO_DA_NOTA, 2.0)];
+    return { chave: `campo:${g.id}`, resposta: g.id, notas, tonica, acordes: [g.id], reveal: g.semitons.map((s) => tonica + s) };
+  }
+  if (ex === "cadencias") {
+    const c = sortearComPeso(piscina(CADENCIAS, cfg.itens.cadencias), (x) => `cadencias:${x.id}`, historico, rng);
+    const par = sortear(c.variantes, rng);
+    const notas = [...acorde(tonica, "I", 0, 1.0), ...acorde(tonica, par[0]!, 1.2, 1.0), ...acorde(tonica, par[1]!, 2.4, 1.8)];
+    return { chave: `cadencias:${c.id}`, resposta: c.id, notas, tonica, acordes: [...par] };
+  }
+  const p = sortearComPeso(piscina(PROGRESSOES, cfg.itens.progressoes), (x) => `progressoes:${x.id}`, historico, rng);
+  const notas = [...acorde(tonica, "I", 0, 1.0), ...p.acordes.flatMap((g, k) => acorde(tonica, g, 1.6 + k * 1.1, k === p.acordes.length - 1 ? 1.8 : 1.0))];
+  return { chave: `progressoes:${p.id}`, resposta: p.id, notas, tonica, acordes: [...p.acordes] };
+}
+
+/** Para comparar: as notas como estavam e, em seguida, as mesmas afinadas, uma pausa depois. */
+export function compararAfinacao(notas: readonly PianoNote[]): PianoNote[] {
+  const fim = Math.max(...notas.map((n) => n.at + n.dur));
+  return [...notas, ...notas.map((n) => ({ ...n, cents: 0, at: n.at + fim + 0.6 }))];
+}
+
 export function perguntaClassica(cfg: ConfigClassica, rng: Rng = Math.random, historico?: Historico): PerguntaClassica {
   if (cfg.exercicio === "afinacao") return perguntaAfinacao(cfg, rng);
+  if (HARMONIA.includes(cfg.exercicio)) return perguntaHarmonia(cfg, rng, historico);
   if (cfg.exercicio === "acordes") {
     const a = sortearComPeso(piscina(ACORDES, cfg.itens.acordes), (x) => `acordes:${x.id}`, historico, rng);
     const raiz = inteiro(rng, 48, 64);
