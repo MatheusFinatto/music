@@ -22,4 +22,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "marmota-tuner"
-include(":app", ":core", ":android-common")
+include(":app", ":core", ":android-common", ":trainer")

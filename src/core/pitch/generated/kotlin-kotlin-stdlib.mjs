@@ -37,9 +37,9 @@ if (typeof Array.prototype.fill === 'undefined') {
     Object.defineProperty(TypedArray.prototype, 'fill', {value: Array.prototype.fill});
   }
 });
-if (typeof Math.log10 === 'undefined') {
-  Math.log10 = function (x) {
-    return Math.log(x) * Math.LOG10E;
+if (typeof Math.log2 === 'undefined') {
+  Math.log2 = function (x) {
+    return Math.log(x) * Math.LOG2E;
   };
 }
 if (typeof Math.clz32 === 'undefined') {
@@ -53,9 +53,9 @@ if (typeof Math.clz32 === 'undefined') {
     };
   }(Math.log, Math.LN2);
 }
-if (typeof Math.log2 === 'undefined') {
-  Math.log2 = function (x) {
-    return Math.log(x) * Math.LOG2E;
+if (typeof Math.log10 === 'undefined') {
+  Math.log10 = function (x) {
+    return Math.log(x) * Math.LOG10E;
   };
 }
 //endregion
@@ -3453,6 +3453,9 @@ function roundToInt(_this__u8e3s4) {
   }
   return tmp;
 }
+function abs(n) {
+  return n < 0 ? -n | 0 | 0 : n;
+}
 function StringBuilder_init_$Init$(capacity, $this) {
   StringBuilder_init_$Init$_0($this);
   return $this;
@@ -4740,6 +4743,7 @@ export {
   protoOf as protoOf180f3jzyo7rfj,
   toLong as toLongw1zpgk99d84b,
   toString_1 as toString1pkumu07cwy4m,
+  abs as abs1kdzbjes1idip,
   roundToInt as roundToInt1ue8x8yshtznx,
   round as round2mrvepag8eey0,
   coerceAtLeast as coerceAtLeast2bkz8m9ik7hep,
