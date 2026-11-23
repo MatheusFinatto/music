@@ -71,6 +71,8 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
   const [instrumento, setInstrumento] = useInstrumento();
   const [q, setQ] = useState<Pergunta | null>(null);
   const [escolha, setEscolha] = useState<string | null>(null);
+  /** Afinação: o intervalo que a pessoa disse, à espera da outra metade da resposta (baixa, afinada ou alta). */
+  const [intervaloDito, setIntervaloDito] = useState<string | null>(null);
   const [placar, setPlacar] = useState(PLACAR_ZERO);
   const [carregando, setCarregando] = useState(false);
   const [tocando, setTocando] = useState(false);
@@ -110,6 +112,7 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
     setQ(p);
     inicioPergunta.current = agoraMs();
     setEscolha(null);
+    setIntervaloDito(null);
     setSelecionada(null);
     void tocar(p.modo === "classico" ? p.p.notas : p.p.tudo);
     // O foco vai para a pergunta: quem usa o teclado continua dali.
@@ -121,6 +124,7 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
     calar();
     setQ(null);
     setEscolha(null);
+    setIntervaloDito(null);
     setSelecionada(null);
     if (zerar) setPlacar(PLACAR_ZERO);
   };
@@ -136,7 +140,18 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
   };
   const responder = (id: string) => {
     if (!q || escolha !== null) return;
+    // Na afinação a resposta tem duas metades: o intervalo e como soa a segunda nota. Conta como certa só com as duas.
+    if (q.modo === "classico" && q.p.intervalo !== undefined) {
+      if (intervaloDito === null) return;
+      finalizar(id, id === q.p.resposta && intervaloDito === q.p.intervalo);
+      return;
+    }
     finalizar(id, id === q.p.resposta);
+  };
+  /** Afinação: escolher (ou trocar) o intervalo; se a outra metade já foi dita antes, a resposta fecha. */
+  const dizerIntervalo = (id: string) => {
+    if (!q || escolha !== null) return;
+    setIntervaloDito(id);
   };
   /** Achar: confere a tecla escolhida com a segunda nota. */
   const confirmar = () => {
@@ -163,7 +178,8 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
 
   const modo = VISIVEIS.includes(s.modo) ? s.modo : VISIVEIS[0]!;
   const exercicio = exercicioDaVez;
-  const grupoDeIds: readonly string[] = modo === "funcional" ? s.funcional.graus : s.classica.itens[exercicio];
+  // Num programa a pergunta usa os itens padrão; as respostas têm que ser as mesmas.
+  const grupoDeIds: readonly string[] = modo === "funcional" ? s.funcional.graus : (programa ? CLASSICA_INICIAL : s.classica).itens[exercicio];
   const nomeGrupo = modo === "funcional" ? "graus" : exercicio;
   // Afinação: os itens (chips) são intervalos, mas as respostas são baixo, afinado e alto.
   const afinacao = modo === "classico" && exercicio === "afinacao";
@@ -195,7 +211,8 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
   const respondida = q !== null && escolha !== null;
   // Depois de responder o foco vai para "Próxima pergunta", sem rolar a página (o navegador rolaria até o botão).
   useEffect(() => { if (respondida) proxima.current?.focus({ preventScroll: true }); }, [respondida]);
-  const acertou = respondida && escolha === q.p.resposta;
+  const intervaloCerto = q?.modo === "classico" ? q.p.intervalo : undefined;
+  const acertou = respondida && escolha === q.p.resposta && (intervaloCerto === undefined || intervaloDito === intervaloCerto);
   const notasTocadas = q ? (q.modo === "classico" ? q.p.notas : q.p.nota).map((n) => n.midi) : [];
   const harmonico = q?.modo === "classico" && q.p.notas.length === 2 && q.p.notas[0]!.at === q.p.notas[1]!.at;
   const cents = q?.modo === "classico" ? q.p.cents : undefined;
@@ -232,6 +249,12 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       if (e.target instanceof Element && e.target.closest("input, select, textarea")) return;
       if (/^[1-9]$/.test(e.key) && q && escolha === null) {
+        // Afinação: os números dizem primeiro o intervalo, depois como soa a segunda nota.
+        if (afinacao && intervaloDito === null) {
+          const id = grupoDeIds[Number(e.key) - 1];
+          if (id) { e.preventDefault(); dizerIntervalo(id); }
+          return;
+        }
         const id = respostas[Number(e.key) - 1];
         if (id) { e.preventDefault(); responder(id); }
         return;
@@ -299,11 +322,28 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
           </div>
         )}
 
-        <div className="treino-respostas" role="group" aria-label={t("respostas")}>
+        {afinacao && (
+          <div className="treino-respostas-grupo">
+            <p className="treino-respostas-nome" id="treino-afinacao-intervalo">{t("afinacaoIntervalo")}</p>
+            <div className="treino-respostas" role="radiogroup" aria-labelledby="treino-afinacao-intervalo">
+              {grupoDeIds.map((id, n) => {
+                const estado = !q ? "" : escolha !== null ? (id === intervaloCerto ? "certa" : id === intervaloDito ? "errada" : "") : id === intervaloDito ? "sel" : "";
+                return (
+                  <button key={id} type="button" role="radio" aria-checked={id === intervaloDito} className={`treino-resp ${estado}`} onClick={() => dizerIntervalo(id)} disabled={!q || escolha !== null}>
+                    {n < 9 && <kbd aria-hidden="true">{n + 1}</kbd>}
+                    <span className="treino-resp-texto">{nome("intervalos", id)}</span>
+                  </button>
+                );
+              })}
+            </div>
+            <p className="treino-respostas-nome" id="treino-afinacao-segunda">{t("afinacaoSegunda")}</p>
+          </div>
+        )}
+        <div className="treino-respostas" role="group" aria-label={afinacao ? t("afinacaoSegunda") : t("respostas")}>
           {respostas.map((id, n) => {
             const estado = escolha === null || !q ? "" : id === q.p.resposta ? "certa" : id === escolha ? "errada" : "";
             return (
-              <button key={id} type="button" className={`treino-resp ${estado}`} onClick={() => responder(id)} disabled={!q || (escolha !== null)}>
+              <button key={id} type="button" className={`treino-resp ${estado}`} onClick={() => responder(id)} disabled={!q || (escolha !== null) || (afinacao && intervaloDito === null)}>
                 {n < 9 && <kbd aria-hidden="true">{n + 1}</kbd>}
                 <span className="treino-resp-texto">{nome(nomeGrupo, id)}{dicaDe(nomeGrupo, id) && <small>{dicaDe(nomeGrupo, id)}</small>}</span>
               </button>
@@ -318,7 +358,7 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
 
         {respondida && (
           <div className="treino-revela">
-            <p className={`treino-resultado ${acertou ? "certa" : "errada"}`} role="status">{acertou ? t("certo") : achar && q.modo === "classico" ? t("errado", { resposta: nomeNota(q.p.alvo!) }) : t("errado", { resposta: nomeCompleto(nomeGrupo, q.p.resposta) })}</p>
+            <p className={`treino-resultado ${acertou ? "certa" : "errada"}`} role="status">{acertou ? t("certo") : achar && q.modo === "classico" ? t("errado", { resposta: nomeNota(q.p.alvo!) }) : intervaloCerto !== undefined ? t("afinacaoErrado", { intervalo: nome("intervalos", intervaloCerto), sentido: nome("afinacao", q.p.resposta).toLowerCase() }) : t("errado", { resposta: nomeCompleto(nomeGrupo, q.p.resposta) })}</p>
             {cents !== undefined && <Regua cents={cents} margem={s.classica.margem} label={t("regua")} baixo={t("nomes.afinacao.baixo")} alto={t("nomes.afinacao.alto")} />}
             {cents !== undefined && cents !== 0 && q?.modo === "classico" && (
               <div className="treino-ouvir-mais">
