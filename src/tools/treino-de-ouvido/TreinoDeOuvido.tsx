@@ -252,6 +252,7 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
 
   return (
     <div className="treino">
+      {!programa && <h2 className="treino-isolados">{t("isolados")}</h2>}
       {!programa && <div className="treino-topo">
         <div className="treino-escolhas">
           {VISIVEIS.length > 1 && (

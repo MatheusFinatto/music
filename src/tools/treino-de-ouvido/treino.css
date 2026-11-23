@@ -185,7 +185,7 @@
 
 /* programas por tempo: o seletor antes do treino livre, a barra durante o programa e o resumo */
 .treino-programas, .treino-andamento, .treino-resumo { gap: 18px; }
-.treino-programas-topo h2, .treino-resumo h2 { margin: 0; font-family: var(--font-display), var(--font-sans); font-weight: 650; font-size: var(--text-xl); line-height: 1.15; letter-spacing: -0.025em; }
+.treino-programas-topo h2, .treino-resumo h2, .treino-isolados { margin: 0; font-family: var(--font-display), var(--font-sans); font-weight: 650; font-size: var(--text-xl); line-height: 1.15; letter-spacing: -0.025em; }
 .treino-programas-topo p { margin: 6px 0 0; color: var(--muted); font-size: var(--text-sm); max-width: 52ch; }
 .treino-prog-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; font-variant-numeric: tabular-nums; }
 .treino-prog-lista li { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-top: 1px solid var(--line); font-size: var(--text-sm); }
@@ -205,3 +205,5 @@
 .treino-programas .treino-exs-nome { flex: 1 1 100%; }
 .treino-programas .treino-exs { gap: 6px; }
 .treino-programas { gap: 20px; }
+
+.treino-isolados { margin: 0; }

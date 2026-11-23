@@ -267,6 +267,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
 
   return (
     <div className="treino voz">
+      {!programa && <h2 className="treino-isolados">{t("isolados")}</h2>}
       {!programa && <div className="treino-topo">
         <div className="treino-escolhas">
           <div className="treino-exs" role="radiogroup" aria-label={t("exercicio")} onKeyDown={onRadioKeyDown}>
