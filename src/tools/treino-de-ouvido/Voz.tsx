@@ -73,7 +73,6 @@ type Fase = "parado" | "piano" | "cantando" | "feito";
 /** O que a pessoa tem que cantar: uma nota ou uma sequência, o que o piano toca antes e o bordão, se houver. */
 type Tarefa = { alvos: number[]; demo: PianoNote[] | null; bordao: number | null; segurarMs: number; tonica: number | null; grau: string | null };
 type Resultado = { ok: boolean; media: number; oscilacao: number; passos: number; alvo: number | null; ouvi: number | null };
-const classe = (midi: number) => nomeNota(midi).replace(/-?\d+$/, "");
 
 /** Treino de voz: o piano toca e a pessoa canta; o microfone confere a altura com a mesma detecção do afinador. */
 export function Voz({ programa }: { programa?: ProgramaProp }) {
@@ -96,6 +95,8 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
   const [alcance, setAlcance] = useState<Alcance>(ALCANCE_ZERO);
   const [erroMic, setErroMic] = useState<MicProblem | null>(null);
   const [rodada, setRodada] = useState(0);
+  /** A tentativa em andamento parou porque um ajuste mudou o que cantar. */
+  const [aviso, setAviso] = useState(false);
 
   const mic = useRef<Mic | null>(null);
   const pipeline = useRef<PitchPipeline | null>(null);
@@ -216,6 +217,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     espera.current = setTimeout(() => void escutar(t0), dur * 1000 + 300);
   };
   const comecar = () => {
+    setAviso(false);
     const e = exercicioDaVez;
     inicioTentativa.current = agoraMs();
     if (e === "alcance") { void medir(); return; }
@@ -269,8 +271,16 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     setFase("cantando");
   };
   const terminarAlcance = () => { fecharMic(); setFase("feito"); };
-  /** Mudar exercício ou ajuste interrompe o que está em andamento. */
-  const mudar = (next: Saved) => { store.set(next); parar(); setTarefa(null); setResultado(null); setAlcance(ALCANCE_ZERO); setRodada(0); };
+  /**
+   * Mudar o que se canta (exercício, padrão, nota, voz) recomeça; se havia uma tentativa em andamento, avisa por quê em vez de
+   * parar calado.
+   */
+  const mudar = (next: Saved) => {
+    setAviso(fase === "piano" || fase === "cantando");
+    store.set(next); parar(); setTarefa(null); setResultado(null); setAlcance(ALCANCE_ZERO); setRodada(0);
+  };
+  /** Margem, oitava e subir não mudam a nota pedida: valem na hora (a conferência lê o ajuste a cada bloco), sem parar a tentativa. */
+  const ajustar = (next: Saved) => store.set(next);
 
   // Dentro de um programa o bloco começa sozinho: o toque em "Começar" ou "Próximo bloco" já liberou o áudio.
   useEffect(() => {
@@ -279,6 +289,28 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     return () => clearTimeout(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Teclado, como no Ouvido: Espaço ou Enter fazem a ação principal (começar, próxima, ouvir de novo, terminar a medida); Esc para.
+  useEffect(() => {
+    if (exercicioDaVez === "musica") return; // o Cantar tem os seus botões
+    const onKey = (e: KeyboardEvent) => {
+      if (e.metaKey || e.ctrlKey || e.altKey || e.repeat) return;
+      if (e.target instanceof Element && e.target.closest("input, select, textarea, button, summary, a, [role=button]")) return;
+      const f = fase;
+      if (e.key === "Escape") { if (f === "piano" || f === "cantando") { e.preventDefault(); parar(); } return; }
+      if (e.code !== "Space" && e.key !== "Enter") return;
+      e.preventDefault();
+      if (piano.carregando) return;
+      if (f === "parado" || f === "feito") {
+        if (programa && f === "feito" && programa.restante === 0) programa.aoAvancar(); else comecar();
+      } else if (f === "cantando" && exercicioDaVez === "alcance") terminarAlcance();
+      else if (f === "cantando" && tarefa) {
+        if (exercicioDaVez === "tonica" && s.ajuda === "so") void espiar(tarefa); else void prepararEOuvir(tarefa, exercicioDaVez !== "sequencia");
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
 
   const ex = exercicioDaVez;
   const cantando = fase === "cantando";
@@ -299,7 +331,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
   if (mostraPadrao && tarefa) { tarefa.alvos.forEach((m) => marcas.set(m, "alvo")); if (cantando && alvoAtual !== null) marcas.set(alvoAtual, "dada"); }
   const ext = alcance.min !== null && alcance.max !== null ? extensao(alcance.max - alcance.min) : null;
   const sinal = (n: number) => (Math.abs(n) < 1 ? t("voz.mediaCentro") : t(n > 0 ? "voz.mediaAcima" : "voz.mediaAbaixo", { n: Math.round(Math.abs(n)) }));
-  const textoResultado = !resultado ? "" : !resultado.ok ? (resultado.ouvi === null || resultado.alvo === null ? t(programa ? "voz.naoOuviSegue" : "voz.naoOuvi") : t(programa ? "voz.naoFoiSegue" : "voz.naoFoi", { alvo: classe(resultado.alvo), ouvi: nomeNota(Math.round(resultado.ouvi)) }))
+  const textoResultado = !resultado ? "" : !resultado.ok ? (resultado.ouvi === null || resultado.alvo === null ? t(programa ? "voz.naoOuviSegue" : "voz.naoOuvi") : t(programa ? "voz.naoFoiSegue" : "voz.naoFoi", { alvo: nomeNota(resultado.alvo), ouvi: nomeNota(Math.round(resultado.ouvi)) }))
     : ex === "longa" ? t("voz.longaFeito", { n: Math.round(resultado.oscilacao) })
     : ex === "sequencia" ? t("voz.sequenciaFeito", { passos: resultado.passos, n: Math.round(resultado.media) })
     : `${t("voz.afinou")} ${sinal(resultado.media)}`;
@@ -382,14 +414,14 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
             <h2>{ex === "alcance" ? t("voz.exercicios.alcance") : tarefa && (fase === "piano" || fase === "cantando") ? t("voz.cante") : t(`voz.exercicios.${ex}`)}</h2>
           )}
           <p>{ex === "tonica" && tarefa && tarefa.tonica !== null && tarefa.grau !== null && fase !== "parado"
-            ? t("voz.tonicaDica", { tonica: classe(tarefa.tonica), grau: t(`nomes.intervalos.${tarefa.grau}` as "nomes.intervalos.3m"), nota: classe(tarefa.alvos[0]!) })
+            ? t("voz.tonicaDica", { tonica: nomeNota(tarefa.tonica), grau: t(`nomes.intervalos.${tarefa.grau}` as "nomes.intervalos.3m"), nota: nomeNota(tarefa.alvos[0]!) })
             : dicaBase}</p>
         </div>
 
         {ex === "sequencia" && tarefa && fase !== "parado" && (
           <ol className="treino-passos" aria-label={t("voz.passos")}>
             {tarefa.alvos.map((m, i) => (
-              <li key={i} className={i < passo || (fase === "feito" && resultado?.ok) ? "feito" : i === passo && cantando ? "atual" : ""} aria-current={i === passo && cantando ? "step" : undefined}>{classe(m)}</li>
+              <li key={i} className={i < passo || (fase === "feito" && resultado?.ok) ? "feito" : i === passo && cantando ? "atual" : ""} aria-current={i === passo && cantando ? "step" : undefined}>{nomeNota(m)}</li>
             ))}
           </ol>
         )}
@@ -459,6 +491,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
           {cantando && ex === "alcance" && <button type="button" className="go treino-proxima" onClick={terminarAlcance}>{t("voz.terminar")}</button>}
         </div>
         {alvoAtual !== null && ex === "tonica" && cantando && <p className="treino-estado">{t("voz.bordaoNota")}</p>}
+        {fase === "parado" && aviso && <p className="treino-estado" role="status">{t("voz.ajusteMudou")}</p>}
         {fase === "parado" && <p className="treino-estado">{t("voz.fone")}</p>}
       </section>}
 
@@ -490,10 +523,10 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
             {ex !== "alcance" && <button type="button" className="treino-btn treino-medir" onClick={() => mudar({ ...s, exercicio: "alcance" })}>{t("voz.minhaVoz.medir")}</button>}
           </div>
           {ex !== "alcance" && (
-            <div className="treino-field" role="group" aria-label={t("margem")}>
-              <span>{t("margem")}</span>
+            <div className="treino-field" role="group" aria-label={t("voz.precisao")}>
+              <span>{t("voz.precisao")}</span>
               <div className="treino-chips">
-                {TOLERANCIAS.map((m) => <button key={m} type="button" className="treino-chip" aria-pressed={s.tolerancia === m} onClick={() => mudar({ ...s, tolerancia: m })}>{t("margemCents", { n: m })}</button>)}
+                {TOLERANCIAS.map((m) => <button key={m} type="button" className="treino-chip" aria-pressed={s.tolerancia === m} onClick={() => ajustar({ ...s, tolerancia: m })}>{t(`voz.precisoes.${m}` as "voz.precisoes.30")} <small className="treino-chip-sub">{t("voz.precisaoCents", { n: m })}</small></button>)}
               </div>
             </div>
           )}
@@ -501,13 +534,13 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
             <div className="treino-field" role="group" aria-label={t("voz.oitava")}>
               <span>{t("voz.oitava")}</span>
               <div className="treino-chips">
-                <button type="button" className="treino-chip" aria-pressed={s.qualquerOitava} onClick={() => mudar({ ...s, qualquerOitava: true })}>{t("voz.qualquerOitava")}</button>
-                <button type="button" className="treino-chip" aria-pressed={!s.qualquerOitava} onClick={() => mudar({ ...s, qualquerOitava: false })}>{t("voz.mesmaOitava")}</button>
+                <button type="button" className="treino-chip" aria-pressed={s.qualquerOitava} onClick={() => ajustar({ ...s, qualquerOitava: true })}>{t("voz.qualquerOitava")}</button>
+                <button type="button" className="treino-chip" aria-pressed={!s.qualquerOitava} onClick={() => ajustar({ ...s, qualquerOitava: false })}>{t("voz.mesmaOitava")}</button>
               </div>
             </div>
           )}
           {(ex === "sequencia" || ex === "tonica") && s.inicio >= 0 && (
-            <Interruptor rotulo={t("voz.subir")} ligado={s.subir} aoMudar={(subir) => mudar({ ...s, subir })} />
+            <Interruptor rotulo={t("voz.subir")} ligado={s.subir} aoMudar={(subir) => ajustar({ ...s, subir })} />
           )}
           {ex === "tonica" && (
             <div className="treino-field" role="group" aria-label={t("voz.ajuda")}>
@@ -531,7 +564,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
           )}
         </div>
       </details>}
-      <p className="treino-creditos">{t("creditos")} {t("voz.privado")}</p>
+      <p className="treino-creditos">{t("creditos")} {t("voz.privado")} {t("voz.atalhos")}</p>
     </div>
   );
 }

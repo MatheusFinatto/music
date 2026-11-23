@@ -133,6 +133,8 @@
 .treino-chip { min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); font: inherit; font-size: var(--text-sm); font-weight: 600; cursor: pointer; transition: background-color 0.15s, border-color 0.15s; }
 .treino-chip:hover { border-color: var(--muted); }
 .treino-chip[aria-pressed="true"] { background: var(--ok); border-color: var(--ok); color: var(--on-bright); }
+/* O número objetivo ao lado do nome (Normal ±30 cents): mais leve, mas legível também no chip verde. */
+.treino-chip-sub { font-size: var(--text-xs); font-weight: 500; opacity: 0.75; font-variant-numeric: tabular-nums; }
 /* Interruptor: o nome no mesmo estilo dos rótulos dos outros ajustes, a chave logo depois (verde = ligado). */
 .treino-switch { align-self: flex-start; display: flex; align-items: center; gap: 14px; min-height: 44px; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-align: left; cursor: pointer; }
 .treino-switch i { flex: none; position: relative; width: 44px; height: 26px; border-radius: 999px; background: var(--line); transition: background-color 0.15s; }
