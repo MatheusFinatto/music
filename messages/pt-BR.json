@@ -393,7 +393,9 @@
         "ouvir": "Ouvir o trecho",
         "guia": "Piano junto",
         "tom": "Tom: {nota}. A melodia é a mesma em qualquer tom.",
-        "proximaMusica": "Próxima música"
+        "proximaMusica": "Próxima música",
+        "conferirMedia": "Melodia transcrita de partituras e cifras, ainda não conferida de ouvido. Se algo soar diferente do que você conhece, avise.",
+        "conferirBaixa": "Melodia de fonte única, com o ritmo estimado: pode diferir da versão que você conhece. Avise o que soar diferente."
       }
     },
     "instrumento": "Instrumento",

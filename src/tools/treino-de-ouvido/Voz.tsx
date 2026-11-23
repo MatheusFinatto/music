@@ -24,7 +24,7 @@ import {
 type Exercicio = "igualar" | "longa" | "sequencia" | "tonica" | "intervalo" | "musica" | "alcance";
 const EXERCICIOS: readonly Exercicio[] = ["igualar", "longa", "sequencia", "tonica", "intervalo", "musica", "alcance"];
 type Saved = { version: 1; exercicio: Exercicio; tolerancia: number; qualquerOitava: boolean; intervalos: string[]; padrao: string; inicio: number; subir: boolean; grau: string; ajuda: "guia" | "so"; musica: ConfigMusica; melhores: Record<string, number> };
-const DEFAULTS: Saved = { version: 1, exercicio: "igualar", tolerancia: 30, qualquerOitava: true, intervalos: ["3m", "3M", "4J", "5J"], padrao: "arpejoMaior", inicio: 0, subir: true, grau: "3M", ajuda: "guia", musica: { musica: MUSICAS[0]!.id, trecho: 0, velocidade: 0.7, guia: true }, melhores: {} };
+const DEFAULTS: Saved = { version: 1, exercicio: "igualar", tolerancia: 30, qualquerOitava: true, intervalos: ["3m", "3M", "4J", "5J"], padrao: "arpejoMaior", inicio: 0, subir: true, grau: "3M", ajuda: "guia", musica: { musica: MUSICAS[0]!.id, trecho: 0, velocidade: 0.6, guia: true }, melhores: {} };
 const store = createStore<Saved>("treino-de-ouvido-voz", DEFAULTS, (saved) => {
   const s = saved as Partial<Saved> | null;
   if (!s || typeof s !== "object") return null;
@@ -44,7 +44,7 @@ const store = createStore<Saved>("treino-de-ouvido-voz", DEFAULTS, (saved) => {
     musica: {
       musica: MUSICAS.some((m) => m.id === s.musica?.musica) ? s.musica!.musica : DEFAULTS.musica.musica,
       trecho: typeof s.musica?.trecho === "number" && Number.isInteger(s.musica.trecho) && s.musica.trecho >= 0 ? s.musica.trecho : 0,
-      velocidade: (VELOCIDADES as readonly unknown[]).includes(s.musica?.velocidade) ? s.musica!.velocidade : 0.7,
+      velocidade: (VELOCIDADES as readonly unknown[]).includes(s.musica?.velocidade) ? s.musica!.velocidade : 0.6,
       guia: typeof s.musica?.guia === "boolean" ? s.musica.guia : true,
     },
     melhores: s.melhores && typeof s.melhores === "object" ? Object.fromEntries(Object.entries(s.melhores).filter(([, v]) => typeof v === "number" && v >= 0 && v <= 1)) : {},

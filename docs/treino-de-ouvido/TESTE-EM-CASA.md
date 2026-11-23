@@ -30,3 +30,4 @@ Para cada item: anote o que sentiu e, se mudou algum ajuste, qual. "Justo" quer 
 
 ## Anotações
 - [ ] **Programas por foco e tempo (5 a 30 min):** os focos (Afinação, Segunda voz, Harmonia…) montam o que você esperava? o tempo real bate com o previsto? (o resumo mostra os dois). Depois de uns dois programas a estimativa melhora? A quantidade de perguntas por bloco está boa? O fluxo (começa sozinho, "Próximo bloco") atrapalha ou ajuda? Falta pular/repetir algo?
+- [ ] **Músicas (Voz → Músicas):** a melodia está certa? Anote as que soam diferentes (principalmente as de média e baixa confiança, marcadas na tela). A folga de tempo está boa: nota que você acha que cantou certo falha? O andamento lento é lento o bastante? A pista é fácil de acompanhar? O trecho sorteado nos programas de voz (foco Músicas) funciona sem você tocar em nada?

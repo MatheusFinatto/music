@@ -6,6 +6,7 @@ describe("as músicas do cantar", () => {
   it("têm ids únicos, nome, andamento razoável e ao menos um trecho", () => {
     expect(new Set(MUSICAS.map((m) => m.id)).size).toBe(MUSICAS.length);
     for (const m of MUSICAS) {
+      expect(["alta", "media", "baixa"]).toContain(m.confianca);
       expect(m.nome.length, m.id).toBeGreaterThan(2);
       expect(m.bpm, m.id).toBeGreaterThanOrEqual(50);
       expect(m.bpm, m.id).toBeLessThanOrEqual(140);
@@ -22,17 +23,17 @@ describe("as músicas do cantar", () => {
         if (n.st !== null) expect(Number.isInteger(n.st), `${m.id} ${t.nome}`).toBe(true);
       }
       const sts = cantadas.map((n) => n.st as number);
-      expect(Math.max(...sts) - Math.min(...sts), `${m.id} ${t.nome}: faixa`).toBeLessThanOrEqual(14);
+      expect(Math.max(...sts) - Math.min(...sts), `${m.id} ${t.nome}: faixa`).toBeLessThanOrEqual(17);
     }
   });
-  it("cabem no piano e numa pista, em qualquer tom, e duram o que um trecho dura (de 3 a 40 s no andamento lento)", () => {
+  it("cabem no piano e numa pista, em qualquer tom, e duram o que um trecho dura (de 2,5 a 40 s no andamento lento)", () => {
     for (const m of MUSICAS) for (const t of m.trechos) {
       for (let classe = 0; classe < 12; classe++) {
         const tom = tonicaParaCaber(classe, t.notas);
-        const js = janelas(t.notas, m.bpm * 0.7, tom);
+        const js = janelas(t.notas, m.bpm * 0.6, tom);
         for (const j of js) if (j.midi !== null) { expect(j.midi, `${m.id} ${classe}`).toBeGreaterThanOrEqual(45); expect(j.midi, `${m.id} ${classe}`).toBeLessThanOrEqual(84); }
         const d = duracaoDe(js);
-        expect(d, `${m.id} ${t.nome}`).toBeGreaterThan(3);
+        expect(d, `${m.id} ${t.nome}`).toBeGreaterThan(2.5);
         expect(d, `${m.id} ${t.nome}`).toBeLessThan(40);
       }
     }

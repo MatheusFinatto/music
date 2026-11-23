@@ -25,3 +25,14 @@ O dono confirmou o modelo guiado por relógio ("faz bastante sentido e a UX é m
 - **Andamento** lento por padrão (escolhível). **Janela de acerto**: a nota vale se a altura certa foi cantada por uma parte do tempo dela (a definir, de 50% a 60%), com a folga de tempo generosa do início de cada nota. Sem pontuação de ritmo por ora.
 - **Resultado do trecho**: quantas notas acertou, quais falhou (marcadas na pista), e "Tentar de novo" / "Próximo trecho". Tom transposto para a voz da pessoa (escolhível).
 - Reaproveita `PitchPipeline`/`PitchSmoother`/`atualizar` e o piano; a lógica nova (janelas de tempo, acerto por nota) é pura e testável com as vozes simuladas.
+
+
+## Estado (2026-11-23): 24 músicas ligadas
+O dono marcou 24 músicas no checklist. As melodias foram transcritas e conferidas contra partituras e cifras por agentes (duas fontes ou mais quando existiam); os dados estão em `src/tools/treino-de-ouvido/musicas.json` (semitons acima da tônica, durações em tempos, sílaba por nota) e o campo `confianca` diz o quanto cada uma foi conferida:
+- **alta** (9): Brilha estrelinha, Atirei o pau no gato, Parabéns, Ciranda, Cai cai balão, Ode à alegria, Escravos de Jó, A barata diz que tem, Noite feliz.
+- **média** (8): Marcha soldado, Boi da cara preta, O cravo brigou com a rosa, A canoa virou, Pirulito que bate bate, Terezinha de Jesus, Bate o sino, Amazing Grace.
+- **baixa** (7): Sapo cururu, Se essa rua fosse minha, A dona aranha, O sapo não lava o pé, Borboletinha, Alecrim dourado, Nana neném (fonte única ou só cifras, ritmo estimado). As de baixa confiança **ficam de fora dos programas** (só no treino livre) e mostram o aviso "pode diferir da versão que você conhece".
+- Média e baixa mostram um aviso na tela; o ouvido do dono é o teste final (item no roteiro de teste em casa). Para corrigir uma melodia basta editar o JSON.
+- **Letra:** "Parabéns pra você" fica **sem letra** (a letra em português, de Bertha Celeste, 1942, provavelmente ainda tem direito autoral); a melodia é livre. "Ode à alegria" não tem letra. "Boi da cara preta" só tem a letra da primeira frase (as outras não alinharam). As demais usam a letra tradicional.
+- Notas com menos de 0,28 s (pontuadas curtas) são "de passagem": não entram na conta. O andamento "lento" é 60% do sugerido; "normal", 100%.
+- Músicas do checklist que não entraram: nenhuma; "Peixe vivo" saiu a pedido do dono.

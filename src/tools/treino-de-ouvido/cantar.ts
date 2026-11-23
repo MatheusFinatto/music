@@ -6,10 +6,15 @@ import { centsDe } from "./voz";
 /** Uma nota da melodia: `st` = semitons acima da tônica (null = pausa), `dur` em tempos de semínima, `sil` = a sílaba cantada. */
 export type NotaMusica = { st: number | null; dur: number; sil: string };
 export type Trecho = { nome: string; notas: NotaMusica[] };
-export type Musica = { id: string; nome: string; compasso: string; bpm: number; trechos: Trecho[] };
+/** `confianca`: o quanto a transcrição foi conferida contra partituras (alta: várias fontes; média: uma ou fontes que divergem; baixa: só cifras, ritmo estimado). */
+export type Musica = { id: string; nome: string; compasso: string; bpm: number; confianca: "alta" | "media" | "baixa"; trechos: Trecho[] };
 
 /** A nota no tempo: segundos a partir da primeira nota do trecho. `midi` null = pausa. */
 export type Janela = { ini: number; fim: number; midi: number | null; sil: string };
+
+/** Uma nota que dura menos que isto (em segundos) é de passagem: ninguém firma a altura em tão pouco tempo, então não é avaliada. */
+export const CURTA_S = 0.28;
+export const ehCurta = (j: Janela): boolean => j.fim - j.ini < CURTA_S;
 
 export function janelas(notas: readonly NotaMusica[], bpm: number, tonicaMidi: number): Janela[] {
   const seg = 60 / bpm;
@@ -62,7 +67,7 @@ export type Acerto = { fracao: number; ok: boolean; ouvido: number | null };
 
 /** O quanto da janela (até `ate`, para a leitura ao vivo) a voz esteve dentro da margem em torno da nota. */
 export function acertoDaNota(amostras: readonly Amostra[], j: Janela, tolerancia: number, qualquerOitava: boolean, ate = j.fim): Acerto {
-  if (j.midi === null) return { fracao: 1, ok: true, ouvido: null };
+  if (j.midi === null || ehCurta(j)) return { fracao: 1, ok: true, ouvido: null };
   const a = j.ini + Math.min(GRACA_S, GRACA_MAX * (j.fim - j.ini));
   const b = Math.min(j.fim, ate);
   if (b <= a) return { fracao: 0, ok: false, ouvido: null };
@@ -83,9 +88,9 @@ export function acertoDaNota(amostras: readonly Amostra[], j: Janela, tolerancia
 }
 
 export type Resumo = { acertadas: number; total: number; ok: boolean };
-/** Quantas notas (sem contar pausas) foram cantadas, e se o trecho passa: 80% ou mais. */
+/** Quantas notas (sem contar pausas nem notas de passagem) foram cantadas, e se o trecho passa: 80% ou mais. */
 export function resumir(js: readonly Janela[], acertos: readonly Acerto[]): Resumo {
   let acertadas = 0, total = 0;
-  js.forEach((j, i) => { if (j.midi !== null) { total++; if (acertos[i]?.ok) acertadas++; } });
+  js.forEach((j, i) => { if (j.midi !== null && !ehCurta(j)) { total++; if (acertos[i]?.ok) acertadas++; } });
   return { acertadas, total, ok: total > 0 && acertadas / total >= 0.8 };
 }

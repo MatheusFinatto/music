@@ -13,15 +13,15 @@ import { usePiano } from "./usePiano";
 import { sortearClasseDeVoz } from "./voz";
 
 export type ConfigMusica = { musica: string; trecho: number; velocidade: number; guia: boolean };
-export const VELOCIDADES = [0.7, 1] as const;
+export const VELOCIDADES = [0.6, 1] as const;
 type Fase = "parado" | "ouvindo" | "contagem" | "cantando" | "feito";
 /** Tempos de contagem antes da primeira nota. */
 const CONTAGEM = 4;
 /** O relógio, fora do componente (a regra de pureza do React não aceita chamá-lo direto nele). */
 const agoraMs = () => performance.now();
-/** Num programa, cada tentativa é um trecho sorteado entre todos (nunca o mesmo duas vezes seguidas). */
+/** Num programa, cada tentativa é um trecho sorteado entre os conferidos (nunca o mesmo duas vezes seguidas). */
 function sortearTrecho(excluir?: string): { musica: string; trecho: number } {
-  const todos = MUSICAS.flatMap((m) => m.trechos.map((_, i) => ({ musica: m.id, trecho: i }))).filter((x) => `${x.musica}:${x.trecho}` !== excluir);
+  const todos = MUSICAS.filter((m) => m.confianca !== "baixa").flatMap((m) => m.trechos.map((_, i) => ({ musica: m.id, trecho: i }))).filter((x) => `${x.musica}:${x.trecho}` !== excluir);
   return todos[Math.floor(Math.random() * todos.length)]!;
 }
 
@@ -218,6 +218,7 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
   const notasSemPausa = js.map((j, i) => ({ j, i })).filter((x) => x.j.midi !== null);
   const rodando = fase === "contagem" || fase === "cantando" || fase === "ouvindo";
   const melhor = melhores[chave];
+  const temLetra = js.some((j) => j.sil);
   const total = notasSemPausa.length;
 
   return (
@@ -251,16 +252,18 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
         )}
       </div>}
 
+      {musica.confianca !== "alta" && <p className="cantar-dica cantar-conferir">{t(musica.confianca === "baixa" ? "voz.musica.conferirBaixa" : "voz.musica.conferirMedia")}</p>}
+
       <div className="cantar-pista" ref={caixa} role="img" aria-label={t("voz.musica.pista")}>
         <canvas ref={tela} aria-hidden="true" />
         {contagem > 0 && <p className="cantar-contagem" aria-hidden="true" key={contagem}>{contagem}</p>}
       </div>
 
-      <p className="cantar-letra" aria-label={t("voz.musica.letra")}>
+      {temLetra && <p className="cantar-letra" aria-label={t("voz.musica.letra")}>
         {js.map((j, i) => (j.midi === null ? null : (
           <span key={i} className={i === atual ? "atual" : final ? (final.acertos[i]?.ok ? "ok" : "falhou") : ""}>{j.sil || "–"} </span>
         )))}
-      </p>
+      </p>}
 
       <p className="treino-estado" role="status">
         {fase === "contagem" ? t("voz.musica.contagem", { n: contagem || 1 }) : fase === "cantando" ? t("voz.musica.cantando") : fase === "ouvindo" ? t("voz.musica.ouvindo") : t("voz.musica.tom", { nota: nomeNota(tonicaMidi).replace(/-?\d+$/, "") })}

@@ -53,7 +53,8 @@ export function desenharPista(ctx: CanvasRenderingContext2D, e: EstadoPista) {
 
   const volta = (x0: number, y0: number, w0: number, h0: number, r: number) => { ctx.beginPath(); ctx.roundRect(x0, y0, Math.max(w0, 2), h0, r); };
 
-  // barras
+  // barras (as sílabas que bateriam umas nas outras ficam de fora: a letra completa está logo abaixo da pista)
+  const rotulos: { x1: number; x2: number; y: number }[] = [];
   for (const j of notas) {
     const x0 = x(j.ini), x1 = x(j.fim);
     if (x1 < 30 || x0 > w) continue;
@@ -82,7 +83,9 @@ export function desenharPista(ctx: CanvasRenderingContext2D, e: EstadoPista) {
     // sílaba, sempre legível sobre a barra
     if (j.sil) {
       ctx.font = "650 13px Inter, system-ui, sans-serif"; ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
-      ctx.fillStyle = cores.tinta; ctx.fillText(j.sil, Math.max(x0 + 2, 36), y0 - 6, Math.max(largura, 40));
+      const xs = Math.max(x0 + 2, 36), ys = y0 - 6, larg = Math.min(ctx.measureText(j.sil).width, Math.max(largura, 40));
+      const bate = rotulos.some((r) => Math.abs(r.y - ys) < 15 && xs < r.x2 + 4 && xs + larg > r.x1);
+      if (!bate) { rotulos.push({ x1: xs, x2: xs + larg, y: ys }); ctx.fillStyle = cores.tinta; ctx.fillText(j.sil, xs, ys, Math.max(largura, 40)); }
     }
   }
 
