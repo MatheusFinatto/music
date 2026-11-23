@@ -88,11 +88,15 @@
 
 /* régua da afinação: o centro é afinado; o ponto mostra onde a segunda nota estava */
 .regua { display: flex; flex-direction: column; gap: 6px; max-width: 30rem; width: 100%; margin-inline: auto; }
-.regua-trilho { position: relative; height: 28px; }
-.regua-trilho::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; border-radius: 2px; background: var(--line); }
-.regua-marca { position: absolute; top: 6px; bottom: 6px; width: 2px; margin-left: -1px; background: var(--muted); opacity: 0.55; }
-.regua-marca.zero { top: 2px; bottom: 2px; background: var(--ok); opacity: 1; }
-.regua-ponto { position: absolute; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: var(--bad); box-shadow: 0 0 0 3px var(--surface); animation: treino-ponto 0.7s var(--ease) both; }
+.regua-trilho { position: relative; height: 52px; }
+.regua-trilho::before { content: ""; position: absolute; left: 0; right: 0; top: 34px; height: 2px; margin-top: -1px; border-radius: 2px; background: var(--line); }
+.regua-marca { position: absolute; top: 24px; height: 20px; width: 2px; margin-left: -1px; background: var(--muted); opacity: 0.55; }
+.regua-marca.zero { top: 20px; height: 28px; background: var(--ok); opacity: 1; }
+.regua-desvio { position: absolute; top: 31px; height: 6px; border-radius: 6px; background: var(--bad); opacity: 0.55; animation: treino-cresce 0.6s var(--ease) both; transform-origin: var(--origem, left); }
+@keyframes treino-cresce { from { transform: scaleX(0); } to { transform: none; } }
+.regua-valor { position: absolute; top: 0; transform: translateX(-50%); font: 700 var(--text-sm) var(--font-sans); font-variant-numeric: tabular-nums; color: var(--bad); white-space: nowrap; }
+.regua-valor.zero { color: var(--ok); }
+.regua-ponto { position: absolute; top: 34px; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: var(--bad); box-shadow: 0 0 0 3px var(--surface); animation: treino-ponto 0.7s var(--ease) both; }
 .regua-ponto.zero { background: var(--ok); }
 @keyframes treino-ponto { from { transform: translateX(var(--de, 0)) scale(0.4); opacity: 0; } to { transform: none; opacity: 1; } }
 .regua-nomes { display: flex; justify-content: space-between; color: var(--muted); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.06em; }
@@ -124,3 +128,43 @@
 @media (max-width: 480px) { .treino-escolhas, .treino-seg { width: 100%; } .treino-seg button { flex: 1; padding: 0 10px; } }
 @media (max-width: 420px) { .treino-ouvir { width: 72px; height: 72px; } .treino-ouvir svg { width: 28px; height: 28px; } }
 @media (prefers-reduced-motion: reduce) { .treino *, .treino *::before, .treino *::after { animation: none !important; transition: none !important; } }
+
+/* afinômetro da voz: a nota que sai, a régua em cents ao redor do alvo e a barra que enche enquanto a nota é segurada */
+.afinometro { display: flex; flex-direction: column; gap: 10px; padding: 18px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--bg); }
+.afinometro-nota { margin: 0; text-align: center; font-family: var(--font-display), var(--font-sans); font-weight: 700; font-size: var(--text-stage, 3rem); line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.afinometro-nota.vazio { color: var(--muted); }
+.afinometro-regua { position: relative; height: 34px; }
+.afinometro-regua::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; background: var(--line); border-radius: 2px; }
+.afinometro-faixa { position: absolute; top: 6px; bottom: 6px; border-radius: 8px; background: var(--ok); opacity: 0.22; }
+.afinometro-centro { position: absolute; left: 50%; top: 2px; bottom: 2px; width: 2px; margin-left: -1px; background: var(--ok); }
+.afinometro-ponto { position: absolute; top: 50%; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: var(--bad); box-shadow: 0 0 0 3px var(--bg); transition: left 0.12s linear, background-color 0.15s; }
+.afinometro-ponto.dentro { background: var(--ok); }
+.afinometro-nomes { display: flex; justify-content: space-between; color: var(--muted); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.06em; }
+.afinometro-seguro { height: 6px; border-radius: 6px; background: var(--line); overflow: hidden; }
+.afinometro-seguro i { display: block; height: 100%; border-radius: 6px; background: var(--ok); transition: width 0.1s linear; }
+.afinometro-dica { margin: 0; text-align: center; color: var(--muted); font-size: var(--text-sm); min-height: 1.4em; }
+.treino-acoes { display: flex; flex-wrap: wrap; gap: 10px; }
+.treino-acoes .treino-proxima { flex: 1 1 100%; }
+.treino-secoes { display: flex; flex-direction: column; gap: 18px; }
+.treino-secoes > .treino-seg { align-self: flex-start; }
+
+/* braço de violão: 12 casas, rolável na horizontal no celular para as casas ficarem do tamanho de um toque */
+.braco-caixa { overflow-x: auto; border-radius: var(--radius-md); }
+.braco { display: block; min-width: 560px; width: 100%; height: auto; touch-action: manipulation; }
+.braco-madeira { fill: #2b1f16; }
+.braco-traste { stroke: #8a7b66; stroke-width: 2; }
+.braco-pestana { stroke: var(--key-white); stroke-width: 5; }
+.braco-incrust { fill: #5a4a3a; }
+.braco-corda { stroke: #cdbd9f; }
+.braco-num { font: 600 10px var(--font-sans); fill: var(--muted); text-anchor: middle; pointer-events: none; }
+.braco-celula { fill: transparent; cursor: pointer; outline: none; }
+.braco-celula:hover { fill: rgba(255, 255, 255, 0.07); }
+.braco-celula:focus-visible { stroke: var(--accent); stroke-width: 3; }
+.braco-bola circle { stroke: var(--bg); stroke-width: 2; }
+.braco-bola text { font: 700 10px var(--font-sans); text-anchor: middle; fill: var(--on-bright); }
+.braco-bola.alvo circle { fill: var(--target); }
+.braco-bola.dada circle { fill: var(--surface); stroke: var(--target); stroke-width: 3; }
+.braco-bola.dada text { fill: var(--target); }
+.braco-bola.sel circle { fill: var(--ok); }
+.braco-bola.errada circle { fill: var(--bad); }
+.braco-bola.toca circle { fill: var(--accent); }

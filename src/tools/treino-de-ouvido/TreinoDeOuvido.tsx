@@ -9,15 +9,19 @@ import {
   type ConfigClassica, type ConfigFuncional, type Direcao, type Exercicio, type Historico, type PerguntaClassica, type PerguntaFuncional,
 } from "./engine";
 import { Regua } from "./Regua";
-import { Teclado, type Marca } from "./Teclado";
+import { Instrumento } from "./Instrumento";
+import { useInstrumento } from "./instrumento";
+import type { Marca } from "./Teclado";
+import { Voz } from "./Voz";
 import "./treino.css";
 
 type Modo = "classico" | "funcional";
 const MODOS: readonly Modo[] = ["classico", "funcional"];
 /** Os estilos à mostra. O funcional segue no código, escondido: o dono ficou com o clássico e o traz de volta se sentir falta. */
 const VISIVEIS: readonly Modo[] = ["classico"];
-type Saved = { version: 1; modo: Modo; classica: ConfigClassica; funcional: ConfigFuncional; historico: Historico; reforco: boolean };
-const DEFAULTS: Saved = { version: 1, modo: "classico", classica: CLASSICA_INICIAL, funcional: FUNCIONAL_INICIAL, historico: {}, reforco: true };
+type Secao = "ouvido" | "voz";
+type Saved = { version: 1; secao: Secao; modo: Modo; classica: ConfigClassica; funcional: ConfigFuncional; historico: Historico; reforco: boolean };
+const DEFAULTS: Saved = { version: 1, secao: "ouvido", modo: "classico", classica: CLASSICA_INICIAL, funcional: FUNCIONAL_INICIAL, historico: {}, reforco: true };
 
 /** Só ids que existem; lista vazia volta ao padrão. */
 const ids = (v: unknown, validos: readonly string[], padrao: string[]): string[] => {
@@ -31,6 +35,7 @@ const store = createStore<Saved>("treino-de-ouvido", DEFAULTS, (saved) => {
   const h = s.historico && typeof s.historico === "object" ? s.historico : {};
   return {
     version: 1,
+    secao: s.secao === "voz" ? "voz" : "ouvido",
     modo: MODOS.includes(s.modo as Modo) ? (s.modo as Modo) : "classico",
     classica: {
       exercicio: EXERCICIOS.includes(c.exercicio as Exercicio) ? (c.exercicio as Exercicio) : "intervalos",
@@ -56,9 +61,10 @@ const store = createStore<Saved>("treino-de-ouvido", DEFAULTS, (saved) => {
 type Pergunta = { modo: "classico"; p: PerguntaClassica } | { modo: "funcional"; p: PerguntaFuncional };
 
 /** Treino de ouvido no navegador: ouvir, escolher a resposta e ver no teclado o que foi tocado. Clássico (intervalos e acordes); o funcional (graus numa tonalidade) está escondido. */
-export function TreinoDeOuvido() {
+function Ouvido() {
   const t = useTranslations("treino-de-ouvido");
   const s = useSyncExternalStore(store.subscribe, store.get, store.getInitial);
+  const [instrumento, setInstrumento] = useInstrumento();
   const [q, setQ] = useState<Pergunta | null>(null);
   const [escolha, setEscolha] = useState<string | null>(null);
   const [placar, setPlacar] = useState(PLACAR_ZERO);
@@ -270,7 +276,7 @@ export function TreinoDeOuvido() {
           })}
         </div>
 
-        <Teclado janela={janela} marcas={marcas} onTocar={tocarTecla} label={t("teclado")} />
+        <Instrumento tipo={instrumento} janela={janela} marcas={marcas} onTocar={tocarTecla} label={t(instrumento === "violao" ? "braco" : "teclado")} />
         {achar && q && !respondida && (
           <button type="button" className="go treino-proxima" onClick={confirmar} disabled={selecionada === null || carregando}>{t("responder")}<kbd aria-hidden="true">Enter</kbd></button>
         )}
@@ -334,6 +340,13 @@ export function TreinoDeOuvido() {
               </div>
             </div>
           )}
+          <div className="treino-field" role="group" aria-label={t("instrumento")}>
+            <span>{t("instrumento")}</span>
+            <div className="treino-chips">
+              <button type="button" className="treino-chip" aria-pressed={instrumento === "teclado"} onClick={() => setInstrumento("teclado")}>{t("instrumentos.teclado")}</button>
+              <button type="button" className="treino-chip" aria-pressed={instrumento === "violao"} onClick={() => setInstrumento("violao")}>{t("instrumentos.violao")}</button>
+            </div>
+          </div>
           <div className="treino-field" role="group" aria-label={t("reforco")}>
             <span>{t("reforco")}</span>
             <div className="treino-chips">
@@ -366,6 +379,23 @@ export function TreinoDeOuvido() {
       </details>
 
       <p className="treino-creditos">{t("creditos")} {t("atalhos")}</p>
+    </div>
+  );
+}
+
+/** Treino de ouvido e de voz no mesmo lugar: uma seção para ouvir e responder, outra para cantar com o microfone. */
+export function TreinoDeOuvido() {
+  const t = useTranslations("treino-de-ouvido");
+  const s = useSyncExternalStore(store.subscribe, store.get, store.getInitial);
+  const trocar = (secao: Secao) => store.set((x) => ({ ...x, secao }));
+  return (
+    <div className="treino-secoes">
+      <div className="treino-seg" role="radiogroup" aria-label={t("secoes.rotulo")} onKeyDown={onRadioKeyDown}>
+        {(["ouvido", "voz"] as const).map((x) => (
+          <button key={x} type="button" role="radio" aria-checked={s.secao === x} tabIndex={s.secao === x ? 0 : -1} onClick={() => trocar(x)}>{t(`secoes.${x}`)}</button>
+        ))}
+      </div>
+      {s.secao === "voz" ? <Voz /> : <Ouvido />}
     </div>
   );
 }

@@ -112,8 +112,8 @@
     "back": "Voltar para as ferramentas"
   },
   "treino-de-ouvido": {
-    "title": "Treino de ouvido",
-    "description": "Treine o ouvido no navegador: intervalos, acordes e graus da escala, com som de piano. Gratuito, sem anúncios e sem conta.",
+    "title": "Treino de ouvido e voz",
+    "description": "Treine o ouvido e a voz no navegador: intervalos, acordes, harmonia, afinação e cantar com o microfone, com som de piano. Gratuito, sem anúncios e sem conta.",
     "modo": "Estilo de treino",
     "modos": {
       "classico": "Clássico",
@@ -274,6 +274,64 @@
     "compararDois": "Comparar os dois",
     "pergunta_achar": "Ache a segunda nota",
     "dica_achar": "A primeira nota está marcada. Toque as teclas para ouvir e compare de ouvido; quando achar, responda.",
-    "responder": "Responder"
+    "responder": "Responder",
+    "secoes": {
+      "ouvido": "Ouvido",
+      "voz": "Voz",
+      "rotulo": "Seção"
+    },
+    "voz": {
+      "titulo": "Treino de voz",
+      "exercicios": {
+        "igualar": "Igualar a nota",
+        "intervalo": "Cantar o intervalo",
+        "alcance": "Alcance"
+      },
+      "dica": {
+        "igualar": "O piano toca uma nota. Cante a mesma e segure.",
+        "intervalo": "O piano toca duas notas. Cante a segunda e segure.",
+        "alcance": "Cante do grave ao agudo, parando um pouco em cada nota. Medimos a mais grave e a mais aguda em que você firmou."
+      },
+      "comecar": "Começar",
+      "proxima": "Próxima nota",
+      "parar": "Parar",
+      "ouvirDeNovo": "Ouvir de novo",
+      "cante": "Cante agora",
+      "ouvindo": "Ouvindo o piano…",
+      "medir": "Medir meu alcance",
+      "terminar": "Terminar",
+      "sem": "Altura da voz",
+      "baixo": "Baixo",
+      "alto": "Alto",
+      "maisAlto": "Suba um pouco",
+      "maisBaixo": "Desça um pouco",
+      "segure": "Segure assim",
+      "silencio": "Não ouvi nada ainda",
+      "alcanceDica": "Cante e pare em cada nota",
+      "afinou": "Afinou!",
+      "mediaCentro": "Em cima da nota.",
+      "mediaAcima": "{n} cents acima, em média.",
+      "mediaAbaixo": "{n} cents abaixo, em média.",
+      "nao": "Não deu desta vez. Ouça a nota de novo e tente outra vez.",
+      "oitava": "Oitava",
+      "qualquerOitava": "Qualquer oitava",
+      "mesmaOitava": "Mesma oitava",
+      "alcanceResultado": "Do {grave} ao {agudo}",
+      "alcanceVazio": "Ainda não firmei nenhuma nota. Cante e pare em cada uma.",
+      "extensao": "Extensão: {oitavas, plural, =0 {0 oitavas} one {# oitava} other {# oitavas}} e {semitons, plural, =0 {0 semitons} one {# semitom} other {# semitons}}",
+      "erroMic": {
+        "denied": "O navegador negou o microfone. Libere o microfone para este site e tente de novo.",
+        "unavailable": "Não encontrei um microfone neste aparelho ou navegador.",
+        "failed": "Não foi possível abrir o microfone."
+      },
+      "fone": "Use fone de ouvido: sem ele, o piano entra no microfone e atrapalha.",
+      "privado": "O som do microfone não sai do seu navegador."
+    },
+    "instrumento": "Instrumento",
+    "instrumentos": {
+      "teclado": "Teclado",
+      "violao": "Violão"
+    },
+    "braco": "Braço do violão: toque uma posição para ouvir a nota"
   }
 }
