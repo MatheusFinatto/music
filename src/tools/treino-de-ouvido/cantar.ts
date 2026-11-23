@@ -35,14 +35,15 @@ const PIANO_MIN = 45, PIANO_MAX = 84;
  * A tônica (MIDI) de uma classe de altura (0 = Dó) numa oitava em que a melodia fica em volta do Dó central e dentro do alcance
  * do piano de amostras. Se a melodia for mais larga que isso, vale a mais próxima do centro.
  */
-export function tonicaParaCaber(classe: number, notas: readonly NotaMusica[]): number {
+export function tonicaParaCaber(classe: number, notas: readonly NotaMusica[], faixa?: { min: number; max: number }): number {
   const sts = notas.map((n) => n.st).filter((x): x is number => x !== null);
   const lo = Math.min(...sts), hi = Math.max(...sts), meio = (lo + hi) / 2;
   let melhor = classe + 12 * 4, custo = Infinity;
   for (let k = 2; k <= 6; k++) {
     const t = classe + 12 * k;
     if (t + lo < PIANO_MIN || t + hi > PIANO_MAX) continue;
-    const c = Math.abs(t + meio - CENTRO_MIDI);
+    // Com a faixa da pessoa, vale o tom em que a melodia sai menos dela; depois, o mais centrado.
+    const c = faixa ? (Math.max(0, faixa.min - (t + lo)) + Math.max(0, t + hi - faixa.max)) * 100 + Math.abs(t + meio - (faixa.min + faixa.max) / 2) : Math.abs(t + meio - CENTRO_MIDI);
     if (c < custo) { custo = c; melhor = t; }
   }
   return melhor;

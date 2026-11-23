@@ -329,6 +329,17 @@
       "qualquerOitava": "Qualquer oitava",
       "mesmaOitava": "Mesma oitava",
       "alcanceResultado": "Do {grave} ao {agudo}",
+      "minhaVoz": {
+        "titulo": "Minha voz",
+        "padrao": "Padrão",
+        "medida": "Medida no Alcance",
+        "tipos": { "baixo": "Baixo", "baritono": "Barítono", "tenor": "Tenor", "contralto": "Contralto", "mezzo": "Mezzo-soprano", "soprano": "Soprano" },
+        "atual": "Faixa em uso: {de} a {ate}.",
+        "dica": "As notas sorteadas e o tom das músicas ficam dentro dela. Escolha o tipo de voz mais próximo da sua, ou meça no Alcance.",
+        "sugestao": "Pela sua extensão, a faixa confortável é de {de} a {ate} (voz mais próxima: {voz}).",
+        "usar": "Usar como minha faixa",
+        "salva": "Faixa salva em Minha voz."
+      },
       "alcanceVazio": "Nenhuma nota firme ainda. Cante e pare um pouco em cada uma.",
       "extensao": "Extensão: {oitavas, plural, =0 {0 oitavas} one {# oitava} other {# oitavas}} e {semitons, plural, =0 {0 semitons} one {# semitom} other {# semitons}}",
       "erroMic": {

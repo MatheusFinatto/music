@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { PADROES } from "./engine";
-import { ALCANCE_ZERO, atualizar, centsDe, extensao, inicioDaRodada, medirAlcance, notasDoPadrao, sortearClasseDeVoz, SEGURANDO_ZERO, SEGURAR_LONGA_MS, SEGURAR_MS, SEGURAR_PASSO_MS } from "./voz";
+import { ALCANCE_ZERO, atualizar, centsDe, extensao, faixaConfortavel, inicioDaRodada, sortearAlvoDeVoz, VOZES, vozMaisProxima, medirAlcance, notasDoPadrao, sortearClasseDeVoz, SEGURANDO_ZERO, SEGURAR_LONGA_MS, SEGURAR_MS, SEGURAR_PASSO_MS } from "./voz";
 
 describe("cents até o alvo", () => {
   it("acima é positivo e abaixo é negativo", () => {
@@ -124,5 +124,26 @@ describe("nota inicial aleatória", () => {
   });
   it("qualquer classe sorteada dá uma nota inicial entre G3 e F#4", () => {
     for (let c = 0; c < 12; c++) { const m = inicioDaRodada(c, 0, false); expect(m).toBeGreaterThanOrEqual(55); expect(m).toBeLessThanOrEqual(66); }
+  });
+});
+
+describe("faixa da voz", () => {
+  it("o alvo sorteado fica dentro da faixa, nos dois extremos do sorteio", () => {
+    for (const v of VOZES) { expect(sortearAlvoDeVoz(() => 0, v)).toBe(v.min); expect(sortearAlvoDeVoz(() => 0.999999, v)).toBe(v.max); }
+  });
+  it("o padrão fica na oitava que menos sai da faixa (e cabe inteiro quando existe uma assim)", () => {
+    const sai = (c: number, topo: number, v: { min: number; max: number }) => Math.max(0, v.min - c) + Math.max(0, c + topo - v.max);
+    for (const v of VOZES) for (let c = 0; c < 12; c++) for (const subir of [false, true]) {
+      const topo = 12 + (subir ? 6 : 0), base = inicioDaRodada(c, 0, subir, v, 12);
+      expect(((base % 12) + 12) % 12).toBe(c);
+      for (let k = 1; k <= 8; k++) expect(sai(base, topo, v)).toBeLessThanOrEqual(sai(c + 12 * k, topo, v));
+    }
+    expect(inicioDaRodada(0, 0, false, { min: 48, max: 69 }, 12) + 12).toBeLessThanOrEqual(69);
+  });
+  it("a faixa confortável tira os extremos e o tipo mais próximo vem do centro", () => {
+    expect(faixaConfortavel(45, 67)).toEqual({ min: 47, max: 64 });
+    expect(faixaConfortavel(50, 58)).toEqual({ min: 50, max: 58 });
+    expect(vozMaisProxima({ min: 45, max: 65 })).toBe("baritono");
+    expect(vozMaisProxima({ min: 60, max: 81 })).toBe("soprano");
   });
 });

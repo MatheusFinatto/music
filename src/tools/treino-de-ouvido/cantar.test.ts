@@ -122,3 +122,16 @@ describe("voz simulada cantando a melodia, na cadeia do app", () => {
     }, 30000);
   }
 });
+
+describe("tom para a faixa da pessoa", () => {
+  it("escolhe a oitava em que a melodia cabe na faixa de um barítono e na de uma soprano", () => {
+    const sts = BRILHA.map((n) => n.st).filter((x): x is number => x !== null);
+    const lo = Math.min(...sts), hi = Math.max(...sts);
+    for (let classe = 0; classe < 12; classe++) {
+      const bar = tonicaParaCaber(classe, BRILHA, { min: 45, max: 65 });
+      expect(bar + lo).toBeGreaterThanOrEqual(45); expect(bar + hi).toBeLessThanOrEqual(65);
+      const sop = tonicaParaCaber(classe, BRILHA, { min: 60, max: 81 });
+      expect(sop + lo).toBeGreaterThanOrEqual(60); expect(sop + hi).toBeLessThanOrEqual(81);
+    }
+  });
+});
