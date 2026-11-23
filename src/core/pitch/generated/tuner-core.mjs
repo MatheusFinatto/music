@@ -1031,7 +1031,7 @@ function refineByParabola($this, tau) {
 }
 function YinPitchDetector(sampleRate, windowSize, minFrequencyHz, maxFrequencyHz, threshold) {
   windowSize = windowSize === VOID ? 2048 : windowSize;
-  minFrequencyHz = minFrequencyHz === VOID ? 60.0 : minFrequencyHz;
+  minFrequencyHz = minFrequencyHz === VOID ? 38.0 : minFrequencyHz;
   maxFrequencyHz = maxFrequencyHz === VOID ? 1400.0 : maxFrequencyHz;
   threshold = threshold === VOID ? 0.15 : threshold;
   this.n5_1 = sampleRate;
