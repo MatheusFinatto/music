@@ -360,7 +360,8 @@
         "guia": "Ouvir as duas notas antes",
         "so": "Só a tônica"
       },
-      "espiar": "Espiar a nota"
+      "espiar": "Espiar a nota",
+      "aleatoria": "Aleatória"
     },
     "instrumento": "Instrumento",
     "instrumentos": {

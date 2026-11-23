@@ -8,6 +8,9 @@ export function centsDe(midi: number, alvo: number, qualquerOitava: boolean): nu
   return d * 100;
 }
 
+/** Uma nota inicial qualquer (classe de altura, 0 = Dó): a opção "aleatória" da nota da tônica e do início dos padrões. */
+export const sortearClasseDeVoz = (rng: () => number = Math.random): number => Math.floor(rng() * 12);
+
 /** Uma nota-alvo para a voz: de C3 a C5, que o piano toca bem e cabe na voz de quase todo mundo em alguma oitava. */
 export const sortearAlvoDeVoz = (rng: () => number = Math.random): number => 48 + Math.floor(rng() * 25);
 

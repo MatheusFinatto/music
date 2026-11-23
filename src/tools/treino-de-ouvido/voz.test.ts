@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { PADROES } from "./engine";
-import { ALCANCE_ZERO, atualizar, centsDe, extensao, inicioDaRodada, medirAlcance, notasDoPadrao, SEGURANDO_ZERO, SEGURAR_LONGA_MS, SEGURAR_MS, SEGURAR_PASSO_MS } from "./voz";
+import { ALCANCE_ZERO, atualizar, centsDe, extensao, inicioDaRodada, medirAlcance, notasDoPadrao, sortearClasseDeVoz, SEGURANDO_ZERO, SEGURAR_LONGA_MS, SEGURAR_MS, SEGURAR_PASSO_MS } from "./voz";
 
 describe("cents até o alvo", () => {
   it("acima é positivo e abaixo é negativo", () => {
@@ -111,5 +111,18 @@ describe("arpejos e escalas", () => {
   });
   it("o padrão mais agudo (arpejo com oitava + 6 semitons de subida) cabe no piano", () => {
     for (const p of PADROES) for (let c = 0; c < 12; c++) { const topo = Math.max(...notasDoPadrao(inicioDaRodada(c, 6, true), p.semitons)); expect(topo).toBeLessThanOrEqual(84); }
+  });
+});
+
+describe("nota inicial aleatória", () => {
+  it("sorteia uma classe de altura de 0 a 11, todas possíveis", () => {
+    const vistas = new Set<number>();
+    for (let k = 0; k < 1200; k++) { const c = sortearClasseDeVoz(); expect(c).toBeGreaterThanOrEqual(0); expect(c).toBeLessThan(12); vistas.add(c); }
+    expect(vistas.size).toBe(12);
+    expect(sortearClasseDeVoz(() => 0.999)).toBe(11);
+    expect(sortearClasseDeVoz(() => 0)).toBe(0);
+  });
+  it("qualquer classe sorteada dá uma nota inicial entre G3 e F#4", () => {
+    for (let c = 0; c < 12; c++) { const m = inicioDaRodada(c, 0, false); expect(m).toBeGreaterThanOrEqual(55); expect(m).toBeLessThanOrEqual(66); }
   });
 });

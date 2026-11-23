@@ -13,7 +13,7 @@ import type { Marca } from "./Teclado";
 import { usePiano } from "./usePiano";
 import {
   ALCANCE_ZERO, atualizar, extensao, inicioDaRodada, medirAlcance, notasDoPadrao, SEGURANDO_ZERO, SEGURAR_LONGA_MS, SEGURAR_MS, SEGURAR_PASSO_MS,
-  sortearAlvoDeVoz, TOLERANCIAS, type Alcance,
+  sortearAlvoDeVoz, sortearClasseDeVoz, TOLERANCIAS, type Alcance,
 } from "./voz";
 
 type Exercicio = "igualar" | "longa" | "sequencia" | "tonica" | "intervalo" | "alcance";
@@ -31,7 +31,8 @@ const store = createStore<Saved>("treino-de-ouvido-voz", DEFAULTS, (saved) => {
     qualquerOitava: typeof s.qualquerOitava === "boolean" ? s.qualquerOitava : true,
     intervalos: ok.length ? ok : DEFAULTS.intervalos,
     padrao: PADROES.some((p) => p.id === s.padrao) ? (s.padrao as string) : DEFAULTS.padrao,
-    inicio: typeof s.inicio === "number" && Number.isInteger(s.inicio) && s.inicio >= 0 && s.inicio < 12 ? s.inicio : 0,
+    // -1 = aleatória: a nota inicial muda a cada rodada.
+    inicio: typeof s.inicio === "number" && Number.isInteger(s.inicio) && s.inicio >= -1 && s.inicio < 12 ? s.inicio : 0,
     subir: typeof s.subir === "boolean" ? s.subir : true,
     grau: s.grau === "sortear" || IDS.intervalos.includes(s.grau as string) ? (s.grau as string) : DEFAULTS.grau,
     ajuda: s.ajuda === "so" ? "so" : "guia",
@@ -176,10 +177,10 @@ export function Voz() {
       t0 = { alvos: [midi], demo: [{ midi, at: 0, dur: 2.0 }], bordao: null, segurarMs: e === "longa" ? SEGURAR_LONGA_MS : SEGURAR_MS, tonica: null, grau: null };
     } else if (e === "sequencia") {
       const padrao = PADROES.find((p) => p.id === s.padrao) ?? PADROES[0]!;
-      const alvos = notasDoPadrao(inicioDaRodada(s.inicio, rodada, s.subir), padrao.semitons);
+      const alvos = notasDoPadrao(inicioDaRodada(s.inicio < 0 ? sortearClasseDeVoz() : s.inicio, rodada, s.subir && s.inicio >= 0), padrao.semitons);
       t0 = { alvos, demo: alvos.map((midi, i) => ({ midi, at: i * 0.7, dur: 0.65 })), bordao: null, segurarMs: SEGURAR_PASSO_MS, tonica: null, grau: null };
     } else if (e === "tonica") {
-      const raiz = inicioDaRodada(s.inicio, rodada, s.subir);
+      const raiz = inicioDaRodada(s.inicio < 0 ? sortearClasseDeVoz() : s.inicio, rodada, s.subir && s.inicio >= 0);
       const sorteado = s.grau === "sortear" ? sortearIntervalo(s.intervalos) : s.grau;
       const alvo = raiz + INTERVALOS.find((i) => i.id === sorteado)!.semitons;
       // Com ajuda, o piano toca a tônica e a nota juntas e só depois deixa a tônica soando; sem ajuda, só a tônica.
@@ -349,11 +350,12 @@ export function Voz() {
             <label className="treino-field">
               <span>{ex === "tonica" ? t("voz.tonica") : t("voz.inicio")}</span>
               <select value={s.inicio} onChange={(e) => mudar({ ...s, inicio: Number(e.target.value) })}>
+                <option value={-1}>{t("voz.aleatoria")}</option>
                 {NOTE_NAMES.map((n, i) => <option key={n} value={i}>{n}</option>)}
               </select>
             </label>
           )}
-          {(ex === "sequencia" || ex === "tonica") && (
+          {(ex === "sequencia" || ex === "tonica") && s.inicio >= 0 && (
             <div className="treino-field" role="group" aria-label={t("voz.subir")}>
               <span>{t("voz.subir")}</span>
               <div className="treino-chips">
