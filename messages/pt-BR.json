@@ -392,7 +392,8 @@
         "proximoTrecho": "Próximo trecho",
         "ouvir": "Ouvir o trecho",
         "guia": "Piano junto",
-        "tom": "Tom: {nota}. A melodia é a mesma em qualquer tom."
+        "tom": "Tom: {nota}. A melodia é a mesma em qualquer tom.",
+        "proximaMusica": "Próxima música"
       }
     },
     "instrumento": "Instrumento",
@@ -445,7 +446,8 @@
         "notas": "Intervalos e acordes",
         "afinacao": "Afinação",
         "harmonia": "Harmonia",
-        "segundaVoz": "Segunda voz"
+        "segundaVoz": "Segunda voz",
+        "musicas": "Músicas"
       }
     },
     "isolados": "Exercícios isolados",

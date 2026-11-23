@@ -5,15 +5,15 @@ import type { Exercicio as ExOuvido } from "./engine";
 
 export type Secao = "ouvido" | "voz";
 /** O alcance não entra nos programas: é uma medição, não um exercício. */
-export type ExVoz = "igualar" | "longa" | "sequencia" | "tonica" | "intervalo";
+export type ExVoz = "igualar" | "longa" | "sequencia" | "tonica" | "intervalo" | "musica";
 export type Ex = ExOuvido | ExVoz;
 export const MINUTOS = [5, 10, 15, 20, 30] as const;
 export type Minutos = (typeof MINUTOS)[number];
 export const MINUTOS_PADRAO: Minutos = 10;
 
 /** O que o programa enfatiza. "geral" é o mix equilibrado; os outros concentram o tempo no que importa para aquele foco. */
-export type Foco = "geral" | "notas" | "afinacao" | "harmonia" | "segundaVoz";
-export const FOCOS: Record<Secao, readonly Foco[]> = { ouvido: ["geral", "notas", "afinacao", "harmonia"], voz: ["geral", "afinacao", "segundaVoz"] };
+export type Foco = "geral" | "notas" | "afinacao" | "harmonia" | "segundaVoz" | "musicas";
+export const FOCOS: Record<Secao, readonly Foco[]> = { ouvido: ["geral", "notas", "afinacao", "harmonia"], voz: ["geral", "afinacao", "segundaVoz", "musicas"] };
 
 export type Bloco = { exercicio: Ex; segundos: number };
 export type BlocoPlano = { exercicio: Ex; perguntas: number };
@@ -39,8 +39,9 @@ export const PROGRAMAS: Record<Secao, Partial<Record<Foco, Tabela>>> = {
     harmonia: tabela([["campo", 150, 200, 300, 400, 600], ["cadencias", 150, 200, 300, 400, 600], ["progressoes", 0, 200, 300, 400, 600]]),
   },
   voz: {
-    geral: tabela([["igualar", 150, 150, 150, 180, 280], ["longa", 0, 0, 150, 180, 230], ["sequencia", 150, 200, 250, 330, 430], ["tonica", 0, 250, 200, 300, 450], ["intervalo", 0, 0, 150, 210, 410]]),
+    geral: tabela([["igualar", 150, 130, 120, 150, 220], ["longa", 0, 0, 120, 150, 180], ["sequencia", 150, 170, 200, 250, 330], ["tonica", 0, 200, 150, 250, 350], ["intervalo", 0, 0, 130, 150, 320], ["musica", 0, 100, 180, 250, 400]]),
     afinacao: tabela([["igualar", 150, 250, 350, 450, 650], ["longa", 150, 200, 300, 350, 500], ["intervalo", 0, 150, 250, 400, 650]]),
+    musicas: tabela([["igualar", 60, 100, 120, 150, 200], ["musica", 240, 500, 780, 1050, 1600]]),
     segundaVoz: tabela([["igualar", 0, 100, 150, 200, 300], ["tonica", 150, 300, 450, 600, 900], ["intervalo", 150, 200, 300, 400, 600]]),
   },
 };
@@ -49,7 +50,7 @@ export const programaDe = (secao: Secao, foco: Foco, minutos: Minutos): readonly
 /** Segundos por pergunta, enquanto a pessoa ainda não tem respostas suficientes: palpites a conferir com o uso. */
 export const MEDIANAS_INICIAIS: Record<Ex, number> = {
   intervalos: 10, acordes: 10, afinacao: 14, achar: 25, campo: 15, cadencias: 16, progressoes: 20,
-  igualar: 14, longa: 14, sequencia: 25, tonica: 20, intervalo: 18,
+  igualar: 14, longa: 14, sequencia: 25, tonica: 20, intervalo: 18, musica: 22,
 };
 /** O toque em "Próxima" e a respiração entre uma pergunta e outra, que a medição (até a resposta) não pega. */
 export const SOBRA_S = 2;

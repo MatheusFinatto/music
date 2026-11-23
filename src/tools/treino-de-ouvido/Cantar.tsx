@@ -6,6 +6,8 @@ import { CHUNK_SAMPLES, PitchPipeline, PitchSmoother } from "@/core/pitch";
 import { acertoDaNota, duracaoDe, janelas, resumir, tonicaParaCaber, type Acerto, type Amostra, type Janela, type Resumo } from "./cantar";
 import { nomeNota } from "./engine";
 import { MUSICAS, musicaDe } from "./musicas";
+import type { ProgramaProp } from "./Programas";
+import { anotarDuracao } from "./ritmo";
 import { desenharPista, lerCores } from "./pista";
 import { usePiano } from "./usePiano";
 import { sortearClasseDeVoz } from "./voz";
@@ -15,14 +17,23 @@ export const VELOCIDADES = [0.7, 1] as const;
 type Fase = "parado" | "ouvindo" | "contagem" | "cantando" | "feito";
 /** Tempos de contagem antes da primeira nota. */
 const CONTAGEM = 4;
+/** O relógio, fora do componente (a regra de pureza do React não aceita chamá-lo direto nele). */
+const agoraMs = () => performance.now();
+/** Num programa, cada tentativa é um trecho sorteado entre todos (nunca o mesmo duas vezes seguidas). */
+function sortearTrecho(excluir?: string): { musica: string; trecho: number } {
+  const todos = MUSICAS.flatMap((m) => m.trechos.map((_, i) => ({ musica: m.id, trecho: i }))).filter((x) => `${x.musica}:${x.trecho}` !== excluir);
+  return todos[Math.floor(Math.random() * todos.length)]!;
+}
 
 /**
  * Cantar músicas no padrão Yousician: o piano dá o tom, as notas correm até a linha de leitura e a pessoa canta cada uma quando
  * chega; a nota vale se a altura certa foi cantada durante a janela dela. Sem detector de início de nota: duas notas iguais
  * seguidas são duas janelas de tempo.
  */
-export function Cantar({ cfg, onCfg, tonica, tolerancia, qualquerOitava, melhores, onResultado }: {
+export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitava, melhores, onResultado, programa }: {
   cfg: ConfigMusica; onCfg: (p: Partial<ConfigMusica>) => void;
+  /** Dentro de um programa: o trecho é sorteado a cada tentativa, começa sozinho e o botão final avança o bloco. */
+  programa?: ProgramaProp;
   /** Classe de altura da tônica (0 = Dó), ou -1 para uma diferente a cada tentativa. */
   tonica: number; tolerancia: number; qualquerOitava: boolean;
   melhores: Record<string, number>;
@@ -30,6 +41,8 @@ export function Cantar({ cfg, onCfg, tonica, tolerancia, qualquerOitava, melhore
 }) {
   const t = useTranslations("treino-de-ouvido");
   const { tocar: tocarPiano, calar, carregando, erro: erroPiano } = usePiano();
+  const [sorteado, setSorteado] = useState(() => (programa ? sortearTrecho() : null));
+  const cfg = programa && sorteado ? { ...cfgSalva, ...sorteado } : cfgSalva;
   const musica = musicaDe(cfg.musica);
   const trecho = musica.trechos[Math.min(cfg.trecho, musica.trechos.length - 1)]!;
   const chave = `${musica.id}:${Math.min(cfg.trecho, musica.trechos.length - 1)}`;
@@ -54,6 +67,8 @@ export function Cantar({ cfg, onCfg, tonica, tolerancia, qualquerOitava, melhore
   const suavizador = useRef(new PitchSmoother());
   const fim = useRef<ReturnType<typeof setTimeout> | null>(null);
   const quadro = useRef(0);
+  const inicioTentativa = useRef(0);
+  const trocouPorPrograma = useRef(false);
   const atualRef = useRef(-1);
 
   const js: Janela[] = janelas(trecho.notas, bpm, tonicaMidi);
@@ -135,7 +150,9 @@ export function Cantar({ cfg, onCfg, tonica, tolerancia, qualquerOitava, melhore
     setFinal({ acertos, resumo });
     mudaFase("feito");
     onResultado(chave, resumo);
-  }, [chave, limpar, onResultado]);
+    anotarDuracao("musica", agoraMs() - inicioTentativa.current);
+    programa?.aoResponder(resumo.ok);
+  }, [chave, limpar, onResultado, programa]);
 
   const ouvir = async () => {
     limpar(); setFinal(null); amostras.current = []; atualRef.current = -1;
@@ -148,6 +165,7 @@ export function Cantar({ cfg, onCfg, tonica, tolerancia, qualquerOitava, melhore
 
   const cantar = async () => {
     limpar(); setFinal(null); setErroMic(null); amostras.current = []; atualRef.current = -1;
+    inicioTentativa.current = agoraMs();
     // Cada tentativa com tônica "aleatória" muda de tom; a melodia é a mesma.
     const tom = tonica < 0 ? tonicaParaCaber(sortearClasseDeVoz(), trecho.notas) : tonicaParaCaber(tonica, trecho.notas);
     setTonicaMidi(tom);
@@ -174,6 +192,27 @@ export function Cantar({ cfg, onCfg, tonica, tolerancia, qualquerOitava, melhore
     const pulso = setInterval(() => { tempo -= 1; if (tempo > 0) setContagem(tempo); else { clearInterval(pulso); setContagem(0); if (faseRef.current === "contagem") mudaFase("cantando"); } }, seg * 1000);
     fim.current = setTimeout(() => { clearInterval(pulso); finalizar(); }, (espera + duracaoDe(lista) + 0.45) * 1000);
   };
+  // Num programa a tentativa começa sozinha (o toque em "Começar programa" ou "Próximo bloco" já liberou o áudio e o microfone).
+  useEffect(() => {
+    if (!programa) return;
+    const id = setTimeout(() => void cantar(), 0);
+    return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  // Depois de trocar o trecho sorteado, a nova tentativa começa sozinha.
+  useEffect(() => {
+    if (!trocouPorPrograma.current) return;
+    trocouPorPrograma.current = false;
+    const id = setTimeout(() => void cantar(), 0);
+    return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chave]);
+  const proximaDoPrograma = () => {
+    if (!programa) return;
+    if (programa.restante === 0) { programa.aoAvancar(); return; }
+    trocouPorPrograma.current = true;
+    setSorteado(sortearTrecho(chave));
+  };
   const parar = () => { limpar(); mudaFase("parado"); setContagem(0); atualRef.current = -1; setAtual(-1); };
 
   const notasSemPausa = js.map((j, i) => ({ j, i })).filter((x) => x.j.midi !== null);
@@ -183,7 +222,7 @@ export function Cantar({ cfg, onCfg, tonica, tolerancia, qualquerOitava, melhore
 
   return (
     <div className="cantar">
-      <div className="cantar-escolha">
+      {!programa && <div className="cantar-escolha">
         <div className="cantar-linha">
           <label className="treino-field cantar-musica">
             <span>{t("voz.musica.musica")}</span>
@@ -210,7 +249,7 @@ export function Cantar({ cfg, onCfg, tonica, tolerancia, qualquerOitava, melhore
             </div>
           </div>
         )}
-      </div>
+      </div>}
 
       <div className="cantar-pista" ref={caixa} role="img" aria-label={t("voz.musica.pista")}>
         <canvas ref={tela} aria-hidden="true" />
@@ -237,9 +276,11 @@ export function Cantar({ cfg, onCfg, tonica, tolerancia, qualquerOitava, melhore
       {erroPiano && <p className="treino-estado" role="alert">{erroPiano === "audio" ? t("erroAudio") : t("erroPiano")}</p>}
 
       <div className="treino-acoes">
-        {!rodando && <button type="button" className="go treino-proxima" onClick={() => void cantar()} disabled={carregando}>{final ? t("voz.musica.cantarDeNovo") : t("voz.musica.cantar")}</button>}
-        {!rodando && final && cfg.trecho + 1 < musica.trechos.length && <button type="button" className="treino-btn" onClick={() => onCfg({ trecho: cfg.trecho + 1 })}>{t("voz.musica.proximoTrecho")}</button>}
-        {!rodando && <button type="button" className="treino-btn" onClick={() => void ouvir()} disabled={carregando}>{t("voz.musica.ouvir")}</button>}
+        {!rodando && programa && final && <button type="button" className="go treino-proxima" onClick={proximaDoPrograma}>{programa.restante === 0 ? programa.rotuloFim : t("voz.musica.proximaMusica")}</button>}
+        {!rodando && programa && !final && <button type="button" className="go treino-proxima" onClick={() => void cantar()} disabled={carregando}>{t("voz.musica.cantar")}</button>}
+        {!rodando && !programa && <button type="button" className="go treino-proxima" onClick={() => void cantar()} disabled={carregando}>{final ? t("voz.musica.cantarDeNovo") : t("voz.musica.cantar")}</button>}
+        {!rodando && !programa && final && cfg.trecho + 1 < musica.trechos.length && <button type="button" className="treino-btn" onClick={() => onCfg({ trecho: cfg.trecho + 1 })}>{t("voz.musica.proximoTrecho")}</button>}
+        {!rodando && !programa && <button type="button" className="treino-btn" onClick={() => void ouvir()} disabled={carregando}>{t("voz.musica.ouvir")}</button>}
         {rodando && <button type="button" className="go treino-proxima" onClick={parar}>{t("voz.parar")}</button>}
       </div>
       <p className="cantar-dica">{t("voz.musica.dica")}</p>

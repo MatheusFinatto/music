@@ -4,7 +4,7 @@ import {
   AMOSTRAS_MAX, estimarSegundos, FOCOS, type Foco, MEDIANAS_INICIAIS, mediana, medianaDe, MINUTOS, minutosParaMostrar, PISO_S, planejar, programaDe, registrarDuracao, TETO_S, type Duracoes, type Ex,
 } from "./programas";
 
-const VOZ = ["igualar", "longa", "sequencia", "tonica", "intervalo"];
+const VOZ = ["igualar", "longa", "sequencia", "tonica", "intervalo", "musica"];
 const COMBOS = (["ouvido", "voz"] as const).flatMap((secao) => FOCOS[secao].map((foco) => ({ secao, foco })));
 
 describe("programas por tempo", () => {
@@ -29,6 +29,7 @@ describe("programas por tempo", () => {
     expect(so("ouvido", "afinacao")).toEqual(new Set(["intervalos", "afinacao"]));
     expect(so("voz", "segundaVoz")).toEqual(new Set(["igualar", "tonica", "intervalo"]));
     expect(so("voz", "afinacao")).toEqual(new Set(["igualar", "longa", "intervalo"]));
+    expect(so("voz", "musicas")).toEqual(new Set(["igualar", "musica"]));
   });
   it("todo exercício tem uma duração inicial", () => {
     for (const { secao, foco } of COMBOS) for (const m of MINUTOS) for (const x of programaDe(secao, foco, m)) expect(MEDIANAS_INICIAIS[x.exercicio]).toBeGreaterThan(0);

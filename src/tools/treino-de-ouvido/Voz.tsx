@@ -244,7 +244,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
 
   // Dentro de um programa o bloco começa sozinho: o toque em "Começar" ou "Próximo bloco" já liberou o áudio.
   useEffect(() => {
-    if (!programa) return;
+    if (!programa || exercicioDaVez === "musica") return;
     const id = setTimeout(() => comecar(), 0);
     return () => clearTimeout(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -302,6 +302,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
             tonica={s.inicio}
             tolerancia={s.tolerancia}
             qualquerOitava={s.qualquerOitava}
+            programa={programa}
             melhores={s.melhores}
             onResultado={(chave, r) => {
               setPlacar((p) => ({ a: p.a + (r.ok ? 1 : 0), t: p.t + 1 }));
