@@ -23,7 +23,8 @@ import kotlin.math.floor
 class YinPitchDetector(
     private val sampleRate: Int,
     private val windowSize: Int = 2048,
-    minFrequencyHz: Double = 60.0,
+    // 38 Hz: the bass's low E (E1, 41.2 Hz) even when it is ~1.4 semitones flat. Was 60 Hz, which missed E1 and A1.
+    minFrequencyHz: Double = 38.0,
     maxFrequencyHz: Double = 1400.0,
     private val threshold: Double = 0.15,
 ) {

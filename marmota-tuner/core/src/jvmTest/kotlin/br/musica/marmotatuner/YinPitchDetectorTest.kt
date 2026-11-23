@@ -22,6 +22,24 @@ class YinPitchDetectorTest {
     }
 
     @Test
+    fun detectsEveryOpenBassStringWithinOneCent() {
+        for (hz in listOf(41.20, 55.0, 73.42, 98.0)) {
+            val detected = yin.detect(TestSignals.sine(hz, yin.requiredSamples))
+            assertNotNull("$hz Hz not detected", detected)
+            assertEquals("$hz Hz off by cents", 0.0, centsOff(detected!!, hz), 1.0)
+        }
+    }
+
+    @Test
+    fun bassLowEWithStrongHarmonicsAndFlatIsStillE1() {
+        for (hz in listOf(41.20, 40.0)) { // in tune, and ~50 cents flat
+            val detected = yin.detect(TestSignals.guitarLike(hz, yin.requiredSamples))
+            assertNotNull("$hz Hz not detected", detected)
+            assertEquals("$hz Hz off by cents", 0.0, centsOff(detected!!, hz), 2.0)
+        }
+    }
+
+    @Test
     fun lowEWithStrongHarmonicsIsNotReadAnOctaveUp() {
         val detected = yin.detect(TestSignals.guitarLike(82.41, yin.requiredSamples))
         assertNotNull(detected)
