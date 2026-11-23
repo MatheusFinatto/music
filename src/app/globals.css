@@ -115,7 +115,8 @@
   .site-header nav a { color: var(--muted); text-decoration: none; font-size: 0.94rem; font-weight: 500; padding: 8px 12px; border-radius: 999px; transition: color 0.2s, background-color 0.2s; }
   .site-header nav a:hover { color: var(--ink); background: var(--soft); }
   @media (max-width: 680px) { .site-header nav a { display: inline-flex; align-items: center; min-height: 44px; } .brand { min-height: 44px; } }
-  .site-header nav { display: flex; align-items: center; gap: 2px; }
+  /* Em tela muito estreita o menu rola dentro dele mesmo, nunca a página inteira para o lado. */
+  .site-header nav { display: flex; align-items: center; gap: 2px; min-width: 0; overflow-x: auto; scrollbar-width: none; }
   @media (max-width: 560px) { .site-header .wrap { gap: 6px; } .brand { font-size: 0; gap: 0; } .site-header nav a { font-size: 0.84rem; padding: 8px 8px; } }
 
   /* topo do hub */

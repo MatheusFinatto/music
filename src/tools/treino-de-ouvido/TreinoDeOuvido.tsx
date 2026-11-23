@@ -249,7 +249,6 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
 
   return (
     <div className="treino">
-      {!programa && <h2 className="treino-isolados">{t("isolados")}</h2>}
       {!programa && <div className="treino-topo">
         <div className="treino-escolhas">
           {VISIVEIS.length > 1 && (
@@ -272,10 +271,13 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
             </div>
           )}
         </div>
-        <dl className="treino-placar" aria-label={t("placarTitulo")}>
-          <div><dd>{t("placar", { acertos: placar.acertos, total: placar.total })}</dd><dt>{t("acertos")}</dt></div>
-          <div><dd>{placar.sequencia}</dd><dt>{t("sequenciaRotulo")}</dt></div>
-        </dl>
+        {/* Antes da primeira resposta o placar só mostraria zeros. */}
+        {placar.total > 0 && (
+          <dl className="treino-placar" aria-label={t("placarTitulo")}>
+            <div><dd>{t("placar", { acertos: placar.acertos, total: placar.total })}</dd><dt>{t("acertos")}</dt></div>
+            <div><dd>{placar.sequencia}</dd><dt>{t("sequenciaRotulo")}</dt></div>
+          </dl>
+        )}
       </div>}
 
       <section className="treino-palco" aria-label={t("perguntaTitulo")}>

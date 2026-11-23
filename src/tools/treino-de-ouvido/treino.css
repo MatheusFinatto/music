@@ -21,7 +21,17 @@
 .treino-exs-nome { flex: 0 0 5.2rem; color: var(--muted); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
 .treino-exs-linha button { min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); font: inherit; font-weight: 600; font-size: var(--text-sm); cursor: pointer; transition: background-color 0.15s, color 0.15s, border-color 0.15s; }
 .treino-exs-linha button:hover:not([aria-checked="true"]) { border-color: var(--muted); }
-.treino-exs-linha button[aria-checked="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+/* Selecionado é verde, como nos chips (Regra das Três Cores); o marfim fica para a ação principal e o alternador de modo. */
+.treino-exs-linha button[aria-checked="true"] { background: var(--ok); border-color: var(--ok); color: var(--on-bright); }
+/* Seletor de exercício da voz: colunas iguais em qualquer largura, para não ficar torto. */
+.treino-exs-grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.treino-exs-grade button { padding: 6px 12px; border-radius: var(--radius-md); line-height: 1.2; text-wrap: balance; }
+/* o que cantar: os seletores da tarefa, lado a lado, logo acima do palco */
+.treino-oque { display: flex; flex-wrap: wrap; gap: 14px 20px; }
+.treino-oque .treino-field { flex: 1 1 8rem; }
+.treino-oque .treino-field select { align-self: stretch; }
+.treino-ajustes-resumo { margin-left: auto; margin-right: 14px; color: var(--muted); font-size: var(--text-sm); font-weight: 500; text-align: right; font-variant-numeric: tabular-nums; }
+.treino-medir { align-self: flex-start; }
 .treino-placar { display: flex; gap: 22px; margin: 0 0 0 auto; font-variant-numeric: tabular-nums; }
 .treino-placar > div { display: flex; flex-direction: column; }
 .treino-placar dd { margin: 0; font-family: var(--font-display), var(--font-sans); font-weight: 700; font-size: var(--text-xl); line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); }
@@ -133,6 +143,15 @@
 .treino :is(button, select, summary):focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 @media (max-width: 480px) { .treino-escolhas, .treino-seg { width: 100%; } .treino-seg button { flex: 1; padding: 0 10px; } }
 @media (max-width: 420px) { .treino-ouvir { width: 72px; height: 72px; } .treino-ouvir svg { width: 28px; height: 28px; } }
+/* No celular os grupos de botões viram grade de colunas iguais: larguras diferentes quebrando linha ficam desalinhadas. */
+@media (max-width: 560px) {
+  .treino-exs-linha, .treino-chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .treino-exs-curtos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .treino-exs-nome { grid-column: 1 / -1; }
+  .treino-exs-linha button, .treino-chip { padding: 6px 10px; border-radius: var(--radius-md); line-height: 1.2; text-wrap: balance; }
+  .cantar-linha > .treino-field { flex: 1 1 100%; }
+  .treino-ajustes-resumo { font-size: var(--text-xs); }
+}
 @media (prefers-reduced-motion: reduce) { .treino *, .treino *::before, .treino *::after { animation: none !important; transition: none !important; } }
 
 /* afinômetro da voz: a nota que sai, a régua em cents ao redor do alvo e a barra que enche enquanto a nota é segurada */
@@ -185,8 +204,7 @@
 
 /* programas por tempo: o seletor antes do treino livre, a barra durante o programa e o resumo */
 .treino-programas, .treino-andamento, .treino-resumo { gap: 18px; }
-.treino-programas-topo h2, .treino-resumo h2, .treino-isolados { margin: 0; font-family: var(--font-display), var(--font-sans); font-weight: 650; font-size: var(--text-xl); line-height: 1.15; letter-spacing: -0.025em; }
-.treino-programas-topo p { margin: 6px 0 0; color: var(--muted); font-size: var(--text-sm); max-width: 52ch; }
+.treino-resumo h2 { margin: 0; font-family: var(--font-display), var(--font-sans); font-weight: 650; font-size: var(--text-xl); line-height: 1.15; letter-spacing: -0.025em; }
 .treino-prog-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; font-variant-numeric: tabular-nums; }
 .treino-prog-lista li { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-top: 1px solid var(--line); font-size: var(--text-sm); }
 .treino-prog-lista li:first-child { border-top: 0; }
@@ -206,7 +224,9 @@
 .treino-programas .treino-exs { gap: 6px; }
 .treino-programas { gap: 20px; }
 
-.treino-isolados { margin: 0; }
+/* Programa | Exercícios: o alternador do topo, à esquerda; no celular ocupa a largura toda (regra de .treino-seg acima). */
+.treino-modo { align-self: flex-start; }
+.treino-modo button { min-width: 8.5rem; }
 
 /* cantar músicas: a pista de notas (canvas), a letra e os controles */
 .cantar { display: flex; flex-direction: column; gap: 18px; }

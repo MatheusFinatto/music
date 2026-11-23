@@ -36,6 +36,7 @@ export function Programa({ secao, livre, bloco }: { secao: Secao; livre: ReactNo
   const r = useSyncExternalStore(ritmo.subscribe, ritmo.get, ritmo.getInitial);
   const [rodando, setRodando] = useState<Rodando | null>(null);
   const [fim, setFim] = useState<Fim | null>(null);
+  const [modo, setModo] = useState<"programa" | "livre">("programa");
   const minutos = r.ultimo[secao];
   const foco = r.foco[secao];
 
@@ -93,7 +94,14 @@ export function Programa({ secao, livre, bloco }: { secao: Secao; livre: ReactNo
   const previsto = minutosParaMostrar(estimarSegundos(plano, r.d));
   return (
     <>
-      {fim && (
+      {/* Um modo por vez: o programa pronto (padrão) ou um exercício escolhido. Os dois empilhados empurravam o palco para baixo da dobra. */}
+      <div className="treino-seg treino-modo" role="radiogroup" aria-label={t("comoTreinar.rotulo")} onKeyDown={onRadioKeyDown}>
+        {(["programa", "livre"] as const).map((m) => (
+          <button key={m} type="button" role="radio" aria-checked={modo === m} tabIndex={modo === m ? 0 : -1} onClick={() => setModo(m)}>{t(`comoTreinar.${m}`)}</button>
+        ))}
+      </div>
+      {modo === "livre" && livre}
+      {modo === "programa" && fim && (
         <section className="treino treino-resumo" aria-label={t("programas.resumoTitulo")}>
           <h2>{t("programas.resumoTitulo")}</h2>
           <p role="status">{t("programas.resumoAcertos", { acertos: fim.resultados.reduce((s, y) => s + y.acertos, 0), total: fim.resultados.reduce((s, y) => s + y.total, 0) })} · {t("programas.resumoTempo", { real: minutosParaMostrar(fim.realS), previsto: minutosParaMostrar(fim.previsto) })}</p>
@@ -108,12 +116,8 @@ export function Programa({ secao, livre, bloco }: { secao: Secao; livre: ReactNo
           </div>
         </section>
       )}
-      {!fim && (
+      {modo === "programa" && !fim && (
         <section className="treino treino-programas" aria-label={t("programas.titulo")}>
-          <div className="treino-programas-topo">
-            <h2>{t("programas.titulo")}</h2>
-            <p>{t("programas.dica")}</p>
-          </div>
           <div className="treino-exs" role="radiogroup" aria-label={t("programas.foco")} onKeyDown={onRadioKeyDown}>
             <div className="treino-exs-linha" role="presentation">
               <span className="treino-exs-nome" aria-hidden="true">{t("programas.foco")}</span>
@@ -123,23 +127,21 @@ export function Programa({ secao, livre, bloco }: { secao: Secao; livre: ReactNo
             </div>
           </div>
           <div className="treino-exs" role="radiogroup" aria-label={t("programas.rotulo")} onKeyDown={onRadioKeyDown}>
-            <div className="treino-exs-linha" role="presentation">
+            <div className="treino-exs-linha treino-exs-curtos" role="presentation">
               <span className="treino-exs-nome" aria-hidden="true">{t("programas.tempo")}</span>
               {MINUTOS.map((m) => (
                 <button key={m} type="button" role="radio" aria-checked={minutos === m} tabIndex={minutos === m ? 0 : -1} onClick={() => lembrarPrograma(secao, m)}>{t("programas.minutos", { n: m })}</button>
               ))}
             </div>
           </div>
-          <ul className="treino-prog-lista" aria-label={t("programas.aprox", { n: previsto })}>
-            {plano.map((x, k) => (
-              <li key={k}><span>{nomeDe(x.exercicio)}</span><span className="treino-fraco-n">{t("programas.perguntas", { n: x.perguntas })}</span></li>
-            ))}
-          </ul>
-          {previsto !== minutos && <p className="treino-prog-aprox">{t("programas.aprox", { n: previsto })}</p>}
+          {/* O que o programa vai treinar, numa linha: a conta de perguntas aparece na barra de andamento, depois de começar. */}
+          <p className="treino-prog-aprox">
+            {plano.map((x) => nomeDe(x.exercicio)).join(" · ")}
+            {previsto !== minutos && <> · {t("programas.aprox", { n: previsto })}</>}
+          </p>
           <button type="button" className="go treino-proxima" onClick={() => comecar(foco, minutos)}>{t("programas.comecar", { n: minutos })}</button>
         </section>
       )}
-      {livre}
     </>
   );
 }
