@@ -48,7 +48,7 @@ export function desenharPista(ctx: CanvasRenderingContext2D, e: EstadoPista) {
   const alturas = [...new Set(notas.map((j) => j.midi))];
   for (const m of alturas) {
     ctx.strokeStyle = cores.linha; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(34, y(m)); ctx.lineTo(w - 4, y(m)); ctx.stroke();
-    ctx.fillStyle = cores.tinta; ctx.globalAlpha = 0.55; ctx.fillText(e.nome(m).replace(/-?\d+$/, ""), 6, y(m)); ctx.globalAlpha = 1;
+    ctx.fillStyle = cores.tinta; ctx.globalAlpha = 0.55; ctx.fillText(e.nome(m), 6, y(m)); ctx.globalAlpha = 1;
   }
 
   const volta = (x0: number, y0: number, w0: number, h0: number, r: number) => { ctx.beginPath(); ctx.roundRect(x0, y0, Math.max(w0, 2), h0, r); };
