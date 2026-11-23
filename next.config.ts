@@ -16,6 +16,10 @@ const config: NextConfig = {
       ],
     };
   },
+  async headers() {
+    // As amostras do piano não mudam: cache longo evita baixar 14 arquivos de novo a cada visita.
+    return [{ source: "/sons/piano/:file*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] }];
+  },
   async redirects() {
     // Endereços de antes da reestruturação.
     return LAB_PAGES.map((p) => ({ source: `/${p}`, destination: `/laboratorio/${p}`, permanent: true }));

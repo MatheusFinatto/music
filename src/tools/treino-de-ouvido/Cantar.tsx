@@ -122,7 +122,10 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
   }, [fase, desenhar]);
 
   const mudaFase = (f: Fase) => { faseRef.current = f; setFase(f); };
+  /** Cada limpeza muda o número: quem acorda depois do pedido de permissão do microfone e acha outro número fecha o que abriu e desiste. */
+  const geracao = useRef(0);
   const limpar = useCallback(() => {
+    geracao.current++;
     if (fim.current) clearTimeout(fim.current); fim.current = null;
     mic.current?.stop(); mic.current = null; pipeline.current = null; suavizador.current.reset(); voz.current = null;
     calar();
@@ -136,6 +139,16 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
     limpar(); mudaFase("parado"); setFinal(null); setContagem(0); atualRef.current = -1; setAtual(-1);
     setTonicaMidi(tonicaParaCaber(tonica < 0 ? 0 : tonica, trecho.notas));
   }, [chave, limpar, tonica, trecho.notas]);
+  // Aba escondida no meio do trecho: cancela sem contar (a pista usa o relógio da página e o áudio pode suspender).
+  useEffect(() => {
+    const aoMudar = () => {
+      const f = faseRef.current;
+      if (!document.hidden || (f !== "ouvindo" && f !== "contagem" && f !== "cantando")) return;
+      limpar(); mudaFase("parado"); atualRef.current = -1; setAtual(-1); setContagem(0);
+    };
+    document.addEventListener("visibilitychange", aoMudar);
+    return () => document.removeEventListener("visibilitychange", aoMudar);
+  }, [limpar]);
   // Mudar a tônica também move a melodia (sem interromper nada que esteja cantando).
   useEffect(() => { if (faseRef.current === "parado" || faseRef.current === "feito") setTonicaMidi(tonicaParaCaber(tonica < 0 ? 0 : tonica, trecho.notas)); }, [tonica, trecho.notas]);
 
@@ -171,6 +184,7 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
     setTonicaMidi(tom);
     const lista = janelas(trecho.notas, bpm, tom);
     jsRef.current = lista;
+    const g = geracao.current;
     if ((await tocarPiano([])) === null) { mudaFase("parado"); return; } // carrega as amostras antes: assim o relógio e o microfone começam juntos
     try {
       const m = await openMic(CHUNK_SAMPLES, (chunk) => {
@@ -179,12 +193,14 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
         voz.current = midi;
         if (faseRef.current === "cantando" || faseRef.current === "contagem") amostras.current.push({ t: (performance.now() - inicio.current) / 1000, midi });
       });
+      if (g !== geracao.current) { m.stop(); return; }
       pipeline.current = new PitchPipeline(m.sampleRate); mic.current = m;
     } catch (e) { setErroMic(e instanceof MicError ? e.problem : "failed"); mudaFase("parado"); return; }
     const seg = 60 / bpm, espera = CONTAGEM * seg;
     // A tônica soa na contagem (a pessoa ouve o tom) e, com o piano junto, as notas acompanham a pista.
     const notas: PianoNote[] = [{ midi: tom, at: 0, dur: seg * 1.8 }, ...(cfg.guia ? notasDoPiano(lista, espera) : [])];
     if ((await tocarPiano(notas)) === null) { limpar(); mudaFase("parado"); return; }
+    if (g !== geracao.current) return;
     inicio.current = performance.now() + espera * 1000;
     mudaFase("contagem");
     setContagem(CONTAGEM);

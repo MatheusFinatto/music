@@ -77,6 +77,10 @@ export function desenharPista(ctx: CanvasRenderingContext2D, e: EstadoPista) {
         if (Math.abs(centsDe(s.midi, j.midi, e.qualquerOitava)) > e.tolerancia) continue;
         const xa = x(Math.max(ts, j.ini)), xb = x(Math.min(ts + dt, j.fim));
         ctx.fillRect(xa, y0, xb - xa + 0.6, alturaBarra);
+        // Um miolo escuro no trecho acertado: o verde sozinho quase não se distingue do laranja (contraste de 1,14:1).
+        ctx.fillStyle = cores.sobre; ctx.globalAlpha = 0.55;
+        ctx.fillRect(xa, y0 + alturaBarra * 0.36, xb - xa + 0.6, alturaBarra * 0.28);
+        ctx.globalAlpha = 1; ctx.fillStyle = cores.ok;
       }
       ctx.restore();
     }

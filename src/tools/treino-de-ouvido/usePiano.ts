@@ -10,7 +10,9 @@ export function usePiano() {
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState<"audio" | "piano" | null>(null);
   const bordao = useRef<ReturnType<typeof setInterval> | null>(null);
-  const pararBordao = useCallback(() => { if (bordao.current) clearInterval(bordao.current); bordao.current = null; }, []);
+  /** Cada início de bordão ganha um número; parar ou desmontar invalida os que ainda esperam as amostras. */
+  const geracao = useRef(0);
+  const pararBordao = useCallback(() => { geracao.current++; if (bordao.current) clearInterval(bordao.current); bordao.current = null; }, []);
   useEffect(() => () => { pararBordao(); const g = getAudio(); if (g) stopPiano(g); }, [pararBordao]);
   const tocar = useCallback(async (notas: readonly PianoNote[], manter = false): Promise<number | null> => {
     const g = resumeAudio();
@@ -20,11 +22,14 @@ export function usePiano() {
   }, []);
   const calar = useCallback(() => { pararBordao(); const g = getAudio(); if (g) stopPiano(g); }, [pararBordao]);
   /** Uma nota que não para: o piano a repete por cima de si mesmo até `calar` ou `pararBordao`. */
-  const iniciarBordao = useCallback(async (midi: number) => {
+  const iniciarBordao = useCallback(async (midi: number): Promise<boolean> => {
     pararBordao();
+    const minha = geracao.current;
     const nota: PianoNote[] = [{ midi, at: 0, dur: 3.0 }];
-    if ((await tocar(nota)) === null) return;
+    if ((await tocar(nota)) === null) return false;
+    if (minha !== geracao.current) { const g = getAudio(); if (g) stopPiano(g); return false; }
     bordao.current = setInterval(() => { const g = getAudio(); if (g) playPiano(g, nota, { manter: true }); }, BORDAO_MS);
+    return true;
   }, [pararBordao, tocar]);
   return { tocar, calar, carregando, erro, iniciarBordao, pararBordao };
 }

@@ -21,7 +21,6 @@ import "./treino.css";
 const agoraMs = () => performance.now();
 
 type Modo = "classico" | "funcional";
-const MODOS: readonly Modo[] = ["classico", "funcional"];
 /** Os estilos à mostra. O funcional segue no código, escondido: o dono ficou com o clássico e o traz de volta se sentir falta. */
 const VISIVEIS: readonly Modo[] = ["classico"];
 type Saved = { version: 1; modo: Modo; classica: ConfigClassica; funcional: ConfigFuncional; historico: Historico; reforco: boolean };
@@ -39,7 +38,8 @@ const store = createStore<Saved>("treino-de-ouvido", DEFAULTS, (saved) => {
   const h = s.historico && typeof s.historico === "object" ? s.historico : {};
   return {
     version: 1,
-    modo: MODOS.includes(s.modo as Modo) ? (s.modo as Modo) : "classico",
+    // Só o clássico está à mostra: um "funcional" salvo de quando ele era visível não pode mandar na pergunta.
+    modo: "classico",
     classica: {
       exercicio: EXERCICIOS.includes(c.exercicio as Exercicio) ? (c.exercicio as Exercicio) : "intervalos",
       itens: {
@@ -105,7 +105,7 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
   const nova = (modo: Modo = s.modo, cfg: Saved = s) => {
     // Com o reforço ligado, o sorteio favorece o que a pessoa mais erra.
     const h = cfg.reforco ? cfg.historico : undefined;
-    const p: Pergunta = modo === "classico" ? { modo, p: perguntaClassica({ ...cfg.classica, exercicio: exercicioDaVez }, Math.random, h) } : { modo, p: perguntaFuncional(cfg.funcional, Math.random, h) };
+    const p: Pergunta = modo === "classico" ? { modo, p: perguntaClassica({ ...(programa ? CLASSICA_INICIAL : cfg.classica), exercicio: exercicioDaVez }, Math.random, h) } : { modo, p: perguntaFuncional(cfg.funcional, Math.random, h) };
     setQ(p);
     inicioPergunta.current = agoraMs();
     setEscolha(null);
