@@ -207,3 +207,21 @@
 .treino-programas { gap: 20px; }
 
 .treino-isolados { margin: 0; }
+
+/* cantar músicas: a pista de notas (canvas), a letra e os controles */
+.cantar { display: flex; flex-direction: column; gap: 18px; }
+.cantar-escolha { display: flex; flex-direction: column; gap: 14px; }
+.cantar-pista { position: relative; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--bg); overflow: hidden; }
+.cantar-pista canvas { display: block; width: 100%; }
+.cantar-contagem { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; font-family: var(--font-display), var(--font-sans); font-weight: 700; font-size: 5rem; line-height: 1; color: var(--ink); pointer-events: none; animation: cantar-contagem 0.75s var(--ease) both; }
+@keyframes cantar-contagem { from { opacity: 0; transform: scale(1.5); } 25% { opacity: 0.9; } to { opacity: 0; transform: scale(0.9); } }
+@media (prefers-reduced-motion: reduce) { .cantar-contagem { animation: none; opacity: 0.9; } }
+.cantar-letra { margin: 0; font-size: var(--text-lg); font-weight: 600; line-height: 1.75; color: var(--muted); text-wrap: balance; }
+.cantar-letra span { padding: 2px 4px; margin: 0 -1px; border-radius: 6px; transition: color 0.12s, background-color 0.12s; }
+.cantar-letra .atual { background: var(--soft); color: var(--ink); }
+.cantar-letra .ok { color: var(--ok); }
+.cantar-letra .falhou { color: var(--bad); }
+.cantar-dica { margin: 0; color: var(--muted); font-size: var(--text-sm); max-width: 56ch; text-wrap: pretty; }
+.cantar-linha { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 14px 20px; }
+.cantar-musica { flex: 1 1 14rem; min-width: 0; }
+.cantar-musica select { width: 100%; }

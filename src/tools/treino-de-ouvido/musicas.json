@@ -1,0 +1,9 @@
+[
+  { "id": "m1", "nome": "Brilha, brilha, estrelinha", "compasso": "4/4", "bpm": 90, "trechos": [
+    { "nome": "Brilha, brilha, estrelinha", "notas": [
+      { "st": 0, "dur": 1, "sil": "Bri" }, { "st": 0, "dur": 1, "sil": "lha" }, { "st": 7, "dur": 1, "sil": "bri" }, { "st": 7, "dur": 1, "sil": "lha" },
+      { "st": 9, "dur": 1, "sil": "es" }, { "st": 9, "dur": 1, "sil": "tre" }, { "st": 7, "dur": 2, "sil": "li-nha" } ] },
+    { "nome": "Quero ver você brilhar", "notas": [
+      { "st": 5, "dur": 1, "sil": "Que" }, { "st": 5, "dur": 1, "sil": "ro" }, { "st": 4, "dur": 1, "sil": "ver" }, { "st": 4, "dur": 1, "sil": "vo" },
+      { "st": 2, "dur": 1, "sil": "cê" }, { "st": 2, "dur": 1, "sil": "bri" }, { "st": 0, "dur": 2, "sil": "lhar" } ] } ] }
+]

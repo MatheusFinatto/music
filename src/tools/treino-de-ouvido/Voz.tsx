@@ -6,6 +6,8 @@ import { MicError, openMic, type Mic, type MicProblem, type PianoNote } from "@/
 import { CHUNK_SAMPLES, NOTE_NAMES, PitchPipeline, PitchSmoother } from "@/core/pitch";
 import { createStore } from "@/core/storage";
 import { Afinometro } from "./Afinometro";
+import { Cantar, VELOCIDADES, type ConfigMusica } from "./Cantar";
+import { MUSICAS } from "./musicas";
 import { CLASSICA_INICIAL, IDS, INTERVALOS, nomeNota, PADROES, perguntaClassica } from "./engine";
 import { Instrumento } from "./Instrumento";
 import { useInstrumento } from "./instrumento";
@@ -19,10 +21,10 @@ import {
   sortearAlvoDeVoz, sortearClasseDeVoz, TOLERANCIAS, type Alcance,
 } from "./voz";
 
-type Exercicio = "igualar" | "longa" | "sequencia" | "tonica" | "intervalo" | "alcance";
-const EXERCICIOS: readonly Exercicio[] = ["igualar", "longa", "sequencia", "tonica", "intervalo", "alcance"];
-type Saved = { version: 1; exercicio: Exercicio; tolerancia: number; qualquerOitava: boolean; intervalos: string[]; padrao: string; inicio: number; subir: boolean; grau: string; ajuda: "guia" | "so" };
-const DEFAULTS: Saved = { version: 1, exercicio: "igualar", tolerancia: 30, qualquerOitava: true, intervalos: ["3m", "3M", "4J", "5J"], padrao: "arpejoMaior", inicio: 0, subir: true, grau: "3M", ajuda: "guia" };
+type Exercicio = "igualar" | "longa" | "sequencia" | "tonica" | "intervalo" | "musica" | "alcance";
+const EXERCICIOS: readonly Exercicio[] = ["igualar", "longa", "sequencia", "tonica", "intervalo", "musica", "alcance"];
+type Saved = { version: 1; exercicio: Exercicio; tolerancia: number; qualquerOitava: boolean; intervalos: string[]; padrao: string; inicio: number; subir: boolean; grau: string; ajuda: "guia" | "so"; musica: ConfigMusica; melhores: Record<string, number> };
+const DEFAULTS: Saved = { version: 1, exercicio: "igualar", tolerancia: 30, qualquerOitava: true, intervalos: ["3m", "3M", "4J", "5J"], padrao: "arpejoMaior", inicio: 0, subir: true, grau: "3M", ajuda: "guia", musica: { musica: MUSICAS[0]!.id, trecho: 0, velocidade: 0.7, guia: true }, melhores: {} };
 const store = createStore<Saved>("treino-de-ouvido-voz", DEFAULTS, (saved) => {
   const s = saved as Partial<Saved> | null;
   if (!s || typeof s !== "object") return null;
@@ -39,6 +41,13 @@ const store = createStore<Saved>("treino-de-ouvido-voz", DEFAULTS, (saved) => {
     subir: typeof s.subir === "boolean" ? s.subir : true,
     grau: s.grau === "sortear" || IDS.intervalos.includes(s.grau as string) ? (s.grau as string) : DEFAULTS.grau,
     ajuda: s.ajuda === "so" ? "so" : "guia",
+    musica: {
+      musica: MUSICAS.some((m) => m.id === s.musica?.musica) ? s.musica!.musica : DEFAULTS.musica.musica,
+      trecho: typeof s.musica?.trecho === "number" && Number.isInteger(s.musica.trecho) && s.musica.trecho >= 0 ? s.musica.trecho : 0,
+      velocidade: (VELOCIDADES as readonly unknown[]).includes(s.musica?.velocidade) ? s.musica!.velocidade : 0.7,
+      guia: typeof s.musica?.guia === "boolean" ? s.musica.guia : true,
+    },
+    melhores: s.melhores && typeof s.melhores === "object" ? Object.fromEntries(Object.entries(s.melhores).filter(([, v]) => typeof v === "number" && v >= 0 && v <= 1)) : {},
   };
 });
 
@@ -113,7 +122,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     const alvoFinal = atual.current.tarefa?.alvos[passoRef.current] ?? null;
     setResultado({ ok, media: n > 1 ? abs : media, oscilacao: oscilacao.current, passos: n, alvo: alvoFinal, ouvi: ultimoMidi.current });
     setPlacar((p) => ({ a: p.a + (ok ? 1 : 0), t: p.t + 1 }));
-    if (atual.current.exercicio !== "alcance") anotarDuracao(atual.current.exercicio, agoraMs() - inicioTentativa.current);
+    if (atual.current.exercicio !== "alcance" && atual.current.exercicio !== "musica") anotarDuracao(atual.current.exercicio, agoraMs() - inicioTentativa.current);
     atual.current.programa?.aoResponder(ok);
   }, [fecharMic, piano]);
 
@@ -285,7 +294,23 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
         )}
       </div>}
 
-      <section className="treino-palco" aria-label={t("voz.titulo")}>
+      {ex === "musica" && (
+        <section className="treino-palco" aria-label={t("voz.exercicios.musica")}>
+          <Cantar
+            cfg={s.musica}
+            onCfg={(p) => store.set((x) => ({ ...x, musica: { ...x.musica, ...p } }))}
+            tonica={s.inicio}
+            tolerancia={s.tolerancia}
+            qualquerOitava={s.qualquerOitava}
+            melhores={s.melhores}
+            onResultado={(chave, r) => {
+              setPlacar((p) => ({ a: p.a + (r.ok ? 1 : 0), t: p.t + 1 }));
+              store.set((x) => ({ ...x, melhores: { ...x.melhores, [chave]: Math.max(x.melhores[chave] ?? 0, r.total ? r.acertadas / r.total : 0) } }));
+            }}
+          />
+        </section>
+      )}
+      {ex !== "musica" && <section className="treino-palco" aria-label={t("voz.titulo")}>
         <div className="treino-pergunta">
           <h2>{ex === "alcance" ? t("voz.exercicios.alcance") : tarefa && (fase === "piano" || fase === "cantando") ? t("voz.cante") : t("voz.titulo")}</h2>
           <p>{ex === "tonica" && tarefa && tarefa.tonica !== null && tarefa.grau !== null && fase !== "parado"
@@ -354,18 +379,26 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
         </div>
         {alvoAtual !== null && ex === "tonica" && cantando && <p className="treino-estado">{t("voz.bordaoNota")}</p>}
         <p className="treino-estado">{t("voz.fone")}</p>
-      </section>
+      </section>}
 
       {!programa && <details className="treino-ajustes">
         <summary>{t("ajustes")}</summary>
         <div className="treino-ajustes-corpo">
-          <div className="treino-field" role="group" aria-label={t("instrumento")}>
+          {ex !== "musica" && <div className="treino-field" role="group" aria-label={t("instrumento")}>
             <span>{t("instrumento")}</span>
             <div className="treino-chips">
               <button type="button" className="treino-chip" aria-pressed={instrumento === "teclado"} onClick={() => setInstrumento("teclado")}>{t("instrumentos.teclado")}</button>
               <button type="button" className="treino-chip" aria-pressed={instrumento === "violao"} onClick={() => setInstrumento("violao")}>{t("instrumentos.violao")}</button>
             </div>
-          </div>
+          </div>}
+          {ex === "musica" && (
+            <div className="treino-field" role="group" aria-label={t("voz.musica.guia")}>
+              <span>{t("voz.musica.guia")}</span>
+              <div className="treino-chips">
+                <button type="button" className="treino-chip" aria-pressed={s.musica.guia} onClick={() => store.set((x) => ({ ...x, musica: { ...x.musica, guia: !x.musica.guia } }))}>{t(s.musica.guia ? "ligado" : "desligado")}</button>
+              </div>
+            </div>
+          )}
           {ex !== "alcance" && (
             <div className="treino-field" role="group" aria-label={t("margem")}>
               <span>{t("margem")}</span>
@@ -391,9 +424,9 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
               </div>
             </div>
           )}
-          {(ex === "sequencia" || ex === "tonica") && (
+          {(ex === "sequencia" || ex === "tonica" || ex === "musica") && (
             <label className="treino-field">
-              <span>{ex === "tonica" ? t("voz.tonica") : t("voz.inicio")}</span>
+              <span>{ex === "tonica" || ex === "musica" ? t("voz.tonica") : t("voz.inicio")}</span>
               <select value={s.inicio} onChange={(e) => mudar({ ...s, inicio: Number(e.target.value) })}>
                 <option value={-1}>{t("voz.aleatoria")}</option>
                 {NOTE_NAMES.map((n, i) => <option key={n} value={i}>{n}</option>)}

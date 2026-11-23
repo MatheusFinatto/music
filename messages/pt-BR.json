@@ -292,7 +292,8 @@
         "sequencia": "Arpejos e escalas",
         "tonica": "Com a tônica soando",
         "intervalo": "Cantar o intervalo",
-        "alcance": "Alcance"
+        "alcance": "Alcance",
+        "musica": "Músicas"
       },
       "dica": {
         "igualar": "O piano toca uma nota. Cante a mesma e segure.",
@@ -300,7 +301,8 @@
         "sequencia": "Ouça o padrão e cante as notas, uma de cada vez, na ordem. Cada uma tem que ficar firme por um instante.",
         "tonica": "Uma nota soa sem parar. Cante a nota pedida sobre ela.",
         "intervalo": "O piano toca duas notas. Cante a segunda e segure.",
-        "alcance": "Cante do grave ao agudo, parando um pouco em cada nota. Medimos a mais grave e a mais aguda em que você firmou."
+        "alcance": "Cante do grave ao agudo, parando um pouco em cada nota. Medimos a mais grave e a mais aguda em que você firmou.",
+        "musica": "O piano dá o tom e as notas correm até a linha. Cante cada nota quando ela chegar. Dá para cantar só a nota (lá, lá, lá) ou a letra: vale treinar os dois."
       },
       "comecar": "Começar",
       "proxima": "Próxima nota",
@@ -370,7 +372,28 @@
       "naoOuvi": "Não ouvi nenhuma nota. Confira se o microfone está liberado e cante mais perto.",
       "tentarDeNovo": "Tentar de novo",
       "naoFoiSegue": "Não deu desta vez: o alvo era {alvo} e você chegou a {ouvi}.",
-      "naoOuviSegue": "Não deu desta vez: nenhuma nota ouvida. Confira se o microfone está liberado e cante mais perto."
+      "naoOuviSegue": "Não deu desta vez: nenhuma nota ouvida. Confira se o microfone está liberado e cante mais perto.",
+      "musica": {
+        "musica": "Música",
+        "trecho": "Trecho",
+        "velocidade": "Velocidade",
+        "lento": "Lento",
+        "normal": "Normal",
+        "pista": "Pista de notas: as notas correm até a linha e você canta cada uma quando ela chega",
+        "letra": "Letra",
+        "dica": "O piano dá o tom e as notas correm até a linha. Cante cada nota quando ela chegar. Dá para cantar só a nota (lá, lá, lá) ou a letra: vale treinar os dois.",
+        "contagem": "Começa em {n}…",
+        "cantando": "Cante!",
+        "ouvindo": "Ouvindo o trecho",
+        "resultado": "Acertou {acertadas} de {total} notas.",
+        "melhor": "Melhor até agora: {acertadas} de {total}.",
+        "cantar": "Cantar",
+        "cantarDeNovo": "Cantar de novo",
+        "proximoTrecho": "Próximo trecho",
+        "ouvir": "Ouvir o trecho",
+        "guia": "Piano junto",
+        "tom": "Tom: {nota}. A melodia é a mesma em qualquer tom."
+      }
     },
     "instrumento": "Instrumento",
     "instrumentos": {
