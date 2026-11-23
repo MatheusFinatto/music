@@ -19,15 +19,15 @@ class TunerView(context: Context) : View(context) {
         setBackgroundColor(context.getColor(R.color.tuner_background))
     }
 
-    /** [reading] null means silence: the last note stays dimmed and the needle rests at the center. */
+    /** [reading] null means silence: the last note and the needle stay where they were, dimmed, so the last reading can still be read. */
     fun show(reading: NoteReading?, level: Float) {
         scene.active = reading != null
         scene.level = level
         if (reading != null) {
             scene.reading = reading
             scene.message = null
+            needle.target = reading.cents
         }
-        needle.target = reading?.cents ?: 0f
         postInvalidateOnAnimation()
     }
 
