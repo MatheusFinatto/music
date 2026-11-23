@@ -57,6 +57,7 @@ export function TreinoDeOuvido() {
   const [tocando, setTocando] = useState(false);
   const [erro, setErro] = useState<"audio" | "piano" | null>(null);
   const titulo = useRef<HTMLHeadingElement>(null);
+  const proxima = useRef<HTMLButtonElement>(null);
   const fim = useRef(0);
 
   // Aquece o cache das amostras sem criar o áudio (que só nasce no primeiro toque).
@@ -112,6 +113,8 @@ export function TreinoDeOuvido() {
     mudar(modo === "funcional" ? { ...s, funcional: { ...s.funcional, graus: nextIds } } : { ...s, classica: { ...s.classica, itens: { ...s.classica.itens, [exercicio]: nextIds } } }, false);
   };
   const respondida = q !== null && escolha !== null;
+  // Depois de responder o foco vai para "Próxima pergunta", sem rolar a página (o navegador rolaria até o botão).
+  useEffect(() => { if (respondida) proxima.current?.focus({ preventScroll: true }); }, [respondida]);
   const acertou = respondida && escolha === q.p.resposta;
   const notasTocadas = q ? (q.modo === "classico" ? q.p.notas : q.p.nota).map((n) => n.midi) : [];
   const harmonico = q?.modo === "classico" && q.p.notas.length === 2 && q.p.notas[0]!.at === q.p.notas[1]!.at;
@@ -202,7 +205,7 @@ export function TreinoDeOuvido() {
             <p className={`treino-resultado ${acertou ? "certa" : "errada"}`} role="status">{acertou ? t("certo") : t("errado", { resposta: nome(nomeGrupo, q.p.resposta) })}</p>
             <Teclado midis={notasTocadas} label={t("teclado")} />
             <p className="treino-detalhe">{detalhe}</p>
-            <button type="button" className="go treino-proxima" onClick={() => nova()} autoFocus disabled={carregando}>{t("proxima")}<kbd aria-hidden="true">{t("espaco")}</kbd></button>
+            <button ref={proxima} type="button" className="go treino-proxima" onClick={() => nova()} disabled={carregando}>{t("proxima")}<kbd aria-hidden="true">{t("espaco")}</kbd></button>
           </div>
         )}
         <p className="treino-estado" role="status">
