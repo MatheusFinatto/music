@@ -16,8 +16,8 @@ type Modo = "classico" | "funcional";
 const MODOS: readonly Modo[] = ["classico", "funcional"];
 /** Os estilos à mostra. O funcional segue no código, escondido: o dono ficou com o clássico e o traz de volta se sentir falta. */
 const VISIVEIS: readonly Modo[] = ["classico"];
-type Saved = { version: 1; modo: Modo; classica: ConfigClassica; funcional: ConfigFuncional; historico: Historico };
-const DEFAULTS: Saved = { version: 1, modo: "classico", classica: CLASSICA_INICIAL, funcional: FUNCIONAL_INICIAL, historico: {} };
+type Saved = { version: 1; modo: Modo; classica: ConfigClassica; funcional: ConfigFuncional; historico: Historico; reforco: boolean };
+const DEFAULTS: Saved = { version: 1, modo: "classico", classica: CLASSICA_INICIAL, funcional: FUNCIONAL_INICIAL, historico: {}, reforco: true };
 
 /** Só ids que existem; lista vazia volta ao padrão. */
 const ids = (v: unknown, validos: readonly string[], padrao: string[]): string[] => {
@@ -44,6 +44,7 @@ const store = createStore<Saved>("treino-de-ouvido", DEFAULTS, (saved) => {
     },
     funcional: { tonica: f.tonica === "sorteada" ? "sorteada" : "do", graus: ids(f.graus, IDS.graus, FUNCIONAL_INICIAL.graus) },
     historico: h as Historico,
+    reforco: typeof s.reforco === "boolean" ? s.reforco : true,
   };
 });
 
@@ -80,7 +81,9 @@ export function TreinoDeOuvido() {
   };
   const calar = () => { const g = getAudio(); if (g) stopPiano(g); fim.current++; setTocando(false); };
   const nova = (modo: Modo = s.modo, cfg: Saved = s) => {
-    const p: Pergunta = modo === "classico" ? { modo, p: perguntaClassica(cfg.classica) } : { modo, p: perguntaFuncional(cfg.funcional) };
+    // Com o reforço ligado, o sorteio favorece o que a pessoa mais erra.
+    const h = cfg.reforco ? cfg.historico : undefined;
+    const p: Pergunta = modo === "classico" ? { modo, p: perguntaClassica(cfg.classica, Math.random, h) } : { modo, p: perguntaFuncional(cfg.funcional, Math.random, h) };
     setQ(p);
     setEscolha(null);
     void tocar(p.modo === "classico" ? p.p.notas : p.p.tudo);
@@ -119,6 +122,16 @@ export function TreinoDeOuvido() {
     const nextIds = tem ? atual.filter((x) => x !== id) : todos.filter((x) => x === id || atual.includes(x));
     mudar(modo === "funcional" ? { ...s, funcional: { ...s.funcional, graus: nextIds } } : { ...s, classica: { ...s.classica, itens: { ...s.classica.itens, [exercicio]: nextIds } } }, false);
   };
+  // Pontos fracos: os itens com menor taxa de acerto (com ao menos duas respostas), do pior para o melhor.
+  const fracos = Object.entries(s.historico)
+    .filter(([, v]) => v && v.total >= 2)
+    .map(([chave, v]) => {
+      const [grupo = "", id = ""] = chave.split(":");
+      const rotulo = grupo === "afinacao" ? t("margemCents", { n: Number(id) }) : nome(grupo, id);
+      return { chave, certo: v.certo, total: v.total, nome: `${t(`grupos.${grupo}` as "grupos.graus")} · ${rotulo}` };
+    })
+    .sort((a, b) => a.certo / a.total - b.certo / b.total || b.total - a.total)
+    .slice(0, 6);
   const respondida = q !== null && escolha !== null;
   // Depois de responder o foco vai para "Próxima pergunta", sem rolar a página (o navegador rolaria até o botão).
   useEffect(() => { if (respondida) proxima.current?.focus({ preventScroll: true }); }, [respondida]);
@@ -256,6 +269,12 @@ export function TreinoDeOuvido() {
               </div>
             </div>
           )}
+          <div className="treino-field" role="group" aria-label={t("reforco")}>
+            <span>{t("reforco")}</span>
+            <div className="treino-chips">
+              <button type="button" className="treino-chip" aria-pressed={s.reforco} onClick={() => store.set((x) => ({ ...x, reforco: !x.reforco }))}>{t(s.reforco ? "ligado" : "desligado")}</button>
+            </div>
+          </div>
           <div className="treino-field treino-itens" role="group" aria-label={t(modo === "funcional" ? "graus" : "itens")}>
             <span>{t(modo === "funcional" ? "graus" : "itens")}</span>
             <div className="treino-chips">
@@ -264,6 +283,20 @@ export function TreinoDeOuvido() {
               ))}
             </div>
           </div>
+        </div>
+      </details>
+
+      <details className="treino-ajustes">
+        <summary>{t("fracos")}</summary>
+        <div className="treino-ajustes-corpo">
+          {fracos.length === 0 ? <p className="treino-detalhe">{t("fracosVazio")}</p> : (
+            <ol className="treino-fracos">
+              {fracos.map((f) => (
+                <li key={f.chave}><span>{f.nome}</span><span className="treino-fraco-n">{t("acertoDe", { certo: f.certo, total: f.total })}</span><span className="treino-barra" aria-hidden="true"><i style={{ width: `${Math.round((f.certo / f.total) * 100)}%` }} /></span></li>
+              ))}
+            </ol>
+          )}
+          {fracos.length > 0 && <button type="button" className="treino-btn" onClick={() => store.set((x) => ({ ...x, historico: {} }))}>{t("apagar")}</button>}
         </div>
       </details>
 

@@ -49,6 +49,31 @@ export type PerguntaClassica = { chave: string; resposta: string; notas: PianoNo
 /** A pergunta do modo funcional: a cadência que fixa o tom e a nota, juntas ou cada uma por si. */
 export type PerguntaFuncional = { chave: string; resposta: string; tonica: number; cadencia: PianoNote[]; nota: PianoNote[]; tudo: PianoNote[] };
 
+/** Histórico por item (guardado no navegador): quantas vezes acertou de quantas. */
+export type Historico = Record<string, { certo: number; total: number }>;
+export function registrar(h: Historico, chave: string, certo: boolean): Historico {
+  const antes = h[chave] ?? { certo: 0, total: 0 };
+  return { ...h, [chave]: { certo: antes.certo + (certo ? 1 : 0), total: antes.total + 1 } };
+}
+
+/**
+ * Quanto um item deve aparecer: o que ainda não foi visto o bastante pesa 2 (para conhecer), e daí em diante pesa de 1
+ * (acerta sempre) a 5 (erra sempre). Assim o treino volta mais ao que a pessoa erra, sem esquecer o resto.
+ */
+export function peso(h: Historico, chave: string): number {
+  const x = h[chave];
+  if (!x || x.total < 2) return 2;
+  return 1 + 4 * (1 - x.certo / x.total);
+}
+/** Sorteia da lista; com histórico, os itens com mais erros saem mais. */
+function sortearComPeso<T extends { id: string }>(lista: readonly T[], chave: (t: T) => string, h: Historico | undefined, rng: Rng): T {
+  if (!h) return sortear(lista, rng);
+  const pesos = lista.map((t) => peso(h, chave(t)));
+  let r = rng() * pesos.reduce((a, b) => a + b, 0);
+  for (let i = 0; i < lista.length; i++) { r -= pesos[i]!; if (r < 0) return lista[i]!; }
+  return lista.at(-1)!;
+}
+
 const inteiro = (rng: Rng, min: number, max: number) => min + Math.floor(rng() * (max - min + 1));
 const sortear = <T>(lista: readonly T[], rng: Rng): T => lista[Math.floor(rng() * lista.length)]!;
 /** Só os itens escolhidos que existem; se não sobrar nenhum, todos (a tela impede esvaziar, mas dado salvo pode estar velho). */
@@ -71,14 +96,14 @@ export function perguntaAfinacao(cfg: ConfigClassica, rng: Rng = Math.random): P
   return { chave: `afinacao:${cfg.margem}`, resposta, notas, cents };
 }
 
-export function perguntaClassica(cfg: ConfigClassica, rng: Rng = Math.random): PerguntaClassica {
+export function perguntaClassica(cfg: ConfigClassica, rng: Rng = Math.random, historico?: Historico): PerguntaClassica {
   if (cfg.exercicio === "afinacao") return perguntaAfinacao(cfg, rng);
   if (cfg.exercicio === "acordes") {
-    const a = sortear(piscina(ACORDES, cfg.itens.acordes), rng);
+    const a = sortearComPeso(piscina(ACORDES, cfg.itens.acordes), (x) => `acordes:${x.id}`, historico, rng);
     const raiz = inteiro(rng, 48, 64);
     return { chave: `acordes:${a.id}`, resposta: a.id, notas: a.semitons.map((s) => ({ midi: raiz + s, at: 0, dur: 2.2 })) };
   }
-  const i = sortear(piscina(INTERVALOS, cfg.itens.intervalos), rng);
+  const i = sortearComPeso(piscina(INTERVALOS, cfg.itens.intervalos), (x) => `intervalos:${x.id}`, historico, rng);
   const direcao = cfg.direcao === "misto" ? sortear(["asc", "desc", "harm"] as const, rng) : cfg.direcao;
   const base = inteiro(rng, 48, 64);
   const [a, b] = direcao === "desc" ? [base + i.semitons, base] : [base, base + i.semitons];
@@ -97,8 +122,8 @@ export function cadencia(tonica: number): PianoNote[] {
 }
 const INICIO_DA_NOTA = 4.5;
 
-export function perguntaFuncional(cfg: ConfigFuncional, rng: Rng = Math.random): PerguntaFuncional {
-  const g = sortear(piscina(GRAUS, cfg.graus), rng);
+export function perguntaFuncional(cfg: ConfigFuncional, rng: Rng = Math.random, historico?: Historico): PerguntaFuncional {
+  const g = sortearComPeso(piscina(GRAUS, cfg.graus), (x) => `graus:${x.id}`, historico, rng);
   const tonica = cfg.tonica === "do" ? 60 : inteiro(rng, 55, 62);
   const midi = tonica + g.semitons + (rng() < 0.5 ? 12 : 0);
   const cad = cadencia(tonica);
@@ -114,12 +139,6 @@ export function somar(p: Placar, certo: boolean): Placar {
   return { acertos: p.acertos + (certo ? 1 : 0), total: p.total + 1, sequencia, melhor: Math.max(p.melhor, sequencia) };
 }
 
-/** Histórico por item (guardado no navegador): quantas vezes acertou de quantas. */
-export type Historico = Record<string, { certo: number; total: number }>;
-export function registrar(h: Historico, chave: string, certo: boolean): Historico {
-  const antes = h[chave] ?? { certo: 0, total: 0 };
-  return { ...h, [chave]: { certo: antes.certo + (certo ? 1 : 0), total: antes.total + 1 } };
-}
 
 /** Nome da nota em letra e oitava, como no resto do site: 60 = C4 (Dó central), 61 = C#4. */
 const NOMES_NOTA = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];

@@ -217,6 +217,19 @@
     "centsAcima": "{n} cents acima",
     "centsAbaixo": "{n} cents abaixo",
     "exatamenteAfinado": "Exatamente afinado",
-    "regua": "Desvio da segunda nota, em cents"
+    "regua": "Desvio da segunda nota, em cents",
+    "reforco": "Reforçar o que eu erro",
+    "ligado": "Ligado",
+    "desligado": "Desligado",
+    "fracos": "Seus pontos fracos",
+    "fracosVazio": "Responda algumas perguntas e os itens com mais erros aparecem aqui.",
+    "apagar": "Apagar histórico",
+    "acertoDe": "{certo} de {total}",
+    "grupos": {
+      "intervalos": "Intervalos",
+      "acordes": "Acordes",
+      "graus": "Graus",
+      "afinacao": "Afinação"
+    }
   }
 }

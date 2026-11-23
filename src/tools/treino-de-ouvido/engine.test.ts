@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ACORDES, cadencia, MARGENS, nomeNota, CLASSICA_INICIAL, FUNCIONAL_INICIAL, GRAUS, INTERVALOS, mulberry32, perguntaClassica, perguntaFuncional, PLACAR_ZERO, registrar, somar, type ConfigClassica } from "./engine";
+import { ACORDES, cadencia, MARGENS, nomeNota, peso, CLASSICA_INICIAL, FUNCIONAL_INICIAL, GRAUS, INTERVALOS, mulberry32, perguntaClassica, perguntaFuncional, PLACAR_ZERO, registrar, somar, type ConfigClassica } from "./engine";
 
 const MIN = 45, MAX = 86; // o piano tem amostras de 45 a 84; um pouco além só desloca a velocidade
 const todos = (c: Partial<ConfigClassica>): ConfigClassica => ({ ...CLASSICA_INICIAL, ...c });
@@ -119,5 +119,28 @@ describe("afinação", () => {
         const st = Math.abs(q.notas[0]!.midi - q.notas[1]!.midi);
         expect(INTERVALOS.some((i) => i.semitons === st && CLASSICA_INICIAL.itens.afinacao.includes(i.id))).toBe(true);
       }
+  });
+});
+
+describe("reforço do que se erra", () => {
+  it("peso: item novo pesa 2; acertar sempre pesa 1; errar sempre pesa 5", () => {
+    expect(peso({}, "intervalos:3m")).toBe(2);
+    expect(peso({ "intervalos:3m": { certo: 1, total: 1 } }, "intervalos:3m")).toBe(2);
+    expect(peso({ "intervalos:3m": { certo: 10, total: 10 } }, "intervalos:3m")).toBe(1);
+    expect(peso({ "intervalos:3m": { certo: 0, total: 10 } }, "intervalos:3m")).toBe(5);
+    expect(peso({ "intervalos:3m": { certo: 5, total: 10 } }, "intervalos:3m")).toBe(3);
+  });
+  it("o item que mais erra sai bem mais; sem histórico, o sorteio é igual para todos", () => {
+    const cfg = { ...CLASSICA_INICIAL, itens: { ...CLASSICA_INICIAL.itens, intervalos: ["2m", "3m", "3M", "4J", "5J"] } };
+    const contar = (h?: Record<string, { certo: number; total: number }>) => {
+      const rng = mulberry32(11), n: Record<string, number> = {};
+      for (let k = 0; k < 4000; k++) { const r = perguntaClassica(cfg, rng, h).resposta; n[r] = (n[r] ?? 0) + 1; }
+      return n;
+    };
+    const h = { "intervalos:3m": { certo: 0, total: 8 }, "intervalos:2m": { certo: 8, total: 8 }, "intervalos:3M": { certo: 8, total: 8 }, "intervalos:4J": { certo: 8, total: 8 }, "intervalos:5J": { certo: 8, total: 8 } };
+    const com = contar(h), sem = contar();
+    expect(com["3m"]! / 4000).toBeGreaterThan(0.45); // 5 de 9 de peso
+    for (const id of ["2m", "3M", "4J", "5J"]) expect(com[id]!).toBeGreaterThan(300); // os outros não somem
+    for (const id of ["2m", "3m", "3M", "4J", "5J"]) expect(Math.abs(sem[id]! / 4000 - 0.2)).toBeLessThan(0.03);
   });
 });
