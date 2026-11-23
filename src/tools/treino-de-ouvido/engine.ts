@@ -69,6 +69,8 @@ export type PerguntaClassica = {
   reveal?: number[];
   /** Só no "achar": a primeira nota (dada, marcada no teclado) e a segunda (a que se procura), em MIDI. */
   dada?: number; alvo?: number;
+  /** Só na afinação: o intervalo tocado, que a pessoa também diz (além de baixa, afinada ou alta). */
+  intervalo?: string;
 };
 /** A pergunta do modo funcional: a cadência que fixa o tom e a nota, juntas ou cada uma por si. */
 export type PerguntaFuncional = { chave: string; resposta: string; tonica: number; cadencia: PianoNote[]; nota: PianoNote[]; tudo: PianoNote[] };
@@ -117,7 +119,7 @@ export function perguntaAfinacao(cfg: ConfigClassica, rng: Rng = Math.random): P
   const notas: PianoNote[] = direcao === "harm"
     ? [{ midi: a, at: 0, dur: 2.2 }, { midi: b, at: 0, dur: 2.2, cents }]
     : [{ midi: a, at: 0, dur: 1.0 }, { midi: b, at: 1.1, dur: 1.4, cents }];
-  return { chave: `afinacao:${cfg.margem}`, resposta, notas, cents };
+  return { chave: `afinacao:${cfg.margem}`, resposta, notas, cents, intervalo: i.id };
 }
 
 const NOMES_SUSTENIDO = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
