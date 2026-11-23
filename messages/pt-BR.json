@@ -2,17 +2,17 @@
   "site": {
     "name": "Marmota Music",
     "title": "Marmota Music",
-    "description": "Ferramentas de prática para quem toca: afinador e metrônomo, e em breve tirar de ouvido e treino de ouvido. Gratuito e sem conta.",
+    "description": "Ferramentas de prática para quem toca: afinador, metrônomo e treino de ouvido, e em breve tirar de ouvido. Gratuito e sem conta.",
     "skip": "Pular para o conteúdo"
   },
   "nav": {
     "label": "Principal",
     "lab": "Laboratório",
-    "short": { "afinador": "Afinador", "metronomo": "Metrônomo" }
+    "short": { "afinador": "Afinador", "metronomo": "Metrônomo", "treino-de-ouvido": "Ouvido" }
   },
   "hub": {
     "title": "Marmota Music",
-    "lead": "Ferramentas de prática para guitarra: afinar e tocar no tempo. De graça, sem conta.",
+    "lead": "Ferramentas de prática para guitarra e ouvido: afinar, tocar no tempo e treinar o ouvido. De graça, sem conta.",
     "live": "Disponíveis agora",
     "next": "A seguir",
     "planned": "Planejadas",
@@ -36,7 +36,7 @@
     },
     "treino-de-ouvido": {
       "name": "Treino de ouvido",
-      "summary": "Intervalos, acordes e graus."
+      "summary": "Intervalos, acordes e graus da escala, com som de piano. Sem anúncios."
     },
     "metronomo": {
       "name": "Metrônomo",
@@ -110,5 +110,90 @@
   "notFound": {
     "title": "Essa página não existe",
     "back": "Voltar para as ferramentas"
+  },
+  "treino-de-ouvido": {
+    "title": "Treino de ouvido",
+    "description": "Treine o ouvido no navegador: intervalos, acordes e graus da escala, com som de piano. Gratuito, sem anúncios e sem conta.",
+    "modo": "Estilo de treino",
+    "modos": {
+      "classico": "Clássico",
+      "funcional": "Funcional"
+    },
+    "modoDesc": {
+      "classico": "Ouça duas notas ou um acorde e diga qual é.",
+      "funcional": "Ouça uma cadência que fixa o tom e, depois, uma nota: diga o grau da escala."
+    },
+    "ajustes": "Ajustes",
+    "exercicio": "Exercício",
+    "exercicios": {
+      "intervalos": "Intervalos",
+      "acordes": "Acordes"
+    },
+    "direcao": "Direção",
+    "direcoes": {
+      "asc": "Ascendente",
+      "desc": "Descendente",
+      "harm": "Harmônico (juntas)",
+      "misto": "Misto"
+    },
+    "tonalidade": "Tonalidade",
+    "tonicas": {
+      "do": "Sempre Dó maior",
+      "sorteada": "Sorteada"
+    },
+    "itens": "O que treinar",
+    "graus": "Graus",
+    "comecar": "Começar",
+    "ouvir": "Ouvir de novo",
+    "soCadencia": "Só a cadência",
+    "soNota": "Só a nota",
+    "proxima": "Próxima pergunta",
+    "perguntaIntervalos": "Que intervalo é este?",
+    "perguntaAcordes": "Que acorde é este?",
+    "perguntaFuncional": "Que grau da escala é esta nota?",
+    "respostas": "Respostas",
+    "certo": "Certo!",
+    "errado": "Era: {resposta}.",
+    "placar": "{acertos} de {total}",
+    "sequencia": "sequência {n}",
+    "melhor": "melhor {n}",
+    "carregando": "Carregando o piano…",
+    "erroAudio": "Este navegador não conseguiu iniciar o áudio. Tente outro navegador.",
+    "erroPiano": "Não foi possível carregar o som do piano. Confira a conexão e tente de novo.",
+    "creditos": "Piano: Salamander Grand Piano, de Alexander Holm (CC BY 3.0).",
+    "nomes": {
+      "intervalos": {
+        "2m": "2ª menor",
+        "2M": "2ª maior",
+        "3m": "3ª menor",
+        "3M": "3ª maior",
+        "4J": "4ª justa",
+        "4A": "Trítono",
+        "5J": "5ª justa",
+        "6m": "6ª menor",
+        "6M": "6ª maior",
+        "7m": "7ª menor",
+        "7M": "7ª maior",
+        "8J": "Oitava"
+      },
+      "acordes": {
+        "maior": "Maior",
+        "menor": "Menor",
+        "diminuto": "Diminuto",
+        "aumentado": "Aumentado",
+        "7": "Com 7ª (dominante)",
+        "maj7": "Maior com 7ª maior",
+        "m7": "Menor com 7ª"
+      },
+      "graus": {
+        "1": "1 (tônica)",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7"
+      }
+    }
   }
 }

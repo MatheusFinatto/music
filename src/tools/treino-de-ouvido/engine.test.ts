@@ -1,0 +1,85 @@
+import { describe, expect, it } from "vitest";
+import { ACORDES, cadencia, CLASSICA_INICIAL, FUNCIONAL_INICIAL, GRAUS, INTERVALOS, mulberry32, perguntaClassica, perguntaFuncional, PLACAR_ZERO, registrar, somar, type ConfigClassica } from "./engine";
+
+const MIN = 45, MAX = 86; // o piano tem amostras de 45 a 84; um pouco além só desloca a velocidade
+const todos = (c: Partial<ConfigClassica>): ConfigClassica => ({ ...CLASSICA_INICIAL, ...c });
+
+describe("modo clássico", () => {
+  it("o mesmo sorteio com a mesma semente dá a mesma pergunta", () => {
+    expect(perguntaClassica(CLASSICA_INICIAL, mulberry32(7))).toEqual(perguntaClassica(CLASSICA_INICIAL, mulberry32(7)));
+  });
+  it("o intervalo tocado tem os semitons da resposta, em qualquer direção, e cabe no piano", () => {
+    const rng = mulberry32(1);
+    for (const direcao of ["asc", "desc", "harm", "misto"] as const)
+      for (let k = 0; k < 200; k++) {
+        const q = perguntaClassica(todos({ direcao, itens: { intervalos: INTERVALOS.map((i) => i.id), acordes: [] } }), rng);
+        const semitons = INTERVALOS.find((i) => i.id === q.resposta)!.semitons;
+        const [a, b] = q.notas;
+        expect(Math.abs(a!.midi - b!.midi)).toBe(semitons);
+        for (const n of q.notas) { expect(n.midi).toBeGreaterThanOrEqual(MIN); expect(n.midi).toBeLessThanOrEqual(MAX); }
+        if (direcao === "asc") expect(b!.midi).toBeGreaterThan(a!.midi);
+        if (direcao === "desc") expect(b!.midi).toBeLessThan(a!.midi);
+        if (direcao === "harm") expect(b!.at).toBe(a!.at);
+      }
+  });
+  it("o acorde tocado tem os semitons do tipo da resposta, todos juntos", () => {
+    const rng = mulberry32(2);
+    for (let k = 0; k < 200; k++) {
+      const q = perguntaClassica(todos({ exercicio: "acordes", itens: { intervalos: [], acordes: ACORDES.map((a) => a.id) } }), rng);
+      const tipo = ACORDES.find((a) => a.id === q.resposta)!;
+      const raiz = Math.min(...q.notas.map((n) => n.midi));
+      expect(q.notas.map((n) => n.midi - raiz).sort((x, y) => x - y)).toEqual(tipo.semitons);
+      expect(new Set(q.notas.map((n) => n.at)).size).toBe(1);
+      expect(Math.max(...q.notas.map((n) => n.midi))).toBeLessThanOrEqual(MAX);
+    }
+  });
+  it("só sorteia os itens escolhidos; sem nenhum, usa todos", () => {
+    const rng = mulberry32(3);
+    const vistos = new Set(Array.from({ length: 100 }, () => perguntaClassica(todos({ itens: { intervalos: ["2m", "5J"], acordes: [] } }), rng).resposta));
+    expect([...vistos].sort()).toEqual(["2m", "5J"]);
+    const vazios = new Set(Array.from({ length: 300 }, () => perguntaClassica(todos({ itens: { intervalos: [], acordes: [] } }), rng).resposta));
+    expect(vazios.size).toBe(INTERVALOS.length);
+  });
+});
+
+describe("modo funcional", () => {
+  it("a cadência são quatro acordes (I IV V I), cada um com baixo e tríade, e a nota vem depois", () => {
+    const c = cadencia(60);
+    expect(c).toHaveLength(16);
+    expect(c.filter((n) => n.at === 0).map((n) => n.midi).sort((a, b) => a - b)).toEqual([48, 60, 64, 67]);
+    const q = perguntaFuncional(FUNCIONAL_INICIAL, mulberry32(4));
+    expect(q.tudo).toHaveLength(17);
+    expect(q.tudo.at(-1)!.at).toBeGreaterThan(Math.max(...q.cadencia.map((n) => n.at + n.dur)));
+  });
+  it("a nota tem o grau da resposta em relação à tônica, em qualquer oitava", () => {
+    const rng = mulberry32(5);
+    for (let k = 0; k < 300; k++) {
+      const q = perguntaFuncional({ tonica: "sorteada", graus: GRAUS.map((g) => g.id) }, rng);
+      const grau = GRAUS.find((g) => g.id === q.resposta)!;
+      expect((((q.nota[0]!.midi - q.tonica) % 12) + 12) % 12).toBe(grau.semitons);
+      expect(q.tonica).toBeGreaterThanOrEqual(55);
+      expect(q.tonica).toBeLessThanOrEqual(62);
+      expect(q.nota[0]!.midi).toBeLessThanOrEqual(MAX);
+    }
+  });
+  it("tônica fixa em Dó é o Dó central; só sorteia os graus escolhidos", () => {
+    const rng = mulberry32(6);
+    const qs = Array.from({ length: 100 }, () => perguntaFuncional({ tonica: "do", graus: ["1", "5"] }, rng));
+    expect(new Set(qs.map((q) => q.tonica))).toEqual(new Set([60]));
+    expect(new Set(qs.map((q) => q.resposta))).toEqual(new Set(["1", "5"]));
+  });
+});
+
+describe("placar e histórico", () => {
+  it("acertar soma na sequência, errar zera e a melhor sequência fica", () => {
+    let p = PLACAR_ZERO;
+    for (const c of [true, true, true, false, true]) p = somar(p, c);
+    expect(p).toEqual({ acertos: 4, total: 5, sequencia: 1, melhor: 3 });
+  });
+  it("o histórico soma por item sem mexer no anterior", () => {
+    const a = registrar({}, "intervalos:3m", true);
+    const b = registrar(a, "intervalos:3m", false);
+    expect(a["intervalos:3m"]).toEqual({ certo: 1, total: 1 });
+    expect(b["intervalos:3m"]).toEqual({ certo: 1, total: 2 });
+  });
+});
