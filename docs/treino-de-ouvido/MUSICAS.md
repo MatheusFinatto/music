@@ -16,3 +16,12 @@ Reservas: Escravos de Jó, Frère Jacques, Meu limão meu limoeiro, Boi da cara 
 - Tela estilo Yousician: pista de altura com as notas como barras, linha de leitura que anda no andamento escolhido, o afinômetro/ponto da voz ao vivo, e a sílaba da letra sobre cada barra. Reaproveita a detecção (`PitchPipeline`, `atualizar`) e o piano; a conferência por janela é lógica nova (pura, testável com as vozes simuladas).
 - Riscos: latência do microfone (compensar), andamento rápido demais para iniciantes (começar lento e deixar escolher), e a primeira nota depois de uma contagem para a pessoa se preparar.
 - As melodias serão transcritas e conferidas contra partituras de domínio público (Mutopia, IMSLP, cancioneiros tradicionais) **antes** de usar; o dono vê as notas de cada uma antes da implementação. O ouvido dele é o teste final (item no roteiro de teste em casa).
+
+## Desenho confirmado: padrão Yousician (2026-11-23)
+O dono confirmou o modelo guiado por relógio ("faz bastante sentido e a UX é muito boa"). O que isso quer dizer na tela:
+- **Pista de altura** na horizontal: cada nota é uma barra (altura = nota, comprimento = duração), com a sílaba da letra por cima. Uma **linha de leitura** fixa; as notas correm até ela.
+- **Sua voz ao vivo** como um ponto/linha na pista, na altura que o microfone ouve. Quando o ponto está sobre a barra da vez, a barra se enche (verde = acertando), como no resto do site.
+- **Contagem de entrada** (3, 2, 1) e o piano tocando o trecho antes (ou junto, num modo "com guia"), para a pessoa ouvir antes de cantar.
+- **Andamento** lento por padrão (escolhível). **Janela de acerto**: a nota vale se a altura certa foi cantada por uma parte do tempo dela (a definir, de 50% a 60%), com a folga de tempo generosa do início de cada nota. Sem pontuação de ritmo por ora.
+- **Resultado do trecho**: quantas notas acertou, quais falhou (marcadas na pista), e "Tentar de novo" / "Próximo trecho". Tom transposto para a voz da pessoa (escolhível).
+- Reaproveita `PitchPipeline`/`PitchSmoother`/`atualizar` e o piano; a lógica nova (janelas de tempo, acerto por nota) é pura e testável com as vozes simuladas.
