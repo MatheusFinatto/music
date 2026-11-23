@@ -17,13 +17,10 @@ export async function Header() {
           {t("site.name")}
         </Link>
         <nav aria-label={t("nav.label")}>
-          {/* As ferramentas vêm do registro: dá para ir de uma a outra sem passar pela home. */}
+          {/* As ferramentas vêm do registro: dá para ir de uma a outra sem passar pela home. O Laboratório fica só no rodapé. */}
           {(TOOLS as readonly Tool[]).filter(isLive).map((x) => (
             <Link key={x.slug} href={x.href}>{t.has(`nav.short.${x.slug}` as "nav.short.afinador") ? t(`nav.short.${x.slug}` as "nav.short.afinador") : t(`tools.${x.slug}.name` as "tools.afinador.name")}</Link>
           ))}
-          {/* O Laboratório é estático, fora do Next: link comum, sem prefixo de idioma. */}
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a href="/laboratorio">{t("nav.lab")}</a>
         </nav>
       </div>
     </header>

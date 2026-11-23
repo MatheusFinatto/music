@@ -277,7 +277,8 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
         {contagem > 0 && <p className="cantar-contagem" aria-hidden="true" key={contagem}>{contagem}</p>}
       </div>
 
-      {temLetra && <p className="cantar-letra" aria-label={t("voz.musica.letra")}>
+      {/* Parada, a pista já mostra as sílabas; a letra corrida aparece cantando (a sílaba da vez) e no resultado (o que acertou). */}
+      {temLetra && (rodando || final) && <p className="cantar-letra" aria-label={t("voz.musica.letra")}>
         {js.map((j, i) => (j.midi === null ? null : (
           <span key={i} className={i === atual ? "atual" : final ? (final.acertos[i]?.ok ? "ok" : "falhou") : ""}>{j.sil || "–"} </span>
         )))}
@@ -304,8 +305,7 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
         {!rodando && !programa && <button type="button" className="treino-btn" onClick={() => void ouvir()} disabled={carregando}>{t("voz.musica.ouvir")}</button>}
         {rodando && <button type="button" className="go treino-proxima" onClick={parar}>{t("voz.parar")}</button>}
       </div>
-      <p className="cantar-dica">{t("voz.musica.dica")}</p>
-      <p className="treino-estado">{t("voz.fone")}</p>
+      {!rodando && !final && <p className="cantar-dica">{t("voz.musica.dica")} {t("voz.fone")}</p>}
     </div>
   );
 }

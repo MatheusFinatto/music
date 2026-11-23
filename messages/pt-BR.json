@@ -7,7 +7,6 @@
   },
   "nav": {
     "label": "Principal",
-    "lab": "Laboratório",
     "short": {
       "afinador": "Afinador",
       "metronomo": "Metrônomo",
@@ -311,6 +310,8 @@
       "cante": "Cante agora",
       "ouvindo": "Ouvindo o piano…",
       "medir": "Medir meu alcance",
+      "sorteando": "Sorteando entre: {lista}. Para mudar, abra os ajustes.",
+      "ajustesResumo": "{voz} · {de}–{ate} · ±{n} cents",
       "terminar": "Terminar",
       "sem": "Altura da voz",
       "baixo": "Baixo",
@@ -333,9 +334,11 @@
         "titulo": "Minha voz",
         "padrao": "Padrão",
         "medida": "Medida no Alcance",
+        "medidaCurta": "Medida",
+        "medir": "Medir minha extensão",
         "tipos": { "baixo": "Baixo", "baritono": "Barítono", "tenor": "Tenor", "contralto": "Contralto", "mezzo": "Mezzo-soprano", "soprano": "Soprano" },
         "atual": "Faixa em uso: {de} a {ate}.",
-        "dica": "As notas sorteadas e o tom das músicas ficam dentro dela. Escolha o tipo de voz mais próximo da sua, ou meça no Alcance.",
+        "dica": "As notas sorteadas e o tom das músicas ficam dentro dela. Escolha o tipo de voz mais próximo da sua, ou meça a sua extensão.",
         "sugestao": "Pela sua extensão, a faixa confortável é de {de} a {ate} (voz mais próxima: {voz}).",
         "usar": "Usar como minha faixa",
         "salva": "Faixa salva em Minha voz."
@@ -392,7 +395,7 @@
         "normal": "Normal",
         "pista": "Pista de notas: as notas correm até a linha e você canta cada uma quando ela chega",
         "letra": "Letra",
-        "dica": "O piano dá o tom e as notas correm até a linha. Cante cada nota quando ela chegar. Dá para cantar só a nota (lá, lá, lá) ou a letra: vale treinar os dois.",
+        "dica": "Cante cada nota quando ela chegar à linha, só a nota (lá, lá, lá) ou a letra.",
         "contagem": "Começa em {n}…",
         "cantando": "Cante!",
         "ouvindo": "Ouvindo o trecho",
@@ -403,7 +406,7 @@
         "proximoTrecho": "Próximo trecho",
         "ouvir": "Ouvir o trecho",
         "guia": "Piano junto",
-        "tom": "Tom: {nota}. A melodia é a mesma em qualquer tom.",
+        "tom": "Tom: {nota}",
         "proximaMusica": "Próxima música",
         "conferirMedia": "Melodia transcrita de partituras e cifras, ainda não conferida de ouvido. Se algo soar diferente do que você conhece, avise.",
         "conferirBaixa": "Melodia de fonte única, com o ritmo estimado: pode diferir da versão que você conhece. Avise o que soar diferente."
@@ -430,11 +433,9 @@
     "ouvirPrimeira": "Ouvir a primeira pergunta",
     "programas": {
       "titulo": "Programas",
-      "dica": "Uma sequência pronta para o foco e o tempo que você escolher. O tempo é aproximado e se ajusta ao seu ritmo.",
       "rotulo": "Duração do programa",
       "minutos": "{n} min",
       "aprox": "≈ {n} min",
-      "perguntas": "{n, plural, =0 {nenhuma pergunta} one {# pergunta} other {# perguntas}}",
       "comecar": "Começar programa de {n} min",
       "programaDe": "Programa de {n} min",
       "bloco": "Bloco {i} de {n}",
@@ -463,7 +464,11 @@
         "musicas": "Músicas"
       }
     },
-    "isolados": "Exercícios isolados",
+    "comoTreinar": {
+      "rotulo": "Como treinar",
+      "programa": "Programa",
+      "livre": "Exercícios"
+    },
     "tituloVoz": "Treino de voz",
     "descricaoVoz": "Treine a voz no navegador: igualar a nota, arpejos, cantar sobre a tônica e o intervalo, com o microfone e programas por tempo. Gratuito, sem anúncios e sem conta."
   }

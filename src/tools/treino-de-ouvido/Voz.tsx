@@ -23,6 +23,8 @@ import {
 
 type Exercicio = "igualar" | "longa" | "sequencia" | "tonica" | "intervalo" | "musica" | "alcance";
 const EXERCICIOS: readonly Exercicio[] = ["igualar", "longa", "sequencia", "tonica", "intervalo", "musica", "alcance"];
+/** Os exercícios do seletor (o Alcance abre por Minha voz). */
+const NA_LISTA = EXERCICIOS.filter((e) => e !== "alcance");
 /** `tipo`: "padrao", um tipo de voz ou "medida" (a que o Alcance sugeriu). */
 type FaixaSalva = Faixa & { tipo: "padrao" | "medida" | (typeof VOZES)[number]["id"] };
 type Saved = { version: 1; exercicio: Exercicio; tolerancia: number; qualquerOitava: boolean; intervalos: string[]; padrao: string; inicio: number; subir: boolean; grau: string; ajuda: "guia" | "so"; faixa: FaixaSalva; musica: ConfigMusica; melhores: Record<string, number> };
@@ -303,23 +305,56 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
 
   return (
     <div className="treino voz">
-      {!programa && <h2 className="treino-isolados">{t("isolados")}</h2>}
       {!programa && <div className="treino-topo">
         <div className="treino-escolhas">
           <div className="treino-exs" role="radiogroup" aria-label={t("exercicio")} onKeyDown={onRadioKeyDown}>
-            <div className="treino-exs-linha" role="presentation">
-            {EXERCICIOS.map((e) => (
-              <button key={e} type="button" role="radio" aria-checked={ex === e} tabIndex={ex === e ? 0 : -1} onClick={() => { mudar({ ...s, exercicio: e }); setPlacar({ a: 0, t: 0 }); }}>{t(`voz.exercicios.${e}`)}</button>
+            <div className="treino-exs-linha treino-exs-grade" role="presentation">
+            {/* O Alcance não entra aqui: ele mede a voz e fica em Minha voz, nos ajustes. Sem nenhum marcado (no Alcance), o primeiro recebe o foco do Tab. */}
+            {NA_LISTA.map((e, i) => (
+              <button key={e} type="button" role="radio" aria-checked={ex === e} tabIndex={ex === e || (ex === "alcance" && i === 0) ? 0 : -1} onClick={() => { mudar({ ...s, exercicio: e }); setPlacar({ a: 0, t: 0 }); }}>{t(`voz.exercicios.${e}`)}</button>
             ))}
             </div>
           </div>
         </div>
-        {ex !== "alcance" && (
+        {ex !== "alcance" && placar.t > 0 && (
           <dl className="treino-placar" aria-label={t("placarTitulo")}>
             <div><dd>{t("placar", { acertos: placar.a, total: placar.t })}</dd><dt>{t("acertos")}</dt></div>
           </dl>
         )}
       </div>}
+
+      {/* O que cantar fica à vista, junto do palco; nos ajustes só o que vale para todos os exercícios. */}
+      {!programa && (ex === "sequencia" || ex === "tonica" || ex === "musica") && (
+        <div className="treino-oque">
+          {ex === "sequencia" && (
+            <label className="treino-field">
+              <span>{t("voz.padrao")}</span>
+              <select value={s.padrao} onChange={(e) => mudar({ ...s, padrao: e.target.value })}>
+                {PADROES.map((p) => <option key={p.id} value={p.id}>{t(`voz.padroes.${p.id}` as "voz.padroes.arpejoMaior")}</option>)}
+              </select>
+            </label>
+          )}
+          {ex === "tonica" && (
+            <label className="treino-field">
+              <span>{t("voz.cantarA")}</span>
+              <select value={s.grau} onChange={(e) => mudar({ ...s, grau: e.target.value })}>
+                {IDS.intervalos.map((id) => <option key={id} value={id}>{t(`nomes.intervalos.${id}` as "nomes.intervalos.3m")}</option>)}
+                <option value="sortear">{t("voz.sortear")}</option>
+              </select>
+            </label>
+          )}
+          <label className="treino-field">
+            <span>{ex === "sequencia" ? t("voz.inicio") : t("voz.tonica")}</span>
+            <select value={s.inicio} onChange={(e) => mudar({ ...s, inicio: Number(e.target.value) })}>
+              <option value={-1}>{t("voz.aleatoria")}</option>
+              {NOTE_NAMES.map((n, i) => <option key={n} value={i}>{n}</option>)}
+            </select>
+          </label>
+        </div>
+      )}
+      {!programa && (ex === "intervalo" || (ex === "tonica" && s.grau === "sortear")) && (
+        <p className="treino-detalhe">{t("voz.sorteando", { lista: s.intervalos.map((id) => t(`nomes.intervalos.${id}` as "nomes.intervalos.3m")).join(", ") })}</p>
+      )}
 
       {ex === "musica" && (
         <section className="treino-palco" aria-label={t("voz.exercicios.musica")}>
@@ -341,7 +376,10 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
       )}
       {ex !== "musica" && <section className="treino-palco" aria-label={t("voz.titulo")}>
         <div className="treino-pergunta">
-          <h2>{ex === "alcance" ? t("voz.exercicios.alcance") : tarefa && (fase === "piano" || fase === "cantando") ? t("voz.cante") : t("voz.titulo")}</h2>
+          {/* Parado, o seletor já diz qual é o exercício: o título só aparece no Alcance (fora do seletor) e na hora de cantar. */}
+          {(ex === "alcance" || programa || (tarefa && (fase === "piano" || fase === "cantando"))) && (
+            <h2>{ex === "alcance" ? t("voz.exercicios.alcance") : tarefa && (fase === "piano" || fase === "cantando") ? t("voz.cante") : t(`voz.exercicios.${ex}`)}</h2>
+          )}
           <p>{ex === "tonica" && tarefa && tarefa.tonica !== null && tarefa.grau !== null && fase !== "parado"
             ? t("voz.tonicaDica", { tonica: classe(tarefa.tonica), grau: t(`nomes.intervalos.${tarefa.grau}` as "nomes.intervalos.3m"), nota: classe(tarefa.alvos[0]!) })
             : dicaBase}</p>
@@ -417,11 +455,15 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
           {cantando && ex === "alcance" && <button type="button" className="go treino-proxima" onClick={terminarAlcance}>{t("voz.terminar")}</button>}
         </div>
         {alvoAtual !== null && ex === "tonica" && cantando && <p className="treino-estado">{t("voz.bordaoNota")}</p>}
-        <p className="treino-estado">{t("voz.fone")}</p>
+        {fase === "parado" && <p className="treino-estado">{t("voz.fone")}</p>}
       </section>}
 
       {!programa && <details className="treino-ajustes">
-        <summary>{t("ajustes")}</summary>
+        <summary>
+          {t("ajustes")}
+          {/* Fechado, o resumo mostra a voz e a margem em uso, sem precisar abrir. */}
+          <span className="treino-ajustes-resumo">{t("voz.ajustesResumo", { voz: s.faixa.tipo === "padrao" ? t("voz.minhaVoz.padrao") : s.faixa.tipo === "medida" ? t("voz.minhaVoz.medidaCurta") : t(`voz.minhaVoz.tipos.${s.faixa.tipo}` as "voz.minhaVoz.tipos.tenor"), de: nomeNota(s.faixa.min), ate: nomeNota(s.faixa.max), n: s.tolerancia })}</span>
+        </summary>
         <div className="treino-ajustes-corpo">
           {ex !== "musica" && <div className="treino-field" role="group" aria-label={t("instrumento")}>
             <span>{t("instrumento")}</span>
@@ -446,6 +488,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
               {s.faixa.tipo === "medida" && <button type="button" className="treino-chip" aria-pressed>{t("voz.minhaVoz.medida")}</button>}
             </div>
             <p className="treino-detalhe">{t("voz.minhaVoz.atual", { de: nomeNota(s.faixa.min), ate: nomeNota(s.faixa.max) })} {t("voz.minhaVoz.dica")}</p>
+            {ex !== "alcance" && <button type="button" className="treino-btn treino-medir" onClick={() => mudar({ ...s, exercicio: "alcance" })}>{t("voz.minhaVoz.medir")}</button>}
           </div>
           {ex !== "alcance" && (
             <div className="treino-field" role="group" aria-label={t("margem")}>
@@ -464,23 +507,6 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
               </div>
             </div>
           )}
-          {ex === "sequencia" && (
-            <div className="treino-field" role="group" aria-label={t("voz.padrao")}>
-              <span>{t("voz.padrao")}</span>
-              <div className="treino-chips">
-                {PADROES.map((p) => <button key={p.id} type="button" className="treino-chip" aria-pressed={s.padrao === p.id} onClick={() => mudar({ ...s, padrao: p.id })}>{t(`voz.padroes.${p.id}` as "voz.padroes.arpejoMaior")}</button>)}
-              </div>
-            </div>
-          )}
-          {(ex === "sequencia" || ex === "tonica" || ex === "musica") && (
-            <label className="treino-field">
-              <span>{ex === "tonica" || ex === "musica" ? t("voz.tonica") : t("voz.inicio")}</span>
-              <select value={s.inicio} onChange={(e) => mudar({ ...s, inicio: Number(e.target.value) })}>
-                <option value={-1}>{t("voz.aleatoria")}</option>
-                {NOTE_NAMES.map((n, i) => <option key={n} value={i}>{n}</option>)}
-              </select>
-            </label>
-          )}
           {(ex === "sequencia" || ex === "tonica") && s.inicio >= 0 && (
             <div className="treino-field" role="group" aria-label={t("voz.subir")}>
               <span>{t("voz.subir")}</span>
@@ -495,15 +521,6 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
               <div className="treino-chips">
                 <button type="button" className="treino-chip" aria-pressed={s.ajuda === "guia"} onClick={() => mudar({ ...s, ajuda: "guia" })}>{t("voz.ajudas.guia")}</button>
                 <button type="button" className="treino-chip" aria-pressed={s.ajuda === "so"} onClick={() => mudar({ ...s, ajuda: "so" })}>{t("voz.ajudas.so")}</button>
-              </div>
-            </div>
-          )}
-          {ex === "tonica" && (
-            <div className="treino-field" role="group" aria-label={t("voz.cantarA")}>
-              <span>{t("voz.cantarA")}</span>
-              <div className="treino-chips">
-                {IDS.intervalos.map((id) => <button key={id} type="button" className="treino-chip" aria-pressed={s.grau === id} onClick={() => mudar({ ...s, grau: id })}>{t(`nomes.intervalos.${id}` as "nomes.intervalos.3m")}</button>)}
-                <button type="button" className="treino-chip" aria-pressed={s.grau === "sortear"} onClick={() => mudar({ ...s, grau: "sortear" })}>{t("voz.sortear")}</button>
               </div>
             </div>
           )}
