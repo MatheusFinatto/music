@@ -13,9 +13,13 @@ export const mulberry32 = (seed: number): Rng => () => {
   return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
 };
 
-export type Exercicio = "intervalos" | "acordes";
+export type Exercicio = "intervalos" | "acordes" | "afinacao";
 export type Direcao = "asc" | "desc" | "harm" | "misto";
-export const EXERCICIOS: readonly Exercicio[] = ["intervalos", "acordes"];
+export const EXERCICIOS: readonly Exercicio[] = ["intervalos", "acordes", "afinacao"];
+/** Margem da afinação, em cents: do óbvio ao fino. */
+export const MARGENS = [50, 30, 20, 10] as const;
+/** As respostas da afinação: a segunda nota está baixa, afinada ou alta. */
+export const RESPOSTAS_AFINACAO = ["baixo", "afinado", "alto"] as const;
 export const DIRECOES: readonly Direcao[] = ["asc", "desc", "harm", "misto"];
 
 export const INTERVALOS = dados.intervalos;
@@ -24,21 +28,24 @@ export const GRAUS = dados.graus;
 export const IDS: Record<Exercicio | "graus", readonly string[]> = {
   intervalos: INTERVALOS.map((i) => i.id),
   acordes: ACORDES.map((a) => a.id),
+  /** Na afinação, os itens são os intervalos que entram. */
+  afinacao: INTERVALOS.map((i) => i.id),
   graus: GRAUS.map((g) => g.id),
 };
 
-export type ConfigClassica = { exercicio: Exercicio; itens: Record<Exercicio, string[]>; direcao: Direcao };
+export type ConfigClassica = { exercicio: Exercicio; itens: Record<Exercicio, string[]>; direcao: Direcao; margem: number };
 export type ConfigFuncional = { tonica: "do" | "sorteada"; graus: string[] };
 
 export const CLASSICA_INICIAL: ConfigClassica = {
   exercicio: "intervalos",
-  itens: { intervalos: ["3m", "3M", "4J", "5J", "8J"], acordes: ["maior", "menor"] },
+  itens: { intervalos: ["3m", "3M", "4J", "5J", "8J"], acordes: ["maior", "menor"], afinacao: ["3M", "5J", "8J"] },
   direcao: "asc",
+  margem: 30,
 };
 export const FUNCIONAL_INICIAL: ConfigFuncional = { tonica: "do", graus: ["1", "3", "5"] };
 
 /** A pergunta do modo clássico: o que tocar e o que é a resposta certa. */
-export type PerguntaClassica = { chave: string; resposta: string; notas: PianoNote[] };
+export type PerguntaClassica = { chave: string; resposta: string; notas: PianoNote[]; /** Só na afinação: quantos cents a segunda nota saiu do lugar (0 = afinada). */ cents?: number };
 /** A pergunta do modo funcional: a cadência que fixa o tom e a nota, juntas ou cada uma por si. */
 export type PerguntaFuncional = { chave: string; resposta: string; tonica: number; cadencia: PianoNote[]; nota: PianoNote[]; tudo: PianoNote[] };
 
@@ -50,7 +57,22 @@ const piscina = <T extends { id: string }>(todos: readonly T[], escolhidos: read
   return ok.length ? ok : [...todos];
 };
 
+/** Afinação: o intervalo toca com a segunda nota baixa, afinada ou alta (um terço de cada, em média), no temperamento igual. */
+export function perguntaAfinacao(cfg: ConfigClassica, rng: Rng = Math.random): PerguntaClassica {
+  const i = sortear(piscina(INTERVALOS, cfg.itens.afinacao), rng);
+  const direcao = cfg.direcao === "misto" ? sortear(["asc", "desc", "harm"] as const, rng) : cfg.direcao;
+  const base = inteiro(rng, 48, 64);
+  const [a, b] = direcao === "desc" ? [base + i.semitons, base] : [base, base + i.semitons];
+  const cents = sortear([-cfg.margem, 0, cfg.margem], rng);
+  const resposta = cents < 0 ? "baixo" : cents > 0 ? "alto" : "afinado";
+  const notas: PianoNote[] = direcao === "harm"
+    ? [{ midi: a, at: 0, dur: 2.2 }, { midi: b, at: 0, dur: 2.2, cents }]
+    : [{ midi: a, at: 0, dur: 1.0 }, { midi: b, at: 1.1, dur: 1.4, cents }];
+  return { chave: `afinacao:${cfg.margem}`, resposta, notas, cents };
+}
+
 export function perguntaClassica(cfg: ConfigClassica, rng: Rng = Math.random): PerguntaClassica {
+  if (cfg.exercicio === "afinacao") return perguntaAfinacao(cfg, rng);
   if (cfg.exercicio === "acordes") {
     const a = sortear(piscina(ACORDES, cfg.itens.acordes), rng);
     const raiz = inteiro(rng, 48, 64);

@@ -5,9 +5,10 @@ import { useTranslations } from "next-intl";
 import { getAudio, loadPiano, PIANO_SAMPLES, playPiano, resumeAudio, stopPiano, type PianoNote } from "@/core/audio";
 import { createStore } from "@/core/storage";
 import {
-  CLASSICA_INICIAL, DIRECOES, EXERCICIOS, FUNCIONAL_INICIAL, IDS, nomeNota, PLACAR_ZERO, perguntaClassica, perguntaFuncional, registrar, somar,
+  CLASSICA_INICIAL, DIRECOES, EXERCICIOS, FUNCIONAL_INICIAL, IDS, INTERVALOS, MARGENS, nomeNota, PLACAR_ZERO, RESPOSTAS_AFINACAO, perguntaClassica, perguntaFuncional, registrar, somar,
   type ConfigClassica, type ConfigFuncional, type Direcao, type Exercicio, type Historico, type PerguntaClassica, type PerguntaFuncional,
 } from "./engine";
+import { Regua } from "./Regua";
 import { Teclado } from "./Teclado";
 import "./treino.css";
 
@@ -36,8 +37,10 @@ const store = createStore<Saved>("treino-de-ouvido", DEFAULTS, (saved) => {
       itens: {
         intervalos: ids(c.itens?.intervalos, IDS.intervalos, CLASSICA_INICIAL.itens.intervalos),
         acordes: ids(c.itens?.acordes, IDS.acordes, CLASSICA_INICIAL.itens.acordes),
+        afinacao: ids(c.itens?.afinacao, IDS.afinacao, CLASSICA_INICIAL.itens.afinacao),
       },
       direcao: DIRECOES.includes(c.direcao as Direcao) ? (c.direcao as Direcao) : "asc",
+      margem: (MARGENS as readonly unknown[]).includes(c.margem) ? (c.margem as number) : CLASSICA_INICIAL.margem,
     },
     funcional: { tonica: f.tonica === "sorteada" ? "sorteada" : "do", graus: ids(f.graus, IDS.graus, FUNCIONAL_INICIAL.graus) },
     historico: h as Historico,
@@ -104,6 +107,10 @@ export function TreinoDeOuvido() {
   const exercicio = s.classica.exercicio;
   const grupoDeIds: readonly string[] = modo === "funcional" ? s.funcional.graus : s.classica.itens[exercicio];
   const nomeGrupo = modo === "funcional" ? "graus" : exercicio;
+  // Afinação: os itens (chips) são intervalos, mas as respostas são baixo, afinado e alto.
+  const afinacao = modo === "classico" && exercicio === "afinacao";
+  const respostas: readonly string[] = afinacao ? RESPOSTAS_AFINACAO : grupoDeIds;
+  const nomeChips = afinacao ? "intervalos" : nomeGrupo;
   const nome = (grupo: string, id: string) => t(`nomes.${grupo}.${id}` as "nomes.graus.1");
   const todos = modo === "funcional" ? IDS.graus : IDS[exercicio];
   const marcar = (id: string) => {
@@ -118,11 +125,15 @@ export function TreinoDeOuvido() {
   const acertou = respondida && escolha === q.p.resposta;
   const notasTocadas = q ? (q.modo === "classico" ? q.p.notas : q.p.nota).map((n) => n.midi) : [];
   const harmonico = q?.modo === "classico" && q.p.notas.length === 2 && q.p.notas[0]!.at === q.p.notas[1]!.at;
-  const detalhe = !q || !respondida ? "" : q.modo === "classico" && q.p.chave.startsWith("intervalos")
+  const cents = q?.modo === "classico" ? q.p.cents : undefined;
+  const intervaloTocado = INTERVALOS.find((i) => i.semitons === Math.abs((notasTocadas[0] ?? 0) - (notasTocadas[1] ?? 0)));
+  const detalhe = !q || !respondida ? "" : cents !== undefined
+    ? `${cents === 0 ? t("exatamenteAfinado") : t(cents > 0 ? "centsAcima" : "centsAbaixo", { n: Math.abs(cents) })} · ${intervaloTocado ? nome("intervalos", intervaloTocado.id) : ""} · ${notasTocadas.map(nomeNota).join(harmonico ? " + " : " → ")}`
+    : q.modo === "classico" && q.p.chave.startsWith("intervalos")
     ? `${t("semitons", { n: Math.abs(notasTocadas[0]! - notasTocadas[1]!) })} · ${notasTocadas.map(nomeNota).join(harmonico ? " + " : " → ")}`
     : notasTocadas.map(nomeNota).join(" · ");
-  const pergunta = !q ? t("perguntaInicial") : t(modo === "funcional" ? "perguntaFuncional" : exercicio === "acordes" ? "perguntaAcordes" : "perguntaIntervalos");
-  const dica = t(modo === "funcional" ? "dicaFuncional" : exercicio === "acordes" ? "dicaAcordes" : "dicaIntervalos");
+  const pergunta = !q ? t("perguntaInicial") : t(modo === "funcional" ? "perguntaFuncional" : exercicio === "acordes" ? "perguntaAcordes" : afinacao ? "perguntaAfinacao" : "perguntaIntervalos");
+  const dica = afinacao ? t("dicaAfinacao", { margem: s.classica.margem }) : t(modo === "funcional" ? "dicaFuncional" : exercicio === "acordes" ? "dicaAcordes" : "dicaIntervalos");
 
   // Teclado: 1 a 9 respondem; Espaço ouve de novo e, depois da resposta, avança.
   useEffect(() => {
@@ -130,7 +141,7 @@ export function TreinoDeOuvido() {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       if (e.target instanceof Element && e.target.closest("input, select, textarea")) return;
       if (/^[1-9]$/.test(e.key) && q && escolha === null) {
-        const id = grupoDeIds[Number(e.key) - 1];
+        const id = respostas[Number(e.key) - 1];
         if (id) { e.preventDefault(); responder(id); }
         return;
       }
@@ -189,7 +200,7 @@ export function TreinoDeOuvido() {
         )}
 
         <div className="treino-respostas" role="group" aria-label={t("respostas")}>
-          {grupoDeIds.map((id, n) => {
+          {respostas.map((id, n) => {
             const estado = escolha === null || !q ? "" : id === q.p.resposta ? "certa" : id === escolha ? "errada" : "";
             return (
               <button key={id} type="button" className={`treino-resp ${estado}`} onClick={() => responder(id)} disabled={!q || (escolha !== null)}>
@@ -204,6 +215,7 @@ export function TreinoDeOuvido() {
           <div className="treino-revela">
             <p className={`treino-resultado ${acertou ? "certa" : "errada"}`} role="status">{acertou ? t("certo") : t("errado", { resposta: nome(nomeGrupo, q.p.resposta) })}</p>
             <Teclado midis={notasTocadas} label={t("teclado")} />
+            {cents !== undefined && <Regua cents={cents} margem={s.classica.margem} label={t("regua")} baixo={t("nomes.afinacao.baixo")} alto={t("nomes.afinacao.alto")} />}
             <p className="treino-detalhe">{detalhe}</p>
             <button ref={proxima} type="button" className="go treino-proxima" onClick={() => nova()} disabled={carregando}>{t("proxima")}<kbd aria-hidden="true">{t("espaco")}</kbd></button>
           </div>
@@ -217,7 +229,7 @@ export function TreinoDeOuvido() {
         <summary>{t("ajustes")}</summary>
         <div className="treino-ajustes-corpo">
           {modo === "classico" ? (
-            exercicio === "intervalos" && (
+            (exercicio === "intervalos" || exercicio === "afinacao") && (
               <label className="treino-field">
                 <span>{t("direcao")}</span>
                 <select value={s.classica.direcao} onChange={(e) => mudar({ ...s, classica: { ...s.classica, direcao: e.target.value as Direcao } }, false)}>
@@ -234,11 +246,21 @@ export function TreinoDeOuvido() {
               </select>
             </label>
           )}
+          {afinacao && (
+            <div className="treino-field" role="group" aria-label={t("margem")}>
+              <span>{t("margem")}</span>
+              <div className="treino-chips">
+                {MARGENS.map((m) => (
+                  <button key={m} type="button" className="treino-chip" aria-pressed={s.classica.margem === m} onClick={() => mudar({ ...s, classica: { ...s.classica, margem: m } }, false)}>{t("margemCents", { n: m })}</button>
+                ))}
+              </div>
+            </div>
+          )}
           <div className="treino-field treino-itens" role="group" aria-label={t(modo === "funcional" ? "graus" : "itens")}>
             <span>{t(modo === "funcional" ? "graus" : "itens")}</span>
             <div className="treino-chips">
               {todos.map((id) => (
-                <button key={id} type="button" className="treino-chip" aria-pressed={grupoDeIds.includes(id)} onClick={() => marcar(id)}>{nome(nomeGrupo, id)}</button>
+                <button key={id} type="button" className="treino-chip" aria-pressed={grupoDeIds.includes(id)} onClick={() => marcar(id)}>{nome(nomeChips, id)}</button>
               ))}
             </div>
           </div>

@@ -10,11 +10,11 @@ export const PIANO_SAMPLES = Array.from({ length: 14 }, (_, i) => 45 + i * 3);
 export const nearestSample = (midi: number): number =>
   PIANO_SAMPLES.reduce((best, s) => (Math.abs(s - midi) < Math.abs(best - midi) ? s : best), PIANO_SAMPLES[0]!);
 
-/** Velocidade de leitura para tocar `midi` a partir da amostra `sample`. */
-export const rateFor = (midi: number, sample: number): number => 2 ** ((midi - sample) / 12);
+/** Velocidade de leitura para tocar `midi` (mais `cents`) a partir da amostra `sample`. */
+export const rateFor = (midi: number, sample: number, cents = 0): number => 2 ** ((midi - sample) / 12 + cents / 1200);
 
-/** Uma nota a tocar: `at` e `dur` em segundos a partir do início. */
-export type PianoNote = { midi: number; at: number; dur: number };
+/** Uma nota a tocar: `at` e `dur` em segundos a partir do início; `cents` desloca a altura (100 cents = um semitom). */
+export type PianoNote = { midi: number; at: number; dur: number; cents?: number };
 
 const buffers = new Map<number, AudioBuffer>();
 let loading: Promise<void> | null = null;
@@ -54,7 +54,7 @@ export function playPiano(g: AudioGraph, notes: readonly PianoNote[]): number | 
     const sample = nearestSample(n.midi);
     const src = g.ctx.createBufferSource();
     src.buffer = buffers.get(sample)!;
-    src.playbackRate.value = rateFor(n.midi, sample);
+    src.playbackRate.value = rateFor(n.midi, sample, n.cents);
     const env = g.ctx.createGain();
     const on = t0 + n.at, off = on + n.dur;
     env.gain.setValueAtTime(0, on);

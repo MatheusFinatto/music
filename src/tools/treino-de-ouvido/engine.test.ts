@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ACORDES, cadencia, nomeNota, CLASSICA_INICIAL, FUNCIONAL_INICIAL, GRAUS, INTERVALOS, mulberry32, perguntaClassica, perguntaFuncional, PLACAR_ZERO, registrar, somar, type ConfigClassica } from "./engine";
+import { ACORDES, cadencia, MARGENS, nomeNota, CLASSICA_INICIAL, FUNCIONAL_INICIAL, GRAUS, INTERVALOS, mulberry32, perguntaClassica, perguntaFuncional, PLACAR_ZERO, registrar, somar, type ConfigClassica } from "./engine";
 
 const MIN = 45, MAX = 86; // o piano tem amostras de 45 a 84; um pouco além só desloca a velocidade
 const todos = (c: Partial<ConfigClassica>): ConfigClassica => ({ ...CLASSICA_INICIAL, ...c });
@@ -12,7 +12,7 @@ describe("modo clássico", () => {
     const rng = mulberry32(1);
     for (const direcao of ["asc", "desc", "harm", "misto"] as const)
       for (let k = 0; k < 200; k++) {
-        const q = perguntaClassica(todos({ direcao, itens: { intervalos: INTERVALOS.map((i) => i.id), acordes: [] } }), rng);
+        const q = perguntaClassica(todos({ direcao, itens: { intervalos: INTERVALOS.map((i) => i.id), acordes: [], afinacao: [] } }), rng);
         const semitons = INTERVALOS.find((i) => i.id === q.resposta)!.semitons;
         const [a, b] = q.notas;
         expect(Math.abs(a!.midi - b!.midi)).toBe(semitons);
@@ -25,7 +25,7 @@ describe("modo clássico", () => {
   it("o acorde tocado tem os semitons do tipo da resposta, todos juntos", () => {
     const rng = mulberry32(2);
     for (let k = 0; k < 200; k++) {
-      const q = perguntaClassica(todos({ exercicio: "acordes", itens: { intervalos: [], acordes: ACORDES.map((a) => a.id) } }), rng);
+      const q = perguntaClassica(todos({ exercicio: "acordes", itens: { intervalos: [], acordes: ACORDES.map((a) => a.id), afinacao: [] } }), rng);
       const tipo = ACORDES.find((a) => a.id === q.resposta)!;
       const raiz = Math.min(...q.notas.map((n) => n.midi));
       expect(q.notas.map((n) => n.midi - raiz).sort((x, y) => x - y)).toEqual(tipo.semitons);
@@ -35,9 +35,9 @@ describe("modo clássico", () => {
   });
   it("só sorteia os itens escolhidos; sem nenhum, usa todos", () => {
     const rng = mulberry32(3);
-    const vistos = new Set(Array.from({ length: 100 }, () => perguntaClassica(todos({ itens: { intervalos: ["2m", "5J"], acordes: [] } }), rng).resposta));
+    const vistos = new Set(Array.from({ length: 100 }, () => perguntaClassica(todos({ itens: { intervalos: ["2m", "5J"], acordes: [], afinacao: [] } }), rng).resposta));
     expect([...vistos].sort()).toEqual(["2m", "5J"]);
-    const vazios = new Set(Array.from({ length: 300 }, () => perguntaClassica(todos({ itens: { intervalos: [], acordes: [] } }), rng).resposta));
+    const vazios = new Set(Array.from({ length: 300 }, () => perguntaClassica(todos({ itens: { intervalos: [], acordes: [], afinacao: [] } }), rng).resposta));
     expect(vazios.size).toBe(INTERVALOS.length);
   });
 });
@@ -90,5 +90,34 @@ describe("nome da nota", () => {
     expect(nomeNota(61)).toBe("C#4");
     expect(nomeNota(69)).toBe("A4");
     expect(nomeNota(47)).toBe("B2");
+  });
+});
+
+describe("afinação", () => {
+  const cfg = (margem: number, direcao: ConfigClassica["direcao"] = "asc"): ConfigClassica => ({ ...CLASSICA_INICIAL, exercicio: "afinacao", direcao, margem });
+  it("a segunda nota sai baixa, afinada ou alta pela margem, e a resposta acompanha o sinal", () => {
+    const rng = mulberry32(8);
+    for (const margem of MARGENS) {
+      const vistos = new Set<string>();
+      for (let k = 0; k < 300; k++) {
+        const q = perguntaClassica(cfg(margem), rng);
+        expect([-margem, 0, margem]).toContain(q.cents);
+        expect(q.resposta).toBe(q.cents! < 0 ? "baixo" : q.cents! > 0 ? "alto" : "afinado");
+        expect(q.chave).toBe(`afinacao:${margem}`);
+        expect(q.notas[0]!.cents).toBeUndefined();
+        expect(q.notas[1]!.cents).toBe(q.cents);
+        vistos.add(q.resposta);
+      }
+      expect(vistos.size).toBe(3);
+    }
+  });
+  it("o intervalo em semitons continua certo, em qualquer direção", () => {
+    const rng = mulberry32(9);
+    for (const direcao of ["asc", "desc", "harm", "misto"] as const)
+      for (let k = 0; k < 100; k++) {
+        const q = perguntaClassica(cfg(20, direcao), rng);
+        const st = Math.abs(q.notas[0]!.midi - q.notas[1]!.midi);
+        expect(INTERVALOS.some((i) => i.semitons === st && CLASSICA_INICIAL.itens.afinacao.includes(i.id))).toBe(true);
+      }
   });
 });

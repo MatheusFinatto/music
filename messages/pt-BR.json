@@ -127,7 +127,8 @@
     "exercicio": "Exercício",
     "exercicios": {
       "intervalos": "Intervalos",
-      "acordes": "Acordes"
+      "acordes": "Acordes",
+      "afinacao": "Afinação"
     },
     "direcao": "Direção",
     "direcoes": {
@@ -190,6 +191,11 @@
         "5": "5",
         "6": "6",
         "7": "7"
+      },
+      "afinacao": {
+        "baixo": "Baixo",
+        "afinado": "Afinado",
+        "alto": "Alto"
       }
     },
     "perguntaInicial": "Toque para ouvir",
@@ -203,6 +209,14 @@
     "semitons": "{n, plural, one {# semitom} other {# semitons}}",
     "teclado": "Teclado com as notas tocadas acesas",
     "espaco": "Espaço",
-    "atalhos": "Espaço ouve e avança; 1 a 9 respondem."
+    "atalhos": "Espaço ouve e avança; 1 a 9 respondem.",
+    "perguntaAfinacao": "A segunda nota está afinada?",
+    "dicaAfinacao": "Duas notas. A segunda pode estar baixa, afinada ou alta, até {margem} cents.",
+    "margem": "Margem",
+    "margemCents": "{n} cents",
+    "centsAcima": "{n} cents acima",
+    "centsAbaixo": "{n} cents abaixo",
+    "exatamenteAfinado": "Exatamente afinado",
+    "regua": "Desvio da segunda nota, em cents"
   }
 }

@@ -70,6 +70,17 @@
 .treino-estado { margin: 0; color: var(--muted); font-size: var(--text-sm); }
 .treino-estado:empty { display: none; }
 
+/* régua da afinação: o centro é afinado; o ponto mostra onde a segunda nota estava */
+.regua { display: flex; flex-direction: column; gap: 6px; max-width: 30rem; width: 100%; margin-inline: auto; }
+.regua-trilho { position: relative; height: 28px; }
+.regua-trilho::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; border-radius: 2px; background: var(--line); }
+.regua-marca { position: absolute; top: 6px; bottom: 6px; width: 2px; margin-left: -1px; background: var(--muted); opacity: 0.55; }
+.regua-marca.zero { top: 2px; bottom: 2px; background: var(--ok); opacity: 1; }
+.regua-ponto { position: absolute; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: var(--bad); box-shadow: 0 0 0 3px var(--surface); animation: treino-ponto 0.7s var(--ease) both; }
+.regua-ponto.zero { background: var(--ok); }
+@keyframes treino-ponto { from { transform: translateX(var(--de, 0)) scale(0.4); opacity: 0; } to { transform: none; opacity: 1; } }
+.regua-nomes { display: flex; justify-content: space-between; color: var(--muted); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.06em; }
+
 /* ajustes: abaixo do palco, fechados por padrão */
 .treino-ajustes { border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--bg); }
 .treino-ajustes summary { display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 18px; list-style: none; cursor: pointer; font-weight: 600; color: var(--muted); }
@@ -89,5 +100,6 @@
 .treino-creditos { margin: 0; text-align: center; color: var(--muted); font-size: var(--text-xs); }
 
 .treino :is(button, select, summary):focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+@media (max-width: 480px) { .treino-escolhas, .treino-seg { width: 100%; } .treino-seg button { flex: 1; padding: 0 10px; } }
 @media (max-width: 420px) { .treino-ouvir { width: 72px; height: 72px; } .treino-ouvir svg { width: 28px; height: 28px; } }
 @media (prefers-reduced-motion: reduce) { .treino *, .treino *::before, .treino *::after { animation: none !important; transition: none !important; } }
