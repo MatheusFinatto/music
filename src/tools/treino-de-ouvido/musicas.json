@@ -1,0 +1,4808 @@
+[
+ {
+  "id": "m1",
+  "nome": "Brilha, brilha, estrelinha",
+  "compasso": "4/4",
+  "bpm": 90,
+  "trechos": [
+   {
+    "nome": "Brilha, brilha, estrelinha",
+    "notas": [
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "Bri"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "lha"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "bri"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "lha"
+     },
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "es"
+     },
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "tre"
+     },
+     {
+      "st": 7,
+      "dur": 2,
+      "sil": "li-nha"
+     }
+    ]
+   },
+   {
+    "nome": "Quero ver você brilhar",
+    "notas": [
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "Que"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "ro"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "ver"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "vo"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "cê"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "bri"
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": "lhar"
+     }
+    ]
+   }
+  ],
+  "confianca": "alta"
+ },
+ {
+  "id": "m2",
+  "nome": "Atirei o pau no gato",
+  "compasso": "2/4",
+  "bpm": 100,
+  "trechos": [
+   {
+    "nome": "Parte 1",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 1.5,
+      "sil": "A"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "ti"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "rei"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "o"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "pau"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "no"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "ga"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "to"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "tô"
+     }
+    ]
+   },
+   {
+    "nome": "Parte 2",
+    "notas": [
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "mas"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "o"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "ga"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "to"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "tô"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "não"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "mor"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "reu"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "reu"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "reu"
+     }
+    ]
+   },
+   {
+    "nome": "Parte 3",
+    "notas": [
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "do"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "na"
+     },
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "chi"
+     },
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "ca"
+     },
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "cá"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "ad"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "mi"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "rou"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "se"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "se"
+     }
+    ]
+   },
+   {
+    "nome": "Parte 4",
+    "notas": [
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "do"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "ber"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "ro"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "do"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "ber"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "ro"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "que"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "ga"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "to"
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": "deu"
+     }
+    ]
+   }
+  ],
+  "confianca": "alta"
+ },
+ {
+  "id": "m3",
+  "nome": "Parabéns pra você",
+  "compasso": "3/4",
+  "bpm": 90,
+  "trechos": [
+   {
+    "nome": "Parte 1",
+    "notas": [
+     {
+      "st": -5,
+      "dur": 0.75,
+      "sil": ""
+     },
+     {
+      "st": -5,
+      "dur": 0.25,
+      "sil": ""
+     },
+     {
+      "st": -3,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": -5,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": -1,
+      "dur": 2,
+      "sil": ""
+     }
+    ]
+   },
+   {
+    "nome": "Parte 2",
+    "notas": [
+     {
+      "st": -5,
+      "dur": 0.75,
+      "sil": ""
+     },
+     {
+      "st": -5,
+      "dur": 0.25,
+      "sil": ""
+     },
+     {
+      "st": -3,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": -5,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": ""
+     }
+    ]
+   },
+   {
+    "nome": "Parte 3",
+    "notas": [
+     {
+      "st": -5,
+      "dur": 0.75,
+      "sil": ""
+     },
+     {
+      "st": -5,
+      "dur": 0.25,
+      "sil": ""
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": -1,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": -3,
+      "dur": 1,
+      "sil": ""
+     }
+    ]
+   },
+   {
+    "nome": "Parte 4",
+    "notas": [
+     {
+      "st": 5,
+      "dur": 0.75,
+      "sil": ""
+     },
+     {
+      "st": 5,
+      "dur": 0.25,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 3,
+      "sil": ""
+     }
+    ]
+   }
+  ],
+  "confianca": "alta"
+ },
+ {
+  "id": "m4",
+  "nome": "Ciranda, cirandinha",
+  "compasso": "2/4",
+  "bpm": 100,
+  "trechos": [
+   {
+    "nome": "Ciranda, cirandinha",
+    "notas": [
+     {
+      "st": -5,
+      "dur": 0.5,
+      "sil": "Ci"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "ran"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "da"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "ci"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "ran"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "di"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "nha"
+     }
+    ]
+   },
+   {
+    "nome": "vamos todos cirandar",
+    "notas": [
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "va"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "mos"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "to"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "dos"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "ci"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "ran"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "dar"
+     }
+    ]
+   },
+   {
+    "nome": "vamos dar a meia volta",
+    "notas": [
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "va"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "mos"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "dar"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "a"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "me"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "ia"
+     },
+     {
+      "st": -1,
+      "dur": 0.5,
+      "sil": "vol"
+     },
+     {
+      "st": -5,
+      "dur": 0.5,
+      "sil": "ta"
+     }
+    ]
+   },
+   {
+    "nome": "volta e meia vamos dar",
+    "notas": [
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "vol"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "ta-e"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "me"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "ia"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "va"
+     },
+     {
+      "st": -1,
+      "dur": 0.5,
+      "sil": "mos"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "dar"
+     }
+    ]
+   }
+  ],
+  "confianca": "alta"
+ },
+ {
+  "id": "m5",
+  "nome": "Cai, cai, balão",
+  "compasso": "2/4",
+  "bpm": 100,
+  "trechos": [
+   {
+    "nome": "Cai, cai, balão (x2)",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "Cai"
+     },
+     {
+      "st": 7,
+      "dur": 0.75,
+      "sil": "cai"
+     },
+     {
+      "st": 5,
+      "dur": 0.25,
+      "sil": "ba"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "lão"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "Cai"
+     },
+     {
+      "st": 7,
+      "dur": 0.75,
+      "sil": "cai"
+     },
+     {
+      "st": 5,
+      "dur": 0.25,
+      "sil": "ba"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "lão"
+     }
+    ]
+   },
+   {
+    "nome": "aqui na minha mão",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "a"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "qui"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "na"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "mi"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "nha"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "mão"
+     },
+     {
+      "st": null,
+      "dur": 0.5,
+      "sil": ""
+     }
+    ]
+   },
+   {
+    "nome": "não cai não (x3)",
+    "notas": [
+     {
+      "st": 2,
+      "dur": 0.25,
+      "sil": "não"
+     },
+     {
+      "st": 4,
+      "dur": 0.25,
+      "sil": "cai"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "não"
+     },
+     {
+      "st": 2,
+      "dur": 0.25,
+      "sil": "não"
+     },
+     {
+      "st": 4,
+      "dur": 0.25,
+      "sil": "cai"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "não"
+     },
+     {
+      "st": 2,
+      "dur": 0.25,
+      "sil": "não"
+     },
+     {
+      "st": 4,
+      "dur": 0.25,
+      "sil": "cai"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "não"
+     }
+    ]
+   },
+   {
+    "nome": "cai na rua do sabão",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "cai"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "na"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "ru"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "a"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "do"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "sa"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "bão"
+     }
+    ]
+   }
+  ],
+  "confianca": "alta"
+ },
+ {
+  "id": "m6",
+  "nome": "Marcha soldado",
+  "compasso": "2/4",
+  "bpm": 108,
+  "trechos": [
+   {
+    "nome": "Marcha soldado, cabeça de papel",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "Mar"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "cha"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "sol"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "da"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "do"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "ca"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "be"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "ça"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "de"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "pa"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "pel"
+     }
+    ]
+   },
+   {
+    "nome": "Quem não marchar direito, vai preso pro quartel",
+    "notas": [
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "Quem"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "não"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "mar"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "char"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "di"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "rei"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "to"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "vai"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "pre"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "so"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "pro"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "quar"
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": "tel"
+     }
+    ]
+   }
+  ],
+  "confianca": "media"
+ },
+ {
+  "id": "m7",
+  "nome": "Sapo cururu",
+  "compasso": "2/4",
+  "bpm": 84,
+  "trechos": [
+   {
+    "nome": "Sapo cururu",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "Sa"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "po"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "cu"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "ru"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "ru"
+     }
+    ]
+   },
+   {
+    "nome": "na beira do rio",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "na"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "bei"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "ra"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "do"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "ri"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "o"
+     }
+    ]
+   },
+   {
+    "nome": "quando o sapo canta, maninha",
+    "notas": [
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "Quan"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "do-o"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "sa"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "po"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "can"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "ta"
+     },
+     {
+      "st": -1,
+      "dur": 0.5,
+      "sil": "ma"
+     },
+     {
+      "st": -5,
+      "dur": 0.5,
+      "sil": "ni"
+     },
+     {
+      "st": -5,
+      "dur": 1,
+      "sil": "nha"
+     }
+    ]
+   },
+   {
+    "nome": "é porque tem frio",
+    "notas": [
+     {
+      "st": -1,
+      "dur": 0.5,
+      "sil": "é"
+     },
+     {
+      "st": -1,
+      "dur": 0.5,
+      "sil": "por"
+     },
+     {
+      "st": -3,
+      "dur": 0.5,
+      "sil": "que"
+     },
+     {
+      "st": -3,
+      "dur": 0.5,
+      "sil": "tem"
+     },
+     {
+      "st": -5,
+      "dur": 0.5,
+      "sil": "fri"
+     },
+     {
+      "st": -5,
+      "dur": 1,
+      "sil": "o"
+     }
+    ]
+   }
+  ],
+  "confianca": "baixa"
+ },
+ {
+  "id": "m8",
+  "nome": "Se essa rua fosse minha",
+  "compasso": "4/4",
+  "bpm": 72,
+  "trechos": [
+   {
+    "nome": "Se essa rua, se essa rua fosse minha",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "Se-es"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "sa"
+     },
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "ru"
+     },
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "a"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "se-es"
+     },
+     {
+      "st": 3,
+      "dur": 0.5,
+      "sil": "sa"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "ru"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "a"
+     },
+     {
+      "st": 10,
+      "dur": 0.5,
+      "sil": "fos"
+     },
+     {
+      "st": 8,
+      "dur": 0.5,
+      "sil": "se"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "mi"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "nha"
+     }
+    ]
+   },
+   {
+    "nome": "eu mandava, eu mandava ladrilhar",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "eu"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "man"
+     },
+     {
+      "st": 14,
+      "dur": 0.5,
+      "sil": "da"
+     },
+     {
+      "st": 14,
+      "dur": 0.5,
+      "sil": "va"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "eu"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "man"
+     },
+     {
+      "st": 8,
+      "dur": 0.5,
+      "sil": "da"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "va"
+     },
+     {
+      "st": 15,
+      "dur": 0.5,
+      "sil": "la"
+     },
+     {
+      "st": 14,
+      "dur": 0.5,
+      "sil": "dri"
+     },
+     {
+      "st": 12,
+      "dur": 1,
+      "sil": "lhar"
+     }
+    ]
+   },
+   {
+    "nome": "com pedrinhas, com pedrinhas de brilhante",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "com"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "pe"
+     },
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "dri"
+     },
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "nhas"
+     },
+     {
+      "st": 15,
+      "dur": 0.5,
+      "sil": "com"
+     },
+     {
+      "st": 14,
+      "dur": 0.5,
+      "sil": "pe"
+     },
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "dri"
+     },
+     {
+      "st": 10,
+      "dur": 0.5,
+      "sil": "nhas"
+     },
+     {
+      "st": 8,
+      "dur": 0.5,
+      "sil": "de"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "bri"
+     },
+     {
+      "st": 10,
+      "dur": 0.5,
+      "sil": "lhan"
+     },
+     {
+      "st": 8,
+      "dur": 1,
+      "sil": "te"
+     }
+    ]
+   },
+   {
+    "nome": "para o meu, para o meu amor passar",
+    "notas": [
+     {
+      "st": 8,
+      "dur": 0.5,
+      "sil": "pa"
+     },
+     {
+      "st": 8,
+      "dur": 0.5,
+      "sil": "ra-o"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "meu"
+     },
+     {
+      "st": 14,
+      "dur": 0.5,
+      "sil": "pa"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "ra-o"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "meu"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "a"
+     },
+     {
+      "st": 3,
+      "dur": 0.5,
+      "sil": "mor"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "pas"
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": "sar"
+     }
+    ]
+   }
+  ],
+  "confianca": "baixa"
+ },
+ {
+  "id": "m9",
+  "nome": "Ode à alegria (Beethoven)",
+  "compasso": "4/4",
+  "bpm": 100,
+  "trechos": [
+   {
+    "nome": "Parte 1",
+    "notas": [
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": ""
+     }
+    ]
+   },
+   {
+    "nome": "Parte 2",
+    "notas": [
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 1.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 2,
+      "sil": ""
+     }
+    ]
+   },
+   {
+    "nome": "Parte 3",
+    "notas": [
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": ""
+     }
+    ]
+   },
+   {
+    "nome": "Parte 4",
+    "notas": [
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 1.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": ""
+     }
+    ]
+   }
+  ],
+  "confianca": "alta"
+ },
+ {
+  "id": "m10",
+  "nome": "Escravos de Jó",
+  "compasso": "2/4",
+  "bpm": 90,
+  "trechos": [
+   {
+    "nome": "Escravos de Jó jogavam caxangá",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "Es"
+     },
+     {
+      "st": 12,
+      "dur": 1,
+      "sil": "cra"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "vos"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "de"
+     },
+     {
+      "st": 7,
+      "dur": 1.5,
+      "sil": "Jó"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "jo"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "ga"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "vam"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "ca"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "xan"
+     },
+     {
+      "st": 4,
+      "dur": 2,
+      "sil": "gá"
+     }
+    ]
+   },
+   {
+    "nome": "Tira, bota, deixa o Zé Pereira ficar",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "Ti"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "ra"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "bo"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "ta"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "dei"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "xa-o"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "Zé"
+     },
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "Pe"
+     },
+     {
+      "st": 16,
+      "dur": 1,
+      "sil": "rei"
+     },
+     {
+      "st": 16,
+      "dur": 0.5,
+      "sil": "ra"
+     },
+     {
+      "st": 14,
+      "dur": 0.5,
+      "sil": "fi"
+     },
+     {
+      "st": 12,
+      "dur": 1,
+      "sil": "car"
+     },
+     {
+      "st": null,
+      "dur": 0.5,
+      "sil": ""
+     }
+    ]
+   },
+   {
+    "nome": "Guerreiros com guerreiros fazem zigue zigue zá",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "Guer"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "rei"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "ros"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "com"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "guer"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "rei"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "ros"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "fa"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "zem"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "zi"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "gue"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "zi"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "gue"
+     },
+     {
+      "st": 12,
+      "dur": 1.5,
+      "sil": "zá"
+     }
+    ]
+   }
+  ],
+  "confianca": "alta"
+ },
+ {
+  "id": "m11",
+  "nome": "Boi da cara preta",
+  "compasso": "2/4",
+  "bpm": 80,
+  "trechos": [
+   {
+    "nome": "Boi, boi, boi da cara preta",
+    "notas": [
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "Boi"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "boi"
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": "boi"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "boi"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "da"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "ca"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "ra"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "pre"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "ta"
+     }
+    ]
+   },
+   {
+    "nome": "Parte 2",
+    "notas": [
+     {
+      "st": -5,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": -5,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": -1,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": -1,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": ""
+     }
+    ]
+   },
+   {
+    "nome": "Parte 3",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": ""
+     },
+     {
+      "st": 5,
+      "dur": 1.5,
+      "sil": ""
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 2,
+      "sil": ""
+     }
+    ]
+   },
+   {
+    "nome": "Parte 4",
+    "notas": [
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": -1,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": -1,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": ""
+     }
+    ]
+   }
+  ],
+  "confianca": "media"
+ },
+ {
+  "id": "m13",
+  "nome": "O cravo brigou com a rosa",
+  "compasso": "3/4",
+  "bpm": 100,
+  "trechos": [
+   {
+    "nome": "O cravo brigou com a rosa",
+    "notas": [
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "O"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "cra"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "vo"
+     },
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "bri"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "gou"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "com a"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "ro"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "sa"
+     }
+    ]
+   },
+   {
+    "nome": "De fronte de minha casa",
+    "notas": [
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "De"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "fron"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "te"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "de"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "mi"
+     },
+     {
+      "st": 6,
+      "dur": 0.5,
+      "sil": "nha"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "ca"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "sa"
+     },
+     {
+      "st": null,
+      "dur": 0.5,
+      "sil": ""
+     }
+    ]
+   },
+   {
+    "nome": "O cravo ficou ferido",
+    "notas": [
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "O"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "cra"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "vo"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "fi"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "cou"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "fe"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "ri"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "do"
+     }
+    ]
+   },
+   {
+    "nome": "E a rosa despedaçada",
+    "notas": [
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "E a"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "ro"
+     },
+     {
+      "st": -1,
+      "dur": 0.5,
+      "sil": "sa"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "des"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "pe"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "da"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "ça"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "da"
+     }
+    ]
+   }
+  ],
+  "confianca": "media"
+ },
+ {
+  "id": "m14",
+  "nome": "A canoa virou",
+  "compasso": "2/4",
+  "bpm": 100,
+  "trechos": [
+   {
+    "nome": "A canoa virou, deixa",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "A"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "ca"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "noa"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "vi"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "rou"
+     },
+     {
+      "st": 4,
+      "dur": 1.5,
+      "sil": "dei"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "xa"
+     }
+    ]
+   },
+   {
+    "nome": "ela virar por causa da Ma-",
+    "notas": [
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "e"
+     },
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "la"
+     },
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "vi"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "rar"
+     },
+     {
+      "st": 9,
+      "dur": 1.5,
+      "sil": "por"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "cau"
+     },
+     {
+      "st": 14,
+      "dur": 0.5,
+      "sil": "sa"
+     },
+     {
+      "st": 14,
+      "dur": 0.5,
+      "sil": "da"
+     },
+     {
+      "st": 14,
+      "dur": 0.5,
+      "sil": "Ma"
+     },
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": ""
+     }
+    ]
+   },
+   {
+    "nome": "-ria que não soube remar",
+    "notas": [
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "ri"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "a"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "que"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "não"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "sou"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "be"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "re"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "mar"
+     },
+     {
+      "st": null,
+      "dur": 1,
+      "sil": ""
+     }
+    ]
+   }
+  ],
+  "confianca": "media"
+ },
+ {
+  "id": "m15",
+  "nome": "Pirulito que bate bate",
+  "compasso": "2/4",
+  "bpm": 100,
+  "trechos": [
+   {
+    "nome": "Pirulito que bate bate",
+    "notas": [
+     {
+      "st": 4,
+      "dur": 0.25,
+      "sil": "Pi"
+     },
+     {
+      "st": 5,
+      "dur": 0.25,
+      "sil": "ru"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "li"
+     },
+     {
+      "st": 7,
+      "dur": 0.25,
+      "sil": "to"
+     },
+     {
+      "st": 7,
+      "dur": 0.25,
+      "sil": "que"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "ba"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "te"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "ba"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "te"
+     }
+    ]
+   },
+   {
+    "nome": "Pirulito que já bateu",
+    "notas": [
+     {
+      "st": null,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.25,
+      "sil": "Pi"
+     },
+     {
+      "st": 4,
+      "dur": 0.25,
+      "sil": "ru"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "li"
+     },
+     {
+      "st": 5,
+      "dur": 0.25,
+      "sil": "to"
+     },
+     {
+      "st": 5,
+      "dur": 0.25,
+      "sil": "que"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "já"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "ba"
+     },
+     {
+      "st": 7,
+      "dur": 1.5,
+      "sil": "teu"
+     }
+    ]
+   },
+   {
+    "nome": "Quem gosta de mim é ela",
+    "notas": [
+     {
+      "st": 4,
+      "dur": 0.25,
+      "sil": "Quem"
+     },
+     {
+      "st": 5,
+      "dur": 0.25,
+      "sil": "gos"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "ta"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "de"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "mim"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "é"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "e"
+     },
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "la"
+     }
+    ]
+   },
+   {
+    "nome": "Quem gosta dela sou eu",
+    "notas": [
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "Quem"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "gos"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "ta"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "d'e"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "la"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "sou"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "eu"
+     }
+    ]
+   }
+  ],
+  "confianca": "media"
+ },
+ {
+  "id": "m17",
+  "nome": "A dona aranha",
+  "compasso": "2/4",
+  "bpm": 100,
+  "trechos": [
+   {
+    "nome": "A dona aranha subiu pela parede",
+    "notas": [
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 1.5,
+      "sil": ""
+     }
+    ]
+   },
+   {
+    "nome": "Veio a chuva forte e a derrubou",
+    "notas": [
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 1.5,
+      "sil": ""
+     }
+    ]
+   },
+   {
+    "nome": "Já passou a chuva, o sol já vai surgindo",
+    "notas": [
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "Já"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "pas"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "sou"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "a"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "chu"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "va"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "o"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "sol"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "já"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "vai"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "sur"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "gin"
+     },
+     {
+      "st": 4,
+      "dur": 1.5,
+      "sil": "do"
+     }
+    ]
+   },
+   {
+    "nome": "E a dona aranha continua a subir",
+    "notas": [
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 1.5,
+      "sil": ""
+     }
+    ]
+   }
+  ],
+  "confianca": "baixa"
+ },
+ {
+  "id": "m18",
+  "nome": "O sapo não lava o pé",
+  "compasso": "2/4",
+  "bpm": 100,
+  "trechos": [
+   {
+    "nome": "O sapo não lava o pé",
+    "notas": [
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "O"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "sa"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "po"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "não"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "la"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "va"
+     },
+     {
+      "st": -3,
+      "dur": 1.5,
+      "sil": "o pé"
+     }
+    ]
+   },
+   {
+    "nome": "Não lava porque não quer",
+    "notas": [
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "não"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "la"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "va"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "por"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "que"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "não"
+     },
+     {
+      "st": -2,
+      "dur": 1.5,
+      "sil": "quer"
+     }
+    ]
+   },
+   {
+    "nome": "Ele mora lá na lagoa",
+    "notas": [
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "E"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "le"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "mo"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "ra"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "lá"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "na"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "la"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "go"
+     },
+     {
+      "st": 4,
+      "dur": 1.5,
+      "sil": "a"
+     }
+    ]
+   },
+   {
+    "nome": "Não lava o pé porque não quer",
+    "notas": [
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "não"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "la"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "va"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "o pé"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "por"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "que"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "não"
+     },
+     {
+      "st": 5,
+      "dur": 1.5,
+      "sil": "quer"
+     }
+    ]
+   }
+  ],
+  "confianca": "baixa"
+ },
+ {
+  "id": "m19",
+  "nome": "Terezinha de Jesus",
+  "compasso": "3/4",
+  "bpm": 100,
+  "trechos": [
+   {
+    "nome": "Terezinha de Jesus",
+    "notas": [
+     {
+      "st": 3,
+      "dur": 0.5,
+      "sil": "Te"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "re"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "zi"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "nha"
+     },
+     {
+      "st": 3,
+      "dur": 0.5,
+      "sil": "de"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "Je"
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": "sus"
+     }
+    ]
+   },
+   {
+    "nome": "de uma queda foi ao chão",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "deu"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "u-ma"
+     },
+     {
+      "st": 8,
+      "dur": 1,
+      "sil": "que"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "da"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "foi"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "ao"
+     },
+     {
+      "st": 5,
+      "dur": 2,
+      "sil": "chão"
+     }
+    ]
+   },
+   {
+    "nome": "acudiram três cavalheiros",
+    "notas": [
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "A"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "cu"
+     },
+     {
+      "st": 10,
+      "dur": 1,
+      "sil": "di"
+     },
+     {
+      "st": 8,
+      "dur": 0.5,
+      "sil": "ram"
+     },
+     {
+      "st": 8,
+      "dur": 0.5,
+      "sil": "três"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "ca"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "va"
+     }
+    ]
+   },
+   {
+    "nome": "todos de chapéu na mão",
+    "notas": [
+     {
+      "st": 8,
+      "dur": 1,
+      "sil": "lhei"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "ros"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "to"
+     },
+     {
+      "st": 8,
+      "dur": 0.5,
+      "sil": "dos"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "de"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "cha"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "péu"
+     },
+     {
+      "st": 3,
+      "dur": 0.5,
+      "sil": "na"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "mão"
+     },
+     {
+      "st": 0,
+      "dur": 3,
+      "sil": ""
+     }
+    ]
+   }
+  ],
+  "confianca": "media"
+ },
+ {
+  "id": "m21",
+  "nome": "Borboletinha",
+  "compasso": "2/4",
+  "bpm": 100,
+  "trechos": [
+   {
+    "nome": "Borboletinha tá na cozinha",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "Bor"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "bo"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "le"
+     },
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "ti"
+     },
+     {
+      "st": 12,
+      "dur": 1,
+      "sil": "nha"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "tá"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "na"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "co"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "zi"
+     },
+     {
+      "st": 11,
+      "dur": 1,
+      "sil": "nha"
+     }
+    ]
+   },
+   {
+    "nome": "fazendo chocolate para a madrinha",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "fa"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "zen"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "do"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "cho"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "co"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "la"
+     },
+     {
+      "st": 11,
+      "dur": 1,
+      "sil": "te"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "pa"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "ra-a"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "ma"
+     },
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "dri"
+     },
+     {
+      "st": 12,
+      "dur": 1,
+      "sil": "nha"
+     }
+    ]
+   },
+   {
+    "nome": "poti, poti, perna de pau",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "po"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "ti"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "po"
+     },
+     {
+      "st": 12,
+      "dur": 1,
+      "sil": "ti"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "per"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "na"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "de"
+     },
+     {
+      "st": 11,
+      "dur": 1,
+      "sil": "pau"
+     }
+    ]
+   },
+   {
+    "nome": "olho de vidro e nariz de pica-pau",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "o"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "lho"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "de"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "vi"
+     },
+     {
+      "st": 11,
+      "dur": 1,
+      "sil": "dro"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "e"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "na"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "riz"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "de"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "pi"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "ca"
+     },
+     {
+      "st": 12,
+      "dur": 1,
+      "sil": "pau"
+     }
+    ]
+   }
+  ],
+  "confianca": "baixa"
+ },
+ {
+  "id": "m24",
+  "nome": "A barata diz que tem",
+  "compasso": "2/4",
+  "bpm": 108,
+  "trechos": [
+   {
+    "nome": "A barata diz que tem sete saias de filó",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 1.5,
+      "sil": "A"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "ba"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "ra"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "ta"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "diz"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "que"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "tem"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "se"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "te"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "sa"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "ias"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "de"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "fi"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "ló"
+     }
+    ]
+   },
+   {
+    "nome": "É mentira da barata, ela",
+    "notas": [
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "É"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "men"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "ti"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "ra"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "da"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "ba"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "ra"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "ta"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "e"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "la"
+     }
+    ]
+   },
+   {
+    "nome": "tem é uma só, ha ha ha, ho ho ho",
+    "notas": [
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "tem"
+     },
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "é"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "u"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "ma"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "só"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "ha"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "ha"
+     },
+     {
+      "st": 12,
+      "dur": 1,
+      "sil": "ha"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "ho"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "ho"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "ho"
+     }
+    ]
+   },
+   {
+    "nome": "ela tem é uma só",
+    "notas": [
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "e"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "la"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "tem"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "é"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "u"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "ma"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "só"
+     }
+    ]
+   }
+  ],
+  "confianca": "alta"
+ },
+ {
+  "id": "m25",
+  "nome": "Alecrim dourado",
+  "compasso": "2/4",
+  "bpm": 100,
+  "trechos": [
+   {
+    "nome": "Alecrim, alecrim dourado",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "A"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "le"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "crim"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "a"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "le"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "crim"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "dou"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "ra"
+     },
+     {
+      "st": 5,
+      "dur": 2,
+      "sil": "do"
+     }
+    ]
+   },
+   {
+    "nome": "que nasceu no campo, sem ser semeado",
+    "notas": [
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "que"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "nas"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "ceu"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "no"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "cam"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "po"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "sem"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "ser"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "se"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "me"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "a"
+     },
+     {
+      "st": 4,
+      "dur": 2,
+      "sil": "do"
+     }
+    ]
+   },
+   {
+    "nome": "foi meu amor, que me disse assim",
+    "notas": [
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "foi"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "meu"
+     },
+     {
+      "st": 0,
+      "dur": 1,
+      "sil": "a"
+     },
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "mor"
+     },
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "que"
+     },
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "me"
+     },
+     {
+      "st": 11,
+      "dur": 1,
+      "sil": "dis"
+     },
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "se-as"
+     },
+     {
+      "st": 7,
+      "dur": 2,
+      "sil": "sim"
+     }
+    ]
+   },
+   {
+    "nome": "que a flor do campo é o alecrim",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "que-a"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "flor"
+     },
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "do"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "cam"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "po"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "é-o"
+     },
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "a"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "le"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "crim"
+     },
+     {
+      "st": 4,
+      "dur": 2,
+      "sil": ""
+     }
+    ]
+   }
+  ],
+  "confianca": "baixa"
+ },
+ {
+  "id": "m28",
+  "nome": "Nana, neném",
+  "compasso": "4/4",
+  "bpm": 80,
+  "trechos": [
+   {
+    "nome": "Nana neném, que a Cuca vem pegar",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "Na"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "na"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "ne"
+     },
+     {
+      "st": 7,
+      "dur": 2,
+      "sil": "ném"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "que-a"
+     },
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "Cu"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "ca"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "vem"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "pe"
+     },
+     {
+      "st": 2,
+      "dur": 2,
+      "sil": "gar"
+     }
+    ]
+   },
+   {
+    "nome": "Papai foi na roça, mamãe foi trabalhar",
+    "notas": [
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "Pa"
+     },
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "pai"
+     },
+     {
+      "st": 11,
+      "dur": 1,
+      "sil": "foi"
+     },
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "na"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "ro"
+     },
+     {
+      "st": 4,
+      "dur": 2,
+      "sil": "ça"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "Ma"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "mãe"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "foi"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "tra"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "ba"
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": "lhar"
+     }
+    ]
+   }
+  ],
+  "confianca": "baixa"
+ },
+ {
+  "id": "m38",
+  "nome": "Bate o sino (Jingle Bells)",
+  "compasso": "4/4",
+  "bpm": 120,
+  "trechos": [
+   {
+    "nome": "Bate o sino pequenino, sino de Belém",
+    "notas": [
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "Ba"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "te-o"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "si"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "no"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "pe"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "que"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "ni"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "no"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "si"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "no"
+     },
+     {
+      "st": 0,
+      "dur": 1.5,
+      "sil": "de"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "Be"
+     },
+     {
+      "st": 4,
+      "dur": 4,
+      "sil": "lém"
+     }
+    ]
+   },
+   {
+    "nome": "Já nasceu o Deus Menino, para o nosso bem",
+    "notas": [
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "Já"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "nas"
+     },
+     {
+      "st": 5,
+      "dur": 1.5,
+      "sil": "ceu"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "o"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "Deus"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "Me"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "ni"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "no"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "pa"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "ra"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "o"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "nos"
+     },
+     {
+      "st": 2,
+      "dur": 2,
+      "sil": "so"
+     },
+     {
+      "st": 7,
+      "dur": 2,
+      "sil": "bem"
+     }
+    ]
+   },
+   {
+    "nome": "Paz na terra, pede o sino, alegre a cantar",
+    "notas": [
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "Paz"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "na"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "ter"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "ra"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "pe"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "de-o"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "si"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "no"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "a"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "le"
+     },
+     {
+      "st": 0,
+      "dur": 1.5,
+      "sil": "gre-a"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "can"
+     },
+     {
+      "st": 4,
+      "dur": 4,
+      "sil": "tar"
+     }
+    ]
+   },
+   {
+    "nome": "Abençoe o Deus Menino, este nosso lar",
+    "notas": [
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "A"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "ben"
+     },
+     {
+      "st": 5,
+      "dur": 1.5,
+      "sil": "çoe"
+     },
+     {
+      "st": 5,
+      "dur": 0.5,
+      "sil": "o"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "Deus"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "Me"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "ni"
+     },
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "no"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "Es"
+     },
+     {
+      "st": 7,
+      "dur": 1,
+      "sil": "te"
+     },
+     {
+      "st": 5,
+      "dur": 1,
+      "sil": "nos"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "so"
+     },
+     {
+      "st": 0,
+      "dur": 4,
+      "sil": "lar"
+     }
+    ]
+   }
+  ],
+  "confianca": "media"
+ },
+ {
+  "id": "m39",
+  "nome": "Noite feliz",
+  "compasso": "6/8",
+  "bpm": 70,
+  "trechos": [
+   {
+    "nome": "Noite feliz, noite feliz / Ó Senhor, Deus de amor",
+    "notas": [
+     {
+      "st": 7,
+      "dur": 0.75,
+      "sil": "Noi"
+     },
+     {
+      "st": 9,
+      "dur": 0.25,
+      "sil": "te"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "fe"
+     },
+     {
+      "st": 4,
+      "dur": 1.5,
+      "sil": "liz"
+     },
+     {
+      "st": 7,
+      "dur": 0.75,
+      "sil": "noi"
+     },
+     {
+      "st": 9,
+      "dur": 0.25,
+      "sil": "te"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "fe"
+     },
+     {
+      "st": 4,
+      "dur": 1.5,
+      "sil": "liz"
+     },
+     {
+      "st": 14,
+      "dur": 1,
+      "sil": "Ó"
+     },
+     {
+      "st": 14,
+      "dur": 0.5,
+      "sil": "Se"
+     },
+     {
+      "st": 11,
+      "dur": 1.5,
+      "sil": "nhor"
+     },
+     {
+      "st": 12,
+      "dur": 1,
+      "sil": "Deus"
+     },
+     {
+      "st": 12,
+      "dur": 0.5,
+      "sil": "de"
+     },
+     {
+      "st": 7,
+      "dur": 1.5,
+      "sil": "a-mor"
+     }
+    ]
+   },
+   {
+    "nome": "Pobrezinho nasceu em Belém",
+    "notas": [
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "Po"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "bre"
+     },
+     {
+      "st": 12,
+      "dur": 0.75,
+      "sil": "zi"
+     },
+     {
+      "st": 11,
+      "dur": 0.25,
+      "sil": "nho"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "nas"
+     },
+     {
+      "st": 7,
+      "dur": 0.75,
+      "sil": "ceu"
+     },
+     {
+      "st": 9,
+      "dur": 0.25,
+      "sil": "em"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "Be"
+     },
+     {
+      "st": 4,
+      "dur": 1.5,
+      "sil": "lém"
+     }
+    ]
+   },
+   {
+    "nome": "Eis na lapa Jesus, nosso bem",
+    "notas": [
+     {
+      "st": 9,
+      "dur": 1,
+      "sil": "Eis"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "na"
+     },
+     {
+      "st": 12,
+      "dur": 0.75,
+      "sil": "la"
+     },
+     {
+      "st": 11,
+      "dur": 0.25,
+      "sil": "pa"
+     },
+     {
+      "st": 9,
+      "dur": 0.5,
+      "sil": "Je"
+     },
+     {
+      "st": 7,
+      "dur": 0.75,
+      "sil": "sus"
+     },
+     {
+      "st": 9,
+      "dur": 0.25,
+      "sil": "nos"
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "so"
+     },
+     {
+      "st": 4,
+      "dur": 1.5,
+      "sil": "bem"
+     }
+    ]
+   },
+   {
+    "nome": "Dorme em paz, ó Jesus (2x)",
+    "notas": [
+     {
+      "st": 14,
+      "dur": 1,
+      "sil": "Dor"
+     },
+     {
+      "st": 14,
+      "dur": 0.5,
+      "sil": "me"
+     },
+     {
+      "st": 17,
+      "dur": 0.75,
+      "sil": "em"
+     },
+     {
+      "st": 14,
+      "dur": 0.25,
+      "sil": "paz"
+     },
+     {
+      "st": 11,
+      "dur": 0.5,
+      "sil": "ó"
+     },
+     {
+      "st": 12,
+      "dur": 1.5,
+      "sil": "Je"
+     },
+     {
+      "st": 16,
+      "dur": 1,
+      "sil": "sus"
+     },
+     {
+      "st": null,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 12,
+      "dur": 0.75,
+      "sil": "Dor"
+     },
+     {
+      "st": 7,
+      "dur": 0.25,
+      "sil": "me"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "em"
+     },
+     {
+      "st": 7,
+      "dur": 0.75,
+      "sil": "paz"
+     },
+     {
+      "st": 5,
+      "dur": 0.25,
+      "sil": "ó"
+     },
+     {
+      "st": 2,
+      "dur": 0.5,
+      "sil": "Je"
+     },
+     {
+      "st": 0,
+      "dur": 2.5,
+      "sil": "sus"
+     }
+    ]
+   }
+  ],
+  "confianca": "alta"
+ },
+ {
+  "id": "m41",
+  "nome": "Amazing Grace",
+  "compasso": "3/4",
+  "bpm": 66,
+  "trechos": [
+   {
+    "nome": "Amazing grace, how sweet the sound",
+    "notas": [
+     {
+      "st": -5,
+      "dur": 1,
+      "sil": "A"
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": "ma"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "zing"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 2,
+      "sil": "grace"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "how"
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": "sweet"
+     },
+     {
+      "st": -3,
+      "dur": 1,
+      "sil": "the"
+     },
+     {
+      "st": -5,
+      "dur": 2,
+      "sil": "sound"
+     }
+    ]
+   },
+   {
+    "nome": "That saved a wretch like me",
+    "notas": [
+     {
+      "st": -5,
+      "dur": 1,
+      "sil": "that"
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": "saved"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "a"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 2,
+      "sil": "wretch"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "like"
+     },
+     {
+      "st": 7,
+      "dur": 2,
+      "sil": "me"
+     }
+    ]
+   },
+   {
+    "nome": "I once was lost, but now am found",
+    "notas": [
+     {
+      "st": 4,
+      "dur": 1,
+      "sil": "I"
+     },
+     {
+      "st": 7,
+      "dur": 1.5,
+      "sil": "once"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 7,
+      "dur": 0.5,
+      "sil": "was"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": "lost"
+     },
+     {
+      "st": -5,
+      "dur": 1,
+      "sil": "but"
+     },
+     {
+      "st": -3,
+      "dur": 1.5,
+      "sil": "now"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": "am"
+     },
+     {
+      "st": -3,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": -5,
+      "dur": 2,
+      "sil": "found"
+     }
+    ]
+   },
+   {
+    "nome": "Was blind, but now I see",
+    "notas": [
+     {
+      "st": -5,
+      "dur": 1,
+      "sil": "was"
+     },
+     {
+      "st": 0,
+      "dur": 2,
+      "sil": "blind"
+     },
+     {
+      "st": 4,
+      "dur": 0.5,
+      "sil": "but"
+     },
+     {
+      "st": 0,
+      "dur": 0.5,
+      "sil": ""
+     },
+     {
+      "st": 4,
+      "dur": 2,
+      "sil": "now"
+     },
+     {
+      "st": 2,
+      "dur": 1,
+      "sil": "I"
+     },
+     {
+      "st": 0,
+      "dur": 3,
+      "sil": "see"
+     }
+    ]
+   }
+  ],
+  "confianca": "media"
+ }
+]

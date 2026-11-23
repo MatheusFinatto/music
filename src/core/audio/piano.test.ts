@@ -20,4 +20,9 @@ describe("piano de amostras", () => {
     expect(rateFor(61, 60)).toBeCloseTo(2 ** (1 / 12), 10);
     expect(rateFor(59, 60)).toBeLessThan(1);
   });
+  it("os cents deslocam a altura: 100 cents são um semitom, -50 fica entre dois", () => {
+    expect(rateFor(60, 60, 100)).toBeCloseTo(rateFor(61, 60), 10);
+    expect(rateFor(60, 60, -50)).toBeCloseTo(2 ** (-50 / 1200), 10);
+    expect(rateFor(60, 60, 0)).toBe(1);
+  });
 });

@@ -8,7 +8,12 @@
   "nav": {
     "label": "Principal",
     "lab": "Laboratório",
-    "short": { "afinador": "Afinador", "metronomo": "Metrônomo", "treino-de-ouvido": "Ouvido" }
+    "short": {
+      "afinador": "Afinador",
+      "metronomo": "Metrônomo",
+      "treino-de-ouvido": "Ouvido",
+      "treino-de-voz": "Voz"
+    }
   },
   "hub": {
     "title": "Marmota Music",
@@ -36,11 +41,15 @@
     },
     "treino-de-ouvido": {
       "name": "Treino de ouvido",
-      "summary": "Intervalos, acordes e graus da escala, com som de piano. Sem anúncios."
+      "summary": "Intervalos, acordes, harmonia e afinação, com som de piano e programas por tempo. Sem anúncios."
     },
     "metronomo": {
       "name": "Metrônomo",
       "summary": "Andamento e compasso, no navegador. Também no app Android."
+    },
+    "treino-de-voz": {
+      "name": "Treino de voz",
+      "summary": "Cante a nota, o arpejo e a segunda voz com o microfone, com programas por tempo. Sem anúncios."
     }
   },
   "footer": {
@@ -113,7 +122,7 @@
   },
   "treino-de-ouvido": {
     "title": "Treino de ouvido",
-    "description": "Treine o ouvido no navegador: intervalos, acordes e graus da escala, com som de piano. Gratuito, sem anúncios e sem conta.",
+    "description": "Treine o ouvido no navegador: intervalos, acordes, harmonia e afinação, com som de piano e programas por tempo. Gratuito, sem anúncios e sem conta.",
     "modo": "Estilo de treino",
     "modos": {
       "classico": "Clássico",
@@ -127,7 +136,12 @@
     "exercicio": "Exercício",
     "exercicios": {
       "intervalos": "Intervalos",
-      "acordes": "Acordes"
+      "acordes": "Acordes",
+      "afinacao": "Afinação",
+      "campo": "Graus do campo",
+      "cadencias": "Cadências",
+      "progressoes": "Progressões",
+      "achar": "Achar"
     },
     "direcao": "Direção",
     "direcoes": {
@@ -190,6 +204,34 @@
         "5": "5",
         "6": "6",
         "7": "7"
+      },
+      "afinacao": {
+        "baixo": "Baixo",
+        "afinado": "Afinado",
+        "alto": "Alto"
+      },
+      "campo": {
+        "I": "I",
+        "ii": "ii",
+        "iii": "iii",
+        "IV": "IV",
+        "V": "V",
+        "vi": "vi",
+        "viio": "vii°"
+      },
+      "cadencias": {
+        "autentica": "Autêntica",
+        "plagal": "Plagal",
+        "deceptiva": "De engano",
+        "meia": "Meia cadência"
+      },
+      "progressoes": {
+        "I-IV-V-I": "I – IV – V – I",
+        "I-V-vi-IV": "I – V – vi – IV",
+        "vi-IV-I-V": "vi – IV – I – V",
+        "I-vi-IV-V": "I – vi – IV – V",
+        "ii-V-I": "ii – V – I",
+        "I-IV-vi-V": "I – IV – vi – V"
       }
     },
     "perguntaInicial": "Toque para ouvir",
@@ -201,8 +243,217 @@
     "acertos": "acertos",
     "sequenciaRotulo": "sequência",
     "semitons": "{n, plural, one {# semitom} other {# semitons}}",
-    "teclado": "Teclado com as notas tocadas acesas",
+    "teclado": "Teclado: toque uma tecla para ouvir a nota",
     "espaco": "Espaço",
-    "atalhos": "Espaço ouve e avança; 1 a 9 respondem."
+    "atalhos": "Espaço ouve e avança; 1 a 9 respondem.",
+    "perguntaAfinacao": "A segunda nota está afinada?",
+    "dicaAfinacao": "Duas notas. A segunda pode estar baixa, afinada ou alta, até {margem} cents.",
+    "margem": "Margem",
+    "margemCents": "{n} cents",
+    "centsAcima": "{n, plural, one {# cent} other {# cents}} acima",
+    "centsAbaixo": "{n, plural, one {# cent} other {# cents}} abaixo",
+    "exatamenteAfinado": "Exatamente afinado",
+    "regua": "Desvio da segunda nota, em cents",
+    "reforco": "Reforçar o que eu erro",
+    "ligado": "Ligado",
+    "desligado": "Desligado",
+    "fracos": "Seus pontos fracos",
+    "fracosVazio": "Responda algumas perguntas e os itens com mais erros aparecem aqui.",
+    "apagar": "Apagar histórico",
+    "acertoDe": "{certo} de {total}",
+    "grupos": {
+      "intervalos": "Intervalos",
+      "acordes": "Acordes",
+      "graus": "Graus",
+      "afinacao": "Afinação",
+      "campo": "Graus do campo",
+      "cadencias": "Cadências",
+      "progressoes": "Progressões",
+      "achar": "Achar"
+    },
+    "pergunta_campo": "Que acorde do tom é este?",
+    "pergunta_cadencias": "Que cadência é esta?",
+    "pergunta_progressoes": "Que progressão é esta?",
+    "dica_campo": "Ouça a cadência que fixa o tom e, depois, um acorde. Qual é o grau do campo harmônico?",
+    "dica_cadencias": "Primeiro a tônica, depois dois acordes. Como a frase termina?",
+    "dica_progressoes": "Primeiro a tônica, depois quatro acordes. Qual é a sequência?",
+    "tomMaior": "{nota} maior",
+    "ouvirComoEstava": "Ouvir como estava",
+    "ouvirAfinado": "Ouvir afinado",
+    "compararDois": "Comparar os dois",
+    "pergunta_achar": "Ache a segunda nota",
+    "dica_achar": "A primeira nota está marcada. Toque as teclas para ouvir e compare de ouvido; quando achar, responda.",
+    "responder": "Responder",
+    "voz": {
+      "titulo": "Treino de voz",
+      "exercicios": {
+        "igualar": "Igualar a nota",
+        "longa": "Nota longa",
+        "sequencia": "Arpejos e escalas",
+        "tonica": "Com a tônica soando",
+        "intervalo": "Cantar o intervalo",
+        "alcance": "Alcance",
+        "musica": "Músicas"
+      },
+      "dica": {
+        "igualar": "O piano toca uma nota. Cante a mesma e segure.",
+        "longa": "O piano toca uma nota. Cante a mesma e sustente por 5 segundos, sem balançar.",
+        "sequencia": "Ouça o padrão e cante as notas, uma de cada vez, na ordem. Cada uma tem que ficar firme por um instante.",
+        "tonica": "Uma nota soa sem parar. Cante a nota pedida sobre ela.",
+        "intervalo": "O piano toca duas notas. Cante a segunda e segure.",
+        "alcance": "Cante do grave ao agudo, parando um pouco em cada nota. Medimos a mais grave e a mais aguda em que você firmou.",
+        "musica": "O piano dá o tom e as notas correm até a linha. Cante cada nota quando ela chegar. Dá para cantar só a nota (lá, lá, lá) ou a letra: vale treinar os dois."
+      },
+      "comecar": "Começar",
+      "proxima": "Próxima nota",
+      "parar": "Parar",
+      "ouvirDeNovo": "Ouvir de novo",
+      "cante": "Cante agora",
+      "ouvindo": "Ouvindo o piano…",
+      "medir": "Medir meu alcance",
+      "terminar": "Terminar",
+      "sem": "Altura da voz",
+      "baixo": "Baixo",
+      "alto": "Alto",
+      "maisAlto": "Suba um pouco",
+      "maisBaixo": "Desça um pouco",
+      "segure": "Segure assim",
+      "silencio": "Não ouvi nada ainda",
+      "alcanceDica": "Cante e pare em cada nota",
+      "afinou": "Afinou!",
+      "mediaCentro": "Em cima da nota.",
+      "mediaAcima": "{n, plural, one {# cent} other {# cents}} acima, em média.",
+      "mediaAbaixo": "{n, plural, one {# cent} other {# cents}} abaixo, em média.",
+      "nao": "Não deu desta vez.",
+      "oitava": "Oitava",
+      "qualquerOitava": "Qualquer oitava",
+      "mesmaOitava": "Mesma oitava",
+      "alcanceResultado": "Do {grave} ao {agudo}",
+      "alcanceVazio": "Nenhuma nota firme ainda. Cante e pare um pouco em cada uma.",
+      "extensao": "Extensão: {oitavas, plural, =0 {0 oitavas} one {# oitava} other {# oitavas}} e {semitons, plural, =0 {0 semitons} one {# semitom} other {# semitons}}",
+      "erroMic": {
+        "denied": "O navegador negou o microfone. Libere o microfone para este site e tente de novo.",
+        "unavailable": "Não encontrei um microfone neste aparelho ou navegador.",
+        "failed": "Não foi possível abrir o microfone."
+      },
+      "fone": "Use fone de ouvido: sem ele, o piano entra no microfone e atrapalha.",
+      "privado": "O som do microfone não sai do seu navegador.",
+      "ligandoBordao": "Ligando a tônica…",
+      "passos": "Passos do padrão",
+      "ouvirAlvo": "Ouvir a nota",
+      "sustente": "Sustente, sem balançar",
+      "longaFeito": "Firme por 5 segundos! A altura balançou {n, plural, =0 {0 cents} one {# cent} other {# cents}}.",
+      "sequenciaFeito": "Completou as {passos} notas! Desvio médio de {n, plural, =0 {0 cents} one {# cent} other {# cents}}.",
+      "padrao": "Padrão",
+      "inicio": "Nota inicial",
+      "tonica": "Nota da tônica",
+      "subir": "Subir meio tom a cada rodada",
+      "cantarA": "Cantar a",
+      "sortear": "Sortear",
+      "tonicaDica": "A tônica é {tonica}. Cante a {grau}: {nota}.",
+      "bordaoNota": "A tônica fica soando. Cante a nota pedida sobre ela.",
+      "padroes": {
+        "arpejoMaior": "Arpejo maior (1-3-5-3-1)",
+        "arpejoMenor": "Arpejo menor (1-♭3-5-♭3-1)",
+        "escala5": "Escala de cinco notas",
+        "arpejoOitava": "Arpejo até a oitava",
+        "escalaMaior": "Escala maior"
+      },
+      "dicaTonicaGuia": "O piano toca a tônica e a nota juntas e depois deixa só a tônica soando. Cante a nota sobre ela.",
+      "dicaTonicaSo": "Só a tônica soa. Ache a nota pedida e cante sobre ela.",
+      "ajuda": "Ajuda",
+      "ajudas": {
+        "guia": "Ouvir as duas notas antes",
+        "so": "Só a tônica"
+      },
+      "espiar": "Espiar a nota",
+      "aleatoria": "Aleatória",
+      "naoFoi": "Não deu desta vez: o alvo era {alvo} e você chegou a {ouvi}. Ouça de novo e tente outra vez.",
+      "naoOuvi": "Não ouvi nenhuma nota. Confira se o microfone está liberado e cante mais perto.",
+      "tentarDeNovo": "Tentar de novo",
+      "naoFoiSegue": "Não deu desta vez: o alvo era {alvo} e você chegou a {ouvi}.",
+      "naoOuviSegue": "Não deu desta vez: nenhuma nota ouvida. Confira se o microfone está liberado e cante mais perto.",
+      "musica": {
+        "musica": "Música",
+        "trecho": "Trecho",
+        "velocidade": "Velocidade",
+        "lento": "Lento",
+        "normal": "Normal",
+        "pista": "Pista de notas: as notas correm até a linha e você canta cada uma quando ela chega",
+        "letra": "Letra",
+        "dica": "O piano dá o tom e as notas correm até a linha. Cante cada nota quando ela chegar. Dá para cantar só a nota (lá, lá, lá) ou a letra: vale treinar os dois.",
+        "contagem": "Começa em {n}…",
+        "cantando": "Cante!",
+        "ouvindo": "Ouvindo o trecho",
+        "resultado": "Acertou {acertadas} de {total} notas.",
+        "melhor": "Melhor até agora: {acertadas} de {total}.",
+        "cantar": "Cantar",
+        "cantarDeNovo": "Cantar de novo",
+        "proximoTrecho": "Próximo trecho",
+        "ouvir": "Ouvir o trecho",
+        "guia": "Piano junto",
+        "tom": "Tom: {nota}. A melodia é a mesma em qualquer tom.",
+        "proximaMusica": "Próxima música",
+        "conferirMedia": "Melodia transcrita de partituras e cifras, ainda não conferida de ouvido. Se algo soar diferente do que você conhece, avise.",
+        "conferirBaixa": "Melodia de fonte única, com o ritmo estimado: pode diferir da versão que você conhece. Avise o que soar diferente."
+      }
+    },
+    "instrumento": "Instrumento",
+    "instrumentos": {
+      "teclado": "Teclado",
+      "violao": "Violão"
+    },
+    "braco": "Braço do violão: toque uma posição para ouvir a nota",
+    "dicas": {
+      "cadencias": {
+        "autentica": "V → I",
+        "plagal": "IV → I",
+        "deceptiva": "V → vi",
+        "meia": "termina no V"
+      }
+    },
+    "grupoExercicios": {
+      "notas": "Notas",
+      "harmonia": "Harmonia"
+    },
+    "ouvirPrimeira": "Ouvir a primeira pergunta",
+    "programas": {
+      "titulo": "Programas",
+      "dica": "Uma sequência pronta para o foco e o tempo que você escolher. O tempo é aproximado e se ajusta ao seu ritmo.",
+      "rotulo": "Duração do programa",
+      "minutos": "{n} min",
+      "aprox": "≈ {n} min",
+      "perguntas": "{n, plural, =0 {nenhuma pergunta} one {# pergunta} other {# perguntas}}",
+      "comecar": "Começar programa de {n} min",
+      "programaDe": "Programa de {n} min",
+      "bloco": "Bloco {i} de {n}",
+      "restantes": "{n, plural, =0 {falta pouco} one {≈ # min restante} other {≈ # min restantes}}",
+      "andamento": "Andamento do programa",
+      "pular": "Pular bloco",
+      "parar": "Parar programa",
+      "proximoBloco": "Próximo bloco: {nome}",
+      "terminar": "Terminar programa",
+      "resumoTitulo": "Programa concluído",
+      "resumoTempo": "Levou {real} min; o previsto eram {previsto} min.",
+      "resumoAcertos": "{acertos} de {total} acertos",
+      "resumoBloco": "{acertos} de {total}",
+      "resumoPulado": "pulado",
+      "refazer": "Fazer de novo",
+      "voltar": "Voltar",
+      "respondidas": "Respondidas: {i} de {n}",
+      "foco": "Foco",
+      "tempo": "Tempo",
+      "focos": {
+        "geral": "Geral",
+        "notas": "Intervalos e acordes",
+        "afinacao": "Afinação",
+        "harmonia": "Harmonia",
+        "segundaVoz": "Segunda voz",
+        "musicas": "Músicas"
+      }
+    },
+    "isolados": "Exercícios isolados",
+    "tituloVoz": "Treino de voz",
+    "descricaoVoz": "Treine a voz no navegador: igualar a nota, arpejos, cantar sobre a tônica e o intervalo, com o microfone e programas por tempo. Gratuito, sem anúncios e sem conta."
   }
 }

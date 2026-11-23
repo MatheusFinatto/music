@@ -15,7 +15,14 @@
 .treino-seg button { min-height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font: inherit; font-weight: 600; cursor: pointer; transition: background-color 0.15s, color 0.15s; }
 .treino-seg button:hover:not([aria-checked="true"]) { color: var(--ink); }
 .treino-seg button[aria-checked="true"] { background: var(--ink); color: var(--bg); }
-.treino-placar { display: flex; gap: 22px; margin: 0; font-variant-numeric: tabular-nums; }
+.treino-escolhas { flex: 1 1 100%; }
+.treino-exs { display: flex; flex-direction: column; gap: 10px; }
+.treino-exs-linha { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.treino-exs-nome { flex: 0 0 5.2rem; color: var(--muted); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.treino-exs-linha button { min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); font: inherit; font-weight: 600; font-size: var(--text-sm); cursor: pointer; transition: background-color 0.15s, color 0.15s, border-color 0.15s; }
+.treino-exs-linha button:hover:not([aria-checked="true"]) { border-color: var(--muted); }
+.treino-exs-linha button[aria-checked="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.treino-placar { display: flex; gap: 22px; margin: 0 0 0 auto; font-variant-numeric: tabular-nums; }
 .treino-placar > div { display: flex; flex-direction: column; }
 .treino-placar dd { margin: 0; font-family: var(--font-display), var(--font-sans); font-weight: 700; font-size: var(--text-xl); line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); }
 .treino-placar dt { color: var(--muted); font-size: var(--text-sm); }
@@ -42,6 +49,8 @@
 
 .treino-respostas { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 10px; }
 .treino-resp { display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 8px 14px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--bg); color: var(--ink); font: inherit; font-weight: 600; text-align: left; cursor: pointer; transition: background-color 0.15s, border-color 0.15s, transform 0.12s; }
+.treino-resp-texto { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.treino-resp-texto small { color: inherit; opacity: 0.7; font-size: var(--text-xs); font-weight: 500; font-variant-numeric: tabular-nums; }
 .treino-resp kbd { flex: none; padding: 3px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--muted); font: 600 0.72rem/1 var(--font-sans); }
 .treino-resp:hover:not(:disabled) { border-color: var(--muted); }
 .treino-resp:active:not(:disabled) { transform: scale(0.98); }
@@ -58,25 +67,53 @@
 .treino-resultado.certa { color: var(--ok); }
 .treino-resultado.errada { color: var(--bad); }
 .treino-detalhe { margin: 0; color: var(--muted); font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
-.teclado { display: block; width: 100%; max-width: 30rem; height: auto; margin-inline: auto; }
+.teclado { display: block; width: 100%; max-width: 30rem; height: auto; margin-inline: auto; touch-action: manipulation; }
+.teclado [role="button"] { cursor: pointer; outline: none; transition: fill 0.12s; }
 .teclado .b { fill: var(--key-white); stroke: var(--key-black); stroke-width: 1; }
 .teclado .p { fill: var(--key-black); }
-.teclado .b.on, .teclado .p.on { fill: var(--ok); animation: treino-acende 0.6s var(--ease) both; }
-.teclado .nome { fill: var(--ok); font: 600 10px var(--font-sans); text-anchor: middle; pointer-events: none; animation: treino-acende 0.6s var(--ease) both; }
-@keyframes treino-acende { from { opacity: 0; } to { opacity: 1; } }
+.teclado .b:hover { fill: #e0d4bd; }
+.teclado .p:hover { fill: #3a3027; }
+.teclado [role="button"]:focus-visible { stroke: var(--accent); stroke-width: 3; }
+.teclado rect.alvo { fill: var(--target); animation: treino-acende 0.6s var(--ease) both; }
+.teclado rect.sel { fill: var(--ok); }
+.teclado rect.errada { fill: var(--bad); }
+.teclado rect.toca { fill: var(--accent); }
+.teclado rect.dada { stroke: var(--target); stroke-width: 3; }
+.teclado .nome { font: 600 10px var(--font-sans); text-anchor: middle; pointer-events: none; fill: var(--muted); animation: treino-acende 0.6s var(--ease) both; }
+.teclado .nome.alvo { fill: var(--target); }
+.teclado .nome.sel { fill: var(--ok); }
+.teclado .nome.errada { fill: var(--bad); }
+.teclado .nome.dada { fill: var(--target); }
+@keyframes treino-acende { from { opacity: 0.2; } to { opacity: 1; } }
 .treino-proxima { border: 0; cursor: pointer; align-self: stretch; justify-content: center; gap: 12px; min-height: 56px; font-size: var(--text-md); }
-.treino-proxima:disabled { opacity: 0.6; cursor: progress; }
+.treino-proxima:disabled { background: var(--soft); color: var(--muted); opacity: 1; cursor: progress; }
 .treino-proxima kbd { padding: 3px 7px; border: 1px solid currentColor; border-radius: 6px; font: 600 0.75rem var(--font-sans); opacity: 0.7; }
+.treino-vazio { margin: 0; color: var(--muted); font-size: var(--text-sm); }
 .treino-estado { margin: 0; color: var(--muted); font-size: var(--text-sm); }
 .treino-estado:empty { display: none; }
 
+/* régua da afinação: o centro é afinado; o ponto mostra onde a segunda nota estava */
+.regua { display: flex; flex-direction: column; gap: 6px; max-width: 30rem; width: 100%; margin-inline: auto; }
+.regua-trilho { position: relative; height: 52px; }
+.regua-trilho::before { content: ""; position: absolute; left: 0; right: 0; top: 34px; height: 2px; margin-top: -1px; border-radius: 2px; background: var(--line); }
+.regua-marca { position: absolute; top: 24px; height: 20px; width: 2px; margin-left: -1px; background: var(--muted); opacity: 0.55; }
+.regua-marca.zero { top: 20px; height: 28px; background: var(--ok); opacity: 1; }
+.regua-desvio { position: absolute; top: 31px; height: 6px; border-radius: 6px; background: var(--bad); opacity: 0.55; animation: treino-cresce 0.6s var(--ease) both; transform-origin: var(--origem, left); }
+@keyframes treino-cresce { from { transform: scaleX(0); } to { transform: none; } }
+.regua-valor { position: absolute; top: 0; transform: translateX(-50%); font: 700 var(--text-sm) var(--font-sans); font-variant-numeric: tabular-nums; color: var(--bad); white-space: nowrap; }
+.regua-valor.zero { color: var(--ok); }
+.regua-ponto { position: absolute; top: 34px; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: var(--bad); box-shadow: 0 0 0 3px var(--surface); animation: treino-ponto 0.7s var(--ease) both; }
+.regua-ponto.zero { background: var(--ok); }
+@keyframes treino-ponto { from { transform: translateX(var(--de, 0)) scale(0.4); opacity: 0; } to { transform: none; opacity: 1; } }
+.regua-nomes { display: flex; justify-content: space-between; color: var(--muted); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.06em; }
+
 /* ajustes: abaixo do palco, fechados por padrão */
-.treino-ajustes { border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--bg); }
-.treino-ajustes summary { display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 18px; list-style: none; cursor: pointer; font-weight: 600; color: var(--muted); }
+.treino-ajustes { border-top: 1px solid var(--line); }
+.treino-ajustes summary { display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0; list-style: none; cursor: pointer; font-weight: 600; color: var(--muted); }
 .treino-ajustes summary::-webkit-details-marker { display: none; }
 .treino-ajustes summary::after { content: ""; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform 0.2s; }
 .treino-ajustes[open] summary::after { transform: rotate(-135deg); }
-.treino-ajustes-corpo { display: flex; flex-direction: column; gap: 18px; padding: 4px 18px 20px; }
+.treino-ajustes-corpo { display: flex; flex-direction: column; gap: 18px; padding: 4px 0 20px; }
 .treino-field { display: flex; flex-direction: column; gap: 8px; }
 .treino-field > span { color: var(--muted); font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
 .treino-field select { appearance: none; align-self: flex-start; max-width: 100%; min-height: 44px; padding: 0 36px 0 16px; border: 1px solid var(--line); border-radius: 999px; background-color: var(--surface); color: var(--ink); font: inherit; font-weight: 600; cursor: pointer;
@@ -86,8 +123,105 @@
 .treino-chip { min-height: 44px; padding: 0 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); font: inherit; font-size: var(--text-sm); font-weight: 600; cursor: pointer; transition: background-color 0.15s, border-color 0.15s; }
 .treino-chip:hover { border-color: var(--muted); }
 .treino-chip[aria-pressed="true"] { background: var(--ok); border-color: var(--ok); color: var(--on-bright); }
+.treino-fracos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.treino-fracos li { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; align-items: baseline; font-size: var(--text-sm); font-weight: 600; }
+.treino-fraco-n { color: var(--muted); font-variant-numeric: tabular-nums; font-weight: 500; }
+.treino-barra { grid-column: 1 / -1; height: 6px; border-radius: 6px; background: var(--line); overflow: hidden; }
+.treino-barra i { display: block; height: 100%; border-radius: 6px; background: var(--ok); }
 .treino-creditos { margin: 0; text-align: center; color: var(--muted); font-size: var(--text-xs); }
 
 .treino :is(button, select, summary):focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+@media (max-width: 480px) { .treino-escolhas, .treino-seg { width: 100%; } .treino-seg button { flex: 1; padding: 0 10px; } }
 @media (max-width: 420px) { .treino-ouvir { width: 72px; height: 72px; } .treino-ouvir svg { width: 28px; height: 28px; } }
 @media (prefers-reduced-motion: reduce) { .treino *, .treino *::before, .treino *::after { animation: none !important; transition: none !important; } }
+
+/* afinômetro da voz: a nota que sai, a régua em cents ao redor do alvo e a barra que enche enquanto a nota é segurada */
+.afinometro { display: flex; flex-direction: column; gap: 10px; padding: 6px 0; }
+.afinometro-nota { margin: 0; text-align: center; font-family: var(--font-display), var(--font-sans); font-weight: 700; font-size: var(--text-stage, 3rem); line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.afinometro-nota.vazio { color: var(--muted); }
+.afinometro-regua { position: relative; height: 34px; }
+.afinometro-regua::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; background: var(--line); border-radius: 2px; }
+.afinometro-faixa { position: absolute; top: 6px; bottom: 6px; border-radius: 8px; background: var(--ok); opacity: 0.22; }
+.afinometro-centro { position: absolute; left: 50%; top: 2px; bottom: 2px; width: 2px; margin-left: -1px; background: var(--ok); }
+.afinometro-ponto { position: absolute; top: 50%; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: var(--bad); box-shadow: 0 0 0 3px var(--bg); transition: left 0.12s linear, background-color 0.15s; }
+.afinometro-ponto.dentro { background: var(--ok); }
+.afinometro-nomes { display: flex; justify-content: space-between; color: var(--muted); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.06em; }
+.afinometro-seguro { height: 6px; border-radius: 6px; background: var(--line); overflow: hidden; }
+.afinometro-seguro i { display: block; height: 100%; border-radius: 6px; background: var(--ok); transition: width 0.1s linear; }
+.afinometro-dica { margin: 0; text-align: center; color: var(--muted); font-size: var(--text-sm); min-height: 1.4em; }
+.treino-passos { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.treino-passos li { min-width: 44px; padding: 8px 12px; text-align: center; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); color: var(--muted); font-weight: 650; font-variant-numeric: tabular-nums; transition: background-color 0.15s, border-color 0.15s, color 0.15s; }
+.treino-passos li.atual { border-color: var(--accent); color: var(--ink); box-shadow: 0 0 0 2px var(--accent); }
+.treino-passos li.feito { background: var(--ok); border-color: var(--ok); color: var(--on-bright); }
+.treino-acoes { display: flex; flex-wrap: wrap; gap: 10px; }
+.treino-acoes .treino-proxima { flex: 1 1 100%; }
+.treino-secoes { display: flex; flex-direction: column; gap: 18px; }
+.treino-secoes > .treino-seg { align-self: flex-start; }
+
+/* braço de violão: 12 casas, rolável na horizontal no celular para as casas ficarem do tamanho de um toque */
+.braco-caixa { overflow-x: auto; border-radius: var(--radius-md); }
+.braco { display: block; min-width: 560px; width: 100%; height: auto; touch-action: manipulation; }
+.braco-madeira { fill: #2b1f16; }
+.braco-traste { stroke: #8a7b66; stroke-width: 2; }
+.braco-pestana { stroke: var(--key-white); stroke-width: 5; }
+.braco-incrust { fill: #5a4a3a; }
+.braco-corda { stroke: #cdbd9f; }
+.braco-num { font: 600 10px var(--font-sans); fill: var(--muted); text-anchor: middle; pointer-events: none; }
+.braco-celula { fill: transparent; cursor: pointer; outline: none; }
+.braco-celula:hover { fill: rgba(255, 255, 255, 0.07); }
+.braco-celula:focus-visible { stroke: var(--accent); stroke-width: 3; }
+.braco-bola circle { stroke: var(--bg); stroke-width: 2; }
+.braco-bola text { font: 700 10px var(--font-sans); text-anchor: middle; fill: var(--on-bright); }
+.braco-bola.alvo circle { fill: var(--target); }
+.braco-bola.dada circle { fill: var(--surface); stroke: var(--target); stroke-width: 3; }
+.braco-bola.dada text { fill: var(--target); }
+.braco-bola.sel circle { fill: var(--ok); }
+.braco-bola.errada circle { fill: var(--bad); }
+.braco-bola.toca circle { fill: var(--accent); }
+
+/* sem palavra sozinha na última linha; títulos equilibrados */
+.treino p, .treino li { text-wrap: pretty; }
+.treino h2 { text-wrap: balance; }
+
+/* programas por tempo: o seletor antes do treino livre, a barra durante o programa e o resumo */
+.treino-programas, .treino-andamento, .treino-resumo { gap: 18px; }
+.treino-programas-topo h2, .treino-resumo h2, .treino-isolados { margin: 0; font-family: var(--font-display), var(--font-sans); font-weight: 650; font-size: var(--text-xl); line-height: 1.15; letter-spacing: -0.025em; }
+.treino-programas-topo p { margin: 6px 0 0; color: var(--muted); font-size: var(--text-sm); max-width: 52ch; }
+.treino-prog-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; font-variant-numeric: tabular-nums; }
+.treino-prog-lista li { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-top: 1px solid var(--line); font-size: var(--text-sm); }
+.treino-prog-lista li:first-child { border-top: 0; }
+.treino-prog-lista .treino-fraco-n { color: var(--muted); }
+.treino-prog-aprox { margin: 0; color: var(--muted); font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
+.treino-andamento .treino-btn { padding: 0 16px; font-size: var(--text-sm); }
+.treino-andamento-topo { display: flex; flex-direction: column; gap: 4px; }
+.treino-andamento-topo p { margin: 0; font-size: var(--text-sm); }
+.treino-andamento-nome strong { font-weight: 650; }
+.treino-andamento-n { color: var(--muted); font-variant-numeric: tabular-nums; }
+.treino-prog-barra { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.treino-prog-barra i { display: block; height: 100%; border-radius: inherit; background: var(--ok); transition: width 0.4s var(--ease); }
+@media (prefers-reduced-motion: reduce) { .treino-prog-barra i { transition: none; } }
+.treino-resumo > p { margin: 0; color: var(--muted); font-size: var(--text-sm); }
+/* foco e tempo: o rótulo fica numa linha própria, para os botões que quebram não ficarem desalinhados */
+.treino-programas .treino-exs-nome { flex: 1 1 100%; }
+.treino-programas .treino-exs { gap: 6px; }
+.treino-programas { gap: 20px; }
+
+.treino-isolados { margin: 0; }
+
+/* cantar músicas: a pista de notas (canvas), a letra e os controles */
+.cantar { display: flex; flex-direction: column; gap: 18px; }
+.cantar-escolha { display: flex; flex-direction: column; gap: 14px; }
+.cantar-pista { position: relative; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--bg); overflow: hidden; }
+.cantar-pista canvas { display: block; width: 100%; }
+.cantar-contagem { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; font-family: var(--font-display), var(--font-sans); font-weight: 700; font-size: 5rem; line-height: 1; color: var(--ink); pointer-events: none; animation: cantar-contagem 0.75s var(--ease) both; }
+@keyframes cantar-contagem { from { opacity: 0; transform: scale(1.5); } 25% { opacity: 0.9; } to { opacity: 0; transform: scale(0.9); } }
+@media (prefers-reduced-motion: reduce) { .cantar-contagem { animation: none; opacity: 0.9; } }
+.cantar-letra { margin: 0; font-size: var(--text-lg); font-weight: 600; line-height: 1.75; color: var(--muted); text-wrap: balance; }
+.cantar-letra span { padding: 2px 4px; margin: 0 -1px; border-radius: 6px; transition: color 0.12s, background-color 0.12s; }
+.cantar-letra .atual { background: var(--soft); color: var(--ink); }
+.cantar-letra .ok { color: var(--ok); }
+.cantar-letra .falhou { color: var(--bad); }
+.cantar-dica { margin: 0; color: var(--muted); font-size: var(--text-sm); max-width: 56ch; text-wrap: pretty; }
+.cantar-linha { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 14px 20px; }
+.cantar-musica { flex: 1 1 14rem; min-width: 0; }
+.cantar-musica select { width: 100%; }
