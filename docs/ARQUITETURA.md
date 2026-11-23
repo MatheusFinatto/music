@@ -8,8 +8,7 @@ src/app/[locale]/page.tsx      o hub
 src/app/[locale]/<slug>/       a rota de cada ferramenta
 src/tools/registry.ts          lista de ferramentas (fonte única)
 src/tools/<slug>/              o código de UMA ferramenta
-src/core/theory                notas, acordes, pentatônica, posições no braço (puro, com testes)
-src/core/audio                 AudioContext único, microfone, transporte, base sintetizada, voz solista
+src/core/audio                 AudioContext único e microfone
 src/core/pitch                 afinador: detecção de altura, Hz → nota e cents, suavização (lógica em Kotlin, ver abaixo)
 src/core/storage               localStorage com prefixo musica: e versão
 src/components/                interface compartilhada (cabeçalho, rodapé, peças do hub)
@@ -43,7 +42,7 @@ Exemplo com o afinador (`slug`: `afinador`).
 O hub se atualiza sozinho a partir do registro. Não edite `page.tsx` do hub para acrescentar ferramenta.
 
 ## Conteúdo longo
-Texto de interface vai em `messages/`. Conteúdo didático extenso (lições, exercícios) é dado tipado dentro da ferramenta, um arquivo por idioma: veja `src/tools/solos/curriculum/pt-BR.ts`. Para outro idioma, crie `en.ts` com o mesmo formato.
+Texto de interface vai em `messages/`. Conteúdo longo (se uma ferramenta tiver) é dado tipado dentro dela, um arquivo por idioma. O curso que usava isso (`src/tools/solos/`) foi removido em 2026-11-23; está no histórico do git.
 
 ## Testes
 Só testes de unidade (Vitest) para lógica pura: `src/**/*.test.ts`. Rode com `npm test`. Sem testes de navegador.

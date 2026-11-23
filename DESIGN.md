@@ -100,7 +100,7 @@ O dono escolheu de propósito o padrão da categoria, depois de recusar direçõ
 
 O hub é um painel de entrada. O que dá para abrir hoje é a maior coisa da página; o que ainda não existe aparece menor e mais quieto, com a situação dita com honestidade.
 
-A fonte de verdade dos tokens é `src/app/globals.css`. **Um tema só, escuro (decisão do dono, 2026-11-19): o "palco à noite" do Solos vale para o site inteiro** (hub, afinador, metrônomo). Os valores de cor abaixo marcados "escuro" são os que valem; os claros são o histórico da primeira direção e não existem mais no código.
+A fonte de verdade dos tokens é `src/app/globals.css`. **Um tema só, escuro (decisão do dono, 2026-11-19): o "palco à noite" vale para o site inteiro** (hub, afinador, metrônomo). Os valores de cor abaixo marcados "escuro" são os que valem; os claros são o histórico da primeira direção e não existem mais no código.
 
 **Key Characteristics:**
 - Fundo cinza suave, superfícies brancas, um só azul para ação.
@@ -177,19 +177,11 @@ Raio 22px nos cards, 14px nos ícones, pílula nos botões e selos. Sem cantos v
 ### Ícones
 - Linha, traço 1.8, pontas redondas, 24px de grade. Um por ferramenta em `src/components/ToolIcon.tsx`.
 
-### O mundo de "Como solar com a pentatônica"
-- A ferramenta tem ambiente próprio, sempre escuro: palco à noite. Fundo marrom quase preto com uma luz quente vinda de cima, superfícies de madeira escura, texto em marfim. Definido em `src/app/globals.css` (tokens em `:root`), para o site inteiro.
+### O palco à noite
+- O site inteiro é sempre escuro: fundo marrom quase preto com uma luz quente vinda de cima, superfícies de madeira escura, texto em marfim. Definido em `src/app/globals.css` (tokens em `:root`); `body` tem o fundo com a luz quente.
 - Títulos em Bricolage Grotesque (`--font-display`); texto em Inter.
-- Ação principal em marfim. O azul fica só para "tocando agora" e o laranja só para nota-alvo e para o que está em andamento.
-- A abertura é o braço inteiro atravessando a página, com a pentatônica acendendo em onda.
-- A trilha é um caminho vertical com discos numerados, não uma pilha de cards.
-- O hub, o afinador e o metrônomo usam o mesmo palco (decisão do dono, 2026-11-19); `body` tem o fundo com a luz quente em `globals.css`.
-
-### Braço da guitarra
-- `src/tools/solos/components/Fretboard.tsx`. É o único elemento com material: jacarandá com veio, trastes de alpaca, pestana de osso, cordas de aço (as três graves encapadas em bronze) e marcações de madrepérola. Tokens `--wood*`, `--fret*`, `--steel`, `--bronze`, `--inlay` em `globals.css`, iguais nos dois temas.
-- Mostra só a região de trabalho, grande; a miniatura acima diz onde ela fica no braço inteiro.
-- Bolinhas: madrepérola com o nome da nota (escala), branca com T (tônica), laranja (nota do acorde, com T, 3 ou 5), azul (soando agora), verde e vermelha (certo e errado no quiz). Sobre a madeira escura, as cores usam a versão clara (`--target-bright`, `--now-bright`) e o texto é sempre `--on-bright`. Gestos da tablatura (seta de bend, seta de slide entre duas bolinhas) usam `--gesture-bright`, um laranja mais forte que o da bolinha, para não ler como amarelo sobre a madeira; o gesto que está soando fica azul.
-- Os tamanhos de texto dentro do SVG estão em unidades do desenho, não na escala de texto do site.
+- Ação principal em marfim. O azul fica só para "tocando agora" e o laranja só para o alvo e para o que está em andamento.
+- O hub, o afinador e o metrônomo usam o mesmo palco (decisão do dono, 2026-11-19). O curso "Como solar com a pentatônica", que deu origem a esse visual, foi removido em 2026-11-23.
 
 ### Pauta animada (assinatura)
 - `src/components/Staff.tsx`: uma nota por ferramenta do registro. Cabeça cheia = no ar; vazada = ainda não. Um cursor azul atravessa a pauta em 8 s e cada nota acende quando ele passa; a ferramenta em construção acende em laranja.

@@ -6,8 +6,8 @@ Sem datas. A ordem é a recomendada; cada ferramenta só é lançada quando esti
 - **Fundação e hub** (novembro de 2026): Next na raiz, registro de ferramentas, homepage, site antigo movido para o Laboratório.
 
 ## Em andamento
-- **Como solar com a pentatônica** (`/solos`): no ar no hub desde a fase 1; substitui o Diário do Solo e a "Improvisação" planejada. Diário e Piano saíram do hub e seguem em `/laboratorio`. Fase 1 feita: O mapa do braço, Respirar e Ritmo com poucas notas, frases de ouvido e sessão sugerida com teste a frio. A trilha é aberta (decisão do dono, 2026-11-17): nada é travado, o site só recomenda a próxima lição, e qualquer lição pode ser marcada como feita à mão. Fases 2 e 3 feitas, e o curso reorganizado (decisão do dono, 2026-11-17): **só pentatônica**, com a meta de improvisar um solo que alguém pagaria couvert para ouvir; notas de fora (7ª, 9ª, blue note), tom maior e blues ficam para depois. Cinco seções, cada uma fechando com um arco (tomada com dois solos de exemplo, tocados por botão próprio, num bloco separado do da base): Primeiros passos (mapa, respirar, ritmo), A harmonia (ouvir a troca, ligar, tensão e resolução), O braço (uma corda só, os cinco desenhos, outro tom), Velocidade (semicolcheias, sequências, licks repetidos) e O solo (motivo, vocabulário, intensidade, arco final de 16 compassos). Cada parte de um arco tem nome e explicação que se ouvem no exemplo (conferido por teste). As tomadas oferecem outras bases além da padrão. São 41 frases de ouvido, agrupadas por seção. O alvo na troca só sorteia notas da pentatônica. Bend e vibrato não têm unidade própria (técnica básica demais para o público). Cada lição e exercício tem endereço próprio (`?licao=`, `?exercicio=`); a frase mostra braço com gestos e tablatura. Falta: fase 4 (troca no hub). Pesquisa e decisões em `docs/solos/`.
-- **Depois dos solos: Criador de ideias**, o redesenho do Piano de Ideias, refeito do zero como ferramenta do site novo.
+- **Curso "Como solar com a pentatônica" (`/solos`): removido em 2026-11-23** (decisão do dono: não deu certo). Fica no histórico do git. O site mantém só as utilidades; o Diário e o Piano seguem em `/laboratorio`.
+- **Criador de ideias**, o redesenho do Piano de Ideias, refeito do zero como ferramenta do site novo (antes planejado "depois dos solos").
 
 ## Ordem recomendada
 1. **Tirar de ouvido** — o diferencial do site. Núcleo: carregar um áudio, marcar trecho A–B em loop, desacelerar sem mudar o tom, e o método de treino por cima disso.
@@ -21,14 +21,12 @@ Criado sob demanda pela primeira ferramenta que precisar. Quem chegar primeiro d
 
 | Módulo | O que oferece | Quem inaugura | Ponto de partida |
 |---|---|---|---|
-| `core/audio/context` | Um único `AudioContext` do site, criado no primeiro gesto do usuário | **Feito** (solos) | — |
+| `core/audio/context` | Um único `AudioContext` do site, criado no primeiro gesto do usuário | **Feito** | — |
 | `core/audio/mic` | Pedir o microfone, entregar o sinal em blocos, tratar permissão negada e ausência de microfone | **Feito** (afinador) | — |
 | `core/pitch` | Detecção de altura (YIN), Hz → nota + cents, suavização e o desenho do mostrador. Compilado do Kotlin do app (`marmota-tuner/core`). Hoje devolve só `hz`, sem a clareza | **Feito** (afinador) | — |
-| `core/theory` | Notas e conversões (Hz ↔ MIDI ↔ nome `C4`), campo harmônico, pentatônica, braço | **Feito** (solos). Hz → nota + cents ficou em `core/pitch` | — |
-| `core/audio/transport` | Relógio musical, base sintetizada e eventos de tempo | **Feito** (solos) | — |
-| `core/audio/lead` | Voz solista com bend, vibrato e slide. Toca violão gravado, uma nota por semitom (`samples.ts`, amostras em `public/sons/`, CC BY 3.0); a voz sintetizada fica como opção e como reserva enquanto as amostras baixam | **Feito** (solos) | — |
-| `core/audio/sound` | Som escolhido pela pessoa (violão ou sintetizador, com tom e volume), guardado em `musica:som` e válido para o site todo | **Feito** (solos) | — |
-| `core/storage` | `createStore`: `localStorage` com prefixo `musica:`, versão, assinável | **Feito** (solos). Backup ainda não | — |
+| `core/storage` | `createStore`: `localStorage` com prefixo `musica:`, versão, assinável | **Feito**. Backup ainda não | — |
+
+Saíram em 2026-11-23, com o curso `/solos`, por não terem mais uso: `core/theory` (notas, acordes, pentatônica, braço), `core/audio/transport`, `backing`, `lead`, `samples`, `sound`, `eq` e as amostras de violão (`public/sons/`). Estão no histórico do git (até o PR #74); a próxima ferramenta que precisar de um deles os recupera de lá.
 
 Regras: sem interface dentro de `core/`; nomes de nota sempre `C4`, `Bb3`; lá de referência configurável (padrão 440 Hz).
 
