@@ -505,12 +505,12 @@ export declare namespace Musica.$metadata$ {
     const constructor: abstract new () => Musica;
 }
 export declare class PianoNote {
-    constructor(midi: number, at: number, dur: number, cents?: number);
+    constructor(midi: number, at: number, dur: number, cents?: Nullable<number>);
     get midi(): number;
     get at(): number;
     get dur(): number;
-    get cents(): number;
-    copy(midi?: number, at?: number, dur?: number, cents?: number): PianoNote;
+    get cents(): Nullable<number>;
+    copy(midi?: number, at?: number, dur?: number, cents?: Nullable<number>): PianoNote;
     toString(): string;
     hashCode(): number;
     equals(other: Nullable<any>): boolean;

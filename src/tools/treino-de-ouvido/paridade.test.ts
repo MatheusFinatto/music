@@ -1,7 +1,8 @@
-// Paridade com o Kotlin (marmota-tuner/core, pacote treino): o app Android usa a mesma lógica do treino. Este teste roda o
-// TypeScript com sementes fixas e compara com treino-fixtures.json, que o teste do Kotlin (TreinoParidadeTest) também lê.
-// Mudou uma regra de propósito? Regrave as fixtures com `ATUALIZAR_FIXTURES=1 npx vitest run paridade` e rode
-// `./gradlew :core:jvmTest` em marmota-tuner/: o Kotlin tem que dar o mesmo resultado.
+// Fixtures do treino: perguntas, notas e respostas com sementes fixas, em todas as combinações de exercício. O mesmo arquivo é lido
+// pelo teste do Kotlin (TreinoParidadeTest, em marmota-tuner/core), que roda na JVM; aqui ele roda contra o JS compilado. Nasceu da
+// versão antiga em TypeScript, então também garante que a troca para o Kotlin não mudou nenhum sorteio.
+// Mudou uma regra de propósito (no Kotlin)? Rode `./gradlew :core:exportToSite` em marmota-tuner/, regrave com
+// `ATUALIZAR_FIXTURES=1 npx vitest run paridade` e confira no diff que só mudou o que devia.
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";

@@ -2586,7 +2586,7 @@ protoOf(Musica).pc = function () {
   return this.trechos;
 };
 function PianoNote(midi, at, dur, cents) {
-  cents = cents === VOID ? 0.0 : cents;
+  cents = cents === VOID ? null : cents;
   this.midi = midi;
   this.at = at;
   this.dur = dur;
@@ -2633,7 +2633,7 @@ protoOf(PianoNote).hashCode = function () {
   var result = this.midi;
   result = imul(result, 31) + getNumberHashCode(this.at) | 0;
   result = imul(result, 31) + getNumberHashCode(this.dur) | 0;
-  result = imul(result, 31) + getNumberHashCode(this.cents) | 0;
+  result = imul(result, 31) + (this.cents == null ? 0 : getNumberHashCode(this.cents)) | 0;
   return result;
 };
 protoOf(PianoNote).equals = function (other) {
