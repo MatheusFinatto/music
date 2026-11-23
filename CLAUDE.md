@@ -7,7 +7,6 @@ Vários devs contribuem, cada um numa ferramenta. **Leia antes de mudar qualquer
 - `docs/ROADMAP.md` — o que vem, em que ordem, e o contrato do núcleo compartilhado.
 - `docs/PROJETO.md` — visão e decisões já tomadas.
 - `PRODUCT.md` e `DESIGN.md` — verdade de produto e sistema visual.
-- `docs/solos/` — pesquisa e especificações de "Como solar com a pentatônica".
 - `legacy/CLAUDE.md` — só se for mexer no Laboratório (site antigo).
 
 ## Comandos
@@ -28,7 +27,7 @@ npm run smoke       # teste de fumaça no navegador (Playwright), com o start ro
 - **Notas** no formato letra + oitava (**C4, Bb3**; C4 = Dó central).
 - **Cores com significado** nas ferramentas: laranja = nota-alvo, azul = tocando agora, verde = selecionado.
 - **Dados** só no navegador (`localStorage`, prefixo `musica:`). Sem backend nem contas até o dono pedir.
-- **Tablatura de música comercial só dentro de lição de análise.** Proibido: catálogo de músicas (tab inteira para tocar a música). Permitido: lick ou solo de uma gravação dentro de uma lição que analisa a técnica (shape, tom, nota de fora), com crédito e o vídeo oficial incorporado, como uso de trecho para estudo (Lei 9.610/98, art. 46, VIII). O solo entra inteiro numa lição só: um eco com uma aba por parte (frase com `label`, `base` daqueles compassos via `songBars`, `intro` e `steps` da teoria da parte), partes que começam e terminam numa frase (nunca no meio dela), e a última aba com o solo completo; a fonte da tab vai creditada com link (`source` da lição). Exercício de eco com `transcribed: true` e base com `song`.
+- **Sem catálogo de tablaturas de música comercial** (direito autoral). Nenhuma ferramenta publica tab inteira de música para tocar.
 - `legacy/` está congelado: só correção.
 - **Next 16** mudou convenções (ex.: `src/proxy.ts` no lugar de `middleware.ts`). Antes de usar uma API do Next, confira em `node_modules/next/dist/docs/` (ver `AGENTS.md`).
 - TypeScript fica na versão 6: o lint ainda não aceita a 7.

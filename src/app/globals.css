@@ -2,7 +2,7 @@
 
 /* Sistema visual do site. Descrição em DESIGN.md. Ferramentas usam estes tokens; não criam paleta própria. */
 :root {
-  /* Um tema só: palco à noite. Madeira, marfim e uma luz quente vinda de cima (o mundo do Solos vale para o site inteiro). */
+  /* Um tema só: palco à noite. Madeira, marfim e uma luz quente vinda de cima (vale para o site inteiro). */
   --bg: #120e0b;
   --surface: #1d1713;
   --ink: #f5ecdc;
@@ -165,19 +165,6 @@
   .badge.proxima { background: var(--target-soft); color: var(--target-ink); }
   .badge.proxima::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 
-  /* Solos é a ferramenta principal: linha inteira, texto maior e ação em destaque. */
-  .grid > li.featured { grid-column: 1 / -1; }
-  .card.featured { padding: clamp(26px, 4vw, 40px); border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); background: linear-gradient(135deg, var(--accent-soft), var(--surface) 70%); }
-  @media (min-width: 720px) { .grid:has(> li.featured) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 720px) {
-    .card.featured { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 28px; row-gap: 10px; align-items: start; }
-    .card.featured .icon { grid-row: 1 / span 3; width: 72px; height: 72px; margin: 0; }
-    .card.featured .icon svg { width: 38px; height: 38px; }
-    .card.featured .foot { grid-column: 2; margin-top: 0; justify-content: flex-start; }
-  }
-  .card.featured h3 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); }
-  .card.featured p { font-size: var(--text-lg); max-width: 56ch; }
-  .card.featured .go { font-size: 1.05rem; padding: 12px 22px 12px 24px; }
   .card.next { flex-direction: row; align-items: center; gap: 22px; padding: 28px; }
   .card.next .icon { width: 64px; height: 64px; border-radius: var(--radius-md); margin: 0; background: var(--target-soft); color: var(--target); }
   .card.next .icon svg { width: 34px; height: 34px; }

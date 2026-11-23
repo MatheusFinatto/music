@@ -16,8 +16,8 @@ export type Tool = {
 };
 
 export const TOOLS = [
-  // Diário do Solo e Piano de Ideias (site antigo) saíram do hub; seguem acessíveis em /laboratorio.
-  { slug: "solos", status: "pronta", href: "/solos" },
+  // Diário do Solo e Piano de Ideias (site antigo) saíram do hub; seguem acessíveis em /laboratorio. O curso "Como solar com
+  // a pentatônica" (/solos) foi removido em 2026-11-23: está no histórico do git, se um dia voltar.
   { slug: "tirar-de-ouvido", status: "planejada" },
   // Afina no navegador e entrega o app Android (marmota-tuner/); os dois com a mesma lógica.
   { slug: "afinador", status: "pronta", href: "/afinador" },
