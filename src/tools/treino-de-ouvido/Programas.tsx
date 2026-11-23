@@ -1,6 +1,6 @@
 "use client";
 import { onRadioKeyDown } from "@/core/ui/radioGroup";
-import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useState, useSyncExternalStore, type ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import {
   estimarSegundos, FOCOS, medianaDe, MINUTOS, minutosParaMostrar, planejar, SOBRA_S, type BlocoPlano, type Duracoes, type Ex, type Foco, type Minutos, type Secao,
@@ -31,14 +31,13 @@ const segundosRestantes = (r: Rodando, d: Duracoes) => {
  * Programas por tempo de uma seção: o seletor (5 a 30 min) antes do treino livre; durante o programa, a barra de andamento e o bloco
  * da vez no lugar do treino livre; no fim, o resumo. `bloco` desenha o exercício da vez e `livre`, o treino de sempre.
  */
-export function Programa({ secao, livre, bloco, onRodando }: { secao: Secao; livre: ReactNode; bloco: (p: ProgramaProp, chave: string) => ReactNode; onRodando: (rodando: boolean) => void }) {
+export function Programa({ secao, livre, bloco }: { secao: Secao; livre: ReactNode; bloco: (p: ProgramaProp, chave: string) => ReactNode }) {
   const t = useTranslations("treino-de-ouvido");
   const r = useSyncExternalStore(ritmo.subscribe, ritmo.get, ritmo.getInitial);
   const [rodando, setRodando] = useState<Rodando | null>(null);
   const [fim, setFim] = useState<Fim | null>(null);
   const minutos = r.ultimo[secao];
   const foco = r.foco[secao];
-  useEffect(() => { onRodando(rodando !== null); }, [rodando, onRodando]);
 
   const nomeDe = (ex: Ex) => t(secao === "voz" ? (`voz.exercicios.${ex}` as "voz.exercicios.igualar") : (`exercicios.${ex}` as "exercicios.intervalos"));
   const comecar = (f: Foco, m: Minutos) => {

@@ -8,7 +8,12 @@
   "nav": {
     "label": "Principal",
     "lab": "Laboratório",
-    "short": { "afinador": "Afinador", "metronomo": "Metrônomo", "treino-de-ouvido": "Ouvido" }
+    "short": {
+      "afinador": "Afinador",
+      "metronomo": "Metrônomo",
+      "treino-de-ouvido": "Ouvido",
+      "treino-de-voz": "Voz"
+    }
   },
   "hub": {
     "title": "Marmota Music",
@@ -36,11 +41,15 @@
     },
     "treino-de-ouvido": {
       "name": "Treino de ouvido",
-      "summary": "Intervalos, acordes e graus da escala, com som de piano. Sem anúncios."
+      "summary": "Intervalos, acordes, harmonia e afinação, com som de piano e programas por tempo. Sem anúncios."
     },
     "metronomo": {
       "name": "Metrônomo",
       "summary": "Andamento e compasso, no navegador. Também no app Android."
+    },
+    "treino-de-voz": {
+      "name": "Treino de voz",
+      "summary": "Cante a nota, o arpejo e a segunda voz com o microfone, com programas por tempo. Sem anúncios."
     }
   },
   "footer": {
@@ -112,8 +121,8 @@
     "back": "Voltar para as ferramentas"
   },
   "treino-de-ouvido": {
-    "title": "Treino de ouvido e voz",
-    "description": "Treine o ouvido e a voz no navegador: intervalos, acordes, harmonia, afinação e cantar com o microfone, com som de piano. Gratuito, sem anúncios e sem conta.",
+    "title": "Treino de ouvido",
+    "description": "Treine o ouvido no navegador: intervalos, acordes, harmonia e afinação, com som de piano e programas por tempo. Gratuito, sem anúncios e sem conta.",
     "modo": "Estilo de treino",
     "modos": {
       "classico": "Clássico",
@@ -275,11 +284,6 @@
     "pergunta_achar": "Ache a segunda nota",
     "dica_achar": "A primeira nota está marcada. Toque as teclas para ouvir e compare de ouvido; quando achar, responda.",
     "responder": "Responder",
-    "secoes": {
-      "ouvido": "Ouvido",
-      "voz": "Voz",
-      "rotulo": "Seção"
-    },
     "voz": {
       "titulo": "Treino de voz",
       "exercicios": {
@@ -421,6 +425,8 @@
         "segundaVoz": "Segunda voz"
       }
     },
-    "isolados": "Exercícios isolados"
+    "isolados": "Exercícios isolados",
+    "tituloVoz": "Treino de voz",
+    "descricaoVoz": "Treine a voz no navegador: igualar a nota, arpejos, cantar sobre a tônica e o intervalo, com o microfone e programas por tempo. Gratuito, sem anúncios e sem conta."
   }
 }

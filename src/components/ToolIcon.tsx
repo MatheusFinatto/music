@@ -8,6 +8,7 @@ const ICONS: Record<string, ReactNode> = {
   "tirar-de-ouvido": <><path d="M3 12h2M7 8v8M11 5v14M15 9v6M19 11v2" /></>,
   afinador: <><path d="M4 16a8 8 0 0 1 16 0" /><path d="M12 16l3.5-6" /><circle cx="12" cy="16" r="1.4" /><path d="M12 5v2M5.5 9.5l1.4 1.2M18.5 9.5l-1.4 1.2" /></>,
   "treino-de-ouvido": <><path d="M7 10a5 5 0 0 1 10 0c0 3-2.5 3.6-2.5 6a2.8 2.8 0 0 1-5.4 1" /><path d="M10 10.5a2 2 0 0 1 4 0c0 1.2-1.5 1.6-1.5 3" /></>,
+  "treino-de-voz": <><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M9 21h6" /></>,
   // Metrônomo: o corpo em trapézio e o pêndulo inclinado.
   metronomo: <><path d="M9 3h6l4 18H5z" /><path d="M7.5 15h9" /><path d="M12 15l4-9" /></>,
 };

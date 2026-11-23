@@ -3,7 +3,7 @@
 Pedido do dono (2026-11-23): no início da página, **antes dos exercícios separados**, programas prontos por tempo, para o **ouvido** e para a **voz**: **5, 10, 15, 20 e 30 minutos**. O tempo é aproximado, porque depende de quanto a pessoa demora para cantar ou para adivinhar; a estimativa usa **medianas**.
 
 ## Como funciona
-- Em cada seção (Ouvido, Voz) o cartão **Programas** vem antes do treino livre: escolhe-se o **foco** e depois a **duração** (lembra os últimos), vê-se o que vem dentro e quantas perguntas, e "Começar programa de N min".
+- Em cada página (Treino de ouvido, Treino de voz) o cartão **Programas** vem antes do treino livre: escolhe-se o **foco** e depois a **duração** (lembra os últimos), vê-se o que vem dentro e quantas perguntas, e "Começar programa de N min".
 - Durante o programa: barra com bloco, perguntas respondidas e minutos restantes; o bloco começa sozinho; "Pular bloco" e "Parar programa". O seletor Ouvido/Voz, o seletor de exercícios, o placar, Ajustes e Pontos fracos somem até acabar. Na última pergunta de um bloco o botão vira "Próximo bloco: …" (ou "Terminar programa"). Na Voz, "Tentar de novo" some e a falha conta como erro.
 - No fim, o resumo: acertos por bloco, tempo real × previsto, "Fazer de novo".
 - Os programas usam os itens e ajustes que a pessoa escolheu (intervalos, margem, instrumento, tônica…).
