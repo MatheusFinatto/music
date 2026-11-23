@@ -12,6 +12,7 @@ import { Regua } from "./Regua";
 import { Instrumento } from "./Instrumento";
 import { useInstrumento } from "./instrumento";
 import type { Marca } from "./Teclado";
+import { acordeNoBraco } from "./violao";
 import { Voz } from "./Voz";
 import "./treino.css";
 
@@ -151,6 +152,9 @@ function Ouvido() {
   const respostas: readonly string[] = achar ? [] : afinacao ? RESPOSTAS_AFINACAO : grupoDeIds;
   const nomeChips = afinacao || achar ? "intervalos" : nomeGrupo;
   const nome = (grupo: string, id: string) => t(`nomes.${grupo}.${id}` as "nomes.graus.1");
+  /** Dica curta de uma resposta (ex.: "V → I" na cadência autêntica), se existir. */
+  const dicaDe = (grupo: string, id: string) => (t.has(`dicas.${grupo}.${id}` as "dicas.cadencias.plagal") ? t(`dicas.${grupo}.${id}` as "dicas.cadencias.plagal") : null);
+  const nomeCompleto = (grupo: string, id: string) => { const d = dicaDe(grupo, id); return d ? `${nome(grupo, id)} (${d})` : nome(grupo, id); };
   const todos = modo === "funcional" ? IDS.graus : IDS[exercicio];
   const marcar = (id: string) => {
     const atual = grupoDeIds, tem = atual.includes(id);
@@ -163,7 +167,7 @@ function Ouvido() {
     .filter(([, v]) => v && v.total >= 2)
     .map(([chave, v]) => {
       const [grupo = "", id = ""] = chave.split(":");
-      const rotulo = grupo === "afinacao" ? t("margemCents", { n: Number(id) }) : nome(grupo, id);
+      const rotulo = grupo === "afinacao" ? t("margemCents", { n: Number(id) }) : nome(grupo === "achar" ? "intervalos" : grupo, id);
       return { chave, certo: v.certo, total: v.total, nome: `${t(`grupos.${grupo}` as "grupos.graus")} · ${rotulo}` };
     })
     .sort((a, b) => a.certo / a.total - b.certo / b.total || b.total - a.total)
@@ -188,6 +192,9 @@ function Ouvido() {
     if (achar && selecionada !== null && !acertou) marcas.set(selecionada, "errada");
   }
   if (teclaTocando !== null) marcas.set(teclaTocando, "toca");
+  // No violão um acorde tem uma nota por corda (uma forma que cabe na mão); intervalos e notas soltas vão onde ficam mais à frente.
+  const acordeAlvo = respondida && q?.modo === "classico" && (exercicio === "acordes" || exercicio === "campo") ? (q.p.reveal ?? q.p.notas.map((n) => n.midi)) : null;
+  const extras = instrumento === "violao" && acordeAlvo ? (acordeNoBraco(acordeAlvo) ?? []).map((p) => ({ ...p, marca: "alvo" as const })) : [];
   const janela = q ? (q.modo === "classico" ? q.p.notas : q.p.tudo).map((n) => n.midi) : [48, 71];
   const detalhe = !q || !respondida ? "" : tonicaQ !== undefined && acordesQ
     ? `${t("tomMaior", { nota: nomeTom(tonicaQ) })}: ${acordesQ.map((g) => nome("campo", g)).join(" – ")} (${acordesQ.map((g) => nomeAcorde(tonicaQ, g)).join(" – ")})`
@@ -233,9 +240,14 @@ function Ouvido() {
             </div>
           )}
           {modo === "classico" && (
-            <div className="treino-seg amplo" role="radiogroup" aria-label={t("exercicio")} onKeyDown={onRadioKeyDown}>
-              {EXERCICIOS.map((e) => (
-                <button key={e} type="button" role="radio" aria-checked={exercicio === e} tabIndex={exercicio === e ? 0 : -1} onClick={() => mudar({ ...s, classica: { ...s.classica, exercicio: e } }, false)}>{t(`exercicios.${e}`)}</button>
+            <div className="treino-exs" role="radiogroup" aria-label={t("exercicio")} onKeyDown={onRadioKeyDown}>
+              {([["notas", ["intervalos", "acordes", "afinacao", "achar"]], ["harmonia", ["campo", "cadencias", "progressoes"]]] as const).map(([grupo, lista]) => (
+                <div key={grupo} className="treino-exs-linha" role="presentation">
+                  <span className="treino-exs-nome" aria-hidden="true">{t(`grupoExercicios.${grupo}`)}</span>
+                  {lista.map((e) => EXERCICIOS.includes(e) && (
+                <button key={e} type="button" role="radio" aria-checked={exercicio === e} tabIndex={exercicio === e ? 0 : -1} onClick={() => mudar({ ...s, classica: { ...s.classica, exercicio: e } }, true)}>{t(`exercicios.${e}`)}</button>
+                  ))}
+                </div>
               ))}
             </div>
           )}
@@ -248,7 +260,7 @@ function Ouvido() {
 
       <section className="treino-palco" aria-label={t("perguntaTitulo")}>
         <div className="treino-linha">
-          <button type="button" className={`treino-ouvir${tocando ? " tocando" : ""}`} aria-label={t("ouvir")} aria-keyshortcuts="Space" disabled={carregando}
+          <button type="button" className={`treino-ouvir${tocando ? " tocando" : ""}`} aria-label={t(q ? "ouvir" : "ouvirPrimeira")} aria-keyshortcuts="Space" disabled={carregando}
             onClick={() => (q ? void tocar(q.modo === "classico" ? q.p.notas : q.p.tudo) : nova())}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.55.83l10-6.5a1 1 0 0 0 0-1.66l-10-6.5A1 1 0 0 0 8 5.5Z" /></svg>
           </button>
@@ -270,20 +282,20 @@ function Ouvido() {
             return (
               <button key={id} type="button" className={`treino-resp ${estado}`} onClick={() => responder(id)} disabled={!q || (escolha !== null)}>
                 {n < 9 && <kbd aria-hidden="true">{n + 1}</kbd>}
-                {nome(nomeGrupo, id)}
+                <span className="treino-resp-texto">{nome(nomeGrupo, id)}{dicaDe(nomeGrupo, id) && <small>{dicaDe(nomeGrupo, id)}</small>}</span>
               </button>
             );
           })}
         </div>
 
-        <Instrumento tipo={instrumento} janela={janela} marcas={marcas} onTocar={tocarTecla} label={t(instrumento === "violao" ? "braco" : "teclado")} />
+        <Instrumento tipo={instrumento} janela={janela} marcas={marcas} onTocar={tocarTecla} extras={extras} label={t(instrumento === "violao" ? "braco" : "teclado")} />
         {achar && q && !respondida && (
           <button type="button" className="go treino-proxima" onClick={confirmar} disabled={selecionada === null || carregando}>{t("responder")}<kbd aria-hidden="true">Enter</kbd></button>
         )}
 
         {respondida && (
           <div className="treino-revela">
-            <p className={`treino-resultado ${acertou ? "certa" : "errada"}`} role="status">{acertou ? t("certo") : achar && q.modo === "classico" ? t("errado", { resposta: nomeNota(q.p.alvo!) }) : t("errado", { resposta: nome(nomeGrupo, q.p.resposta) })}</p>
+            <p className={`treino-resultado ${acertou ? "certa" : "errada"}`} role="status">{acertou ? t("certo") : achar && q.modo === "classico" ? t("errado", { resposta: nomeNota(q.p.alvo!) }) : t("errado", { resposta: nomeCompleto(nomeGrupo, q.p.resposta) })}</p>
             {cents !== undefined && <Regua cents={cents} margem={s.classica.margem} label={t("regua")} baixo={t("nomes.afinacao.baixo")} alto={t("nomes.afinacao.alto")} />}
             {cents !== undefined && cents !== 0 && q?.modo === "classico" && (
               <div className="treino-ouvir-mais">
@@ -357,7 +369,7 @@ function Ouvido() {
             <span>{t(modo === "funcional" ? "graus" : "itens")}</span>
             <div className="treino-chips">
               {todos.map((id) => (
-                <button key={id} type="button" className="treino-chip" aria-pressed={grupoDeIds.includes(id)} onClick={() => marcar(id)}>{nome(nomeChips, id)}</button>
+                <button key={id} type="button" className="treino-chip" aria-pressed={grupoDeIds.includes(id)} onClick={() => marcar(id)}>{nomeCompleto(nomeChips, id)}</button>
               ))}
             </div>
           </div>

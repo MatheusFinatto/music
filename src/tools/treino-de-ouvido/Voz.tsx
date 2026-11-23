@@ -11,6 +11,7 @@ import { Instrumento } from "./Instrumento";
 import { useInstrumento } from "./instrumento";
 import type { Marca } from "./Teclado";
 import { usePiano } from "./usePiano";
+import { formaDoArpejo } from "./violao";
 import {
   ALCANCE_ZERO, atualizar, extensao, inicioDaRodada, medirAlcance, notasDoPadrao, SEGURANDO_ZERO, SEGURAR_LONGA_MS, SEGURAR_MS, SEGURAR_PASSO_MS,
   sortearAlvoDeVoz, sortearClasseDeVoz, TOLERANCIAS, type Alcance,
@@ -45,7 +46,7 @@ const limiteDe = (n: number, segurarMs: number) => LIMITE_MS + n * 4000 + segura
 type Fase = "parado" | "piano" | "cantando" | "feito";
 /** O que a pessoa tem que cantar: uma nota ou uma sequência, o que o piano toca antes e o bordão, se houver. */
 type Tarefa = { alvos: number[]; demo: PianoNote[] | null; bordao: number | null; segurarMs: number; tonica: number | null; grau: string | null };
-type Resultado = { ok: boolean; media: number; oscilacao: number; passos: number };
+type Resultado = { ok: boolean; media: number; oscilacao: number; passos: number; alvo: number | null; ouvi: number | null };
 const classe = (midi: number) => nomeNota(midi).replace(/-?\d+$/, "");
 
 /** Treino de voz: o piano toca e a pessoa canta; o microfone confere a altura com a mesma detecção do afinador. */
@@ -76,6 +77,7 @@ export function Voz() {
   const limite = useRef<ReturnType<typeof setTimeout> | null>(null);
   const espera = useRef<ReturnType<typeof setTimeout> | null>(null);
   const ultimoCents = useRef<number | null>(null);
+  const ultimoMidi = useRef<number | null>(null);
   // O que o microfone precisa saber a cada bloco, sem refazer a captura.
   const atual = useRef({ fase: "parado" as Fase, tarefa: null as Tarefa | null, s, exercicio: s.exercicio });
   useEffect(() => { atual.current = { fase, tarefa, s, exercicio: s.exercicio }; });
@@ -99,7 +101,8 @@ export function Voz() {
     const media = n ? m.reduce((a, b) => a + b, 0) / n : (ultimoCents.current ?? 0);
     const abs = n ? m.reduce((a, b) => a + Math.abs(b), 0) / n : Math.abs(media);
     setFase("feito");
-    setResultado({ ok, media: n > 1 ? abs : media, oscilacao: oscilacao.current, passos: n });
+    const alvoFinal = atual.current.tarefa?.alvos[passoRef.current] ?? null;
+    setResultado({ ok, media: n > 1 ? abs : media, oscilacao: oscilacao.current, passos: n, alvo: alvoFinal, ouvi: ultimoMidi.current });
     setPlacar((p) => ({ a: p.a + (ok ? 1 : 0), t: p.t + 1 }));
   }, [fecharMic, piano]);
 
@@ -112,6 +115,7 @@ export function Voz() {
       const midi = suavizador.current.push(amostra.midi ?? null) ?? null;
       const agora = performance.now();
       setLeitura(midi);
+      if (midi !== null) ultimoMidi.current = midi;
       const v = atual.current;
       if (v.exercicio === "alcance") {
         alcanceRef.current = medirAlcance(alcanceRef.current, midi, agora);
@@ -142,6 +146,7 @@ export function Voz() {
     try { await abrir(); setErroMic(null); } catch (e) { setErroMic(e instanceof MicError ? e.problem : "failed"); setFase("parado"); piano.pararBordao(); return; }
     segurando.current = SEGURANDO_ZERO;
     ultimoCents.current = null;
+    ultimoMidi.current = null;
     setVivo({ cents: null, progresso: 0 });
     setFase("cantando");
     limite.current = setTimeout(() => concluir(false), limiteDe(t0.alvos.length, t0.segurarMs));
@@ -220,16 +225,22 @@ export function Voz() {
   const cantando = fase === "cantando";
   const alvoAtual = tarefa ? tarefa.alvos[passo]! : null;
   const dicaBase = ex === "tonica" ? t(s.ajuda === "guia" ? "voz.dicaTonicaGuia" : "voz.dicaTonicaSo") : t(`voz.dica.${ex}` as "voz.dica.igualar");
-  const dica = !cantando ? (fase === "piano" ? t(tarefa?.bordao != null ? "voz.ligandoBordao" : "voz.ouvindo") : dicaBase)
+  const dica = !cantando ? (fase === "piano" ? t(tarefa?.bordao != null ? "voz.ligandoBordao" : "voz.ouvindo") : "")
     : ex === "alcance" ? (leitura === null ? t("voz.silencio") : t("voz.alcanceDica"))
     : vivo.cents === null ? t("voz.silencio")
     : Math.abs(vivo.cents) <= s.tolerancia ? t(ex === "longa" ? "voz.sustente" : "voz.segure")
     : vivo.cents > 0 ? t("voz.maisBaixo") : t("voz.maisAlto");
   const marcas = new Map<number, Marca>();
   if (ex === "alcance" && alcance.min !== null && alcance.max !== null) { marcas.set(alcance.min, "alvo"); marcas.set(alcance.max, "alvo"); }
+  // Arpejo no instrumento: no violão, a forma do arpejo (várias notas por corda); no teclado, as teclas do padrão. A nota da vez ganha um anel.
+  const mostraPadrao = ex === "sequencia" && tarefa !== null && fase !== "parado";
+  const forma = mostraPadrao && instrumento === "violao" ? formaDoArpejo(tarefa.alvos) : null;
+  const classeAtual = alvoAtual === null ? -1 : ((alvoAtual % 12) + 12) % 12;
+  const extrasPadrao = forma ? forma.posicoes.map((p) => ({ corda: p.corda, casa: p.casa, midi: p.midi, marca: (cantando && p.midi % 12 === classeAtual ? "dada" : "alvo") as Marca })) : [];
+  if (mostraPadrao && tarefa) { tarefa.alvos.forEach((m) => marcas.set(m, "alvo")); if (cantando && alvoAtual !== null) marcas.set(alvoAtual, "dada"); }
   const ext = alcance.min !== null && alcance.max !== null ? extensao(alcance.max - alcance.min) : null;
   const sinal = (n: number) => (Math.abs(n) < 1 ? t("voz.mediaCentro") : t(n > 0 ? "voz.mediaAcima" : "voz.mediaAbaixo", { n: Math.round(Math.abs(n)) }));
-  const textoResultado = !resultado ? "" : !resultado.ok ? t("voz.nao")
+  const textoResultado = !resultado ? "" : !resultado.ok ? (resultado.ouvi === null || resultado.alvo === null ? t("voz.naoOuvi") : t("voz.naoFoi", { alvo: classe(resultado.alvo), ouvi: nomeNota(Math.round(resultado.ouvi)) }))
     : ex === "longa" ? t("voz.longaFeito", { n: Math.round(resultado.oscilacao) })
     : ex === "sequencia" ? t("voz.sequenciaFeito", { passos: resultado.passos, n: Math.round(resultado.media) })
     : `${t("voz.afinou")} ${sinal(resultado.media)}`;
@@ -238,10 +249,12 @@ export function Voz() {
     <div className="treino voz">
       <div className="treino-topo">
         <div className="treino-escolhas">
-          <div className="treino-seg amplo" role="radiogroup" aria-label={t("exercicio")} onKeyDown={onRadioKeyDown}>
+          <div className="treino-exs" role="radiogroup" aria-label={t("exercicio")} onKeyDown={onRadioKeyDown}>
+            <div className="treino-exs-linha" role="presentation">
             {EXERCICIOS.map((e) => (
-              <button key={e} type="button" role="radio" aria-checked={ex === e} tabIndex={ex === e ? 0 : -1} onClick={() => mudar({ ...s, exercicio: e })}>{t(`voz.exercicios.${e}`)}</button>
+              <button key={e} type="button" role="radio" aria-checked={ex === e} tabIndex={ex === e ? 0 : -1} onClick={() => { mudar({ ...s, exercicio: e }); setPlacar({ a: 0, t: 0 }); }}>{t(`voz.exercicios.${e}`)}</button>
             ))}
+            </div>
           </div>
         </div>
         {ex !== "alcance" && (
@@ -253,7 +266,7 @@ export function Voz() {
 
       <section className="treino-palco" aria-label={t("voz.titulo")}>
         <div className="treino-pergunta">
-          <h2>{ex === "alcance" ? t("voz.exercicios.alcance") : tarefa && fase !== "parado" ? t("voz.cante") : t("voz.titulo")}</h2>
+          <h2>{ex === "alcance" ? t("voz.exercicios.alcance") : tarefa && (fase === "piano" || fase === "cantando") ? t("voz.cante") : t("voz.titulo")}</h2>
           <p>{ex === "tonica" && tarefa && tarefa.tonica !== null && tarefa.grau !== null && fase !== "parado"
             ? t("voz.tonicaDica", { tonica: classe(tarefa.tonica), grau: t(`nomes.intervalos.${tarefa.grau}` as "nomes.intervalos.3m"), nota: classe(tarefa.alvos[0]!) })
             : dicaBase}</p>
@@ -265,6 +278,10 @@ export function Voz() {
               <li key={i} className={i < passo || (fase === "feito" && resultado?.ok) ? "feito" : i === passo && cantando ? "atual" : ""} aria-current={i === passo && cantando ? "step" : undefined}>{classe(m)}</li>
             ))}
           </ol>
+        )}
+
+        {mostraPadrao && tarefa && (
+          <Instrumento tipo={instrumento} janela={tarefa.alvos} marcas={marcas} extras={extrasPadrao} onTocar={() => {}} label={t(instrumento === "violao" ? "braco" : "teclado")} />
         )}
 
         <Afinometro
@@ -293,8 +310,11 @@ export function Voz() {
         {piano.erro && <p className="treino-estado" role="alert">{piano.erro === "audio" ? t("erroAudio") : t("erroPiano")}</p>}
 
         <div className="treino-acoes">
+          {fase === "feito" && resultado && !resultado.ok && ex !== "alcance" && tarefa && (
+            <button type="button" className="go treino-proxima" onClick={() => void prepararEOuvir(tarefa, true)} disabled={piano.carregando}>{t("voz.tentarDeNovo")}</button>
+          )}
           {(fase === "parado" || fase === "feito") && (
-            <button type="button" className="go treino-proxima" onClick={comecar} disabled={piano.carregando}>
+            <button type="button" className={fase === "feito" && resultado && !resultado.ok && ex !== "alcance" ? "treino-btn" : "go treino-proxima"} onClick={comecar} disabled={piano.carregando}>
               {ex === "alcance" ? t("voz.medir") : fase === "feito" ? t("voz.proxima") : t("voz.comecar")}
             </button>
           )}

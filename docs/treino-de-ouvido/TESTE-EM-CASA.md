@@ -11,6 +11,7 @@ Para cada item: anote o que sentiu e, se mudou algum ajuste, qual. "Justo" quer 
 - [ ] **Acordes:** maior/menor/7ª/diminuto: dá para distinguir de ouvido?
 - [ ] **Afinação (baixo/afinado/alto):** a margem de 30 cents é audível? E a de 10? "Comparar os dois" ajuda a evoluir?
 - [ ] **Achar** (teclado e violão): trocar em Ajustes → Instrumento. O violão ajuda mais? O som de piano atrapalha no violão?
+- [ ] **Violão nos acordes e arpejos:** os acordes aparecem com uma nota por corda (uma forma que cabe na mão) e o arpejo, na Voz, com a forma de arpejo (mais de uma nota por corda). As formas estão certas e tocáveis?
 - [ ] **Graus do campo, Cadências, Progressões:** as respostas fazem sentido? Faltam cadências ou progressões? A cifra na revelação ajuda?
 - [ ] **Seus pontos fracos:** mostra o que eu erro de verdade?
 

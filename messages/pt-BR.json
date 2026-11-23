@@ -211,10 +211,10 @@
         "viio": "vii°"
       },
       "cadencias": {
-        "autentica": "Autêntica (V → I)",
-        "plagal": "Plagal (IV → I)",
-        "deceptiva": "De engano (V → vi)",
-        "meia": "Meia cadência (termina no V)"
+        "autentica": "Autêntica",
+        "plagal": "Plagal",
+        "deceptiva": "De engano",
+        "meia": "Meia cadência"
       },
       "progressoes": {
         "I-IV-V-I": "I – IV – V – I",
@@ -241,8 +241,8 @@
     "dicaAfinacao": "Duas notas. A segunda pode estar baixa, afinada ou alta, até {margem} cents.",
     "margem": "Margem",
     "margemCents": "{n} cents",
-    "centsAcima": "{n} cents acima",
-    "centsAbaixo": "{n} cents abaixo",
+    "centsAcima": "{n, plural, one {# cent} other {# cents}} acima",
+    "centsAbaixo": "{n, plural, one {# cent} other {# cents}} abaixo",
     "exatamenteAfinado": "Exatamente afinado",
     "regua": "Desvio da segunda nota, em cents",
     "reforco": "Reforçar o que eu erro",
@@ -316,14 +316,14 @@
       "alcanceDica": "Cante e pare em cada nota",
       "afinou": "Afinou!",
       "mediaCentro": "Em cima da nota.",
-      "mediaAcima": "{n} cents acima, em média.",
-      "mediaAbaixo": "{n} cents abaixo, em média.",
-      "nao": "Não deu desta vez. Ouça a nota de novo e tente outra vez.",
+      "mediaAcima": "{n, plural, one {# cent} other {# cents}} acima, em média.",
+      "mediaAbaixo": "{n, plural, one {# cent} other {# cents}} abaixo, em média.",
+      "nao": "Não deu desta vez.",
       "oitava": "Oitava",
       "qualquerOitava": "Qualquer oitava",
       "mesmaOitava": "Mesma oitava",
       "alcanceResultado": "Do {grave} ao {agudo}",
-      "alcanceVazio": "Ainda não firmei nenhuma nota. Cante e pare em cada uma.",
+      "alcanceVazio": "Nenhuma nota firme ainda. Cante e pare um pouco em cada uma.",
       "extensao": "Extensão: {oitavas, plural, =0 {0 oitavas} one {# oitava} other {# oitavas}} e {semitons, plural, =0 {0 semitons} one {# semitom} other {# semitons}}",
       "erroMic": {
         "denied": "O navegador negou o microfone. Libere o microfone para este site e tente de novo.",
@@ -336,8 +336,8 @@
       "passos": "Passos do padrão",
       "ouvirAlvo": "Ouvir a nota",
       "sustente": "Sustente, sem balançar",
-      "longaFeito": "Firme por 5 segundos! A altura balançou {n} cents.",
-      "sequenciaFeito": "Completou as {passos} notas! Desvio médio de {n} cents.",
+      "longaFeito": "Firme por 5 segundos! A altura balançou {n, plural, =0 {0 cents} one {# cent} other {# cents}}.",
+      "sequenciaFeito": "Completou as {passos} notas! Desvio médio de {n, plural, =0 {0 cents} one {# cent} other {# cents}}.",
       "padrao": "Padrão",
       "inicio": "Nota inicial",
       "tonica": "Nota da tônica",
@@ -361,13 +361,29 @@
         "so": "Só a tônica"
       },
       "espiar": "Espiar a nota",
-      "aleatoria": "Aleatória"
+      "aleatoria": "Aleatória",
+      "naoFoi": "Não deu desta vez: o alvo era {alvo} e você chegou a {ouvi}. Ouça de novo e tente outra vez.",
+      "naoOuvi": "Não ouvi nenhuma nota. Confira se o microfone está liberado e cante mais perto.",
+      "tentarDeNovo": "Tentar de novo"
     },
     "instrumento": "Instrumento",
     "instrumentos": {
       "teclado": "Teclado",
       "violao": "Violão"
     },
-    "braco": "Braço do violão: toque uma posição para ouvir a nota"
+    "braco": "Braço do violão: toque uma posição para ouvir a nota",
+    "dicas": {
+      "cadencias": {
+        "autentica": "V → I",
+        "plagal": "IV → I",
+        "deceptiva": "V → vi",
+        "meia": "termina no V"
+      }
+    },
+    "grupoExercicios": {
+      "notas": "Notas",
+      "harmonia": "Harmonia"
+    },
+    "ouvirPrimeira": "Ouvir a primeira pergunta"
   }
 }

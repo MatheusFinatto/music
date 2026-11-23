@@ -1,22 +1,10 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { nomeNota } from "./engine";
 import type { Marca } from "./Teclado";
+import { ABERTAS, CASAS, melhorPosicao, type Pos } from "./violao";
 
-/** MIDI das cordas soltas, da 1ª (mais fina) à 6ª: e B G D A E. */
-const ABERTAS = [64, 59, 55, 50, 45, 40] as const;
-const CASAS = 12;
 const LARG = 46, ALT = 34, MARGEM = 34, TOPO = 16;
-
-/** A posição mais à frente do braço (menor casa) onde soa a nota, ou null se não cabe nas 12 primeiras casas. */
-export function melhorPosicao(midi: number): { corda: number; casa: number } | null {
-  let melhor: { corda: number; casa: number } | null = null;
-  ABERTAS.forEach((solta, corda) => {
-    const casa = midi - solta;
-    if (casa >= 0 && casa <= CASAS && (melhor === null || casa < melhor.casa)) melhor = { corda, casa };
-  });
-  return melhor;
-}
 
 const INCRUSTACOES = [3, 5, 7, 9];
 const cx = (casa: number) => (casa === 0 ? MARGEM / 2 : MARGEM + (casa - 0.5) * LARG);
@@ -24,12 +12,14 @@ const cy = (corda: number) => TOPO + corda * ALT;
 
 /**
  * Braço de violão (12 casas) sempre à mostra: cada posição toca a nota. As marcas de altura (alvo, dada, erro) aparecem na
- * posição mais à frente da nota; a tecla escolhida e a que soa aparecem onde a pessoa tocou. Setas andam pelo braço.
+ * posição mais à frente da nota, salvo as notas de `extras`, que vêm com a posição escolhida (a forma de um acorde, uma nota por
+ * corda, ou a forma de um arpejo, com várias por corda); a tecla escolhida e a que soa aparecem onde a pessoa tocou. Setas andam pelo braço.
  */
-export function Braco({ marcas, onTocar, label }: { marcas: ReadonlyMap<number, Marca>; onTocar: (midi: number) => void; label: string }) {
+export function Braco({ marcas, onTocar, label, extras = [] }: { marcas: ReadonlyMap<number, Marca>; onTocar: (midi: number) => void; label: string; extras?: readonly (Pos & { marca: Marca })[] }) {
   const [foco, setFoco] = useState({ corda: 0, casa: 0 });
   const [clicada, setClicada] = useState<string | null>(null);
   const raiz = useRef<SVGSVGElement>(null);
+  const caixa = useRef<HTMLDivElement>(null);
   const larguraTotal = MARGEM + CASAS * LARG + 10;
   const altura = TOPO * 2 + 5 * ALT + 16;
   const tocar = (corda: number, casa: number) => { setClicada(`${corda}:${casa}`); onTocar(ABERTAS[corda]! + casa); };
@@ -49,8 +39,10 @@ export function Braco({ marcas, onTocar, label }: { marcas: ReadonlyMap<number, 
   };
   // Marcas de altura: uma posição por nota (a mais à frente). Escolha e som: só onde a pessoa tocou.
   const bolas: { corda: number; casa: number; marca: Marca; midi: number }[] = [];
+  const cobertas = new Set(extras.map((e) => e.midi));
+  for (const e of extras) bolas.push({ corda: e.corda, casa: e.casa, marca: e.marca, midi: e.midi });
   for (const [midi, marca] of marcas) {
-    if (marca === "sel" || marca === "toca") continue;
+    if (marca === "sel" || marca === "toca" || cobertas.has(midi)) continue;
     const p = melhorPosicao(midi);
     if (p) bolas.push({ ...p, marca, midi });
   }
@@ -60,8 +52,20 @@ export function Braco({ marcas, onTocar, label }: { marcas: ReadonlyMap<number, 
     const marca = marcas.get(midi);
     if (marca === "sel" || marca === "toca") bolas.push({ corda, casa, marca, midi });
   }
+  // No celular só cabem umas seis casas: ao marcar notas, o braço rola até elas ficarem à vista.
+  const chaveMarcas = bolas.map((b) => `${b.corda}:${b.casa}`).join(",");
+  useEffect(() => {
+    const c = caixa.current, svg = raiz.current;
+    if (!c || !svg || c.scrollWidth <= c.clientWidth + 1 || bolas.length === 0) return;
+    const escala = svg.clientWidth / larguraTotal;
+    const xs = bolas.map((b) => cx(b.casa) * escala);
+    const centro = (Math.min(...xs) + Math.max(...xs)) / 2;
+    const calmo = typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    c.scrollTo({ left: Math.max(0, centro - c.clientWidth / 2), behavior: calmo ? "auto" : "smooth" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chaveMarcas]);
   return (
-    <div className="braco-caixa">
+    <div className="braco-caixa" ref={caixa}>
       <svg ref={raiz} className="braco" viewBox={`0 0 ${larguraTotal} ${altura}`} role="group" aria-label={label} onKeyDown={onKeyDown}>
         <rect x={MARGEM} y={TOPO - 12} width={CASAS * LARG} height={5 * ALT + 24} rx={4} className="braco-madeira" />
         {Array.from({ length: CASAS + 1 }, (_, c) => <line key={c} x1={MARGEM + c * LARG} x2={MARGEM + c * LARG} y1={TOPO - 12} y2={TOPO + 5 * ALT + 12} className={c === 0 ? "braco-pestana" : "braco-traste"} />)}
