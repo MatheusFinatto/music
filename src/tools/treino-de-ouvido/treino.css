@@ -201,3 +201,7 @@
 .treino-prog-barra i { display: block; height: 100%; border-radius: inherit; background: var(--ok); transition: width 0.4s var(--ease); }
 @media (prefers-reduced-motion: reduce) { .treino-prog-barra i { transition: none; } }
 .treino-resumo > p { margin: 0; color: var(--muted); font-size: var(--text-sm); }
+/* foco e tempo: o rótulo fica numa linha própria, para os botões que quebram não ficarem desalinhados */
+.treino-programas .treino-exs-nome { flex: 1 1 100%; }
+.treino-programas .treino-exs { gap: 6px; }
+.treino-programas { gap: 20px; }

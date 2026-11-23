@@ -389,12 +389,11 @@
     "ouvirPrimeira": "Ouvir a primeira pergunta",
     "programas": {
       "titulo": "Programas",
-      "dica": "Uma sequência pronta para o tempo que você tem. O tempo é aproximado e se ajusta ao seu ritmo.",
+      "dica": "Uma sequência pronta para o foco e o tempo que você escolher. O tempo é aproximado e se ajusta ao seu ritmo.",
       "rotulo": "Duração do programa",
       "minutos": "{n} min",
       "aprox": "≈ {n} min",
       "perguntas": "{n, plural, =0 {nenhuma pergunta} one {# pergunta} other {# perguntas}}",
-      "medicao": "uma medição",
       "comecar": "Começar programa de {n} min",
       "programaDe": "Programa de {n} min",
       "bloco": "Bloco {i} de {n}",
@@ -408,11 +407,19 @@
       "resumoTempo": "Levou {real} min; o previsto eram {previsto} min.",
       "resumoAcertos": "{acertos} de {total} acertos",
       "resumoBloco": "{acertos} de {total}",
-      "resumoMedido": "medido",
       "resumoPulado": "pulado",
       "refazer": "Fazer de novo",
       "voltar": "Voltar",
-      "respondidas": "Respondidas: {i} de {n}"
+      "respondidas": "Respondidas: {i} de {n}",
+      "foco": "Foco",
+      "tempo": "Tempo",
+      "focos": {
+        "geral": "Geral",
+        "notas": "Intervalos e acordes",
+        "afinacao": "Afinação",
+        "harmonia": "Harmonia",
+        "segundaVoz": "Segunda voz"
+      }
     }
   }
 }

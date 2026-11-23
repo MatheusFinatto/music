@@ -113,7 +113,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     const alvoFinal = atual.current.tarefa?.alvos[passoRef.current] ?? null;
     setResultado({ ok, media: n > 1 ? abs : media, oscilacao: oscilacao.current, passos: n, alvo: alvoFinal, ouvi: ultimoMidi.current });
     setPlacar((p) => ({ a: p.a + (ok ? 1 : 0), t: p.t + 1 }));
-    anotarDuracao(atual.current.exercicio, agoraMs() - inicioTentativa.current);
+    if (atual.current.exercicio !== "alcance") anotarDuracao(atual.current.exercicio, agoraMs() - inicioTentativa.current);
     atual.current.programa?.aoResponder(ok);
   }, [fecharMic, piano]);
 
@@ -229,7 +229,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     try { await abrir(); setErroMic(null); } catch (e) { setErroMic(e instanceof MicError ? e.problem : "failed"); return; }
     setFase("cantando");
   };
-  const terminarAlcance = () => { fecharMic(); setFase("feito"); programa?.aoResponder(true); };
+  const terminarAlcance = () => { fecharMic(); setFase("feito"); };
   /** Mudar exercício ou ajuste interrompe o que está em andamento. */
   const mudar = (next: Saved) => { store.set(next); parar(); setTarefa(null); setResultado(null); setAlcance(ALCANCE_ZERO); setRodada(0); };
 
