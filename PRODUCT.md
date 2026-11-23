@@ -16,7 +16,7 @@ Qualquer músico, do iniciante ao avançado, com foco em instrumentos de corda (
 
 ## Product Purpose
 
-Um site de música generalista, gratuito e não comercial: um hub que leva a ferramentas de prática independentes (afinador e metrônomo no ar; treinador de tirar músicas e solos de ouvido e treino de ouvido planejados). Sucesso é cada ferramenta ser excelente por si só; o hub só precisa levar a pessoa à ferramenta em um clique.
+Um site de música generalista, gratuito e não comercial: um hub que leva a ferramentas de prática independentes (afinador, metrônomo e treino de ouvido no ar; treinador de tirar músicas e solos de ouvido planejado). Sucesso é cada ferramenta ser excelente por si só; o hub só precisa levar a pessoa à ferramenta em um clique.
 
 ## Positioning
 

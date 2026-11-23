@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ACORDES, cadencia, CLASSICA_INICIAL, FUNCIONAL_INICIAL, GRAUS, INTERVALOS, mulberry32, perguntaClassica, perguntaFuncional, PLACAR_ZERO, registrar, somar, type ConfigClassica } from "./engine";
+import { ACORDES, cadencia, nomeNota, CLASSICA_INICIAL, FUNCIONAL_INICIAL, GRAUS, INTERVALOS, mulberry32, perguntaClassica, perguntaFuncional, PLACAR_ZERO, registrar, somar, type ConfigClassica } from "./engine";
 
 const MIN = 45, MAX = 86; // o piano tem amostras de 45 a 84; um pouco além só desloca a velocidade
 const todos = (c: Partial<ConfigClassica>): ConfigClassica => ({ ...CLASSICA_INICIAL, ...c });
@@ -81,5 +81,14 @@ describe("placar e histórico", () => {
     const b = registrar(a, "intervalos:3m", false);
     expect(a["intervalos:3m"]).toEqual({ certo: 1, total: 1 });
     expect(b["intervalos:3m"]).toEqual({ certo: 1, total: 2 });
+  });
+});
+
+describe("nome da nota", () => {
+  it("60 é C4 (Dó central), 61 é C#4, 69 é A4", () => {
+    expect(nomeNota(60)).toBe("C4");
+    expect(nomeNota(61)).toBe("C#4");
+    expect(nomeNota(69)).toBe("A4");
+    expect(nomeNota(47)).toBe("B2");
   });
 });

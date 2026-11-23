@@ -98,3 +98,7 @@ export function registrar(h: Historico, chave: string, certo: boolean): Historic
   const antes = h[chave] ?? { certo: 0, total: 0 };
   return { ...h, [chave]: { certo: antes.certo + (certo ? 1 : 0), total: antes.total + 1 } };
 }
+
+/** Nome da nota em letra e oitava, como no resto do site: 60 = C4 (Dó central), 61 = C#4. */
+const NOMES_NOTA = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+export const nomeNota = (midi: number): string => `${NOMES_NOTA[((midi % 12) + 12) % 12]}${Math.floor(midi / 12) - 1}`;
