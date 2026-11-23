@@ -6,7 +6,7 @@ Sem datas. A ordem é a recomendada; cada ferramenta só é lançada quando esti
 - **Fundação e hub** (novembro de 2026): Next na raiz, registro de ferramentas, homepage, site antigo movido para o Laboratório.
 
 ## Em andamento
-- **Treino de ouvido** (`/treino-de-ouvido`): no ar (2026-11-23) em **duas versões de teste lado a lado** para comparar na prática: **clássico** (intervalos e acordes: ouvir e escolher) e **funcional** (cadência I-IV-V-I que fixa o tom e uma nota: dizer o grau). Som de piano de amostras (`core/audio/piano`). Modelos: Perfect Ear, MyEarTraining e OpenEar (MIT) no clássico; Toned Ear e o Functional Ear Trainer no funcional. Falta o **app Android** (`marmota-ear/`, Kotlin, separado do afinador), que só começa depois de o dono dizer qual estilo vale.
+- **Treino de ouvido** (`/treino-de-ouvido`): no ar (2026-11-23). O dono ficou com o **clássico** (intervalos e acordes: ouvir, escolher e ver no teclado o que foi tocado; uso pessoal); o **funcional** (cadência I-IV-V-I que fixa o tom e uma nota: dizer o grau) segue no código, escondido (`VISIVEIS` em `TreinoDeOuvido.tsx`), para voltar se ele sentir falta. Som de piano de amostras (`core/audio/piano`). Modelos: Perfect Ear, MyEarTraining e OpenEar (MIT) no clássico; Toned Ear e o Functional Ear Trainer no funcional. O app Android (`marmota-ear/`) não é prioridade: o uso é pessoal e o site no celular serve.
 - **Curso "Como solar com a pentatônica" (`/solos`): removido em 2026-11-23** (decisão do dono: não deu certo). Fica no histórico do git. O site mantém só as utilidades; o Diário e o Piano seguem em `/laboratorio`.
 - **Criador de ideias**, o redesenho do Piano de Ideias, refeito do zero como ferramenta do site novo (antes planejado "depois dos solos").
 

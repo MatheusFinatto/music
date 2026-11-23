@@ -143,7 +143,6 @@
     },
     "itens": "O que treinar",
     "graus": "Graus",
-    "comecar": "Começar",
     "ouvir": "Ouvir de novo",
     "soCadencia": "Só a cadência",
     "soNota": "Só a nota",
@@ -155,8 +154,6 @@
     "certo": "Certo!",
     "errado": "Era: {resposta}.",
     "placar": "{acertos} de {total}",
-    "sequencia": "sequência {n}",
-    "melhor": "melhor {n}",
     "carregando": "Carregando o piano…",
     "erroAudio": "Este navegador não conseguiu iniciar o áudio. Tente outro navegador.",
     "erroPiano": "Não foi possível carregar o som do piano. Confira a conexão e tente de novo.",
@@ -194,6 +191,18 @@
         "6": "6",
         "7": "7"
       }
-    }
+    },
+    "perguntaInicial": "Toque para ouvir",
+    "perguntaTitulo": "Pergunta",
+    "dicaIntervalos": "Dois sons, um depois do outro. Qual é a distância entre eles?",
+    "dicaAcordes": "Todas as notas juntas. Qual é o tipo do acorde?",
+    "dicaFuncional": "Primeiro a cadência, depois uma nota. Qual é o grau da escala?",
+    "placarTitulo": "Placar da sessão",
+    "acertos": "acertos",
+    "sequenciaRotulo": "sequência",
+    "semitons": "{n, plural, one {# semitom} other {# semitons}}",
+    "teclado": "Teclado com as notas tocadas acesas",
+    "espaco": "Espaço",
+    "atalhos": "Espaço ouve e avança; 1 a 9 respondem."
   }
 }
