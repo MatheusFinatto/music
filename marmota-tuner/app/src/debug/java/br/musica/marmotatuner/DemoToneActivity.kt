@@ -1,5 +1,6 @@
 package br.musica.marmotatuner
 
+import br.musica.marmota.common.AudioCapture
 import android.app.Activity
 import android.os.Bundle
 import android.os.Handler

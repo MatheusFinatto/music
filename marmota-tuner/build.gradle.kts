@@ -3,5 +3,6 @@
 // pinned to the same Kotlin AGP brings (2.2.10) so the app's compiler doesn't change.
 plugins {
     id("com.android.application") version "9.5.0" apply false
+    id("com.android.library") version "9.5.0" apply false
     kotlin("multiplatform") version "2.2.10" apply false
 }
