@@ -208,3 +208,21 @@ describe("comparar na afinação", () => {
     expect(r[2]!.at).toBeGreaterThan(2.5);
   });
 });
+
+describe("achar no teclado", () => {
+  const cfg = (direcao: ConfigClassica["direcao"]): ConfigClassica => ({ ...CLASSICA_INICIAL, exercicio: "achar", direcao });
+  it("a primeira nota é a dada, a segunda é o alvo, e a distância é a do intervalo da resposta", () => {
+    const rng = mulberry32(31);
+    for (const direcao of ["asc", "desc", "harm", "misto"] as const)
+      for (let k = 0; k < 150; k++) {
+        const q = perguntaClassica({ ...cfg(direcao), itens: itens({ achar: INTERVALOS.map((i) => i.id) }) }, rng);
+        const st = INTERVALOS.find((i) => i.id === q.resposta)!.semitons;
+        expect(q.notas.map((n) => n.midi)).toEqual([q.dada, q.alvo]);
+        expect(Math.abs(q.dada! - q.alvo!)).toBe(st);
+        expect(q.notas[1]!.at).toBeGreaterThan(q.notas[0]!.at); // em sequência, nunca juntas
+        for (const m of [q.dada!, q.alvo!]) { expect(m).toBeGreaterThanOrEqual(45); expect(m).toBeLessThanOrEqual(84); }
+        if (direcao === "asc") expect(q.alvo!).toBeGreaterThan(q.dada!);
+        if (direcao === "desc") expect(q.alvo!).toBeLessThan(q.dada!);
+      }
+  });
+});

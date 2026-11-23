@@ -13,9 +13,9 @@ export const mulberry32 = (seed: number): Rng => () => {
   return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
 };
 
-export type Exercicio = "intervalos" | "acordes" | "afinacao" | "campo" | "cadencias" | "progressoes";
+export type Exercicio = "intervalos" | "acordes" | "afinacao" | "achar" | "campo" | "cadencias" | "progressoes";
 export type Direcao = "asc" | "desc" | "harm" | "misto";
-export const EXERCICIOS: readonly Exercicio[] = ["intervalos", "acordes", "afinacao", "campo", "cadencias", "progressoes"];
+export const EXERCICIOS: readonly Exercicio[] = ["intervalos", "acordes", "afinacao", "achar", "campo", "cadencias", "progressoes"];
 /** Os exercícios de harmonia: acordes dentro de um tom maior. */
 export const HARMONIA: readonly Exercicio[] = ["campo", "cadencias", "progressoes"];
 /** Margem da afinação, em cents: do óbvio ao fino. */
@@ -35,6 +35,8 @@ export const IDS: Record<Exercicio | "graus", readonly string[]> = {
   acordes: ACORDES.map((a) => a.id),
   /** Na afinação, os itens são os intervalos que entram. */
   afinacao: INTERVALOS.map((i) => i.id),
+  /** No "achar", os itens também são os intervalos que entram. */
+  achar: INTERVALOS.map((i) => i.id),
   graus: GRAUS.map((g) => g.id),
   campo: CAMPO.map((c) => c.id),
   cadencias: CADENCIAS.map((c) => c.id),
@@ -46,7 +48,7 @@ export type ConfigFuncional = { tonica: "do" | "sorteada"; graus: string[] };
 
 export const CLASSICA_INICIAL: ConfigClassica = {
   exercicio: "intervalos",
-  itens: { intervalos: ["3m", "3M", "4J", "5J", "8J"], acordes: ["maior", "menor"], afinacao: ["3M", "5J", "8J"],
+  itens: { intervalos: ["3m", "3M", "4J", "5J", "8J"], acordes: ["maior", "menor"], afinacao: ["3M", "5J", "8J"], achar: ["3m", "3M", "5J"],
     campo: ["I", "IV", "V", "vi"], cadencias: ["autentica", "plagal", "deceptiva", "meia"], progressoes: ["I-IV-V-I", "I-V-vi-IV", "vi-IV-I-V"] },
   direcao: "asc",
   margem: 30,
@@ -63,6 +65,8 @@ export type PerguntaClassica = {
   tonica?: number; acordes?: string[];
   /** Notas a acender no teclado depois da resposta, se houver (o acorde do campo). */
   reveal?: number[];
+  /** Só no "achar": a primeira nota (dada, marcada no teclado) e a segunda (a que se procura), em MIDI. */
+  dada?: number; alvo?: number;
 };
 /** A pergunta do modo funcional: a cadência que fixa o tom e a nota, juntas ou cada uma por si. */
 export type PerguntaFuncional = { chave: string; resposta: string; tonica: number; cadencia: PianoNote[]; nota: PianoNote[]; tudo: PianoNote[] };
@@ -160,8 +164,20 @@ export function compararAfinacao(notas: readonly PianoNote[]): PianoNote[] {
   return [...notas, ...notas.map((n) => ({ ...n, cents: 0, at: n.at + fim + 0.6 }))];
 }
 
+/** Achar no teclado: duas notas em sequência; a primeira vem marcada e a pessoa procura a segunda de ouvido. */
+export function perguntaAchar(cfg: ConfigClassica, rng: Rng = Math.random, historico?: Historico): PerguntaClassica {
+  const i = sortearComPeso(piscina(INTERVALOS, cfg.itens.achar), (x) => `achar:${x.id}`, historico, rng);
+  // Aqui as notas soam uma depois da outra (juntas, não dá para achar a segunda); "misto" sorteia entre subir e descer.
+  const direcao = cfg.direcao === "desc" ? "desc" : cfg.direcao === "misto" ? sortear(["asc", "desc"] as const, rng) : "asc";
+  const base = direcao === "desc" ? inteiro(rng, 60, 72) : inteiro(rng, 48, 64);
+  const alvo = direcao === "desc" ? base - i.semitons : base + i.semitons;
+  const notas: PianoNote[] = [{ midi: base, at: 0, dur: 1.0 }, { midi: alvo, at: 1.1, dur: 1.4 }];
+  return { chave: `achar:${i.id}`, resposta: i.id, notas, dada: base, alvo };
+}
+
 export function perguntaClassica(cfg: ConfigClassica, rng: Rng = Math.random, historico?: Historico): PerguntaClassica {
   if (cfg.exercicio === "afinacao") return perguntaAfinacao(cfg, rng);
+  if (cfg.exercicio === "achar") return perguntaAchar(cfg, rng, historico);
   if (HARMONIA.includes(cfg.exercicio)) return perguntaHarmonia(cfg, rng, historico);
   if (cfg.exercicio === "acordes") {
     const a = sortearComPeso(piscina(ACORDES, cfg.itens.acordes), (x) => `acordes:${x.id}`, historico, rng);

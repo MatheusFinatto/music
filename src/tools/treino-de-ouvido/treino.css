@@ -15,8 +15,8 @@
 .treino-seg button { min-height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font: inherit; font-weight: 600; cursor: pointer; transition: background-color 0.15s, color 0.15s; }
 .treino-seg button:hover:not([aria-checked="true"]) { color: var(--ink); }
 .treino-seg button[aria-checked="true"] { background: var(--ink); color: var(--bg); }
-.treino-seg.amplo { flex-wrap: wrap; border-radius: var(--radius-md); }
-.treino-seg.amplo button { flex: 1 1 auto; padding: 0 16px; }
+.treino-seg.amplo { display: grid; grid-template-columns: repeat(auto-fit, minmax(7.2rem, 1fr)); border-radius: var(--radius-md); }
+.treino-seg.amplo button { padding: 0 12px; }
 .treino-placar { display: flex; gap: 22px; margin: 0; font-variant-numeric: tabular-nums; }
 .treino-placar > div { display: flex; flex-direction: column; }
 .treino-placar dd { margin: 0; font-family: var(--font-display), var(--font-sans); font-weight: 700; font-size: var(--text-xl); line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); }
@@ -60,12 +60,24 @@
 .treino-resultado.certa { color: var(--ok); }
 .treino-resultado.errada { color: var(--bad); }
 .treino-detalhe { margin: 0; color: var(--muted); font-size: var(--text-sm); font-variant-numeric: tabular-nums; }
-.teclado { display: block; width: 100%; max-width: 30rem; height: auto; margin-inline: auto; }
+.teclado { display: block; width: 100%; max-width: 30rem; height: auto; margin-inline: auto; touch-action: manipulation; }
+.teclado [role="button"] { cursor: pointer; outline: none; transition: fill 0.12s; }
 .teclado .b { fill: var(--key-white); stroke: var(--key-black); stroke-width: 1; }
 .teclado .p { fill: var(--key-black); }
-.teclado .b.on, .teclado .p.on { fill: var(--ok); animation: treino-acende 0.6s var(--ease) both; }
-.teclado .nome { fill: var(--ok); font: 600 10px var(--font-sans); text-anchor: middle; pointer-events: none; animation: treino-acende 0.6s var(--ease) both; }
-@keyframes treino-acende { from { opacity: 0; } to { opacity: 1; } }
+.teclado .b:hover { fill: #e0d4bd; }
+.teclado .p:hover { fill: #3a3027; }
+.teclado [role="button"]:focus-visible { stroke: var(--accent); stroke-width: 3; }
+.teclado .alvo { fill: var(--target); animation: treino-acende 0.6s var(--ease) both; }
+.teclado .sel { fill: var(--ok); }
+.teclado .errada { fill: var(--bad); }
+.teclado .toca { fill: var(--accent); }
+.teclado .dada { stroke: var(--target); stroke-width: 3; }
+.teclado .nome { font: 600 10px var(--font-sans); text-anchor: middle; pointer-events: none; fill: var(--muted); animation: treino-acende 0.6s var(--ease) both; }
+.teclado .nome.alvo { fill: var(--target); }
+.teclado .nome.sel { fill: var(--ok); }
+.teclado .nome.errada { fill: var(--bad); }
+.teclado .nome.dada { fill: var(--target); }
+@keyframes treino-acende { from { opacity: 0.2; } to { opacity: 1; } }
 .treino-proxima { border: 0; cursor: pointer; align-self: stretch; justify-content: center; gap: 12px; min-height: 56px; font-size: var(--text-md); }
 .treino-proxima:disabled { opacity: 0.6; cursor: progress; }
 .treino-proxima kbd { padding: 3px 7px; border: 1px solid currentColor; border-radius: 6px; font: 600 0.75rem var(--font-sans); opacity: 0.7; }

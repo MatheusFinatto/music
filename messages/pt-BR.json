@@ -131,7 +131,8 @@
       "afinacao": "Afinação",
       "campo": "Graus do campo",
       "cadencias": "Cadências",
-      "progressoes": "Progressões"
+      "progressoes": "Progressões",
+      "achar": "Achar"
     },
     "direcao": "Direção",
     "direcoes": {
@@ -233,7 +234,7 @@
     "acertos": "acertos",
     "sequenciaRotulo": "sequência",
     "semitons": "{n, plural, one {# semitom} other {# semitons}}",
-    "teclado": "Teclado com as notas tocadas acesas",
+    "teclado": "Teclado: toque uma tecla para ouvir a nota",
     "espaco": "Espaço",
     "atalhos": "Espaço ouve e avança; 1 a 9 respondem.",
     "perguntaAfinacao": "A segunda nota está afinada?",
@@ -258,7 +259,8 @@
       "afinacao": "Afinação",
       "campo": "Graus do campo",
       "cadencias": "Cadências",
-      "progressoes": "Progressões"
+      "progressoes": "Progressões",
+      "achar": "Achar"
     },
     "pergunta_campo": "Que acorde do tom é este?",
     "pergunta_cadencias": "Que cadência é esta?",
@@ -269,6 +271,9 @@
     "tomMaior": "{nota} maior",
     "ouvirComoEstava": "Ouvir como estava",
     "ouvirAfinado": "Ouvir afinado",
-    "compararDois": "Comparar os dois"
+    "compararDois": "Comparar os dois",
+    "pergunta_achar": "Ache a segunda nota",
+    "dica_achar": "A primeira nota está marcada. Toque as teclas para ouvir e compare de ouvido; quando achar, responda.",
+    "responder": "Responder"
   }
 }
