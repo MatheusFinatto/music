@@ -1,18 +1,30 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { getAudio, loadPiano, playPiano, resumeAudio, stopPiano, type PianoNote } from "@/core/audio";
+
+/** De quanto em quanto tempo o bordão toca a nota de novo, por cima da anterior (a amostra dura ~3 s). */
+const BORDAO_MS = 2400;
 
 /** Toca notas no piano de amostras (carrega na primeira vez). Devolve a duração em segundos, ou null se não deu. */
 export function usePiano() {
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState<"audio" | "piano" | null>(null);
-  useEffect(() => () => { const g = getAudio(); if (g) stopPiano(g); }, []);
-  const tocar = useCallback(async (notas: readonly PianoNote[]): Promise<number | null> => {
+  const bordao = useRef<ReturnType<typeof setInterval> | null>(null);
+  const pararBordao = useCallback(() => { if (bordao.current) clearInterval(bordao.current); bordao.current = null; }, []);
+  useEffect(() => () => { pararBordao(); const g = getAudio(); if (g) stopPiano(g); }, [pararBordao]);
+  const tocar = useCallback(async (notas: readonly PianoNote[], manter = false): Promise<number | null> => {
     const g = resumeAudio();
     if (!g) { setErro("audio"); return null; }
     try { setCarregando(true); await loadPiano(g); setErro(null); } catch { setErro("piano"); return null; } finally { setCarregando(false); }
-    return playPiano(g, notas);
+    return playPiano(g, notas, { manter });
   }, []);
-  const calar = useCallback(() => { const g = getAudio(); if (g) stopPiano(g); }, []);
-  return { tocar, calar, carregando, erro };
+  const calar = useCallback(() => { pararBordao(); const g = getAudio(); if (g) stopPiano(g); }, [pararBordao]);
+  /** Uma nota que não para: o piano a repete por cima de si mesmo até `calar` ou `pararBordao`. */
+  const iniciarBordao = useCallback(async (midi: number) => {
+    pararBordao();
+    const nota: PianoNote[] = [{ midi, at: 0, dur: 3.0 }];
+    if ((await tocar(nota)) === null) return;
+    bordao.current = setInterval(() => { const g = getAudio(); if (g) playPiano(g, nota, { manter: true }); }, BORDAO_MS);
+  }, [pararBordao, tocar]);
+  return { tocar, calar, carregando, erro, iniciarBordao, pararBordao };
 }

@@ -43,11 +43,12 @@ export function stopPiano(g: AudioGraph) {
 
 /**
  * Toca as notas a partir de agora (com uma folga curta). Devolve a duração total em segundos, ou null se as amostras
- * ainda não carregaram.
+ * ainda não carregaram. Com `manter`, não corta o que já soa.
  */
-export function playPiano(g: AudioGraph, notes: readonly PianoNote[]): number | null {
+export function playPiano(g: AudioGraph, notes: readonly PianoNote[], opcoes: { manter?: boolean } = {}): number | null {
   if (buffers.size < PIANO_SAMPLES.length) return null;
-  stopPiano(g);
+  // `manter`: soma ao que já soa em vez de cortar (o bordão repete a nota por cima de si mesmo).
+  if (!opcoes.manter) stopPiano(g);
   const t0 = g.ctx.currentTime + 0.06;
   let end = 0;
   for (const n of notes) {

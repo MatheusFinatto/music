@@ -143,6 +143,10 @@
 .afinometro-seguro { height: 6px; border-radius: 6px; background: var(--line); overflow: hidden; }
 .afinometro-seguro i { display: block; height: 100%; border-radius: 6px; background: var(--ok); transition: width 0.1s linear; }
 .afinometro-dica { margin: 0; text-align: center; color: var(--muted); font-size: var(--text-sm); min-height: 1.4em; }
+.treino-passos { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.treino-passos li { min-width: 44px; padding: 8px 12px; text-align: center; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); color: var(--muted); font-weight: 650; font-variant-numeric: tabular-nums; transition: background-color 0.15s, border-color 0.15s, color 0.15s; }
+.treino-passos li.atual { border-color: var(--accent); color: var(--ink); box-shadow: 0 0 0 2px var(--accent); }
+.treino-passos li.feito { background: var(--ok); border-color: var(--ok); color: var(--on-bright); }
 .treino-acoes { display: flex; flex-wrap: wrap; gap: 10px; }
 .treino-acoes .treino-proxima { flex: 1 1 100%; }
 .treino-secoes { display: flex; flex-direction: column; gap: 18px; }

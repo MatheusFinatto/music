@@ -284,11 +284,17 @@
       "titulo": "Treino de voz",
       "exercicios": {
         "igualar": "Igualar a nota",
+        "longa": "Nota longa",
+        "sequencia": "Arpejos e escalas",
+        "tonica": "Com a tônica soando",
         "intervalo": "Cantar o intervalo",
         "alcance": "Alcance"
       },
       "dica": {
         "igualar": "O piano toca uma nota. Cante a mesma e segure.",
+        "longa": "O piano toca uma nota. Cante a mesma e sustente por 5 segundos, sem balançar.",
+        "sequencia": "Ouça o padrão e cante as notas, uma de cada vez, na ordem. Cada uma tem que ficar firme por um instante.",
+        "tonica": "Uma nota soa sem parar. Cante a nota pedida sobre ela.",
         "intervalo": "O piano toca duas notas. Cante a segunda e segure.",
         "alcance": "Cante do grave ao agudo, parando um pouco em cada nota. Medimos a mais grave e a mais aguda em que você firmou."
       },
@@ -325,7 +331,36 @@
         "failed": "Não foi possível abrir o microfone."
       },
       "fone": "Use fone de ouvido: sem ele, o piano entra no microfone e atrapalha.",
-      "privado": "O som do microfone não sai do seu navegador."
+      "privado": "O som do microfone não sai do seu navegador.",
+      "ligandoBordao": "Ligando a tônica…",
+      "passos": "Passos do padrão",
+      "ouvirAlvo": "Ouvir a nota",
+      "sustente": "Sustente, sem balançar",
+      "longaFeito": "Firme por 5 segundos! A altura balançou {n} cents.",
+      "sequenciaFeito": "Completou as {passos} notas! Desvio médio de {n} cents.",
+      "padrao": "Padrão",
+      "inicio": "Nota inicial",
+      "tonica": "Nota da tônica",
+      "subir": "Subir meio tom a cada rodada",
+      "cantarA": "Cantar a",
+      "sortear": "Sortear",
+      "tonicaDica": "A tônica é {tonica}. Cante a {grau}: {nota}.",
+      "bordaoNota": "A tônica fica soando. Cante a nota pedida sobre ela.",
+      "padroes": {
+        "arpejoMaior": "Arpejo maior (1-3-5-3-1)",
+        "arpejoMenor": "Arpejo menor (1-♭3-5-♭3-1)",
+        "escala5": "Escala de cinco notas",
+        "arpejoOitava": "Arpejo até a oitava",
+        "escalaMaior": "Escala maior"
+      },
+      "dicaTonicaGuia": "O piano toca a tônica e a nota juntas e depois deixa só a tônica soando. Cante a nota sobre ela.",
+      "dicaTonicaSo": "Só a tônica soa. Ache a nota pedida e cante sobre ela.",
+      "ajuda": "Ajuda",
+      "ajudas": {
+        "guia": "Ouvir as duas notas antes",
+        "so": "Só a tônica"
+      },
+      "espiar": "Espiar a nota"
     },
     "instrumento": "Instrumento",
     "instrumentos": {

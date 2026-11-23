@@ -338,5 +338,66 @@
         "V"
       ]
     }
+  ],
+  "padroes": [
+    {
+      "id": "arpejoMaior",
+      "semitons": [
+        0,
+        4,
+        7,
+        4,
+        0
+      ]
+    },
+    {
+      "id": "arpejoMenor",
+      "semitons": [
+        0,
+        3,
+        7,
+        3,
+        0
+      ]
+    },
+    {
+      "id": "escala5",
+      "semitons": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        5,
+        4,
+        2,
+        0
+      ]
+    },
+    {
+      "id": "arpejoOitava",
+      "semitons": [
+        0,
+        4,
+        7,
+        12,
+        7,
+        4,
+        0
+      ]
+    },
+    {
+      "id": "escalaMaior",
+      "semitons": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        9,
+        11,
+        12
+      ]
+    }
   ]
 }

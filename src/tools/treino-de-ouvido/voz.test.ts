@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { ALCANCE_ZERO, atualizar, centsDe, extensao, medirAlcance, SEGURANDO_ZERO, SEGURAR_MS } from "./voz";
+import { PADROES } from "./engine";
+import { ALCANCE_ZERO, atualizar, centsDe, extensao, inicioDaRodada, medirAlcance, notasDoPadrao, SEGURANDO_ZERO, SEGURAR_LONGA_MS, SEGURAR_MS, SEGURAR_PASSO_MS } from "./voz";
 
 describe("cents até o alvo", () => {
   it("acima é positivo e abaixo é negativo", () => {
@@ -69,5 +70,46 @@ describe("alcance", () => {
     expect(extensao(19)).toEqual({ oitavas: 1, semitons: 7 });
     expect(extensao(12)).toEqual({ oitavas: 1, semitons: 0 });
     expect(extensao(5)).toEqual({ oitavas: 0, semitons: 5 });
+  });
+});
+
+describe("nota longa e passos", () => {
+  const seg = (alvo: number, ms: number, nota: (t: number) => number | null, qualquer = true) => {
+    let s = SEGURANDO_ZERO, ultimo = atualizar(s, null, 0, alvo, 30, qualquer, ms);
+    for (let t = 0; t <= ms + 200; t += 50) { ultimo = atualizar(s, nota(t), t, alvo, 30, qualquer, ms); s = ultimo.estado; }
+    return ultimo;
+  };
+  it("a nota longa só acerta depois de 5 s, e a oscilação mede o balanço em cents", () => {
+    expect(seg(60, SEGURAR_LONGA_MS, () => 60).ok).toBe(true);
+    const curta = atualizar(SEGURANDO_ZERO, 60, 0, 60, 30, true, SEGURAR_LONGA_MS);
+    expect(curta.ok).toBe(false);
+    const firme = seg(60, 1000, () => 60.1);
+    expect(firme.oscilacao).toBeCloseTo(0, 5);
+    expect(firme.media).toBeCloseTo(10, 5);
+    const balanca = seg(60, 1000, (t) => 60 + (Math.floor(t / 50) % 2 === 0 ? 0.2 : -0.2)); // alterna ±20 cents
+    expect(balanca.oscilacao).toBeGreaterThan(15);
+    expect(balanca.oscilacao).toBeLessThan(25);
+  });
+  it("cada passo de arpejo pede menos tempo que a nota longa", () => {
+    expect(SEGURAR_PASSO_MS).toBeLessThan(SEGURAR_MS);
+    expect(SEGURAR_MS).toBeLessThan(SEGURAR_LONGA_MS);
+    expect(seg(64, SEGURAR_PASSO_MS, () => 64).ok).toBe(true);
+  });
+});
+
+describe("arpejos e escalas", () => {
+  it("os padrões começam e, nos que voltam, terminam na nota inicial; arpejo maior é 1-3-5-3-1", () => {
+    for (const p of PADROES) expect(p.semitons[0]).toBe(0);
+    expect(PADROES.find((p) => p.id === "arpejoMaior")!.semitons).toEqual([0, 4, 7, 4, 0]);
+    expect(PADROES.find((p) => p.id === "arpejoMenor")!.semitons).toEqual([0, 3, 7, 3, 0]);
+    expect(notasDoPadrao(60, [0, 4, 7])).toEqual([60, 64, 67]);
+  });
+  it("a nota inicial fica entre G3 e F#4 em qualquer classe, e sobe meio tom por rodada até 6", () => {
+    for (let c = 0; c < 12; c++) { const m = inicioDaRodada(c, 0, false); expect(m).toBeGreaterThanOrEqual(55); expect(m).toBeLessThanOrEqual(66); expect(((m % 12) + 12) % 12).toBe(c); }
+    expect([0, 1, 2, 6, 7].map((r) => inicioDaRodada(0, r, true) - inicioDaRodada(0, 0, true))).toEqual([0, 1, 2, 6, 0]);
+    expect(inicioDaRodada(0, 3, false)).toBe(inicioDaRodada(0, 0, false));
+  });
+  it("o padrão mais agudo (arpejo com oitava + 6 semitons de subida) cabe no piano", () => {
+    for (const p of PADROES) for (let c = 0; c < 12; c++) { const topo = Math.max(...notasDoPadrao(inicioDaRodada(c, 6, true), p.semitons)); expect(topo).toBeLessThanOrEqual(84); }
   });
 });

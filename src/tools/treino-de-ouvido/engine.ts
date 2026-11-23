@@ -30,6 +30,8 @@ export const GRAUS = dados.graus;
 export const CAMPO = dados.campo;
 export const CADENCIAS = dados.cadencias;
 export const PROGRESSOES = dados.progressoes;
+/** Padrões de aquecimento da voz: distâncias em semitons a partir da nota inicial, na ordem em que se canta. */
+export const PADROES = dados.padroes;
 export const IDS: Record<Exercicio | "graus", readonly string[]> = {
   intervalos: INTERVALOS.map((i) => i.id),
   acordes: ACORDES.map((a) => a.id),
