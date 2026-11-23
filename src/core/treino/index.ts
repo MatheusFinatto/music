@@ -96,6 +96,8 @@ export type PerguntaClassica = {
   reveal?: number[];
   /** Só no "achar": a primeira nota (dada, marcada no teclado) e a segunda (a que se procura), em MIDI. */
   dada?: number; alvo?: number;
+  /** Só na afinação: o intervalo tocado, que a pessoa também diz (além de baixa, afinada ou alta). */
+  intervalo?: string;
 };
 /** A pergunta do modo funcional: a cadência que fixa o tom e a nota, juntas ou cada uma por si. */
 export type PerguntaFuncional = { chave: string; resposta: string; tonica: number; cadencia: PianoNote[]; nota: PianoNote[]; tudo: PianoNote[] };
@@ -122,6 +124,7 @@ const classicaDe = (p: K.PerguntaClassica): PerguntaClassica => {
   if (p.reveal != null) out.reveal = [...p.reveal];
   if (p.dada != null) out.dada = p.dada;
   if (p.alvo != null) out.alvo = p.alvo;
+  if (p.intervalo != null) out.intervalo = p.intervalo;
   return out;
 };
 const histOpt = (h?: Historico) => (h ? historicoK(h) : null);
