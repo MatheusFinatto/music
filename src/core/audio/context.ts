@@ -1,6 +1,6 @@
 // Um único AudioContext para o site inteiro, criado no primeiro gesto do usuário.
 // Só pode ser chamado no navegador (dentro de handler de evento ou efeito).
-export type BusName = "click";
+export type BusName = "click" | "note";
 
 export type AudioGraph = { ctx: AudioContext; master: GainNode; bus: Record<BusName, GainNode> };
 
@@ -19,9 +19,8 @@ export function getAudio(): AudioGraph | null {
   const master = ctx.createGain();
   master.gain.value = MASTER;
   master.connect(comp).connect(ctx.destination);
-  const click = ctx.createGain();
-  click.connect(master);
-  graph = { ctx, master, bus: { click } };
+  const mk = () => { const g = ctx.createGain(); g.connect(master); return g; };
+  graph = { ctx, master, bus: { click: mk(), note: mk() } };
   return graph;
 }
 

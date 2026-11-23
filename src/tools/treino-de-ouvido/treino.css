@@ -1,0 +1,48 @@
+/* Treino de ouvido: card no palco escuro do site. Verde = certo/selecionado, vermelho = errado, azul = foco. */
+.treino { display: flex; flex-direction: column; gap: 20px; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(20px, 4vw, 32px); }
+.treino-lead { margin: 0; color: var(--muted); font-size: var(--text-md); max-width: 56ch; }
+
+.treino-seg { display: inline-flex; align-self: flex-start; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.treino-seg button { min-height: 44px; padding: 0 18px; border: 0; background: var(--surface); color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; }
+.treino-seg button + button { border-left: 1px solid var(--line); }
+.treino-seg button:hover:not([aria-checked="true"]) { background: var(--soft); }
+.treino-seg button[aria-checked="true"] { background: var(--accent); color: var(--accent-ink); }
+
+.treino-ajustes { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-block: 4px; }
+.treino-ajustes summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 600; color: var(--muted); }
+.treino-ajustes-corpo { display: flex; flex-direction: column; gap: 16px; padding-bottom: 16px; }
+.treino-field { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; font-size: var(--text-sm); font-weight: 600; color: var(--muted); }
+.treino-field select { appearance: none; min-height: 44px; padding: 0 36px 0 16px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink); font: inherit; font-weight: 600; cursor: pointer;
+  background-color: var(--surface);
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50%; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; }
+.treino-itens { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.treino-itens legend { font-size: var(--text-sm); font-weight: 600; color: var(--muted); padding: 0; margin-bottom: 6px; }
+.treino-check { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: var(--text-sm); color: var(--ink); cursor: pointer; }
+.treino-check input { width: 20px; height: 20px; accent-color: var(--accent); }
+
+.treino-palco { display: flex; flex-direction: column; gap: 16px; align-items: stretch; min-height: 14rem; justify-content: center; }
+.treino-pergunta { margin: 0; font-size: var(--text-xl); font-weight: 650; letter-spacing: -0.02em; }
+.treino-play { border: 0; cursor: pointer; min-width: 10rem; align-self: center; justify-content: center; padding: 14px 28px; font-size: var(--text-lg); }
+.treino-ouvir { display: flex; flex-wrap: wrap; gap: 10px; }
+.treino-btn { min-height: 44px; padding: 0 20px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; }
+.treino-btn:hover:not(:disabled) { background: var(--soft); border-color: var(--muted); }
+.treino-btn:disabled, .treino-play:disabled { opacity: 0.6; cursor: progress; }
+
+.treino-respostas { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 10px; }
+.treino-resp { min-height: 52px; padding: 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; }
+.treino-resp:hover:not(:disabled) { background: var(--soft); border-color: var(--muted); }
+.treino-resp.certa { background: var(--ok); border-color: var(--ok); color: var(--bg); opacity: 1; }
+.treino-resp.errada { background: var(--bad); border-color: var(--bad); color: var(--bg); opacity: 1; }
+.treino-resp:disabled { cursor: default; opacity: 0.55; }
+
+.treino-resultado { margin: 0; min-height: 1.6em; font-weight: 650; }
+.treino-resultado.certa { color: var(--ok); }
+.treino-resultado.errada { color: var(--bad); }
+.treino-estado { margin: 0; min-height: 1.4em; text-align: center; color: var(--muted); font-size: var(--text-sm); }
+.treino-placar { margin: 0; text-align: center; color: var(--muted); font-size: var(--text-md); font-variant-numeric: tabular-nums; }
+.treino-creditos { margin: 0; text-align: center; color: var(--muted); font-size: var(--text-xs); }
+
+.treino :is(button, input, select, summary):focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 520px) { .treino-respostas { grid-template-columns: repeat(2, 1fr); } .treino-seg { width: 100%; } .treino-seg button { flex: 1; } }
+@media (prefers-reduced-motion: no-preference) { .treino-resp { transition: background-color 0.12s, border-color 0.12s; } }

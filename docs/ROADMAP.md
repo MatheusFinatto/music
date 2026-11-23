@@ -6,6 +6,7 @@ Sem datas. A ordem é a recomendada; cada ferramenta só é lançada quando esti
 - **Fundação e hub** (novembro de 2026): Next na raiz, registro de ferramentas, homepage, site antigo movido para o Laboratório.
 
 ## Em andamento
+- **Treino de ouvido** (`/treino-de-ouvido`): no ar (2026-11-23) em **duas versões de teste lado a lado** para comparar na prática: **clássico** (intervalos e acordes: ouvir e escolher) e **funcional** (cadência I-IV-V-I que fixa o tom e uma nota: dizer o grau). Som de piano de amostras (`core/audio/piano`). Modelos: Perfect Ear, MyEarTraining e OpenEar (MIT) no clássico; Toned Ear e o Functional Ear Trainer no funcional. Falta o **app Android** (`marmota-ear/`, Kotlin, separado do afinador), que só começa depois de o dono dizer qual estilo vale.
 - **Curso "Como solar com a pentatônica" (`/solos`): removido em 2026-11-23** (decisão do dono: não deu certo). Fica no histórico do git. O site mantém só as utilidades; o Diário e o Piano seguem em `/laboratorio`.
 - **Criador de ideias**, o redesenho do Piano de Ideias, refeito do zero como ferramenta do site novo (antes planejado "depois dos solos").
 
@@ -25,6 +26,8 @@ Criado sob demanda pela primeira ferramenta que precisar. Quem chegar primeiro d
 | `core/audio/mic` | Pedir o microfone, entregar o sinal em blocos, tratar permissão negada e ausência de microfone | **Feito** (afinador) | — |
 | `core/pitch` | Detecção de altura (YIN), Hz → nota + cents, suavização e o desenho do mostrador. Compilado do Kotlin do app (`marmota-tuner/core`). Hoje devolve só `hz`, sem a clareza | **Feito** (afinador) | — |
 | `core/storage` | `createStore`: `localStorage` com prefixo `musica:`, versão, assinável | **Feito**. Backup ainda não | — |
+
+| `core/audio/piano` | Piano de amostras (Salamander, CC BY 3.0): `loadPiano`, `playPiano`, `stopPiano`; uma amostra a cada terça menor, o resto por velocidade de leitura | **Feito** (treino de ouvido) | — |
 
 Saíram em 2026-11-23, com o curso `/solos`, por não terem mais uso: `core/theory` (notas, acordes, pentatônica, braço), `core/audio/transport`, `backing`, `lead`, `samples`, `sound`, `eq` e as amostras de violão (`public/sons/`). Estão no histórico do git (até o PR #74); a próxima ferramenta que precisar de um deles os recupera de lá.
 

@@ -1,0 +1,7 @@
+Amostras de piano: Salamander Grand Piano V3, de Alexander Holm.
+Licença: Creative Commons Attribution 3.0 (CC BY 3.0), http://creativecommons.org/licenses/by/3.0/
+Origem: https://archive.org/details/SalamanderGrandPianoV3
+Obtidas dos MP3 do pacote npm @audio-samples/piano-mp3-velocity8 (Jan Forst, MIT), uma amostra a cada terça menor,
+de A2 (MIDI 45) a C6 (MIDI 84).
+Alterações: convertidas para mono, cortadas em 3,2 s com decaimento no fim e recodificadas em MP3 de 80 kbps.
+Os arquivos têm o número MIDI no nome (60.mp3 = C4, o Dó central).

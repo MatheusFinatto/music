@@ -21,7 +21,8 @@ export const TOOLS = [
   { slug: "tirar-de-ouvido", status: "planejada" },
   // Afina no navegador e entrega o app Android (marmota-tuner/); os dois com a mesma lógica.
   { slug: "afinador", status: "pronta", href: "/afinador" },
-  { slug: "treino-de-ouvido", status: "planejada" },
+  // Duas versões de teste lado a lado (clássico e funcional), com piano de amostras; o app Android vem depois.
+  { slug: "treino-de-ouvido", status: "pronta", href: "/treino-de-ouvido" },
   // Mesma lógica do app Android (marmota-tuner/core, Metronome.kt), como o afinador.
   { slug: "metronomo", status: "pronta", href: "/metronomo" },
 ] as const satisfies readonly Tool[];

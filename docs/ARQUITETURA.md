@@ -8,7 +8,7 @@ src/app/[locale]/page.tsx      o hub
 src/app/[locale]/<slug>/       a rota de cada ferramenta
 src/tools/registry.ts          lista de ferramentas (fonte única)
 src/tools/<slug>/              o código de UMA ferramenta
-src/core/audio                 AudioContext único e microfone
+src/core/audio                 AudioContext único, microfone e piano de amostras
 src/core/pitch                 afinador: detecção de altura, Hz → nota e cents, suavização (lógica em Kotlin, ver abaixo)
 src/core/storage               localStorage com prefixo musica: e versão
 src/components/                interface compartilhada (cabeçalho, rodapé, peças do hub)
