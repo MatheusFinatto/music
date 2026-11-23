@@ -52,6 +52,12 @@ export function Programa({ secao, livre, bloco }: { secao: Secao; livre: ReactNo
     else { setRodando(null); setFim({ foco: x.foco, minutos: x.minutos, resultados, realS: (Date.now() - x.inicio) / 1000, previsto: x.previsto }); }
   };
 
+  /** Parar no meio: o que já foi respondido vai para o resumo (o bloco da vez entra se tiver respostas). */
+  const parar = (x: Rodando) => {
+    const resultados = x.feitas > 0 ? [...x.resultados, { exercicio: x.plano[x.i]!.exercicio, acertos: x.acertos, total: x.feitas, pulado: false }] : x.resultados;
+    setRodando(null);
+    if (resultados.length) setFim({ foco: x.foco, minutos: x.minutos, resultados, realS: (Date.now() - x.inicio) / 1000, previsto: x.previsto });
+  };
   if (rodando) {
     const x = rodando, atual = x.plano[x.i]!;
     const restante = Math.max(0, atual.perguntas - x.feitas);
@@ -69,7 +75,7 @@ export function Programa({ secao, livre, bloco }: { secao: Secao; livre: ReactNo
           <div className="treino-prog-barra" role="progressbar" aria-label={t("programas.andamento")} aria-valuemin={0} aria-valuemax={total} aria-valuenow={feitasTodas}><i style={{ width: `${(feitasTodas / total) * 100}%` }} /></div>
           <div className="treino-acoes">
             <button type="button" className="treino-btn" onClick={() => fechar(x, true)}>{t("programas.pular")}</button>
-            <button type="button" className="treino-btn" onClick={() => setRodando(null)}>{t("programas.parar")}</button>
+            <button type="button" className="treino-btn" onClick={() => parar(x)}>{t("programas.parar")}</button>
           </div>
         </section>
         {bloco({

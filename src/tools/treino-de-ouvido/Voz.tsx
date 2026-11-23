@@ -1,6 +1,6 @@
 "use client";
 import { onRadioKeyDown } from "@/core/ui/radioGroup";
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { MicError, openMic, type Mic, type MicProblem, type PianoNote } from "@/core/audio";
 import { CHUNK_SAMPLES, NOTE_NAMES, PitchPipeline, PitchSmoother } from "@/core/pitch";
@@ -66,8 +66,11 @@ const classe = (midi: number) => nomeNota(midi).replace(/-?\d+$/, "");
 /** Treino de voz: o piano toca e a pessoa canta; o microfone confere a altura com a mesma detecção do afinador. */
 export function Voz({ programa }: { programa?: ProgramaProp }) {
   const t = useTranslations("treino-de-ouvido");
-  const s = useSyncExternalStore(store.subscribe, store.get, store.getInitial);
-  // Num programa, o exercício vem do bloco (a config salva da pessoa não muda).
+  const salvo = useSyncExternalStore(store.subscribe, store.get, store.getInitial);
+  // Num programa valem os ajustes padrão (a config salva da pessoa não muda): ele é uma sequência pronta.
+  const emPrograma = programa !== undefined;
+  const s = useMemo<Saved>(() => (emPrograma ? { ...salvo, tolerancia: DEFAULTS.tolerancia, qualquerOitava: DEFAULTS.qualquerOitava, intervalos: DEFAULTS.intervalos, padrao: DEFAULTS.padrao, inicio: DEFAULTS.inicio, subir: DEFAULTS.subir, grau: DEFAULTS.grau, ajuda: DEFAULTS.ajuda, musica: { ...salvo.musica, velocidade: DEFAULTS.musica.velocidade, guia: DEFAULTS.musica.guia } } : salvo), [salvo, emPrograma]);
+  // Num programa, o exercício vem do bloco.
   const exercicioDaVez = (programa?.exercicio as Exercicio | undefined) ?? s.exercicio;
   const piano = usePiano();
   const [instrumento, setInstrumento] = useInstrumento();
@@ -90,6 +93,8 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
   const passoRef = useRef(0);
   const medias = useRef<number[]>([]);
   const oscilacao = useRef(0);
+  /** Cada abertura do microfone e cada limpeza muda o número: quem acorda depois do pedido de permissão e acha outro número fecha o que abriu. */
+  const geracaoMic = useRef(0);
   const limite = useRef<ReturnType<typeof setTimeout> | null>(null);
   const espera = useRef<ReturnType<typeof setTimeout> | null>(null);
   const ultimoCents = useRef<number | null>(null);
@@ -102,15 +107,16 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
 
   const limparTempos = () => { if (limite.current) clearTimeout(limite.current); if (espera.current) clearTimeout(espera.current); limite.current = espera.current = null; };
   const fecharMic = useCallback(() => {
+    geracaoMic.current++;
     mic.current?.stop();
     mic.current = null;
     pipeline.current = null;
     suavizador.current.reset();
     setLeitura(null);
   }, []);
-  useEffect(() => () => { limparTempos(); mic.current?.stop(); }, []);
+  useEffect(() => () => { geracaoMic.current++; limparTempos(); mic.current?.stop(); }, []);
 
-  const concluir = useCallback((ok: boolean) => {
+  const concluir = useCallback((ok: boolean, porTempo = false) => {
     limparTempos();
     fecharMic();
     piano.pararBordao();
@@ -122,12 +128,14 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     const alvoFinal = atual.current.tarefa?.alvos[passoRef.current] ?? null;
     setResultado({ ok, media: n > 1 ? abs : media, oscilacao: oscilacao.current, passos: n, alvo: alvoFinal, ouvi: ultimoMidi.current });
     setPlacar((p) => ({ a: p.a + (ok ? 1 : 0), t: p.t + 1 }));
-    if (atual.current.exercicio !== "alcance" && atual.current.exercicio !== "musica") anotarDuracao(atual.current.exercicio, agoraMs() - inicioTentativa.current);
+    if (!porTempo && atual.current.exercicio !== "alcance" && atual.current.exercicio !== "musica") anotarDuracao(atual.current.exercicio, agoraMs() - inicioTentativa.current);
     atual.current.programa?.aoResponder(ok);
   }, [fecharMic, piano]);
 
-  const abrir = async () => {
-    if (mic.current) return;
+  /** Abre o microfone; devolve false se a tentativa foi cancelada enquanto o navegador pedia a permissão (o microfone aberto é fechado). */
+  const abrir = async (): Promise<boolean> => {
+    if (mic.current) return true;
+    const g = ++geracaoMic.current;
     const m = await openMic(CHUNK_SAMPLES, (chunk) => {
       const pipe = pipeline.current;
       if (!pipe) return;
@@ -158,18 +166,20 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
         }
       }
     });
+    if (g !== geracaoMic.current) { m.stop(); return false; }
     pipeline.current = new PitchPipeline(m.sampleRate);
     mic.current = m;
+    return true;
   };
 
   const escutar = async (t0: Tarefa) => {
-    try { await abrir(); setErroMic(null); } catch (e) { setErroMic(e instanceof MicError ? e.problem : "failed"); setFase("parado"); piano.pararBordao(); return; }
+    try { if (!(await abrir())) return; setErroMic(null); } catch (e) { setErroMic(e instanceof MicError ? e.problem : "failed"); setFase("parado"); piano.pararBordao(); return; }
     segurando.current = SEGURANDO_ZERO;
     ultimoCents.current = null;
     ultimoMidi.current = null;
     setVivo({ cents: null, progresso: 0 });
     setFase("cantando");
-    limite.current = setTimeout(() => concluir(false), limiteDe(t0.alvos.length, t0.segurarMs));
+    limite.current = setTimeout(() => concluir(false, true), limiteDe(t0.alvos.length, t0.segurarMs));
   };
 
   /** Toca o que a tarefa pede (ou liga o bordão) e, quando acaba, abre o microfone. */
@@ -181,7 +191,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     if (recomecar) { passoRef.current = 0; medias.current = []; oscilacao.current = 0; setPasso(0); }
     if (t0.bordao !== null) {
       const raiz = t0.bordao;
-      const ligar = async () => { await piano.iniciarBordao(raiz); espera.current = setTimeout(() => void escutar(t0), 1200); };
+      const ligar = async () => { if (!(await piano.iniciarBordao(raiz))) { setFase("parado"); return; } espera.current = setTimeout(() => void escutar(t0), 1200); };
       if (t0.demo) {
         const dur = await piano.tocar(t0.demo);
         if (dur === null) { setFase("parado"); return; }
@@ -230,12 +240,20 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     espera.current = setTimeout(() => void escutar(t0), dur * 1000 + 300);
   };
   const parar = () => { limparTempos(); fecharMic(); piano.calar(); setFase("parado"); };
+  // Aba escondida no meio da tentativa: cancela sem contar erro (os relógios seguem correndo e o áudio pode suspender).
+  const pararRef = useRef(parar);
+  useEffect(() => { pararRef.current = parar; });
+  useEffect(() => {
+    const aoMudar = () => { const f = atual.current.fase; if (document.hidden && (f === "piano" || f === "cantando")) pararRef.current(); };
+    document.addEventListener("visibilitychange", aoMudar);
+    return () => document.removeEventListener("visibilitychange", aoMudar);
+  }, []);
   const medir = async () => {
     limparTempos();
     alcanceRef.current = ALCANCE_ZERO;
     setAlcance(ALCANCE_ZERO);
     setResultado(null);
-    try { await abrir(); setErroMic(null); } catch (e) { setErroMic(e instanceof MicError ? e.problem : "failed"); return; }
+    try { if (!(await abrir())) return; setErroMic(null); } catch (e) { setErroMic(e instanceof MicError ? e.problem : "failed"); return; }
     setFase("cantando");
   };
   const terminarAlcance = () => { fecharMic(); setFase("feito"); };
@@ -473,7 +491,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
           )}
         </div>
       </details>}
-      <p className="treino-creditos">{t("voz.privado")}</p>
+      <p className="treino-creditos">{t("creditos")} {t("voz.privado")}</p>
     </div>
   );
 }
