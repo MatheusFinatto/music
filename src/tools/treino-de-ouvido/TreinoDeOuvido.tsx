@@ -15,6 +15,7 @@ import { Instrumento } from "./Instrumento";
 import { useInstrumento } from "./instrumento";
 import type { Marca } from "./Teclado";
 import { acordeNoBraco } from "./violao";
+import { Interruptor } from "./Interruptor";
 import "./treino.css";
 
 /** O relógio, fora dos componentes (a regra de pureza do React não aceita chamá-lo direto neles). */
@@ -381,12 +382,7 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
               <button type="button" className="treino-chip" aria-pressed={instrumento === "violao"} onClick={() => setInstrumento("violao")}>{t("instrumentos.violao")}</button>
             </div>
           </div>
-          <div className="treino-field" role="group" aria-label={t("reforco")}>
-            <span>{t("reforco")}</span>
-            <div className="treino-chips">
-              <button type="button" className="treino-chip" aria-pressed={s.reforco} onClick={() => store.set((x) => ({ ...x, reforco: !x.reforco }))}>{t(s.reforco ? "ligado" : "desligado")}</button>
-            </div>
-          </div>
+          <Interruptor rotulo={t("reforco")} ligado={s.reforco} aoMudar={(reforco) => store.set((x) => ({ ...x, reforco }))} />
           <div className="treino-field treino-itens" role="group" aria-label={t(modo === "funcional" ? "graus" : "itens")}>
             <span>{t(modo === "funcional" ? "graus" : "itens")}</span>
             <div className="treino-chips">

@@ -6,6 +6,7 @@ import { MicError, openMic, type Mic, type MicProblem, type PianoNote } from "@/
 import { CHUNK_SAMPLES, NOTE_NAMES, PitchPipeline, PitchSmoother } from "@/core/pitch";
 import { createStore } from "@/core/storage";
 import { Afinometro } from "./Afinometro";
+import { Interruptor } from "./Interruptor";
 import { Cantar, VELOCIDADES, type ConfigMusica } from "./Cantar";
 import { MUSICAS } from "./musicas";
 import { CLASSICA_INICIAL, IDS, INTERVALOS, nomeNota, PADROES, perguntaClassica } from "./engine";
@@ -397,14 +398,17 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
           <Instrumento tipo={instrumento} janela={tarefa.alvos} marcas={marcas} extras={extrasPadrao} onTocar={() => {}} label={t(instrumento === "violao" ? "braco" : "teclado")} />
         )}
 
-        <Afinometro
-          midi={leitura}
-          centsAlvo={ex === "alcance" || !cantando ? null : vivo.cents}
-          tolerancia={s.tolerancia}
-          progresso={ex === "alcance" ? 0 : vivo.progresso}
-          rotulos={{ sem: t("voz.sem"), baixo: t("voz.baixo"), alto: t("voz.alto") }}
-          dica={dica}
-        />
+        {/* Antes de começar o microfone está fechado: a régua vazia era só ruído. */}
+        {fase !== "parado" && (
+          <Afinometro
+            midi={leitura}
+            centsAlvo={ex === "alcance" || !cantando ? null : vivo.cents}
+            tolerancia={s.tolerancia}
+            progresso={ex === "alcance" ? 0 : vivo.progresso}
+            rotulos={{ sem: t("voz.sem"), baixo: t("voz.baixo"), alto: t("voz.alto") }}
+            dica={dica}
+          />
+        )}
 
         {ex === "alcance" && (alcance.min !== null || fase === "feito") && (
           <div className="treino-revela">
@@ -473,12 +477,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
             </div>
           </div>}
           {ex === "musica" && (
-            <div className="treino-field" role="group" aria-label={t("voz.musica.guia")}>
-              <span>{t("voz.musica.guia")}</span>
-              <div className="treino-chips">
-                <button type="button" className="treino-chip" aria-pressed={s.musica.guia} onClick={() => store.set((x) => ({ ...x, musica: { ...x.musica, guia: !x.musica.guia } }))}>{t(s.musica.guia ? "ligado" : "desligado")}</button>
-              </div>
-            </div>
+            <Interruptor rotulo={t("voz.musica.guia")} ligado={s.musica.guia} aoMudar={(guia) => store.set((x) => ({ ...x, musica: { ...x.musica, guia } }))} />
           )}
           <div className="treino-field" role="group" aria-label={t("voz.minhaVoz.titulo")}>
             <span>{t("voz.minhaVoz.titulo")}</span>
@@ -508,12 +507,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
             </div>
           )}
           {(ex === "sequencia" || ex === "tonica") && s.inicio >= 0 && (
-            <div className="treino-field" role="group" aria-label={t("voz.subir")}>
-              <span>{t("voz.subir")}</span>
-              <div className="treino-chips">
-                <button type="button" className="treino-chip" aria-pressed={s.subir} onClick={() => mudar({ ...s, subir: !s.subir })}>{t(s.subir ? "ligado" : "desligado")}</button>
-              </div>
-            </div>
+            <Interruptor rotulo={t("voz.subir")} ligado={s.subir} aoMudar={(subir) => mudar({ ...s, subir })} />
           )}
           {ex === "tonica" && (
             <div className="treino-field" role="group" aria-label={t("voz.ajuda")}>

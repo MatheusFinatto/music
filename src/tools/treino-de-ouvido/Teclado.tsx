@@ -8,14 +8,22 @@ const PRETAS = new Set([1, 3, 6, 8, 10]);
 const W = 22, H = 84, F = 20;
 
 /**
+ * Primeira e última tecla: do Dó da nota mais grave, duas oitavas (mais, só se as notas não couberem). Antes descia uma nota
+ * antes de arredondar, e uma pergunta começando em Dó (ou a janela padrão C3–B4) ganhava uma oitava inteira a mais embaixo.
+ */
+export function faixaDoTeclado(janela: readonly number[]): [number, number] {
+  const lo = Math.floor(Math.min(...janela) / 12) * 12;
+  return [lo, Math.max(lo + 23, Math.floor(Math.max(...janela) / 12) * 12 + 11)];
+}
+
+/**
  * Teclado de piano sempre à mostra: cada tecla toca a nota. A janela cobre as notas da pergunta (pelo menos duas
  * oitavas); as teclas marcadas ganham cor e o nome embaixo. Setas andam entre as teclas; Enter ou Espaço tocam.
  */
 export function Teclado({ janela, marcas, onTocar, label }: { janela: readonly number[]; marcas: ReadonlyMap<number, Marca>; onTocar: (midi: number) => void; label: string }) {
   const [foco, setFoco] = useState(60);
   const raiz = useRef<SVGSVGElement>(null);
-  const lo = Math.floor((Math.min(...janela) - 1) / 12) * 12;
-  const hi = Math.max(lo + 23, Math.floor(Math.max(...janela) / 12) * 12 + 11);
+  const [lo, hi] = faixaDoTeclado(janela);
   const brancas: number[] = [];
   for (let m = lo; m <= hi; m++) if (!PRETAS.has(m % 12)) brancas.push(m);
   const pretas: number[] = [];
