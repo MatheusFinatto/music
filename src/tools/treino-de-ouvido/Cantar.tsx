@@ -10,7 +10,7 @@ import type { ProgramaProp } from "./Programas";
 import { anotarDuracao } from "./ritmo";
 import { desenharPista, lerCores } from "./pista";
 import { usePiano } from "./usePiano";
-import { sortearClasseDeVoz } from "./voz";
+import { sortearClasseDeVoz, type Faixa } from "./voz";
 
 export type ConfigMusica = { musica: string; trecho: number; velocidade: number; guia: boolean };
 export const VELOCIDADES = [0.6, 1] as const;
@@ -30,8 +30,10 @@ function sortearTrecho(excluir?: string): { musica: string; trecho: number } {
  * chega; a nota vale se a altura certa foi cantada durante a janela dela. Sem detector de início de nota: duas notas iguais
  * seguidas são duas janelas de tempo.
  */
-export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitava, melhores, onResultado, programa }: {
+export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitava, faixa, melhores, onResultado, programa }: {
   cfg: ConfigMusica; onCfg: (p: Partial<ConfigMusica>) => void;
+  /** A faixa em que a pessoa canta com conforto: o tom da melodia é escolhido para ela caber. */
+  faixa: Faixa;
   /** Dentro de um programa: o trecho é sorteado a cada tentativa, começa sozinho e o botão final avança o bloco. */
   programa?: ProgramaProp;
   /** Classe de altura da tônica (0 = Dó), ou -1 para uma diferente a cada tentativa. */
@@ -49,7 +51,7 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
   const bpm = musica.bpm * cfg.velocidade;
 
   const [fase, setFase] = useState<Fase>("parado");
-  const [tonicaMidi, setTonicaMidi] = useState(() => tonicaParaCaber(tonica < 0 ? 0 : tonica, trecho.notas));
+  const [tonicaMidi, setTonicaMidi] = useState(() => tonicaParaCaber(tonica < 0 ? 0 : tonica, trecho.notas, faixa));
   const [contagem, setContagem] = useState(0);
   const [atual, setAtual] = useState(-1);
   const [erroMic, setErroMic] = useState<MicProblem | null>(null);
@@ -137,8 +139,8 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
     if (chaveAnterior.current === chave) return;
     chaveAnterior.current = chave;
     limpar(); mudaFase("parado"); setFinal(null); setContagem(0); atualRef.current = -1; setAtual(-1);
-    setTonicaMidi(tonicaParaCaber(tonica < 0 ? 0 : tonica, trecho.notas));
-  }, [chave, limpar, tonica, trecho.notas]);
+    setTonicaMidi(tonicaParaCaber(tonica < 0 ? 0 : tonica, trecho.notas, faixa));
+  }, [chave, limpar, tonica, trecho.notas, faixa]);
   // Aba escondida no meio do trecho: cancela sem contar (a pista usa o relógio da página e o áudio pode suspender).
   useEffect(() => {
     const aoMudar = () => {
@@ -150,7 +152,7 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
     return () => document.removeEventListener("visibilitychange", aoMudar);
   }, [limpar]);
   // Mudar a tônica também move a melodia (sem interromper nada que esteja cantando).
-  useEffect(() => { if (faseRef.current === "parado" || faseRef.current === "feito") setTonicaMidi(tonicaParaCaber(tonica < 0 ? 0 : tonica, trecho.notas)); }, [tonica, trecho.notas]);
+  useEffect(() => { if (faseRef.current === "parado" || faseRef.current === "feito") setTonicaMidi(tonicaParaCaber(tonica < 0 ? 0 : tonica, trecho.notas, faixa)); }, [tonica, trecho.notas, faixa]);
 
   const notasDoPiano = (lista: readonly Janela[], depois: number): PianoNote[] =>
     lista.filter((j) => j.midi !== null).map((j) => ({ midi: j.midi!, at: depois + j.ini, dur: Math.max(0.15, (j.fim - j.ini) * 0.92) }));
@@ -180,7 +182,7 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
     limpar(); setFinal(null); setErroMic(null); amostras.current = []; atualRef.current = -1;
     inicioTentativa.current = agoraMs();
     // Cada tentativa com tônica "aleatória" muda de tom; a melodia é a mesma.
-    const tom = tonica < 0 ? tonicaParaCaber(sortearClasseDeVoz(), trecho.notas) : tonicaParaCaber(tonica, trecho.notas);
+    const tom = tonica < 0 ? tonicaParaCaber(sortearClasseDeVoz(), trecho.notas, faixa) : tonicaParaCaber(tonica, trecho.notas, faixa);
     setTonicaMidi(tom);
     const lista = janelas(trecho.notas, bpm, tom);
     jsRef.current = lista;

@@ -31,3 +31,9 @@ Para cada item: anote o que sentiu e, se mudou algum ajuste, qual. "Justo" quer 
 ## Anotações
 - [ ] **Programas por foco e tempo (5 a 30 min):** os focos (Afinação, Segunda voz, Harmonia…) montam o que você esperava? o tempo real bate com o previsto? (o resumo mostra os dois). Depois de uns dois programas a estimativa melhora? A quantidade de perguntas por bloco está boa? O fluxo (começa sozinho, "Próximo bloco") atrapalha ou ajuda? Falta pular/repetir algo?
 - [ ] **Músicas (Voz → Músicas):** a melodia está certa? Anote as que soam diferentes (principalmente as de média e baixa confiança, marcadas na tela). A folga de tempo está boa: nota que você acha que cantou certo falha? O andamento lento é lento o bastante? A pista é fácil de acompanhar? O trecho sorteado nos programas de voz (foco Músicas) funciona sem você tocar em nada?
+
+## Minha voz (faixa confortável)
+- Voz → Ajustes → Minha voz: escolha o tipo mais próximo (baixo, barítono, tenor, contralto, mezzo, soprano) ou "Padrão" (C3 a C5).
+- Igualar, nota longa, intervalo, tônica, arpejos e o tom das músicas ficam dentro da faixa. Confira se nenhuma nota exige esforço: se exigir, escolha o tipo vizinho.
+- Alcance: ao terminar, a tela sugere a faixa confortável (extensão sem 2 semitons no grave e 3 no agudo) e o tipo de voz mais próximo; "Usar como minha faixa" salva.
+- Vale também dentro dos programas de voz.

@@ -18,13 +18,21 @@ import { usePiano } from "./usePiano";
 import { formaDoArpejo } from "./violao";
 import {
   ALCANCE_ZERO, atualizar, extensao, inicioDaRodada, medirAlcance, notasDoPadrao, SEGURANDO_ZERO, SEGURAR_LONGA_MS, SEGURAR_MS, SEGURAR_PASSO_MS,
-  sortearAlvoDeVoz, sortearClasseDeVoz, TOLERANCIAS, type Alcance,
+  faixaConfortavel, FAIXA_PADRAO, sortearAlvoDeVoz, sortearClasseDeVoz, TOLERANCIAS, VOZES, vozMaisProxima, type Alcance, type Faixa,
 } from "./voz";
 
 type Exercicio = "igualar" | "longa" | "sequencia" | "tonica" | "intervalo" | "musica" | "alcance";
 const EXERCICIOS: readonly Exercicio[] = ["igualar", "longa", "sequencia", "tonica", "intervalo", "musica", "alcance"];
-type Saved = { version: 1; exercicio: Exercicio; tolerancia: number; qualquerOitava: boolean; intervalos: string[]; padrao: string; inicio: number; subir: boolean; grau: string; ajuda: "guia" | "so"; musica: ConfigMusica; melhores: Record<string, number> };
-const DEFAULTS: Saved = { version: 1, exercicio: "igualar", tolerancia: 30, qualquerOitava: true, intervalos: ["3m", "3M", "4J", "5J"], padrao: "arpejoMaior", inicio: 0, subir: true, grau: "3M", ajuda: "guia", musica: { musica: MUSICAS[0]!.id, trecho: 0, velocidade: 0.6, guia: true }, melhores: {} };
+/** `tipo`: "padrao", um tipo de voz ou "medida" (a que o Alcance sugeriu). */
+type FaixaSalva = Faixa & { tipo: "padrao" | "medida" | (typeof VOZES)[number]["id"] };
+type Saved = { version: 1; exercicio: Exercicio; tolerancia: number; qualquerOitava: boolean; intervalos: string[]; padrao: string; inicio: number; subir: boolean; grau: string; ajuda: "guia" | "so"; faixa: FaixaSalva; musica: ConfigMusica; melhores: Record<string, number> };
+const DEFAULTS: Saved = { version: 1, exercicio: "igualar", tolerancia: 30, qualquerOitava: true, intervalos: ["3m", "3M", "4J", "5J"], padrao: "arpejoMaior", inicio: 0, subir: true, grau: "3M", ajuda: "guia", faixa: { tipo: "padrao", ...FAIXA_PADRAO }, musica: { musica: MUSICAS[0]!.id, trecho: 0, velocidade: 0.6, guia: true }, melhores: {} };
+const faixaValida = (f: unknown): FaixaSalva => {
+  const x = f as Partial<FaixaSalva> | null | undefined;
+  const tipoOk = x?.tipo === "padrao" || x?.tipo === "medida" || VOZES.some((v) => v.id === x?.tipo);
+  const ints = Number.isInteger(x?.min) && Number.isInteger(x?.max) && x!.min! >= 36 && x!.max! <= 96 && x!.max! - x!.min! >= 7;
+  return tipoOk && ints ? { tipo: x!.tipo!, min: x!.min!, max: x!.max! } : DEFAULTS.faixa;
+};
 const store = createStore<Saved>("treino-de-ouvido-voz", DEFAULTS, (saved) => {
   const s = saved as Partial<Saved> | null;
   if (!s || typeof s !== "object") return null;
@@ -41,6 +49,7 @@ const store = createStore<Saved>("treino-de-ouvido-voz", DEFAULTS, (saved) => {
     subir: typeof s.subir === "boolean" ? s.subir : true,
     grau: s.grau === "sortear" || IDS.intervalos.includes(s.grau as string) ? (s.grau as string) : DEFAULTS.grau,
     ajuda: s.ajuda === "so" ? "so" : "guia",
+    faixa: faixaValida(s.faixa),
     musica: {
       musica: MUSICAS.some((m) => m.id === s.musica?.musica) ? s.musica!.musica : DEFAULTS.musica.musica,
       trecho: typeof s.musica?.trecho === "number" && Number.isInteger(s.musica.trecho) && s.musica.trecho >= 0 ? s.musica.trecho : 0,
@@ -209,14 +218,14 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     if (e === "alcance") { void medir(); return; }
     let t0: Tarefa;
     if (e === "igualar" || e === "longa") {
-      const midi = sortearAlvoDeVoz();
+      const midi = sortearAlvoDeVoz(Math.random, s.faixa);
       t0 = { alvos: [midi], demo: [{ midi, at: 0, dur: 2.0 }], bordao: null, segurarMs: e === "longa" ? SEGURAR_LONGA_MS : SEGURAR_MS, tonica: null, grau: null };
     } else if (e === "sequencia") {
       const padrao = PADROES.find((p) => p.id === s.padrao) ?? PADROES[0]!;
-      const alvos = notasDoPadrao(inicioDaRodada(s.inicio < 0 ? sortearClasseDeVoz() : s.inicio, rodada, s.subir && s.inicio >= 0), padrao.semitons);
+      const alvos = notasDoPadrao(inicioDaRodada(s.inicio < 0 ? sortearClasseDeVoz() : s.inicio, rodada, s.subir && s.inicio >= 0, s.faixa, Math.max(...padrao.semitons)), padrao.semitons);
       t0 = { alvos, demo: alvos.map((midi, i) => ({ midi, at: i * 0.7, dur: 0.65 })), bordao: null, segurarMs: SEGURAR_PASSO_MS, tonica: null, grau: null };
     } else if (e === "tonica") {
-      const raiz = inicioDaRodada(s.inicio < 0 ? sortearClasseDeVoz() : s.inicio, rodada, s.subir && s.inicio >= 0);
+      const raiz = inicioDaRodada(s.inicio < 0 ? sortearClasseDeVoz() : s.inicio, rodada, s.subir && s.inicio >= 0, s.faixa, 12);
       const sorteado = s.grau === "sortear" ? sortearIntervalo(s.intervalos) : s.grau;
       const alvo = raiz + INTERVALOS.find((i) => i.id === sorteado)!.semitons;
       // Com ajuda, o piano toca a tônica e a nota juntas e só depois deixa a tônica soando; sem ajuda, só a tônica.
@@ -320,6 +329,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
             tonica={s.inicio}
             tolerancia={s.tolerancia}
             qualquerOitava={s.qualquerOitava}
+            faixa={s.faixa}
             programa={programa}
             melhores={s.melhores}
             onResultado={(chave, r) => {
@@ -365,6 +375,16 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
                 <p className="treino-resultado certa">{t("voz.alcanceResultado", { grave: nomeNota(alcance.min), agudo: nomeNota(alcance.max) })}</p>
                 <Instrumento tipo={instrumento} janela={[alcance.min, alcance.max]} marcas={marcas} onTocar={() => {}} label={t(instrumento === "violao" ? "braco" : "teclado")} />
                 <p className="treino-detalhe">{t("voz.extensao", { oitavas: ext.oitavas, semitons: ext.semitons })}</p>
+                {(() => {
+                  const sug = faixaConfortavel(alcance.min, alcance.max);
+                  const salva = s.faixa.tipo === "medida" && s.faixa.min === sug.min && s.faixa.max === sug.max;
+                  return (
+                    <div className="treino-sugestao">
+                      <p>{t("voz.minhaVoz.sugestao", { de: nomeNota(sug.min), ate: nomeNota(sug.max), voz: t(`voz.minhaVoz.tipos.${vozMaisProxima(sug)}` as "voz.minhaVoz.tipos.tenor") })}</p>
+                      {salva ? <p role="status">{t("voz.minhaVoz.salva")}</p> : <button type="button" className="treino-btn" onClick={() => store.set((x) => ({ ...x, faixa: { tipo: "medida", ...sug } }))}>{t("voz.minhaVoz.usar")}</button>}
+                    </div>
+                  );
+                })()}
               </>
             ) : <p className="treino-vazio">{t("voz.alcanceVazio")}</p>}
           </div>
@@ -418,6 +438,15 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
               </div>
             </div>
           )}
+          <div className="treino-field" role="group" aria-label={t("voz.minhaVoz.titulo")}>
+            <span>{t("voz.minhaVoz.titulo")}</span>
+            <div className="treino-chips">
+              <button type="button" className="treino-chip" aria-pressed={s.faixa.tipo === "padrao"} onClick={() => mudar({ ...s, faixa: { tipo: "padrao", ...FAIXA_PADRAO } })}>{t("voz.minhaVoz.padrao")}</button>
+              {VOZES.map((v) => <button key={v.id} type="button" className="treino-chip" aria-pressed={s.faixa.tipo === v.id} onClick={() => mudar({ ...s, faixa: { tipo: v.id, min: v.min, max: v.max } })}>{t(`voz.minhaVoz.tipos.${v.id}` as "voz.minhaVoz.tipos.tenor")}</button>)}
+              {s.faixa.tipo === "medida" && <button type="button" className="treino-chip" aria-pressed>{t("voz.minhaVoz.medida")}</button>}
+            </div>
+            <p className="treino-detalhe">{t("voz.minhaVoz.atual", { de: nomeNota(s.faixa.min), ate: nomeNota(s.faixa.max) })} {t("voz.minhaVoz.dica")}</p>
+          </div>
           {ex !== "alcance" && (
             <div className="treino-field" role="group" aria-label={t("margem")}>
               <span>{t("margem")}</span>
