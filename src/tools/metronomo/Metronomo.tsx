@@ -2,41 +2,16 @@
 import { onRadioKeyDown } from "@/core/ui/radioGroup";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
-import { createStore } from "@/core/storage";
 import { ACCENT, BEAT, MAX_BEATS, MAX_BPM, MIN_BPM, MUTE, SUBDIVISIONS, TapTempo, clampBpm, subdivisionById, type Tick } from "@/core/rhythm";
+import { MINUTES, store } from "./store";
 import { MetronomeEngine, chime, type MetronomeSettings } from "./engine";
 import { Figure } from "./Figure";
 import "./metronomo.css";
 
-/** [hintSeen]: a dica das bolinhas some depois do primeiro clique numa delas. */
-type Saved = MetronomeSettings & { version: 2; minutes: number; hintSeen: boolean };
-const defaultAccents = () => Array.from({ length: MAX_BEATS }, (_, i) => (i === 0 ? ACCENT : BEAT));
-const DEFAULTS: Saved = { version: 2, bpm: 90, beatsPerBar: 4, subdivision: 1, accents: defaultAccents(), minutes: 0, hintSeen: false };
-/** Duração do timer em minutos; 0 = sem limite. */
-const MINUTES = [0, 1, 2, 3, 5, 10, 15, 20, 30] as const;
 const STEPS = [-10, -5, -1, 1, 5, 10] as const; // os negativos à esquerda do número, os positivos à direita
 const clock = (ms: number) => { const s = Math.max(0, Math.ceil(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
 /** Clicar num tempo: normal → forte → mudo → normal (a mesma ordem do núcleo, Metronome.cycleAccent). */
 const nextAccent = (a: number) => (a === BEAT ? ACCENT : a === ACCENT ? MUTE : BEAT);
-
-const store = createStore<Saved>("metronomo", DEFAULTS, (saved) => {
-  const s = saved as (Partial<Saved> & { accentFirst?: unknown; version?: number }) | null;
-  if (!s || typeof s !== "object") return null;
-  const int = (n: unknown, lo: number, hi: number, d: number) => (typeof n === "number" && Number.isInteger(n) && n >= lo && n <= hi ? n : d);
-  // Versão 1 tinha só "acentuar o primeiro tempo"; vira o acento do tempo 1.
-  let accents = defaultAccents();
-  if (Array.isArray(s.accents) && s.accents.length === MAX_BEATS) accents = s.accents.map((a) => ([ACCENT, BEAT, MUTE].includes(a as number) ? (a as number) : BEAT));
-  else if (s.accentFirst === false) accents[0] = BEAT;
-  return {
-    version: 2,
-    bpm: typeof s.bpm === "number" && Number.isFinite(s.bpm) ? clampBpm(Math.round(s.bpm)) : DEFAULTS.bpm,
-    beatsPerBar: int(s.beatsPerBar, 1, MAX_BEATS, DEFAULTS.beatsPerBar),
-    subdivision: subdivisionById(int(s.subdivision, 1, 99, 1)).id,
-    accents,
-    minutes: (MINUTES as readonly unknown[]).includes(s.minutes) ? (s.minutes as number) : 0,
-    hintSeen: s.hintSeen === true,
-  };
-});
 
 /** Metrônomo no navegador. A conta dos cliques é a mesma do app Android (Kotlin, marmota-tuner/core). */
 export function Metronomo() {
@@ -150,6 +125,9 @@ export function Metronomo() {
     }, 250);
     return () => clearInterval(id);
   }, [running]);
+
+  // O que mudar o salvo por fora (um favorito carregado no topo da página) vale no próximo clique.
+  useEffect(() => { engine.current?.apply(s); }, [s]);
 
   // Para ao sair da página; mantém a tela acesa enquanto toca.
   useEffect(() => () => engine.current?.stop(), []);

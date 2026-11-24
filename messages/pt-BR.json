@@ -107,13 +107,18 @@
       "Divisão: quantos cliques cabem em cada tempo, e onde.",
       "Timer: o tempo aparece grande na tela. Com timer, o botão pausa e continua de onde parou; Parar zera. O metrônomo para sozinho quando o tempo acaba.",
       "No teclado: Espaço toca e pausa (ou para, sem timer), T marca o tap, as setas mudam o andamento (com Shift, de 10 em 10).",
-      "“Baixar app” baixa o Marmota Tuner para Android (arquivo APK; não funciona no iPhone). Ele tem o mesmo metrônomo, com favoritos, e também o afinador."
+      "“Baixar app” baixa o Marmota Tuner para Android (arquivo APK; não funciona no iPhone). Ele tem o mesmo metrônomo e também o afinador."
     ],
     "pause": "Pausar",
     "resume": "Continuar",
     "paused": "Pausado",
     "slowerGroup": "Diminuir o andamento",
-    "fasterGroup": "Aumentar o andamento"
+    "fasterGroup": "Aumentar o andamento",
+    "favorites": "Favoritos",
+    "favoriteDesc": "{bpm} bpm · {beats, plural, one {# tempo} other {# tempos}} · {sub}",
+    "favoriteName": "Nome (opcional)",
+    "saveCurrent": "Salvar o atual",
+    "deleteFavorite": "Apagar {name}"
   },
   "afinador": {
     "title": "Afinador",
