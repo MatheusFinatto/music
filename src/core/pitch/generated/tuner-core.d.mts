@@ -237,7 +237,7 @@ export declare namespace Box.$metadata$ {
     const constructor: abstract new () => Box;
 }
 export declare class TunerGeometry {
-    constructor(dp: number, centerX: number, noteTextSize: number, noteBaseline: number, frequencyBaseline: number, pivotY: number, radius: number, maxAngleDegrees: number, stripLeft: number, stripCellWidth: number, stripBaseline: number, meterRight: number, meterTop: number);
+    constructor(dp: number, centerX: number, noteTextSize: number, noteBaseline: number, frequencyBaseline: number, pivotY: number, radius: number, maxAngleDegrees: number, meterRight: number, meterTop: number);
     get dp(): number;
     get centerX(): number;
     get noteTextSize(): number;
@@ -246,13 +246,10 @@ export declare class TunerGeometry {
     get pivotY(): number;
     get radius(): number;
     get maxAngleDegrees(): number;
-    get stripLeft(): number;
-    get stripCellWidth(): number;
-    get stripBaseline(): number;
     get meterRight(): number;
     get meterTop(): number;
     angleForCents(cents: number): number;
-    copy(dp?: number, centerX?: number, noteTextSize?: number, noteBaseline?: number, frequencyBaseline?: number, pivotY?: number, radius?: number, maxAngleDegrees?: number, stripLeft?: number, stripCellWidth?: number, stripBaseline?: number, meterRight?: number, meterTop?: number): TunerGeometry;
+    copy(dp?: number, centerX?: number, noteTextSize?: number, noteBaseline?: number, frequencyBaseline?: number, pivotY?: number, radius?: number, maxAngleDegrees?: number, meterRight?: number, meterTop?: number): TunerGeometry;
     toString(): string;
     hashCode(): number;
     equals(other: Nullable<any>): boolean;

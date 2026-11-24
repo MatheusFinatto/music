@@ -1,7 +1,7 @@
 // Desenho da tela do afinador no <canvas>: porte de marmota-tuner/app/.../TunerPainter.kt.
 // A geometria (onde cada coisa fica) e a cena (o que mostrar) vêm do Kotlin compartilhado;
 // aqui fica só o traço, que depende de cada plataforma. Mudou o visual do app? Mude aqui também.
-import { IN_TUNE_CENTS, NOTE_NAMES, type TunerGeometry, type TunerScene } from "@/core/pitch";
+import { IN_TUNE_CENTS, type TunerGeometry, type TunerScene } from "@/core/pitch";
 
 // Mesmas cores de marmota-tuner/app/src/main/res/values/colors.xml.
 // Laranja = alvo (nota e marca central), azul = o que está soando, verde = afinado.
@@ -14,7 +14,6 @@ export const TUNER_COLORS = {
   inTune: "#3ddc84",
 } as const;
 
-const STRIP_ORDER = [9, 10, 11, 0, 1, 2, 3, 4, 5, 6, 7, 8]; // A até G#, como no app
 const IDLE_ALPHA = 90 / 255;
 const FONT = "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
 const rad = (deg: number) => (deg * Math.PI) / 180;
@@ -108,24 +107,6 @@ export function drawTuner(ctx: CanvasRenderingContext2D, g: TunerGeometry, scene
   ctx.beginPath();
   ctx.arc(g.centerX, g.pivotY, 5 * dp, 0, 2 * Math.PI);
   ctx.fill();
-
-  // Faixa de notas, com a atual acesa e uma marca laranja embaixo
-  const current = reading?.pitchClass;
-  STRIP_ORDER.forEach((pitchClass, index) => {
-    const x = g.stripLeft + g.stripCellWidth * (index + 0.5);
-    const isCurrent = pitchClass === current;
-    ctx.fillStyle = isCurrent ? c.ink : c.muted;
-    ctx.font = `${isCurrent ? 700 : 400} ${sp(15)}px ${FONT}`;
-    ctx.textAlign = "center";
-    ctx.fillText(NOTE_NAMES[pitchClass] ?? "", x, g.stripBaseline);
-    if (isCurrent) {
-      ctx.globalAlpha = scene.active ? 1 : IDLE_ALPHA;
-      ctx.fillStyle = c.target;
-      roundRect(ctx, x - 1.5 * dp, g.stripBaseline + 9 * dp, 3 * dp, 10 * dp, dp);
-      ctx.fill();
-      ctx.globalAlpha = 1;
-    }
-  });
 
   // Nível do microfone: contorno do microfone e uma barra que enche de baixo para cima
   const barLeft = g.meterRight - 4 * dp;

@@ -734,19 +734,19 @@ protoOf(Box).equals = function (other) {
 };
 function swingThatFits($this, halfWidth, radius) {
   if (radius <= 0.0)
-    return 40.0;
+    return 60.0;
   // Inline function 'kotlin.math.min' call
   var b = halfWidth / radius;
   // Inline function 'kotlin.math.asin' call
   var x = Math.min(1.0, b);
   var fits = Math.asin(x) * 180 / 3.141592653589793;
   // Inline function 'kotlin.math.min' call
-  return Math.min(40.0, fits);
+  return Math.min(60.0, fits);
 }
 function Companion_5() {
   this.MAX_CENTS = 50.0;
   this.i6_1 = 1.08;
-  this.j6_1 = 40.0;
+  this.j6_1 = 60.0;
 }
 protoOf(Companion_5).k6 = function () {
   return this.MAX_CENTS;
@@ -758,16 +758,15 @@ protoOf(Companion_5).compute = function (box, dp) {
   var noteTextSize = Math.min(tmp0, b);
   var noteBaseline = box.top + 28 * dp + noteTextSize * 0.85;
   var frequencyBaseline = noteBaseline + 34 * dp;
-  var stripBaseline = box.bottom - 28 * dp;
-  var pivotY = stripBaseline - 96 * dp;
+  var pivotY = box.bottom - 48 * dp;
   var radius = pivotY - (frequencyBaseline + 64 * dp);
-  return new TunerGeometry(dp, box.centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, swingThatFits(this, box.width / 2 - 40 * dp, radius), box.left, box.width / 12, stripBaseline, box.right - 20 * dp, box.top + 20 * dp);
+  return new TunerGeometry(dp, box.centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, swingThatFits(this, box.width / 2 - 40 * dp, radius), box.right - 20 * dp, box.top + 20 * dp);
 };
 var Companion_instance_5;
 function Companion_getInstance_5() {
   return Companion_instance_5;
 }
-function TunerGeometry(dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, stripLeft, stripCellWidth, stripBaseline, meterRight, meterTop) {
+function TunerGeometry(dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop) {
   this.dp = dp;
   this.centerX = centerX;
   this.noteTextSize = noteTextSize;
@@ -776,9 +775,6 @@ function TunerGeometry(dp, centerX, noteTextSize, noteBaseline, frequencyBaselin
   this.pivotY = pivotY;
   this.radius = radius;
   this.maxAngleDegrees = maxAngleDegrees;
-  this.stripLeft = stripLeft;
-  this.stripCellWidth = stripCellWidth;
-  this.stripBaseline = stripBaseline;
   this.meterRight = meterRight;
   this.meterTop = meterTop;
 }
@@ -807,18 +803,9 @@ protoOf(TunerGeometry).r6 = function () {
   return this.maxAngleDegrees;
 };
 protoOf(TunerGeometry).s6 = function () {
-  return this.stripLeft;
-};
-protoOf(TunerGeometry).t6 = function () {
-  return this.stripCellWidth;
-};
-protoOf(TunerGeometry).u6 = function () {
-  return this.stripBaseline;
-};
-protoOf(TunerGeometry).v6 = function () {
   return this.meterRight;
 };
-protoOf(TunerGeometry).w6 = function () {
+protoOf(TunerGeometry).t6 = function () {
   return this.meterTop;
 };
 protoOf(TunerGeometry).angleForCents = function (cents) {
@@ -836,37 +823,28 @@ protoOf(TunerGeometry).y4 = function () {
 protoOf(TunerGeometry).z4 = function () {
   return this.noteBaseline;
 };
-protoOf(TunerGeometry).x6 = function () {
+protoOf(TunerGeometry).u6 = function () {
   return this.frequencyBaseline;
 };
-protoOf(TunerGeometry).y6 = function () {
+protoOf(TunerGeometry).v6 = function () {
   return this.pivotY;
 };
-protoOf(TunerGeometry).z6 = function () {
+protoOf(TunerGeometry).w6 = function () {
   return this.radius;
 };
-protoOf(TunerGeometry).a7 = function () {
+protoOf(TunerGeometry).x6 = function () {
   return this.maxAngleDegrees;
 };
-protoOf(TunerGeometry).b7 = function () {
-  return this.stripLeft;
-};
-protoOf(TunerGeometry).c7 = function () {
-  return this.stripCellWidth;
-};
-protoOf(TunerGeometry).d7 = function () {
-  return this.stripBaseline;
-};
-protoOf(TunerGeometry).e7 = function () {
+protoOf(TunerGeometry).y6 = function () {
   return this.meterRight;
 };
-protoOf(TunerGeometry).f7 = function () {
+protoOf(TunerGeometry).z6 = function () {
   return this.meterTop;
 };
-protoOf(TunerGeometry).g7 = function (dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, stripLeft, stripCellWidth, stripBaseline, meterRight, meterTop) {
-  return new TunerGeometry(dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, stripLeft, stripCellWidth, stripBaseline, meterRight, meterTop);
+protoOf(TunerGeometry).a7 = function (dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop) {
+  return new TunerGeometry(dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop);
 };
-protoOf(TunerGeometry).copy = function (dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, stripLeft, stripCellWidth, stripBaseline, meterRight, meterTop, $super) {
+protoOf(TunerGeometry).copy = function (dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop, $super) {
   dp = dp === VOID ? this.dp : dp;
   centerX = centerX === VOID ? this.centerX : centerX;
   noteTextSize = noteTextSize === VOID ? this.noteTextSize : noteTextSize;
@@ -875,15 +853,12 @@ protoOf(TunerGeometry).copy = function (dp, centerX, noteTextSize, noteBaseline,
   pivotY = pivotY === VOID ? this.pivotY : pivotY;
   radius = radius === VOID ? this.radius : radius;
   maxAngleDegrees = maxAngleDegrees === VOID ? this.maxAngleDegrees : maxAngleDegrees;
-  stripLeft = stripLeft === VOID ? this.stripLeft : stripLeft;
-  stripCellWidth = stripCellWidth === VOID ? this.stripCellWidth : stripCellWidth;
-  stripBaseline = stripBaseline === VOID ? this.stripBaseline : stripBaseline;
   meterRight = meterRight === VOID ? this.meterRight : meterRight;
   meterTop = meterTop === VOID ? this.meterTop : meterTop;
-  return $super === VOID ? this.g7(dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, stripLeft, stripCellWidth, stripBaseline, meterRight, meterTop) : $super.g7.call(this, dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, stripLeft, stripCellWidth, stripBaseline, meterRight, meterTop);
+  return $super === VOID ? this.a7(dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop) : $super.a7.call(this, dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop);
 };
 protoOf(TunerGeometry).toString = function () {
-  return 'TunerGeometry(dp=' + this.dp + ', centerX=' + this.centerX + ', noteTextSize=' + this.noteTextSize + ', noteBaseline=' + this.noteBaseline + ', frequencyBaseline=' + this.frequencyBaseline + ', pivotY=' + this.pivotY + ', radius=' + this.radius + ', maxAngleDegrees=' + this.maxAngleDegrees + ', stripLeft=' + this.stripLeft + ', stripCellWidth=' + this.stripCellWidth + ', stripBaseline=' + this.stripBaseline + ', meterRight=' + this.meterRight + ', meterTop=' + this.meterTop + ')';
+  return 'TunerGeometry(dp=' + this.dp + ', centerX=' + this.centerX + ', noteTextSize=' + this.noteTextSize + ', noteBaseline=' + this.noteBaseline + ', frequencyBaseline=' + this.frequencyBaseline + ', pivotY=' + this.pivotY + ', radius=' + this.radius + ', maxAngleDegrees=' + this.maxAngleDegrees + ', meterRight=' + this.meterRight + ', meterTop=' + this.meterTop + ')';
 };
 protoOf(TunerGeometry).hashCode = function () {
   var result = getNumberHashCode(this.dp);
@@ -894,9 +869,6 @@ protoOf(TunerGeometry).hashCode = function () {
   result = imul(result, 31) + getNumberHashCode(this.pivotY) | 0;
   result = imul(result, 31) + getNumberHashCode(this.radius) | 0;
   result = imul(result, 31) + getNumberHashCode(this.maxAngleDegrees) | 0;
-  result = imul(result, 31) + getNumberHashCode(this.stripLeft) | 0;
-  result = imul(result, 31) + getNumberHashCode(this.stripCellWidth) | 0;
-  result = imul(result, 31) + getNumberHashCode(this.stripBaseline) | 0;
   result = imul(result, 31) + getNumberHashCode(this.meterRight) | 0;
   result = imul(result, 31) + getNumberHashCode(this.meterTop) | 0;
   return result;
@@ -923,12 +895,6 @@ protoOf(TunerGeometry).equals = function (other) {
     return false;
   if (!equals(this.maxAngleDegrees, tmp0_other_with_cast.maxAngleDegrees))
     return false;
-  if (!equals(this.stripLeft, tmp0_other_with_cast.stripLeft))
-    return false;
-  if (!equals(this.stripCellWidth, tmp0_other_with_cast.stripCellWidth))
-    return false;
-  if (!equals(this.stripBaseline, tmp0_other_with_cast.stripBaseline))
-    return false;
   if (!equals(this.meterRight, tmp0_other_with_cast.meterRight))
     return false;
   if (!equals(this.meterTop, tmp0_other_with_cast.meterTop))
@@ -942,34 +908,34 @@ function TunerScene() {
   this.message = null;
   this.needleCents = 0.0;
 }
-protoOf(TunerScene).h7 = function (_set____db54di) {
+protoOf(TunerScene).b7 = function (_set____db54di) {
   this.reading = _set____db54di;
 };
-protoOf(TunerScene).i7 = function () {
+protoOf(TunerScene).c7 = function () {
   return this.reading;
 };
-protoOf(TunerScene).j7 = function (_set____db54di) {
+protoOf(TunerScene).d7 = function (_set____db54di) {
   this.active = _set____db54di;
 };
-protoOf(TunerScene).k7 = function () {
+protoOf(TunerScene).e7 = function () {
   return this.active;
 };
-protoOf(TunerScene).l7 = function (_set____db54di) {
+protoOf(TunerScene).f7 = function (_set____db54di) {
   this.level = _set____db54di;
 };
 protoOf(TunerScene).e5 = function () {
   return this.level;
 };
-protoOf(TunerScene).m7 = function (_set____db54di) {
+protoOf(TunerScene).g7 = function (_set____db54di) {
   this.message = _set____db54di;
 };
 protoOf(TunerScene).j2 = function () {
   return this.message;
 };
-protoOf(TunerScene).n7 = function (_set____db54di) {
+protoOf(TunerScene).h7 = function (_set____db54di) {
   this.needleCents = _set____db54di;
 };
-protoOf(TunerScene).o7 = function () {
+protoOf(TunerScene).i7 = function () {
   return this.needleCents;
 };
 function computeDifference($this, x) {
@@ -1050,7 +1016,7 @@ function YinPitchDetector(sampleRate, windowSize, minFrequencyHz, maxFrequencyHz
   this.s5_1 = new Float64Array(this.r5_1 + 2 | 0);
   this.requiredSamples = (this.o5_1 + this.r5_1 | 0) + 2 | 0;
 }
-protoOf(YinPitchDetector).p7 = function () {
+protoOf(YinPitchDetector).j7 = function () {
   return this.requiredSamples;
 };
 protoOf(YinPitchDetector).detect = function (samples) {

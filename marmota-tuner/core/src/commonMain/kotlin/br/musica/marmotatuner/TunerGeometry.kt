@@ -17,7 +17,7 @@ data class Box(val left: Float, val top: Float, val right: Float, val bottom: Fl
 
 /**
  * Where everything sits on the screen, computed once per layout (top to bottom:
- * note name, frequency, dial, pivot, note strip). Pure math so it can be unit tested.
+ * note name, frequency, dial, pivot). Pure math so it can be unit tested.
  *
  * Example: `val geometry = TunerGeometry.compute(Box(0f, 0f, 1080f, 2200f), dp = 3f)`
  */
@@ -30,9 +30,6 @@ data class TunerGeometry(
     val pivotY: Float,
     val radius: Float,
     val maxAngleDegrees: Float,
-    val stripLeft: Float,
-    val stripCellWidth: Float,
-    val stripBaseline: Float,
     val meterRight: Float,
     val meterTop: Float,
 ) {
@@ -43,20 +40,19 @@ data class TunerGeometry(
     companion object {
         const val MAX_CENTS = 50f
         private const val OVERSHOOT = 1.08f
-        private const val MAX_SWING_DEGREES = 40f
+        private const val MAX_SWING_DEGREES = 60f
 
         fun compute(box: Box, dp: Float): TunerGeometry {
             val noteTextSize = min(box.width * 0.30f, box.height * 0.13f)
             val noteBaseline = box.top + 28 * dp + noteTextSize * 0.85f
             val frequencyBaseline = noteBaseline + 34 * dp
-            val stripBaseline = box.bottom - 28 * dp
-            val pivotY = stripBaseline - 96 * dp
+            // Pivot near the bottom: its 30 dp ring plus a margin.
+            val pivotY = box.bottom - 48 * dp
             val radius = pivotY - (frequencyBaseline + 64 * dp)
             return TunerGeometry(
                 dp = dp, centerX = box.centerX, noteTextSize = noteTextSize, noteBaseline = noteBaseline,
                 frequencyBaseline = frequencyBaseline, pivotY = pivotY, radius = radius,
                 maxAngleDegrees = swingThatFits(box.width / 2 - 40 * dp, radius),
-                stripLeft = box.left, stripCellWidth = box.width / 12, stripBaseline = stripBaseline,
                 meterRight = box.right - 20 * dp, meterTop = box.top + 20 * dp,
             )
         }
