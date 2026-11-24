@@ -3,7 +3,9 @@
     "name": "Marmota Music",
     "title": "Marmota Music",
     "description": "Ferramentas de prática para quem toca: afinador, metrônomo e treino de ouvido, e em breve tirar de ouvido. Gratuito e sem conta.",
-    "skip": "Pular para o conteúdo"
+    "skip": "Pular para o conteúdo",
+    "downloadApp": "Baixar app",
+    "downloadAppLabel": "Baixar o app para Android (APK)"
   },
   "nav": {
     "label": "Principal",
@@ -86,8 +88,7 @@
     "timer": "Timer",
     "noLimit": "Sem limite",
     "minutes": "{n} min",
-    "left": "Falta {time}",
-    "finished": "Tempo acabou.",
+    "finished": "Tempo acabou",
     "noAudio": "O navegador não tocou o som. Clique em Tocar de novo; se não der, libere o som para este site nas permissões do navegador ou tente outro navegador.",
     "subTitle": "Divisão do tempo",
     "accent": {
@@ -104,43 +105,45 @@
       "Toque ou clique numa bolinha para trocar aquele tempo entre normal, forte e mudo. Mudo não toca nada, mas a bolinha continua acendendo.",
       "Tap: toque no ritmo da música e o andamento se ajusta.",
       "Divisão: quantos cliques cabem em cada tempo, e onde.",
-      "Timer: o metrônomo para sozinho quando o tempo acaba.",
-      "No teclado: Espaço toca e para, T marca o tap, as setas mudam o andamento (com Shift, de 10 em 10).",
-      "“Baixar app” baixa o Marmota Tuner para Android (arquivo APK; não funciona no iPhone). Ele tem o mesmo metrônomo, com favoritos, e também o afinador."
+      "Timer: o tempo aparece grande na tela. Com timer, o botão pausa e continua de onde parou; Parar zera. O metrônomo para sozinho quando o tempo acaba.",
+      "No teclado: Espaço toca e pausa (ou para, sem timer), T marca o tap, as setas mudam o andamento (com Shift, de 10 em 10).",
+      "“Baixar app” baixa o Marmota Tuner para Android (arquivo APK; não funciona no iPhone). Ele tem o mesmo metrônomo e também o afinador."
     ],
-    "download": "Baixar app",
-    "downloadLabel": "Baixar o app para Android (APK)"
+    "pause": "Pausar",
+    "resume": "Continuar",
+    "paused": "Pausado",
+    "slowerGroup": "Diminuir o andamento",
+    "fasterGroup": "Aumentar o andamento",
+    "favorites": "Favoritos",
+    "favoriteDesc": "{bpm} bpm · {beats, plural, one {# tempo} other {# tempos}} · {sub}",
+    "favoriteName": "Nome (opcional)",
+    "saveCurrent": "Salvar o atual",
+    "deleteFavorite": "Apagar {name}"
   },
   "afinador": {
     "title": "Afinador",
     "description": "Afinador cromático pelo microfone, no navegador ou no app Android Marmota Tuner: a nota, a frequência e o desvio em cents.",
-    "start": "Afinar no navegador",
     "starting": "Abrindo o microfone…",
-    "stop": "Parar",
-    "retry": "Tentar de novo",
-    "useApp": "Prefiro o app Android",
-    "idleMessage": "Toque em Afinar no navegador para começar",
     "playAString": "Toque uma corda",
     "inTune": "afinada",
     "screenLabel": "Afinador: nota, frequência e agulha de desvio em cents",
     "mic": {
-      "denied": "O microfone está bloqueado. Clique no ícone à esquerda do endereço, escolha Permitir em Microfone e toque em Tentar de novo",
-      "unavailable": "Este navegador não dá acesso ao microfone. Tente outro navegador ou use o app Android",
-      "failed": "O microfone não abriu. Confira se outro app não está usando e toque em Tentar de novo"
+      "denied": "O microfone está bloqueado. No ícone à esquerda do endereço, escolha Permitir em Microfone; depois clique ou toque aqui",
+      "unavailable": "Este navegador não dá acesso ao microfone. Tente outro navegador ou baixe o app Android",
+      "failed": "O microfone não abriu. Confira se outro app não está usando e clique ou toque aqui para tentar de novo"
     },
-    "appTitle": "Marmota Tuner, o app Android",
-    "appLead": "Afinador e metrônomo num app só: sem anúncio, sem assinatura, sem internet, com menos de 1 MB. Abre direto, sem passar pelo navegador.",
-    "download": "Baixar o APK",
-    "platform": "Android 8 ou mais novo",
-    "releaseNotes": "O que mudou na última versão",
-    "installTitle": "Como instalar",
-    "step1": "Baixe o arquivo no celular.",
-    "step2": "Abra o arquivo. Se o Android pedir, permita instalar apps desta fonte.",
-    "step3": "Abra o Marmota Tuner e libere o microfone.",
-    "notStore": "O app não está na loja: a instalação é direto pelo arquivo.",
-    "appVersion": "O app tem afinador e metrônomo desde a versão 1.1. Se você ainda está na 1.0, atualize para ter o metrônomo.",
-    "updateTitle": "Como atualizar",
-    "updateText": "Baixe o APK novo e instale por cima do que você tem: não precisa desinstalar, e os ajustes ficam. Para ser avisado quando sair versão nova, acompanhe o app pelo <link>Obtainium</link>, que lê os lançamentos no GitHub."
+    "tapToStart": "Toque em qualquer lugar da página para começar",
+    "muted": "Microfone desligado. Clique ou toque aqui para ligar",
+    "micButton": {
+      "starting": "Abrindo o microfone",
+      "gesture": "Esperando um toque na página para abrir o microfone",
+      "listening": "Microfone ligado. Clique ou toque para desligar",
+      "idle": "Microfone desligado. Clique ou toque para ligar",
+      "denied": "Microfone bloqueado. Clique ou toque para tentar de novo",
+      "unavailable": "Sem microfone neste navegador. Use outro navegador ou o app Android",
+      "failed": "O microfone não abriu. Clique ou toque para tentar de novo"
+    },
+    "micLabel": "Microfone"
   },
   "notFound": {
     "title": "Essa página não existe",

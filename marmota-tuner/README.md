@@ -46,7 +46,7 @@ A página `/afinador` do site baixa `https://github.com/MatheusFinatto/music/rel
 | `NeedleAnimator` | core | Movimento suave da agulha, igual em telas de 60 e 120 Hz. |
 | `Metronome` / `ClickSound` / `TapTempo` | core | Quando cada clique soa (tempos, acento forte/normal/mudo por tempo), o som do clique, o aviso do timer e o andamento pelo toque. O site usa os mesmos em `/metronomo`. |
 | `Subdivisions` | core | As divisões do tempo (semínima, colcheias, tercina, galope, pontuada, shuffle…): onde cai cada clique e as notas para desenhar a figura. O id é o que se salva. |
-| `MetronomeActivity` | app | Tela do metrônomo (figura, tempos, favoritos, roda de bpm, Tap, Timer); mistura os cliques num AudioTrack amostra por amostra, então o tempo não depende da tela. |
+| `MetronomeActivity` | app | Tela do metrônomo (figura, tempos, favoritos, roda de bpm, Tap, Timer com contagem grande e pausa, ▶ ❚❚ ■); mistura os cliques num AudioTrack amostra por amostra, então o tempo não depende da tela. |
 | `BpmWheel` | app | A roda de bpm: arrastar, arremessar, assenta num número inteiro, com vibração a cada número. |
 | `FigureDrawable` | app | Desenha a figura rítmica. Mesmas medidas de `src/tools/metronomo/Figure.tsx` no site: mudou uma, mude a outra. |
 

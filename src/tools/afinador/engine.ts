@@ -18,6 +18,8 @@ export class TunerEngine {
   private frame = 0;
   private mic: Mic | null = null;
   private lastNote = "";
+  private opening: Promise<void> | null = null;
+  private cancelled = false;
 
   private onNoteChange: (reading: NoteReading) => void = () => {};
 
@@ -79,21 +81,33 @@ export class TunerEngine {
     this.draw();
   }
 
-  /** Abre o microfone e começa a afinar. Falha com MicError (ver core/audio/mic.ts). */
-  async listen(): Promise<void> {
+  /**
+   * Abre o microfone e começa a afinar. Falha com MicError (ver core/audio/mic.ts). Sem nenhum gesto na página
+   * ainda, chama `onNeedsGesture` e espera o primeiro clique ou toque.
+   */
+  async listen(onNeedsGesture?: () => void): Promise<void> {
     if (this.mic) return;
-    let pipeline: PitchPipeline | null = null;
-    const mic = await openMic(CHUNK_SAMPLES, (chunk) => {
-      if (!pipeline) return;
-      const sample = pipeline.process(chunk, chunk.length);
-      const midi = this.smoother.push(sample.midi ?? null);
-      this.show(midi == null ? null : readingFromMidi(midi), sample.level);
-    });
-    pipeline = new PitchPipeline(mic.sampleRate);
-    this.mic = mic;
+    // Um pedido só por vez: dois openMic seguidos deixariam um microfone órfão, ainda desenhando na tela.
+    this.cancelled = false;
+    if (this.opening) return this.opening;
+    this.opening = (async () => {
+      let pipeline: PitchPipeline | null = null;
+      const mic = await openMic(CHUNK_SAMPLES, (chunk) => {
+        if (!pipeline) return;
+        const sample = pipeline.process(chunk, chunk.length);
+        const midi = this.smoother.push(sample.midi ?? null);
+        this.show(midi == null ? null : readingFromMidi(midi), sample.level);
+      }, onNeedsGesture);
+      if (this.cancelled) { mic.stop(); return; }
+      pipeline = new PitchPipeline(mic.sampleRate);
+      this.mic = mic;
+    })().finally(() => { this.opening = null; });
+    return this.opening;
   }
 
+  /** Solta o microfone; se ele ainda está abrindo, solta assim que abrir. */
   stop() {
+    this.cancelled = true;
     this.mic?.stop();
     this.mic = null;
     this.smoother.reset();

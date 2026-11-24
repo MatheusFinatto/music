@@ -2,41 +2,16 @@
 import { onRadioKeyDown } from "@/core/ui/radioGroup";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
-import { createStore } from "@/core/storage";
 import { ACCENT, BEAT, MAX_BEATS, MAX_BPM, MIN_BPM, MUTE, SUBDIVISIONS, TapTempo, clampBpm, subdivisionById, type Tick } from "@/core/rhythm";
+import { MINUTES, store } from "./store";
 import { MetronomeEngine, chime, type MetronomeSettings } from "./engine";
 import { Figure } from "./Figure";
 import "./metronomo.css";
 
-/** [hintSeen]: a dica das bolinhas some depois do primeiro clique numa delas. */
-type Saved = MetronomeSettings & { version: 2; minutes: number; hintSeen: boolean };
-const defaultAccents = () => Array.from({ length: MAX_BEATS }, (_, i) => (i === 0 ? ACCENT : BEAT));
-const DEFAULTS: Saved = { version: 2, bpm: 90, beatsPerBar: 4, subdivision: 1, accents: defaultAccents(), minutes: 0, hintSeen: false };
-/** Duração do timer em minutos; 0 = sem limite. */
-const MINUTES = [0, 1, 2, 3, 5, 10, 15, 20, 30] as const;
-const STEPS = [-10, -5, -1, 1, 5, 10] as const;
+const STEPS = [-10, -5, -1, 1, 5, 10] as const; // os negativos à esquerda do número, os positivos à direita
 const clock = (ms: number) => { const s = Math.max(0, Math.ceil(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
 /** Clicar num tempo: normal → forte → mudo → normal (a mesma ordem do núcleo, Metronome.cycleAccent). */
 const nextAccent = (a: number) => (a === BEAT ? ACCENT : a === ACCENT ? MUTE : BEAT);
-
-const store = createStore<Saved>("metronomo", DEFAULTS, (saved) => {
-  const s = saved as (Partial<Saved> & { accentFirst?: unknown; version?: number }) | null;
-  if (!s || typeof s !== "object") return null;
-  const int = (n: unknown, lo: number, hi: number, d: number) => (typeof n === "number" && Number.isInteger(n) && n >= lo && n <= hi ? n : d);
-  // Versão 1 tinha só "acentuar o primeiro tempo"; vira o acento do tempo 1.
-  let accents = defaultAccents();
-  if (Array.isArray(s.accents) && s.accents.length === MAX_BEATS) accents = s.accents.map((a) => ([ACCENT, BEAT, MUTE].includes(a as number) ? (a as number) : BEAT));
-  else if (s.accentFirst === false) accents[0] = BEAT;
-  return {
-    version: 2,
-    bpm: typeof s.bpm === "number" && Number.isFinite(s.bpm) ? clampBpm(Math.round(s.bpm)) : DEFAULTS.bpm,
-    beatsPerBar: int(s.beatsPerBar, 1, MAX_BEATS, DEFAULTS.beatsPerBar),
-    subdivision: subdivisionById(int(s.subdivision, 1, 99, 1)).id,
-    accents,
-    minutes: (MINUTES as readonly unknown[]).includes(s.minutes) ? (s.minutes as number) : 0,
-    hintSeen: s.hintSeen === true,
-  };
-});
 
 /** Metrônomo no navegador. A conta dos cliques é a mesma do app Android (Kotlin, marmota-tuner/core). */
 export function Metronomo() {
@@ -48,7 +23,6 @@ export function Metronomo() {
   const engine = useRef<MetronomeEngine | null>(null);
   const tap = useRef<TapTempo | null>(null);
   const subDialog = useRef<HTMLDialogElement>(null);
-  const infoDialog = useRef<HTMLDialogElement>(null);
   /** As setas no seletor de divisão também disparam click (radioGroup); só Enter, Espaço ou o mouse fecham o modal. */
   const arrowing = useRef(false);
 
@@ -58,23 +32,44 @@ export function Metronomo() {
     engine.current?.apply(next);
   };
   const [audioError, setAudioError] = useState(false);
-  /** Quando o timer acaba (ms no relógio de performance.now), o que falta, e se acabou agora. */
+  /**
+   * O timer: [left] é o que falta (ms; null = a duração inteira, ainda não começou), [deadline] é quando acaba
+   * (relógio de performance.now) enquanto toca. Com timer, o botão principal pausa e guarda o que falta; Parar zera.
+   */
   const [left, setLeft] = useState<number | null>(null);
+  const [paused, setPaused] = useState(false);
   const [finished, setFinished] = useState(false);
   const deadline = useRef<number | null>(null);
-  const halt = () => { engine.current?.stop(); deadline.current = null; setRunning(false); setNow(null); setLeft(null); };
-  /** [at] é o timeStamp do evento (ms, no relógio de performance.now). */
-  const toggle = (at: number) => {
+  const halt = () => { engine.current?.stop(); deadline.current = null; setRunning(false); setNow(null); setLeft(null); setPaused(false); };
+  const pause = (at: number) => {
+    engine.current?.stop();
+    setLeft(deadline.current !== null ? Math.max(0, deadline.current - at) : null);
+    deadline.current = null;
+    setRunning(false); setNow(null); setPaused(true);
+  };
+  const play = (at: number) => {
     setFinished(false);
     engine.current ??= new MetronomeEngine((tick: Tick) => setNow({ beat: tick.beat, sub: tick.sub }));
-    if (engine.current.running) { halt(); return; }
-    if (engine.current.start(store.get())) {
-      setRunning(true); setAudioError(false);
-      const min = store.get().minutes;
-      deadline.current = min > 0 ? at + min * 60_000 : null;
-      setLeft(min > 0 ? min * 60_000 : null);
-    }
-    else setAudioError(true);
+    if (!engine.current.start(store.get())) { setAudioError(true); return; }
+    setRunning(true); setAudioError(false); setPaused(false);
+    const min = store.get().minutes;
+    const ms = min > 0 ? (paused && left !== null ? left : min * 60_000) : null;
+    deadline.current = ms !== null ? at + ms : null;
+    setLeft(ms);
+  };
+  /** [at] é o timeStamp do evento (ms, no relógio de performance.now). Com timer, pausa; sem timer, para. */
+  const toggle = (at: number) => {
+    if (!engine.current?.running) play(at);
+    else if (store.get().minutes > 0) pause(at);
+    else halt();
+  };
+  const setMinutes = (minutes: number, at: number) => {
+    store.set({ ...store.get(), minutes });
+    setFinished(false);
+    if (running) {
+      deadline.current = minutes > 0 ? at + minutes * 60_000 : null;
+      setLeft(minutes > 0 ? minutes * 60_000 : null);
+    } else { setLeft(null); setPaused(false); }
   };
   /** [at] é o timeStamp do evento, em ms. */
   const onTap = (at: number) => {
@@ -131,6 +126,9 @@ export function Metronomo() {
     return () => clearInterval(id);
   }, [running]);
 
+  // O que mudar o salvo por fora (um favorito carregado no topo da página) vale no próximo clique.
+  useEffect(() => { engine.current?.apply(s); }, [s]);
+
   // Para ao sair da página; mantém a tela acesa enquanto toca.
   useEffect(() => () => engine.current?.stop(), []);
   useEffect(() => {
@@ -147,10 +145,6 @@ export function Metronomo() {
 
   return (
     <div className="metro">
-      <button type="button" className="metro-info" onClick={() => infoDialog.current?.showModal()} aria-label={t("infoOpen")} aria-haspopup="dialog">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.2" /><path d="M12 11v5.5" /><circle cx="12" cy="7.6" r="0.6" /></svg>
-      </button>
-
       <ol className="metro-beats">
         {Array.from({ length: s.beatsPerBar }, (_, i) => {
           const a = s.accents[i] ?? BEAT;
@@ -169,27 +163,31 @@ export function Metronomo() {
       </ol>
       {!s.hintSeen && <p className="metro-hint">{t("beatHint")}</p>}
 
-      <label className="metro-bpm">
-        <input
-          type="text"
-          inputMode="numeric"
-          maxLength={3}
-          aria-label={t("bpmLabel", { min: MIN_BPM, max: MAX_BPM })}
-          value={draft ?? String(s.bpm)}
-          onFocus={(e) => e.target.select()}
-          onChange={(e) => setDraft(e.target.value.replace(/\D/g, ""))}
-          onBlur={commit}
-          onKeyDown={(e) => { if (e.key === "Enter" || e.key === "Escape") { if (e.key === "Escape") setDraft(null); e.currentTarget.blur(); } }}
-        />
-        <span>{t("bpm")}</span>
-      </label>
-
-      <div className="metro-steps">
-        {STEPS.map((d) => (
-          <button key={d} type="button" className={d === -1 ? "gap-after" : ""} onClick={() => set({ bpm: store.get().bpm + d })} aria-label={t(d < 0 ? "slower" : "faster", { n: Math.abs(d) })}>
-            {d < 0 ? `−${-d}` : `+${d}`}
-          </button>
-        ))}
+      <div className="metro-tempo">
+        <div className="metro-steps down" role="group" aria-label={t("slowerGroup")}>
+          {STEPS.filter((d) => d < 0).map((d) => (
+            <button key={d} type="button" onClick={() => set({ bpm: store.get().bpm + d })} aria-label={t("slower", { n: -d })}>−{-d}</button>
+          ))}
+        </div>
+        <label className="metro-bpm">
+          <input
+            type="text"
+            inputMode="numeric"
+            maxLength={3}
+            aria-label={t("bpmLabel", { min: MIN_BPM, max: MAX_BPM })}
+            value={draft ?? String(s.bpm)}
+            onFocus={(e) => e.target.select()}
+            onChange={(e) => setDraft(e.target.value.replace(/\D/g, ""))}
+            onBlur={commit}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === "Escape") { if (e.key === "Escape") setDraft(null); e.currentTarget.blur(); } }}
+          />
+          <span>{t("bpm")}</span>
+        </label>
+        <div className="metro-steps up" role="group" aria-label={t("fasterGroup")}>
+          {STEPS.filter((d) => d > 0).map((d) => (
+            <button key={d} type="button" onClick={() => set({ bpm: store.get().bpm + d })} aria-label={t("faster", { n: d })}>+{d}</button>
+          ))}
+        </div>
       </div>
       <input
         className="metro-slider"
@@ -201,16 +199,35 @@ export function Metronomo() {
         aria-label={t("bpmSlider")}
       />
 
-      <div className="metro-actions">
-        <button type="button" className="go metro-play" onClick={(e) => toggle(e.timeStamp)} aria-pressed={running} aria-keyshortcuts="Space">
-          {running ? t("stop") : t("start")}
+      {s.minutes > 0 && (
+        <div className={["metro-timer", running ? "live" : "", finished ? "done" : ""].join(" ")} aria-hidden="true">
+          <span>{clock(finished ? 0 : left ?? s.minutes * 60_000)}</span>
+          <small>{finished ? t("finished") : paused ? t("paused") : ""}</small>
+        </div>
+      )}
+
+      <div className={["metro-actions", s.minutes > 0 ? "with-stop" : ""].join(" ")}>
+        {/* Ícones universais: ▶ tocar ou continuar, ❚❚ pausar (com timer), ■ parar. O nome vai no aria-label. */}
+        <button
+          type="button"
+          className="go metro-play"
+          onClick={(e) => toggle(e.timeStamp)}
+          aria-keyshortcuts="Space"
+          aria-label={running ? (s.minutes > 0 ? t("pause") : t("stop")) : paused ? t("resume") : t("start")}
+          title={running ? (s.minutes > 0 ? t("pause") : t("stop")) : paused ? t("resume") : t("start")}
+        >
+          <PlayIcon kind={running ? (s.minutes > 0 ? "pause" : "stop") : "play"} />
         </button>
+        {/* Com timer, o ■ fica sempre no mesmo lugar (desligado enquanto não há o que parar): nada se mexe sob o dedo. */}
+        {s.minutes > 0 && (
+          <button type="button" className="metro-icon-btn" onClick={halt} disabled={!running && !paused} aria-label={t("stop")} title={t("stop")}>
+            <PlayIcon kind="stop" />
+          </button>
+        )}
         <button type="button" className="metro-tap" onClick={(e) => onTap(e.timeStamp)} aria-keyshortcuts="T">{t("tap")}</button>
       </div>
-      {/* Só o fim é anunciado: ler a contagem a cada segundo atrapalharia quem está tocando. */}
-      <p className={["metro-left", s.minutes > 0 || finished ? "reserve" : ""].join(" ")} role="status">
-        {left !== null ? <span aria-hidden="true">{t("left", { time: clock(left) })}</span> : finished ? t("finished") : null}
-      </p>
+      {/* Só pausa e fim são anunciados: ler a contagem a cada segundo atrapalharia quem está tocando. */}
+      <p className="sr-only" role="status">{finished ? t("finished") : paused ? t("paused") : ""}</p>
 
       <div className="metro-options">
         <label className="metro-field">
@@ -228,7 +245,7 @@ export function Metronomo() {
         </div>
         <label className="metro-field">
           <span>{t("timer")}</span>
-          <select value={s.minutes} onChange={(e) => { const minutes = Number(e.target.value); store.set({ ...store.get(), minutes }); if (running) { deadline.current = minutes > 0 ? e.timeStamp + minutes * 60_000 : null; setLeft(minutes > 0 ? minutes * 60_000 : null); } }}>
+          <select value={s.minutes} onChange={(e) => setMinutes(Number(e.target.value), e.timeStamp)}>
             {MINUTES.map((m) => <option key={m} value={m}>{m === 0 ? t("noLimit") : t("minutes", { n: m })}</option>)}
           </select>
         </label>
@@ -259,17 +276,17 @@ export function Metronomo() {
         </div>
       </dialog>
 
-      <dialog ref={infoDialog} className="metro-dialog" aria-labelledby="metro-info-title" onClick={closeOnBackdrop}>
-        <div className="metro-dialog-head">
-          <h2 id="metro-info-title">{t("infoTitle")}</h2>
-          <button type="button" className="metro-close" onClick={() => infoDialog.current?.close()} aria-label={t("close")}>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
-          </button>
-        </div>
-        <ul className="metro-info-list">
-          {(t.raw("infoItems") as string[]).map((line) => <li key={line}>{line}</li>)}
-        </ul>
-      </dialog>
     </div>
+  );
+}
+
+/** Os ícones do transporte, cheios como nos players: triângulo, duas barras, quadrado. */
+function PlayIcon({ kind }: { kind: "play" | "pause" | "stop" }) {
+  return (
+    <svg className="metro-transport" viewBox="0 0 24 24" aria-hidden="true">
+      {kind === "play" && <path d="M8 5.2v13.6a.8.8 0 0 0 1.2.7l10.6-6.8a.8.8 0 0 0 0-1.4L9.2 4.5A.8.8 0 0 0 8 5.2z" />}
+      {kind === "pause" && <><rect x="6.5" y="5" width="4" height="14" rx="1" /><rect x="13.5" y="5" width="4" height="14" rx="1" /></>}
+      {kind === "stop" && <rect x="6" y="6" width="12" height="12" rx="1.6" />}
+    </svg>
   );
 }
