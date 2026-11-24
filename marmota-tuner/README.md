@@ -44,7 +44,10 @@ A página `/afinador` do site baixa `https://github.com/MatheusFinatto/music/rel
 | `TunerView` / `TunerPainter` | app | Desenho da tela (Canvas, sem bibliotecas). |
 | `TunerGeometry` / `TunerScene` | core | Onde cada coisa fica na tela e o que mostrar; o site usa as mesmas. |
 | `NeedleAnimator` | core | Movimento suave da agulha, igual em telas de 60 e 120 Hz. |
-| `Metronome` / `ClickSound` / `TapTempo` | core | Quando cada clique soa (tempos, acento, subdivisão), o som do clique e o andamento pelo toque. O site usa os mesmos em `/metronomo`. |
-| `MetronomeActivity` | app | Tela do metrônomo; mistura os cliques num AudioTrack amostra por amostra, então o tempo não depende da tela. |
+| `Metronome` / `ClickSound` / `TapTempo` | core | Quando cada clique soa (tempos, acento forte/normal/mudo por tempo), o som do clique, o aviso do timer e o andamento pelo toque. O site usa os mesmos em `/metronomo`. |
+| `Subdivisions` | core | As divisões do tempo (semínima, colcheias, tercina, galope, pontuada, shuffle…): onde cai cada clique e as notas para desenhar a figura. O id é o que se salva. |
+| `MetronomeActivity` | app | Tela do metrônomo (figura, tempos, favoritos, roda de bpm, Tap, Timer); mistura os cliques num AudioTrack amostra por amostra, então o tempo não depende da tela. |
+| `BpmWheel` | app | A roda de bpm: arrastar, arremessar, assenta num número inteiro, com vibração a cada número. |
+| `FigureDrawable` | app | Desenha a figura rítmica. Mesmas medidas de `src/tools/metronomo/Figure.tsx` no site: mudou uma, mude a outra. |
 
 Sem AndroidX nem bibliotecas: o APK tem menos de 1 MB. Versões: AGP 9.5 / Gradle 9.6 (Android Studio Rabbit 2), Kotlin 2.2.10 (o mesmo do AGP, também no `core/`), compileSdk 35, minSdk 26 (Android 8).

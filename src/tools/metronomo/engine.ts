@@ -1,12 +1,13 @@
 // Toca o metrônomo no Web Audio. A conta de quando cada clique soa é do Kotlin (Metronome); aqui só se
 // agenda cada clique no relógio do áudio, um pouco à frente, e se avisa a tela no instante em que ele soa.
 import { getAudio, resumeAudio, type AudioGraph } from "@/core/audio";
-import { ACCENT, BEAT, Metronome, SUB, renderClick, type Tick } from "@/core/rhythm";
+import { ACCENT, BEAT, MUTE, Metronome, SUB, renderChime, renderClick, type Tick } from "@/core/rhythm";
 
 const LOOKAHEAD = 0.12; // segundos agendados à frente
 const TICK_MS = 25;
 
-export type MetronomeSettings = { bpm: number; beatsPerBar: number; subdivision: number; accentFirst: boolean };
+/** [subdivision] é o id da divisão do tempo; [accents] tem um acento (ACCENT, BEAT ou MUTE) por tempo, até MAX_BEATS. */
+export type MetronomeSettings = { bpm: number; beatsPerBar: number; subdivision: number; accents: number[] };
 
 export class MetronomeEngine {
   private readonly clock = new Metronome();
@@ -24,7 +25,7 @@ export class MetronomeEngine {
     this.clock.bpm = s.bpm;
     this.clock.beatsPerBar = s.beatsPerBar;
     this.clock.subdivision = s.subdivision;
-    this.clock.accentFirst = s.accentFirst;
+    this.clock.restoreAccents(Int32Array.from(s.accents));
   }
 
   /** Chame dentro de um gesto do usuário. Devolve false se o navegador não tem áudio. */
@@ -66,34 +67,28 @@ export class MetronomeEngine {
     while (this.clock.nextTime < now + LOOKAHEAD) {
       const tick = this.clock.next();
       if (tick.time < now - 0.02) continue;
+      this.pending.push(setTimeout(() => this.onTick(tick), Math.max(0, (tick.time - now) * 1000)));
+      if (this.pending.length > 64) this.pending = this.pending.slice(-32);
+      if (tick.kind === MUTE) continue; // tempo mudo: a tela acompanha, o som não
       const src = g.ctx.createBufferSource();
       src.buffer = this.buffers.get(tick.kind)!;
       src.connect(g.bus.click);
       src.start(tick.time);
       src.onended = () => { this.sources = this.sources.filter((x) => x !== src); };
       this.sources.push(src);
-      this.pending.push(setTimeout(() => this.onTick(tick), Math.max(0, (tick.time - now) * 1000)));
-      if (this.pending.length > 64) this.pending = this.pending.slice(-32);
     }
   }
 }
 
-/** Dois tons curtos e suaves (Lá e Mi agudos) para avisar que o timer acabou; não conflitam com o clique. */
+/** Avisa que o timer acabou: dois tons curtos, os mesmos do app (ClickSound.renderChime no núcleo). */
 export function chime() {
   const g = getAudio();
   if (!g) return;
-  const { ctx, master } = g;
-  const t0 = ctx.currentTime + 0.05;
-  for (const [hz, at] of [[880, 0], [1318.5, 0.18]] as const) {
-    const osc = ctx.createOscillator();
-    const env = ctx.createGain();
-    osc.type = "sine";
-    osc.frequency.value = hz;
-    env.gain.setValueAtTime(0, t0 + at);
-    env.gain.linearRampToValueAtTime(0.3, t0 + at + 0.01);
-    env.gain.exponentialRampToValueAtTime(0.001, t0 + at + 0.6);
-    osc.connect(env).connect(master);
-    osc.start(t0 + at);
-    osc.stop(t0 + at + 0.65);
-  }
+  const data = renderChime(g.ctx.sampleRate);
+  const buf = g.ctx.createBuffer(1, data.length, g.ctx.sampleRate);
+  buf.getChannelData(0).set(data);
+  const src = g.ctx.createBufferSource();
+  src.buffer = buf;
+  src.connect(g.master);
+  src.start(g.ctx.currentTime + 0.05);
 }

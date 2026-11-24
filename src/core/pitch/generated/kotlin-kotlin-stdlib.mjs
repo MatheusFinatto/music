@@ -37,14 +37,14 @@ if (typeof Array.prototype.fill === 'undefined') {
     Object.defineProperty(TypedArray.prototype, 'fill', {value: Array.prototype.fill});
   }
 });
-if (typeof Math.log10 === 'undefined') {
-  Math.log10 = function (x) {
-    return Math.log(x) * Math.LOG10E;
-  };
-}
 if (typeof Math.log2 === 'undefined') {
   Math.log2 = function (x) {
     return Math.log(x) * Math.LOG2E;
+  };
+}
+if (typeof Math.log10 === 'undefined') {
+  Math.log10 = function (x) {
+    return Math.log(x) * Math.LOG10E;
   };
 }
 //endregion
@@ -91,6 +91,7 @@ initMetadataForClass(ArrayDeque, 'ArrayDeque', ArrayDeque_init_$Create$, Abstrac
 initMetadataForObject(EmptyList, 'EmptyList', VOID, VOID, [KtList_0]);
 initMetadataForObject(EmptyIterator, 'EmptyIterator');
 initMetadataForObject(NaturalOrderComparator, 'NaturalOrderComparator', VOID, VOID, [Comparator]);
+initMetadataForClass(Pair, 'Pair');
 //endregion
 function CharSequence() {
 }
@@ -1432,16 +1433,6 @@ function arrayOfNulls(reference, size) {
   // Inline function 'kotlin.js.asDynamic' call
   return Array(size);
 }
-function sort_0(_this__u8e3s4) {
-  collectionsSort(_this__u8e3s4, naturalOrder());
-}
-function listOf(element) {
-  // Inline function 'kotlin.arrayOf' call
-  // Inline function 'kotlin.js.unsafeCast' call
-  // Inline function 'kotlin.js.asDynamic' call
-  var tmp$ret$2 = [element];
-  return new ArrayList(tmp$ret$2);
-}
 function arrayCopy(source, destination, destinationOffset, startIndex, endIndex) {
   Companion_instance_2.i1(startIndex, endIndex, source.length);
   var rangeSize = endIndex - startIndex | 0;
@@ -1472,6 +1463,16 @@ function arrayCopy(source, destination, destinationOffset, startIndex, endIndex)
          while (0 <= inductionVariable_0);
     }
   }
+}
+function sort_0(_this__u8e3s4) {
+  collectionsSort(_this__u8e3s4, naturalOrder());
+}
+function listOf(element) {
+  // Inline function 'kotlin.arrayOf' call
+  // Inline function 'kotlin.js.unsafeCast' call
+  // Inline function 'kotlin.js.asDynamic' call
+  var tmp$ret$2 = [element];
+  return new ArrayList(tmp$ret$2);
 }
 function copyToArray(collection) {
   var tmp;
@@ -1779,17 +1780,6 @@ protoOf(ArrayList).k1 = function () {
     throw UnsupportedOperationException_init_$Create$();
 };
 var _stableSortingIsSupported;
-function sortArray(array) {
-  if (getStableSortingIsSupported()) {
-    var comparison = sortArray$lambda;
-    // Inline function 'kotlin.js.asDynamic' call
-    array.sort(comparison);
-  } else {
-    // Inline function 'kotlin.js.unsafeCast' call
-    // Inline function 'kotlin.js.asDynamic' call
-    mergeSort(array, 0, get_lastIndex(array), naturalOrder());
-  }
-}
 function sortArrayWith(array, comparator) {
   if (getStableSortingIsSupported()) {
     var comparison = sortArrayWith$lambda(comparator);
@@ -1799,6 +1789,17 @@ function sortArrayWith(array, comparator) {
     // Inline function 'kotlin.js.unsafeCast' call
     // Inline function 'kotlin.js.asDynamic' call
     mergeSort(array, 0, get_lastIndex(array), comparator);
+  }
+}
+function sortArray(array) {
+  if (getStableSortingIsSupported()) {
+    var comparison = sortArray$lambda;
+    // Inline function 'kotlin.js.asDynamic' call
+    array.sort(comparison);
+  } else {
+    // Inline function 'kotlin.js.unsafeCast' call
+    // Inline function 'kotlin.js.asDynamic' call
+    mergeSort(array, 0, get_lastIndex(array), naturalOrder());
   }
 }
 function getStableSortingIsSupported() {
@@ -1893,13 +1894,13 @@ function mergeSort_0(array, buffer, start, end, comparator) {
      while (!(i === end));
   return target;
 }
-function sortArray$lambda(a, b) {
-  return compareTo(a, b);
-}
 function sortArrayWith$lambda($comparator) {
   return function (a, b) {
     return $comparator.compare(a, b);
   };
+}
+function sortArray$lambda(a, b) {
+  return compareTo(a, b);
 }
 function getStableSortingIsSupported$lambda(a, b) {
   return (a & 3) - (b & 3) | 0;
@@ -2756,6 +2757,39 @@ function appendElement(_this__u8e3s4, element, transform) {
     }
   }
 }
+function Pair(first, second) {
+  this.f3_1 = first;
+  this.g3_1 = second;
+}
+protoOf(Pair).toString = function () {
+  return '(' + toString_0(this.f3_1) + ', ' + toString_0(this.g3_1) + ')';
+};
+protoOf(Pair).h3 = function () {
+  return this.f3_1;
+};
+protoOf(Pair).i3 = function () {
+  return this.g3_1;
+};
+protoOf(Pair).hashCode = function () {
+  var result = this.f3_1 == null ? 0 : hashCode(this.f3_1);
+  result = imul_0(result, 31) + (this.g3_1 == null ? 0 : hashCode(this.g3_1)) | 0;
+  return result;
+};
+protoOf(Pair).equals = function (other) {
+  if (this === other)
+    return true;
+  if (!(other instanceof Pair))
+    return false;
+  var tmp0_other_with_cast = other instanceof Pair ? other : THROW_CCE();
+  if (!equals(this.f3_1, tmp0_other_with_cast.f3_1))
+    return false;
+  if (!equals(this.g3_1, tmp0_other_with_cast.g3_1))
+    return false;
+  return true;
+};
+function to(_this__u8e3s4, that) {
+  return new Pair(_this__u8e3s4, that);
+}
 //region block: post-declaration
 protoOf(AbstractMutableList).asJsReadonlyArrayView = asJsReadonlyArrayView;
 protoOf(EmptyList).asJsReadonlyArrayView = asJsReadonlyArrayView;
@@ -2802,6 +2836,7 @@ export {
   THROW_CCE as THROW_CCE2g6jy02ryeudk,
   isFinite as isFinite2t9l5a275mxm6,
   isNaN_0 as isNaNymqb93xtq8w8,
+  to as to2cs3ny02qtbcb,
 };
 //endregion
 

@@ -3,28 +3,38 @@ import { onRadioKeyDown } from "@/core/ui/radioGroup";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { createStore } from "@/core/storage";
-import { MAX_BEATS, MAX_BPM, MIN_BPM, TapTempo, clampBpm, type Tick } from "@/core/rhythm";
+import { ACCENT, BEAT, MAX_BEATS, MAX_BPM, MIN_BPM, MUTE, SUBDIVISIONS, TapTempo, clampBpm, subdivisionById, type Tick } from "@/core/rhythm";
 import { MetronomeEngine, chime, type MetronomeSettings } from "./engine";
+import { Figure } from "./Figure";
 import "./metronomo.css";
 
-type Saved = MetronomeSettings & { version: 1; minutes: number };
-const DEFAULTS: Saved = { version: 1, bpm: 90, beatsPerBar: 4, subdivision: 1, accentFirst: true, minutes: 0 };
+/** [hintSeen]: a dica das bolinhas some depois do primeiro clique numa delas. */
+type Saved = MetronomeSettings & { version: 2; minutes: number; hintSeen: boolean };
+const defaultAccents = () => Array.from({ length: MAX_BEATS }, (_, i) => (i === 0 ? ACCENT : BEAT));
+const DEFAULTS: Saved = { version: 2, bpm: 90, beatsPerBar: 4, subdivision: 1, accents: defaultAccents(), minutes: 0, hintSeen: false };
 /** Duração do timer em minutos; 0 = sem limite. */
 const MINUTES = [0, 1, 2, 3, 5, 10, 15, 20, 30] as const;
+const STEPS = [-10, -5, -1, 1, 5, 10] as const;
 const clock = (ms: number) => { const s = Math.max(0, Math.ceil(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
-const SUBDIVISIONS = [1, 2, 3, 4] as const;
+/** Clicar num tempo: normal → forte → mudo → normal (a mesma ordem do núcleo, Metronome.cycleAccent). */
+const nextAccent = (a: number) => (a === BEAT ? ACCENT : a === ACCENT ? MUTE : BEAT);
 
 const store = createStore<Saved>("metronomo", DEFAULTS, (saved) => {
-  const s = saved as Partial<Saved> | null;
+  const s = saved as (Partial<Saved> & { accentFirst?: unknown; version?: number }) | null;
   if (!s || typeof s !== "object") return null;
   const int = (n: unknown, lo: number, hi: number, d: number) => (typeof n === "number" && Number.isInteger(n) && n >= lo && n <= hi ? n : d);
+  // Versão 1 tinha só "acentuar o primeiro tempo"; vira o acento do tempo 1.
+  let accents = defaultAccents();
+  if (Array.isArray(s.accents) && s.accents.length === MAX_BEATS) accents = s.accents.map((a) => ([ACCENT, BEAT, MUTE].includes(a as number) ? (a as number) : BEAT));
+  else if (s.accentFirst === false) accents[0] = BEAT;
   return {
-    version: 1,
+    version: 2,
     bpm: typeof s.bpm === "number" && Number.isFinite(s.bpm) ? clampBpm(Math.round(s.bpm)) : DEFAULTS.bpm,
     beatsPerBar: int(s.beatsPerBar, 1, MAX_BEATS, DEFAULTS.beatsPerBar),
-    subdivision: int(s.subdivision, 1, 4, DEFAULTS.subdivision),
-    accentFirst: typeof s.accentFirst === "boolean" ? s.accentFirst : true,
+    subdivision: subdivisionById(int(s.subdivision, 1, 99, 1)).id,
+    accents,
     minutes: (MINUTES as readonly unknown[]).includes(s.minutes) ? (s.minutes as number) : 0,
+    hintSeen: s.hintSeen === true,
   };
 });
 
@@ -37,6 +47,10 @@ export function Metronomo() {
   const [draft, setDraft] = useState<string | null>(null);
   const engine = useRef<MetronomeEngine | null>(null);
   const tap = useRef<TapTempo | null>(null);
+  const subDialog = useRef<HTMLDialogElement>(null);
+  const infoDialog = useRef<HTMLDialogElement>(null);
+  /** As setas no seletor de divisão também disparam click (radioGroup); só Enter, Espaço ou o mouse fecham o modal. */
+  const arrowing = useRef(false);
 
   const set = (patch: Partial<MetronomeSettings>) => {
     const next = { ...store.get(), ...patch, bpm: clampBpm(Math.round(patch.bpm ?? store.get().bpm)) };
@@ -44,26 +58,28 @@ export function Metronomo() {
     engine.current?.apply(next);
   };
   const [audioError, setAudioError] = useState(false);
-  /** Quando o timer acaba (ms do relógio), o que falta, e se acabou agora. */
+  /** Quando o timer acaba (ms no relógio de performance.now), o que falta, e se acabou agora. */
   const [left, setLeft] = useState<number | null>(null);
   const [finished, setFinished] = useState(false);
   const deadline = useRef<number | null>(null);
   const halt = () => { engine.current?.stop(); deadline.current = null; setRunning(false); setNow(null); setLeft(null); };
-  const toggle = () => {
+  /** [at] é o timeStamp do evento (ms, no relógio de performance.now). */
+  const toggle = (at: number) => {
     setFinished(false);
     engine.current ??= new MetronomeEngine((tick: Tick) => setNow({ beat: tick.beat, sub: tick.sub }));
     if (engine.current.running) { halt(); return; }
     if (engine.current.start(store.get())) {
       setRunning(true); setAudioError(false);
       const min = store.get().minutes;
-      deadline.current = min > 0 ? Date.now() + min * 60_000 : null;
+      deadline.current = min > 0 ? at + min * 60_000 : null;
       setLeft(min > 0 ? min * 60_000 : null);
     }
     else setAudioError(true);
   };
-  const onTap = () => {
+  /** [at] é o timeStamp do evento, em ms. */
+  const onTap = (at: number) => {
     tap.current ??= new TapTempo();
-    const bpm = tap.current.tap(performance.now() / 1000);
+    const bpm = tap.current.tap(at / 1000);
     if (bpm !== null && bpm !== undefined) set({ bpm });
   };
   const commit = () => {
@@ -71,12 +87,30 @@ export function Metronomo() {
     setDraft(null);
     if (draft !== null && draft.trim() !== "" && Number.isFinite(n)) set({ bpm: n });
   };
+  const cycle = (beat: number) => {
+    const accents = [...store.get().accents];
+    accents[beat] = nextAccent(accents[beat] ?? BEAT);
+    set({ accents });
+    if (!store.get().hintSeen) store.set({ ...store.get(), hintSeen: true });
+  };
+  const accentName = (a: number) => t(a === ACCENT ? "accent.strong" : a === MUTE ? "accent.mute" : "accent.normal");
 
-  // Espaço toca e para; setas mudam o andamento (com Shift, de 10 em 10).
+  // Espaço toca e para (mesmo com o foco num botão: é o atalho de quem está com o instrumento na mão);
+  // T marca o tap; setas mudam o andamento (com Shift, de 10 em 10). Campo de texto, seletor e modal ficam com as teclas.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.target instanceof Element && e.target.closest("input, select, textarea, a, button")) return;
-      if (e.code === "Space") { e.preventDefault(); if (!e.repeat) toggle(); }
+      const el = e.target instanceof Element ? e.target : null;
+      if (el?.closest("input[type=text], select, textarea, dialog")) return;
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (e.code === "Space") {
+        // No botão Tocar, o próprio botão já alterna; nos outros, o Espaço não aperta o botão.
+        if (el?.closest(".metro-play")) return;
+        e.preventDefault();
+        if (!e.repeat) toggle(e.timeStamp);
+        return;
+      }
+      if (el?.closest("a, input")) return;
+      if (e.code === "KeyT" && !e.repeat) onTap(e.timeStamp);
       const step = e.shiftKey ? 10 : 1;
       if (e.code === "ArrowUp" || e.code === "ArrowRight") { e.preventDefault(); set({ bpm: store.get().bpm + step }); }
       if (e.code === "ArrowDown" || e.code === "ArrowLeft") { e.preventDefault(); set({ bpm: store.get().bpm - step }); }
@@ -91,7 +125,7 @@ export function Metronomo() {
     const id = setInterval(() => {
       const d = deadline.current;
       if (d === null) return;
-      const rest = d - Date.now();
+      const rest = d - performance.now();
       if (rest <= 0) { halt(); setFinished(true); chime(); } else setLeft(rest);
     }, 250);
     return () => clearInterval(id);
@@ -107,31 +141,55 @@ export function Metronomo() {
     return () => { cancelled = true; void lock?.release(); };
   }, [running]);
 
+  const sub = subdivisionById(s.subdivision);
+  // Clicar fora do conteúdo (no fundo escurecido) fecha o modal.
+  const closeOnBackdrop = (e: React.MouseEvent<HTMLDialogElement>) => { if (e.target === e.currentTarget) e.currentTarget.close(); };
+
   return (
     <div className="metro">
-      <ol className="metro-beats" aria-hidden="true">
-        {Array.from({ length: s.beatsPerBar }, (_, i) => (
-          <li key={i} className={[i === 0 && s.accentFirst && s.beatsPerBar > 1 ? "accent" : "", now?.beat === i ? (now.sub === 0 ? "on" : "sub") : ""].join(" ")} />
-        ))}
-      </ol>
+      <button type="button" className="metro-info" onClick={() => infoDialog.current?.showModal()} aria-label={t("infoOpen")} aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.2" /><path d="M12 11v5.5" /><circle cx="12" cy="7.6" r="0.6" /></svg>
+      </button>
 
-      <div className="metro-tempo">
-        <button type="button" className="metro-step" onClick={() => set({ bpm: s.bpm - 1 })} aria-label={t("slower")}>−</button>
-        <label className="metro-bpm">
-          <input
-            type="text"
-            inputMode="numeric"
-            maxLength={3}
-            aria-label={t("bpmLabel", { min: MIN_BPM, max: MAX_BPM })}
-            value={draft ?? String(s.bpm)}
-            onFocus={(e) => e.target.select()}
-            onChange={(e) => setDraft(e.target.value.replace(/\D/g, ""))}
-            onBlur={commit}
-            onKeyDown={(e) => { if (e.key === "Enter" || e.key === "Escape") { if (e.key === "Escape") setDraft(null); e.currentTarget.blur(); } }}
-          />
-          <span>{t("bpm")}</span>
-        </label>
-        <button type="button" className="metro-step" onClick={() => set({ bpm: s.bpm + 1 })} aria-label={t("faster")}>+</button>
+      <ol className="metro-beats">
+        {Array.from({ length: s.beatsPerBar }, (_, i) => {
+          const a = s.accents[i] ?? BEAT;
+          const lit = now?.beat === i ? (now.sub === 0 ? "on" : "sub") : "";
+          return (
+            <li key={i}>
+              <button
+                type="button"
+                className={["metro-dot", a === ACCENT ? "strong" : a === MUTE ? "mute" : "", lit].join(" ")}
+                onClick={() => cycle(i)}
+                aria-label={t("beatLabel", { n: i + 1, accent: accentName(a) })}
+              />
+            </li>
+          );
+        })}
+      </ol>
+      {!s.hintSeen && <p className="metro-hint">{t("beatHint")}</p>}
+
+      <label className="metro-bpm">
+        <input
+          type="text"
+          inputMode="numeric"
+          maxLength={3}
+          aria-label={t("bpmLabel", { min: MIN_BPM, max: MAX_BPM })}
+          value={draft ?? String(s.bpm)}
+          onFocus={(e) => e.target.select()}
+          onChange={(e) => setDraft(e.target.value.replace(/\D/g, ""))}
+          onBlur={commit}
+          onKeyDown={(e) => { if (e.key === "Enter" || e.key === "Escape") { if (e.key === "Escape") setDraft(null); e.currentTarget.blur(); } }}
+        />
+        <span>{t("bpm")}</span>
+      </label>
+
+      <div className="metro-steps">
+        {STEPS.map((d) => (
+          <button key={d} type="button" className={d === -1 ? "gap-after" : ""} onClick={() => set({ bpm: store.get().bpm + d })} aria-label={t(d < 0 ? "slower" : "faster", { n: Math.abs(d) })}>
+            {d < 0 ? `−${-d}` : `+${d}`}
+          </button>
+        ))}
       </div>
       <input
         className="metro-slider"
@@ -144,13 +202,13 @@ export function Metronomo() {
       />
 
       <div className="metro-actions">
-        <button type="button" className="go metro-play" onClick={toggle} aria-pressed={running} aria-keyshortcuts="Space">
+        <button type="button" className="go metro-play" onClick={(e) => toggle(e.timeStamp)} aria-pressed={running} aria-keyshortcuts="Space">
           {running ? t("stop") : t("start")}
         </button>
-        <button type="button" className="metro-tap" onClick={onTap}>{t("tap")}</button>
+        <button type="button" className="metro-tap" onClick={(e) => onTap(e.timeStamp)} aria-keyshortcuts="T">{t("tap")}</button>
       </div>
       {/* Só o fim é anunciado: ler a contagem a cada segundo atrapalharia quem está tocando. */}
-      <p className="metro-left" role="status">
+      <p className={["metro-left", s.minutes > 0 || finished ? "reserve" : ""].join(" ")} role="status">
         {left !== null ? <span aria-hidden="true">{t("left", { time: clock(left) })}</span> : finished ? t("finished") : null}
       </p>
 
@@ -162,28 +220,56 @@ export function Metronomo() {
           </select>
         </label>
         <div className="metro-field">
-          <span id="metro-sub">{t("subdivision")}</span>
-          <div className="metro-seg" role="radiogroup" aria-labelledby="metro-sub" onKeyDown={onRadioKeyDown}>
-            {SUBDIVISIONS.map((n) => (
-              <button key={n} type="button" role="radio" aria-checked={s.subdivision === n} tabIndex={s.subdivision === n ? 0 : -1} onClick={() => set({ subdivision: n })}>
-                {t(`sub.${n}`)}
-              </button>
-            ))}
-          </div>
+          <span id="metro-sub-label">{t("subdivision")}</span>
+          <button type="button" className="metro-sub-open" onClick={() => { subDialog.current?.showModal(); subDialog.current?.querySelector<HTMLElement>('[aria-checked="true"]')?.focus(); }} aria-haspopup="dialog" aria-labelledby="metro-sub-label metro-sub-name">
+            <Figure subdivision={sub} className="metro-figure" />
+            <span id="metro-sub-name" className="sr-only">{t(`sub.${sub.id}`)}</span>
+          </button>
         </div>
         <label className="metro-field">
           <span>{t("timer")}</span>
-          <select value={s.minutes} onChange={(e) => { const minutes = Number(e.target.value); store.set({ ...store.get(), minutes }); if (running) { deadline.current = minutes > 0 ? Date.now() + minutes * 60_000 : null; setLeft(minutes > 0 ? minutes * 60_000 : null); } }}>
+          <select value={s.minutes} onChange={(e) => { const minutes = Number(e.target.value); store.set({ ...store.get(), minutes }); if (running) { deadline.current = minutes > 0 ? e.timeStamp + minutes * 60_000 : null; setLeft(minutes > 0 ? minutes * 60_000 : null); } }}>
             {MINUTES.map((m) => <option key={m} value={m}>{m === 0 ? t("noLimit") : t("minutes", { n: m })}</option>)}
           </select>
         </label>
-        <label className="metro-check">
-          <input type="checkbox" checked={s.accentFirst} onChange={(e) => set({ accentFirst: e.target.checked })} />
-          <span>{t("accent")}</span>
-        </label>
       </div>
-      {audioError && <p className="metro-keys" role="alert">{t("noAudio")}</p>}
-      <p className="metro-keys">{t("keys")}</p>
+      {audioError && <p className="metro-error" role="alert">{t("noAudio")}</p>}
+
+      <dialog ref={subDialog} className="metro-dialog" aria-labelledby="metro-sub-title" onClick={closeOnBackdrop}>
+        <div className="metro-dialog-head">
+          <h2 id="metro-sub-title">{t("subTitle")}</h2>
+          <button type="button" className="metro-close" onClick={() => subDialog.current?.close()} aria-label={t("close")}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+        </div>
+        <div className="metro-subgrid" role="radiogroup" aria-labelledby="metro-sub-title" onKeyDown={(e) => { arrowing.current = true; onRadioKeyDown(e); arrowing.current = false; }}>
+          {SUBDIVISIONS.map((d) => (
+            <button
+              key={d.id}
+              type="button"
+              role="radio"
+              aria-checked={d.id === s.subdivision}
+              tabIndex={d.id === s.subdivision ? 0 : -1}
+              onClick={() => { set({ subdivision: d.id }); if (!arrowing.current) subDialog.current?.close(); }}
+            >
+              <Figure subdivision={d} className="metro-figure" />
+              <span>{t(`sub.${d.id}`)}</span>
+            </button>
+          ))}
+        </div>
+      </dialog>
+
+      <dialog ref={infoDialog} className="metro-dialog" aria-labelledby="metro-info-title" onClick={closeOnBackdrop}>
+        <div className="metro-dialog-head">
+          <h2 id="metro-info-title">{t("infoTitle")}</h2>
+          <button type="button" className="metro-close" onClick={() => infoDialog.current?.close()} aria-label={t("close")}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+        </div>
+        <ul className="metro-info-list">
+          {(t.raw("infoItems") as string[]).map((line) => <li key={line}>{line}</li>)}
+        </ul>
+      </dialog>
     </div>
   );
 }

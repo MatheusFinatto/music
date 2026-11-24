@@ -37,8 +37,44 @@ export declare namespace Tick {
             get ACCENT(): number;
             get BEAT(): number;
             get SUB(): number;
+            get MUTE(): number;
             private constructor();
         }
+    }
+}
+export declare class Note {
+    constructor(beams: number, dotted?: boolean);
+    get beams(): number;
+    get dotted(): boolean;
+}
+/** @deprecated $metadata$ is used for internal purposes, please don't use it in your code, because it can be removed at any moment */
+export declare namespace Note.$metadata$ {
+    const constructor: abstract new () => Note;
+}
+export declare class Subdivision {
+    constructor(id: number, offsets: Float64Array, notes: Array<Note>, tuplet?: number);
+    get id(): number;
+    get offsets(): Float64Array;
+    get notes(): Array<Note>;
+    get tuplet(): number;
+}
+/** @deprecated $metadata$ is used for internal purposes, please don't use it in your code, because it can be removed at any moment */
+export declare namespace Subdivision.$metadata$ {
+    const constructor: abstract new () => Subdivision;
+}
+export declare abstract class Subdivisions {
+    static readonly getInstance: () => typeof Subdivisions.$metadata$.type;
+    private constructor();
+}
+/** @deprecated $metadata$ is used for internal purposes, please don't use it in your code, because it can be removed at any moment */
+export declare namespace Subdivisions.$metadata$ {
+    abstract class type extends KtSingleton<constructor>() {
+        private constructor();
+    }
+    abstract class constructor {
+        get all(): Array<Subdivision>;
+        byId(id: number): Subdivision;
+        private constructor();
     }
 }
 export declare class Metronome {
@@ -49,10 +85,13 @@ export declare class Metronome {
     set beatsPerBar(value: number);
     get subdivision(): number;
     set subdivision(value: number);
-    get accentFirst(): boolean;
-    set accentFirst(value: boolean);
     get nextTime(): number;
     set nextTime(value: number);
+    accent(beat: number): number;
+    setAccent(beat: number, kind: number): void;
+    cycleAccent(beat: number): number;
+    accentList(): Int32Array;
+    restoreAccents(saved: Int32Array): void;
     reset(start: number): void;
     next(): Tick;
 }
@@ -89,6 +128,7 @@ export declare namespace ClickSound.$metadata$ {
         frequency(kind: number): number;
         gain(kind: number): number;
         render(kind: number, sampleRate: number): Float64Array;
+        renderChime(sampleRate: number): Float64Array;
         private constructor();
     }
 }

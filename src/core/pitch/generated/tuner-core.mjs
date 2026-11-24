@@ -2,16 +2,17 @@ import {
   protoOf180f3jzyo7rfj as protoOf,
   initMetadataForCompanion1wyw17z38v6ac as initMetadataForCompanion,
   initMetadataForClassbxx6q50dy2s7 as initMetadataForClass,
+  VOID3gxj6tk5isa35 as VOID,
+  initMetadataForObject1cxne3s9w65el as initMetadataForObject,
   coerceIn1xblvmyr0tby6 as coerceIn,
   isNaNymqb93xtq8w8 as isNaN_0,
-  VOID3gxj6tk5isa35 as VOID,
   coerceIn10f36k81le1mm as coerceIn_0,
+  Unit_instance1fbcbse1fwigr as Unit_instance,
   defineProp3hxgpk2knu2px as defineProp,
   numberToInt1ygmcfwhs2fkq as numberToInt,
-  initMetadataForObject1cxne3s9w65el as initMetadataForObject,
+  to2cs3ny02qtbcb as to,
   ArrayList_init_$Create$149jv2ovkkvnt as ArrayList_init_$Create$,
   last1vo29oleiqj36 as last,
-  Unit_instance1fbcbse1fwigr as Unit_instance,
   emptyList1g2z5xcrvp2zy as emptyList,
   sorted354mfsiv4s7x5 as sorted,
   round2mrvepag8eey0 as round,
@@ -36,6 +37,9 @@ var log10 = Math.log10;
 //region block: pre-declaration
 initMetadataForCompanion(Companion);
 initMetadataForClass(Tick, 'Tick');
+initMetadataForClass(Note, 'Note');
+initMetadataForClass(Subdivision, 'Subdivision');
+initMetadataForObject(Subdivisions_0, 'Subdivisions');
 initMetadataForCompanion(Companion_0);
 initMetadataForClass(Metronome, 'Metronome', Metronome);
 initMetadataForObject(ClickSound_0, 'ClickSound');
@@ -61,15 +65,19 @@ function Companion() {
   this.ACCENT = 0;
   this.BEAT = 1;
   this.SUB = 2;
+  this.MUTE = 3;
 }
-protoOf(Companion).f3 = function () {
+protoOf(Companion).j3 = function () {
   return this.ACCENT;
 };
-protoOf(Companion).g3 = function () {
+protoOf(Companion).k3 = function () {
   return this.BEAT;
 };
-protoOf(Companion).h3 = function () {
+protoOf(Companion).l3 = function () {
   return this.SUB;
+};
+protoOf(Companion).m3 = function () {
+  return this.MUTE;
 };
 var Companion_instance;
 function Companion_getInstance() {
@@ -81,30 +89,185 @@ function Tick(time, beat, sub, kind) {
   this.sub = sub;
   this.kind = kind;
 }
-protoOf(Tick).i3 = function () {
+protoOf(Tick).n3 = function () {
   return this.time;
 };
-protoOf(Tick).j3 = function () {
+protoOf(Tick).o3 = function () {
   return this.beat;
 };
-protoOf(Tick).k3 = function () {
+protoOf(Tick).p3 = function () {
   return this.sub;
 };
-protoOf(Tick).l3 = function () {
+protoOf(Tick).q3 = function () {
   return this.kind;
 };
+function Note(beams, dotted) {
+  dotted = dotted === VOID ? false : dotted;
+  this.beams = beams;
+  this.dotted = dotted;
+}
+protoOf(Note).r3 = function () {
+  return this.beams;
+};
+protoOf(Note).s3 = function () {
+  return this.dotted;
+};
+function Subdivision(id, offsets, notes, tuplet) {
+  tuplet = tuplet === VOID ? 0 : tuplet;
+  this.id = id;
+  this.offsets = offsets;
+  this.notes = notes;
+  this.tuplet = tuplet;
+}
+protoOf(Subdivision).t3 = function () {
+  return this.id;
+};
+protoOf(Subdivision).u3 = function () {
+  return this.offsets;
+};
+protoOf(Subdivision).v3 = function () {
+  return this.notes;
+};
+protoOf(Subdivision).w3 = function () {
+  return this.tuplet;
+};
+function Subdivisions_0() {
+  Subdivisions_instance = this;
+  this.x3_1 = new Note(0);
+  this.y3_1 = new Note(1);
+  this.z3_1 = new Note(2);
+  this.a4_1 = new Note(1, true);
+  var tmp = this;
+  // Inline function 'kotlin.doubleArrayOf' call
+  var tmp_0 = new Float64Array([0.0]);
+  // Inline function 'kotlin.arrayOf' call
+  // Inline function 'kotlin.js.unsafeCast' call
+  // Inline function 'kotlin.js.asDynamic' call
+  var tmp$ret$3 = [this.x3_1];
+  var tmp_1 = new Subdivision(1, tmp_0, tmp$ret$3);
+  // Inline function 'kotlin.doubleArrayOf' call
+  var tmp_2 = new Float64Array([0.0, 0.5]);
+  // Inline function 'kotlin.arrayOf' call
+  // Inline function 'kotlin.js.unsafeCast' call
+  // Inline function 'kotlin.js.asDynamic' call
+  var tmp$ret$7 = [this.y3_1, this.y3_1];
+  var tmp_3 = new Subdivision(2, tmp_2, tmp$ret$7);
+  // Inline function 'kotlin.doubleArrayOf' call
+  var tmp_4 = new Float64Array([0.0, 1.0 / 3, 2.0 / 3]);
+  // Inline function 'kotlin.arrayOf' call
+  // Inline function 'kotlin.js.unsafeCast' call
+  // Inline function 'kotlin.js.asDynamic' call
+  var tmp$ret$11 = [this.y3_1, this.y3_1, this.y3_1];
+  var tmp_5 = new Subdivision(3, tmp_4, tmp$ret$11, 3);
+  // Inline function 'kotlin.doubleArrayOf' call
+  var tmp_6 = new Float64Array([0.0, 0.25, 0.5, 0.75]);
+  // Inline function 'kotlin.arrayOf' call
+  // Inline function 'kotlin.js.unsafeCast' call
+  // Inline function 'kotlin.js.asDynamic' call
+  var tmp$ret$15 = [this.z3_1, this.z3_1, this.z3_1, this.z3_1];
+  var tmp_7 = new Subdivision(4, tmp_6, tmp$ret$15);
+  // Inline function 'kotlin.doubleArrayOf' call
+  var tmp_8 = new Float64Array([0.0, 0.5, 0.75]);
+  // Inline function 'kotlin.arrayOf' call
+  // Inline function 'kotlin.js.unsafeCast' call
+  // Inline function 'kotlin.js.asDynamic' call
+  var tmp$ret$19 = [this.y3_1, this.z3_1, this.z3_1];
+  var tmp_9 = new Subdivision(5, tmp_8, tmp$ret$19);
+  // Inline function 'kotlin.doubleArrayOf' call
+  var tmp_10 = new Float64Array([0.0, 0.25, 0.5]);
+  // Inline function 'kotlin.arrayOf' call
+  // Inline function 'kotlin.js.unsafeCast' call
+  // Inline function 'kotlin.js.asDynamic' call
+  var tmp$ret$23 = [this.z3_1, this.z3_1, this.y3_1];
+  var tmp_11 = new Subdivision(6, tmp_10, tmp$ret$23);
+  // Inline function 'kotlin.doubleArrayOf' call
+  var tmp_12 = new Float64Array([0.0, 0.25, 0.75]);
+  // Inline function 'kotlin.arrayOf' call
+  // Inline function 'kotlin.js.unsafeCast' call
+  // Inline function 'kotlin.js.asDynamic' call
+  var tmp$ret$27 = [this.z3_1, this.y3_1, this.z3_1];
+  var tmp_13 = new Subdivision(7, tmp_12, tmp$ret$27);
+  // Inline function 'kotlin.doubleArrayOf' call
+  var tmp_14 = new Float64Array([0.0, 0.75]);
+  // Inline function 'kotlin.arrayOf' call
+  // Inline function 'kotlin.js.unsafeCast' call
+  // Inline function 'kotlin.js.asDynamic' call
+  var tmp$ret$31 = [this.a4_1, this.z3_1];
+  var tmp_15 = new Subdivision(8, tmp_14, tmp$ret$31);
+  // Inline function 'kotlin.doubleArrayOf' call
+  var tmp_16 = new Float64Array([0.0, 0.25]);
+  // Inline function 'kotlin.arrayOf' call
+  // Inline function 'kotlin.js.unsafeCast' call
+  // Inline function 'kotlin.js.asDynamic' call
+  var tmp$ret$35 = [this.z3_1, this.a4_1];
+  var tmp_17 = new Subdivision(9, tmp_16, tmp$ret$35);
+  // Inline function 'kotlin.doubleArrayOf' call
+  var tmp_18 = new Float64Array([0.0, 2.0 / 3]);
+  // Inline function 'kotlin.arrayOf' call
+  // Inline function 'kotlin.js.unsafeCast' call
+  // Inline function 'kotlin.js.asDynamic' call
+  var tmp$ret$39 = [this.x3_1, this.y3_1];
+  var tmp_19 = new Subdivision(10, tmp_18, tmp$ret$39, 3);
+  var tmp_20 = 0;
+  var tmp_21 = new Float64Array(6);
+  while (tmp_20 < 6) {
+    var tmp_22 = tmp_20;
+    tmp_21[tmp_22] = tmp_22 / 6.0;
+    tmp_20 = tmp_20 + 1 | 0;
+  }
+  var tmp_23 = 0;
+  // Inline function 'kotlin.arrayOfNulls' call
+  var tmp_24 = Array(6);
+  while (tmp_23 < 6) {
+    tmp_24[tmp_23] = Subdivisions_getInstance().z3_1;
+    tmp_23 = tmp_23 + 1 | 0;
+  }
+  // Inline function 'kotlin.arrayOf' call
+  // Inline function 'kotlin.js.unsafeCast' call
+  // Inline function 'kotlin.js.asDynamic' call
+  tmp.all = [tmp_1, tmp_3, tmp_5, tmp_7, tmp_9, tmp_11, tmp_13, tmp_15, tmp_17, tmp_19, new Subdivision(11, tmp_21, tmp_24, 6)];
+}
+protoOf(Subdivisions_0).b4 = function () {
+  return this.all;
+};
+protoOf(Subdivisions_0).byId = function (id) {
+  var tmp0 = this.all;
+  var tmp$ret$1;
+  $l$block: {
+    // Inline function 'kotlin.collections.firstOrNull' call
+    var inductionVariable = 0;
+    var last = tmp0.length;
+    while (inductionVariable < last) {
+      var element = tmp0[inductionVariable];
+      inductionVariable = inductionVariable + 1 | 0;
+      if (element.id === id) {
+        tmp$ret$1 = element;
+        break $l$block;
+      }
+    }
+    tmp$ret$1 = null;
+  }
+  var tmp0_elvis_lhs = tmp$ret$1;
+  return tmp0_elvis_lhs == null ? this.all[0] : tmp0_elvis_lhs;
+};
+var Subdivisions_instance;
+function Subdivisions_getInstance() {
+  if (Subdivisions_instance == null)
+    new Subdivisions_0();
+  return Subdivisions_instance;
+}
 function Companion_0() {
   this.MIN_BPM = 30.0;
   this.MAX_BPM = 250.0;
   this.MAX_BEATS = 12;
 }
-protoOf(Companion_0).m3 = function () {
+protoOf(Companion_0).c4 = function () {
   return this.MIN_BPM;
 };
-protoOf(Companion_0).n3 = function () {
+protoOf(Companion_0).d4 = function () {
   return this.MAX_BPM;
 };
-protoOf(Companion_0).o3 = function () {
+protoOf(Companion_0).e4 = function () {
   return this.MAX_BEATS;
 };
 protoOf(Companion_0).clampBpm = function (bpm) {
@@ -118,59 +281,119 @@ function Metronome(bpm, beatsPerBar, subdivision) {
   bpm = bpm === VOID ? 90.0 : bpm;
   beatsPerBar = beatsPerBar === VOID ? 4 : beatsPerBar;
   subdivision = subdivision === VOID ? 1 : subdivision;
-  this.p3_1 = Companion_instance_0.clampBpm(bpm);
-  this.q3_1 = coerceIn_0(beatsPerBar, 1, 12);
-  this.r3_1 = coerceIn_0(subdivision, 1, 4);
-  this.accentFirst = true;
+  this.f4_1 = Companion_instance_0.clampBpm(bpm);
+  this.g4_1 = coerceIn_0(beatsPerBar, 1, 12);
+  this.h4_1 = Subdivisions_getInstance().byId(subdivision).id;
+  var tmp = this;
+  var tmp_0 = 0;
+  var tmp_1 = new Int32Array(12);
+  while (tmp_0 < 12) {
+    var tmp_2 = tmp_0;
+    tmp_1[tmp_2] = tmp_2 === 0 ? 0 : 1;
+    tmp_0 = tmp_0 + 1 | 0;
+  }
+  tmp.i4_1 = tmp_1;
   this.nextTime = 0.0;
-  this.s3_1 = 0;
+  this.j4_1 = 0;
+  this.k4_1 = 0;
+  this.l4_1 = 0.0;
 }
-protoOf(Metronome).t3 = function (value) {
-  this.p3_1 = Companion_instance_0.clampBpm(value);
+protoOf(Metronome).m4 = function (value) {
+  this.f4_1 = Companion_instance_0.clampBpm(value);
 };
-protoOf(Metronome).u3 = function () {
-  return this.p3_1;
+protoOf(Metronome).n4 = function () {
+  return this.f4_1;
 };
-protoOf(Metronome).v3 = function (value) {
-  this.q3_1 = coerceIn_0(value, 1, 12);
+protoOf(Metronome).o4 = function (value) {
+  this.g4_1 = coerceIn_0(value, 1, 12);
 };
-protoOf(Metronome).w3 = function () {
-  return this.q3_1;
+protoOf(Metronome).p4 = function () {
+  return this.g4_1;
 };
-protoOf(Metronome).x3 = function (value) {
-  this.r3_1 = coerceIn_0(value, 1, 4);
+protoOf(Metronome).q4 = function (value) {
+  this.h4_1 = Subdivisions_getInstance().byId(value).id;
 };
-protoOf(Metronome).y3 = function () {
-  return this.r3_1;
+protoOf(Metronome).r4 = function () {
+  return this.h4_1;
 };
-protoOf(Metronome).z3 = function (_set____db54di) {
-  this.accentFirst = _set____db54di;
-};
-protoOf(Metronome).a4 = function () {
-  return this.accentFirst;
-};
-protoOf(Metronome).b4 = function () {
+protoOf(Metronome).s4 = function () {
   return this.nextTime;
+};
+protoOf(Metronome).accent = function (beat) {
+  return this.i4_1[coerceIn_0(beat, 0, 11)];
+};
+protoOf(Metronome).setAccent = function (beat, kind) {
+  if ((0 <= beat ? beat < 12 : false) && (0 <= kind ? kind <= 3 : false) && !(kind === 2)) {
+    this.i4_1[beat] = kind;
+  }
+};
+protoOf(Metronome).cycleAccent = function (beat) {
+  var next;
+  switch (this.accent(beat)) {
+    case 1:
+      next = 0;
+      break;
+    case 0:
+      next = 3;
+      break;
+    default:
+      next = 1;
+      break;
+  }
+  this.setAccent(beat, next);
+  return next;
+};
+protoOf(Metronome).accentList = function () {
+  // Inline function 'kotlin.collections.copyOf' call
+  // Inline function 'kotlin.js.asDynamic' call
+  return this.i4_1.slice();
+};
+protoOf(Metronome).restoreAccents = function (saved) {
+  // Inline function 'kotlin.collections.forEachIndexed' call
+  var index = 0;
+  var inductionVariable = 0;
+  var last = saved.length;
+  while (inductionVariable < last) {
+    var item = saved[inductionVariable];
+    inductionVariable = inductionVariable + 1 | 0;
+    var _unary__edvuaz = index;
+    index = _unary__edvuaz + 1 | 0;
+    this.setAccent(_unary__edvuaz, item);
+  }
 };
 protoOf(Metronome).reset = function (start) {
   this.nextTime = start;
-  this.s3_1 = 0;
+  this.l4_1 = start;
+  this.j4_1 = 0;
+  this.k4_1 = 0;
 };
 protoOf(Metronome).next = function () {
-  var perBar = imul(this.q3_1, this.r3_1);
-  var i = this.s3_1 % perBar | 0;
-  var beat = i / this.r3_1 | 0;
-  var sub = i % this.r3_1 | 0;
-  var kind = !(sub === 0) ? 2 : beat === 0 && this.accentFirst && this.q3_1 > 1 ? 0 : 1;
-  var tick = new Tick(this.nextTime, beat, sub, kind);
-  this.nextTime = this.nextTime + 60.0 / this.p3_1 / this.r3_1;
-  this.s3_1 = (i + 1 | 0) % perBar | 0;
+  var offsets = Subdivisions_getInstance().byId(this.h4_1).offsets;
+  if (this.k4_1 >= offsets.length) {
+    this.k4_1 = 0;
+    this.j4_1 = this.j4_1 + 1 | 0;
+    this.nextTime = this.l4_1 + 60.0 / this.f4_1;
+  }
+  if (this.j4_1 >= this.g4_1)
+    this.j4_1 = 0;
+  if (this.k4_1 === 0)
+    this.l4_1 = this.nextTime;
+  var accent = this.i4_1[this.j4_1];
+  var kind = accent === 3 ? 3 : !(this.k4_1 === 0) ? 2 : accent;
+  var tick = new Tick(this.nextTime, this.j4_1, this.k4_1, kind);
+  var to = (this.k4_1 + 1 | 0) < offsets.length ? offsets[this.k4_1 + 1 | 0] : 1.0;
+  this.nextTime = this.nextTime + (to - offsets[this.k4_1]) * 60.0 / this.f4_1;
+  this.k4_1 = this.k4_1 + 1 | 0;
+  if (this.k4_1 >= offsets.length) {
+    this.k4_1 = 0;
+    this.j4_1 = (this.j4_1 + 1 | 0) % this.g4_1 | 0;
+  }
   return tick;
 };
 function ClickSound_0() {
   this.DURATION = 0.04;
 }
-protoOf(ClickSound_0).c4 = function () {
+protoOf(ClickSound_0).t4 = function () {
   return this.DURATION;
 };
 protoOf(ClickSound_0).frequency = function (kind) {
@@ -189,6 +412,8 @@ protoOf(ClickSound_0).gain = function (kind) {
       return 1.0;
     case 1:
       return 0.7;
+    case 3:
+      return 0.0;
     default:
       return 0.4;
   }
@@ -215,33 +440,71 @@ protoOf(ClickSound_0).render = function (kind, sampleRate) {
   }
   return tmp_0;
 };
+protoOf(ClickSound_0).renderChime = function (sampleRate) {
+  var n = numberToInt(0.85 * sampleRate);
+  // Inline function 'kotlin.arrayOf' call
+  // Inline function 'kotlin.js.unsafeCast' call
+  // Inline function 'kotlin.js.asDynamic' call
+  var tones = [to(880.0, 0.0), to(1318.5, 0.18)];
+  var tmp = 0;
+  var tmp_0 = new Float64Array(n);
+  while (tmp < n) {
+    var tmp_1 = tmp;
+    var t = tmp_1 / sampleRate;
+    var v = 0.0;
+    var inductionVariable = 0;
+    var last = tones.length;
+    while (inductionVariable < last) {
+      var _destruct__k2r9zo = tones[inductionVariable];
+      inductionVariable = inductionVariable + 1 | 0;
+      var hz = _destruct__k2r9zo.h3();
+      var at = _destruct__k2r9zo.i3();
+      var u = t - at;
+      if (u >= 0 && u < 0.65) {
+        var tmp_2 = v;
+        // Inline function 'kotlin.math.sin' call
+        var x = 2 * 3.141592653589793 * hz * u;
+        var tmp_3 = Math.sin(x);
+        // Inline function 'kotlin.math.min' call
+        var b = u / 0.01;
+        var tmp_4 = tmp_3 * Math.min(1.0, b);
+        // Inline function 'kotlin.math.exp' call
+        var x_0 = -u * 11.5;
+        v = tmp_2 + tmp_4 * Math.exp(x_0) * 0.3;
+      }
+    }
+    tmp_0[tmp_1] = v;
+    tmp = tmp + 1 | 0;
+  }
+  return tmp_0;
+};
 var ClickSound_instance;
 function ClickSound_getInstance() {
   return ClickSound_instance;
 }
 function TapTempo(maxGap) {
   maxGap = maxGap === VOID ? 2.0 : maxGap;
-  this.d4_1 = maxGap;
-  this.e4_1 = ArrayList_init_$Create$();
+  this.u4_1 = maxGap;
+  this.v4_1 = ArrayList_init_$Create$();
 }
 protoOf(TapTempo).tap = function (time) {
   var tmp;
   // Inline function 'kotlin.collections.isNotEmpty' call
-  if (!this.e4_1.f()) {
-    tmp = time - last(this.e4_1) > this.d4_1 || time <= last(this.e4_1);
+  if (!this.v4_1.f()) {
+    tmp = time - last(this.v4_1) > this.u4_1 || time <= last(this.v4_1);
   } else {
     tmp = false;
   }
   if (tmp) {
-    this.e4_1.h2();
+    this.v4_1.h2();
   }
-  this.e4_1.i(time);
-  if (this.e4_1.h() > 6) {
-    this.e4_1.g2(0);
+  this.v4_1.i(time);
+  if (this.v4_1.h() > 6) {
+    this.v4_1.g2(0);
   }
-  if (this.e4_1.h() < 2)
+  if (this.v4_1.h() < 2)
     return null;
-  var tmp0 = this.e4_1;
+  var tmp0 = this.v4_1;
   var tmp$ret$1;
   $l$block: {
     // Inline function 'kotlin.collections.zipWithNext' call
@@ -266,13 +529,13 @@ protoOf(TapTempo).tap = function (time) {
   return Companion_instance_0.clampBpm(round(60.0 / median));
 };
 protoOf(TapTempo).reset = function () {
-  return this.e4_1.h2();
+  return this.v4_1.h2();
 };
 function Companion_1() {
-  this.f4_1 = -1.0;
-  this.g4_1 = 16.0;
-  this.h4_1 = 100.0;
-  this.i4_1 = 0.05;
+  this.w4_1 = -1.0;
+  this.x4_1 = 16.0;
+  this.y4_1 = 100.0;
+  this.z4_1 = 0.05;
 }
 var Companion_instance_1;
 function Companion_getInstance_1() {
@@ -280,35 +543,35 @@ function Companion_getInstance_1() {
 }
 function NeedleAnimator(timeConstantMs) {
   timeConstantMs = timeConstantMs === VOID ? 90.0 : timeConstantMs;
-  this.j4_1 = timeConstantMs;
+  this.a5_1 = timeConstantMs;
   this.target = 0.0;
   this.position = 0.0;
-  this.k4_1 = -1.0;
+  this.b5_1 = -1.0;
 }
-protoOf(NeedleAnimator).l4 = function (_set____db54di) {
+protoOf(NeedleAnimator).c5 = function (_set____db54di) {
   this.target = _set____db54di;
 };
-protoOf(NeedleAnimator).m4 = function () {
+protoOf(NeedleAnimator).d5 = function () {
   return this.target;
 };
-protoOf(NeedleAnimator).n4 = function () {
+protoOf(NeedleAnimator).e5 = function () {
   return this.position;
 };
 protoOf(NeedleAnimator).step = function (nowMs) {
-  var elapsedMs = this.k4_1 === -1.0 ? 16.0 : coerceIn(nowMs - this.k4_1, 0.0, 100.0);
-  this.k4_1 = nowMs;
+  var elapsedMs = this.b5_1 === -1.0 ? 16.0 : coerceIn(nowMs - this.b5_1, 0.0, 100.0);
+  this.b5_1 = nowMs;
   var tmp = this;
   var tmp_0 = this.position;
   var tmp_1 = this.target - this.position;
   // Inline function 'kotlin.math.exp' call
-  var x = -elapsedMs / this.j4_1;
+  var x = -elapsedMs / this.a5_1;
   tmp.position = tmp_0 + tmp_1 * (1 - Math.exp(x));
   // Inline function 'kotlin.math.abs' call
   var x_0 = this.target - this.position;
   if (Math.abs(x_0) >= 0.05)
     return true;
   this.position = this.target;
-  this.k4_1 = -1.0;
+  this.b5_1 = -1.0;
   return false;
 };
 function Companion_2() {
@@ -316,10 +579,10 @@ function Companion_2() {
   this.NOTE_NAMES = listOf(['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']);
   this.IN_TUNE_CENTS = 5.0;
 }
-protoOf(Companion_2).o4 = function () {
+protoOf(Companion_2).f5 = function () {
   return this.NOTE_NAMES;
 };
-protoOf(Companion_2).p4 = function () {
+protoOf(Companion_2).g5 = function () {
   return this.IN_TUNE_CENTS;
 };
 var Companion_instance_2;
@@ -335,39 +598,39 @@ function NoteReading(pitchClass, octave, cents, frequencyHz) {
   this.cents = cents;
   this.frequencyHz = frequencyHz;
 }
-protoOf(NoteReading).q4 = function () {
+protoOf(NoteReading).h5 = function () {
   return this.pitchClass;
 };
-protoOf(NoteReading).r4 = function () {
+protoOf(NoteReading).i5 = function () {
   return this.octave;
 };
-protoOf(NoteReading).s4 = function () {
+protoOf(NoteReading).j5 = function () {
   return this.cents;
 };
-protoOf(NoteReading).t4 = function () {
+protoOf(NoteReading).k5 = function () {
   return this.frequencyHz;
 };
-protoOf(NoteReading).u4 = function () {
+protoOf(NoteReading).l5 = function () {
   return Companion_getInstance_2().NOTE_NAMES.g(this.pitchClass);
 };
-protoOf(NoteReading).v4 = function () {
+protoOf(NoteReading).m5 = function () {
   // Inline function 'kotlin.math.abs' call
   var x = this.cents;
   return Math.abs(x) <= 5.0;
 };
-protoOf(NoteReading).w4 = function () {
+protoOf(NoteReading).h3 = function () {
   return this.pitchClass;
 };
-protoOf(NoteReading).x4 = function () {
+protoOf(NoteReading).i3 = function () {
   return this.octave;
 };
-protoOf(NoteReading).y4 = function () {
+protoOf(NoteReading).n5 = function () {
   return this.cents;
 };
-protoOf(NoteReading).z4 = function () {
+protoOf(NoteReading).o5 = function () {
   return this.frequencyHz;
 };
-protoOf(NoteReading).a5 = function (pitchClass, octave, cents, frequencyHz) {
+protoOf(NoteReading).p5 = function (pitchClass, octave, cents, frequencyHz) {
   return new NoteReading(pitchClass, octave, cents, frequencyHz);
 };
 protoOf(NoteReading).copy = function (pitchClass, octave, cents, frequencyHz, $super) {
@@ -375,7 +638,7 @@ protoOf(NoteReading).copy = function (pitchClass, octave, cents, frequencyHz, $s
   octave = octave === VOID ? this.octave : octave;
   cents = cents === VOID ? this.cents : cents;
   frequencyHz = frequencyHz === VOID ? this.frequencyHz : frequencyHz;
-  return $super === VOID ? this.a5(pitchClass, octave, cents, frequencyHz) : $super.a5.call(this, pitchClass, octave, cents, frequencyHz);
+  return $super === VOID ? this.p5(pitchClass, octave, cents, frequencyHz) : $super.p5.call(this, pitchClass, octave, cents, frequencyHz);
 };
 protoOf(NoteReading).toString = function () {
   return 'NoteReading(pitchClass=' + this.pitchClass + ', octave=' + this.octave + ', cents=' + this.cents + ', frequencyHz=' + this.frequencyHz + ')';
@@ -405,9 +668,9 @@ protoOf(NoteReading).equals = function (other) {
 };
 function NoteMapper_0() {
   this.A4_HZ = 440.0;
-  this.b5_1 = 69;
+  this.q5_1 = 69;
 }
-protoOf(NoteMapper_0).c5 = function () {
+protoOf(NoteMapper_0).r5 = function () {
   return this.A4_HZ;
 };
 protoOf(NoteMapper_0).midiFromFrequency = function (hz) {
@@ -446,25 +709,25 @@ function PitchSample(midi, level) {
   this.midi = midi;
   this.level = level;
 }
-protoOf(PitchSample).d5 = function () {
+protoOf(PitchSample).s5 = function () {
   return this.midi;
 };
-protoOf(PitchSample).e5 = function () {
+protoOf(PitchSample).t5 = function () {
   return this.level;
 };
-protoOf(PitchSample).w4 = function () {
+protoOf(PitchSample).h3 = function () {
   return this.midi;
 };
-protoOf(PitchSample).x4 = function () {
+protoOf(PitchSample).i3 = function () {
   return this.level;
 };
-protoOf(PitchSample).f5 = function (midi, level) {
+protoOf(PitchSample).u5 = function (midi, level) {
   return new PitchSample(midi, level);
 };
 protoOf(PitchSample).copy = function (midi, level, $super) {
   midi = midi === VOID ? this.midi : midi;
   level = level === VOID ? this.level : level;
-  return $super === VOID ? this.f5(midi, level) : $super.f5.call(this, midi, level);
+  return $super === VOID ? this.u5(midi, level) : $super.u5.call(this, midi, level);
 };
 protoOf(PitchSample).toString = function () {
   return 'PitchSample(midi=' + this.midi + ', level=' + this.level + ')';
@@ -488,14 +751,14 @@ protoOf(PitchSample).equals = function (other) {
 };
 function SampleWindow(size) {
   this.size = size;
-  this.g5_1 = new Float32Array(this.size);
-  this.h5_1 = 0;
+  this.v5_1 = new Float32Array(this.size);
+  this.w5_1 = 0;
 }
 protoOf(SampleWindow).h = function () {
   return this.size;
 };
-protoOf(SampleWindow).i5 = function () {
-  return this.h5_1 >= this.size;
+protoOf(SampleWindow).x5 = function () {
+  return this.w5_1 >= this.size;
 };
 protoOf(SampleWindow).append = function (chunk, count) {
   // Inline function 'kotlin.require' call
@@ -506,8 +769,8 @@ protoOf(SampleWindow).append = function (chunk, count) {
   // Inline function 'kotlin.comparisons.minOf' call
   var b = this.size;
   var incoming = Math.min(count, b);
-  var tmp0 = this.g5_1;
-  var tmp2 = this.g5_1;
+  var tmp0 = this.v5_1;
+  var tmp2 = this.v5_1;
   // Inline function 'kotlin.collections.copyInto' call
   var endIndex = this.size;
   // Inline function 'kotlin.js.unsafeCast' call
@@ -516,7 +779,7 @@ protoOf(SampleWindow).append = function (chunk, count) {
   // Inline function 'kotlin.js.unsafeCast' call
   // Inline function 'kotlin.js.asDynamic' call
   arrayCopy(tmp, tmp2, 0, incoming, endIndex);
-  var tmp2_0 = this.g5_1;
+  var tmp2_0 = this.v5_1;
   var tmp4 = this.size - incoming | 0;
   // Inline function 'kotlin.collections.copyInto' call
   var startIndex = count - incoming | 0;
@@ -529,23 +792,23 @@ protoOf(SampleWindow).append = function (chunk, count) {
   var tmp_1 = this;
   var tmp0_0 = this.size;
   // Inline function 'kotlin.comparisons.minOf' call
-  var b_0 = this.h5_1 + count | 0;
-  tmp_1.h5_1 = Math.min(tmp0_0, b_0);
+  var b_0 = this.w5_1 + count | 0;
+  tmp_1.w5_1 = Math.min(tmp0_0, b_0);
 };
 protoOf(SampleWindow).samples = function () {
-  return this.g5_1;
+  return this.v5_1;
 };
 protoOf(SampleWindow).clear = function () {
-  this.h5_1 = 0;
+  this.w5_1 = 0;
 };
 function Companion_3() {
   this.CHUNK_SAMPLES = 1024;
   this.SILENCE_RMS = 0.003;
 }
-protoOf(Companion_3).j5 = function () {
+protoOf(Companion_3).y5 = function () {
   return this.CHUNK_SAMPLES;
 };
-protoOf(Companion_3).k5 = function () {
+protoOf(Companion_3).z5 = function () {
   return this.SILENCE_RMS;
 };
 protoOf(Companion_3).rootMeanSquare = function (chunk, count) {
@@ -576,16 +839,16 @@ function Companion_getInstance_3() {
   return Companion_instance_3;
 }
 function PitchPipeline(sampleRate) {
-  this.l5_1 = new YinPitchDetector(sampleRate);
-  this.m5_1 = new SampleWindow(this.l5_1.requiredSamples);
+  this.a6_1 = new YinPitchDetector(sampleRate);
+  this.b6_1 = new SampleWindow(this.a6_1.requiredSamples);
 }
 protoOf(PitchPipeline).process = function (chunk, count) {
-  this.m5_1.append(chunk, count);
+  this.b6_1.append(chunk, count);
   var rms = Companion_instance_3.rootMeanSquare(chunk, count);
   var level = Companion_instance_3.levelFromRms(rms);
-  if (!this.m5_1.isFull || rms < 0.003)
+  if (!this.b6_1.isFull || rms < 0.003)
     return new PitchSample(null, level);
-  var tmp0_elvis_lhs = this.l5_1.detect(this.m5_1.samples());
+  var tmp0_elvis_lhs = this.a6_1.detect(this.b6_1.samples());
   var tmp;
   if (tmp0_elvis_lhs == null) {
     return new PitchSample(null, level);
@@ -596,14 +859,14 @@ protoOf(PitchPipeline).process = function (chunk, count) {
   return new PitchSample(NoteMapper_instance.midiFromFrequency(hz), level);
 };
 protoOf(PitchPipeline).reset = function () {
-  return this.m5_1.clear();
+  return this.b6_1.clear();
 };
 function onMissing($this) {
-  $this.y5_1 = $this.y5_1 + 1 | 0;
-  if ($this.y5_1 >= $this.v5_1) {
+  $this.n6_1 = $this.n6_1 + 1 | 0;
+  if ($this.n6_1 >= $this.k6_1) {
     $this.reset();
   }
-  return $this.x5_1;
+  return $this.m6_1;
 }
 function blend($this, previous, target) {
   var tmp;
@@ -612,11 +875,11 @@ function blend($this, previous, target) {
   } else {
     // Inline function 'kotlin.math.abs' call
     var x = target - previous;
-    tmp = Math.abs(x) >= $this.u5_1;
+    tmp = Math.abs(x) >= $this.j6_1;
   }
   if (tmp)
     return target;
-  return previous + $this.t5_1 * (target - previous);
+  return previous + $this.i6_1 * (target - previous);
 }
 function median($this, values) {
   var sorted_0 = sorted(values);
@@ -624,7 +887,7 @@ function median($this, values) {
   return (sorted_0.h() % 2 | 0) === 1 ? sorted_0.g(mid) : (sorted_0.g(mid - 1 | 0) + sorted_0.g(mid)) / 2;
 }
 function Companion_4() {
-  this.z5_1 = 3;
+  this.o6_1 = 3;
 }
 var Companion_instance_4;
 function Companion_getInstance_4() {
@@ -634,28 +897,28 @@ function PitchSmoother(easing, newNoteSemitones, silenceFrames) {
   easing = easing === VOID ? 0.3 : easing;
   newNoteSemitones = newNoteSemitones === VOID ? 0.8 : newNoteSemitones;
   silenceFrames = silenceFrames === VOID ? 15 : silenceFrames;
-  this.t5_1 = easing;
-  this.u5_1 = newNoteSemitones;
-  this.v5_1 = silenceFrames;
-  this.w5_1 = ArrayDeque_init_$Create$();
-  this.x5_1 = null;
-  this.y5_1 = 0;
+  this.i6_1 = easing;
+  this.j6_1 = newNoteSemitones;
+  this.k6_1 = silenceFrames;
+  this.l6_1 = ArrayDeque_init_$Create$();
+  this.m6_1 = null;
+  this.n6_1 = 0;
 }
 protoOf(PitchSmoother).push = function (midi) {
   if (midi == null)
     return onMissing(this);
-  this.y5_1 = 0;
-  this.w5_1.v2(midi);
-  if (this.w5_1.r2_1 > 3) {
-    this.w5_1.w2();
+  this.n6_1 = 0;
+  this.l6_1.v2(midi);
+  if (this.l6_1.r2_1 > 3) {
+    this.l6_1.w2();
   }
-  this.x5_1 = blend(this, this.x5_1, median(this, this.w5_1));
-  return this.x5_1;
+  this.m6_1 = blend(this, this.m6_1, median(this, this.l6_1));
+  return this.m6_1;
 };
 protoOf(PitchSmoother).reset = function () {
-  this.w5_1.h2();
-  this.x5_1 = null;
-  this.y5_1 = 0;
+  this.l6_1.h2();
+  this.m6_1 = null;
+  this.n6_1 = 0;
 };
 function Box(left, top, right, bottom) {
   this.left = left;
@@ -663,40 +926,40 @@ function Box(left, top, right, bottom) {
   this.right = right;
   this.bottom = bottom;
 }
-protoOf(Box).a6 = function () {
+protoOf(Box).p6 = function () {
   return this.left;
 };
-protoOf(Box).b6 = function () {
+protoOf(Box).q6 = function () {
   return this.top;
 };
-protoOf(Box).c6 = function () {
+protoOf(Box).r6 = function () {
   return this.right;
 };
-protoOf(Box).d6 = function () {
+protoOf(Box).s6 = function () {
   return this.bottom;
 };
-protoOf(Box).e6 = function () {
+protoOf(Box).t6 = function () {
   return this.right - this.left;
 };
-protoOf(Box).f6 = function () {
+protoOf(Box).u6 = function () {
   return this.bottom - this.top;
 };
-protoOf(Box).g6 = function () {
+protoOf(Box).v6 = function () {
   return (this.left + this.right) / 2;
 };
-protoOf(Box).w4 = function () {
+protoOf(Box).h3 = function () {
   return this.left;
 };
-protoOf(Box).x4 = function () {
+protoOf(Box).i3 = function () {
   return this.top;
 };
-protoOf(Box).y4 = function () {
+protoOf(Box).n5 = function () {
   return this.right;
 };
-protoOf(Box).z4 = function () {
+protoOf(Box).o5 = function () {
   return this.bottom;
 };
-protoOf(Box).h6 = function (left, top, right, bottom) {
+protoOf(Box).w6 = function (left, top, right, bottom) {
   return new Box(left, top, right, bottom);
 };
 protoOf(Box).copy = function (left, top, right, bottom, $super) {
@@ -704,7 +967,7 @@ protoOf(Box).copy = function (left, top, right, bottom, $super) {
   top = top === VOID ? this.top : top;
   right = right === VOID ? this.right : right;
   bottom = bottom === VOID ? this.bottom : bottom;
-  return $super === VOID ? this.h6(left, top, right, bottom) : $super.h6.call(this, left, top, right, bottom);
+  return $super === VOID ? this.w6(left, top, right, bottom) : $super.w6.call(this, left, top, right, bottom);
 };
 protoOf(Box).toString = function () {
   return 'Box(left=' + this.left + ', top=' + this.top + ', right=' + this.right + ', bottom=' + this.bottom + ')';
@@ -745,10 +1008,10 @@ function swingThatFits($this, halfWidth, radius) {
 }
 function Companion_5() {
   this.MAX_CENTS = 50.0;
-  this.i6_1 = 1.08;
-  this.j6_1 = 60.0;
+  this.x6_1 = 1.08;
+  this.y6_1 = 60.0;
 }
-protoOf(Companion_5).k6 = function () {
+protoOf(Companion_5).z6 = function () {
   return this.MAX_CENTS;
 };
 protoOf(Companion_5).compute = function (box, dp) {
@@ -778,70 +1041,70 @@ function TunerGeometry(dp, centerX, noteTextSize, noteBaseline, frequencyBaselin
   this.meterRight = meterRight;
   this.meterTop = meterTop;
 }
-protoOf(TunerGeometry).l6 = function () {
+protoOf(TunerGeometry).a7 = function () {
   return this.dp;
 };
-protoOf(TunerGeometry).g6 = function () {
+protoOf(TunerGeometry).v6 = function () {
   return this.centerX;
 };
-protoOf(TunerGeometry).m6 = function () {
+protoOf(TunerGeometry).b7 = function () {
   return this.noteTextSize;
 };
-protoOf(TunerGeometry).n6 = function () {
+protoOf(TunerGeometry).c7 = function () {
   return this.noteBaseline;
 };
-protoOf(TunerGeometry).o6 = function () {
+protoOf(TunerGeometry).d7 = function () {
   return this.frequencyBaseline;
 };
-protoOf(TunerGeometry).p6 = function () {
+protoOf(TunerGeometry).e7 = function () {
   return this.pivotY;
 };
-protoOf(TunerGeometry).q6 = function () {
+protoOf(TunerGeometry).f7 = function () {
   return this.radius;
 };
-protoOf(TunerGeometry).r6 = function () {
+protoOf(TunerGeometry).g7 = function () {
   return this.maxAngleDegrees;
 };
-protoOf(TunerGeometry).s6 = function () {
+protoOf(TunerGeometry).h7 = function () {
   return this.meterRight;
 };
-protoOf(TunerGeometry).t6 = function () {
+protoOf(TunerGeometry).i7 = function () {
   return this.meterTop;
 };
 protoOf(TunerGeometry).angleForCents = function (cents) {
   return coerceIn_1(cents / 50.0, -1.08, 1.08) * this.maxAngleDegrees;
 };
-protoOf(TunerGeometry).w4 = function () {
+protoOf(TunerGeometry).h3 = function () {
   return this.dp;
 };
-protoOf(TunerGeometry).x4 = function () {
+protoOf(TunerGeometry).i3 = function () {
   return this.centerX;
 };
-protoOf(TunerGeometry).y4 = function () {
+protoOf(TunerGeometry).n5 = function () {
   return this.noteTextSize;
 };
-protoOf(TunerGeometry).z4 = function () {
+protoOf(TunerGeometry).o5 = function () {
   return this.noteBaseline;
 };
-protoOf(TunerGeometry).u6 = function () {
+protoOf(TunerGeometry).j7 = function () {
   return this.frequencyBaseline;
 };
-protoOf(TunerGeometry).v6 = function () {
+protoOf(TunerGeometry).k7 = function () {
   return this.pivotY;
 };
-protoOf(TunerGeometry).w6 = function () {
+protoOf(TunerGeometry).l7 = function () {
   return this.radius;
 };
-protoOf(TunerGeometry).x6 = function () {
+protoOf(TunerGeometry).m7 = function () {
   return this.maxAngleDegrees;
 };
-protoOf(TunerGeometry).y6 = function () {
+protoOf(TunerGeometry).n7 = function () {
   return this.meterRight;
 };
-protoOf(TunerGeometry).z6 = function () {
+protoOf(TunerGeometry).o7 = function () {
   return this.meterTop;
 };
-protoOf(TunerGeometry).a7 = function (dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop) {
+protoOf(TunerGeometry).p7 = function (dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop) {
   return new TunerGeometry(dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop);
 };
 protoOf(TunerGeometry).copy = function (dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop, $super) {
@@ -855,7 +1118,7 @@ protoOf(TunerGeometry).copy = function (dp, centerX, noteTextSize, noteBaseline,
   maxAngleDegrees = maxAngleDegrees === VOID ? this.maxAngleDegrees : maxAngleDegrees;
   meterRight = meterRight === VOID ? this.meterRight : meterRight;
   meterTop = meterTop === VOID ? this.meterTop : meterTop;
-  return $super === VOID ? this.a7(dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop) : $super.a7.call(this, dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop);
+  return $super === VOID ? this.p7(dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop) : $super.p7.call(this, dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop);
 };
 protoOf(TunerGeometry).toString = function () {
   return 'TunerGeometry(dp=' + this.dp + ', centerX=' + this.centerX + ', noteTextSize=' + this.noteTextSize + ', noteBaseline=' + this.noteBaseline + ', frequencyBaseline=' + this.frequencyBaseline + ', pivotY=' + this.pivotY + ', radius=' + this.radius + ', maxAngleDegrees=' + this.maxAngleDegrees + ', meterRight=' + this.meterRight + ', meterTop=' + this.meterTop + ')';
@@ -908,46 +1171,46 @@ function TunerScene() {
   this.message = null;
   this.needleCents = 0.0;
 }
-protoOf(TunerScene).b7 = function (_set____db54di) {
+protoOf(TunerScene).q7 = function (_set____db54di) {
   this.reading = _set____db54di;
 };
-protoOf(TunerScene).c7 = function () {
+protoOf(TunerScene).r7 = function () {
   return this.reading;
 };
-protoOf(TunerScene).d7 = function (_set____db54di) {
+protoOf(TunerScene).s7 = function (_set____db54di) {
   this.active = _set____db54di;
 };
-protoOf(TunerScene).e7 = function () {
+protoOf(TunerScene).t7 = function () {
   return this.active;
 };
-protoOf(TunerScene).f7 = function (_set____db54di) {
+protoOf(TunerScene).u7 = function (_set____db54di) {
   this.level = _set____db54di;
 };
-protoOf(TunerScene).e5 = function () {
+protoOf(TunerScene).t5 = function () {
   return this.level;
 };
-protoOf(TunerScene).g7 = function (_set____db54di) {
+protoOf(TunerScene).v7 = function (_set____db54di) {
   this.message = _set____db54di;
 };
 protoOf(TunerScene).j2 = function () {
   return this.message;
 };
-protoOf(TunerScene).h7 = function (_set____db54di) {
+protoOf(TunerScene).w7 = function (_set____db54di) {
   this.needleCents = _set____db54di;
 };
-protoOf(TunerScene).i7 = function () {
+protoOf(TunerScene).x7 = function () {
   return this.needleCents;
 };
 function computeDifference($this, x) {
   var inductionVariable = 1;
-  var last = $this.r5_1 + 1 | 0;
+  var last = $this.g6_1 + 1 | 0;
   if (inductionVariable <= last)
     do {
       var tau = inductionVariable;
       inductionVariable = inductionVariable + 1 | 0;
       var sum = 0.0;
       var inductionVariable_0 = 0;
-      var last_0 = $this.o5_1;
+      var last_0 = $this.d6_1;
       if (inductionVariable_0 < last_0)
         do {
           var j = inductionVariable_0;
@@ -956,40 +1219,40 @@ function computeDifference($this, x) {
           sum = sum + delta * delta;
         }
          while (inductionVariable_0 < last_0);
-      $this.s5_1[tau] = sum;
+      $this.h6_1[tau] = sum;
     }
      while (!(tau === last));
 }
 function normalizeCumulativeMean($this) {
-  $this.s5_1[0] = 1.0;
+  $this.h6_1[0] = 1.0;
   var runningSum = 0.0;
   var inductionVariable = 1;
-  var last = $this.r5_1 + 1 | 0;
+  var last = $this.g6_1 + 1 | 0;
   if (inductionVariable <= last)
     do {
       var tau = inductionVariable;
       inductionVariable = inductionVariable + 1 | 0;
-      runningSum = runningSum + $this.s5_1[tau];
-      $this.s5_1[tau] = runningSum === 0.0 ? 1.0 : $this.s5_1[tau] * tau / runningSum;
+      runningSum = runningSum + $this.h6_1[tau];
+      $this.h6_1[tau] = runningSum === 0.0 ? 1.0 : $this.h6_1[tau] * tau / runningSum;
     }
      while (!(tau === last));
 }
 function firstDipBelowThreshold($this) {
-  var tau = $this.q5_1;
-  while (tau <= $this.r5_1 && $this.s5_1[tau] >= $this.p5_1) {
+  var tau = $this.f6_1;
+  while (tau <= $this.g6_1 && $this.h6_1[tau] >= $this.e6_1) {
     tau = tau + 1 | 0;
   }
-  if (tau > $this.r5_1)
+  if (tau > $this.g6_1)
     return null;
-  while (tau < $this.r5_1 && $this.s5_1[tau + 1 | 0] < $this.s5_1[tau]) {
+  while (tau < $this.g6_1 && $this.h6_1[tau + 1 | 0] < $this.h6_1[tau]) {
     tau = tau + 1 | 0;
   }
   return tau;
 }
 function refineByParabola($this, tau) {
-  var before = $this.s5_1[tau - 1 | 0];
-  var at = $this.s5_1[tau];
-  var after = $this.s5_1[tau + 1 | 0];
+  var before = $this.h6_1[tau - 1 | 0];
+  var at = $this.h6_1[tau];
+  var after = $this.h6_1[tau + 1 | 0];
   var denominator = 2 * (2 * at - after - before);
   if (denominator === 0.0)
     return tau;
@@ -1000,23 +1263,23 @@ function YinPitchDetector(sampleRate, windowSize, minFrequencyHz, maxFrequencyHz
   minFrequencyHz = minFrequencyHz === VOID ? 38.0 : minFrequencyHz;
   maxFrequencyHz = maxFrequencyHz === VOID ? 1400.0 : maxFrequencyHz;
   threshold = threshold === VOID ? 0.15 : threshold;
-  this.n5_1 = sampleRate;
-  this.o5_1 = windowSize;
-  this.p5_1 = threshold;
+  this.c6_1 = sampleRate;
+  this.d6_1 = windowSize;
+  this.e6_1 = threshold;
   var tmp = this;
   // Inline function 'kotlin.math.floor' call
-  var x = this.n5_1 / maxFrequencyHz;
+  var x = this.c6_1 / maxFrequencyHz;
   var tmp$ret$0 = Math.floor(x);
-  tmp.q5_1 = coerceAtLeast(numberToInt(tmp$ret$0), 2);
+  tmp.f6_1 = coerceAtLeast(numberToInt(tmp$ret$0), 2);
   var tmp_0 = this;
   // Inline function 'kotlin.math.ceil' call
-  var x_0 = this.n5_1 / minFrequencyHz;
+  var x_0 = this.c6_1 / minFrequencyHz;
   var tmp$ret$1 = Math.ceil(x_0);
-  tmp_0.r5_1 = numberToInt(tmp$ret$1);
-  this.s5_1 = new Float64Array(this.r5_1 + 2 | 0);
-  this.requiredSamples = (this.o5_1 + this.r5_1 | 0) + 2 | 0;
+  tmp_0.g6_1 = numberToInt(tmp$ret$1);
+  this.h6_1 = new Float64Array(this.g6_1 + 2 | 0);
+  this.requiredSamples = (this.d6_1 + this.g6_1 | 0) + 2 | 0;
 }
-protoOf(YinPitchDetector).j7 = function () {
+protoOf(YinPitchDetector).y7 = function () {
   return this.requiredSamples;
 };
 protoOf(YinPitchDetector).detect = function (samples) {
@@ -1035,18 +1298,18 @@ protoOf(YinPitchDetector).detect = function (samples) {
     tmp = tmp0_elvis_lhs;
   }
   var tau = tmp;
-  return this.n5_1 / refineByParabola(this, tau);
+  return this.c6_1 / refineByParabola(this, tau);
 };
 //region block: post-declaration
-defineProp(protoOf(Metronome), 'bpm', protoOf(Metronome).u3, protoOf(Metronome).t3);
-defineProp(protoOf(Metronome), 'beatsPerBar', protoOf(Metronome).w3, protoOf(Metronome).v3);
-defineProp(protoOf(Metronome), 'subdivision', protoOf(Metronome).y3, protoOf(Metronome).x3);
-defineProp(protoOf(NoteReading), 'name', protoOf(NoteReading).u4);
-defineProp(protoOf(NoteReading), 'isInTune', protoOf(NoteReading).v4);
-defineProp(protoOf(SampleWindow), 'isFull', protoOf(SampleWindow).i5);
-defineProp(protoOf(Box), 'width', protoOf(Box).e6);
-defineProp(protoOf(Box), 'height', protoOf(Box).f6);
-defineProp(protoOf(Box), 'centerX', protoOf(Box).g6);
+defineProp(protoOf(Metronome), 'bpm', protoOf(Metronome).n4, protoOf(Metronome).m4);
+defineProp(protoOf(Metronome), 'beatsPerBar', protoOf(Metronome).p4, protoOf(Metronome).o4);
+defineProp(protoOf(Metronome), 'subdivision', protoOf(Metronome).r4, protoOf(Metronome).q4);
+defineProp(protoOf(NoteReading), 'name', protoOf(NoteReading).l5);
+defineProp(protoOf(NoteReading), 'isInTune', protoOf(NoteReading).m5);
+defineProp(protoOf(SampleWindow), 'isFull', protoOf(SampleWindow).x5);
+defineProp(protoOf(Box), 'width', protoOf(Box).t6);
+defineProp(protoOf(Box), 'height', protoOf(Box).u6);
+defineProp(protoOf(Box), 'centerX', protoOf(Box).v6);
 //endregion
 //region block: init
 Companion_instance = new Companion();
@@ -1060,6 +1323,7 @@ Companion_instance_5 = new Companion_5();
 //endregion
 //region block: exports
 defineProp(Tick, 'Companion', Companion_getInstance);
+var Subdivisions = {getInstance: Subdivisions_getInstance};
 defineProp(Metronome, 'Companion', Companion_getInstance_0);
 var ClickSound = {getInstance: ClickSound_getInstance};
 defineProp(NoteReading, 'Companion', Companion_getInstance_2);
@@ -1068,6 +1332,9 @@ defineProp(PitchPipeline, 'Companion', Companion_getInstance_3);
 defineProp(TunerGeometry, 'Companion', Companion_getInstance_5);
 export {
   Tick as Tick,
+  Note as Note,
+  Subdivision as Subdivision,
+  Subdivisions as Subdivisions,
   Metronome as Metronome,
   ClickSound as ClickSound,
   TapTempo as TapTempo,

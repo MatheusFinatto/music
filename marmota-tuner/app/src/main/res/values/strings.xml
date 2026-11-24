@@ -10,16 +10,51 @@
     <string name="bpm">bpm</string>
     <string name="play">Tocar</string>
     <string name="stop">Parar</string>
-    <string name="tap">Marcar o andamento</string>
-    <string name="accent_first">Acentuar o primeiro tempo</string>
+    <string name="tap">Tap</string>
+    <string name="bpm_value">Andamento: %d bpm. Deslize para mudar</string>
     <plurals name="beats_per_bar">
         <item quantity="one">%d tempo por compasso</item>
         <item quantity="other">%d tempos por compasso</item>
     </plurals>
-    <string-array name="subdivisions">
-        <item>Tempo</item>
-        <item>Colcheia</item>
+    <plurals name="beats_short">
+        <item quantity="one">%d tempo</item>
+        <item quantity="other">%d tempos</item>
+    </plurals>
+    <string name="beats_title">Tempos por compasso</string>
+    <string name="fewer_beats">Menos um tempo</string>
+    <string name="more_beats">Mais um tempo</string>
+    <string name="accent_strong">forte</string>
+    <string name="accent_normal">normal</string>
+    <string name="accent_mute">mudo</string>
+    <string name="beat_desc">Tempo %1$d: %2$s. Toque para trocar entre normal, forte e mudo</string>
+    <string name="subdivision_title">Divisão do tempo</string>
+    <string name="subdivision_desc">Divisão: %s</string>
+    <!-- Na ordem de Subdivisions.all (core/Metronome.kt) -->
+    <string-array name="subdivision_names">
+        <item>Semínima</item>
+        <item>Colcheias</item>
         <item>Tercina</item>
-        <item>Semicolch.</item>
+        <item>Semicolcheias</item>
+        <item>Galope</item>
+        <item>Galope invertido</item>
+        <item>Síncope</item>
+        <item>Pontuada</item>
+        <item>Pontuada invertida</item>
+        <item>Shuffle</item>
+        <item>Sextina</item>
     </string-array>
+    <string name="timer">Timer</string>
+    <string name="timer_off">Sem limite</string>
+    <string name="minutes">%d min</string>
+    <string name="timer_minutes">Timer: %d min</string>
+    <string name="timer_done">Tempo acabou</string>
+    <string name="timer_desc">Timer de %d minutos</string>
+    <string name="timer_off_desc">Timer, sem limite</string>
+    <string name="favorites">Favoritos</string>
+    <string name="favorites_empty">Nenhum favorito ainda. Salve o andamento e o compasso que você usa sempre.</string>
+    <string name="favorite_desc">%1$d bpm · %2$s · %3$s</string>
+    <string name="save_current">Salvar o atual</string>
+    <string name="delete_favorite">Apagar %s</string>
+    <string name="close">Fechar</string>
+    <string name="dots_hint">Toque numa bolinha: normal, forte ou mudo</string>
 </resources>
