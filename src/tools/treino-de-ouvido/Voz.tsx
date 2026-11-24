@@ -6,8 +6,10 @@ import { MicError, openMic, type Mic, type MicProblem, type PianoNote } from "@/
 import { CHUNK_SAMPLES, NOTE_NAMES, PitchPipeline, PitchSmoother } from "@/core/pitch";
 import { createStore } from "@/core/storage";
 import { Afinometro } from "./Afinometro";
+import { GraficoVoz } from "./GraficoVoz";
+import type { AmostraVoz, PassoVoz } from "./grafico";
 import { Interruptor } from "./Interruptor";
-import { Cantar, VELOCIDADES, type ConfigMusica } from "./Cantar";
+import { Cantar, INTEIRA, VELOCIDADES, type ConfigMusica } from "./Cantar";
 import { MUSICAS } from "./musicas";
 import { CLASSICA_INICIAL, IDS, INTERVALOS, nomeNota, PADROES, perguntaClassica } from "./engine";
 import { Instrumento } from "./Instrumento";
@@ -16,7 +18,6 @@ import type { Marca } from "./Teclado";
 import type { ProgramaProp } from "./Programas";
 import { anotarDuracao } from "./ritmo";
 import { usePiano } from "./usePiano";
-import { formaDoArpejo } from "./violao";
 import {
   ALCANCE_ZERO, atualizar, extensao, inicioDaRodada, medirAlcance, notasDoPadrao, SEGURANDO_ZERO, SEGURAR_LONGA_MS, SEGURAR_MS, SEGURAR_PASSO_MS,
   faixaConfortavel, FAIXA_PADRAO, sortearAlvoDeVoz, sortearClasseDeVoz, TOLERANCIAS, VOZES, vozMaisProxima, type Alcance, type Faixa,
@@ -28,8 +29,8 @@ const EXERCICIOS: readonly Exercicio[] = ["igualar", "longa", "sequencia", "toni
 const NA_LISTA = EXERCICIOS.filter((e) => e !== "alcance");
 /** `tipo`: "padrao", um tipo de voz ou "medida" (a que o Alcance sugeriu). */
 type FaixaSalva = Faixa & { tipo: "padrao" | "medida" | (typeof VOZES)[number]["id"] };
-type Saved = { version: 1; exercicio: Exercicio; tolerancia: number; qualquerOitava: boolean; intervalos: string[]; padrao: string; inicio: number; subir: boolean; grau: string; ajuda: "guia" | "so"; faixa: FaixaSalva; musica: ConfigMusica; melhores: Record<string, number> };
-const DEFAULTS: Saved = { version: 1, exercicio: "igualar", tolerancia: 30, qualquerOitava: true, intervalos: ["3m", "3M", "4J", "5J"], padrao: "arpejoMaior", inicio: 0, subir: true, grau: "3M", ajuda: "guia", faixa: { tipo: "padrao", ...FAIXA_PADRAO }, musica: { musica: MUSICAS[0]!.id, trecho: 0, velocidade: 0.6, guia: true }, melhores: {} };
+type Saved = { version: 1; exercicio: Exercicio; tolerancia: number; qualquerOitava: boolean; intervalos: string[]; padrao: string; inicio: number; subir: boolean; grau: string; ajuda: "guia" | "so"; vista: "grafico" | "afinador"; faixa: FaixaSalva; musica: ConfigMusica; melhores: Record<string, number> };
+const DEFAULTS: Saved = { version: 1, exercicio: "igualar", tolerancia: 30, qualquerOitava: true, intervalos: ["3m", "3M", "4J", "5J"], padrao: "arpejoMaior", inicio: 0, subir: true, grau: "3M", ajuda: "guia", vista: "grafico", faixa: { tipo: "padrao", ...FAIXA_PADRAO }, musica: { musica: MUSICAS[0]!.id, trecho: 0, velocidade: 0.6, guia: true }, melhores: {} };
 const faixaValida = (f: unknown): FaixaSalva => {
   const x = f as Partial<FaixaSalva> | null | undefined;
   const tipoOk = x?.tipo === "padrao" || x?.tipo === "medida" || VOZES.some((v) => v.id === x?.tipo);
@@ -52,10 +53,11 @@ const store = createStore<Saved>("treino-de-ouvido-voz", DEFAULTS, (saved) => {
     subir: typeof s.subir === "boolean" ? s.subir : true,
     grau: s.grau === "sortear" || IDS.intervalos.includes(s.grau as string) ? (s.grau as string) : DEFAULTS.grau,
     ajuda: s.ajuda === "so" ? "so" : "guia",
+    vista: s.vista === "afinador" ? "afinador" : "grafico",
     faixa: faixaValida(s.faixa),
     musica: {
       musica: MUSICAS.some((m) => m.id === s.musica?.musica) ? s.musica!.musica : DEFAULTS.musica.musica,
-      trecho: typeof s.musica?.trecho === "number" && Number.isInteger(s.musica.trecho) && s.musica.trecho >= 0 ? s.musica.trecho : 0,
+      trecho: typeof s.musica?.trecho === "number" && Number.isInteger(s.musica.trecho) && s.musica.trecho >= INTEIRA ? s.musica.trecho : 0,
       velocidade: (VELOCIDADES as readonly unknown[]).includes(s.musica?.velocidade) ? s.musica!.velocidade : 0.6,
       guia: typeof s.musica?.guia === "boolean" ? s.musica.guia : true,
     },
@@ -114,6 +116,15 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
   const ultimoMidi = useRef<number | null>(null);
   /** Quando a tentativa começou: a duração entra no ritmo da pessoa, que calibra o tempo dos programas. */
   const inicioTentativa = useRef(0);
+  /** O gráfico: a voz e as notas pedidas, em segundos desde o começo da tentativa; parada, a pista fica no instante em que parou. */
+  const relogio0 = useRef(0);
+  const congelado = useRef<number | null>(0);
+  const amostrasG = useRef<AmostraVoz[]>([]);
+  const passosG = useRef<PassoVoz[]>([]);
+  const tempo = () => (agoraMs() - relogio0.current) / 1000;
+  const [tentativa, setTentativa] = useState(0);
+  const zerarGrafico = () => { relogio0.current = agoraMs(); congelado.current = null; amostrasG.current = []; passosG.current = []; setTentativa((n) => n + 1); };
+  const congelar = () => { if (congelado.current === null) congelado.current = tempo(); };
   // O que o microfone precisa saber a cada bloco, sem refazer a captura.
   const atual = useRef({ fase: "parado" as Fase, tarefa: null as Tarefa | null, s, exercicio: exercicioDaVez, programa });
   useEffect(() => { atual.current = { fase, tarefa, s, exercicio: exercicioDaVez, programa }; });
@@ -130,6 +141,9 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
   useEffect(() => () => { geracaoMic.current++; limparTempos(); mic.current?.stop(); }, []);
 
   const concluir = useCallback((ok: boolean, porTempo = false) => {
+    if (congelado.current === null) congelado.current = (agoraMs() - relogio0.current) / 1000;
+    const ultimo = passosG.current[passosG.current.length - 1];
+    if (ok && ultimo && ultimo.fim === null) Object.assign(ultimo, { fim: congelado.current, ok: true });
     limparTempos();
     fecharMic();
     piano.pararBordao();
@@ -158,6 +172,11 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
       setLeitura(midi);
       if (midi !== null) ultimoMidi.current = midi;
       const v = atual.current;
+      if (congelado.current === null) {
+        const a = amostrasG.current;
+        a.push({ t: (agora - relogio0.current) / 1000, midi });
+        if (a.length > 1200) a.splice(0, a.length - 900);
+      }
       if (v.exercicio === "alcance") {
         alcanceRef.current = medirAlcance(alcanceRef.current, midi, agora);
         setAlcance(alcanceRef.current);
@@ -173,6 +192,9 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
           if (passoRef.current + 1 < v.tarefa.alvos.length) {
             passoRef.current += 1;
             setPasso(passoRef.current);
+            const ps = passosG.current, ta = (agora - relogio0.current) / 1000;
+            if (ps.length) Object.assign(ps[ps.length - 1]!, { fim: ta, ok: true });
+            ps.push({ alvo: v.tarefa.alvos[passoRef.current]!, ini: ta, fim: null });
             segurando.current = SEGURANDO_ZERO;
             setVivo({ cents: null, progresso: 0 });
           } else concluir(true);
@@ -191,6 +213,8 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     ultimoCents.current = null;
     ultimoMidi.current = null;
     setVivo({ cents: null, progresso: 0 });
+    const ps = passosG.current;
+    if (!ps.length || ps[ps.length - 1]!.fim !== null) ps.push({ alvo: t0.alvos[passoRef.current]!, ini: tempo(), fim: null });
     setFase("cantando");
     limite.current = setTimeout(() => concluir(false, true), limiteDe(t0.alvos.length, t0.segurarMs));
   };
@@ -201,7 +225,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     fecharMic();
     setFase("piano");
     setResultado(null);
-    if (recomecar) { passoRef.current = 0; medias.current = []; oscilacao.current = 0; setPasso(0); }
+    if (recomecar) { passoRef.current = 0; medias.current = []; oscilacao.current = 0; setPasso(0); zerarGrafico(); }
     if (t0.bordao !== null) {
       const raiz = t0.bordao;
       const ligar = async () => { if (!(await piano.iniciarBordao(raiz))) { setFase("parado"); return; } espera.current = setTimeout(() => void escutar(t0), 1200); };
@@ -245,15 +269,20 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     void prepararEOuvir(t0, true);
   };
   /** Sem ajuda: toca só a nota pedida por cima da tônica, para quem travou; depois volta a ouvir. */
-  const espiar = async (t0: Tarefa) => {
+  /**
+   * Toca uma nota da tarefa (a tônica ou a pedida) por cima do bordão, para quem quer ouvir de novo; cantando, o microfone pausa e
+   * depois volta a ouvir. Com a tentativa já terminada, só toca.
+   */
+  const ouvirNota = async (t0: Tarefa, midi: number) => {
+    if (fase === "feito") { await piano.tocar([{ midi, at: 0, dur: 1.6 }]); return; }
     limparTempos();
     fecharMic();
     setFase("piano");
-    const dur = await piano.tocar([{ midi: t0.alvos[0]!, at: 0, dur: 1.6 }], true);
+    const dur = await piano.tocar([{ midi, at: 0, dur: 1.6 }], true);
     if (dur === null) { setFase("parado"); return; }
     espera.current = setTimeout(() => void escutar(t0), dur * 1000 + 300);
   };
-  const parar = () => { limparTempos(); fecharMic(); piano.calar(); setFase("parado"); };
+  const parar = () => { congelar(); limparTempos(); fecharMic(); piano.calar(); setFase("parado"); };
   // Aba escondida no meio da tentativa: cancela sem contar erro (os relógios seguem correndo e o áudio pode suspender).
   const pararRef = useRef(parar);
   useEffect(() => { pararRef.current = parar; });
@@ -267,10 +296,11 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     alcanceRef.current = ALCANCE_ZERO;
     setAlcance(ALCANCE_ZERO);
     setResultado(null);
+    zerarGrafico();
     try { if (!(await abrir())) return; setErroMic(null); } catch (e) { setErroMic(e instanceof MicError ? e.problem : "failed"); return; }
     setFase("cantando");
   };
-  const terminarAlcance = () => { fecharMic(); setFase("feito"); };
+  const terminarAlcance = () => { congelar(); fecharMic(); setFase("feito"); };
   /**
    * Mudar o que se canta (exercício, padrão, nota, voz) recomeça; se havia uma tentativa em andamento, avisa por quê em vez de
    * parar calado.
@@ -305,7 +335,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
         if (programa && f === "feito" && programa.restante === 0) programa.aoAvancar(); else comecar();
       } else if (f === "cantando" && exercicioDaVez === "alcance") terminarAlcance();
       else if (f === "cantando" && tarefa) {
-        if (exercicioDaVez === "tonica" && s.ajuda === "so") void espiar(tarefa); else void prepararEOuvir(tarefa, exercicioDaVez !== "sequencia");
+        if (exercicioDaVez === "tonica") void ouvirNota(tarefa, tarefa.alvos[0]!); else void prepararEOuvir(tarefa, exercicioDaVez !== "sequencia");
       }
     };
     window.addEventListener("keydown", onKey);
@@ -323,12 +353,6 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     : vivo.cents > 0 ? t("voz.maisBaixo") : t("voz.maisAlto");
   const marcas = new Map<number, Marca>();
   if (ex === "alcance" && alcance.min !== null && alcance.max !== null) { marcas.set(alcance.min, "alvo"); marcas.set(alcance.max, "alvo"); }
-  // Arpejo no instrumento: no violão, a forma do arpejo (várias notas por corda); no teclado, as teclas do padrão. A nota da vez ganha um anel.
-  const mostraPadrao = ex === "sequencia" && tarefa !== null && fase !== "parado";
-  const forma = mostraPadrao && instrumento === "violao" ? formaDoArpejo(tarefa.alvos) : null;
-  const classeAtual = alvoAtual === null ? -1 : ((alvoAtual % 12) + 12) % 12;
-  const extrasPadrao = forma ? forma.posicoes.map((p) => ({ corda: p.corda, casa: p.casa, midi: p.midi, marca: (cantando && p.midi % 12 === classeAtual ? "dada" : "alvo") as Marca })) : [];
-  if (mostraPadrao && tarefa) { tarefa.alvos.forEach((m) => marcas.set(m, "alvo")); if (cantando && alvoAtual !== null) marcas.set(alvoAtual, "dada"); }
   const ext = alcance.min !== null && alcance.max !== null ? extensao(alcance.max - alcance.min) : null;
   const sinal = (n: number) => (Math.abs(n) < 1 ? t("voz.mediaCentro") : t(n > 0 ? "voz.mediaAcima" : "voz.mediaAbaixo", { n: Math.round(Math.abs(n)) }));
   const textoResultado = !resultado ? "" : !resultado.ok ? (resultado.ouvi === null || resultado.alvo === null ? t(programa ? "voz.naoOuviSegue" : "voz.naoOuvi") : t(programa ? "voz.naoFoiSegue" : "voz.naoFoi", { alvo: nomeNota(resultado.alvo), ouvi: nomeNota(Math.round(resultado.ouvi)) }))
@@ -426,12 +450,35 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
           </ol>
         )}
 
-        {mostraPadrao && tarefa && (
-          <Instrumento tipo={instrumento} janela={tarefa.alvos} marcas={marcas} extras={extrasPadrao} onTocar={() => {}} label={t(instrumento === "violao" ? "braco" : "teclado")} />
-        )}
 
-        {/* Antes de começar o microfone está fechado: a régua vazia era só ruído. */}
-        {fase !== "parado" && (
+        {/* Como ver a voz: o gráfico (a pista, como nos apps de canto) ou o afinador. Fica à vista, e vale para todos os exercícios de segurar a nota. */}
+        <div className="treino-seg voz-vista" role="radiogroup" aria-label={t("voz.vista")} onKeyDown={onRadioKeyDown}>
+          {(["grafico", "afinador"] as const).map((v) => (
+            <button key={v} type="button" role="radio" aria-checked={s.vista === v} tabIndex={s.vista === v ? 0 : -1} onClick={() => store.set((x) => ({ ...x, vista: v }))}>{t(`voz.vistas.${v}`)}</button>
+          ))}
+        </div>
+
+        {/* Antes de começar o microfone está fechado: a régua (ou a pista) vazia era só ruído. */}
+        {fase !== "parado" && s.vista === "grafico" && (
+          <GraficoVoz
+            rolando={fase === "piano" || cantando}
+            obter={() => ({
+              agora: congelado.current ?? tempo(),
+              amostras: amostrasG.current,
+              passos: passosG.current,
+              proximos: tarefa && ex !== "alcance" ? tarefa.alvos.slice(passosG.current.length ? passoRef.current + 1 : passoRef.current) : [],
+              tonica: ex === "tonica" ? (tarefa?.bordao ?? null) : null,
+              alcance: ex === "alcance" ? alcance : null,
+              segurarS: (tarefa?.segurarMs ?? SEGURAR_MS) / 1000, progresso: ex === "alcance" || !cantando ? 0 : vivo.progresso,
+              mensagem: fase === "feito" && resultado?.ok && ex !== "alcance" ? t("voz.afinou") : null,
+              tolerancia: s.tolerancia, qualquerOitava: ex !== "alcance" && s.qualquerOitava, nome: nomeNota,
+            })}
+            reiniciar={tentativa}
+            rotulo={t("voz.grafico")}
+            dica={dica}
+          />
+        )}
+        {fase !== "parado" && s.vista === "afinador" && (
           <Afinometro
             midi={leitura}
             centsAlvo={ex === "alcance" || !cantando ? null : vivo.cents}
@@ -464,6 +511,17 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
           </div>
         )}
 
+        {/* Com a tônica soando: a tônica já está no bordão; o botão toca de novo a nota pedida (laranja, a cor do alvo). */}
+        {ex === "tonica" && tarefa && fase !== "parado" && (
+          <div className="voz-ouvir">
+            <button type="button" className="voz-ouvir-nota alvo" disabled={fase === "piano" || piano.carregando} onClick={() => void ouvirNota(tarefa, tarefa.alvos[0]!)}
+              aria-label={t("voz.ouvirNotaRotulo", { nota: nomeNota(tarefa.alvos[0]!) })}>
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z" /><path d="M15.5 9a4 4 0 0 1 0 6" /><path d="M18 6.5a7.5 7.5 0 0 1 0 11" /></svg>
+              <span>{t("voz.ouvirNota")}</span>
+              <b>{nomeNota(tarefa.alvos[0]!)}</b>
+            </button>
+          </div>
+        )}
         {resultado && <p className={`treino-resultado ${resultado.ok ? "certa" : "errada"}`} role="status">{textoResultado}</p>}
         {erroMic && <p className="treino-estado" role="alert">{t(`voz.erroMic.${erroMic}`)}</p>}
         {piano.erro && <p className="treino-estado" role="alert">{piano.erro === "audio" ? t("erroAudio") : t("erroPiano")}</p>}
@@ -484,7 +542,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
           {fase === "piano" && <button type="button" className="go treino-proxima" disabled>{t(tarefa?.bordao != null ? "voz.ligandoBordao" : "voz.ouvindo")}</button>}
           {cantando && ex !== "alcance" && tarefa && (
             <>
-              <button type="button" className="treino-btn" onClick={() => (ex === "tonica" && s.ajuda === "so" ? void espiar(tarefa) : void prepararEOuvir(tarefa, ex !== "sequencia"))}>{t(ex === "tonica" ? (s.ajuda === "so" ? "voz.espiar" : "voz.ouvirAlvo") : "voz.ouvirDeNovo")}</button>
+              {ex !== "tonica" && <button type="button" className="treino-btn" onClick={() => void prepararEOuvir(tarefa, ex !== "sequencia")}>{t("voz.ouvirDeNovo")}</button>}
               <button type="button" className="treino-btn" onClick={parar}>{t("voz.parar")}</button>
             </>
           )}
@@ -502,7 +560,8 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
           <span className="treino-ajustes-resumo">{t("voz.ajustesResumo", { voz: s.faixa.tipo === "padrao" ? t("voz.minhaVoz.padrao") : s.faixa.tipo === "medida" ? t("voz.minhaVoz.medidaCurta") : t(`voz.minhaVoz.tipos.${s.faixa.tipo}` as "voz.minhaVoz.tipos.tenor"), de: nomeNota(s.faixa.min), ate: nomeNota(s.faixa.max), n: s.tolerancia })}</span>
         </summary>
         <div className="treino-ajustes-corpo">
-          {ex !== "musica" && <div className="treino-field" role="group" aria-label={t("instrumento")}>
+          {/* O instrumento só aparece no resultado do Alcance (a extensão no teclado ou no braço). */}
+          {ex === "alcance" && <div className="treino-field" role="group" aria-label={t("instrumento")}>
             <span>{t("instrumento")}</span>
             <div className="treino-chips">
               <button type="button" className="treino-chip" aria-pressed={instrumento === "teclado"} onClick={() => setInstrumento("teclado")}>{t("instrumentos.teclado")}</button>

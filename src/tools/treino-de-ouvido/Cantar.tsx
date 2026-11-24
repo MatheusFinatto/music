@@ -8,11 +8,14 @@ import { nomeNota } from "./engine";
 import { MUSICAS, musicaDe } from "./musicas";
 import type { ProgramaProp } from "./Programas";
 import { anotarDuracao } from "./ritmo";
+import { novosEfeitos } from "./palco";
 import { desenharPista, lerCores } from "./pista";
 import { usePiano } from "./usePiano";
 import { sortearClasseDeVoz, type Faixa } from "./voz";
 
+/** `trecho`: o índice do trecho, ou `INTEIRA` para a música toda (os trechos em sequência). */
 export type ConfigMusica = { musica: string; trecho: number; velocidade: number; guia: boolean };
+export const INTEIRA = -1;
 export const VELOCIDADES = [0.6, 1] as const;
 type Fase = "parado" | "ouvindo" | "contagem" | "cantando" | "feito";
 /** Tempos de contagem antes da primeira nota. */
@@ -46,8 +49,11 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
   const [sorteado, setSorteado] = useState(() => (programa ? sortearTrecho() : null));
   const cfg = programa && sorteado ? { ...cfgSalva, ...sorteado } : cfgSalva;
   const musica = musicaDe(cfg.musica);
-  const trecho = musica.trechos[Math.min(cfg.trecho, musica.trechos.length - 1)]!;
-  const chave = `${musica.id}:${Math.min(cfg.trecho, musica.trechos.length - 1)}`;
+  // A música inteira são os trechos em sequência (eles são frases seguidas da mesma melodia).
+  const inteira = cfg.trecho === INTEIRA && musica.trechos.length > 1;
+  const idx = inteira ? INTEIRA : Math.max(0, Math.min(cfg.trecho, musica.trechos.length - 1));
+  const trecho = inteira ? { nome: musica.nome, notas: musica.trechos.flatMap((x) => x.notas) } : musica.trechos[idx]!;
+  const chave = `${musica.id}:${inteira ? "inteira" : idx}`;
   const bpm = musica.bpm * cfg.velocidade;
 
   const [fase, setFase] = useState<Fase>("parado");
@@ -72,6 +78,8 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
   const inicioTentativa = useRef(0);
   const trocouPorPrograma = useRef(false);
   const atualRef = useRef(-1);
+  /** As faíscas das notas acertadas, que vivem entre um quadro e outro. */
+  const efeitos = useRef(novosEfeitos());
 
   const js: Janela[] = janelas(trecho.notas, bpm, tonicaMidi);
   const jsRef = useRef(js);
@@ -89,7 +97,8 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
       t: rolando ? (performance.now() - inicio.current) / 1000 : 0,
       amostras: amostras.current, tolerancia: k.tolerancia, qualquerOitava: k.qualquerOitava,
       avaliar: f === "cantando" || f === "feito", voz: voz.current, nome: nomeNota, cores: lerCores(c),
-    });
+      fonte: getComputedStyle(c).fontFamily || "system-ui, sans-serif", calmo: matchMedia("(prefers-reduced-motion: reduce)").matches,
+    }, efeitos.current, performance.now() / 1000);
     if (rolando) {
       const ts = (performance.now() - inicio.current) / 1000;
       const i = jsRef.current.findIndex((j) => j.midi !== null && ts >= j.ini && ts < j.fim);
@@ -101,7 +110,7 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
   useEffect(() => {
     const el = caixa.current, c = tela.current; if (!el || !c) return;
     const ajusta = () => {
-      const w = Math.max(240, Math.round(el.clientWidth)), h = w < 420 ? 232 : 264, d = window.devicePixelRatio || 1;
+      const w = Math.max(240, Math.round(el.clientWidth)), h = w < 480 ? 260 : 330, d = window.devicePixelRatio || 1;
       tamanho.current = { w, h };
       c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = `${h}px`;
       c.getContext("2d")?.setTransform(d, 0, 0, d, 0, 0);
@@ -179,7 +188,7 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
   };
 
   const cantar = async () => {
-    limpar(); setFinal(null); setErroMic(null); amostras.current = []; atualRef.current = -1;
+    limpar(); setFinal(null); setErroMic(null); amostras.current = []; atualRef.current = -1; efeitos.current = novosEfeitos();
     inicioTentativa.current = agoraMs();
     // Cada tentativa com tônica "aleatória" muda de tom; a melodia é a mesma.
     const tom = tonica < 0 ? tonicaParaCaber(sortearClasseDeVoz(), trecho.notas, faixa) : tonicaParaCaber(tonica, trecho.notas, faixa);
@@ -263,8 +272,9 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
             <span>{t("voz.musica.trecho")}</span>
             <div className="treino-chips">
               {musica.trechos.map((x, i) => (
-                <button key={i} type="button" className="treino-chip" aria-pressed={cfg.trecho === i} disabled={rodando} onClick={() => onCfg({ trecho: i })}>{x.nome}</button>
+                <button key={i} type="button" className="treino-chip" aria-pressed={idx === i} disabled={rodando} onClick={() => onCfg({ trecho: i })}>{x.nome}</button>
               ))}
+              <button type="button" className="treino-chip" aria-pressed={inteira} disabled={rodando} onClick={() => onCfg({ trecho: INTEIRA })}>{t("voz.musica.inteira")}</button>
             </div>
           </div>
         )}
@@ -301,8 +311,10 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
         {!rodando && programa && final && <button type="button" className="go treino-proxima" onClick={proximaDoPrograma}>{programa.restante === 0 ? programa.rotuloFim : t("voz.musica.proximaMusica")}</button>}
         {!rodando && programa && !final && <button type="button" className="go treino-proxima" onClick={() => void cantar()} disabled={carregando}>{t("voz.musica.cantar")}</button>}
         {!rodando && !programa && <button type="button" className="go treino-proxima" onClick={() => void cantar()} disabled={carregando}>{final ? t("voz.musica.cantarDeNovo") : t("voz.musica.cantar")}</button>}
-        {!rodando && !programa && final && cfg.trecho + 1 < musica.trechos.length && <button type="button" className="treino-btn" onClick={() => onCfg({ trecho: cfg.trecho + 1 })}>{t("voz.musica.proximoTrecho")}</button>}
-        {!rodando && !programa && <button type="button" className="treino-btn" onClick={() => void ouvir()} disabled={carregando}>{t("voz.musica.ouvir")}</button>}
+        {/* Depois de um trecho, o próximo; depois do último, a música inteira. */}
+        {!rodando && !programa && final && !inteira && idx + 1 < musica.trechos.length && <button type="button" className="treino-btn" onClick={() => onCfg({ trecho: idx + 1 })}>{t("voz.musica.proximoTrecho")}</button>}
+        {!rodando && !programa && final && !inteira && musica.trechos.length > 1 && idx + 1 === musica.trechos.length && <button type="button" className="treino-btn" onClick={() => onCfg({ trecho: INTEIRA })}>{t("voz.musica.cantarInteira")}</button>}
+        {!rodando && !programa && <button type="button" className="treino-btn" onClick={() => void ouvir()} disabled={carregando}>{t(inteira ? "voz.musica.ouvirInteira" : "voz.musica.ouvir")}</button>}
         {rodando && <button type="button" className="go treino-proxima" onClick={parar}>{t("voz.parar")}</button>}
       </div>
       {!rodando && !final && <p className="cantar-dica">{t("voz.musica.dica")} {t("voz.fone")}</p>}
