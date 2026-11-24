@@ -241,3 +241,42 @@
   .brand { min-width: 44px; }
   input[type="range"] { min-height: 44px; }
 }
+
+/*
+ * Celular: o afinador e o metrônomo têm a cara do app Android (marmota-tuner). A página marca <main class="app-screen">;
+ * aqui some o cabeçalho, o rodapé e o título, a paleta vira a do app (colors.xml) e aparece a barra flutuante (AppNav).
+ * .only-mob e .only-desk escolhem o que cada largura mostra quando as duas disposições diferem.
+ */
+.app-nav { display: none; }
+@media (min-width: 641px) { .only-mob { display: none !important; } }
+@media (max-width: 640px) {
+  .only-desk { display: none !important; }
+  body:has(.app-screen) {
+    --bg: #1e1e1e;
+    --surface: #1e1e1e;
+    --soft: #2e2e2e; /* tuner_bar: barra, folhas e bolinhas */
+    --ink: #ededed;
+    --muted: #9a9a9a;
+    --line: #4a4a4a;
+    --accent: #4aa3ff; /* tuner_now: tocando agora */
+    --accent-ink: #0b1520;
+    --accent-soft: #1d3550;
+    --target: #ff7a1a;
+    --ok: #3ddc84; /* tuner_in_tune: selecionado */
+    background: var(--bg);
+    font-family: system-ui, Roboto, sans-serif;
+  }
+  body:has(.app-screen) :is(.site-header, .site-footer) { display: none; }
+  .app-screen { display: flex; flex-direction: column; min-height: 100dvh; padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left); }
+  .app-screen > .section { flex: 1; display: flex; flex-direction: column; width: 100%; padding-top: 0; padding-bottom: calc(56px + 32px + env(safe-area-inset-bottom)); }
+  .app-screen .tool-head { display: none; }
+
+  /* A barra flutuante do app (BottomNav.kt): pílula de 56px, a aba atual cheia. */
+  .app-nav { position: fixed; z-index: 30; left: max(16px, env(safe-area-inset-left)); right: max(16px, env(safe-area-inset-right)); bottom: calc(16px + env(safe-area-inset-bottom)); display: flex; height: 56px; padding: 6px; border-radius: 28px; background: var(--soft); box-shadow: 0 6px 18px rgb(0 0 0 / 0.45); }
+  .app-nav-tab { flex: 1; display: grid; place-items: center; border-radius: 22px; color: var(--ink); font-size: 15px; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+  .app-nav-tab[aria-current="page"] { background: var(--ink); color: var(--bg); }
+  .app-nav-icon { flex: none; display: grid; place-items: center; width: 44px; border-radius: 22px; color: var(--muted); -webkit-tap-highlight-color: transparent; }
+  .app-nav-icon:active, .app-nav-tab:not([aria-current]):active { background: color-mix(in srgb, var(--ink) 10%, transparent); }
+  .app-nav-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .app-nav :focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+}

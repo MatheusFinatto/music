@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { AppNav } from "@/components/AppNav";
 import { ToolHeader } from "@/components/ToolHeader";
 import { MicButton } from "./MicButton";
 import { WebTuner } from "./WebTuner";
@@ -9,11 +10,12 @@ import "./afinador.css";
 export async function Afinador() {
   const t = await getTranslations("afinador");
   return (
-    <main className="wrap" id="conteudo">
+    <main className="wrap app-screen" id="conteudo">
       <section className="section mx-auto max-w-[640px]">
         <ToolHeader title={t("title")} actions={<MicButton />} />
         <WebTuner />
       </section>
+      <AppNav current="afinador" />
     </main>
   );
 }

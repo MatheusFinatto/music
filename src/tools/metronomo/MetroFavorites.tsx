@@ -1,13 +1,15 @@
 "use client";
-import { useRef, useState, useSyncExternalStore } from "react";
+import { useId, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { MAX_FAVORITES, favorites, sameSettings, store, type Favorite } from "./store";
 
 /**
  * Os favoritos do metrônomo, no topo da página ao lado do "i": andamento, tempos, divisão e acentos, com um
  * nome opcional. Ficam neste navegador, como o resto. Mesmo modelo dos favoritos do app.
+ * [variant] "pill": a estrela grande da linha de cima do celular, como no app; a do topo da página some lá.
  */
-export function MetroFavorites() {
+export function MetroFavorites({ variant = "icon" }: { variant?: "icon" | "pill" }) {
+  const titleId = useId();
   const t = useTranslations("metronomo");
   const list = useSyncExternalStore(favorites.subscribe, favorites.get, favorites.getInitial).items;
   const dialog = useRef<HTMLDialogElement>(null);
@@ -31,12 +33,12 @@ export function MetroFavorites() {
 
   return (
     <>
-      <button type="button" className="metro-info" onClick={() => dialog.current?.showModal()} aria-label={t("favorites")} title={t("favorites")} aria-haspopup="dialog">
+      <button type="button" className={variant === "pill" ? "metro-pill metro-pill-star" : "metro-info"} onClick={() => dialog.current?.showModal()} aria-label={t("favorites")} title={t("favorites")} aria-haspopup="dialog">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z" /></svg>
       </button>
-      <dialog ref={dialog} className="metro-dialog" aria-labelledby="metro-fav-title" onClick={(e) => { if (e.target === e.currentTarget) e.currentTarget.close(); }}>
+      <dialog ref={dialog} className="metro-dialog" aria-labelledby={titleId} onClick={(e) => { if (e.target === e.currentTarget) e.currentTarget.close(); }}>
         <div className="metro-dialog-head">
-          <h2 id="metro-fav-title">{t("favorites")}</h2>
+          <h2 id={titleId}>{t("favorites")}</h2>
           <button type="button" className="metro-close" onClick={() => dialog.current?.close()} aria-label={t("close")}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
           </button>

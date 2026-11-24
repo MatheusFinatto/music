@@ -124,3 +124,70 @@
   .metro-field { flex-direction: column; align-items: center; }
 }
 
+
+/* As pílulas do app (pillBackground no MetronomeActivity.kt): contorno fino, raio de 28px, texto em negrito. */
+.metro-pill { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 18px; border-radius: 28px; border: 1px solid var(--line); background: transparent; color: var(--ink); font: inherit; font-size: 17px; font-weight: 700; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background-color 0.15s; }
+.metro-pill:active:not(:disabled) { background: color-mix(in srgb, var(--ink) 10%, transparent); }
+.metro-pill:disabled { opacity: 0.35; cursor: default; }
+.metro-pill:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Folha dos tempos por compasso: o número grande e − / +. */
+.metro-beats-count { margin: 0; text-align: center; font-size: 56px; font-weight: 700; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.metro-beats-step { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 12px; }
+.metro-beats-step .metro-pill { min-height: 56px; font-size: 24px; }
+
+/* Folha do timer: grade de três colunas, a escolhida em verde. */
+.metro-timergrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.metro-timergrid button { min-height: 52px; padding: 0 6px; border-radius: 28px; border: 1px solid var(--line); background: transparent; color: var(--ink); font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+.metro-timergrid button[aria-checked="true"] { border: 2px solid var(--ok); color: var(--ok); }
+.metro-timergrid button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Celular: a tela do metrônomo do app, de cima para baixo. */
+@media (max-width: 640px) {
+  .metro { flex: 1; gap: 0; padding: 16px 20px 12px; background: transparent; border-radius: 0; box-shadow: none; }
+
+  .metro-top { display: flex; align-items: center; gap: 8px; }
+  .metro-pill-figure { width: 84px; padding: 0; }
+  .metro-pill-figure .metro-figure { height: 37px; width: auto; }
+  .metro-pill-star { width: 52px; padding: 0; margin-left: auto; }
+  .metro .metro-pill-star svg { width: 31px; height: 31px; stroke-width: 1.4; }
+
+  /* Bolinhas do app: 26px normal, 34px forte, 20px mudo; a que soa fica azul, sem halo. */
+  .metro-beats { gap: 0; min-height: 0; padding-top: 20px; }
+  .metro-dot::before { width: 26px; height: 26px; transition: background-color 0.06s, border-color 0.06s; }
+  .metro-dot.strong::before { width: 34px; height: 34px; }
+  .metro-dot.mute::before { width: 20px; height: 20px; }
+  /* O app acende o tempo e o mantém aceso até o próximo, inclusive nas subdivisões. */
+  .metro-dot:is(.on, .sub)::before { background: var(--accent); border-color: var(--accent); transform: none; box-shadow: none; }
+  .metro-dot.mute:is(.on, .sub)::before { background: transparent; border-color: var(--accent); }
+  .metro-hint { margin: 4px 0 0; font-size: 14px; }
+
+  .metro-wheel { flex: 1; display: flex; flex-direction: column; min-height: 200px; }
+  /* Base zero: o tamanho do canvas em pixels não pode empurrar a roda (o ResizeObserver o acompanha). */
+  .metro-wheel-canvas { flex: 1 1 0; width: 100%; height: 0; min-height: 0; color: var(--ink); touch-action: none; cursor: grab; border-radius: var(--radius-md); }
+  .metro-wheel-canvas:active { cursor: grabbing; }
+  .metro-wheel-canvas:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+  .metro-wheel span { text-align: center; color: var(--muted); font-size: 15px; }
+
+  .metro-timer { margin: 0; padding-top: 8px; }
+  .metro-timer span { font-size: 58px; }
+  .metro-timer small { font-size: 14px; }
+
+  .metro-pills { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 16px 0 12px; }
+  .metro-pills .metro-pill { min-height: 56px; padding: 0 10px; white-space: nowrap; }
+
+  .metro-actions, .metro-actions.with-stop { max-width: none; gap: 10px; }
+  .metro-actions { grid-template-columns: minmax(0, 1fr); }
+  .metro-actions.with-stop { grid-template-columns: minmax(0, 1fr) 64px; }
+  .metro-play { min-height: 64px; border-radius: 28px; }
+  .metro-icon-btn { width: 64px; height: 64px; border-radius: 28px; background: transparent; }
+
+  .metro-dialog { width: min(440px, calc(100vw - 32px)); padding: 16px 20px; border-radius: 22px; background: var(--soft); }
+  .metro-dialog h2 { font-size: 19px; font-weight: 700; }
+  .metro-subgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .metro-subgrid button { padding: 10px 2px; background: transparent; font-size: 12px; font-weight: 500; }
+  .metro-subgrid button[aria-checked="true"] { border-width: 2px; box-shadow: none; }
+  .metro-fav-save { grid-template-columns: 1fr; }
+  .metro-fav-save input { min-height: 52px; border-radius: 14px; background: transparent; }
+  .metro-fav-save button { min-height: 52px; border-radius: 28px; border: 1px solid var(--line); background: transparent; color: var(--ink); font-size: 17px; font-weight: 700; }
+}
