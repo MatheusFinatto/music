@@ -146,7 +146,7 @@ Neutros frios e um azul de marca; o laranja e o verde têm significado musical e
 - **Label** (600, 0.82rem): selos de situação.
 
 ### Escala para ferramentas
-As ferramentas usam só os degraus definidos como variáveis em `globals.css`: `--text-xs` (0.82rem), `--text-sm` (0.92rem), `--text-md` (1rem), `--text-lg` (1.15rem), `--text-xl` (1.45rem), `--text-2xl`, `--text-3xl` (título de ferramenta) e `--text-stage`.
+As ferramentas usam só os degraus definidos como variáveis em `globals.css`: `--text-xs` (0.82rem), `--text-sm` (0.92rem), `--text-md` (1rem), `--text-lg` (1.15rem), `--text-xl` (1.45rem), `--text-2xl`, `--text-3xl` (título de ferramenta) `--text-stage`, `--text-tempo` (o andamento do metrônomo, maior que o palco: é o número que se lê a um metro) e `--text-count` (contagem do timer, 2/3 do andamento).
 
 **A Regra do Palco.** O que se lê tocando, com o instrumento na mão e a tela a um metro (o que fazer agora, o acorde, a contagem, a casa), usa `--text-stage` ou `--text-xl` e cor cheia. Texto de instrução é sempre menor que isso.
 

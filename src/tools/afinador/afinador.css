@@ -7,12 +7,19 @@
   overflow: hidden;
   background: #1e1e1e;
   box-shadow: var(--shadow);
-  scroll-margin-top: 72px; /* abaixo do cabeçalho fixo */
 }
 .tuner-screen canvas { display: block; width: 100%; height: 100%; }
+.tuner-screen.offline { cursor: pointer; }
 
-.tuner-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-bottom: 16px; }
-.tuner-actions .go { border: 0; cursor: pointer; padding: 11px 22px; font-size: var(--text-md); }
-.tuner-actions .go:disabled { opacity: 0.6; cursor: progress; }
-.tuner-actions .go:focus-visible, .tuner-alt:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.tuner-alt { color: var(--accent); font-weight: 600; text-underline-offset: 3px; }
+/* O microfone, no topo ao lado de "Baixar app": ligado = ícone cheio; desligado = riscado; bloqueado = riscado em vermelho. */
+.tuner-mic { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; transition: background-color 0.2s, border-color 0.2s, color 0.2s; }
+.tuner-mic:hover { background: var(--soft); border-color: var(--muted); color: var(--ink); }
+.tuner-mic:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.tuner-mic svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.tuner-mic.on { color: var(--ink); border-color: var(--muted); }
+.tuner-mic.blocked { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 55%, transparent); }
+.tuner-mic.waiting svg { opacity: 0.55; }
+@media (prefers-reduced-motion: no-preference) {
+  .tuner-mic.waiting svg { animation: tuner-mic-wait 1.2s var(--ease) infinite alternate; }
+  @keyframes tuner-mic-wait { to { opacity: 1; } }
+}

@@ -25,7 +25,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
+import android.text.InputFilter
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
+import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.ImageView
@@ -54,10 +57,16 @@ class MetronomeActivity : Activity() {
     private var minutes = 0
     private var deadline = 0L
     private var timerDone = false
+    /** With a timer, the play button pauses: what was left (ms) waits here until it plays again. 0 = not paused. */
+    private var pausedLeft = 0L
 
     private lateinit var wheel: BpmWheel
-    private lateinit var playButton: Button
+    private lateinit var playButton: ImageView
+    private lateinit var stopButton: ImageView
     private lateinit var timerButton: Button
+    private lateinit var timerBox: LinearLayout
+    private lateinit var timerText: TextView
+    private lateinit var timerNote: TextView
     private lateinit var figureButton: FrameLayout
     private lateinit var beatsButton: Button
     private lateinit var dotsRow: LinearLayout
@@ -94,6 +103,12 @@ class MetronomeActivity : Activity() {
     private fun parseAccents(s: String) = s.split(".").mapNotNull { it.toIntOrNull() }.toIntArray()
 
     private fun color(id: Int) = getColor(id)
+    /** [a] moved [t] of the way toward [b]. */
+    private fun blend(a: Int, b: Int, t: Float) = Color.rgb(
+        (Color.red(a) + (Color.red(b) - Color.red(a)) * t).roundToInt(),
+        (Color.green(a) + (Color.green(b) - Color.green(a)) * t).roundToInt(),
+        (Color.blue(a) + (Color.blue(b) - Color.blue(a)) * t).roundToInt(),
+    )
     private fun dp(v: Int) = (v * resources.displayMetrics.density).roundToInt()
     private fun dpf(v: Float) = v * resources.displayMetrics.density
 
@@ -188,6 +203,20 @@ class MetronomeActivity : Activity() {
             importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
         })
 
+        // The timer shows as soon as it is set, at 2/3 of the tempo's size.
+        timerBox = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER; setPadding(0, dp(8), 0, 0) }
+        timerText = TextView(this).apply {
+            textSize = 58f
+            // Semibold where Android has weights (9+); bold before that.
+            typeface = if (android.os.Build.VERSION.SDK_INT >= 28) Typeface.create(Typeface.DEFAULT, 600, false) else Typeface.DEFAULT_BOLD
+            gravity = Gravity.CENTER
+            fontFeatureSettings = "tnum"
+        }
+        timerNote = TextView(this).apply { textSize = 14f; gravity = Gravity.CENTER; setTextColor(color(R.color.tuner_muted)) }
+        timerBox.addView(timerText)
+        timerBox.addView(timerNote)
+        root.addView(timerBox, LinearLayout.LayoutParams(-1, -2))
+
         val row = LinearLayout(this).apply { setPadding(0, dp(16), 0, dp(12)) }
         row.addView(pill(getString(R.string.tap)).apply {
             setOnClickListener { tapTempo.tap(SystemClock.elapsedRealtime() / 1000.0)?.let { setBpm(it.toInt()) } }
@@ -196,16 +225,34 @@ class MetronomeActivity : Activity() {
         row.addView(timerButton, LinearLayout.LayoutParams(0, dp(56), 1f))
         root.addView(row, LinearLayout.LayoutParams(-1, -2))
 
-        playButton = pill(getString(R.string.play), filled = true).apply {
-            textSize = 20f
-            setOnClickListener { if (playing) stop() else start() }
+        // Universal icons: ▶ play or resume, ❚❚ pause (with a timer), ■ stop.
+        val actions = LinearLayout(this).apply { gravity = Gravity.CENTER_VERTICAL }
+        playButton = ImageView(this).apply {
+            scaleType = ImageView.ScaleType.CENTER
+            background = pillBackground(true)
+            foreground = ripple()
+            isClickable = true
+            setOnClickListener { mainAction() }
         }
-        root.addView(playButton, LinearLayout.LayoutParams(-1, dp(64)))
+        actions.addView(playButton, LinearLayout.LayoutParams(0, dp(64), 1f))
+        stopButton = ImageView(this).apply {
+            setImageDrawable(TransportDrawable(TransportDrawable.STOP, color(R.color.tuner_ink), dpf(22f)))
+            scaleType = ImageView.ScaleType.CENTER
+            background = pillBackground(false)
+            foreground = ripple()
+            contentDescription = getString(R.string.stop)
+            isClickable = true
+            visibility = View.GONE
+            setOnClickListener { stop() }
+        }
+        actions.addView(stopButton, LinearLayout.LayoutParams(dp(64), dp(64)).apply { marginStart = dp(10) })
+        root.addView(actions, LinearLayout.LayoutParams(-1, -2))
 
         setBpm(metronome.bpm.roundToInt())
         refreshBeats()
         refreshFigure()
         refreshTimer()
+        refreshTransport()
         return root
     }
 
@@ -370,26 +417,49 @@ class MetronomeActivity : Activity() {
                 stop()
                 timerDone = true
                 playChime()
-                refreshTimer()
-                main.postDelayed({ timerDone = false; refreshTimer() }, 5000)
+                refreshTransport()
                 return
             }
-            refreshTimer()
+            refreshTransport()
             main.postDelayed(this, 250)
         }
     }
 
+    /** The timer pill only names the setting; the countdown is the big number above. */
     private fun refreshTimer() {
-        timerButton.text = when {
-            playing && deadline > 0 -> {
-                val s = ((deadline - SystemClock.elapsedRealtime() + 999) / 1000).coerceAtLeast(0)
-                "%d:%02d".format(s / 60, s % 60)
-            }
-            timerDone -> getString(R.string.timer_done)
-            minutes > 0 -> getString(R.string.timer_minutes, minutes)
-            else -> getString(R.string.timer)
-        }
+        timerButton.text = if (minutes > 0) getString(R.string.timer_minutes, minutes) else getString(R.string.timer)
         timerButton.contentDescription = if (minutes > 0) getString(R.string.timer_desc, minutes) else getString(R.string.timer_off_desc)
+    }
+
+    /** Play/pause/stop icons, the stop button and the big countdown, from the current state. */
+    private fun refreshTransport() {
+        val timer = minutes > 0
+        val kind = when { !playing -> TransportDrawable.PLAY; timer -> TransportDrawable.PAUSE; else -> TransportDrawable.STOP }
+        playButton.setImageDrawable(TransportDrawable(kind, color(R.color.tuner_background), dpf(26f)))
+        playButton.contentDescription = getString(when {
+            playing -> if (timer) R.string.pause else R.string.stop
+            pausedLeft > 0 -> R.string.resume
+            else -> R.string.play
+        })
+        // With a timer, ■ keeps its place (dimmed while there is nothing to stop): nothing moves under the finger.
+        stopButton.visibility = if (timer) View.VISIBLE else View.GONE
+        val canStop = playing || pausedLeft > 0
+        stopButton.isEnabled = canStop
+        stopButton.alpha = if (canStop) 1f else 0.35f
+        timerBox.visibility = if (timer) View.VISIBLE else View.GONE
+        if (!timer) return
+        val ms = when {
+            playing && deadline > 0 -> deadline - SystemClock.elapsedRealtime()
+            pausedLeft > 0 -> pausedLeft
+            timerDone -> 0L
+            else -> minutes * 60_000L
+        }
+        val sec = ((ms + 999) / 1000).coerceAtLeast(0)
+        timerText.text = "%d:%02d".format(sec / 60, sec % 60)
+        // The tempo stays the brightest number; the timer lights up a little while it runs. Orange is only for targets.
+        timerText.setTextColor(if (playing) blend(color(R.color.tuner_ink), color(R.color.tuner_muted), 0.22f) else color(R.color.tuner_muted))
+        timerNote.text = when { timerDone -> getString(R.string.timer_done); pausedLeft > 0 -> getString(R.string.paused); else -> "" }
+        timerNote.visibility = if (timerNote.text.isEmpty()) View.INVISIBLE else View.VISIBLE // keeps its line: the wheel does not jump
     }
 
     private fun pickTimer() {
@@ -407,10 +477,13 @@ class MetronomeActivity : Activity() {
                 isSelected = selected
                 setOnClickListener {
                     minutes = m
+                    timerDone = false
+                    pausedLeft = 0L
                     deadline = if (playing && m > 0) SystemClock.elapsedRealtime() + m * 60_000L else 0L
                     main.removeCallbacks(timerTick)
                     if (deadline > 0) main.post(timerTick)
                     refreshTimer()
+                    refreshTransport()
                     dialog.dismiss()
                 }
             }
@@ -441,14 +514,17 @@ class MetronomeActivity : Activity() {
 
     // ---- Favorites: tempo, beats, figure and accents, saved on the phone.
 
-    private class Favorite(val bpm: Int, val beats: Int, val sub: Int, val accents: IntArray) {
-        fun encode() = "$bpm,$beats,$sub,${accents.joinToString(".")}"
+    /** [name] is optional ("" = shown as its settings). It is URL-encoded, so commas and semicolons in it are safe. */
+    private class Favorite(val bpm: Int, val beats: Int, val sub: Int, val accents: IntArray, val name: String = "") {
+        fun settings() = "$bpm,$beats,$sub,${accents.joinToString(".")}"
+        fun encode() = if (name.isEmpty()) settings() else "${settings()},${java.net.URLEncoder.encode(name, "UTF-8")}"
         companion object {
             fun decode(s: String): Favorite? {
                 val p = s.split(",")
-                if (p.size != 4) return null
+                if (p.size != 4 && p.size != 5) return null // 1.4 saved 4 fields, without a name
                 return Favorite(p[0].toIntOrNull() ?: return null, p[1].toIntOrNull() ?: return null, p[2].toIntOrNull() ?: return null,
-                    p[3].split(".").mapNotNull { it.toIntOrNull() }.toIntArray())
+                    p[3].split(".").mapNotNull { it.toIntOrNull() }.toIntArray(),
+                    if (p.size == 5) java.net.URLDecoder.decode(p[4], "UTF-8") else "")
             }
         }
     }
@@ -472,22 +548,16 @@ class MetronomeActivity : Activity() {
             body.removeAllViews()
             val list = loadFavorites()
             val rows = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
-            if (list.isEmpty()) rows.addView(TextView(this).apply {
-                text = getString(R.string.favorites_empty)
-                textSize = 15f
-                setTextColor(color(R.color.tuner_muted))
-                setPadding(0, dp(4), 0, dp(12))
-            })
             list.forEachIndexed { i, f ->
                 val row = LinearLayout(this).apply { gravity = Gravity.CENTER_VERTICAL }
-                row.addView(TextView(this).apply {
-                    text = describe(f)
-                    textSize = 16f
-                    setTextColor(color(R.color.tuner_ink))
-                    minHeight = dp(52)
+                // With a name: the name, and the settings smaller below it. Without: the settings.
+                val label = LinearLayout(this).apply {
+                    orientation = LinearLayout.VERTICAL
                     gravity = Gravity.CENTER_VERTICAL
+                    minimumHeight = dp(52)
                     background = ripple()
                     isClickable = true
+                    contentDescription = if (f.name.isEmpty()) describe(f) else "${f.name}, ${describe(f)}"
                     setOnClickListener {
                         metronome.beatsPerBar = f.beats
                         metronome.subdivision = f.sub
@@ -496,20 +566,47 @@ class MetronomeActivity : Activity() {
                         refreshBeats(); refreshFigure()
                         dialog.dismiss()
                     }
-                }, LinearLayout.LayoutParams(0, -2, 1f))
-                row.addView(closeButton(getString(R.string.delete_favorite, describe(f))) { saveFavorites(list.also { it.removeAt(i) }); fill() },
+                }
+                label.addView(TextView(this).apply {
+                    text = f.name.ifEmpty { describe(f) }
+                    textSize = 16f
+                    setTextColor(color(R.color.tuner_ink))
+                })
+                if (f.name.isNotEmpty()) label.addView(TextView(this).apply {
+                    text = describe(f)
+                    textSize = 13f
+                    setTextColor(color(R.color.tuner_muted))
+                })
+                row.addView(label, LinearLayout.LayoutParams(0, -2, 1f))
+                row.addView(closeButton(getString(R.string.delete_favorite, f.name.ifEmpty { describe(f) })) { saveFavorites(list.also { it.removeAt(i) }); fill() },
                     LinearLayout.LayoutParams(dp(48), dp(48)))
                 rows.addView(row)
             }
             body.addView(ScrollView(this).apply { addView(rows) }, LinearLayout.LayoutParams(-1, -2, 1f))
-            body.addView(pill(getString(R.string.save_current)).apply {
-                setOnClickListener {
-                    val now = Favorite(metronome.bpm.roundToInt(), metronome.beatsPerBar, metronome.subdivision, metronome.accentList())
-                    val list2 = loadFavorites()
-                    if (list2.none { it.encode() == now.encode() }) { list2.add(0, now); saveFavorites(list2.take(MAX_FAVORITES)) }
-                    fill()
-                }
-            }, LinearLayout.LayoutParams(-1, dp(52)).apply { topMargin = dp(8) })
+            val nameField = EditText(this).apply {
+                hint = getString(R.string.favorite_name_hint)
+                setHintTextColor(color(R.color.tuner_muted))
+                setTextColor(color(R.color.tuner_ink))
+                textSize = 16f
+                isSingleLine = true
+                imeOptions = EditorInfo.IME_ACTION_DONE
+                filters = arrayOf(InputFilter.LengthFilter(40))
+                background = GradientDrawable().apply { cornerRadius = dpf(14f); setStroke(dp(1), color(R.color.tuner_line)) }
+                setPadding(dp(16), 0, dp(16), 0)
+            }
+            fun save() {
+                val now = Favorite(metronome.bpm.roundToInt(), metronome.beatsPerBar, metronome.subdivision, metronome.accentList(), nameField.text.toString().trim())
+                val list2 = loadFavorites()
+                // Same settings again: keeps one, with the new name if one was given.
+                list2.removeAll { it.settings() == now.settings() && (now.name.isNotEmpty() || it.name.isEmpty()) }
+                list2.add(0, now)
+                saveFavorites(list2.take(MAX_FAVORITES))
+                fill()
+            }
+            nameField.setOnEditorActionListener { _, action, _ -> if (action == EditorInfo.IME_ACTION_DONE) { save(); true } else false }
+            body.addView(nameField, LinearLayout.LayoutParams(-1, dp(52)).apply { topMargin = dp(8) })
+            body.addView(pill(getString(R.string.save_current)).apply { setOnClickListener { save() } },
+                LinearLayout.LayoutParams(-1, dp(52)).apply { topMargin = dp(8) })
         }
         fill()
         dialog = sheet(getString(R.string.favorites), body)
@@ -547,27 +644,49 @@ class MetronomeActivity : Activity() {
 
     // ---- Playing.
 
+    /** The big button: plays (or resumes); while playing, pauses with a timer, stops without. */
+    private fun mainAction() {
+        when {
+            !playing -> start()
+            minutes > 0 -> pause()
+            else -> stop()
+        }
+    }
+
     private fun start() {
         if (playing) return
         playing = true
         timerDone = false
-        playButton.text = getString(R.string.stop)
-        deadline = if (minutes > 0) SystemClock.elapsedRealtime() + minutes * 60_000L else 0L
+        val ms = if (minutes > 0) (if (pausedLeft > 0) pausedLeft else minutes * 60_000L) else 0L
+        pausedLeft = 0L
+        deadline = if (ms > 0) SystemClock.elapsedRealtime() + ms else 0L
         if (deadline > 0) main.post(timerTick)
-        refreshTimer()
+        refreshTransport()
         audioThread = Thread(::audioLoop, "metronome").apply { priority = Thread.MAX_PRIORITY; start() }
     }
 
+    /** Stops the sound but keeps what is left of the timer. */
+    private fun pause() {
+        if (!playing) return
+        val left = (deadline - SystemClock.elapsedRealtime()).coerceAtLeast(1)
+        silence()
+        pausedLeft = if (minutes > 0) left else 0L
+        refreshTransport()
+    }
+
+    /** Stops and resets the timer. */
     private fun stop() {
+        silence()
+        pausedLeft = 0L
+        if (::playButton.isInitialized) refreshTransport()
+    }
+
+    private fun silence() {
         playing = false
         audioThread?.join(500)
         audioThread = null
         deadline = 0L
         main.removeCallbacksAndMessages(null)
-        if (::playButton.isInitialized) {
-            playButton.text = getString(R.string.play)
-            refreshTimer()
-        }
         if (dots.isNotEmpty()) light(-1)
     }
 
@@ -678,4 +797,40 @@ private class CrossDrawable(color: Int, strokePx: Float, private val size: Float
     override fun setColorFilter(colorFilter: ColorFilter?) { paint.colorFilter = colorFilter }
     @Deprecated("Deprecated in Java")
     override fun getOpacity() = PixelFormat.TRANSLUCENT
+}
+
+/** Filled transport icons, the same on every player: ▶ play, ❚❚ pause, ■ stop. */
+private class TransportDrawable(private val kind: Int, color: Int, private val size: Float) : Drawable() {
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { this.color = color; style = Paint.Style.FILL }
+
+    override fun getIntrinsicWidth() = size.toInt()
+    override fun getIntrinsicHeight() = size.toInt()
+
+    override fun draw(canvas: Canvas) {
+        // Drawn on a 24-unit grid, like the site's SVG.
+        val u = size / 24f
+        canvas.save()
+        canvas.translate(bounds.exactCenterX() - size / 2, bounds.exactCenterY() - size / 2)
+        canvas.scale(u, u)
+        when (kind) {
+            PLAY -> canvas.drawPath(Path().apply { moveTo(8f, 4.6f); lineTo(20f, 12f); lineTo(8f, 19.4f); close() }, paint)
+            PAUSE -> {
+                canvas.drawRoundRect(6.5f, 5f, 10.5f, 19f, 1f, 1f, paint)
+                canvas.drawRoundRect(13.5f, 5f, 17.5f, 19f, 1f, 1f, paint)
+            }
+            else -> canvas.drawRoundRect(6f, 6f, 18f, 18f, 1.6f, 1.6f, paint)
+        }
+        canvas.restore()
+    }
+
+    override fun setAlpha(alpha: Int) { paint.alpha = alpha }
+    override fun setColorFilter(colorFilter: ColorFilter?) { paint.colorFilter = colorFilter }
+    @Deprecated("Deprecated in Java")
+    override fun getOpacity() = PixelFormat.TRANSLUCENT
+
+    companion object {
+        const val PLAY = 0
+        const val PAUSE = 1
+        const val STOP = 2
+    }
 }

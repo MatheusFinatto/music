@@ -1,5 +1,6 @@
 // Microfone em blocos de tamanho fixo, como o AudioCapture do app Android.
-// Só no navegador, e só depois de um gesto do usuário (clique ou toque).
+// Só no navegador. Pode ser pedido ao abrir a página: se o navegador ainda não deixa o áudio rodar (nenhum
+// clique ou toque na página até agora), espera o primeiro gesto e avisa com `onNeedsGesture`.
 import { getAudio } from "./context";
 
 export type MicProblem = "denied" | "unavailable" | "failed";
@@ -41,6 +42,27 @@ class Tap extends AudioWorkletProcessor {
 registerProcessor("${PROCESSOR}", Tap);
 `;
 
+/**
+ * Põe o áudio para rodar. Sem nenhum gesto na página, o navegador segura o resume() até o primeiro clique,
+ * toque ou tecla: então avisa e espera esse gesto.
+ */
+async function running(ctx: AudioContext, onNeedsGesture?: () => void) {
+  if (ctx.state === "running") return;
+  await Promise.race([ctx.resume(), new Promise((r) => setTimeout(r, 400))]);
+  if ((ctx.state as AudioContextState) === "running") return; // o await acima pode ter mudado o estado
+  onNeedsGesture?.();
+  await new Promise<void>((resolve) => {
+    const go = () => {
+      void ctx.resume().then(() => {
+        for (const type of GESTURES) window.removeEventListener(type, go, true);
+        resolve();
+      });
+    };
+    for (const type of GESTURES) window.addEventListener(type, go, true);
+  });
+}
+const GESTURES = ["pointerdown", "keydown", "touchend"] as const;
+
 const loaded = new WeakSet<BaseAudioContext>();
 
 async function loadTap(ctx: AudioContext) {
@@ -61,11 +83,14 @@ async function loadTap(ctx: AudioContext) {
  *
  * Ex.: const mic = await openMic(1024, (chunk) => pipeline.process(chunk, chunk.length)); … mic.stop();
  */
-export async function openMic(chunkSize: number, onChunk: (chunk: Float32Array) => void): Promise<Mic> {
+export async function openMic(
+  chunkSize: number,
+  onChunk: (chunk: Float32Array) => void,
+  onNeedsGesture?: () => void,
+): Promise<Mic> {
   const audio = getAudio();
   if (!audio || !navigator.mediaDevices?.getUserMedia || !audio.ctx.audioWorklet) throw new MicError("unavailable");
   const { ctx } = audio;
-  if (ctx.state !== "running") await ctx.resume();
 
   let stream: MediaStream;
   try {
@@ -81,6 +106,7 @@ export async function openMic(chunkSize: number, onChunk: (chunk: Float32Array) 
   }
 
   try {
+    await running(ctx, onNeedsGesture);
     await loadTap(ctx);
     const source = ctx.createMediaStreamSource(stream);
     const tap = new AudioWorkletNode(ctx, PROCESSOR, { processorOptions: { size: chunkSize } });
