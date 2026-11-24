@@ -9,6 +9,8 @@
   },
   "nav": {
     "label": "Principal",
+    "app": "Afinador e metrônomo",
+    "home": "Início",
     "short": {
       "afinador": "Afinador",
       "metronomo": "Metrônomo",
@@ -118,7 +120,15 @@
     "favoriteDesc": "{bpm} bpm · {beats, plural, one {# tempo} other {# tempos}} · {sub}",
     "favoriteName": "Nome (opcional)",
     "saveCurrent": "Salvar o atual",
-    "deleteFavorite": "Apagar {name}"
+    "deleteFavorite": "Apagar {name}",
+    "beatsCount": "{n, plural, one {# tempo} other {# tempos}}",
+    "beatsTitle": "Tempos por compasso",
+    "fewerBeats": "Menos um tempo",
+    "moreBeats": "Mais um tempo",
+    "timerMinutes": "Timer: {n} min",
+    "subdivisionNow": "Divisão: {name}",
+    "beatsNow": "{n, plural, one {# tempo} other {# tempos}} por compasso",
+    "wheelLabel": "Andamento em bpm. Arraste para cima ou para baixo para mudar"
   },
   "afinador": {
     "title": "Afinador",

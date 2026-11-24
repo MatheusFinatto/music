@@ -23,3 +23,9 @@
   .tuner-mic.waiting svg { animation: tuner-mic-wait 1.2s var(--ease) infinite alternate; }
   @keyframes tuner-mic-wait { to { opacity: 1; } }
 }
+
+/* Celular: a tela do afinador ocupa tudo acima da barra flutuante, como no app. */
+@media (max-width: 640px) {
+  .app-screen .tuner { flex: 1; display: flex; min-height: 0; }
+  .app-screen .tuner-screen { flex: 1; height: auto; min-height: 320px; border-radius: 0; box-shadow: none; }
+}

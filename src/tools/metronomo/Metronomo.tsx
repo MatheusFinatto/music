@@ -6,6 +6,8 @@ import { ACCENT, BEAT, MAX_BEATS, MAX_BPM, MIN_BPM, MUTE, SUBDIVISIONS, TapTempo
 import { MINUTES, store } from "./store";
 import { MetronomeEngine, chime, type MetronomeSettings } from "./engine";
 import { Figure } from "./Figure";
+import { BpmWheel } from "./BpmWheel";
+import { MetroFavorites } from "./MetroFavorites";
 import "./metronomo.css";
 
 const STEPS = [-10, -5, -1, 1, 5, 10] as const; // os negativos à esquerda do número, os positivos à direita
@@ -23,6 +25,8 @@ export function Metronomo() {
   const engine = useRef<MetronomeEngine | null>(null);
   const tap = useRef<TapTempo | null>(null);
   const subDialog = useRef<HTMLDialogElement>(null);
+  const beatsDialog = useRef<HTMLDialogElement>(null);
+  const timerDialog = useRef<HTMLDialogElement>(null);
   /** As setas no seletor de divisão também disparam click (radioGroup); só Enter, Espaço ou o mouse fecham o modal. */
   const arrowing = useRef(false);
 
@@ -142,9 +146,27 @@ export function Metronomo() {
   const sub = subdivisionById(s.subdivision);
   // Clicar fora do conteúdo (no fundo escurecido) fecha o modal.
   const closeOnBackdrop = (e: React.MouseEvent<HTMLDialogElement>) => { if (e.target === e.currentTarget) e.currentTarget.close(); };
+  const openSub = () => { subDialog.current?.showModal(); subDialog.current?.querySelector<HTMLElement>('[aria-checked="true"]')?.focus(); };
+  const openTimer = () => { timerDialog.current?.showModal(); timerDialog.current?.querySelector<HTMLElement>('[aria-checked="true"]')?.focus(); };
+  const closeButton = (dialog: React.RefObject<HTMLDialogElement | null>) => (
+    <button type="button" className="metro-close" onClick={() => dialog.current?.close()} aria-label={t("close")}>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+    </button>
+  );
 
   return (
     <div className="metro">
+      {/* No celular, a linha de cima do app: a figura (divisão), os tempos e os favoritos. */}
+      <div className="metro-top only-mob">
+        <button type="button" className="metro-pill metro-pill-figure" onClick={openSub} aria-haspopup="dialog" aria-label={t("subdivisionNow", { name: t(`sub.${sub.id}`) })}>
+          <Figure subdivision={sub} className="metro-figure" />
+        </button>
+        <button type="button" className="metro-pill" onClick={() => beatsDialog.current?.showModal()} aria-haspopup="dialog" aria-label={t("beatsNow", { n: s.beatsPerBar })}>
+          {t("beatsCount", { n: s.beatsPerBar })}
+        </button>
+        <MetroFavorites variant="pill" />
+      </div>
+
       <ol className="metro-beats">
         {Array.from({ length: s.beatsPerBar }, (_, i) => {
           const a = s.accents[i] ?? BEAT;
@@ -163,7 +185,7 @@ export function Metronomo() {
       </ol>
       {!s.hintSeen && <p className="metro-hint">{t("beatHint")}</p>}
 
-      <div className="metro-tempo">
+      <div className="metro-tempo only-desk">
         <div className="metro-steps down" role="group" aria-label={t("slowerGroup")}>
           {STEPS.filter((d) => d < 0).map((d) => (
             <button key={d} type="button" onClick={() => set({ bpm: store.get().bpm + d })} aria-label={t("slower", { n: -d })}>−{-d}</button>
@@ -190,7 +212,7 @@ export function Metronomo() {
         </div>
       </div>
       <input
-        className="metro-slider"
+        className="metro-slider only-desk"
         type="range"
         min={MIN_BPM}
         max={MAX_BPM}
@@ -198,6 +220,10 @@ export function Metronomo() {
         onChange={(e) => set({ bpm: Number(e.target.value) })}
         aria-label={t("bpmSlider")}
       />
+      <div className="metro-wheel only-mob">
+        <BpmWheel value={s.bpm} min={MIN_BPM} max={MAX_BPM} onChange={(bpm) => set({ bpm })} label={t("wheelLabel")} unit={t("bpm")} className="metro-wheel-canvas" />
+        <span aria-hidden="true">{t("bpm")}</span>
+      </div>
 
       {s.minutes > 0 && (
         <div className={["metro-timer", running ? "live" : "", finished ? "done" : ""].join(" ")} aria-hidden="true">
@@ -205,6 +231,11 @@ export function Metronomo() {
           <small>{finished ? t("finished") : paused ? t("paused") : ""}</small>
         </div>
       )}
+
+      <div className="metro-pills only-mob">
+        <button type="button" className="metro-pill" onClick={(e) => onTap(e.timeStamp)}>{t("tap")}</button>
+        <button type="button" className="metro-pill" onClick={openTimer} aria-haspopup="dialog">{s.minutes > 0 ? t("timerMinutes", { n: s.minutes }) : t("timer")}</button>
+      </div>
 
       <div className={["metro-actions", s.minutes > 0 ? "with-stop" : ""].join(" ")}>
         {/* Ícones universais: ▶ tocar ou continuar, ❚❚ pausar (com timer), ■ parar. O nome vai no aria-label. */}
@@ -224,12 +255,12 @@ export function Metronomo() {
             <PlayIcon kind="stop" />
           </button>
         )}
-        <button type="button" className="metro-tap" onClick={(e) => onTap(e.timeStamp)} aria-keyshortcuts="T">{t("tap")}</button>
+        <button type="button" className="metro-tap only-desk" onClick={(e) => onTap(e.timeStamp)} aria-keyshortcuts="T">{t("tap")}</button>
       </div>
       {/* Só pausa e fim são anunciados: ler a contagem a cada segundo atrapalharia quem está tocando. */}
       <p className="sr-only" role="status">{finished ? t("finished") : paused ? t("paused") : ""}</p>
 
-      <div className="metro-options">
+      <div className="metro-options only-desk">
         <label className="metro-field">
           <span>{t("beats")}</span>
           <select value={s.beatsPerBar} onChange={(e) => set({ beatsPerBar: Number(e.target.value) })}>
@@ -238,7 +269,7 @@ export function Metronomo() {
         </label>
         <div className="metro-field">
           <span id="metro-sub-label">{t("subdivision")}</span>
-          <button type="button" className="metro-sub-open" onClick={() => { subDialog.current?.showModal(); subDialog.current?.querySelector<HTMLElement>('[aria-checked="true"]')?.focus(); }} aria-haspopup="dialog" aria-labelledby="metro-sub-label metro-sub-name">
+          <button type="button" className="metro-sub-open" onClick={openSub} aria-haspopup="dialog" aria-labelledby="metro-sub-label metro-sub-name">
             <Figure subdivision={sub} className="metro-figure" />
             <span id="metro-sub-name" className="sr-only">{t(`sub.${sub.id}`)}</span>
           </button>
@@ -255,9 +286,7 @@ export function Metronomo() {
       <dialog ref={subDialog} className="metro-dialog" aria-labelledby="metro-sub-title" onClick={closeOnBackdrop}>
         <div className="metro-dialog-head">
           <h2 id="metro-sub-title">{t("subTitle")}</h2>
-          <button type="button" className="metro-close" onClick={() => subDialog.current?.close()} aria-label={t("close")}>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
-          </button>
+          {closeButton(subDialog)}
         </div>
         <div className="metro-subgrid" role="radiogroup" aria-labelledby="metro-sub-title" onKeyDown={(e) => { arrowing.current = true; onRadioKeyDown(e); arrowing.current = false; }}>
           {SUBDIVISIONS.map((d) => (
@@ -276,6 +305,39 @@ export function Metronomo() {
         </div>
       </dialog>
 
+      {/* As folhas do celular, como no app: tempos por compasso (− e +) e timer. */}
+      <dialog ref={beatsDialog} className="metro-dialog" aria-labelledby="metro-beats-title" onClick={closeOnBackdrop}>
+        <div className="metro-dialog-head">
+          <h2 id="metro-beats-title">{t("beatsTitle")}</h2>
+          {closeButton(beatsDialog)}
+        </div>
+        <p className="metro-beats-count" aria-live="polite">{s.beatsPerBar}</p>
+        <div className="metro-beats-step">
+          <button type="button" className="metro-pill" onClick={() => set({ beatsPerBar: Math.max(1, store.get().beatsPerBar - 1) })} disabled={s.beatsPerBar <= 1} aria-label={t("fewerBeats")}>−</button>
+          <button type="button" className="metro-pill" onClick={() => set({ beatsPerBar: Math.min(MAX_BEATS, store.get().beatsPerBar + 1) })} disabled={s.beatsPerBar >= MAX_BEATS} aria-label={t("moreBeats")}>+</button>
+        </div>
+      </dialog>
+
+      <dialog ref={timerDialog} className="metro-dialog" aria-labelledby="metro-timer-title" onClick={closeOnBackdrop}>
+        <div className="metro-dialog-head">
+          <h2 id="metro-timer-title">{t("timer")}</h2>
+          {closeButton(timerDialog)}
+        </div>
+        <div className="metro-timergrid" role="radiogroup" aria-labelledby="metro-timer-title" onKeyDown={(e) => { arrowing.current = true; onRadioKeyDown(e); arrowing.current = false; }}>
+          {MINUTES.map((m) => (
+            <button
+              key={m}
+              type="button"
+              role="radio"
+              aria-checked={m === s.minutes}
+              tabIndex={m === s.minutes ? 0 : -1}
+              onClick={(e) => { setMinutes(m, e.timeStamp); if (!arrowing.current) timerDialog.current?.close(); }}
+            >
+              {m === 0 ? t("noLimit") : t("minutes", { n: m })}
+            </button>
+          ))}
+        </div>
+      </dialog>
     </div>
   );
 }
