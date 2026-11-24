@@ -100,12 +100,11 @@
       "unavailable": "Este navegador não dá acesso ao microfone. Tente outro navegador ou use o app Android",
       "failed": "O microfone não abriu. Confira se outro app não está usando e toque em Tentar de novo"
     },
-    "stringsLabel": "Cordas do violão, da mais grave à mais aguda",
-    "limits": "Feito para guitarra e violão, com o lá em 440 Hz. Não detecta as cordas mais graves do baixo. O som do microfone não sai do seu aparelho.",
     "appTitle": "Marmota Tuner, o app Android",
     "appLead": "Afinador e metrônomo num app só: sem anúncio, sem assinatura, sem internet, com menos de 1 MB. Abre direto, sem passar pelo navegador.",
     "download": "Baixar o APK",
     "platform": "Android 8 ou mais novo",
+    "releaseNotes": "O que mudou na última versão",
     "installTitle": "Como instalar",
     "step1": "Baixe o arquivo no celular.",
     "step2": "Abra o arquivo. Se o Android pedir, permita instalar apps desta fonte.",

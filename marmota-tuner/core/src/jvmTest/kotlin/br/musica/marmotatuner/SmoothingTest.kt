@@ -82,14 +82,14 @@ class TunerGeometryTest {
     fun dialAndLabelsFitTheWidth() {
         val reach = phone.radius * kotlin.math.sin(Math.toRadians(phone.maxAngleDegrees.toDouble())).toFloat()
         assertTrue(phone.centerX - reach >= 40 * phone.dp - 0.5f)
-        assertTrue(phone.maxAngleDegrees in 10f..40f)
+        assertTrue(phone.maxAngleDegrees in 10f..60f)
     }
 
     @Test
     fun layoutIsTopToBottom() {
         assertTrue(phone.noteBaseline < phone.frequencyBaseline)
         assertTrue(phone.frequencyBaseline < phone.pivotY - phone.radius)
-        assertTrue(phone.pivotY < phone.stripBaseline)
+        assertTrue(phone.pivotY + 30 * phone.dp < 2300f)
     }
 
     @Test

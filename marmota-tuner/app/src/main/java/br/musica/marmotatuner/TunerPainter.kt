@@ -13,7 +13,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 /**
- * Draws the tuner: note + octave, frequency, dial with ♭/♯ ends, needle, pivot, note strip, mic level.
+ * Draws the tuner: note + octave, frequency, dial with ♭/♯ ends, needle, pivot, mic level.
  *
  * Colors follow the site's rule (docs/PREFERENCIAS.md): orange = the target (the note to tune to and
  * the dial's center), blue = what is sounding now (the needle and the mic level). The needle turns green in tune.
@@ -30,8 +30,6 @@ class TunerPainter(context: Context) {
     private val octavePaint = textPaint(target, Paint.Align.LEFT, Typeface.create("sans-serif", Typeface.NORMAL))
     private val frequencyPaint = textPaint(ink, Paint.Align.CENTER, Typeface.DEFAULT).apply { textSize = sp(15f) }
     private val symbolPaint = textPaint(muted, Paint.Align.CENTER, Typeface.DEFAULT).apply { textSize = sp(22f) }
-    private val stripPaint = textPaint(muted, Paint.Align.CENTER, Typeface.DEFAULT).apply { textSize = sp(15f) }
-    private val stripActivePaint = textPaint(ink, Paint.Align.CENTER, Typeface.DEFAULT_BOLD).apply { textSize = sp(15f) }
     private val tickPaint = strokePaint(muted, 2f)
     private val targetTickPaint = strokePaint(target, 2.5f)
     private val tolerancePaint = strokePaint(inTune, 3f).apply { alpha = 70; strokeCap = Paint.Cap.BUTT }
@@ -63,7 +61,6 @@ class TunerPainter(context: Context) {
         drawFrequency(canvas, g, scene)
         drawDial(canvas, g)
         drawNeedle(canvas, g, scene)
-        drawStrip(canvas, g, scene)
         drawMeter(canvas, g, scene)
     }
 
@@ -128,24 +125,6 @@ class TunerPainter(context: Context) {
         else -> now
     }
 
-    /** Notes A to G#, like the reference; the current note is bright with an orange mark under it. */
-    private fun drawStrip(canvas: Canvas, g: TunerGeometry, scene: TunerScene) {
-        val current = scene.reading?.pitchClass
-        STRIP_ORDER.forEachIndexed { index, pitchClass ->
-            val x = g.stripLeft + g.stripCellWidth * (index + 0.5f)
-            val isCurrent = pitchClass == current
-            canvas.drawText(NoteReading.NOTE_NAMES[pitchClass], x, g.stripBaseline, if (isCurrent) stripActivePaint else stripPaint)
-            if (isCurrent) drawStripMark(canvas, g, x, scene.active)
-        }
-    }
-
-    private fun drawStripMark(canvas: Canvas, g: TunerGeometry, x: Float, active: Boolean) {
-        fillPaint.color = target
-        fillPaint.alpha = if (active) OPAQUE else IDLE_ALPHA
-        scratchRect.set(x - 1.5f * g.dp, g.stripBaseline + 9 * g.dp, x + 1.5f * g.dp, g.stripBaseline + 19 * g.dp)
-        canvas.drawRoundRect(scratchRect, g.dp, g.dp, fillPaint)
-    }
-
     /** Small mic outline plus a vertical bar filling from the bottom with the input level. */
     private fun drawMeter(canvas: Canvas, g: TunerGeometry, scene: TunerScene) {
         val barLeft = g.meterRight - 4 * g.dp
@@ -195,7 +174,6 @@ class TunerPainter(context: Context) {
 
     private companion object {
         val PT_BR: Locale = Locale.forLanguageTag("pt-BR")
-        val STRIP_ORDER = listOf(9, 10, 11, 0, 1, 2, 3, 4, 5, 6, 7, 8)
         const val FLAT = "♭"
         const val SHARP = "♯"
         const val OPAQUE = 255

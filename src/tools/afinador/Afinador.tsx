@@ -6,6 +6,8 @@ import "./afinador.css";
 // e o app Android Marmota Tuner, que a pessoa baixa se preferir. Ver marmota-tuner/README.md.
 // O APK é anexado a um Release do GitHub com este nome exato.
 const APK_URL = "https://github.com/MatheusFinatto/music/releases/latest/download/marmota-tuner.apk";
+/** Página da versão mais recente: o que mudou e o APK. */
+const RELEASE_URL = "https://github.com/MatheusFinatto/music/releases/latest";
 /** App livre que acompanha os lançamentos do GitHub e avisa da versão nova, sem pôr internet no nosso app. */
 const OBTAINIUM_URL = "https://obtainium.imranr.dev/";
 
@@ -21,10 +23,6 @@ export async function Afinador() {
         <div className="mt-6">
           <WebTuner />
         </div>
-        <ul className="mt-4 flex flex-wrap gap-2" aria-label={t("stringsLabel")}>
-          {["E2", "A2", "D3", "G3", "B3", "E4"].map((n) => <li key={n} translate="no" className="rounded-full bg-soft px-3 py-1 text-[0.92rem] font-semibold tabular-nums text-ink">{n}</li>)}
-        </ul>
-        <p className="mt-4 text-[0.92rem] text-muted">{t("limits")}</p>
 
         <div id="app" className="card mt-12 scroll-mt-20 [&_p]:max-w-[62ch]">
           <h2 className="text-[length:var(--text-xl)] font-[650] tracking-[-0.02em]">{t("appTitle")}</h2>
@@ -33,6 +31,7 @@ export async function Afinador() {
           <div className="foot flex-wrap">
             <a className="go whitespace-nowrap no-underline" href={APK_URL}>{t("download")}</a>
             <span className="badge">{t("platform")}</span>
+            <a className="tuner-alt whitespace-nowrap" href={RELEASE_URL} target="_blank" rel="noreferrer">{t("releaseNotes")}</a>
           </div>
           <h3 className="mt-4 text-[1.05rem] font-[650]">{t("installTitle")}</h3>
           <ol className="list-decimal space-y-2 pl-6 text-muted">
