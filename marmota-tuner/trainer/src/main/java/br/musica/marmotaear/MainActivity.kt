@@ -14,7 +14,8 @@ import android.widget.TextView
 import android.window.OnBackInvokedDispatcher
 
 /**
- * Marmota Ear & Voice: one activity, a top app bar, the two sections as Material tabs (Ouvido, Voz) and a scrolling body.
+ * Marmota Ear & Voice: one activity, a top bar, a scrolling body and, as in the Tuner, the sections (Ouvido, Voz) in a floating bar
+ * at the bottom.
  * Edge to edge with the system bar insets; Back stops a running program before it leaves the app.
  */
 class MainActivity : Activity() {
@@ -32,7 +33,8 @@ class MainActivity : Activity() {
         dados = Dados(this)
         atual = savedInstanceState?.getString("secao") ?: "ouvido"
 
-        val raiz = coluna().apply { setBackgroundColor(C.fundo) }
+        val tela = FrameLayout(this).apply { setBackgroundColor(C.fundo) }
+        val raiz = coluna()
         // Top app bar: the app's name and the actions that fit the moment.
         acaoFracos = botaoIcone(Icone.Tipo.FRACOS, T("app.fracos")) { abrirFracos() }
         acaoAjustes = botaoIcone(Icone.Tipo.AJUSTES, T("app.ajustes")) { abrirAjustes() }
@@ -46,12 +48,15 @@ class MainActivity : Activity() {
         }
         raiz.addView(barra, lp())
         abas = Abas(this, listOf("ouvido" to T("app.ouvido"), "voz" to T("app.voz")).filter { it.first in SECOES }, atual) { trocar(it) }
-        raiz.addView(abas, lp())
-        corpo = FrameLayout(this).apply { setPadding(dp(16), dp(20), dp(16), dp(32)); clipToPadding = false }
+        // Com a barra embaixo, o fim da rolagem fica acima dela (56 dp + 16 dp de folga em cima e embaixo).
+        val folgaBarra = if (abas.visibility == View.VISIBLE) dp(56 + 32) else 0
+        corpo = FrameLayout(this).apply { setPadding(dp(20), dp(12), dp(20), dp(32) + folgaBarra); clipToPadding = false }
         rolagem = ScrollView(this).apply { isFillViewport = true; addView(corpo) }
         raiz.addView(rolagem, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f))
-        setContentView(raiz)
-        pintarBarrasDoSistema(raiz)
+        tela.addView(raiz, FrameLayout.LayoutParams(-1, -1))
+        tela.addView(abas, FrameLayout.LayoutParams(-1, dp(56), Gravity.BOTTOM).apply { setMargins(dp(24), 0, dp(24), dp(16)) })
+        setContentView(tela)
+        pintarBarrasDoSistema(tela)
         trocar(atual)
 
         if (Build.VERSION.SDK_INT >= 33) {
@@ -147,49 +152,42 @@ class MainActivity : Activity() {
     }
 }
 
-/** Material 3 primary tabs: equal width, label, a 3 dp indicator under the chosen one. Hidden when there is only one section. */
+/**
+ * The sections as the Tuner's floating bar (BottomNav.kt): a 56 dp pill, the chosen section filled with ink. Hidden while there is
+ * only one section.
+ */
 class Abas(ctx: android.content.Context, itens: List<Pair<String, String>>, inicial: String, aoTrocar: (String) -> Unit) : LinearLayout(ctx) {
     private val vistas = ArrayList<Pair<String, TextView>>()
 
     init {
         orientation = HORIZONTAL
         visibility = if (itens.size < 2) GONE else VISIBLE
-        background = android.graphics.drawable.LayerDrawable(arrayOf(android.graphics.drawable.ColorDrawable(C.fundo))).apply { }
+        background = forma(C.superficie, dp(28).toFloat())
+        setPadding(dp(6), dp(6), dp(6), dp(6))
+        elevation = dp(6).toFloat()
         itens.forEach { (id, r) ->
             val tv = TextView(ctx).apply {
                 text = r
-                papel(Papel.TITLE)
+                papel(Papel.BODY)
+                textSize = 15f
                 gravity = Gravity.CENTER
-                minHeight = dp(48)
                 isClickable = true
                 isFocusable = true
                 setOnClickListener { escolher(id); aoTrocar(id) }
             }
             vistas += id to tv
-            addView(tv, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))
+            addView(tv, LayoutParams(0, LayoutParams.MATCH_PARENT, 1f))
         }
         escolher(inicial)
     }
 
     fun escolher(id: String) {
+        val raio = dp(22).toFloat()
         vistas.forEach { (k, tv) ->
             val on = k == id
-            tv.setTextColor(if (on) C.tinta else C.apagado)
+            tv.setTextColor(if (on) C.fundo else C.tinta)
             tv.isSelected = on
-            tv.background = context.toque(Indicador(on, context.dp(3)), 0f)
-        }
-    }
-
-    private class Indicador(private val on: Boolean, private val h: Int) : android.graphics.drawable.ColorDrawable(Color.TRANSPARENT) {
-        private val p = android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG)
-        override fun draw(c: android.graphics.Canvas) {
-            p.color = C.linha
-            c.drawRect(bounds.left.toFloat(), bounds.bottom - 1f, bounds.right.toFloat(), bounds.bottom.toFloat(), p)
-            if (!on) return
-            p.color = C.tinta
-            val w = bounds.width() * 0.4f
-            val cx = bounds.exactCenterX()
-            c.drawRoundRect(cx - w / 2, bounds.bottom - h.toFloat(), cx + w / 2, bounds.bottom.toFloat(), h.toFloat(), h.toFloat(), p)
+            tv.background = context.toque(forma(if (on) C.tinta else Color.TRANSPARENT, raio), raio)
         }
     }
 }

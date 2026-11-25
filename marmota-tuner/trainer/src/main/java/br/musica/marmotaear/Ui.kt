@@ -30,25 +30,26 @@ import android.widget.Switch
 import android.widget.TextView
 
 /**
- * The app's visual kit: the website's "stage at night" palette (src/app/globals.css) mapped onto Material 3 roles and components,
- * built with plain Views. Meaning of color, as everywhere in Marmota: orange = target note, blue = sounding now, green = selected.
+ * The app's visual kit, the same family as the Marmota Tuner (marmota-tuner/app, colors.xml): neutral dark gray, outlined pills,
+ * a floating bar at the bottom and centered sheets. Built with plain Views. Meaning of color, as everywhere in Marmota:
+ * orange = target note, blue = sounding now, green = selected.
  */
 object C {
-    val fundo = Color.parseColor("#120E0B") // background
-    val superficie = Color.parseColor("#1D1713") // surface (cards, sheets)
-    val superficieAlta = Color.parseColor("#2A211B") // surface-container-high (chips, tonal buttons)
-    val tinta = Color.parseColor("#F5ECDC") // on-surface; also the primary action (ivory)
-    val apagado = Color.parseColor("#B7A896") // on-surface-variant
-    val linha = Color.parseColor("#3D3027") // outline
-    val azul = Color.parseColor("#8CC0EE") // sounding now
+    val fundo = Color.parseColor("#1E1E1E") // tuner_background
+    val superficie = Color.parseColor("#2E2E2E") // tuner_bar: sheets and the floating bar
+    val superficieAlta = Color.parseColor("#2E2E2E") // tonal buttons
+    val tinta = Color.parseColor("#EDEDED") // tuner_ink; also the primary action
+    val apagado = Color.parseColor("#9A9A9A") // tuner_muted
+    val linha = Color.parseColor("#4A4A4A") // tuner_line: outlines of pills and dots
+    val azul = Color.parseColor("#4AA3FF") // tuner_now: sounding now
     val azulTinta = Color.parseColor("#0B1520")
-    val laranja = Color.parseColor("#F0A634") // target
-    val laranjaSuave = Color.parseColor("#3B2A0F")
-    val verde = Color.parseColor("#7BD3A0") // selected / right
-    val vermelho = Color.parseColor("#EF8F7C") // wrong / error
-    val sobreClaro = Color.parseColor("#1A1208") // text on any bright fill
-    val teclaBranca = Color.parseColor("#EFE5D2")
-    val teclaPreta = Color.parseColor("#231C16")
+    val laranja = Color.parseColor("#FF7A1A") // tuner_target
+    val laranjaSuave = Color.parseColor("#3A2614")
+    val verde = Color.parseColor("#3DDC84") // tuner_in_tune: selected / right
+    val vermelho = Color.parseColor("#FF7B6B") // wrong / error
+    val sobreClaro = Color.parseColor("#1E1E1E") // text on any bright fill
+    val teclaBranca = Color.parseColor("#EDEDED")
+    val teclaPreta = Color.parseColor("#262626")
     val madeira = Color.parseColor("#4A2C21")
     val traste = Color.parseColor("#E6E1D6")
     val aco = Color.parseColor("#DFE2E6")
@@ -118,9 +119,11 @@ fun Context.botao(rotulo: String, estilo: Estilo = Estilo.CHEIO, alto: Boolean =
     TextView(this).apply {
         text = rotulo
         papel(Papel.LABEL, if (estilo == Estilo.CHEIO) C.fundo else C.tinta)
-        if (alto) setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+        // As pílulas do Tuner: texto de 17 sp em negrito.
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
+        typeface = Typeface.DEFAULT_BOLD
         gravity = Gravity.CENTER
-        minHeight = dp(if (alto) 56 else 48)
+        minHeight = dp(if (alto) 56 else 52)
         setPadding(dp(20), dp(8), dp(20), dp(8))
         isClickable = true
         isFocusable = true
@@ -141,7 +144,7 @@ fun View.ativo(sim: Boolean) {
 }
 
 /**
- * Material 3 filter chip: outlined when off, green (selected) when on, with a check mark. 32 dp tall, 48 dp touch target.
+ * Choice pill, as the Tuner's timer grid: outlined when off; when on, a 2 dp green outline and green text. 44 dp tall, 48 dp touch target.
  * [radio] marks it for TalkBack as one choice of a group instead of an on/off toggle.
  */
 class Chip(ctx: Context, rotulo: CharSequence, private val radio: Boolean = false, aoTocar: (Chip) -> Unit) : TextView(ctx) {
@@ -151,9 +154,10 @@ class Chip(ctx: Context, rotulo: CharSequence, private val radio: Boolean = fals
     init {
         text = rotulo
         papel(Papel.LABEL)
-        gravity = Gravity.CENTER_VERTICAL
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
+        typeface = Typeface.DEFAULT_BOLD
+        gravity = Gravity.CENTER
         minHeight = dp(48)
-        setPadding(dp(16), 0, dp(16), 0)
         isClickable = true
         isFocusable = true
         setOnClickListener { aoTocar(this) }
@@ -161,15 +165,12 @@ class Chip(ctx: Context, rotulo: CharSequence, private val radio: Boolean = fals
     }
 
     private fun desenhar() {
-        val raio = dp(8).toFloat()
-        val inset = dp(8)
-        val base = if (marcado) forma(C.verde, raio) else forma(Color.TRANSPARENT, raio, dp(1), C.linha)
-        background = android.graphics.drawable.InsetDrawable(context.toque(base, raio, if (marcado) C.sobreClaro else C.tinta), 0, inset, 0, inset)
-        setTextColor(if (marcado) C.sobreClaro else C.tinta)
-        val check = if (marcado) Icone(context, Icone.Tipo.CHECK, C.sobreClaro, 18) else null
-        setCompoundDrawablesRelativeWithIntrinsicBounds(check, null, null, null)
-        compoundDrawablePadding = dp(6)
-        setPadding(if (marcado) dp(10) else dp(16), 0, dp(16), 0)
+        val raio = dp(22).toFloat()
+        val inset = dp(2)
+        val base = if (marcado) forma(Color.TRANSPARENT, raio, dp(2), C.verde) else forma(Color.TRANSPARENT, raio, dp(1), C.linha)
+        background = android.graphics.drawable.InsetDrawable(context.toque(base, raio), 0, inset, 0, inset)
+        setTextColor(if (marcado) C.verde else C.tinta)
+        setPadding(dp(18), 0, dp(18), 0)
     }
 
     override fun onInitializeAccessibilityNodeInfo(info: android.view.accessibility.AccessibilityNodeInfo) {
@@ -222,7 +223,7 @@ fun Context.rolagemHorizontal(conteudo: View): HorizontalScrollView = Horizontal
 }
 
 /**
- * Material 3 segmented button: equal segments in one outlined pill; the chosen one is filled (ivory, as the site's switcher).
+ * Segmented switch drawn like the Tuner's floating bar: a filled pill (tuner_bar) with the chosen segment filled with ink.
  * Calls [aoMudar] with the index.
  */
 class Segmentado(ctx: Context, rotulos: List<String>, inicial: Int, private val aoMudar: (Int) -> Unit) : LinearLayout(ctx) {
@@ -232,15 +233,16 @@ class Segmentado(ctx: Context, rotulos: List<String>, inicial: Int, private val 
 
     init {
         orientation = HORIZONTAL
-        val raio = dp(24).toFloat()
-        background = forma(Color.TRANSPARENT, raio, dp(1), C.linha)
-        setPadding(dp(4), dp(4), dp(4), dp(4))
+        val raio = dp(28).toFloat()
+        background = forma(C.superficie, raio)
+        setPadding(dp(6), dp(6), dp(6), dp(6))
         rotulos.forEachIndexed { i, r ->
             val tv = TextView(ctx).apply {
                 text = r
-                papel(Papel.LABEL)
+                papel(Papel.BODY)
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
                 gravity = Gravity.CENTER
-                minHeight = dp(40)
+                minHeight = dp(44)
                 isClickable = true
                 isFocusable = true
                 setOnClickListener { escolher(i, true) }
@@ -253,10 +255,10 @@ class Segmentado(ctx: Context, rotulos: List<String>, inicial: Int, private val 
 
     fun escolher(i: Int, avisar: Boolean) {
         escolhido = i
-        val raio = dp(20).toFloat()
+        val raio = dp(22).toFloat()
         itens.forEachIndexed { k, tv ->
             val on = k == i
-            tv.setTextColor(if (on) C.fundo else C.apagado)
+            tv.setTextColor(if (on) C.fundo else C.tinta)
             tv.background = context.toque(forma(if (on) C.tinta else Color.TRANSPARENT, raio), raio)
             tv.isSelected = on
             tv.accessibilityDelegate = object : AccessibilityDelegate() {
@@ -303,10 +305,9 @@ fun Context.interruptor(rotulo: String, ligado: Boolean, aoMudar: (Boolean) -> U
     }
 }
 
-/** A card: surface color, 22 dp corners (the site's card radius), padding 20 dp. */
+/** A block of the screen. The Tuner has no cards: the content sits straight on the background, grouped by space. */
 fun Context.cartao(): LinearLayout = coluna().apply {
-    background = forma(C.superficie, dp(22).toFloat(), dp(1), Color.argb(18, 255, 236, 210))
-    setPadding(dp(20), dp(20), dp(20), dp(20))
+    setPadding(0, dp(8), 0, dp(8))
 }
 
 /** A small section label above a group of controls (Material label role, muted). */
@@ -323,37 +324,43 @@ fun Context.botaoIcone(tipo: Icone.Tipo, descricao: String, aoTocar: () -> Unit)
 }
 
 /**
- * Material modal bottom sheet (a Dialog anchored at the bottom): rounded top, drag handle, scrolling body, closes with Back or a
- * tap outside. [titulo] is announced as its pane title.
+ * A sheet in the Tuner's look (MetronomeActivity.sheet): a centered dark card with rounded corners, the title and a close ×.
+ * The body scrolls; closes with Back, the × or a tap outside. [titulo] is announced as its pane title.
  */
 fun Context.folha(titulo: String, corpo: View): Dialog {
     val d = Dialog(this)
     d.requestWindowFeature(Window.FEATURE_NO_TITLE)
     val raiz = coluna().apply {
-        background = GradientDrawable().apply {
-            setColor(C.superficie)
-            cornerRadii = floatArrayOf(dp(28).toFloat(), dp(28).toFloat(), dp(28).toFloat(), dp(28).toFloat(), 0f, 0f, 0f, 0f)
-        }
-        setPadding(dp(24), dp(12), dp(24), dp(24))
+        background = forma(C.superficie, dp(22).toFloat())
+        setPadding(dp(20), dp(16), dp(8), dp(16))
         accessibilityPaneTitle = titulo
-        addView(View(context).apply { background = forma(C.apagado, dp(2).toFloat()) }, LinearLayout.LayoutParams(dp(32), dp(4)).apply {
-            gravity = Gravity.CENTER_HORIZONTAL
-            bottomMargin = dp(16)
-        })
-        addView(texto(titulo, Papel.TITLE_LARGE).cabecalho(), lp().margens(b = dp(8)))
-        addView(ScrollView(context).apply { addView(corpo); isVerticalScrollBarEnabled = false }, lp())
+        val cabeca = linha().apply {
+            addView(texto(titulo, Papel.TITLE).cabecalho().apply { setTextSize(TypedValue.COMPLEX_UNIT_SP, 19f); typeface = Typeface.DEFAULT_BOLD },
+                LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
+            addView(ImageButton(context).apply {
+                setImageDrawable(Icone(context, Icone.Tipo.FECHAR, C.apagado, 20))
+                contentDescription = T("app.fechar")
+                background = toque(ColorDrawable(Color.TRANSPARENT), dp(24).toFloat())
+                setOnClickListener { d.dismiss() }
+            }, LinearLayout.LayoutParams(dp(48), dp(48)))
+        }
+        addView(cabeca, lp())
+        addView(ScrollView(context).apply {
+            addView(corpo)
+            isVerticalScrollBarEnabled = false
+            setPadding(0, dp(8), dp(12), 0)
+        }, lp())
     }
     d.setContentView(raiz)
     d.window?.apply {
         setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
-        setGravity(Gravity.BOTTOM)
+        val largura = minOf(context.resources.displayMetrics.widthPixels - dp(32), dp(440))
+        setLayout(largura, WindowManager.LayoutParams.WRAP_CONTENT)
         setDimAmount(0.6f)
-        attributes = attributes.apply { windowAnimations = android.R.style.Animation_InputMethod }
         // Never taller than 85% of the screen: the scrim stays visible and tappable.
         decorView.post {
             val max = (context.resources.displayMetrics.heightPixels * 0.85f).toInt()
-            if (raiz.height > max) setLayout(WindowManager.LayoutParams.MATCH_PARENT, max)
+            if (raiz.height > max) setLayout(largura, max)
         }
     }
     d.setCanceledOnTouchOutside(true)
@@ -392,7 +399,7 @@ class Icone(ctx: Context, private val tipo: Tipo, cor: Int, private val tamanhoD
             Tipo.AJUSTES -> {
                 for ((y, x) in listOf(7f to 15f, 12f to 8f, 17f to 13f)) {
                     c.drawLine(4f, y, 20f, y, traco)
-                    c.drawCircle(x, y, 2.2f, Paint(cheio).apply { color = C.superficie })
+                    c.drawCircle(x, y, 2.2f, Paint(cheio).apply { color = C.fundo })
                     c.drawCircle(x, y, 2.2f, traco)
                 }
             }
