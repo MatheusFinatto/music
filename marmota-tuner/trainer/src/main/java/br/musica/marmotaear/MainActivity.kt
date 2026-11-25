@@ -36,6 +36,7 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dados = Dados(this)
+        escalaFonte = resources.configuration.fontScale
         simular = (applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0 && intent.getBooleanExtra("simular", false)
         atual = savedInstanceState?.getString("secao") ?: "ouvido"
 
@@ -141,6 +142,23 @@ class MainActivity : Activity() {
         pausarVoz()
         Piano.desligar()
         super.onPause()
+    }
+
+    /** Font size changed in the system settings: the activity is not recreated (the manifest handles fontScale), so a program
+     *  in progress survives. Texts already on screen and in the cached sections are rescaled in place; new ones are born right. */
+    private var escalaFonte = 0f
+    override fun onConfigurationChanged(c: android.content.res.Configuration) {
+        super.onConfigurationChanged(c)
+        val f = c.fontScale / escalaFonte
+        escalaFonte = c.fontScale
+        if (f == 1f || !f.isFinite()) return
+        fun escalar(v: View) {
+            if (v is android.widget.TextView) v.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, v.textSize * f)
+            if (v is android.view.ViewGroup) for (i in 0 until v.childCount) escalar(v.getChildAt(i))
+            v.requestLayout(); v.invalidate()
+        }
+        escalar(window.decorView)
+        secoes.values.filter { it.parent == null }.forEach(::escalar)
     }
 
     override fun onSaveInstanceState(out: Bundle) {
