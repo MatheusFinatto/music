@@ -103,9 +103,26 @@ export type PerguntaClassica = {
 export type PerguntaFuncional = { chave: string; resposta: string; tonica: number; cadencia: PianoNote[]; nota: PianoNote[]; tudo: PianoNote[] };
 
 /** Histórico por item (guardado no navegador): quantas vezes acertou de quantas. */
-export type Historico = Record<string, { certo: number; total: number }>;
-const historicoK = (h: Historico): K.HistoricoItem[] => Object.entries(h).map(([k, v]) => new K.HistoricoItem(k, v.certo, v.total));
-const historicoDe = (h: K.HistoricoItem[]): Historico => Object.fromEntries(h.map((x) => [x.chave, { certo: x.certo, total: x.total }]));
+/** `r`: as últimas respostas do item ("1" certo, "0" errado), a janela que Pontos fracos e o reforço leem. Dado antigo não tem. */
+export type Historico = Record<string, { certo: number; total: number; r?: string }>;
+const historicoK = (h: Historico): K.HistoricoItem[] => Object.entries(h).map(([k, v]) => new K.HistoricoItem(k, v.certo, v.total, typeof v.r === "string" ? v.r : ""));
+const historicoDe = (h: K.HistoricoItem[]): Historico => Object.fromEntries(h.map((x) => [x.chave, x.recentes ? { certo: x.certo, total: x.total, r: x.recentes } : { certo: x.certo, total: x.total }]));
+/** A taxa de acerto que vale agora (a janela recente; sem ela, o total), ou null com menos de duas respostas. */
+export const taxaAtual = (v: { certo: number; total: number; r?: string }): number | null => K.taxaAtual(new K.HistoricoItem("", v.certo, v.total, v.r ?? "")) ?? null;
+export const JANELA: number = val(K.JANELA);
+
+// ---------------------------------------------------------------- registro diário (Diario.kt)
+export type Dia = { data: string; secao: string; respostas: number; acertos: number; segundos: number };
+export type ResumoDiario = { respostasHoje: number; acertosHoje: number; minutosHoje: number; semana: number[]; sequencia: number };
+const diasK = (d: readonly Dia[]): K.Dia[] => d.map((x) => new K.Dia(x.data, x.secao, x.respostas, x.acertos, x.segundos));
+export const registrarDia = (dias: readonly Dia[], data: string, secao: string, certo: boolean, segundos: number): Dia[] =>
+  arr(K.registrarDia(diasK(dias), data, secao, certo, segundos)).map((x) => ({ data: x.data, secao: x.secao, respostas: x.respostas, acertos: x.acertos, segundos: x.segundos }));
+export const resumoDiario = (dias: readonly Dia[], hoje: string, secao: string): ResumoDiario => {
+  const r = K.resumoDiario(diasK(dias), hoje, secao);
+  return { respostasHoje: r.respostasHoje, acertosHoje: r.acertosHoje, minutosHoje: r.minutosHoje, semana: Array.from(r.semana), sequencia: r.sequencia };
+};
+/** O dia de hoje no calendário local, "AAAA-MM-DD". */
+export const hojeLocal = (agora = new Date()): string => `${agora.getFullYear()}-${String(agora.getMonth() + 1).padStart(2, "0")}-${String(agora.getDate()).padStart(2, "0")}`;
 
 export const registrar = (h: Historico, chave: string, certo: boolean): Historico => historicoDe(K.registrar(historicoK(h), chave, certo));
 /**

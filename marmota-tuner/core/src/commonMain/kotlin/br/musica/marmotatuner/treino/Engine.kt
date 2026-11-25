@@ -57,14 +57,28 @@ class PerguntaFuncional(
     val tudo: Array<PianoNote>,
 )
 
-/** History of one item (kept on the device): how many right answers out of how many. */
-class HistoricoItem(val chave: String, val certo: Int, val total: Int)
+/**
+ * History of one item (kept on the device): how many right answers out of how many, ever, and the last [JANELA] answers in
+ * order ("1" right, "0" wrong) in [recentes]. Weak spots and reinforcement read the recent window: someone who learned an
+ * item stops paying for old mistakes. Old saved data has no window; then the totals stand in.
+ */
+class HistoricoItem(val chave: String, val certo: Int, val total: Int, val recentes: String = "")
+
+/** How many recent answers per item count for weak spots and reinforcement. */
+const val JANELA = 20
+
+/** The hit rate that counts now: the recent window when it has at least two answers, else the totals; null if too few. */
+fun taxaAtual(x: HistoricoItem): Double? = when {
+    x.recentes.length >= 2 -> x.recentes.count { it == '1' }.toDouble() / x.recentes.length
+    x.total >= 2 -> x.certo.toDouble() / x.total
+    else -> null
+}
 
 /** The history with one more answer for [chave]. Keeps the order; a new key goes at the end. */
 fun registrar(h: Array<HistoricoItem>, chave: String, certo: Boolean): Array<HistoricoItem> {
     val i = h.indexOfFirst { it.chave == chave }
     val antes = if (i >= 0) h[i] else HistoricoItem(chave, 0, 0)
-    val novo = HistoricoItem(chave, antes.certo + (if (certo) 1 else 0), antes.total + 1)
+    val novo = HistoricoItem(chave, antes.certo + (if (certo) 1 else 0), antes.total + 1, (antes.recentes + (if (certo) "1" else "0")).takeLast(JANELA))
     return if (i >= 0) h.copyOf().also { it[i] = novo } else h + novo
 }
 
@@ -74,8 +88,10 @@ fun registrar(h: Array<HistoricoItem>, chave: String, certo: Boolean): Array<His
  */
 fun peso(h: Array<HistoricoItem>, chave: String): Double = pesoDe(h.firstOrNull { it.chave == chave })
 
-private fun pesoDe(x: HistoricoItem?): Double =
-    if (x == null || x.total < 2) 2.0 else 1 + 4 * (1 - x.certo.toDouble() / x.total)
+private fun pesoDe(x: HistoricoItem?): Double {
+    val taxa = x?.let(::taxaAtual) ?: return 2.0
+    return 1 + 4 * (1 - taxa)
+}
 
 /** Draws from the list; with a history, the items with more mistakes come up more. */
 private fun <T> sortearComPeso(lista: List<T>, chave: (T) -> String, h: Array<HistoricoItem>?, rng: Rng): T {

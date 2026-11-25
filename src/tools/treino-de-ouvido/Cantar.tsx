@@ -9,6 +9,7 @@ import { nomeNota } from "./engine";
 import { MUSICAS, musicaDe } from "./musicas";
 import type { ProgramaProp } from "./Programas";
 import { anotarDuracao } from "./ritmo";
+import { anotarDia } from "./diario";
 import { novosEfeitos } from "./palco";
 import { desenharPista, lerCores } from "./pista";
 import { usePiano } from "./usePiano";
@@ -181,6 +182,7 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
     mudaFase("feito");
     onResultado(chave, resumo);
     anotarDuracao("musica", agoraMs() - inicioTentativa.current);
+    anotarDia("voz", resumo.ok, agoraMs() - inicioTentativa.current);
     programa?.aoResponder(resumo.ok);
   }, [chave, limpar, onResultado, programa]);
 

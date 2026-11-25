@@ -557,6 +557,13 @@
         "afinacao": "Cantar afinado"
       }
     },
+    "hoje": {
+      "titulo": "Hoje",
+      "vazio": "Nada ainda",
+      "resumo": "{minutos} min · {acertos} de {respostas}",
+      "sequencia": "{n} dias seguidos",
+      "semana": "Minutos por dia nos últimos 7 dias, de hoje para trás no fim: {lista}"
+    },
     "comoTreinar": {
       "rotulo": "Como treinar",
       "programa": "Programa",

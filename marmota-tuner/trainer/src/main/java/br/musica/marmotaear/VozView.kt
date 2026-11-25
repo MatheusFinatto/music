@@ -291,6 +291,7 @@ class VozView(ctx: Context, private val dados: Dados, private val bloco: Bloco? 
         placarT++
         if (ok) placarA++
         if (!porTempo && ex != "alcance" && ex != "musica") dados.anotarDuracao(ex, agoraMs() - inicioTentativa)
+        if (ex != "alcance" && ex != "musica") dados.anotarDia("voz", ok, agoraMs() - inicioTentativa)
         bloco?.aoResponder?.invoke(ok)
         performHapticFeedback(if (ok) HapticFeedbackConstants.CONFIRM else HapticFeedbackConstants.REJECT)
         render()
