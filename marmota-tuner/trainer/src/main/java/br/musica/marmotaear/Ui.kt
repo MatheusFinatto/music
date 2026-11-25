@@ -115,25 +115,28 @@ class Espaco(private val n: Int) : ColorDrawable(Color.TRANSPARENT) {
 enum class Estilo { CHEIO, TONAL, CONTORNO }
 
 /** Material 3 buttons: filled (ivory, the one primary action), tonal and outlined. Pill shape, 48 dp minimum. */
-fun Context.botao(rotulo: String, estilo: Estilo = Estilo.CHEIO, alto: Boolean = false, aoTocar: () -> Unit): TextView =
+fun Context.botao(rotulo: String, estilo: Estilo = Estilo.CHEIO, alto: Boolean = false, pequeno: Boolean = false, aoTocar: () -> Unit): TextView =
     TextView(this).apply {
         text = rotulo
         papel(Papel.LABEL, if (estilo == Estilo.CHEIO) C.fundo else C.tinta)
-        // As pílulas do Tuner: texto de 17 sp em negrito.
-        setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
+        // As pílulas do Tuner: texto de 17 sp em negrito. The small one (secondary controls) is 15 sp.
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, if (pequeno) 15f else 17f)
         typeface = Typeface.DEFAULT_BOLD
         gravity = Gravity.CENTER
-        minHeight = dp(if (alto) 56 else 52)
-        setPadding(dp(20), dp(8), dp(20), dp(8))
+        // The small button draws 40 dp but keeps a 48 dp touch target (the 4 dp inset above and below).
+        minHeight = dp(if (pequeno) 48 else if (alto) 56 else 52)
         isClickable = true
         isFocusable = true
-        val raio = dp(28).toFloat()
+        val raio = dp(if (pequeno) 20 else 28).toFloat()
         val base = when (estilo) {
             Estilo.CHEIO -> forma(C.tinta, raio)
             Estilo.TONAL -> forma(C.superficieAlta, raio)
             Estilo.CONTORNO -> forma(Color.TRANSPARENT, raio, dp(1), C.linha)
         }
-        background = toque(base, raio, if (estilo == Estilo.CHEIO) C.fundo else C.tinta)
+        val fundo = toque(base, raio, if (estilo == Estilo.CHEIO) C.fundo else C.tinta)
+        background = if (pequeno) android.graphics.drawable.InsetDrawable(fundo, 0, dp(4), 0, dp(4)) else fundo
+        // After the background: an InsetDrawable brings its own padding (the insets) and would replace this.
+        setPadding(dp(if (pequeno) 16 else 20), dp(8), dp(if (pequeno) 16 else 20), dp(8))
         setOnClickListener { aoTocar() }
     }
 
@@ -215,11 +218,36 @@ class Fluxo(ctx: Context, private val h: Int = ctx.dp(8), private val v: Int = 0
     }
 }
 
-/** A horizontally scrolling chip row (one line), for long single-choice lists on a phone. */
-fun Context.rolagemHorizontal(conteudo: View): HorizontalScrollView = HorizontalScrollView(this).apply {
+/**
+ * A horizontally scrolling chip row (one line), for long single-choice lists on a phone. Like Material chip rows it runs
+ * to the screen edges: the first chip starts at the page margin and the rest scroll under the edge instead of being cut
+ * by the margin. [margem] is the page's side padding (MainActivity's corpo).
+ */
+fun Context.rolagemHorizontal(conteudo: View, margem: Int = dp(20)): HorizontalScrollView = HorizontalScrollView(this).apply {
     isHorizontalScrollBarEnabled = false
     clipToPadding = false
+    setPadding(margem, 0, margem, 0)
     addView(conteudo)
+    addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+        override fun onViewAttachedToWindow(v: View) {
+            (layoutParams as? ViewGroup.MarginLayoutParams)?.let { it.leftMargin = -margem; it.rightMargin = -margem; requestLayout() }
+            // The views between the row and the padded page (included) keep the page's width: let the row draw past them.
+            var p = parent
+            while (p is ViewGroup) { p.clipChildren = false; if (p.paddingLeft >= margem) break; p = p.parent }
+        }
+        override fun onViewDetachedFromWindow(v: View) {}
+    })
+}
+
+/** Scrolls a [rolagemHorizontal] row from [x] only as far as needed to show [chip] inside the page margins. */
+fun HorizontalScrollView.mostrar(chip: View?, x: Int) {
+    val m = paddingLeft
+    scrollTo(when {
+        chip == null -> x
+        chip.right + m - x > width - m -> chip.right + 2 * m - width
+        chip.left - x < 0 -> maxOf(0, chip.left)
+        else -> x
+    }, 0)
 }
 
 /**

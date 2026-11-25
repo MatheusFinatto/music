@@ -142,8 +142,8 @@ class SecaoView(
                 addView(andamentoN, lp().margens(t = dp(4)))
                 addView(barra, LayoutParams(LayoutParams.MATCH_PARENT, dp(6)).margens(t = dp(14), b = dp(14)))
                 addView(context.linha(10).apply {
-                    addView(context.botao(T("programas.pular"), Estilo.TONAL) { fechar(x, true) })
-                    addView(context.botao(T("programas.parar"), Estilo.TONAL) { parar(x) })
+                    addView(context.botao(T("programas.pular"), Estilo.CONTORNO, pequeno = true) { fechar(x, true) })
+                    addView(context.botao(T("programas.parar"), Estilo.CONTORNO, pequeno = true) { parar(x) })
                 })
             }
             col.addView(card)

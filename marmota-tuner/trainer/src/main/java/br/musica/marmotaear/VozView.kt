@@ -720,15 +720,7 @@ class VozView(ctx: Context, private val dados: Dados, private val bloco: Bloco? 
             if (e != salvo.exercicio) { placarA = 0; placarT = 0; mudar { it.exercicio = e } }
         }.apply { marcado = e == ex; if (marcado) marcadoChip = this })
         val r = context.rolagemHorizontal(l)
-        r.post {
-            val c = marcadoChip
-            val alvo = if (c == null) rolX else when {
-                c.right - rolX > r.width -> c.right - r.width + dp(16)
-                c.left - rolX < 0 -> maxOf(0, c.left - dp(16))
-                else -> rolX
-            }
-            r.scrollTo(alvo, 0)
-        }
+        r.post { r.mostrar(marcadoChip, rolX) }
         escolhas.addView(r)
 
         // What to sing stays in view, next to the stage; the settings sheet keeps only what applies to every exercise.

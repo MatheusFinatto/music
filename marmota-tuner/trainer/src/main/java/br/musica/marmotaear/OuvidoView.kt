@@ -313,17 +313,8 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
                 var marcadoChip: View? = null
                 for (e in lista) l.addView(Chip(context, T("exercicios.$e"), radio = true) { mudarExercicio(e) }.apply { marcado = e == exercicio; if (marcado) marcadoChip = this })
                 val r = context.rolagemHorizontal(l)
-                r.post {
-                    val x = rolagens.getOrNull(k) ?: 0
-                    val c = marcadoChip
-                    // Keep the chosen exercise in view: scroll only if it would be cut at either edge.
-                    val alvo = if (c == null) x else when {
-                        c.right - x > r.width -> c.right - r.width + dp(16)
-                        c.left - x < 0 -> maxOf(0, c.left - dp(16))
-                        else -> x
-                    }
-                    r.scrollTo(alvo, 0)
-                }
+                // Keep the chosen exercise in view: scroll only if it would be cut at either edge.
+                r.post { r.mostrar(marcadoChip, rolagens.getOrNull(k) ?: 0) }
                 escolhas.addView(r)
             }
         }
@@ -495,7 +486,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
     }
 }
 
-/** The big round play button: ivory, blue while the question sounds (blue = sounding now), with a ring that pulses. */
+/** The big round play button: ivory, blue while the question sounds (blue = sounding now). */
 @SuppressLint("ViewConstructor")
 class BotaoOuvir(ctx: Context, aoTocar: () -> Unit) : FrameLayout(ctx) {
     private val icone = android.widget.ImageView(ctx)
@@ -515,8 +506,6 @@ class BotaoOuvir(ctx: Context, aoTocar: () -> Unit) : FrameLayout(ctx) {
         val tinta = if (tocando) C.azulTinta else C.fundo
         background = context.toque(android.graphics.drawable.GradientDrawable().apply { shape = android.graphics.drawable.GradientDrawable.OVAL; setColor(cor) }, dp(36).toFloat(), tinta)
         icone.setImageDrawable(Icone(context, Icone.Tipo.PLAY, tinta, 32))
-        animate().cancel()
-        if (tocando) animate().scaleX(1.06f).scaleY(1.06f).setDuration(180).start() else animate().scaleX(1f).scaleY(1f).setDuration(180).start()
     }
 }
 

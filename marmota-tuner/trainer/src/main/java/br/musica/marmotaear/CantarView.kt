@@ -421,9 +421,9 @@ class CantarView(
         acoes.addView(context.botao(T(if (f != null) "voz.musica.cantarDeNovo" else "voz.musica.cantar"), Estilo.CHEIO, alto = true) { cantar() }, lp())
         val linha = context.linha(10)
         // After a phrase, the next one; after the last, the whole song.
-        if (f != null && !inteira && idx + 1 < musica.trechos.size) linha.addView(context.botao(T("voz.musica.proximoTrecho"), Estilo.TONAL) { mudarCfg { it.put("trecho", idx + 1) } }, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))
-        if (f != null && !inteira && musica.trechos.size > 1 && idx + 1 == musica.trechos.size) linha.addView(context.botao(T("voz.musica.cantarInteira"), Estilo.TONAL) { mudarCfg { it.put("trecho", INTEIRA) } }, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))
-        linha.addView(context.botao(T(if (inteira) "voz.musica.ouvirInteira" else "voz.musica.ouvir"), Estilo.TONAL) { ouvir() }, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))
+        if (f != null && !inteira && idx + 1 < musica.trechos.size) linha.addView(context.botao(T("voz.musica.proximoTrecho"), Estilo.TONAL, pequeno = true) { mudarCfg { it.put("trecho", idx + 1) } }, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))
+        if (f != null && !inteira && musica.trechos.size > 1 && idx + 1 == musica.trechos.size) linha.addView(context.botao(T("voz.musica.cantarInteira"), Estilo.TONAL, pequeno = true) { mudarCfg { it.put("trecho", INTEIRA) } }, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))
+        linha.addView(context.botao(T(if (inteira) "voz.musica.ouvirInteira" else "voz.musica.ouvir"), Estilo.TONAL, pequeno = true) { ouvir() }, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))
         acoes.addView(linha, lp())
     }
 
