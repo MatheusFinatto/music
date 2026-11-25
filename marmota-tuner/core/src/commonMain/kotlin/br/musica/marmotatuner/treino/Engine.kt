@@ -11,7 +11,7 @@ import kotlin.math.max
 // for the piano to play. Every call to rng() happens in the same order as in the website's former engine.ts, so a seeded
 // generator gives the same questions on both sides (TreinoParidadeTest checks it).
 
-val EXERCICIOS: Array<String> = arrayOf("intervalos", "acordes", "afinacao", "achar", "eco", "campo", "cadencias", "progressoes")
+val EXERCICIOS: Array<String> = arrayOf("intervalos", "acordes", "afinacao", "achar", "eco", "campo", "cadencias", "progressoes", "ritmo")
 /** Melodic echo: how many notes the melody has (the items of "eco"). */
 val TAMANHOS_ECO: Array<String> = arrayOf("3", "4", "5")
 /** The harmony exercises: chords inside a major key. */
@@ -238,7 +238,45 @@ fun perguntaEco(cfg: ConfigClassica, rng: Rng, historico: Array<HistoricoItem>?)
     return PerguntaClassica("eco:$n", midis.joinToString("-"), notas, reveal = midis.toTypedArray(), dada = midis[0])
 }
 
+/**
+ * A one-bar rhythm in 4/4 for the rhythmic dictation: where each note starts, in eighths (0 to 7). A note lasts until the next
+ * one (or the end of the bar). Patterns that would sound alike on a decaying piano (a long note vs. a note and a rest) are left out.
+ */
+class PadraoRitmo(val id: String, val inicios: Array<Int>)
+
+val RITMOS: Array<PadraoRitmo> = arrayOf(
+    PadraoRitmo("s4", arrayOf(0, 2, 4, 6)),
+    PadraoRitmo("c3", arrayOf(0, 2, 4, 5, 6)),
+    PadraoRitmo("c1", arrayOf(0, 1, 2, 4, 6)),
+    PadraoRitmo("c4", arrayOf(0, 2, 4, 6, 7)),
+    PadraoRitmo("m", arrayOf(0, 4, 6)),
+    PadraoRitmo("c24", arrayOf(0, 2, 3, 4, 6, 7)),
+    PadraoRitmo("pont", arrayOf(0, 3, 4, 6)),
+    PadraoRitmo("sinc", arrayOf(0, 1, 3, 4, 6)),
+    PadraoRitmo("c8", arrayOf(0, 1, 2, 3, 4, 5, 6, 7)),
+)
+
+/** The eighth note of the dictation, in seconds (90 bpm). */
+const val COLCHEIA_RITMO_S = 1.0 / 3
+
+/**
+ * Rhythmic dictation: a bar of four clicks counts in (high, soft), then the rhythm plays on one note. The answer is the
+ * pattern id; [reveal] is unused (the screen draws the pattern from [RITMOS]).
+ */
+fun perguntaRitmo(cfg: ConfigClassica, rng: Rng, historico: Array<HistoricoItem>?): PerguntaClassica {
+    val p = sortearComPeso(piscina(RITMOS, cfg.itens) { it.id }, { "ritmo:${it.id}" }, historico, rng)
+    val c = COLCHEIA_RITMO_S
+    val contagem = (0 until 4).map { PianoNote(84, it * 2 * c, 0.12) }
+    val inicio = 8 * c
+    val notas = p.inicios.mapIndexed { k, e ->
+        val fim = p.inicios.getOrElse(k + 1) { 8 }
+        PianoNote(72, inicio + e * c, (fim - e) * c * 0.9)
+    }
+    return PerguntaClassica("ritmo:${p.id}", p.id, (contagem + notas).toTypedArray())
+}
+
 fun perguntaClassica(cfg: ConfigClassica, rng: Rng, historico: Array<HistoricoItem>?): PerguntaClassica {
+    if (cfg.exercicio == "ritmo") return perguntaRitmo(cfg, rng, historico)
     if (cfg.exercicio == "eco") return perguntaEco(cfg, rng, historico)
     if (cfg.exercicio == "afinacao") return perguntaAfinacao(cfg, rng, historico)
     if (cfg.exercicio == "achar") return perguntaAchar(cfg, rng, historico)

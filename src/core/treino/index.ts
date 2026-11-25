@@ -48,7 +48,7 @@ export const musicaDe = (id: string): Musica => MUSICAS.find((m) => m.id === id)
 /** Gerador com semente (para testes), igual bit a bit ao do Kotlin. */
 export const mulberry32 = (seed: number): Rng => K.mulberry32(seed | 0);
 
-export type Exercicio = "intervalos" | "acordes" | "afinacao" | "achar" | "eco" | "campo" | "cadencias" | "progressoes";
+export type Exercicio = "intervalos" | "acordes" | "afinacao" | "achar" | "eco" | "campo" | "cadencias" | "progressoes" | "ritmo";
 export type Direcao = "asc" | "desc" | "harm" | "misto";
 export const EXERCICIOS = arr(K.EXERCICIOS) as readonly Exercicio[];
 /** Os exercícios de harmonia: acordes dentro de um tom maior. */
@@ -59,6 +59,8 @@ export const MARGENS = arr(K.MARGENS) as readonly (50 | 30 | 20 | 10)[];
 export const RESPOSTAS_AFINACAO = arr(K.RESPOSTAS_AFINACAO) as readonly ("baixo" | "afinado" | "alto")[];
 export const DIRECOES = arr(K.DIRECOES) as readonly Direcao[];
 
+/** Os ritmos do ditado: onde cada nota começa, em colcheias de 0 a 7 (um compasso de 4/4). */
+export const RITMOS: readonly { id: string; inicios: readonly number[] }[] = arr(K.RITMOS).map((r) => ({ id: r.id, inicios: arr(r.inicios) }));
 export const IDS: Record<Exercicio | "graus", readonly string[]> = {
   intervalos: INTERVALOS.map((i) => i.id),
   acordes: ACORDES.map((a) => a.id),
@@ -68,6 +70,8 @@ export const IDS: Record<Exercicio | "graus", readonly string[]> = {
   achar: INTERVALOS.map((i) => i.id),
   /** No eco, os itens são os tamanhos da melodia (3, 4 ou 5 notas). */
   eco: arr(K.TAMANHOS_ECO),
+  /** No ditado rítmico, os itens são os ritmos que entram. */
+  ritmo: RITMOS.map((r) => r.id),
   graus: GRAUS.map((g) => g.id),
   campo: CAMPO.map((c) => c.id),
   cadencias: CADENCIAS.map((c) => c.id),
@@ -79,7 +83,7 @@ export type ConfigFuncional = { tonica: "do" | "sorteada"; graus: string[] };
 
 export const CLASSICA_INICIAL: ConfigClassica = {
   exercicio: "intervalos",
-  itens: { intervalos: ["3m", "3M", "4J", "5J", "8J"], acordes: ["maior", "menor"], afinacao: ["3M", "5J", "8J"], achar: ["3m", "3M", "5J"], eco: ["3", "4"],
+  itens: { intervalos: ["3m", "3M", "4J", "5J", "8J"], acordes: ["maior", "menor"], afinacao: ["3M", "5J", "8J"], achar: ["3m", "3M", "5J"], eco: ["3", "4"], ritmo: ["s4", "c3", "c1", "m"],
     campo: ["I", "IV", "V", "vi"], cadencias: ["autentica", "plagal", "deceptiva", "meia"], progressoes: ["I-IV-V-I", "I-V-vi-IV", "vi-IV-I-V"] },
   direcao: "asc",
   margem: 30,

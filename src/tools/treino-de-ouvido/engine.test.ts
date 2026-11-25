@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ACORDES, cadencia, CAMPO, compararAfinacao, MARGENS, nomeAcorde, nomeNota, nomeTom, peso, CLASSICA_INICIAL, FUNCIONAL_INICIAL, GRAUS, INTERVALOS, mulberry32, perguntaClassica, perguntaFuncional, PLACAR_ZERO, registrar, somar, type ConfigClassica } from "./engine";
+import { IDS, RITMOS } from "@/core/treino";
 
 const itens = (p: Partial<ConfigClassica["itens"]>) => ({ ...CLASSICA_INICIAL.itens, ...p });
 const MIN = 45, MAX = 86; // o piano tem amostras de 45 a 84; um pouco além só desloca a velocidade
@@ -256,5 +257,21 @@ describe("eco melódico", () => {
       for (let i = 1; i < m.length; i++) expect(m[i]).not.toBe(m[i - 1]);
     }
     expect([...vistos].sort()).toEqual([3, 4, 5]);
+  });
+});
+
+describe("ditado rítmico", () => {
+  it("quatro cliques de contagem e depois o ritmo, com padrões que não soam iguais", () => {
+    const rng = mulberry32(5);
+    const todos = IDS.ritmo;
+    for (let k = 0; k < 100; k++) {
+      const q = perguntaClassica({ ...CLASSICA_INICIAL, exercicio: "ritmo", itens: { ...CLASSICA_INICIAL.itens, ritmo: [...todos] } }, rng);
+      const r = RITMOS.find((x) => x.id === q.resposta)!;
+      expect(q.chave).toBe(`ritmo:${r.id}`);
+      expect(q.notas.slice(0, 4).every((n) => n.midi === 84)).toBe(true);
+      expect(q.notas.length).toBe(4 + r.inicios.length);
+    }
+    const assinaturas = RITMOS.map((r) => r.inicios.join(","));
+    expect(new Set(assinaturas).size).toBe(RITMOS.length);
   });
 });

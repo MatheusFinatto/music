@@ -555,6 +555,7 @@ export declare const HARMONIA: { get(): Array<string>; };
 export declare const MARGENS: { get(): Array<number>; };
 export declare const RESPOSTAS_AFINACAO: { get(): Array<string>; };
 export declare const DIRECOES: { get(): Array<string>; };
+export declare const RITMOS: { get(): Array<PadraoRitmo>; };
 export declare const PLACAR_ZERO: { get(): Placar; };
 export declare class ConfigClassica {
     constructor(exercicio: string, itens: Array<string>, direcao: string, margem: number, tonica: string);
@@ -629,6 +630,17 @@ export declare function perguntaHarmonia(cfg: ConfigClassica, rng: () => number,
 export declare function compararAfinacao(notas: Array<PianoNote>): Array<PianoNote>;
 export declare function perguntaAchar(cfg: ConfigClassica, rng: () => number, historico: Nullable<Array<HistoricoItem>>): PerguntaClassica;
 export declare function perguntaEco(cfg: ConfigClassica, rng: () => number, historico: Nullable<Array<HistoricoItem>>): PerguntaClassica;
+export declare class PadraoRitmo {
+    constructor(id: string, inicios: Array<number>);
+    get id(): string;
+    get inicios(): Array<number>;
+}
+/** @deprecated $metadata$ is used for internal purposes, please don't use it in your code, because it can be removed at any moment */
+export declare namespace PadraoRitmo.$metadata$ {
+    const constructor: abstract new () => PadraoRitmo;
+}
+export declare const COLCHEIA_RITMO_S: { get(): number; };
+export declare function perguntaRitmo(cfg: ConfigClassica, rng: () => number, historico: Nullable<Array<HistoricoItem>>): PerguntaClassica;
 export declare function perguntaClassica(cfg: ConfigClassica, rng: () => number, historico: Nullable<Array<HistoricoItem>>): PerguntaClassica;
 export declare function cadencia(tonica: number): Array<PianoNote>;
 export declare function perguntaFuncional(cfg: ConfigFuncional, rng: () => number, historico: Nullable<Array<HistoricoItem>>): PerguntaFuncional;

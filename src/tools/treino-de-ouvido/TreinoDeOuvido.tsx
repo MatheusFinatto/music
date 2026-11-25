@@ -19,6 +19,7 @@ import { useInstrumento } from "./instrumento";
 import type { Marca } from "./Teclado";
 import { acordeNoBraco } from "./violao";
 import { Interruptor } from "./Interruptor";
+import { GradeRitmo } from "./GradeRitmo";
 import "./treino.css";
 
 /** O relógio, fora dos componentes (a regra de pureza do React não aceita chamá-lo direto neles). */
@@ -48,6 +49,7 @@ const store = createStore<Saved>("treino-de-ouvido", DEFAULTS, (saved) => {
         afinacao: ids(c.itens?.afinacao, IDS.afinacao, CLASSICA_INICIAL.itens.afinacao),
         achar: ids(c.itens?.achar, IDS.achar, CLASSICA_INICIAL.itens.achar),
         eco: ids(c.itens?.eco, IDS.eco, CLASSICA_INICIAL.itens.eco),
+        ritmo: ids(c.itens?.ritmo, IDS.ritmo, CLASSICA_INICIAL.itens.ritmo),
         campo: ids(c.itens?.campo, IDS.campo, CLASSICA_INICIAL.itens.campo),
         cadencias: ids(c.itens?.cadencias, IDS.cadencias, CLASSICA_INICIAL.itens.cadencias),
         progressoes: ids(c.itens?.progressoes, IDS.progressoes, CLASSICA_INICIAL.itens.progressoes),
@@ -207,6 +209,7 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
   const harmonia = modo === "classico" && HARMONIA.includes(exercicio);
   const achar = modo === "classico" && exercicio === "achar";
   const ecoEx = exercicio === "eco";
+  const ritmoEx = exercicio === "ritmo";
   const melodiaEco = ecoEx && q ? (q.p.reveal ?? []) : [];
   const respostas: readonly string[] = achar || ecoEx ? [] : afinacao ? RESPOSTAS_AFINACAO : grupoDeIds;
   const nomeChips = afinacao || achar ? "intervalos" : nomeGrupo;
@@ -266,7 +269,7 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
   const acordeAlvo = respondida && q?.modo === "classico" && (exercicio === "acordes" || exercicio === "campo") ? (q.p.reveal ?? q.p.notas.map((n) => n.midi)) : null;
   const extras = instrumento === "violao" && acordeAlvo ? (acordeNoBraco(acordeAlvo) ?? []).map((p) => ({ ...p, marca: "alvo" as const })) : [];
   const janela = q ? q.p.notas.map((n) => n.midi) : [48, 71];
-  const detalhe = !q || !respondida ? "" : ecoEx
+  const detalhe = !q || !respondida || ritmoEx ? "" : ecoEx
     ? (acertou ? melodiaEco.map(nomeNota).join(" → ") : t("ecoTocou", { notas: [melodiaEco[0]!, ...eco].map(nomeNota).join(" → ") }))
     : tonicaQ !== undefined && acordesQ
     ? `${t("tomMaior", { nota: nomeTom(tonicaQ) })}: ${acordesQ.map((g) => nome("campo", g)).join(" – ")} (${acordesQ.map((g) => nomeAcorde(tonicaQ, g)).join(" – ")})`
@@ -276,8 +279,8 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
     ? `${t("semitons", { n: Math.abs(notasTocadas[0]! - notasTocadas[1]!) })} · ${notasTocadas.map(nomeNota).join(harmonico ? " + " : " → ")}`
     : notasTocadas.map(nomeNota).join(" · ");
   const resultado = !respondida || !q ? "" : acertou ? t("certo") : ecoEx ? t("ecoErrado", { melodia: melodiaEco.map(nomeNota).join(" → ") }) : achar ? t("errado", { resposta: nomeNota(q.p.alvo!) }) : intervaloCerto !== undefined ? t("afinacaoErrado", { intervalo: nome("intervalos", intervaloCerto), sentido: nome("afinacao", q.p.resposta).toLowerCase() }) : t("errado", { resposta: nomeCompleto(nomeGrupo, q.p.resposta) });
-  const pergunta = !q ? t("perguntaInicial") : t(harmonia || achar || ecoEx ? (`pergunta_${exercicio}` as "pergunta_campo") : exercicio === "acordes" ? "perguntaAcordes" : afinacao ? "perguntaAfinacao" : "perguntaIntervalos");
-  const dica = afinacao ? t("dicaAfinacao", { margem: s.classica.margem }) : harmonia || achar || ecoEx ? t(`dica_${exercicio}` as "dica_campo") : t(exercicio === "acordes" ? "dicaAcordes" : "dicaIntervalos");
+  const pergunta = !q ? t("perguntaInicial") : t(harmonia || achar || ecoEx || ritmoEx ? (`pergunta_${exercicio}` as "pergunta_campo") : exercicio === "acordes" ? "perguntaAcordes" : afinacao ? "perguntaAfinacao" : "perguntaIntervalos");
+  const dica = afinacao ? t("dicaAfinacao", { margem: s.classica.margem }) : harmonia || achar || ecoEx || ritmoEx ? t(`dica_${exercicio}` as "dica_campo") : t(exercicio === "acordes" ? "dicaAcordes" : "dicaIntervalos");
 
   // Teclado: 1 a 9 respondem; Espaço ouve de novo e, depois da resposta, avança.
   useEffect(() => {
@@ -319,7 +322,7 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
         <div className="treino-escolhas">
           {(
             <div className="treino-exs" role="radiogroup" aria-label={t("exercicio")} onKeyDown={onRadioKeyDown}>
-              {([["notas", ["intervalos", "acordes", "afinacao", "achar", "eco"]], ["harmonia", ["campo", "cadencias", "progressoes"]]] as const).map(([grupo, lista]) => (
+              {([["notas", ["intervalos", "acordes", "afinacao", "achar", "eco"]], ["harmonia", ["campo", "cadencias", "progressoes"]], ["ritmo", ["ritmo"]]] as const).map(([grupo, lista]) => (
                 <div key={grupo} className="treino-exs-linha" role="presentation">
                   <span className="treino-exs-nome" aria-hidden="true">{t(`grupoExercicios.${grupo}`)}</span>
                   {lista.map((e) => EXERCICIOS.includes(e) && (
@@ -374,13 +377,13 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
             return (
               <button key={id} type="button" className={`treino-resp ${estado}`} onClick={() => responder(id)} disabled={!q || (escolha !== null) || (afinacao && intervaloDito === null)}>
                 {afinacao ? <kbd aria-hidden="true">{KBD_AFINACAO[id]}</kbd> : n < 9 && <kbd aria-hidden="true">{n + 1}</kbd>}
-                <span className="treino-resp-texto">{nome(nomeGrupo, id)}{dicaDe(nomeGrupo, id) && <small>{dicaDe(nomeGrupo, id)}</small>}</span>
+                <span className="treino-resp-texto">{ritmoEx && <GradeRitmo id={id} />}{nome(nomeGrupo, id)}{dicaDe(nomeGrupo, id) && <small>{dicaDe(nomeGrupo, id)}</small>}</span>
               </button>
             );
           })}
         </div>
 
-        <Instrumento tipo={instrumento} janela={janela} marcas={marcas} onTocar={tocarTecla} extras={extras} label={t(instrumento === "violao" ? "braco" : "teclado")} />
+        {!ritmoEx && <Instrumento tipo={instrumento} janela={janela} marcas={marcas} onTocar={tocarTecla} extras={extras} label={t(instrumento === "violao" ? "braco" : "teclado")} />}
         {ecoEx && q && !respondida && eco.length > 0 && (
           <button type="button" className="treino-btn" onClick={() => setEco((x) => x.slice(0, -1))} aria-keyshortcuts="Backspace">{t("ecoApagar")}</button>
         )}
@@ -399,7 +402,8 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
                 <button type="button" className="treino-btn" onClick={() => void tocar(compararAfinacao(q.p.notas))} disabled={carregando}>{t("compararDois")}</button>
               </div>
             )}
-            <p className="treino-detalhe">{detalhe}</p>
+            {ritmoEx && q && <GradeRitmo id={q.p.resposta} grande />}
+            {detalhe && <p className="treino-detalhe">{detalhe}</p>}
             <button ref={proxima} type="button" className="go treino-proxima" onClick={avancar} disabled={carregando}>{programa && programa.restante === 0 ? programa.rotuloFim : t("proxima")}<kbd aria-hidden="true">{t("espaco")}</kbd></button>
           </div>
         )}
