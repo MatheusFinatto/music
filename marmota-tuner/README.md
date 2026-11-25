@@ -32,6 +32,28 @@ A lógica do treino tem fixtures (`core/src/jvmTest/resources/treino-fixtures.js
 
 O código de `core/` não pode usar nada só da JVM (`Math.*`, `System.*`, `java.*`): use o equivalente de `kotlin.math` e da biblioteca padrão. Tudo em `core/` é exportado para o TypeScript (`@file:JsExport`); por isso a API pública usa `Double` no lugar de `Long`.
 
+## Marmota Ear & Voice (`trainer/`)
+O segundo app (`br.musica.marmotaear`): o treino de ouvido e de voz do site (`/treino-de-ouvido`, `/treino-de-voz`) no celular, com a cara do Tuner (paleta de `colors.xml`, pílulas, folhas no centro, barra flutuante Ouvido | Voz). Mesma lógica do site (`core/treino`), mesmos textos (gerados de `messages/pt-BR.json` no build) e as mesmas amostras de piano (copiadas de `public/sons/piano` no build). Os dados ficam em `SharedPreferences`, no mesmo formato JSON do `localStorage` do site.
+
+```bash
+./gradlew :trainer:assembleDebug
+adb install -r trainer/build/outputs/apk/debug/trainer-debug.apk
+# Sem microfone (emulador; só no build debug): uma voz falsa canta perto do alvo, para ver o gráfico e a pista.
+adb shell am start -n br.musica.marmotaear/.MainActivity --ez simular true
+```
+
+| Arquivo | Papel |
+|---|---|
+| `MainActivity` | Barra de cima, rolagem, a barra Ouvido \| Voz (some enquanto se canta), permissão do microfone, Voltar. |
+| `ProgramaView` (`SecaoView`) | Programa por tempo ou Exercícios, igual ao `Programas.tsx`. |
+| `OuvidoView` | Os 7 exercícios de ouvido, ajustes e pontos fracos. |
+| `VozView` / `VozVistas` | Os exercícios de voz, o gráfico da voz e o afinômetro (`grafico.ts` e `Afinometro.tsx` no site). |
+| `CantarView` | Cantar músicas: a pista, a contagem e a letra (`Cantar.tsx` e `pista.ts`). |
+| `Palco` | As peças de desenho que o gráfico e a pista dividem (`palco.ts`). Mudou um, mude o outro. |
+| `Piano` | O piano amostrado num AudioTrack (mesma afinação e envelope do site), com o bordão. |
+| `Instrumentos` | Teclado e braço do violão em Canvas. |
+| `Ui` | Cores, tipos, botões, pílulas, folhas e ícones. |
+
 ## Publicar
 A página `/afinador` do site baixa `https://github.com/MatheusFinatto/music/releases/latest/download/marmota-tuner.apk`. Para publicar uma versão: gere o APK, renomeie para `marmota-tuner.apk` e anexe a um Release do GitHub marcado como o mais recente. O nome do arquivo tem que ser exatamente esse.
 

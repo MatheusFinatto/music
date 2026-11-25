@@ -463,6 +463,7 @@ class CantarView(
         }.apply {
             setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, Icone(context, Icone.Tipo.ABAIXO, C.apagado, 18), null)
             compoundDrawablePadding = dp(6)
+            umaLinha()
             contentDescription = if (rotuloInteiro) valor else "$titulo: $valor"
         }
 
