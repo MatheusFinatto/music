@@ -283,7 +283,7 @@ export function Metronomo() {
       </div>
       {audioError && <p className="metro-error" role="alert">{t("noAudio")}</p>}
 
-      <dialog ref={subDialog} className="metro-dialog" aria-labelledby="metro-sub-title" onClick={closeOnBackdrop}>
+      <dialog ref={subDialog} className="metro-dialog metro-dialog-sub" aria-labelledby="metro-sub-title" onClick={closeOnBackdrop}>
         <div className="metro-dialog-head">
           <h2 id="metro-sub-title">{t("subTitle")}</h2>
           {closeButton(subDialog)}
