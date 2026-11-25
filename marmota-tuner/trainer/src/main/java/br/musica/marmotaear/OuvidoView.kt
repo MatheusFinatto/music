@@ -436,7 +436,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
         }
         if (harmonia) grupo(T("tonalidade"), listOf("do" to T("tonicas.do"), "sorteada" to T("tonicas.sorteada")), s.tonica) { s.tonica = it; dados.salvar(s); ajustesMudaram() }
         if (exercicio == "intervalos" || afinacao) grupo(T("direcao"), DIRECOES.map { it to T("direcoes.$it") }, s.direcao) { s.direcao = it; dados.salvar(s); ajustesMudaram() }
-        if (afinacao) grupo(T("margem"), MARGENS.map { "$it" to T("margemCents", "n" to it) }, "${s.margem}") { s.margem = it.toInt(); dados.salvar(s); ajustesMudaram() }
+        if (afinacao) grupo(T("margem"), MARGENS.map { "$it" to "${T("margens.$it")} · ${T("margemCents", "n" to it)}" }, "${s.margem}") { s.margem = it.toInt(); dados.salvar(s); ajustesMudaram() }
         grupo(T("instrumento"), listOf("teclado" to T("instrumentos.teclado"), "violao" to T("instrumentos.violao")), dados.instrumento) { dados.instrumento = it; aoMudarInstrumento() }
         c.addView(context.interruptor(T("reforco"), s.reforco) { s.reforco = it; dados.salvar(s) })
         // Items: always at least one stays on.
@@ -464,9 +464,10 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
     /** The weak spots sheet: the items with the lowest hit rate (at least two answers), worst first. */
     fun corpoFracos(): View {
         val c = context.coluna(12)
-        val fracos = s.historico.filter { it.total >= 2 }.map { h ->
+        // "afinacao:30" (by margin) is the old key, from before the interval: not shown.
+        val fracos = s.historico.filter { it.total >= 2 && !(it.chave.startsWith("afinacao:") && it.chave.substringAfter(":").toIntOrNull() != null) }.map { h ->
             val (grupo, id) = h.chave.split(":").let { (it.getOrNull(0) ?: "") to (it.getOrNull(1) ?: "") }
-            val rotulo = if (grupo == "afinacao") T("margemCents", "n" to (id.toIntOrNull() ?: 0)) else nome(if (grupo == "achar") "intervalos" else grupo, id)
+            val rotulo = nome(if (grupo == "achar" || grupo == "afinacao") "intervalos" else grupo, id)
             Triple(h, "${T("grupos.$grupo")} · $rotulo", h.certo.toDouble() / h.total)
         }.sortedWith(compareBy<Triple<br.musica.marmotatuner.treino.HistoricoItem, String, Double>> { it.third }.thenByDescending { it.first.total }).take(6)
         if (fracos.isEmpty()) {

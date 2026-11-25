@@ -115,6 +115,8 @@
 
   /* cabeçalho */
   .site-header { position: sticky; top: 0; z-index: 40; background: var(--bg); border-bottom: 2px solid var(--soft); }
+  /* Cantando no treino de voz, no celular: o cabeçalho sai, para o gráfico caber inteiro (Voz.tsx põe a classe). */
+  @media (max-width: 720px) { html.voz-cantando .site-header { display: none; } }
   .site-header .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
   .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.12rem; letter-spacing: -0.015em; color: var(--ink); text-decoration: none; }
   .brand img { width: 32px; height: 32px; image-rendering: pixelated; }

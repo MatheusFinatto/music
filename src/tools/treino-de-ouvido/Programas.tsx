@@ -40,6 +40,8 @@ export function Programa({ secao, livre, bloco }: { secao: Secao; livre: ReactNo
   const minutos = r.ultimo[secao];
   const foco = r.foco[secao];
 
+  // O mesmo foco tem nome próprio na voz quando a palavra mudaria de sentido ("Afinação" no ouvido é ouvir; na voz é cantar).
+  const nomeFoco = (f: string) => t(secao === "voz" && t.has(`programas.focosVoz.${f}` as "programas.focosVoz.afinacao") ? (`programas.focosVoz.${f}` as "programas.focosVoz.afinacao") : (`programas.focos.${f}` as "programas.focos.geral"));
   const nomeDe = (ex: Ex) => t(secao === "voz" ? (`voz.exercicios.${ex}` as "voz.exercicios.igualar") : (`exercicios.${ex}` as "exercicios.intervalos"));
   const comecar = (f: Foco, m: Minutos) => {
     const plano = planejar(secao, f, m, r.d);
@@ -70,7 +72,7 @@ export function Programa({ secao, livre, bloco }: { secao: Secao; livre: ReactNo
       <>
         <section className="treino treino-andamento" aria-label={t("programas.andamento")}>
           <div className="treino-andamento-topo">
-            <p className="treino-andamento-nome"><strong>{t("programas.programaDe", { n: x.minutos })}</strong> · {t(`programas.focos.${x.foco}` as "programas.focos.geral")} · {t("programas.bloco", { i: x.i + 1, n: x.plano.length })} · {nomeDe(atual.exercicio)}</p>
+            <p className="treino-andamento-nome"><strong>{t("programas.programaDe", { n: x.minutos })}</strong> · {nomeFoco(x.foco)} · {t("programas.bloco", { i: x.i + 1, n: x.plano.length })} · {nomeDe(atual.exercicio)}</p>
             <p className="treino-andamento-n">{t("programas.respondidas", { i: Math.min(x.feitas, atual.perguntas), n: atual.perguntas })} · {t("programas.restantes", { n: falta })}</p>
           </div>
           <div className="treino-prog-barra" role="progressbar" aria-label={t("programas.andamento")} aria-valuemin={0} aria-valuemax={total} aria-valuenow={feitasTodas}><i style={{ width: `${(feitasTodas / total) * 100}%` }} /></div>
@@ -122,7 +124,7 @@ export function Programa({ secao, livre, bloco }: { secao: Secao; livre: ReactNo
             <div className="treino-exs-linha" role="presentation">
               <span className="treino-exs-nome" aria-hidden="true">{t("programas.foco")}</span>
               {FOCOS[secao].map((f) => (
-                <button key={f} type="button" role="radio" aria-checked={foco === f} tabIndex={foco === f ? 0 : -1} onClick={() => lembrarFoco(secao, f)}>{t(`programas.focos.${f}` as "programas.focos.geral")}</button>
+                <button key={f} type="button" role="radio" aria-checked={foco === f} tabIndex={foco === f ? 0 : -1} onClick={() => lembrarFoco(secao, f)}>{nomeFoco(f)}</button>
               ))}
             </div>
           </div>
