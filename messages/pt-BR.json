@@ -5,7 +5,8 @@
     "description": "Ferramentas de prática para quem toca: afinador, metrônomo e treino de ouvido, e em breve tirar de ouvido. Gratuito e sem conta.",
     "skip": "Pular para o conteúdo",
     "downloadApp": "Baixar app",
-    "downloadAppLabel": "Baixar o app para Android (APK)"
+    "downloadAppLabel": "Baixar o app para Android (APK)",
+    "downloadEarLabel": "Baixar o app Marmota Ear & Voice para Android (APK)"
   },
   "nav": {
     "label": "Principal",

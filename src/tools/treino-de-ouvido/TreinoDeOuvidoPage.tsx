@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { ToolHeader } from "@/components/ToolHeader";
 import { TreinoDeOuvido } from "./TreinoDeOuvido";
 
 export async function TreinoDeOuvidoPage() {
@@ -6,7 +7,7 @@ export async function TreinoDeOuvidoPage() {
   return (
     <main className="wrap" id="conteudo">
       <section className="section mx-auto max-w-[640px]">
-        <h1 className="mb-6 text-[clamp(1.45rem,2.6vw,1.9rem)] font-[650] leading-[1.15] tracking-[-0.025em]">{t("title")}</h1>
+        <ToolHeader title={t("title")} app="ear" />
         <TreinoDeOuvido />
       </section>
     </main>
