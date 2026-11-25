@@ -114,8 +114,9 @@ class SecaoView(
         val atual = x.plano[x.i]
         val total = x.plano.sumOf { it.perguntas }
         val feitas = x.plano.withIndex().sumOf { (k, b) -> if (k < x.i) b.perguntas else if (k == x.i) minOf(x.feitas, b.perguntas) else 0 }
-        andamentoNome?.text = "${T("programas.programaDe", "n" to x.minutos)} · ${T("programas.focos.${x.foco}")} · ${T("programas.bloco", "i" to x.i + 1, "n" to x.plano.size)} · ${nomeDe(atual.exercicio)}"
-        andamentoN?.text = "${T("programas.respondidas", "i" to minOf(x.feitas, atual.perguntas), "n" to atual.perguntas)} · ${T("programas.restantes", "n" to minutosParaMostrar(segundosRestantes(x)))}"
+        // O que importa agora é o exercício do bloco; o resto (bloco, respondidas, tempo) vai na linha de baixo, menor.
+        andamentoNome?.text = nomeDe(atual.exercicio)
+        andamentoN?.text = "${T("programas.bloco", "i" to x.i + 1, "n" to x.plano.size)} · ${T("programas.respondidas", "i" to minOf(x.feitas, atual.perguntas), "n" to atual.perguntas)} · ${T("programas.restantes", "n" to minutosParaMostrar(segundosRestantes(x)))}"
         barra?.apply { fracao = feitas.toDouble() / total; invalidate(); contentDescription = "${T("programas.andamento")}: $feitas / $total" }
     }
 
@@ -133,7 +134,7 @@ class SecaoView(
             val col = context.coluna(16)
             val card = context.cartao().apply {
                 accessibilityPaneTitle = T("programas.andamento")
-                andamentoNome = context.texto("", Papel.TITLE)
+                andamentoNome = context.texto("", Papel.TITLE_LARGE).cabecalho()
                 andamentoN = context.texto("", Papel.BODY_SMALL, C.apagado)
                 barra = Barra(context, 0.0, C.azul)
                 addView(andamentoNome)

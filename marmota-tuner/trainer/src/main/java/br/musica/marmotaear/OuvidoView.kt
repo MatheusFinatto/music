@@ -188,6 +188,8 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
         dados.salvar(s)
         performHapticFeedback(if (certo) android.view.HapticFeedbackConstants.CONFIRM else android.view.HapticFeedbackConstants.REJECT)
         render()
+        // O resultado e o "Próxima" ficam abaixo do instrumento: rola até eles, sem o dedo ir buscar.
+        revela.post { revela.requestRectangleOnScreen(android.graphics.Rect(0, 0, revela.width, revela.height), false) }
     }
 
     private fun responder(id: String) {
@@ -331,7 +333,9 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
         ouvir.contentDescription = T(if (p == null) "ouvirPrimeira" else "ouvir")
         ouvir.ativo(!carregando)
         titulo.text = textoPergunta()
+        // A frase do exercício só aparece parada, antes de tocar a primeira pergunta: durante as perguntas o palco fica enxuto.
         dica.text = textoDica()
+        dica.visibility = if (p == null) VISIBLE else GONE
 
         // Answers: tuning answers flat/in tune/sharp; "achar" answers on the instrument.
         val grupoChips = exercicio
@@ -516,18 +520,18 @@ class BotaoOuvir(ctx: Context, aoTocar: () -> Unit) : FrameLayout(ctx) {
     }
 }
 
-/** An answer: 56 dp tall, outlined; green when it was the right one, red when it was the wrong pick. */
+/** An answer: a 56 dp pill like the Tuner's, outlined; green when it was the right one, red when it was the wrong pick. */
 @SuppressLint("ViewConstructor")
 class BotaoResposta(ctx: Context, rotulo: String, sub: String?, certa: Boolean?, escolhida: Boolean = false, aoTocar: () -> Unit) : LinearLayout(ctx) {
     init {
         orientation = VERTICAL
         gravity = Gravity.CENTER_VERTICAL
         minimumHeight = dp(56)
-        setPadding(dp(16), dp(8), dp(16), dp(8))
+        setPadding(dp(22), dp(8), dp(18), dp(8))
         isClickable = true
         isFocusable = true
         setOnClickListener { aoTocar() }
-        val raio = dp(14).toFloat()
+        val raio = dp(28).toFloat()
         val (fundo, tinta) = when (certa) {
             true -> forma(C.verde, raio) to C.sobreClaro
             false -> forma(C.vermelho, raio) to C.sobreClaro

@@ -357,11 +357,9 @@ fun Context.folha(titulo: String, corpo: View): Dialog {
         val largura = minOf(context.resources.displayMetrics.widthPixels - dp(32), dp(440))
         setLayout(largura, WindowManager.LayoutParams.WRAP_CONTENT)
         setDimAmount(0.6f)
-        // Never taller than 85% of the screen: the scrim stays visible and tappable.
-        decorView.post {
-            val max = (context.resources.displayMetrics.heightPixels * 0.85f).toInt()
-            if (raiz.height > max) setLayout(largura, max)
-        }
+        // Never taller than 85% of the screen: the scrim stays visible and tappable. Checked on layout (before it, the height is 0).
+        val max = (context.resources.displayMetrics.heightPixels * 0.85f).toInt()
+        raiz.addOnLayoutChangeListener { v, _, _, _, _, _, _, _, _ -> if (v.height > max) setLayout(largura, max) }
     }
     d.setCanceledOnTouchOutside(true)
     return d
