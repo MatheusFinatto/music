@@ -61,6 +61,7 @@ import {
   mutableListOf6oorvk2mtdmp as mutableListOf,
   checkIndexOverflow3frtmheghr0th as checkIndexOverflow,
   joinToString1cxrrlmo0chqs as joinToString,
+  until1jbpn0z3f8lbg as until,
   miny9ry5d0y0n2x as min_0,
   maxwcemc4giadkb as max_0,
   setOf45ia9pnfhe90 as setOf,
@@ -138,6 +139,7 @@ initMetadataForClass(ConfigFuncional, 'ConfigFuncional');
 initMetadataForClass(PerguntaClassica, 'PerguntaClassica');
 initMetadataForClass(PerguntaFuncional, 'PerguntaFuncional');
 initMetadataForClass(HistoricoItem, 'HistoricoItem');
+initMetadataForClass(PadraoRitmo, 'PadraoRitmo');
 initMetadataForClass(Placar, 'Placar');
 initMetadataForClass(Bloco, 'Bloco');
 initMetadataForClass(BlocoPlano, 'BlocoPlano');
@@ -2934,6 +2936,11 @@ function get_DO_MAIOR() {
   return DO_MAIOR;
 }
 var DO_MAIOR;
+function get_RITMOS() {
+  _init_properties_Engine_kt__fnrbfm();
+  return RITMOS_0;
+}
+var RITMOS_0;
 function get_PLACAR_ZERO() {
   _init_properties_Engine_kt__fnrbfm();
   return PLACAR_ZERO_0;
@@ -3521,8 +3528,79 @@ function perguntaEco(cfg, rng, historico) {
   var tmp$ret$10 = copyToArray(midis);
   return new PerguntaClassica(tmp_1, tmp_2, notas, VOID, VOID, VOID, tmp$ret$10, midis.n(0));
 }
+function PadraoRitmo(id, inicios) {
+  this.id = id;
+  this.inicios = inicios;
+}
+protoOf(PadraoRitmo).v8 = function () {
+  return this.id;
+};
+protoOf(PadraoRitmo).af = function () {
+  return this.inicios;
+};
+function get_COLCHEIA_RITMO_S() {
+  return COLCHEIA_RITMO_S_0;
+}
+var COLCHEIA_RITMO_S_0;
+function perguntaRitmo(cfg, rng, historico) {
+  _init_properties_Engine_kt__fnrbfm();
+  var tmp = get_RITMOS();
+  var tmp_0 = piscina(tmp, cfg.itens, perguntaRitmo$lambda);
+  var p = sortearComPeso(tmp_0, perguntaRitmo$lambda_0, historico, rng);
+  var c = 0.3333333333333333;
+  // Inline function 'kotlin.collections.map' call
+  var this_0 = until(0, 4);
+  // Inline function 'kotlin.collections.mapTo' call
+  var destination = ArrayList_init_$Create$_0(collectionSizeOrDefault(this_0, 10));
+  var inductionVariable = this_0.s7_1;
+  var last = this_0.t7_1;
+  if (inductionVariable <= last)
+    do {
+      var item = inductionVariable;
+      inductionVariable = inductionVariable + 1 | 0;
+      var it = item;
+      var tmp$ret$0 = new PianoNote(84, imul(it, 2) * c, 0.12);
+      destination.h(tmp$ret$0);
+    }
+     while (!(item === last));
+  var contagem = destination;
+  var inicio = 8 * c;
+  // Inline function 'kotlin.collections.mapIndexed' call
+  var this_1 = p.inicios;
+  // Inline function 'kotlin.collections.mapIndexedTo' call
+  var destination_0 = ArrayList_init_$Create$_0(this_1.length);
+  var index = 0;
+  var inductionVariable_0 = 0;
+  var last_0 = this_1.length;
+  while (inductionVariable_0 < last_0) {
+    var item_0 = this_1[inductionVariable_0];
+    inductionVariable_0 = inductionVariable_0 + 1 | 0;
+    var _unary__edvuaz = index;
+    index = _unary__edvuaz + 1 | 0;
+    var tmp0 = p.inicios;
+    // Inline function 'kotlin.collections.getOrElse' call
+    var index_0 = _unary__edvuaz + 1 | 0;
+    var tmp_1;
+    if (0 <= index_0 ? index_0 <= (tmp0.length - 1 | 0) : false) {
+      tmp_1 = tmp0[index_0];
+    } else {
+      tmp_1 = 8;
+    }
+    var fim = tmp_1;
+    var tmp$ret$5 = new PianoNote(72, inicio + item_0 * c, (fim - item_0 | 0) * c * 0.9);
+    destination_0.h(tmp$ret$5);
+  }
+  var notas = destination_0;
+  var tmp_2 = 'ritmo:' + p.id;
+  // Inline function 'kotlin.collections.toTypedArray' call
+  var this_2 = plus(contagem, notas);
+  var tmp$ret$8 = copyToArray(this_2);
+  return new PerguntaClassica(tmp_2, p.id, tmp$ret$8);
+}
 function perguntaClassica(cfg, rng, historico) {
   _init_properties_Engine_kt__fnrbfm();
+  if (cfg.exercicio === 'ritmo')
+    return perguntaRitmo(cfg, rng, historico);
   if (cfg.exercicio === 'eco')
     return perguntaEco(cfg, rng, historico);
   if (cfg.exercicio === 'afinacao')
@@ -3642,7 +3720,7 @@ protoOf(Placar).kd = function () {
 protoOf(Placar).ie = function () {
   return this.sequencia;
 };
-protoOf(Placar).af = function () {
+protoOf(Placar).bf = function () {
   return this.melhor;
 };
 function somar(p, certo) {
@@ -3735,6 +3813,14 @@ function perguntaEco$lambda_1(g) {
   var tmp$ret$0 = Math.floor(x);
   return (60 + imul(12, numberToInt(tmp$ret$0)) | 0) + get_DO_MAIOR()[((g % 7 | 0) + 7 | 0) % 7 | 0] | 0;
 }
+function perguntaRitmo$lambda(it) {
+  _init_properties_Engine_kt__fnrbfm();
+  return it.id;
+}
+function perguntaRitmo$lambda_0(it) {
+  _init_properties_Engine_kt__fnrbfm();
+  return 'ritmo:' + it.id;
+}
 function perguntaClassica$lambda(it) {
   _init_properties_Engine_kt__fnrbfm();
   return it.id;
@@ -3766,7 +3852,7 @@ function _init_properties_Engine_kt__fnrbfm() {
     // Inline function 'kotlin.arrayOf' call
     // Inline function 'kotlin.js.unsafeCast' call
     // Inline function 'kotlin.js.asDynamic' call
-    EXERCICIOS_0 = ['intervalos', 'acordes', 'afinacao', 'achar', 'eco', 'campo', 'cadencias', 'progressoes'];
+    EXERCICIOS_0 = ['intervalos', 'acordes', 'afinacao', 'achar', 'eco', 'campo', 'cadencias', 'progressoes', 'ritmo'];
     // Inline function 'kotlin.arrayOf' call
     // Inline function 'kotlin.js.unsafeCast' call
     // Inline function 'kotlin.js.asDynamic' call
@@ -3798,6 +3884,54 @@ function _init_properties_Engine_kt__fnrbfm() {
     TONS_COM_BEMOL = setOf([1, 3, 5, 8, 10]);
     // Inline function 'kotlin.intArrayOf' call
     DO_MAIOR = new Int32Array([0, 2, 4, 5, 7, 9, 11]);
+    // Inline function 'kotlin.arrayOf' call
+    // Inline function 'kotlin.js.unsafeCast' call
+    // Inline function 'kotlin.js.asDynamic' call
+    var tmp$ret$2 = [0, 2, 4, 6];
+    var tmp = new PadraoRitmo('s4', tmp$ret$2);
+    // Inline function 'kotlin.arrayOf' call
+    // Inline function 'kotlin.js.unsafeCast' call
+    // Inline function 'kotlin.js.asDynamic' call
+    var tmp$ret$5 = [0, 2, 4, 5, 6];
+    var tmp_0 = new PadraoRitmo('c3', tmp$ret$5);
+    // Inline function 'kotlin.arrayOf' call
+    // Inline function 'kotlin.js.unsafeCast' call
+    // Inline function 'kotlin.js.asDynamic' call
+    var tmp$ret$8 = [0, 1, 2, 4, 6];
+    var tmp_1 = new PadraoRitmo('c1', tmp$ret$8);
+    // Inline function 'kotlin.arrayOf' call
+    // Inline function 'kotlin.js.unsafeCast' call
+    // Inline function 'kotlin.js.asDynamic' call
+    var tmp$ret$11 = [0, 2, 4, 6, 7];
+    var tmp_2 = new PadraoRitmo('c4', tmp$ret$11);
+    // Inline function 'kotlin.arrayOf' call
+    // Inline function 'kotlin.js.unsafeCast' call
+    // Inline function 'kotlin.js.asDynamic' call
+    var tmp$ret$14 = [0, 4, 6];
+    var tmp_3 = new PadraoRitmo('m', tmp$ret$14);
+    // Inline function 'kotlin.arrayOf' call
+    // Inline function 'kotlin.js.unsafeCast' call
+    // Inline function 'kotlin.js.asDynamic' call
+    var tmp$ret$17 = [0, 2, 3, 4, 6, 7];
+    var tmp_4 = new PadraoRitmo('c24', tmp$ret$17);
+    // Inline function 'kotlin.arrayOf' call
+    // Inline function 'kotlin.js.unsafeCast' call
+    // Inline function 'kotlin.js.asDynamic' call
+    var tmp$ret$20 = [0, 3, 4, 6];
+    var tmp_5 = new PadraoRitmo('pont', tmp$ret$20);
+    // Inline function 'kotlin.arrayOf' call
+    // Inline function 'kotlin.js.unsafeCast' call
+    // Inline function 'kotlin.js.asDynamic' call
+    var tmp$ret$23 = [0, 1, 3, 4, 6];
+    var tmp_6 = new PadraoRitmo('sinc', tmp$ret$23);
+    // Inline function 'kotlin.arrayOf' call
+    // Inline function 'kotlin.js.unsafeCast' call
+    // Inline function 'kotlin.js.asDynamic' call
+    var tmp$ret$26 = [0, 1, 2, 3, 4, 5, 6, 7];
+    // Inline function 'kotlin.arrayOf' call
+    // Inline function 'kotlin.js.unsafeCast' call
+    // Inline function 'kotlin.js.asDynamic' call
+    RITMOS_0 = [tmp, tmp_0, tmp_1, tmp_2, tmp_3, tmp_4, tmp_5, tmp_6, new PadraoRitmo('c8', tmp$ret$26)];
     PLACAR_ZERO_0 = new Placar(0, 0, 0, 0);
   }
 }
@@ -3917,7 +4051,7 @@ function BlocoPlano(exercicio, perguntas) {
 protoOf(BlocoPlano).je = function () {
   return this.exercicio;
 };
-protoOf(BlocoPlano).bf = function () {
+protoOf(BlocoPlano).cf = function () {
   return this.perguntas;
 };
 function tabela(linhas) {
@@ -4002,7 +4136,7 @@ function Duracao(exercicio, valores) {
 protoOf(Duracao).je = function () {
   return this.exercicio;
 };
-protoOf(Duracao).cf = function () {
+protoOf(Duracao).df = function () {
   return this.valores;
 };
 function mediana(valores) {
@@ -4165,7 +4299,7 @@ function _init_properties_Programas_kt__m3jq64() {
     // Inline function 'kotlin.js.asDynamic' call
     MINUTOS_0 = [5, 10, 15, 20, 30];
     PROGRAMAS = mapOf([to('ouvido', mapOf([to('geral', tabela([l('intervalos', new Int32Array([150, 150, 150, 200, 300])), l('acordes', new Int32Array([150, 150, 150, 150, 200])), l('afinacao', new Int32Array([0, 150, 150, 200, 250])), l('achar', new Int32Array([0, 0, 150, 200, 300])), l('campo', new Int32Array([0, 150, 150, 150, 250])), l('cadencias', new Int32Array([0, 0, 150, 150, 250])), l('progressoes', new Int32Array([0, 0, 0, 150, 250]))])), to('notas', tabela([l('intervalos', new Int32Array([150, 250, 350, 450, 700])), l('acordes', new Int32Array([150, 200, 300, 400, 600])), l('achar', new Int32Array([0, 150, 250, 350, 500]))])), to('afinacao', tabela([l('intervalos', new Int32Array([100, 150, 200, 300, 400])), l('afinacao', new Int32Array([200, 450, 700, 900, 1400]))])), to('harmonia', tabela([l('campo', new Int32Array([150, 200, 300, 400, 600])), l('cadencias', new Int32Array([150, 200, 300, 400, 600])), l('progressoes', new Int32Array([0, 200, 300, 400, 600]))]))])), to('voz', mapOf([to('geral', tabela([l('igualar', new Int32Array([150, 130, 120, 150, 220])), l('longa', new Int32Array([0, 0, 120, 150, 180])), l('sequencia', new Int32Array([150, 170, 200, 250, 330])), l('tonica', new Int32Array([0, 200, 150, 250, 350])), l('intervalo', new Int32Array([0, 0, 130, 150, 320])), l('musica', new Int32Array([0, 100, 180, 250, 400]))])), to('afinacao', tabela([l('igualar', new Int32Array([150, 250, 350, 450, 650])), l('longa', new Int32Array([150, 200, 300, 350, 500])), l('intervalo', new Int32Array([0, 150, 250, 400, 650]))])), to('musicas', tabela([l('igualar', new Int32Array([60, 100, 120, 150, 200])), l('musica', new Int32Array([240, 500, 780, 1050, 1600]))])), to('segundaVoz', tabela([l('igualar', new Int32Array([0, 100, 150, 200, 300])), l('tonica', new Int32Array([150, 300, 450, 600, 900])), l('intervalo', new Int32Array([150, 200, 300, 400, 600]))]))]))]);
-    MEDIANAS_INICIAIS = mapOf([to('intervalos', 10.0), to('acordes', 10.0), to('afinacao', 14.0), to('achar', 25.0), to('campo', 15.0), to('cadencias', 16.0), to('progressoes', 20.0), to('igualar', 14.0), to('longa', 14.0), to('sequencia', 25.0), to('tonica', 20.0), to('intervalo', 18.0), to('musica', 22.0), to('eco', 20.0)]);
+    MEDIANAS_INICIAIS = mapOf([to('intervalos', 10.0), to('acordes', 10.0), to('afinacao', 14.0), to('achar', 25.0), to('campo', 15.0), to('cadencias', 16.0), to('progressoes', 20.0), to('igualar', 14.0), to('longa', 14.0), to('sequencia', 25.0), to('tonica', 20.0), to('intervalo', 18.0), to('musica', 22.0), to('eco', 20.0), to('ritmo', 12.0)]);
     // Inline function 'kotlin.collections.toTypedArray' call
     var this_0 = get_MEDIANAS_INICIAIS().e1();
     EXERCICIOS_DE_PROGRAMA_0 = copyToArray(this_0);
@@ -4187,10 +4321,10 @@ function Pos(corda, casa, midi, raiz) {
   this.midi = midi;
   this.raiz = raiz;
 }
-protoOf(Pos).df = function () {
+protoOf(Pos).ef = function () {
   return this.corda;
 };
-protoOf(Pos).ef = function () {
+protoOf(Pos).ff = function () {
   return this.casa;
 };
 protoOf(Pos).ua = function () {
@@ -4324,13 +4458,13 @@ function Forma(posicoes, de, ate) {
   this.de = de;
   this.ate = ate;
 }
-protoOf(Forma).ff = function () {
+protoOf(Forma).gf = function () {
   return this.posicoes;
 };
-protoOf(Forma).gf = function () {
+protoOf(Forma).hf = function () {
   return this.de;
 };
-protoOf(Forma).hf = function () {
+protoOf(Forma).if = function () {
   return this.ate;
 };
 function formaDoArpejo(midis) {
@@ -4438,16 +4572,16 @@ function formaDoArpejo(midis) {
   return null;
 }
 function sam$kotlin_Comparator$0(function_0) {
-  this.if_1 = function_0;
+  this.jf_1 = function_0;
 }
 protoOf(sam$kotlin_Comparator$0).e6 = function (a, b) {
-  return this.if_1(a, b);
+  return this.jf_1(a, b);
 };
 protoOf(sam$kotlin_Comparator$0).compare = function (a, b) {
   return this.e6(a, b);
 };
 protoOf(sam$kotlin_Comparator$0).u1 = function () {
-  return this.if_1;
+  return this.jf_1;
 };
 protoOf(sam$kotlin_Comparator$0).equals = function (other) {
   var tmp;
@@ -4577,10 +4711,10 @@ function Faixa(min, max) {
   this.min = min;
   this.max = max;
 }
-protoOf(Faixa).jf = function () {
+protoOf(Faixa).kf = function () {
   return this.min;
 };
-protoOf(Faixa).kf = function () {
+protoOf(Faixa).lf = function () {
   return this.max;
 };
 function TipoDeVoz(id, min, max) {
@@ -4591,10 +4725,10 @@ function TipoDeVoz(id, min, max) {
 protoOf(TipoDeVoz).v8 = function () {
   return this.id;
 };
-protoOf(TipoDeVoz).jf = function () {
+protoOf(TipoDeVoz).kf = function () {
   return this.min;
 };
-protoOf(TipoDeVoz).kf = function () {
+protoOf(TipoDeVoz).lf = function () {
   return this.max;
 };
 function sortearAlvoDeVoz(rng, faixa) {
@@ -4652,19 +4786,19 @@ function Segurando(desde, visto, soma, soma2, n) {
   this.soma2 = soma2;
   this.n = n;
 }
-protoOf(Segurando).lf = function () {
+protoOf(Segurando).mf = function () {
   return this.desde;
 };
-protoOf(Segurando).mf = function () {
+protoOf(Segurando).nf = function () {
   return this.visto;
 };
-protoOf(Segurando).nf = function () {
+protoOf(Segurando).of = function () {
   return this.soma;
 };
-protoOf(Segurando).of = function () {
+protoOf(Segurando).pf = function () {
   return this.soma2;
 };
-protoOf(Segurando).pf = function () {
+protoOf(Segurando).qf = function () {
   return this.n;
 };
 function Passo(estado, cents, ok, media, oscilacao) {
@@ -4674,7 +4808,7 @@ function Passo(estado, cents, ok, media, oscilacao) {
   this.media = media;
   this.oscilacao = oscilacao;
 }
-protoOf(Passo).qf = function () {
+protoOf(Passo).rf = function () {
   return this.estado;
 };
 protoOf(Passo).la = function () {
@@ -4683,10 +4817,10 @@ protoOf(Passo).la = function () {
 protoOf(Passo).gd = function () {
   return this.ok;
 };
-protoOf(Passo).rf = function () {
+protoOf(Passo).sf = function () {
   return this.media;
 };
-protoOf(Passo).sf = function () {
+protoOf(Passo).tf = function () {
   return this.oscilacao;
 };
 function atualizar(s, midi, t, alvo, tolerancia, qualquerOitava, segurarMs) {
@@ -4732,19 +4866,19 @@ function Alcance(min, max, candidato, desde, visto) {
   this.desde = desde;
   this.visto = visto;
 }
-protoOf(Alcance).jf = function () {
+protoOf(Alcance).kf = function () {
   return this.min;
 };
-protoOf(Alcance).kf = function () {
+protoOf(Alcance).lf = function () {
   return this.max;
 };
-protoOf(Alcance).tf = function () {
+protoOf(Alcance).uf = function () {
   return this.candidato;
 };
-protoOf(Alcance).lf = function () {
+protoOf(Alcance).mf = function () {
   return this.desde;
 };
-protoOf(Alcance).mf = function () {
+protoOf(Alcance).nf = function () {
   return this.visto;
 };
 function get_PARADO_MS() {
@@ -4803,7 +4937,7 @@ function Extensao(oitavas, semitons) {
   this.oitavas = oitavas;
   this.semitons = semitons;
 }
-protoOf(Extensao).uf = function () {
+protoOf(Extensao).vf = function () {
   return this.oitavas;
 };
 protoOf(Extensao).ld = function () {
@@ -4916,6 +5050,7 @@ LATENCIA_S_0 = 0.15;
 DIAS_GUARDADOS_0 = 120;
 TETO_RESPOSTA_S_0 = 90.0;
 JANELA_0 = 20;
+COLCHEIA_RITMO_S_0 = 0.3333333333333333;
 PIANO_PEAK_0 = 0.9;
 PIANO_ATTACK_S_0 = 0.008;
 PIANO_RELEASE_S_0 = 0.35;
@@ -4962,8 +5097,10 @@ var HARMONIA = {get: get_HARMONIA};
 var MARGENS = {get: get_MARGENS};
 var RESPOSTAS_AFINACAO = {get: get_RESPOSTAS_AFINACAO};
 var DIRECOES = {get: get_DIRECOES};
+var RITMOS = {get: get_RITMOS};
 var PLACAR_ZERO = {get: get_PLACAR_ZERO};
 var JANELA = {get: get_JANELA};
+var COLCHEIA_RITMO_S = {get: get_COLCHEIA_RITMO_S};
 var PIANO_SAMPLES = {get: get_PIANO_SAMPLES};
 var PIANO_PEAK = {get: get_PIANO_PEAK};
 var PIANO_ATTACK_S = {get: get_PIANO_ATTACK_S};
@@ -5058,6 +5195,7 @@ export {
   MARGENS as MARGENS,
   RESPOSTAS_AFINACAO as RESPOSTAS_AFINACAO,
   DIRECOES as DIRECOES,
+  RITMOS as RITMOS,
   PLACAR_ZERO as PLACAR_ZERO,
   ConfigClassica as ConfigClassica,
   ConfigFuncional as ConfigFuncional,
@@ -5075,6 +5213,9 @@ export {
   compararAfinacao as compararAfinacao,
   perguntaAchar as perguntaAchar,
   perguntaEco as perguntaEco,
+  PadraoRitmo as PadraoRitmo,
+  COLCHEIA_RITMO_S as COLCHEIA_RITMO_S,
+  perguntaRitmo as perguntaRitmo,
   perguntaClassica as perguntaClassica,
   cadencia as cadencia,
   perguntaFuncional as perguntaFuncional,

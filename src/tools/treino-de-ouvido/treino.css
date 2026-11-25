@@ -315,3 +315,13 @@
 .treino-hoje-semana li { width: calc(2 * var(--px)); height: max(var(--px), calc(var(--h) * var(--px))); background: var(--line); }
 .treino-hoje-semana li.zero { opacity: 0.5; }
 .treino-hoje-semana li.hoje { background: var(--ink); }
+
+/* Ditado rítmico (GradeRitmo.tsx): 8 colcheias de um 4/4, de duas em duas. Bloco = a nota começa; traço = ela dura. */
+.ritmo-grade { display: grid; grid-template-columns: repeat(8, 1fr); column-gap: 2px; align-items: center; width: 100%; max-width: 9rem; height: 12px; margin-bottom: 6px; }
+.ritmo-grade i { height: 2px; background: currentColor; opacity: 0.15; }
+.ritmo-grade i:nth-child(2n + 3) { margin-left: 4px; }
+.ritmo-grade i.nota { height: 12px; opacity: 1; }
+.ritmo-grade i.dura { height: 4px; opacity: 0.6; }
+.ritmo-grade.grande { max-width: 18rem; height: 24px; color: var(--target); }
+.ritmo-grade.grande i.nota { height: 24px; }
+.ritmo-grade.grande i.dura { height: var(--px); }

@@ -42,7 +42,7 @@ class Bloco(
 )
 
 /** Exercises grouped as on the site: notes, then harmony. */
-private val GRUPOS = listOf("notas" to listOf("intervalos", "acordes", "afinacao", "achar", "eco"), "harmonia" to listOf("campo", "cadencias", "progressoes"))
+private val GRUPOS = listOf("notas" to listOf("intervalos", "acordes", "afinacao", "achar", "eco"), "harmonia" to listOf("campo", "cadencias", "progressoes"), "ritmo" to listOf("ritmo"))
 
 /**
  * Ear training: listen, pick the answer and see on the keyboard (or neck) what was played. The same flow as the site's
@@ -70,6 +70,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
     private val harmonia get() = exercicio in HARMONIA
     private val achar get() = exercicio == "achar"
     private val ecoEx get() = exercicio == "eco"
+    private val ritmoEx get() = exercicio == "ritmo"
     /** Eco: the notes played after the first one (which comes marked). */
     private val eco = mutableListOf<Int>()
     private val respondida get() = q != null && escolha != null
@@ -284,7 +285,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
 
     private fun textoPergunta() = when {
         q == null -> T("perguntaInicial")
-        harmonia || achar || ecoEx -> T("pergunta_$exercicio")
+        harmonia || achar || ecoEx || ritmoEx -> T("pergunta_$exercicio")
         exercicio == "acordes" -> T("perguntaAcordes")
         afinacao -> T("perguntaAfinacao")
         else -> T("perguntaIntervalos")
@@ -292,7 +293,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
 
     private fun textoDica() = when {
         afinacao -> T("dicaAfinacao", "margem" to config().margem)
-        harmonia || achar || ecoEx -> T("dica_$exercicio")
+        harmonia || achar || ecoEx || ritmoEx -> T("dica_$exercicio")
         exercicio == "acordes" -> T("dicaAcordes")
         else -> T("dicaIntervalos")
     }
@@ -379,6 +380,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
         respostas.itens(cols = if (afinacao) 3 else 2, views = lista.map { id ->
             val estadoResp = if (escolha == null || p == null) null else if (id == p.resposta) true else if (id == escolha) false else null
             BotaoResposta(context, nome(grupoChips, id), dicaDe(grupoChips, id), estadoResp) { responder(id) }.apply {
+                if (ritmoEx) addView(GradeRitmoView(context, id), 0, LayoutParams(dp(96), dp(12)).margens(b = dp(6)))
                 val espera = afinacao && intervaloDito == null
                 ativo(p != null && escolha == null && !espera || estadoResp != null)
                 isEnabled = p != null && escolha == null && !espera
@@ -401,6 +403,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
         val acordeAlvo = if (respondida && p != null && (exercicio == "acordes" || exercicio == "campo")) (p.reveal ?: p.notas.map { it.midi }.toTypedArray()) else null
         val extras = if (instrumento is BracoView && acordeAlvo != null) (acordeNoBraco(acordeAlvo)?.map { Extra(it.corda, it.casa, it.midi, Marca.ALVO) } ?: emptyList()) else emptyList()
         instrumento.mostrar(p?.notas?.map { it.midi } ?: listOf(48, 71), marcas, extras)
+        caixaInstrumento.visibility = if (ritmoEx) GONE else VISIBLE
 
         responderAchar.visibility = if (achar && p != null && !respondida) VISIBLE else GONE
         responderAchar.ativo(selecionada != null && !carregando)
@@ -422,6 +425,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
                 accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_ASSERTIVE
             }
             revela.addView(res)
+            if (ritmoEx) revela.addView(GradeRitmoView(context, p.resposta, C.laranja), LayoutParams(dp(220), dp(24)))
             p.cents?.let { cents ->
                 revela.addView(ReguaView(context, cents, config().margem), lp())
                 if (cents != 0) {
@@ -432,7 +436,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
                     revela.addView(f)
                 }
             }
-            revela.addView(context.texto(detalhe(p), Papel.BODY_SMALL, C.apagado))
+            if (!ritmoEx) revela.addView(context.texto(detalhe(p), Papel.BODY_SMALL, C.apagado))
             val fim = bloco?.takeIf { it.restante() == 0 }?.rotuloFim ?: T("proxima")
             revela.addView(context.botao(fim, Estilo.CHEIO, alto = true) { avancar() }, lp())
         }
@@ -599,6 +603,32 @@ class Barra(ctx: Context, var fracao: Double, private val cor: Int = C.verde) : 
         c.drawRoundRect(0f, 0f, width.toFloat(), height.toFloat(), r, r, p)
         p.color = cor
         c.drawRoundRect(0f, 0f, (width * fracao.coerceIn(0.0, 1.0)).toFloat(), height.toFloat(), r, r, p)
+    }
+}
+
+/** A 4/4 bar as a pixel grid (same as the website's GradeRitmo.tsx): 8 eighths in pairs; a block where a note starts, a
+ *  dash while it lasts. Decorative: the rhythm's name goes in the text next to it. */
+class GradeRitmoView(ctx: Context, id: String, private val cor: Int? = null) : View(ctx) {
+    private val inicios = br.musica.marmotatuner.treino.RITMOS.firstOrNull { it.id == id }?.inicios ?: emptyArray()
+    private val p = android.graphics.Paint()
+    init { importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO }
+    override fun onDraw(c: android.graphics.Canvas) {
+        val gap = dp(2).toFloat(); val beat = dp(4).toFloat()
+        val w = (width - 7 * gap - 3 * beat) / 8f
+        var x = 0f
+        // Inside an answer button it takes the label's color (dark on the green/red fill after answering).
+        val irmao = (parent as? android.view.ViewGroup)?.let { g -> (0 until g.childCount).map(g::getChildAt).filterIsInstance<android.widget.TextView>().firstOrNull() }
+        val tinta = cor ?: irmao?.currentTextColor ?: C.tinta
+        for (k in 0 until 8) {
+            if (k > 0 && k % 2 == 0) x += beat
+            val nota = k in inicios
+            val dura = !nota && inicios.any { it < k }
+            p.color = tinta
+            p.alpha = if (nota) 255 else if (dura) 150 else 40
+            val h = if (nota) height.toFloat() else if (dura) dp(4).toFloat() else dp(2).toFloat()
+            c.drawRect(x, (height - h) / 2, x + w, (height + h) / 2, p)
+            x += w + gap
+        }
     }
 }
 

@@ -40,6 +40,7 @@ object Ids {
         "cadencias" -> cadencias
         "progressoes" -> progressoes
         "eco" -> br.musica.marmotatuner.treino.TAMANHOS_ECO.toList()
+        "ritmo" -> br.musica.marmotatuner.treino.RITMOS.map { it.id }
         else -> intervalos // intervalos, afinacao and achar all pick intervals
     }
 }
@@ -64,7 +65,7 @@ class Dados(ctx: Context) {
         companion object {
             val INICIAIS = mapOf(
                 "intervalos" to listOf("3m", "3M", "4J", "5J", "8J"), "acordes" to listOf("maior", "menor"),
-                "afinacao" to listOf("3M", "5J", "8J"), "achar" to listOf("3m", "3M", "5J"), "eco" to listOf("3", "4"),
+                "afinacao" to listOf("3M", "5J", "8J"), "achar" to listOf("3m", "3M", "5J"), "eco" to listOf("3", "4"), "ritmo" to listOf("s4", "c3", "c1", "m"),
                 "campo" to listOf("I", "IV", "V", "vi"), "cadencias" to listOf("autentica", "plagal", "deceptiva", "meia"),
                 "progressoes" to listOf("I-IV-V-I", "I-V-vi-IV", "vi-IV-I-V"),
             )

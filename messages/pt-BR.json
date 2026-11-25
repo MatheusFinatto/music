@@ -194,7 +194,8 @@
       "cadencias": "Cadências",
       "progressoes": "Progressões",
       "achar": "Achar",
-      "eco": "Eco"
+      "eco": "Eco",
+      "ritmo": "Ditado"
     },
     "direcao": "Direção",
     "direcoes": {
@@ -228,6 +229,17 @@
     "info": "Como funciona",
     "fechar": "Fechar",
     "nomes": {
+      "ritmo": {
+        "s4": "Quatro semínimas",
+        "c3": "Colcheias no 3º tempo",
+        "c1": "Colcheias no 1º tempo",
+        "c4": "Colcheias no 4º tempo",
+        "m": "Mínima e duas semínimas",
+        "c24": "Colcheias no 2º e no 4º",
+        "pont": "Semínima pontuada",
+        "sinc": "Síncope",
+        "c8": "Oito colcheias"
+      },
       "eco": {
         "3": "3 notas",
         "4": "4 notas",
@@ -334,7 +346,8 @@
       "cadencias": "Cadências",
       "progressoes": "Progressões",
       "achar": "Achar",
-      "eco": "Eco"
+      "eco": "Eco",
+      "ritmo": "Ritmo"
     },
     "pergunta_campo": "Que acorde do tom é este?",
     "pergunta_cadencias": "Que cadência é esta?",
@@ -349,6 +362,8 @@
     "pergunta_achar": "Ache a segunda nota",
     "dica_achar": "A primeira nota está marcada. Toque as teclas para ouvir e compare de ouvido; quando achar, responda.",
     "responder": "Responder",
+    "pergunta_ritmo": "Que ritmo é este?",
+    "dica_ritmo": "Quatro cliques contam o compasso; depois, um compasso de ritmo numa nota só. Qual dos ritmos tocou? Na grade, cada bloco é onde uma nota começa; o traço é quanto ela dura.",
     "pergunta_eco": "Toque a melodia",
     "dica_eco": "Uma melodia curta em Dó maior. A primeira nota está marcada: toque as outras no teclado ou no braço, na ordem. Errou uma? Apague a última.",
     "ecoErrado": "Era: {melodia}.",
@@ -530,7 +545,8 @@
     },
     "grupoExercicios": {
       "notas": "Notas",
-      "harmonia": "Harmonia"
+      "harmonia": "Harmonia",
+      "ritmo": "Ritmo"
     },
     "ouvirPrimeira": "Ouvir a primeira pergunta",
     "programas": {
