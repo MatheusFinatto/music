@@ -124,6 +124,9 @@ class VozView(ctx: Context, private val dados: Dados, private val bloco: Bloco? 
     private val erroVista = context.coluna(10)
     private val acoes = context.coluna(10)
     private val rodape = context.texto("", Papel.BODY_SMALL, C.apagado)
+    private val palco = context.cartao()
+    /** Songs (Cantar) take the stage's place when that exercise is chosen. */
+    private var cantar: CantarView? = null
 
     init {
         orientation = VERTICAL
@@ -132,7 +135,6 @@ class VozView(ctx: Context, private val dados: Dados, private val bloco: Bloco? 
             addView(oQue, lp().margens(b = dp(4)))
             addView(sorteando, lp().margens(b = dp(8)))
         }
-        val palco = context.cartao()
         palco.addView(titulo, lp())
         palco.addView(dica, lp().margens(t = dp(4)))
         palco.addView(passosVista, lp().margens(t = dp(12)))
@@ -160,6 +162,7 @@ class VozView(ctx: Context, private val dados: Dados, private val bloco: Bloco? 
 
     /** System Back during an attempt stops it (instead of leaving the app). Returns true if it handled Back. */
     fun voltar(): Boolean {
+        if (cantar?.voltar() == true) return true
         if (fase != Fase.PIANO && fase != Fase.CANTANDO) return false
         parar()
         return true
@@ -167,6 +170,7 @@ class VozView(ctx: Context, private val dados: Dados, private val bloco: Bloco? 
 
     /** The app went to the background (or the section changed) mid-attempt: cancel without counting a miss. */
     fun pausar() {
+        cantar?.pausar()
         if (fase == Fase.PIANO || fase == Fase.CANTANDO) parar()
     }
 
@@ -440,6 +444,7 @@ class VozView(ctx: Context, private val dados: Dados, private val bloco: Bloco? 
         rodada = 0
         aoMudarAjustes()
         render()
+        cantar?.ajustesMudaram()
     }
 
     /** Margin, octave and rising don't change the requested note: they apply at once (read on every chunk), without stopping. */
@@ -447,6 +452,7 @@ class VozView(ctx: Context, private val dados: Dados, private val bloco: Bloco? 
         f(salvo)
         dados.salvar(salvo)
         render()
+        cantar?.ajustesMudaram()
     }
 
     /** Told when the exercise changes, so the app bar can update (the settings icon follows the exercise). */
@@ -554,6 +560,7 @@ class VozView(ctx: Context, private val dados: Dados, private val bloco: Bloco? 
         val emCurso = fase == Fase.PIANO || cantando
         if (bloco == null) renderEscolhas()
         if (emCurso != avisadoEmCurso) { avisadoEmCurso = emCurso; aoEmCurso(emCurso) }
+        renderCantar()
         // During an attempt the choosers step aside: the stage and its buttons have to fit above the floating bar.
         listOf(escolhas, oQue, sorteando).forEach { if (emCurso) it.visibility = GONE else if (it === escolhas) it.visibility = VISIBLE }
 
@@ -621,6 +628,33 @@ class VozView(ctx: Context, private val dados: Dados, private val bloco: Bloco? 
         }
         rodape.visibility = if (rodape.text.isEmpty()) GONE else VISIBLE
         atualizarVivo()
+    }
+
+    /** Songs replace the stage: a CantarView while "musica" is the exercise, dropped when it isn't. */
+    private fun renderCantar() {
+        val musica = ex == "musica"
+        palco.visibility = if (musica) GONE else VISIBLE
+        if (!musica) {
+            cantar?.let { it.pausar(); removeView(it) }
+            cantar = null
+            return
+        }
+        if (cantar != null) return
+        cantar = CantarView(context, dados, bloco, voz = { s }, salvarCfg = { c -> salvo.musica = c; dados.salvar(salvo) },
+            aoResultado = { chave, r ->
+                placarT++
+                if (r.ok) placarA++
+                val f = if (r.total > 0) r.acertadas.toDouble() / r.total else 0.0
+                salvo.melhores.put(chave, maxOf(salvo.melhores.optDouble(chave, 0.0), f))
+                dados.salvar(salvo)
+            },
+            escolherTonica = { v -> mudar { it.inicio = v } },
+            aoEmCurso = { sim ->
+                listOf(escolhas, oQue, sorteando).forEach { it.visibility = if (sim) GONE else VISIBLE }
+                if (!sim) renderEscolhas()
+                aoEmCurso(sim)
+            },
+        ).also { addView(it, lp()) }
     }
 
     private fun textoResultado(r: Resultado): String {
@@ -745,6 +779,10 @@ class VozView(ctx: Context, private val dados: Dados, private val bloco: Bloco? 
             return g
         }
         val e = ex
+        if (e == "musica") c.addView(context.interruptor(T("voz.musica.guia"), salvo.musica.optBoolean("guia", true)) { v ->
+            salvo.musica = org.json.JSONObject(salvo.musica.toString()).put("guia", v)
+            dados.salvar(salvo)
+        })
         if (e == "alcance") grupo(T("instrumento"), listOf("teclado" to T("instrumentos.teclado"), "violao" to T("instrumentos.violao")), dados.instrumento) { dados.instrumento = it; renderAlcance() }
 
         val vozes = listOf("padrao" to T("voz.minhaVoz.padrao")) + VOZES.map { it.id to T("voz.minhaVoz.tipos.${it.id}") } +
@@ -789,7 +827,7 @@ class VozView(ctx: Context, private val dados: Dados, private val bloco: Bloco? 
 
     companion object {
         /** The exercises in the chooser (the range test opens from My voice, in the settings). */
-        val NA_LISTA = listOf("igualar", "longa", "sequencia", "tonica", "intervalo")
+        val NA_LISTA = listOf("igualar", "longa", "sequencia", "tonica", "intervalo", "musica")
         /** How long the whole attempt may take before it ends (more for long notes and sequences). */
         private const val LIMITE_MS = 15000.0
     }

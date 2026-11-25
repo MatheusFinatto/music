@@ -243,7 +243,7 @@ class TreinoParidadeTest {
             val t = m.trechos.first { it.nome == c.getString("trecho") }
             val onde = "${m.id} / ${t.nome}"
             igual(c.arr("tonicas"), faixas.map { f -> listOf(0, 5, 11).map { tonicaParaCaber(it, t.notas, f) } }, "$onde tônicas")
-            val js = janelas(t.notas, m.bpm, tonicaParaCaber(0, t.notas, null))
+            val js = janelas(t.notas, m.bpm.toDouble(), tonicaParaCaber(0, t.notas, null))
             igual(c.arr("janelas"), js.map { listOf(it.ini, it.fim, it.midi, it.sil) }, "$onde janelas")
             val amostras = c.arr("amostras").list().map { a ->
                 a as JSONArray
