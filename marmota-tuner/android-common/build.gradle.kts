@@ -1,4 +1,4 @@
-// Android code shared by the two apps (Marmota Tuner and Marmota Ear & Voice): microphone capture.
+// Android code shared by the two apps (Marmota Tuner and Marmota Trainer): microphone capture.
 // The logic shared with the website stays in :core; this is only what needs the Android SDK.
 plugins {
     id("com.android.library")

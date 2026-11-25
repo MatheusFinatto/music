@@ -5,14 +5,14 @@ import { getTranslations } from "next-intl/server";
 export const APK_URL = "https://github.com/MatheusFinatto/music/releases/latest/download/marmota-tuner.apk";
 
 /**
- * O segundo app (Marmota Ear & Voice: treino de ouvido e de voz). "latest" é do Tuner, então este link aponta para a
+ * O segundo app (Marmota Trainer: treino de ouvido e de voz). "latest" é do Tuner, então este link aponta para a
  * versão: ao publicar uma nova, o Release sai sem "Latest" e este link muda para a tag nova.
  */
-export const EAR_APK_URL = "https://github.com/MatheusFinatto/music/releases/download/marmota-ear-v1.0/marmota-ear.apk";
+export const EAR_APK_URL = "https://github.com/MatheusFinatto/music/releases/download/marmota-trainer-v1.0.1/marmota-trainer.apk";
 
 /**
  * O topo das ferramentas que também estão no app: título à esquerda; à direita, as ações da página ([actions],
- * ex.: o microfone do afinador) e "Baixar app", que baixa o APK direto: o Tuner ou, no treino ([app] = "ear"), o Ear & Voice.
+ * ex.: o microfone do afinador) e "Baixar app", que baixa o APK direto: o Tuner ou, no treino ([app] = "ear"), o Trainer.
  */
 export async function ToolHeader({ title, actions, app = "tuner" }: { title: string; actions?: ReactNode; app?: "tuner" | "ear" }) {
   const t = await getTranslations("site");

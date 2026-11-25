@@ -19,7 +19,7 @@ import android.widget.TextView
 import android.window.OnBackInvokedDispatcher
 
 /**
- * Marmota Ear & Voice: one activity, a top bar, a scrolling body and, as in the Tuner, the sections (Ouvido, Voz) in a floating bar
+ * Marmota Trainer: one activity, a top bar, a scrolling body and, as in the Tuner, the sections (Ouvido, Voz) in a floating bar
  * at the bottom.
  * Edge to edge with the system bar insets; Back stops a running program before it leaves the app.
  */

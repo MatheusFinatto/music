@@ -72,7 +72,7 @@ object T {
 
     /** Texts only the app has. Same voice as the site: direct, no sales talk. */
     private val APP = mapOf(
-        "app.nome" to "Ear & Voice",
+        "app.nome" to "Marmota Trainer",
         "app.ouvido" to "Ouvido",
         "app.voz" to "Voz",
         "app.ajustes" to "Ajustes",
@@ -83,7 +83,7 @@ object T {
         "app.versao" to "Versão {v}",
         "app.micPermissao" to "Para conferir o que você canta, o app precisa ouvir o microfone. Nada é gravado nem sai do celular.",
         "app.micLiberar" to "Liberar o microfone",
-        "app.micConfig" to "O microfone está bloqueado. Libere em Configurações > Apps > Marmota Ear & Voice > Permissões.",
+        "app.micConfig" to "O microfone está bloqueado. Libere em Configurações > Apps > Marmota Trainer > Permissões.",
         "app.abrirConfig" to "Abrir configurações",
         "app.creditos" to "Piano: Salamander Grand Piano, de Alexander Holm (CC BY 3.0).",
         "app.carregandoPiano" to "Carregando o piano…",
