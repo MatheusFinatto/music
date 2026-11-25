@@ -134,7 +134,7 @@ class SecaoView(
         if (x != null) {
             val col = context.coluna(16)
             val card = context.cartao().apply {
-                accessibilityPaneTitle = T("programas.andamento")
+                painel(T("programas.andamento"))
                 andamentoNome = context.texto("", Papel.TITLE_LARGE).cabecalho()
                 andamentoN = context.texto("", Papel.BODY_SMALL, C.apagado)
                 barra = Barra(context, 0.0, C.azul)
@@ -200,9 +200,12 @@ class SecaoView(
             focosDe(secao).forEach { fo -> focos.addView(Chip(context, T("programas.focos.$fo"), radio = true) { r.foco[secao] = fo; dados.salvar(r); render() }.apply { marcado = fo == foco }) }
             addView(focos, lp().margens(b = dp(12)))
             addView(context.rotulo(T("programas.tempo")))
-            val tempos = Fluxo(context)
-            MINUTOS.forEach { m -> tempos.addView(Chip(context, T("programas.minutos", "n" to m), radio = true) { r.ultimo[secao] = m; dados.salvar(r); render() }.apply { marcado = m == minutos }) }
-            addView(tempos, lp().margens(b = dp(12)))
+            // Short choices of the same kind: equal-width chips on a 3-column grid, edges aligned (green = selected, like Foco).
+            val tempos = Grade(context)
+            tempos.itens(cols = 3, views = MINUTOS.map { m ->
+                Chip(context, T("programas.minutos", "n" to m), radio = true) { r.ultimo[secao] = m; dados.salvar(r); render() }.apply { marcado = m == minutos }
+            })
+            addView(tempos, lp().margens(b = dp(16)))
             addView(context.texto(plano.joinToString(" · ") { nomeDe(it.exercicio) } + if (previsto != minutos) " · ${T("programas.aprox", "n" to previsto)}" else "", Papel.BODY_SMALL, C.apagado), lp().margens(b = dp(20)))
             addView(context.botao(T("programas.comecar", "n" to minutos), Estilo.CHEIO, alto = true) { comecar(foco, minutos) }, lp())
         })

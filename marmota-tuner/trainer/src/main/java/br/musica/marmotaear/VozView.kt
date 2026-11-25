@@ -131,7 +131,7 @@ class VozView(ctx: Context, private val dados: Dados, private val bloco: Bloco? 
     init {
         orientation = VERTICAL
         if (bloco == null) {
-            addView(escolhas, lp().margens(b = dp(8)))
+            addView(escolhas, lp().margens(b = dp(12)))
             addView(oQue, lp().margens(b = dp(4)))
             addView(sorteando, lp().margens(b = dp(8)))
         }
