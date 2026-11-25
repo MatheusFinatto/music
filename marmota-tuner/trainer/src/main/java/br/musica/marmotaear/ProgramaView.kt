@@ -196,7 +196,11 @@ class SecaoView(
         val foco = r.foco.getValue(secao)
         val plano = planejar(secao, foco, minutos, r.d)
         val previsto = minutosParaMostrar(estimarSegundos(plano, r.d))
-        corpo.addView(context.cartao().apply {
+        // The body is a FrameLayout (one view at a time): the "Hoje" card and the chooser go together in a column.
+        val pilha = context.coluna(12)
+        corpo.addView(pilha)
+        hoje()?.let { pilha.addView(it, lp()) }
+        pilha.addView(context.cartao().apply {
             addView(context.rotulo(T("programas.foco")))
             val focos = Fluxo(context)
             focosDe(secao).forEach { fo -> focos.addView(Chip(context, nomeFoco(fo), radio = true) { r.foco[secao] = fo; dados.salvar(r); render() }.apply { marcado = fo == foco }) }
@@ -211,5 +215,39 @@ class SecaoView(
             addView(context.texto(plano.joinToString(" · ") { nomeDe(it.exercicio) } + if (previsto != minutos) " · ${T("programas.aprox", "n" to previsto)}" else "", Papel.BODY_SMALL, C.apagado), lp().margens(b = dp(20)))
             addView(context.botao(T("programas.comecar", "n" to minutos), Estilo.CHEIO, alto = true) { comecar(foco, minutos) }, lp())
         })
+    }
+
+    /** The "Hoje" card (same as the website's Hoje.tsx): today's minutes and right answers, the last 7 days as pixel bars and
+     *  the days in a row. Hidden before any practice. */
+    private fun hoje(): View? {
+        val dias = dados.dias()
+        if (dias.none { it.secao == secao }) return null
+        val r = br.musica.marmotatuner.treino.resumoDiario(dias, dados.hoje(), secao)
+        return context.cartao().apply {
+            addView(context.linha(16).apply {
+                addView(context.coluna(2).apply {
+                    addView(context.texto(T("hoje.titulo").uppercase(), Papel.LABEL_SMALL, C.apagado))
+                    addView(context.texto(if (r.respostasHoje == 0) T("hoje.vazio") else T("hoje.resumo", "minutos" to r.minutosHoje, "acertos" to r.acertosHoje, "respostas" to r.respostasHoje), Papel.TITLE))
+                    if (r.sequencia > 1) addView(context.texto(T("hoje.sequencia", "n" to r.sequencia), Papel.BODY_SMALL, C.apagado))
+                }, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))
+                addView(Semana(context, r.semana).apply { contentDescription = T("hoje.semana", "lista" to r.semana.joinToString(", ")) }, LayoutParams(dp(7 * 8 + 6 * 4), dp(32)))
+            })
+        }
+    }
+}
+
+/** The 7 columns of the "Hoje" card, today on the right in ink, the others in the line color; heights in 4 dp steps. */
+class Semana(ctx: Context, private val minutos: IntArray) : View(ctx) {
+    private val p = android.graphics.Paint()
+    override fun onDraw(c: android.graphics.Canvas) {
+        val maior = maxOf(1, minutos.maxOrNull() ?: 1)
+        val passo = height / 8f
+        minutos.forEachIndexed { k, m ->
+            val degraus = if (m == 0) 1 else maxOf(1, Math.round(m.toFloat() / maior * 8))
+            p.color = if (k == minutos.size - 1) C.tinta else C.linha
+            p.alpha = if (m == 0) 128 else 255
+            val x = k * (width / minutos.size.toFloat())
+            c.drawRect(x, height - degraus * passo, x + dp(8), height.toFloat(), p)
+        }
     }
 }

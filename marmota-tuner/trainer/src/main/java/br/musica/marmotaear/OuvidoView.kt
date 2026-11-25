@@ -183,6 +183,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
         val p = q ?: return
         escolha = id
         dados.anotarDuracao(exercicio, (SystemClock.elapsedRealtime() - inicioPergunta).toDouble())
+        dados.anotarDia("ouvido", certo, (SystemClock.elapsedRealtime() - inicioPergunta).toDouble())
         bloco?.aoResponder?.invoke(certo)
         placar = somar(placar, certo)
         s.historico = registrar(s.historico, p.chave, certo)
@@ -465,10 +466,12 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
     fun corpoFracos(): View {
         val c = context.coluna(12)
         // "afinacao:30" (by margin) is the old key, from before the interval: not shown.
-        val fracos = s.historico.filter { it.total >= 2 && !(it.chave.startsWith("afinacao:") && it.chave.substringAfter(":").toIntOrNull() != null) }.map { h ->
+        // The recent window counts (the last answers of each item): someone who learned an item stops paying for old mistakes.
+        val fracos = s.historico.filter { br.musica.marmotatuner.treino.taxaAtual(it) != null && !(it.chave.startsWith("afinacao:") && it.chave.substringAfter(":").toIntOrNull() != null) }.map { h ->
             val (grupo, id) = h.chave.split(":").let { (it.getOrNull(0) ?: "") to (it.getOrNull(1) ?: "") }
             val rotulo = nome(if (grupo == "achar" || grupo == "afinacao") "intervalos" else grupo, id)
-            Triple(h, "${T("grupos.$grupo")} · $rotulo", h.certo.toDouble() / h.total)
+            val janela = if (h.recentes.isNotEmpty()) br.musica.marmotatuner.treino.HistoricoItem(h.chave, h.recentes.count { it == '1' }, h.recentes.length) else h
+            Triple(janela, "${T("grupos.$grupo")} · $rotulo", janela.certo.toDouble() / janela.total)
         }.sortedWith(compareBy<Triple<br.musica.marmotatuner.treino.HistoricoItem, String, Double>> { it.third }.thenByDescending { it.first.total }).take(6)
         if (fracos.isEmpty()) {
             c.addView(context.texto(T("fracosVazio"), Papel.BODY, C.apagado))

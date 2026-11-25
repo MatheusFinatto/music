@@ -303,3 +303,15 @@
   .treino.voz.ativo > :is(.treino-topo, .treino-oque, .treino-ajustes) { display: none; }
   .treino-secoes:has(.treino.voz.ativo) > .treino-modo { display: none; }
 }
+
+/* Cartão "Hoje" (Hoje.tsx): os números de hoje à esquerda; à direita, 7 colunas de pixel (hoje em marfim, os outros apagados). */
+.treino-hoje { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+.treino-hoje-texto { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.treino-hoje p { margin: 0; }
+.treino-hoje-titulo { font-family: var(--font-pixel); font-size: 16px; line-height: 1; text-transform: uppercase; color: var(--muted); }
+.treino-hoje-num { font-size: var(--text-lg); font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink); }
+.treino-hoje-seq { font-size: var(--text-sm); color: var(--muted); font-variant-numeric: tabular-nums; }
+.treino-hoje-semana { display: flex; align-items: flex-end; gap: var(--px); height: calc(8 * var(--px)); margin: 0; padding: 0; list-style: none; flex: none; }
+.treino-hoje-semana li { width: calc(2 * var(--px)); height: max(var(--px), calc(var(--h) * var(--px))); background: var(--line); }
+.treino-hoje-semana li.zero { opacity: 0.5; }
+.treino-hoje-semana li.hoje { background: var(--ink); }

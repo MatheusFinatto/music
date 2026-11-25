@@ -80,8 +80,16 @@ describe("placar e histórico", () => {
   it("o histórico soma por item sem mexer no anterior", () => {
     const a = registrar({}, "intervalos:3m", true);
     const b = registrar(a, "intervalos:3m", false);
-    expect(a["intervalos:3m"]).toEqual({ certo: 1, total: 1 });
-    expect(b["intervalos:3m"]).toEqual({ certo: 1, total: 2 });
+    expect(a["intervalos:3m"]).toEqual({ certo: 1, total: 1, r: "1" });
+    expect(b["intervalos:3m"]).toEqual({ certo: 1, total: 2, r: "10" });
+  });
+  it("a janela guarda só as últimas respostas e é ela que pesa", () => {
+    let h = {};
+    for (let i = 0; i < 30; i++) h = registrar(h, "intervalos:3m", false);
+    for (let i = 0; i < 20; i++) h = registrar(h, "intervalos:3m", true);
+    const x = (h as Record<string, { certo: number; total: number; r?: string }>)["intervalos:3m"]!;
+    expect(x).toEqual({ certo: 20, total: 50, r: "1".repeat(20) });
+    expect(peso(h, "intervalos:3m")).toBe(1);
   });
 });
 

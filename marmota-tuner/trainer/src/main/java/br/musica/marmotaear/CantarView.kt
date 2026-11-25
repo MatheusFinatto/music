@@ -297,6 +297,7 @@ class CantarView(
         mudaFase(Fase.FEITO)
         aoResultado(chave, resumo)
         dados.anotarDuracao("musica", agora() - inicioTentativa)
+        dados.anotarDia("voz", resumo.ok, agora() - inicioTentativa)
         bloco?.aoResponder?.invoke(resumo.ok)
         performHapticFeedback(if (resumo.ok) HapticFeedbackConstants.CONFIRM else HapticFeedbackConstants.REJECT)
         render()

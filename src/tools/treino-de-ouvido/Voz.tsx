@@ -18,6 +18,7 @@ import { useInstrumento } from "./instrumento";
 import type { Marca } from "./Teclado";
 import type { ProgramaProp } from "./Programas";
 import { anotarDuracao } from "./ritmo";
+import { anotarDia } from "./diario";
 import { usePiano } from "./usePiano";
 import {
   ALCANCE_ZERO, atualizar, extensao, inicioDaRodada, medirAlcance, notasDoPadrao, SEGURANDO_ZERO, SEGURAR_LONGA_MS, SEGURAR_MS, SEGURAR_PASSO_MS,
@@ -182,6 +183,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     setResultado({ ok, media: n > 1 ? abs : media, oscilacao: oscilacao.current, passos: n, alvo: alvoFinal, ouvi: ultimoMidi.current });
     setPlacar((p) => ({ a: p.a + (ok ? 1 : 0), t: p.t + 1 }));
     if (!porTempo && atual.current.exercicio !== "alcance" && atual.current.exercicio !== "musica") anotarDuracao(atual.current.exercicio, agoraMs() - inicioTentativa.current);
+    if (atual.current.exercicio !== "alcance" && atual.current.exercicio !== "musica") anotarDia("voz", ok, agoraMs() - inicioTentativa.current);
     atual.current.programa?.aoResponder(ok);
   }, [fecharMic, piano]);
 

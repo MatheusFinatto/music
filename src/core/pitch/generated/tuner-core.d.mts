@@ -520,6 +520,35 @@ export declare namespace PianoNote.$metadata$ {
     const constructor: abstract new () => PianoNote;
 }
 export declare function mulberry32(seed: number): () => number;
+export declare class Dia {
+    constructor(data: string, secao: string, respostas: number, acertos: number, segundos: number);
+    get data(): string;
+    get secao(): string;
+    get respostas(): number;
+    get acertos(): number;
+    get segundos(): number;
+}
+/** @deprecated $metadata$ is used for internal purposes, please don't use it in your code, because it can be removed at any moment */
+export declare namespace Dia.$metadata$ {
+    const constructor: abstract new () => Dia;
+}
+export declare const DIAS_GUARDADOS: { get(): number; };
+export declare const TETO_RESPOSTA_S: { get(): number; };
+export declare function registrarDia(dias: Array<Dia>, data: string, secao: string, certo: boolean, segundos: number): Array<Dia>;
+export declare class ResumoDiario {
+    constructor(respostasHoje: number, acertosHoje: number, minutosHoje: number, semana: Int32Array, sequencia: number);
+    get respostasHoje(): number;
+    get acertosHoje(): number;
+    get minutosHoje(): number;
+    get semana(): Int32Array;
+    get sequencia(): number;
+}
+/** @deprecated $metadata$ is used for internal purposes, please don't use it in your code, because it can be removed at any moment */
+export declare namespace ResumoDiario.$metadata$ {
+    const constructor: abstract new () => ResumoDiario;
+}
+export declare function resumoDiario(dias: Array<Dia>, hoje: string, secao: string): ResumoDiario;
+export declare function numeroDoDia(data: string): number;
 export declare const EXERCICIOS: { get(): Array<string>; };
 export declare const HARMONIA: { get(): Array<string>; };
 export declare const MARGENS: { get(): Array<number>; };
@@ -578,15 +607,18 @@ export declare namespace PerguntaFuncional.$metadata$ {
     const constructor: abstract new () => PerguntaFuncional;
 }
 export declare class HistoricoItem {
-    constructor(chave: string, certo: number, total: number);
+    constructor(chave: string, certo: number, total: number, recentes?: string);
     get chave(): string;
     get certo(): number;
     get total(): number;
+    get recentes(): string;
 }
 /** @deprecated $metadata$ is used for internal purposes, please don't use it in your code, because it can be removed at any moment */
 export declare namespace HistoricoItem.$metadata$ {
     const constructor: abstract new () => HistoricoItem;
 }
+export declare const JANELA: { get(): number; };
+export declare function taxaAtual(x: HistoricoItem): Nullable<number>;
 export declare function registrar(h: Array<HistoricoItem>, chave: string, certo: boolean): Array<HistoricoItem>;
 export declare function peso(h: Array<HistoricoItem>, chave: string): number;
 export declare function perguntaAfinacao(cfg: ConfigClassica, rng: () => number, historico?: Nullable<Array<HistoricoItem>>): PerguntaClassica;

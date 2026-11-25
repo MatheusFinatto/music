@@ -11,6 +11,8 @@ import {
 } from "./engine";
 import { Programa, type ProgramaProp } from "./Programas";
 import { anotarDuracao } from "./ritmo";
+import { anotarDia } from "./diario";
+import { taxaAtual } from "@/core/treino";
 import { Regua } from "./Regua";
 import { Instrumento } from "./Instrumento";
 import { useInstrumento } from "./instrumento";
@@ -138,6 +140,7 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
     if (!q) return;
     setEscolha(id);
     anotarDuracao(exercicioDaVez, agoraMs() - inicioPergunta.current);
+    anotarDia("ouvido", certo, agoraMs() - inicioPergunta.current);
     programa?.aoResponder(certo);
     setPlacar((p) => somar(p, certo));
     store.set((x) => ({ ...x, historico: registrar(x.historico, q.p.chave, certo) }));
@@ -205,11 +208,13 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
   // Pontos fracos: os itens com menor taxa de acerto (com ao menos duas respostas), do pior para o melhor.
   const fracos = Object.entries(s.historico)
     // "afinacao:30" (pela margem) é a chave antiga, de antes do intervalo: não aparece.
-    .filter(([chave, v]) => v && v.total >= 2 && !/^afinacao:\d+$/.test(chave) && !chave.startsWith("graus:"))
+    // Vale a janela recente (as últimas respostas de cada item): quem aprendeu um item para de pagar pelos erros antigos.
+    .filter(([chave, v]) => v && taxaAtual(v) !== null && !/^afinacao:\d+$/.test(chave) && !chave.startsWith("graus:"))
     .map(([chave, v]) => {
       const [grupo = "", id = ""] = chave.split(":");
       const rotulo = nome(grupo === "achar" || grupo === "afinacao" ? "intervalos" : grupo, id);
-      return { chave, certo: v.certo, total: v.total, nome: `${t(`grupos.${grupo}` as "grupos.graus")} · ${rotulo}` };
+      const certo = v.r ? [...v.r].filter((c) => c === "1").length : v.certo, total = v.r ? v.r.length : v.total;
+      return { chave, certo, total, nome: `${t(`grupos.${grupo}` as "grupos.graus")} · ${rotulo}` };
     })
     .sort((a, b) => a.certo / a.total - b.certo / b.total || b.total - a.total)
     .slice(0, 6);

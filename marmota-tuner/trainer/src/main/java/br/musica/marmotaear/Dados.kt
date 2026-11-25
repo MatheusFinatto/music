@@ -19,6 +19,9 @@ import br.musica.marmotatuner.treino.MINUTOS_PADRAO
 import br.musica.marmotatuner.treino.TETO_S
 import br.musica.marmotatuner.treino.focosDe
 import br.musica.marmotatuner.treino.registrarDuracao
+import br.musica.marmotatuner.treino.Dia
+import br.musica.marmotatuner.treino.JANELA
+import br.musica.marmotatuner.treino.registrarDia
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -78,7 +81,7 @@ class Dados(ctx: Context) {
         val h = s.optJSONObject("historico") ?: JSONObject()
         val hist = h.keys().asSequence().mapNotNull { k ->
             val x = h.optJSONObject(k) ?: return@mapNotNull null
-            HistoricoItem(k, x.optInt("certo"), x.optInt("total"))
+            HistoricoItem(k, x.optInt("certo"), x.optInt("total"), x.optString("r", "").filter { it == '0' || it == '1' }.takeLast(JANELA))
         }.toList().toTypedArray()
         return Ouvido(
             exercicio = c.optString("exercicio").takeIf { it in EXERCICIOS } ?: "intervalos",
@@ -95,7 +98,7 @@ class Dados(ctx: Context) {
         val itens = JSONObject()
         o.itens.forEach { (k, v) -> itens.put(k, JSONArray(v)) }
         val h = JSONObject()
-        o.historico.forEach { h.put(it.chave, JSONObject().put("certo", it.certo).put("total", it.total)) }
+        o.historico.forEach { h.put(it.chave, JSONObject().put("certo", it.certo).put("total", it.total).apply { if (it.recentes.isNotEmpty()) put("r", it.recentes) }) }
         gravar("treino-de-ouvido", JSONObject()
             .put("version", 1).put("modo", "classico")
             .put("classica", JSONObject().put("exercicio", o.exercicio).put("itens", itens).put("direcao", o.direcao).put("margem", o.margem).put("tonica", o.tonica))
@@ -208,6 +211,29 @@ class Dados(ctx: Context) {
         r.d = registrarDuracao(r.d, exercicio, ms)
         salvar(r)
     }
+
+    // ---------------------------------------------------------------- practice log (musica:treino-diario)
+    /** The days logged (Diario.kt): answers, right answers and seconds per day and section, as the website keeps them. */
+    fun dias(): Array<Dia> {
+        val a = ler("treino-diario")?.optJSONArray("dias") ?: return emptyArray()
+        return (0 until a.length()).mapNotNull { i ->
+            val x = a.optJSONObject(i) ?: return@mapNotNull null
+            val data = x.optString("data"); val secao = x.optString("secao")
+            if (!Regex("""\d{4}-\d{2}-\d{2}""").matches(data) || secao !in listOf("ouvido", "voz")) return@mapNotNull null
+            Dia(data, secao, x.optInt("respostas").coerceAtLeast(0), x.optInt("acertos").coerceAtLeast(0), x.optDouble("segundos", 0.0).takeIf { it.isFinite() && it >= 0 } ?: 0.0)
+        }.toTypedArray()
+    }
+
+    /** One more answer (ear) or attempt (voice) today, with how long it took. */
+    fun anotarDia(secao: String, certo: Boolean, ms: Double) {
+        val dias = registrarDia(dias(), hoje(), secao, certo, ms / 1000)
+        val a = JSONArray()
+        dias.forEach { a.put(JSONObject().put("data", it.data).put("secao", it.secao).put("respostas", it.respostas).put("acertos", it.acertos).put("segundos", it.segundos)) }
+        gravar("treino-diario", JSONObject().put("version", 1).put("dias", a))
+    }
+
+    /** Today in the local calendar, "YYYY-MM-DD". */
+    fun hoje(): String = java.time.LocalDate.now().toString()
 
     // ---------------------------------------------------------------- helpers
     fun ler(chave: String): JSONObject? = prefs.getString("musica:$chave", null)?.let { runCatching { JSONObject(it) }.getOrNull() }

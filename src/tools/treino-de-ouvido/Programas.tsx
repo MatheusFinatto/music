@@ -1,5 +1,6 @@
 "use client";
 import { onRadioKeyDown } from "@/core/ui/radioGroup";
+import { Hoje } from "./Hoje";
 import { useState, useSyncExternalStore, type ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import {
@@ -120,6 +121,7 @@ export function Programa({ secao, livre, bloco }: { secao: Secao; livre: ReactNo
       )}
       {modo === "programa" && !fim && (
         <section className="treino treino-programas" aria-label={t("programas.titulo")}>
+          <Hoje secao={secao} />
           <div className="treino-exs" role="radiogroup" aria-label={t("programas.foco")} onKeyDown={onRadioKeyDown}>
             <div className="treino-exs-linha" role="presentation">
               <span className="treino-exs-nome" aria-hidden="true">{t("programas.foco")}</span>
