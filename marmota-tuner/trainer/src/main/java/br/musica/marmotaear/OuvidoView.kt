@@ -42,7 +42,7 @@ class Bloco(
 )
 
 /** Exercises grouped as on the site: notes, then harmony. */
-private val GRUPOS = listOf("notas" to listOf("intervalos", "acordes", "afinacao", "achar"), "harmonia" to listOf("campo", "cadencias", "progressoes"))
+private val GRUPOS = listOf("notas" to listOf("intervalos", "acordes", "afinacao", "achar", "eco"), "harmonia" to listOf("campo", "cadencias", "progressoes"))
 
 /**
  * Ear training: listen, pick the answer and see on the keyboard (or neck) what was played. The same flow as the site's
@@ -69,6 +69,9 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
     private val afinacao get() = exercicio == "afinacao"
     private val harmonia get() = exercicio in HARMONIA
     private val achar get() = exercicio == "achar"
+    private val ecoEx get() = exercicio == "eco"
+    /** Eco: the notes played after the first one (which comes marked). */
+    private val eco = mutableListOf<Int>()
     private val respondida get() = q != null && escolha != null
 
     // Persistent pieces (the instrument keeps its scroll; the rest is refilled on every change).
@@ -84,6 +87,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
     private val caixaInstrumento = FrameLayout(context)
     private var instrumento: Instrumento = criarInstrumento()
     private val responderAchar = context.botao(T("responder"), Estilo.CHEIO, alto = true) { confirmar() }
+    private val apagarEco = context.botao(T("ecoApagar"), Estilo.TONAL) { if (eco.isNotEmpty()) { eco.removeAt(eco.size - 1); render() } }
     private val revela = context.coluna(14)
     private val estado = context.texto("", Papel.BODY_SMALL, C.apagado).apply { accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_POLITE }
 
@@ -107,6 +111,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
         palco.addView(respostas, lp().margens(t = dp(4), b = dp(20)))
         palco.addView(caixaInstrumento, lp())
         palco.addView(responderAchar, lp().margens(t = dp(16)))
+        palco.addView(apagarEco, lp().margens(t = dp(16)))
         palco.addView(revela, lp().margens(t = dp(20)))
         addView(palco, lp())
         caixaInstrumento.addView(instrumento.vista)
@@ -173,6 +178,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
         escolha = null
         intervaloDito = null
         selecionada = null
+        eco.clear()
         inicioPergunta = SystemClock.elapsedRealtime()
         tocar(p.notas)
         render()
@@ -228,6 +234,17 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
         teclaTocando = midi
         main.postDelayed({ if (teclaTocando == midi) { teclaTocando = null; render() } }, 1300)
         if (achar && q != null && escolha == null) selecionada = midi
+        // Eco: each key joins the sequence; when the melody is complete, it is checked.
+        val p = q
+        if (ecoEx && p != null && escolha == null) {
+            val melodia = p.reveal ?: emptyArray()
+            eco.add(midi)
+            if (eco.size >= melodia.size - 1) {
+                val certo = eco.withIndex().all { (i, m) -> m == melodia[i + 1] }
+                finalizar(if (certo) p.resposta else "errado", certo)
+                return
+            }
+        }
         render()
     }
 
@@ -267,7 +284,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
 
     private fun textoPergunta() = when {
         q == null -> T("perguntaInicial")
-        harmonia || achar -> T("pergunta_$exercicio")
+        harmonia || achar || ecoEx -> T("pergunta_$exercicio")
         exercicio == "acordes" -> T("perguntaAcordes")
         afinacao -> T("perguntaAfinacao")
         else -> T("perguntaIntervalos")
@@ -275,7 +292,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
 
     private fun textoDica() = when {
         afinacao -> T("dicaAfinacao", "margem" to config().margem)
-        harmonia || achar -> T("dica_$exercicio")
+        harmonia || achar || ecoEx -> T("dica_$exercicio")
         exercicio == "acordes" -> T("dicaAcordes")
         else -> T("dicaIntervalos")
     }
@@ -295,6 +312,8 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
                 val c = if (cents == 0) T("exatamenteAfinado") else T(if (cents > 0) "centsAcima" else "centsAbaixo", "n" to abs(cents))
                 "$c · ${intervalo?.let { nome("intervalos", it.id) } ?: ""} · ${tocadas.joinToString(juntar) { nomeNota(it) }}"
             }
+            p.chave.startsWith("eco") -> if (escolha == p.resposta) tocadas.joinToString(" → ") { nomeNota(it) }
+                else T("ecoTocou", "notas" to (listOf(tocadas[0]) + eco).joinToString(" → ") { nomeNota(it) })
             p.chave.startsWith("intervalos") || p.chave.startsWith("achar") ->
                 "${T("semitons", "n" to abs(tocadas[0] - tocadas[1]))} · ${tocadas.joinToString(juntar) { nomeNota(it) }}"
             else -> tocadas.joinToString(" · ") { nomeNota(it) }
@@ -339,7 +358,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
         // Answers: tuning answers flat/in tune/sharp; "achar" answers on the instrument.
         val grupoChips = exercicio
         val lista: List<String> = when {
-            achar -> emptyList()
+            achar || ecoEx -> emptyList()
             afinacao -> RESPOSTAS_AFINACAO.toList()
             else -> config().itens.toList()
         }
@@ -370,11 +389,13 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
         val marcas = LinkedHashMap<Int, Marca>()
         if (p != null && !respondida && achar) p.dada?.let { marcas[it] = Marca.DADA }
         if (achar && !respondida) selecionada?.let { marcas[it] = Marca.SEL }
+        if (ecoEx && p != null && !respondida) { p.dada?.let { marcas[it] = Marca.DADA }; eco.forEach { marcas[it] = Marca.SEL } }
         val acertou = respondida && escolha == p?.resposta && (p?.intervalo == null || intervaloDito == p.intervalo)
         if (respondida && p != null) {
             val revelar = p.reveal?.toList() ?: if (harmonia) emptyList() else p.notas.map { it.midi }
             revelar.forEach { marcas[it] = Marca.ALVO }
             if (achar && !acertou) selecionada?.let { marcas[it] = Marca.ERRADA }
+            if (ecoEx) eco.forEach { if (it !in revelar) marcas[it] = Marca.ERRADA }
         }
         teclaTocando?.let { marcas[it] = Marca.TOCA }
         val acordeAlvo = if (respondida && p != null && (exercicio == "acordes" || exercicio == "campo")) (p.reveal ?: p.notas.map { it.midi }.toTypedArray()) else null
@@ -383,6 +404,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
 
         responderAchar.visibility = if (achar && p != null && !respondida) VISIBLE else GONE
         responderAchar.ativo(selecionada != null && !carregando)
+        apagarEco.visibility = if (ecoEx && p != null && !respondida && eco.isNotEmpty()) VISIBLE else GONE
 
         // Reveal.
         revela.removeAllViews()
@@ -391,6 +413,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
             val resultado = when {
                 acertou -> T("certo")
                 achar -> T("errado", "resposta" to nomeNota(p.alvo!!))
+                ecoEx -> T("ecoErrado", "melodia" to (p.reveal ?: emptyArray()).joinToString(" → ") { nomeNota(it) })
                 p.intervalo != null -> T("afinacaoErrado", "intervalo" to nome("intervalos", p.intervalo!!), "sentido" to nome("afinacao", p.resposta).lowercase())
                 else -> T("errado", "resposta" to nomeCompleto(grupoChips, p.resposta))
             }

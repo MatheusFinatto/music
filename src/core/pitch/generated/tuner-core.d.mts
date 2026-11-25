@@ -550,6 +550,7 @@ export declare namespace ResumoDiario.$metadata$ {
 export declare function resumoDiario(dias: Array<Dia>, hoje: string, secao: string): ResumoDiario;
 export declare function numeroDoDia(data: string): number;
 export declare const EXERCICIOS: { get(): Array<string>; };
+export declare const TAMANHOS_ECO: { get(): Array<string>; };
 export declare const HARMONIA: { get(): Array<string>; };
 export declare const MARGENS: { get(): Array<number>; };
 export declare const RESPOSTAS_AFINACAO: { get(): Array<string>; };
@@ -627,6 +628,7 @@ export declare function nomeAcorde(tonica: number, grau: string): string;
 export declare function perguntaHarmonia(cfg: ConfigClassica, rng: () => number, historico: Nullable<Array<HistoricoItem>>): PerguntaClassica;
 export declare function compararAfinacao(notas: Array<PianoNote>): Array<PianoNote>;
 export declare function perguntaAchar(cfg: ConfigClassica, rng: () => number, historico: Nullable<Array<HistoricoItem>>): PerguntaClassica;
+export declare function perguntaEco(cfg: ConfigClassica, rng: () => number, historico: Nullable<Array<HistoricoItem>>): PerguntaClassica;
 export declare function perguntaClassica(cfg: ConfigClassica, rng: () => number, historico: Nullable<Array<HistoricoItem>>): PerguntaClassica;
 export declare function cadencia(tonica: number): Array<PianoNote>;
 export declare function perguntaFuncional(cfg: ConfigFuncional, rng: () => number, historico: Nullable<Array<HistoricoItem>>): PerguntaFuncional;

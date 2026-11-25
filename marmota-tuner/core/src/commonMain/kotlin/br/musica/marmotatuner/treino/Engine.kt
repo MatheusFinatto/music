@@ -11,7 +11,9 @@ import kotlin.math.max
 // for the piano to play. Every call to rng() happens in the same order as in the website's former engine.ts, so a seeded
 // generator gives the same questions on both sides (TreinoParidadeTest checks it).
 
-val EXERCICIOS: Array<String> = arrayOf("intervalos", "acordes", "afinacao", "achar", "campo", "cadencias", "progressoes")
+val EXERCICIOS: Array<String> = arrayOf("intervalos", "acordes", "afinacao", "achar", "eco", "campo", "cadencias", "progressoes")
+/** Melodic echo: how many notes the melody has (the items of "eco"). */
+val TAMANHOS_ECO: Array<String> = arrayOf("3", "4", "5")
 /** The harmony exercises: chords inside a major key. */
 val HARMONIA: Array<String> = arrayOf("campo", "cadencias", "progressoes")
 /** Tuning margin, in cents: from obvious to fine. */
@@ -211,7 +213,33 @@ fun perguntaAchar(cfg: ConfigClassica, rng: Rng, historico: Array<HistoricoItem>
     return PerguntaClassica("achar:${i.id}", i.id, notas, dada = base, alvo = alvo)
 }
 
+/** C major, as pitch classes: the echo melodies walk on it. */
+private val DO_MAIOR = intArrayOf(0, 2, 4, 5, 7, 9, 11)
+
+/**
+ * Melodic echo: a short melody in C major (3 to 5 notes, steps of one to three scale degrees up or down, no repeated note) plays;
+ * the first note is marked and the person plays the rest on the instrument, in order. [PerguntaClassica.resposta] is the melody
+ * as MIDI numbers joined by "-"; [reveal] the whole melody; [dada] the first note.
+ */
+fun perguntaEco(cfg: ConfigClassica, rng: Rng, historico: Array<HistoricoItem>?): PerguntaClassica {
+    val n = sortearComPeso(piscina(TAMANHOS_ECO.toList().toTypedArray(), cfg.itens) { it }, { "eco:$it" }, historico, rng).toInt()
+    // Scale degrees counted from C4 = 0 (C4 D4 E4 … C5 = 7); the melody stays between G3 (-3) and E5 (9).
+    val grau = { g: Int -> 60 + 12 * floor(g / 7.0).toInt() + DO_MAIOR[((g % 7) + 7) % 7] }
+    var g = inteiro(rng, 0, 6)
+    val graus = mutableListOf(g)
+    while (graus.size < n) {
+        val passo = sortear(listOf(-3, -2, -1, 1, 2, 3, -1, 1), rng) // the small steps twice as likely
+        val prox = (g + passo).let { if (it < -3 || it > 9) g - passo else it }
+        g = prox
+        graus += g
+    }
+    val midis = graus.map(grau)
+    val notas = midis.mapIndexed { k, m -> PianoNote(m, k * 0.6, 0.55) }.toTypedArray()
+    return PerguntaClassica("eco:$n", midis.joinToString("-"), notas, reveal = midis.toTypedArray(), dada = midis[0])
+}
+
 fun perguntaClassica(cfg: ConfigClassica, rng: Rng, historico: Array<HistoricoItem>?): PerguntaClassica {
+    if (cfg.exercicio == "eco") return perguntaEco(cfg, rng, historico)
     if (cfg.exercicio == "afinacao") return perguntaAfinacao(cfg, rng, historico)
     if (cfg.exercicio == "achar") return perguntaAchar(cfg, rng, historico)
     if (cfg.exercicio in HARMONIA) return perguntaHarmonia(cfg, rng, historico)

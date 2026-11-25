@@ -48,7 +48,7 @@ export const musicaDe = (id: string): Musica => MUSICAS.find((m) => m.id === id)
 /** Gerador com semente (para testes), igual bit a bit ao do Kotlin. */
 export const mulberry32 = (seed: number): Rng => K.mulberry32(seed | 0);
 
-export type Exercicio = "intervalos" | "acordes" | "afinacao" | "achar" | "campo" | "cadencias" | "progressoes";
+export type Exercicio = "intervalos" | "acordes" | "afinacao" | "achar" | "eco" | "campo" | "cadencias" | "progressoes";
 export type Direcao = "asc" | "desc" | "harm" | "misto";
 export const EXERCICIOS = arr(K.EXERCICIOS) as readonly Exercicio[];
 /** Os exercícios de harmonia: acordes dentro de um tom maior. */
@@ -66,6 +66,8 @@ export const IDS: Record<Exercicio | "graus", readonly string[]> = {
   afinacao: INTERVALOS.map((i) => i.id),
   /** No "achar", os itens também são os intervalos que entram. */
   achar: INTERVALOS.map((i) => i.id),
+  /** No eco, os itens são os tamanhos da melodia (3, 4 ou 5 notas). */
+  eco: arr(K.TAMANHOS_ECO),
   graus: GRAUS.map((g) => g.id),
   campo: CAMPO.map((c) => c.id),
   cadencias: CADENCIAS.map((c) => c.id),
@@ -77,7 +79,7 @@ export type ConfigFuncional = { tonica: "do" | "sorteada"; graus: string[] };
 
 export const CLASSICA_INICIAL: ConfigClassica = {
   exercicio: "intervalos",
-  itens: { intervalos: ["3m", "3M", "4J", "5J", "8J"], acordes: ["maior", "menor"], afinacao: ["3M", "5J", "8J"], achar: ["3m", "3M", "5J"],
+  itens: { intervalos: ["3m", "3M", "4J", "5J", "8J"], acordes: ["maior", "menor"], afinacao: ["3M", "5J", "8J"], achar: ["3m", "3M", "5J"], eco: ["3", "4"],
     campo: ["I", "IV", "V", "vi"], cadencias: ["autentica", "plagal", "deceptiva", "meia"], progressoes: ["I-IV-V-I", "I-V-vi-IV", "vi-IV-I-V"] },
   direcao: "asc",
   margem: 30,

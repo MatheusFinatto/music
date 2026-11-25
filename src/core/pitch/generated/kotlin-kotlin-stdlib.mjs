@@ -37,11 +37,6 @@ if (typeof Array.prototype.fill === 'undefined') {
     Object.defineProperty(TypedArray.prototype, 'fill', {value: Array.prototype.fill});
   }
 });
-if (typeof Math.log2 === 'undefined') {
-  Math.log2 = function (x) {
-    return Math.log(x) * Math.LOG2E;
-  };
-}
 if (typeof Math.clz32 === 'undefined') {
   Math.clz32 = function (log, LN2) {
     return function (x) {
@@ -56,6 +51,11 @@ if (typeof Math.clz32 === 'undefined') {
 if (typeof Math.log10 === 'undefined') {
   Math.log10 = function (x) {
     return Math.log(x) * Math.LOG10E;
+  };
+}
+if (typeof Math.log2 === 'undefined') {
+  Math.log2 = function (x) {
+    return Math.log(x) * Math.LOG2E;
   };
 }
 //endregion
@@ -91,13 +91,13 @@ initMetadataForClass(AbstractCollection, 'AbstractCollection', VOID, VOID, [Coll
 initMetadataForClass(AbstractMutableCollection, 'AbstractMutableCollection', VOID, AbstractCollection, [AbstractCollection, Collection]);
 initMetadataForClass(IteratorImpl, 'IteratorImpl');
 initMetadataForClass(ListIteratorImpl, 'ListIteratorImpl', VOID, IteratorImpl);
-initMetadataForClass(AbstractMutableList, 'AbstractMutableList', VOID, AbstractMutableCollection, [AbstractMutableCollection, KtList_0, Collection]);
+initMetadataForClass(AbstractMutableList, 'AbstractMutableList', VOID, AbstractMutableCollection, [AbstractMutableCollection, Collection, KtList_0]);
 initMetadataForClass(SubList, 'SubList', VOID, AbstractMutableList);
 initMetadataForClass(AbstractMap, 'AbstractMap', VOID, VOID, [KtMap]);
 initMetadataForClass(AbstractMutableMap, 'AbstractMutableMap', VOID, AbstractMap, [AbstractMap, KtMap]);
 initMetadataForClass(AbstractMutableSet, 'AbstractMutableSet', VOID, AbstractMutableCollection, [AbstractMutableCollection, KtSet, Collection]);
 initMetadataForCompanion(Companion_1);
-initMetadataForClass(ArrayList, 'ArrayList', ArrayList_init_$Create$, AbstractMutableList, [AbstractMutableList, KtList_0, Collection]);
+initMetadataForClass(ArrayList, 'ArrayList', ArrayList_init_$Create$, AbstractMutableList, [AbstractMutableList, Collection, KtList_0]);
 initMetadataForClass(HashMap, 'HashMap', HashMap_init_$Create$, AbstractMutableMap, [AbstractMutableMap, KtMap]);
 initMetadataForClass(HashMapKeys, 'HashMapKeys', VOID, AbstractMutableSet, [KtSet, Collection, AbstractMutableSet]);
 initMetadataForClass(HashMapEntrySetBase, 'HashMapEntrySetBase', VOID, AbstractMutableSet, [KtSet, Collection, AbstractMutableSet]);
@@ -157,6 +157,7 @@ initMetadataForClass(UnsupportedOperationException, 'UnsupportedOperationExcepti
 initMetadataForClass(NoSuchElementException, 'NoSuchElementException', NoSuchElementException_init_$Create$, RuntimeException);
 initMetadataForClass(IndexOutOfBoundsException, 'IndexOutOfBoundsException', IndexOutOfBoundsException_init_$Create$, RuntimeException);
 initMetadataForClass(ArithmeticException, 'ArithmeticException', ArithmeticException_init_$Create$, RuntimeException);
+initMetadataForClass(NumberFormatException, 'NumberFormatException', NumberFormatException_init_$Create$, IllegalArgumentException);
 initMetadataForClass(ConcurrentModificationException, 'ConcurrentModificationException', ConcurrentModificationException_init_$Create$, RuntimeException);
 initMetadataForClass(NullPointerException, 'NullPointerException', NullPointerException_init_$Create$, RuntimeException);
 initMetadataForClass(ClassCastException, 'ClassCastException', ClassCastException_init_$Create$, RuntimeException);
@@ -3475,6 +3476,29 @@ function ArithmeticException_init_$Create$_0(message) {
 function ArithmeticException() {
   captureStack(this, ArithmeticException);
 }
+function NumberFormatException_init_$Init$($this) {
+  IllegalArgumentException_init_$Init$($this);
+  NumberFormatException.call($this);
+  return $this;
+}
+function NumberFormatException_init_$Create$() {
+  var tmp = NumberFormatException_init_$Init$(objectCreate(protoOf(NumberFormatException)));
+  captureStack(tmp, NumberFormatException_init_$Create$);
+  return tmp;
+}
+function NumberFormatException_init_$Init$_0(message, $this) {
+  IllegalArgumentException_init_$Init$_0(message, $this);
+  NumberFormatException.call($this);
+  return $this;
+}
+function NumberFormatException_init_$Create$_0(message) {
+  var tmp = NumberFormatException_init_$Init$_0(message, objectCreate(protoOf(NumberFormatException)));
+  captureStack(tmp, NumberFormatException_init_$Create$_0);
+  return tmp;
+}
+function NumberFormatException() {
+  captureStack(this, NumberFormatException);
+}
 function ConcurrentModificationException_init_$Init$($this) {
   RuntimeException_init_$Init$($this);
   ConcurrentModificationException.call($this);
@@ -3675,6 +3699,16 @@ function checkRadix(radix) {
     throw IllegalArgumentException_init_$Create$_0('radix ' + radix + ' was not in valid range 2..36');
   }
   return radix;
+}
+function toInt(_this__u8e3s4) {
+  var tmp0_elvis_lhs = toIntOrNull(_this__u8e3s4);
+  var tmp;
+  if (tmp0_elvis_lhs == null) {
+    numberFormatError(_this__u8e3s4);
+  } else {
+    tmp = tmp0_elvis_lhs;
+  }
+  return tmp;
 }
 function digitOf(char, radix) {
   // Inline function 'kotlin.let' call
@@ -4482,6 +4516,18 @@ function collectionToArrayCommonImpl(collection) {
 function listOf_0(elements) {
   return elements.length > 0 ? asList(elements) : emptyList();
 }
+function mutableListOf(elements) {
+  var tmp;
+  if (elements.length === 0) {
+    tmp = ArrayList_init_$Create$();
+  } else {
+    // Inline function 'kotlin.collections.asArrayList' call
+    // Inline function 'kotlin.js.unsafeCast' call
+    // Inline function 'kotlin.js.asDynamic' call
+    tmp = new ArrayList(elements);
+  }
+  return tmp;
+}
 function emptyList() {
   return EmptyList_getInstance();
 }
@@ -5126,6 +5172,9 @@ function toIntOrNull_0(_this__u8e3s4, radix) {
      while (inductionVariable < length);
   return isNegative ? result : -result | 0;
 }
+function numberFormatError(input) {
+  throw NumberFormatException_init_$Create$_0("Invalid number format: '" + input + "'");
+}
 function split(_this__u8e3s4, delimiters, ignoreCase, limit) {
   ignoreCase = ignoreCase === VOID ? false : ignoreCase;
   limit = limit === VOID ? 0 : limit;
@@ -5504,6 +5553,7 @@ export {
   Collection as Collection1k04j3hzsbod0,
   addAll as addAll1k27qatfgp3k5,
   arrayCopy as arrayCopytctsywo3h7gj,
+  checkIndexOverflow as checkIndexOverflow3frtmheghr0th,
   collectionSizeOrDefault as collectionSizeOrDefault36dulx8yinfqm,
   contains as contains1tccixv8iwdcq,
   copyToArray as copyToArray2j022khrow2yi,
@@ -5513,6 +5563,7 @@ export {
   getOrNull as getOrNull1d60i0672n7ns,
   getOrNull_0 as getOrNull1go7ef9ldk0df,
   getValue as getValue48kllevslyh6,
+  joinToString_0 as joinToString1cxrrlmo0chqs,
   get_lastIndex as get_lastIndexx0qsydpfv3mu,
   last as last1vo29oleiqj36,
   listOf as listOfvhqybd2zx248,
@@ -5523,6 +5574,7 @@ export {
   max_0 as max2o8z1isrnjymo,
   min as miny9ry5d0y0n2x,
   min_0 as minjeab1ybpajdx,
+  mutableListOf as mutableListOf6oorvk2mtdmp,
   plus_1 as plus27p1csfyhycs6,
   plus as plus310ted5e4i90h,
   plus_0 as plus20p0vtfmu0596,
@@ -5563,6 +5615,7 @@ export {
   split as split2bvyvnrlcifjv,
   takeLast_0 as takeLast2r8kr8e6g6hi7,
   toIntOrNull as toIntOrNull3w2d066r9pvwm,
+  toInt as toInt2q8uldh7sc951,
   Comparator as Comparator2b3maoeh98xtg,
   Long as Long2qws0ah9gnpki,
   THROW_CCE as THROW_CCE2g6jy02ryeudk,

@@ -193,7 +193,8 @@
       "campo": "Graus do campo",
       "cadencias": "Cadências",
       "progressoes": "Progressões",
-      "achar": "Achar"
+      "achar": "Achar",
+      "eco": "Eco"
     },
     "direcao": "Direção",
     "direcoes": {
@@ -227,6 +228,11 @@
     "info": "Como funciona",
     "fechar": "Fechar",
     "nomes": {
+      "eco": {
+        "3": "3 notas",
+        "4": "4 notas",
+        "5": "5 notas"
+      },
       "intervalos": {
         "2m": "2ª menor",
         "2M": "2ª maior",
@@ -327,7 +333,8 @@
       "campo": "Graus do campo",
       "cadencias": "Cadências",
       "progressoes": "Progressões",
-      "achar": "Achar"
+      "achar": "Achar",
+      "eco": "Eco"
     },
     "pergunta_campo": "Que acorde do tom é este?",
     "pergunta_cadencias": "Que cadência é esta?",
@@ -342,6 +349,11 @@
     "pergunta_achar": "Ache a segunda nota",
     "dica_achar": "A primeira nota está marcada. Toque as teclas para ouvir e compare de ouvido; quando achar, responda.",
     "responder": "Responder",
+    "pergunta_eco": "Toque a melodia",
+    "dica_eco": "Uma melodia curta em Dó maior. A primeira nota está marcada: toque as outras no teclado ou no braço, na ordem. Errou uma? Apague a última.",
+    "ecoErrado": "Era: {melodia}.",
+    "ecoTocou": "Você tocou {notas}",
+    "ecoApagar": "Apagar a última",
     "voz": {
       "titulo": "Treino de voz",
       "exercicios": {

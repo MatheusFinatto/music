@@ -61,7 +61,7 @@ fun programaDe(secao: String, foco: String, minutos: Int): Array<Bloco> {
 private val MEDIANAS_INICIAIS = mapOf(
     "intervalos" to 10.0, "acordes" to 10.0, "afinacao" to 14.0, "achar" to 25.0, "campo" to 15.0, "cadencias" to 16.0,
     "progressoes" to 20.0, "igualar" to 14.0, "longa" to 14.0, "sequencia" to 25.0, "tonica" to 20.0, "intervalo" to 18.0,
-    "musica" to 22.0,
+    "musica" to 22.0, "eco" to 20.0,
 )
 
 /** Every exercise that can be in a program, ear and voice. */
