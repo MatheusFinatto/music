@@ -1,6 +1,6 @@
 import groovy.json.JsonSlurper
 
-// Marmota Ear & Voice: the website's ear and voice training (/treino-de-ouvido, /treino-de-voz) as an Android app.
+// Marmota Trainer: the website's ear and voice training (/treino-de-ouvido, /treino-de-voz) as an Android app.
 // The logic is :core (package treino), the same Kotlin the website runs compiled to JS. Screens are Android Views built in code,
 // like :app (no AndroidX). The piano samples and the interface texts come from the website at build time, so nothing is copied.
 plugins {
@@ -15,8 +15,8 @@ android {
         applicationId = "br.musica.marmotaear"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.0.1"
     }
 
     // Same release key as the tuner (~/.gradle/gradle.properties); without it, release builds come out unsigned.
