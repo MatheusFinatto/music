@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { Info } from "@/components/Info";
 import { MicError, openMic, type Mic, type MicProblem, type PianoNote } from "@/core/audio";
 import { CHUNK_SAMPLES, PitchPipeline, PitchSmoother } from "@/core/pitch";
 import { acertoDaNota, duracaoDe, janelas, resumir, tonicaParaCaber, type Acerto, type Amostra, type Janela, type Resumo } from "./cantar";
@@ -280,7 +281,13 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
         )}
       </div>}
 
-      {musica.confianca !== "alta" && <p className="cantar-dica cantar-conferir">{t(musica.confianca === "baixa" ? "voz.musica.conferirBaixa" : "voz.musica.conferirMedia")}</p>}
+      <div className="cantar-info">
+        <Info label={t("info")} title={t("info")} close={t("fechar")} items={[
+          t("voz.musica.dica"), t("voz.fone"),
+          musica.confianca === "alta" ? "" : t(musica.confianca === "baixa" ? "voz.musica.conferirBaixa" : "voz.musica.conferirMedia"),
+          t("voz.privado"), t("voz.atalhos"), t("creditos"),
+        ]} />
+      </div>
 
       <div className="cantar-pista" ref={caixa} role="img" aria-label={t("voz.musica.pista")}>
         <canvas ref={tela} aria-hidden="true" />
@@ -317,7 +324,6 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
         {!rodando && !programa && <button type="button" className="treino-btn" onClick={() => void ouvir()} disabled={carregando}>{t(inteira ? "voz.musica.ouvirInteira" : "voz.musica.ouvir")}</button>}
         {rodando && <button type="button" className="go treino-proxima" onClick={parar}>{t("voz.parar")}</button>}
       </div>
-      {!rodando && !final && <p className="cantar-dica">{t("voz.musica.dica")} {t("voz.fone")}</p>}
     </div>
   );
 }

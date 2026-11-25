@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { getAudio, loadPiano, PIANO_SAMPLES, playPiano, resumeAudio, stopPiano, type PianoNote } from "@/core/audio";
 import { createStore } from "@/core/storage";
+import { Info } from "@/components/Info";
 import {
   CLASSICA_INICIAL, compararAfinacao, DIRECOES, EXERCICIOS, FUNCIONAL_INICIAL, HARMONIA, IDS, INTERVALOS, MARGENS, nomeAcorde, nomeNota, nomeTom, PLACAR_ZERO, RESPOSTAS_AFINACAO, perguntaClassica, perguntaFuncional, registrar, somar,
   type ConfigClassica, type ConfigFuncional, type Direcao, type Exercicio, type Historico, type PerguntaClassica, type PerguntaFuncional,
@@ -312,8 +313,8 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
           </button>
           <div className="treino-pergunta">
             <h2 ref={titulo} tabIndex={-1}>{pergunta}</h2>
-            <p>{dica}</p>
           </div>
+          <Info label={t("info")} title={t("info")} close={t("fechar")} items={[dica, t("atalhos"), t("creditos")]} />
         </div>
         {q?.modo === "funcional" && (
           <div className="treino-ouvir-mais">
@@ -448,7 +449,6 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
         </div>
       </details>}
 
-      <p className="treino-creditos">{t("creditos")} {t("atalhos")}</p>
     </div>
   );
 }

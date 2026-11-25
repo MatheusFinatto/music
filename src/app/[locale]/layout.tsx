@@ -6,13 +6,15 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Inter } from "next/font/google";
+import { Inter, Silkscreen } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+// Fonte pixel, só para selos e rótulos curtos (ver --font-pixel em globals.css).
+const silkscreen = Silkscreen({ weight: "400", subsets: ["latin"], variable: "--font-silkscreen", display: "swap" });
 
-export const viewport: Viewport = { themeColor: "#120e0b", colorScheme: "dark" };
+export const viewport: Viewport = { themeColor: "#111715", colorScheme: "dark" };
 
 type Props = { children: ReactNode; params: Promise<{ locale: string }> };
 
@@ -34,7 +36,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   const t = await getTranslations("site");
 
   return (
-    <html lang={locale} className={inter.variable} suppressHydrationWarning>
+    <html lang={locale} className={`${inter.variable} ${silkscreen.variable}`} suppressHydrationWarning>
       <body>
         {/* messages={null}: os textos não vão para o navegador por padrão. Ferramenta com
             componente cliente passa só o bloco dela (ver docs/ARQUITETURA.md). */}

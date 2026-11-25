@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { MAX_FAVORITES, favorites, sameSettings, store, type Favorite } from "./store";
 
 /**
- * Os favoritos do metrônomo, no topo da página ao lado do "i": andamento, tempos, divisão e acentos, com um
+ * Os favoritos do metrônomo, no topo da página ao lado do "?": andamento, tempos, divisão e acentos, com um
  * nome opcional. Ficam neste navegador, como o resto. Mesmo modelo dos favoritos do app.
  * [variant] "pill": a estrela grande da linha de cima do celular, como no app; a do topo da página some lá.
  */

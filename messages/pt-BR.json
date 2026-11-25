@@ -21,11 +21,18 @@
   },
   "hub": {
     "title": "Marmota Music",
-    "lead": "Ferramentas de prática para guitarra e ouvido: afinar, tocar no tempo e treinar o ouvido. De graça, sem conta.",
+    "pauta": {
+      "label": "Pauta com o começo de Marmotte, de Beethoven",
+      "nome": "Marmotte · Beethoven",
+      "tocar": "Tocar o trecho",
+      "parar": "Parar",
+      "historia": "A história desta música",
+      "fechar": "Fechar",
+      "texto1": "Marmotte é uma canção de Ludwig van Beethoven sobre um poema de Goethe, escrita por volta de 1790 e publicada em 1805 (op. 52 nº 7). É a canção de um menino que roda o mundo com a sua marmota e, por onde passa, sempre acha o que comer."
+    },
     "live": "Disponíveis agora",
     "next": "A seguir",
     "planned": "Planejadas",
-    "plannedNote": "Ainda não começaram. Sem data: cada uma só sai quando estiver boa de verdade.",
     "open": "Abrir"
   },
   "status": {
@@ -57,10 +64,15 @@
     }
   },
   "footer": {
-    "free": "Gratuito e sem conta.",
-    "data": "O que você grava fica só neste navegador.",
-    "backup": "Laboratório e backup dos dados",
-    "issue": "Achou um problema? Abra uma issue"
+    "backup": "Backup de dados",
+    "backupTexto": "Seus dados ficam só neste navegador. Baixe um arquivo para guardar ou levar para outro aparelho.",
+    "backupBaixar": "Baixar backup",
+    "backupRestaurar": "Restaurar de um arquivo",
+    "backupBaixado": "Backup baixado.",
+    "backupRestaurado": "Restaurado. Recarregando…",
+    "backupErro": "Esse arquivo não é um backup deste site.",
+    "fechar": "Fechar",
+    "issue": "Relatar um problema"
   },
   "metronomo": {
     "title": "Metrônomo",
@@ -212,6 +224,8 @@
     "erroAudio": "Este navegador não conseguiu iniciar o áudio. Tente outro navegador.",
     "erroPiano": "Não foi possível carregar o som do piano. Confira a conexão e tente de novo.",
     "creditos": "Piano: Salamander Grand Piano, de Alexander Holm (CC BY 3.0).",
+    "info": "Como funciona",
+    "fechar": "Fechar",
     "nomes": {
       "intervalos": {
         "2m": "2ª menor",
@@ -394,6 +408,10 @@
         "medida": "Medida no Alcance",
         "medidaCurta": "Medida",
         "medir": "Medir minha extensão",
+        "grupos": {
+          "masculinas": "Masculinas",
+          "femininas": "Femininas"
+        },
         "tipos": {
           "baixo": "Baixo",
           "baritono": "Barítono",
