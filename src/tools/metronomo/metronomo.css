@@ -85,8 +85,10 @@
 .metro-close:hover { background: var(--soft); color: var(--ink); }
 .metro-close svg { width: 20px; height: 20px; }
 
-.metro-subgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; }
-.metro-subgrid button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 96px; padding: 10px 6px; border-radius: var(--radius-md); border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; font-size: var(--text-xs); font-weight: 600; text-align: center; line-height: 1.2; cursor: pointer; transition: background-color 0.2s, border-color 0.2s; }
+.metro-dialog-sub { width: min(680px, calc(100vw - 32px)); padding: 28px; }
+.metro-dialog-sub .metro-dialog-head { margin-bottom: 22px; }
+.metro-subgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(136px, 1fr)); gap: 14px; }
+.metro-subgrid button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-height: 120px; padding: 16px 10px; border-radius: var(--radius-md); border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; font-size: var(--text-sm); font-weight: 600; text-align: center; line-height: 1.2; cursor: pointer; transition: background-color 0.2s, border-color 0.2s; }
 .metro-subgrid button:hover { background: var(--soft); border-color: var(--muted); }
 .metro-subgrid button[aria-checked="true"] { border-color: var(--ok); box-shadow: inset 0 0 0 1px var(--ok); color: var(--ok); }
 .metro-subgrid .metro-figure { height: auto; max-height: 44px; max-width: 100%; }
@@ -183,9 +185,10 @@
   .metro-icon-btn { width: 64px; height: 64px; border-radius: 28px; background: transparent; }
 
   .metro-dialog { width: min(440px, calc(100vw - 32px)); padding: 16px 20px; border-radius: 22px; background: var(--soft); }
+  .metro-dialog-sub .metro-dialog-head { margin-bottom: 16px; }
   .metro-dialog h2 { font-size: 19px; font-weight: 700; }
-  .metro-subgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .metro-subgrid button { padding: 10px 2px; background: transparent; font-size: 12px; font-weight: 500; }
+  .metro-subgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .metro-subgrid button { gap: 6px; min-height: 96px; padding: 10px 2px; background: transparent; font-size: 12px; font-weight: 500; }
   .metro-subgrid button[aria-checked="true"] { border-width: 2px; box-shadow: none; }
   .metro-fav-save { grid-template-columns: 1fr; }
   .metro-fav-save input { min-height: 52px; border-radius: 14px; background: transparent; }
