@@ -235,3 +235,26 @@ describe("achar no teclado", () => {
       }
   });
 });
+
+describe("eco melódico", () => {
+  it("melodia de 3 a 5 notas em Dó maior, entre G3 e E5, sem repetir a nota em seguida", () => {
+    const rng = mulberry32(11);
+    const vistos = new Set<number>();
+    for (let k = 0; k < 400; k++) {
+      const q = perguntaClassica({ ...CLASSICA_INICIAL, exercicio: "eco", itens: { ...CLASSICA_INICIAL.itens, eco: ["3", "4", "5"] } }, rng);
+      const m = q.reveal!;
+      vistos.add(m.length);
+      expect(q.chave).toBe(`eco:${m.length}`);
+      expect(q.resposta).toBe(m.join("-"));
+      expect(q.dada).toBe(m[0]);
+      expect(q.notas.map((n) => n.midi)).toEqual(m);
+      for (const x of m) {
+        expect([0, 2, 4, 5, 7, 9, 11]).toContain(x % 12);
+        expect(x).toBeGreaterThanOrEqual(55);
+        expect(x).toBeLessThanOrEqual(76);
+      }
+      for (let i = 1; i < m.length; i++) expect(m[i]).not.toBe(m[i - 1]);
+    }
+    expect([...vistos].sort()).toEqual([3, 4, 5]);
+  });
+});

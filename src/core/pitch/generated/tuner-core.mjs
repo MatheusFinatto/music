@@ -57,6 +57,10 @@ import {
   NoSuchElementException_init_$Create$keivgb96udi6 as NoSuchElementException_init_$Create$_0,
   get_lastIndexx0qsydpfv3mu as get_lastIndex,
   plus27p1csfyhycs6 as plus_0,
+  toInt2q8uldh7sc951 as toInt,
+  mutableListOf6oorvk2mtdmp as mutableListOf,
+  checkIndexOverflow3frtmheghr0th as checkIndexOverflow,
+  joinToString1cxrrlmo0chqs as joinToString,
   miny9ry5d0y0n2x as min_0,
   maxwcemc4giadkb as max_0,
   setOf45ia9pnfhe90 as setOf,
@@ -2885,6 +2889,11 @@ function get_EXERCICIOS() {
   return EXERCICIOS_0;
 }
 var EXERCICIOS_0;
+function get_TAMANHOS_ECO() {
+  _init_properties_Engine_kt__fnrbfm();
+  return TAMANHOS_ECO_0;
+}
+var TAMANHOS_ECO_0;
 function get_HARMONIA() {
   _init_properties_Engine_kt__fnrbfm();
   return HARMONIA_0;
@@ -2920,6 +2929,11 @@ function get_TONS_COM_BEMOL() {
   return TONS_COM_BEMOL;
 }
 var TONS_COM_BEMOL;
+function get_DO_MAIOR() {
+  _init_properties_Engine_kt__fnrbfm();
+  return DO_MAIOR;
+}
+var DO_MAIOR;
 function get_PLACAR_ZERO() {
   _init_properties_Engine_kt__fnrbfm();
   return PLACAR_ZERO_0;
@@ -3457,8 +3471,60 @@ function perguntaAchar(cfg, rng, historico) {
   var notas = [new PianoNote(base, 0.0, 1.0), new PianoNote(alvo, 1.1, 1.4)];
   return new PerguntaClassica('achar:' + i.id, i.id, notas, VOID, VOID, VOID, VOID, base, alvo);
 }
+function perguntaEco(cfg, rng, historico) {
+  _init_properties_Engine_kt__fnrbfm();
+  // Inline function 'kotlin.collections.toTypedArray' call
+  var this_0 = toList(get_TAMANHOS_ECO());
+  var tmp = copyToArray(this_0);
+  var tmp_0 = piscina(tmp, cfg.itens, perguntaEco$lambda);
+  var n = toInt(sortearComPeso(tmp_0, perguntaEco$lambda_0, historico, rng));
+  var grau = perguntaEco$lambda_1;
+  var g = inteiro(rng, 0, 6);
+  var graus = mutableListOf([g]);
+  while (graus.o() < n) {
+    var passo = sortear(listOf([-3, -2, -1, 1, 2, 3, -1, 1]), rng);
+    // Inline function 'kotlin.let' call
+    var it = g + passo | 0;
+    var prox = it < -3 || it > 9 ? g - passo | 0 : it;
+    g = prox;
+    // Inline function 'kotlin.collections.plusAssign' call
+    var element = g;
+    graus.h(element);
+  }
+  // Inline function 'kotlin.collections.map' call
+  // Inline function 'kotlin.collections.mapTo' call
+  var destination = ArrayList_init_$Create$_0(collectionSizeOrDefault(graus, 10));
+  var _iterator__ex2g4s = graus.j();
+  while (_iterator__ex2g4s.k()) {
+    var item = _iterator__ex2g4s.l();
+    destination.h(grau(item));
+  }
+  var midis = destination;
+  // Inline function 'kotlin.collections.mapIndexed' call
+  // Inline function 'kotlin.collections.mapIndexedTo' call
+  var destination_0 = ArrayList_init_$Create$_0(collectionSizeOrDefault(midis, 10));
+  var index = 0;
+  var _iterator__ex2g4s_0 = midis.j();
+  while (_iterator__ex2g4s_0.k()) {
+    var item_0 = _iterator__ex2g4s_0.l();
+    var _unary__edvuaz = index;
+    index = _unary__edvuaz + 1 | 0;
+    var k = checkIndexOverflow(_unary__edvuaz);
+    var tmp$ret$6 = new PianoNote(item_0, k * 0.6, 0.55);
+    destination_0.h(tmp$ret$6);
+  }
+  // Inline function 'kotlin.collections.toTypedArray' call
+  var notas = copyToArray(destination_0);
+  var tmp_1 = 'eco:' + n;
+  var tmp_2 = joinToString(midis, '-');
+  // Inline function 'kotlin.collections.toTypedArray' call
+  var tmp$ret$10 = copyToArray(midis);
+  return new PerguntaClassica(tmp_1, tmp_2, notas, VOID, VOID, VOID, tmp$ret$10, midis.n(0));
+}
 function perguntaClassica(cfg, rng, historico) {
   _init_properties_Engine_kt__fnrbfm();
+  if (cfg.exercicio === 'eco')
+    return perguntaEco(cfg, rng, historico);
   if (cfg.exercicio === 'afinacao')
     return perguntaAfinacao(cfg, rng, historico);
   if (cfg.exercicio === 'achar')
@@ -3654,6 +3720,21 @@ function perguntaAchar$lambda_0(it) {
   _init_properties_Engine_kt__fnrbfm();
   return 'achar:' + it.id;
 }
+function perguntaEco$lambda(it) {
+  _init_properties_Engine_kt__fnrbfm();
+  return it;
+}
+function perguntaEco$lambda_0(it) {
+  _init_properties_Engine_kt__fnrbfm();
+  return 'eco:' + it;
+}
+function perguntaEco$lambda_1(g) {
+  _init_properties_Engine_kt__fnrbfm();
+  // Inline function 'kotlin.math.floor' call
+  var x = g / 7.0;
+  var tmp$ret$0 = Math.floor(x);
+  return (60 + imul(12, numberToInt(tmp$ret$0)) | 0) + get_DO_MAIOR()[((g % 7 | 0) + 7 | 0) % 7 | 0] | 0;
+}
 function perguntaClassica$lambda(it) {
   _init_properties_Engine_kt__fnrbfm();
   return it.id;
@@ -3685,7 +3766,11 @@ function _init_properties_Engine_kt__fnrbfm() {
     // Inline function 'kotlin.arrayOf' call
     // Inline function 'kotlin.js.unsafeCast' call
     // Inline function 'kotlin.js.asDynamic' call
-    EXERCICIOS_0 = ['intervalos', 'acordes', 'afinacao', 'achar', 'campo', 'cadencias', 'progressoes'];
+    EXERCICIOS_0 = ['intervalos', 'acordes', 'afinacao', 'achar', 'eco', 'campo', 'cadencias', 'progressoes'];
+    // Inline function 'kotlin.arrayOf' call
+    // Inline function 'kotlin.js.unsafeCast' call
+    // Inline function 'kotlin.js.asDynamic' call
+    TAMANHOS_ECO_0 = ['3', '4', '5'];
     // Inline function 'kotlin.arrayOf' call
     // Inline function 'kotlin.js.unsafeCast' call
     // Inline function 'kotlin.js.asDynamic' call
@@ -3711,6 +3796,8 @@ function _init_properties_Engine_kt__fnrbfm() {
     // Inline function 'kotlin.js.asDynamic' call
     NOMES_BEMOL = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
     TONS_COM_BEMOL = setOf([1, 3, 5, 8, 10]);
+    // Inline function 'kotlin.intArrayOf' call
+    DO_MAIOR = new Int32Array([0, 2, 4, 5, 7, 9, 11]);
     PLACAR_ZERO_0 = new Placar(0, 0, 0, 0);
   }
 }
@@ -4078,7 +4165,7 @@ function _init_properties_Programas_kt__m3jq64() {
     // Inline function 'kotlin.js.asDynamic' call
     MINUTOS_0 = [5, 10, 15, 20, 30];
     PROGRAMAS = mapOf([to('ouvido', mapOf([to('geral', tabela([l('intervalos', new Int32Array([150, 150, 150, 200, 300])), l('acordes', new Int32Array([150, 150, 150, 150, 200])), l('afinacao', new Int32Array([0, 150, 150, 200, 250])), l('achar', new Int32Array([0, 0, 150, 200, 300])), l('campo', new Int32Array([0, 150, 150, 150, 250])), l('cadencias', new Int32Array([0, 0, 150, 150, 250])), l('progressoes', new Int32Array([0, 0, 0, 150, 250]))])), to('notas', tabela([l('intervalos', new Int32Array([150, 250, 350, 450, 700])), l('acordes', new Int32Array([150, 200, 300, 400, 600])), l('achar', new Int32Array([0, 150, 250, 350, 500]))])), to('afinacao', tabela([l('intervalos', new Int32Array([100, 150, 200, 300, 400])), l('afinacao', new Int32Array([200, 450, 700, 900, 1400]))])), to('harmonia', tabela([l('campo', new Int32Array([150, 200, 300, 400, 600])), l('cadencias', new Int32Array([150, 200, 300, 400, 600])), l('progressoes', new Int32Array([0, 200, 300, 400, 600]))]))])), to('voz', mapOf([to('geral', tabela([l('igualar', new Int32Array([150, 130, 120, 150, 220])), l('longa', new Int32Array([0, 0, 120, 150, 180])), l('sequencia', new Int32Array([150, 170, 200, 250, 330])), l('tonica', new Int32Array([0, 200, 150, 250, 350])), l('intervalo', new Int32Array([0, 0, 130, 150, 320])), l('musica', new Int32Array([0, 100, 180, 250, 400]))])), to('afinacao', tabela([l('igualar', new Int32Array([150, 250, 350, 450, 650])), l('longa', new Int32Array([150, 200, 300, 350, 500])), l('intervalo', new Int32Array([0, 150, 250, 400, 650]))])), to('musicas', tabela([l('igualar', new Int32Array([60, 100, 120, 150, 200])), l('musica', new Int32Array([240, 500, 780, 1050, 1600]))])), to('segundaVoz', tabela([l('igualar', new Int32Array([0, 100, 150, 200, 300])), l('tonica', new Int32Array([150, 300, 450, 600, 900])), l('intervalo', new Int32Array([150, 200, 300, 400, 600]))]))]))]);
-    MEDIANAS_INICIAIS = mapOf([to('intervalos', 10.0), to('acordes', 10.0), to('afinacao', 14.0), to('achar', 25.0), to('campo', 15.0), to('cadencias', 16.0), to('progressoes', 20.0), to('igualar', 14.0), to('longa', 14.0), to('sequencia', 25.0), to('tonica', 20.0), to('intervalo', 18.0), to('musica', 22.0)]);
+    MEDIANAS_INICIAIS = mapOf([to('intervalos', 10.0), to('acordes', 10.0), to('afinacao', 14.0), to('achar', 25.0), to('campo', 15.0), to('cadencias', 16.0), to('progressoes', 20.0), to('igualar', 14.0), to('longa', 14.0), to('sequencia', 25.0), to('tonica', 20.0), to('intervalo', 18.0), to('musica', 22.0), to('eco', 20.0)]);
     // Inline function 'kotlin.collections.toTypedArray' call
     var this_0 = get_MEDIANAS_INICIAIS().e1();
     EXERCICIOS_DE_PROGRAMA_0 = copyToArray(this_0);
@@ -4870,6 +4957,7 @@ var LATENCIA_S = {get: get_LATENCIA_S};
 var DIAS_GUARDADOS = {get: get_DIAS_GUARDADOS};
 var TETO_RESPOSTA_S = {get: get_TETO_RESPOSTA_S};
 var EXERCICIOS = {get: get_EXERCICIOS};
+var TAMANHOS_ECO = {get: get_TAMANHOS_ECO};
 var HARMONIA = {get: get_HARMONIA};
 var MARGENS = {get: get_MARGENS};
 var RESPOSTAS_AFINACAO = {get: get_RESPOSTAS_AFINACAO};
@@ -4965,6 +5053,7 @@ export {
   resumoDiario as resumoDiario,
   numeroDoDia as numeroDoDia,
   EXERCICIOS as EXERCICIOS,
+  TAMANHOS_ECO as TAMANHOS_ECO,
   HARMONIA as HARMONIA,
   MARGENS as MARGENS,
   RESPOSTAS_AFINACAO as RESPOSTAS_AFINACAO,
@@ -4985,6 +5074,7 @@ export {
   perguntaHarmonia as perguntaHarmonia,
   compararAfinacao as compararAfinacao,
   perguntaAchar as perguntaAchar,
+  perguntaEco as perguntaEco,
   perguntaClassica as perguntaClassica,
   cadencia as cadencia,
   perguntaFuncional as perguntaFuncional,
