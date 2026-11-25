@@ -505,12 +505,12 @@ export declare namespace Musica.$metadata$ {
     const constructor: abstract new () => Musica;
 }
 export declare class PianoNote {
-    constructor(midi: number, at: number, dur: number, cents?: number);
+    constructor(midi: number, at: number, dur: number, cents?: Nullable<number>);
     get midi(): number;
     get at(): number;
     get dur(): number;
-    get cents(): number;
-    copy(midi?: number, at?: number, dur?: number, cents?: number): PianoNote;
+    get cents(): Nullable<number>;
+    copy(midi?: number, at?: number, dur?: number, cents?: Nullable<number>): PianoNote;
     toString(): string;
     hashCode(): number;
     equals(other: Nullable<any>): boolean;
@@ -548,7 +548,7 @@ export declare namespace ConfigFuncional.$metadata$ {
     const constructor: abstract new () => ConfigFuncional;
 }
 export declare class PerguntaClassica {
-    constructor(chave: string, resposta: string, notas: Array<PianoNote>, cents?: Nullable<number>, tonica?: Nullable<number>, acordes?: Nullable<Array<string>>, reveal?: Nullable<Array<number>>, dada?: Nullable<number>, alvo?: Nullable<number>);
+    constructor(chave: string, resposta: string, notas: Array<PianoNote>, cents?: Nullable<number>, tonica?: Nullable<number>, acordes?: Nullable<Array<string>>, reveal?: Nullable<Array<number>>, dada?: Nullable<number>, alvo?: Nullable<number>, intervalo?: Nullable<string>);
     get chave(): string;
     get resposta(): string;
     get notas(): Array<PianoNote>;
@@ -558,6 +558,7 @@ export declare class PerguntaClassica {
     get reveal(): Nullable<Array<number>>;
     get dada(): Nullable<number>;
     get alvo(): Nullable<number>;
+    get intervalo(): Nullable<string>;
 }
 /** @deprecated $metadata$ is used for internal purposes, please don't use it in your code, because it can be removed at any moment */
 export declare namespace PerguntaClassica.$metadata$ {

@@ -15,7 +15,7 @@ class TreinoParidadeTest {
     private val fx = JSONObject(javaClass.getResource("/treino-fixtures.json")!!.readText())
 
     // ---- encoders: the same shapes paridade.test.ts writes ----
-    private fun nota(n: PianoNote) = listOf(n.midi, n.at, n.dur, n.cents)
+    private fun nota(n: PianoNote) = listOf(n.midi, n.at, n.dur, n.cents ?: 0.0)
     private fun classica(p: PerguntaClassica) = listOf(
         p.chave, p.resposta, p.notas.map(::nota), p.cents, p.tonica, p.acordes?.toList(), p.reveal?.toList(), p.dada, p.alvo,
     )

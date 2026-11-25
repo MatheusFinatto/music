@@ -28,7 +28,7 @@ O app tem dois módulos:
 
 Mudou algo em `core/src/commonMain`? Rode `./gradlew :core:exportToSite` e commite o JS que mudou em `src/core/pitch/generated/` junto. A Vercel não tem JDK, então o site usa o JS commitado; a CI recompila e falha se ele estiver velho. O desenho da tela não é compartilhado: `TunerPainter.kt` aqui, `src/tools/afinador/painter.ts` no site.
 
-A lógica do treino tem um teste de paridade com o TypeScript: `src/tools/treino-de-ouvido/paridade.test.ts` grava `core/src/jvmTest/resources/treino-fixtures.json` (sementes fixas, todas as combinações de exercício) e `TreinoParidadeTest` confere que o Kotlin dá o mesmo resultado. Mudou uma regra de propósito? `ATUALIZAR_FIXTURES=1 npx vitest run paridade` na raiz do site e depois `./gradlew :core:jvmTest`.
+A lógica do treino tem fixtures (`core/src/jvmTest/resources/treino-fixtures.json`: sementes fixas, todas as combinações de exercício), conferidas dos dois lados: `TreinoParidadeTest` na JVM e `src/tools/treino-de-ouvido/paridade.test.ts` no JS compilado. Mudou uma regra de propósito? `./gradlew :core:exportToSite`, depois `ATUALIZAR_FIXTURES=1 npx vitest run paridade` na raiz do site, e `./gradlew :core:jvmTest`.
 
 O código de `core/` não pode usar nada só da JVM (`Math.*`, `System.*`, `java.*`): use o equivalente de `kotlin.math` e da biblioteca padrão. Tudo em `core/` é exportado para o TypeScript (`@file:JsExport`); por isso a API pública usa `Double` no lugar de `Long`.
 

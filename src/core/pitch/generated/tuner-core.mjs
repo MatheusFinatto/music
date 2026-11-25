@@ -2586,7 +2586,7 @@ protoOf(Musica).pc = function () {
   return this.trechos;
 };
 function PianoNote(midi, at, dur, cents) {
-  cents = cents === VOID ? 0.0 : cents;
+  cents = cents === VOID ? null : cents;
   this.midi = midi;
   this.at = at;
   this.dur = dur;
@@ -2633,7 +2633,7 @@ protoOf(PianoNote).hashCode = function () {
   var result = this.midi;
   result = imul(result, 31) + getNumberHashCode(this.at) | 0;
   result = imul(result, 31) + getNumberHashCode(this.dur) | 0;
-  result = imul(result, 31) + getNumberHashCode(this.cents) | 0;
+  result = imul(result, 31) + (this.cents == null ? 0 : getNumberHashCode(this.cents)) | 0;
   return result;
 };
 protoOf(PianoNote).equals = function (other) {
@@ -2749,13 +2749,14 @@ protoOf(ConfigFuncional).wc = function () {
 protoOf(ConfigFuncional).xc = function () {
   return this.graus;
 };
-function PerguntaClassica(chave, resposta, notas, cents, tonica, acordes, reveal, dada, alvo) {
+function PerguntaClassica(chave, resposta, notas, cents, tonica, acordes, reveal, dada, alvo, intervalo) {
   cents = cents === VOID ? null : cents;
   tonica = tonica === VOID ? null : tonica;
   acordes = acordes === VOID ? null : acordes;
   reveal = reveal === VOID ? null : reveal;
   dada = dada === VOID ? null : dada;
   alvo = alvo === VOID ? null : alvo;
+  intervalo = intervalo === VOID ? null : intervalo;
   this.chave = chave;
   this.resposta = resposta;
   this.notas = notas;
@@ -2765,6 +2766,7 @@ function PerguntaClassica(chave, resposta, notas, cents, tonica, acordes, reveal
   this.reveal = reveal;
   this.dada = dada;
   this.alvo = alvo;
+  this.intervalo = intervalo;
 }
 protoOf(PerguntaClassica).yc = function () {
   return this.chave;
@@ -2793,6 +2795,9 @@ protoOf(PerguntaClassica).bd = function () {
 protoOf(PerguntaClassica).cd = function () {
   return this.alvo;
 };
+protoOf(PerguntaClassica).dd = function () {
+  return this.intervalo;
+};
 function PerguntaFuncional(chave, resposta, tonica, cadencia, nota, tudo) {
   this.chave = chave;
   this.resposta = resposta;
@@ -2810,13 +2815,13 @@ protoOf(PerguntaFuncional).zc = function () {
 protoOf(PerguntaFuncional).wc = function () {
   return this.tonica;
 };
-protoOf(PerguntaFuncional).dd = function () {
+protoOf(PerguntaFuncional).ed = function () {
   return this.cadencia;
 };
-protoOf(PerguntaFuncional).ed = function () {
+protoOf(PerguntaFuncional).fd = function () {
   return this.nota;
 };
-protoOf(PerguntaFuncional).fd = function () {
+protoOf(PerguntaFuncional).gd = function () {
   return this.tudo;
 };
 function HistoricoItem(chave, certo, total) {
@@ -2827,7 +2832,7 @@ function HistoricoItem(chave, certo, total) {
 protoOf(HistoricoItem).yc = function () {
   return this.chave;
 };
-protoOf(HistoricoItem).gd = function () {
+protoOf(HistoricoItem).hd = function () {
   return this.certo;
 };
 protoOf(HistoricoItem).dc = function () {
@@ -2999,7 +3004,7 @@ function perguntaAfinacao(cfg, rng) {
     tmp_0 = [new PianoNote(a, 0.0, 1.0), new PianoNote(b, 1.1, 1.4, cents)];
   }
   var notas = tmp_0;
-  return new PerguntaClassica('afinacao:' + cfg.margem, resposta, notas, cents);
+  return new PerguntaClassica('afinacao:' + cfg.margem, resposta, notas, cents, VOID, VOID, VOID, VOID, VOID, i.id);
 }
 function nomeTom(tonica) {
   _init_properties_Engine_kt__fnrbfm();
@@ -3305,16 +3310,16 @@ function Placar(acertos, total, sequencia, melhor) {
   this.sequencia = sequencia;
   this.melhor = melhor;
 }
-protoOf(Placar).hd = function () {
+protoOf(Placar).jd = function () {
   return this.acertos;
 };
 protoOf(Placar).dc = function () {
   return this.total;
 };
-protoOf(Placar).jd = function () {
+protoOf(Placar).kd = function () {
   return this.sequencia;
 };
-protoOf(Placar).kd = function () {
+protoOf(Placar).ld = function () {
   return this.melhor;
 };
 function somar(p, certo) {
@@ -3495,7 +3500,7 @@ function Bloco(exercicio, segundos) {
 protoOf(Bloco).sc = function () {
   return this.exercicio;
 };
-protoOf(Bloco).ld = function () {
+protoOf(Bloco).md = function () {
   return this.segundos;
 };
 function BlocoPlano(exercicio, perguntas) {
@@ -3505,7 +3510,7 @@ function BlocoPlano(exercicio, perguntas) {
 protoOf(BlocoPlano).sc = function () {
   return this.exercicio;
 };
-protoOf(BlocoPlano).md = function () {
+protoOf(BlocoPlano).nd = function () {
   return this.perguntas;
 };
 function tabela(linhas) {
@@ -3590,7 +3595,7 @@ function Duracao(exercicio, valores) {
 protoOf(Duracao).sc = function () {
   return this.exercicio;
 };
-protoOf(Duracao).nd = function () {
+protoOf(Duracao).od = function () {
   return this.valores;
 };
 function mediana(valores) {
@@ -3775,10 +3780,10 @@ function Pos(corda, casa, midi, raiz) {
   this.midi = midi;
   this.raiz = raiz;
 }
-protoOf(Pos).od = function () {
+protoOf(Pos).pd = function () {
   return this.corda;
 };
-protoOf(Pos).pd = function () {
+protoOf(Pos).qd = function () {
   return this.casa;
 };
 protoOf(Pos).o9 = function () {
@@ -3912,13 +3917,13 @@ function Forma(posicoes, de, ate) {
   this.de = de;
   this.ate = ate;
 }
-protoOf(Forma).qd = function () {
+protoOf(Forma).rd = function () {
   return this.posicoes;
 };
-protoOf(Forma).rd = function () {
+protoOf(Forma).sd = function () {
   return this.de;
 };
-protoOf(Forma).sd = function () {
+protoOf(Forma).td = function () {
   return this.ate;
 };
 function formaDoArpejo(midis) {
@@ -4026,16 +4031,16 @@ function formaDoArpejo(midis) {
   return null;
 }
 function sam$kotlin_Comparator$0(function_0) {
-  this.td_1 = function_0;
+  this.ud_1 = function_0;
 }
-protoOf(sam$kotlin_Comparator$0).ud = function (a, b) {
-  return this.td_1(a, b);
+protoOf(sam$kotlin_Comparator$0).vd = function (a, b) {
+  return this.ud_1(a, b);
 };
 protoOf(sam$kotlin_Comparator$0).compare = function (a, b) {
-  return this.ud(a, b);
+  return this.vd(a, b);
 };
 protoOf(sam$kotlin_Comparator$0).o1 = function () {
-  return this.td_1;
+  return this.ud_1;
 };
 protoOf(sam$kotlin_Comparator$0).equals = function (other) {
   var tmp;
@@ -4165,10 +4170,10 @@ function Faixa(min, max) {
   this.min = min;
   this.max = max;
 }
-protoOf(Faixa).vd = function () {
+protoOf(Faixa).wd = function () {
   return this.min;
 };
-protoOf(Faixa).wd = function () {
+protoOf(Faixa).xd = function () {
   return this.max;
 };
 function TipoDeVoz(id, min, max) {
@@ -4179,10 +4184,10 @@ function TipoDeVoz(id, min, max) {
 protoOf(TipoDeVoz).p7 = function () {
   return this.id;
 };
-protoOf(TipoDeVoz).vd = function () {
+protoOf(TipoDeVoz).wd = function () {
   return this.min;
 };
-protoOf(TipoDeVoz).wd = function () {
+protoOf(TipoDeVoz).xd = function () {
   return this.max;
 };
 function sortearAlvoDeVoz(rng, faixa) {
@@ -4240,19 +4245,19 @@ function Segurando(desde, visto, soma, soma2, n) {
   this.soma2 = soma2;
   this.n = n;
 }
-protoOf(Segurando).xd = function () {
+protoOf(Segurando).yd = function () {
   return this.desde;
 };
-protoOf(Segurando).yd = function () {
+protoOf(Segurando).zd = function () {
   return this.visto;
 };
-protoOf(Segurando).zd = function () {
+protoOf(Segurando).ae = function () {
   return this.soma;
 };
-protoOf(Segurando).ae = function () {
+protoOf(Segurando).be = function () {
   return this.soma2;
 };
-protoOf(Segurando).be = function () {
+protoOf(Segurando).ce = function () {
   return this.n;
 };
 function Passo(estado, cents, ok, media, oscilacao) {
@@ -4262,7 +4267,7 @@ function Passo(estado, cents, ok, media, oscilacao) {
   this.media = media;
   this.oscilacao = oscilacao;
 }
-protoOf(Passo).ce = function () {
+protoOf(Passo).ee = function () {
   return this.estado;
 };
 protoOf(Passo).f9 = function () {
@@ -4271,10 +4276,10 @@ protoOf(Passo).f9 = function () {
 protoOf(Passo).ac = function () {
   return this.ok;
 };
-protoOf(Passo).ee = function () {
+protoOf(Passo).fe = function () {
   return this.media;
 };
-protoOf(Passo).fe = function () {
+protoOf(Passo).ge = function () {
   return this.oscilacao;
 };
 function atualizar(s, midi, t, alvo, tolerancia, qualquerOitava, segurarMs) {
@@ -4320,19 +4325,19 @@ function Alcance(min, max, candidato, desde, visto) {
   this.desde = desde;
   this.visto = visto;
 }
-protoOf(Alcance).vd = function () {
+protoOf(Alcance).wd = function () {
   return this.min;
 };
-protoOf(Alcance).wd = function () {
+protoOf(Alcance).xd = function () {
   return this.max;
 };
-protoOf(Alcance).ge = function () {
+protoOf(Alcance).he = function () {
   return this.candidato;
 };
-protoOf(Alcance).xd = function () {
+protoOf(Alcance).yd = function () {
   return this.desde;
 };
-protoOf(Alcance).yd = function () {
+protoOf(Alcance).zd = function () {
   return this.visto;
 };
 function get_PARADO_MS() {
@@ -4391,7 +4396,7 @@ function Extensao(oitavas, semitons) {
   this.oitavas = oitavas;
   this.semitons = semitons;
 }
-protoOf(Extensao).he = function () {
+protoOf(Extensao).ie = function () {
   return this.oitavas;
 };
 protoOf(Extensao).ec = function () {

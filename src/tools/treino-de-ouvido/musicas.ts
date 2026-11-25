@@ -1,6 +1,3 @@
-import dados from "./musicas.json";
-import type { Musica } from "./cantar";
-
-/** As músicas do exercício de cantar: melodias tradicionais ou de domínio público, em semitons acima da tônica (ver docs/treino-de-ouvido/MUSICAS.md). */
-export const MUSICAS: readonly Musica[] = dados as Musica[];
-export const musicaDe = (id: string): Musica => MUSICAS.find((m) => m.id === id) ?? MUSICAS[0]!;
+// As músicas do exercício de cantar: melodias tradicionais ou de domínio público, em semitons acima da tônica (ver
+// docs/treino-de-ouvido/MUSICAS.md). A fonte é musicas.json, aqui ao lado; o Kotlin (marmota-tuner/core) gera a cópia que o site e o app usam.
+export { MUSICAS, musicaDe } from "@/core/treino";

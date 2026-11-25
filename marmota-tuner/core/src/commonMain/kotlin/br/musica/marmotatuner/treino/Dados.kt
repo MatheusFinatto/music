@@ -27,8 +27,8 @@ class Trecho(val nome: String, val notas: Array<NotaMusica>)
 /** [confianca]: how well the transcription was checked against scores ("alta", "media", "baixa"). */
 class Musica(val id: String, val nome: String, val compasso: String, val bpm: Int, val confianca: String, val trechos: Array<Trecho>)
 
-/** A note for the piano: MIDI number, start and length in seconds, and detuning in cents. */
-data class PianoNote(val midi: Int, val at: Double, val dur: Double, val cents: Double = 0.0)
+/** A note for the piano: MIDI number, start and length in seconds, and detuning in cents (null = none; 0 = set in tune on purpose). */
+data class PianoNote(val midi: Int, val at: Double, val dur: Double, val cents: Double? = null)
 
 /** A random source returning numbers in [0, 1): Math.random on the site, [mulberry32] in tests. */
 typealias Rng = () -> Double

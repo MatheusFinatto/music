@@ -1,20 +1,14 @@
 "use client";
 import { useRef, useState } from "react";
+import { faixaDoTeclado } from "@/core/treino";
 import { nomeNota } from "./engine";
+
+export { faixaDoTeclado };
 
 /** O que cada tecla pode estar mostrando: alvo (laranja), a nota dada, a escolha (verde), o erro (vermelho) e o som soando (azul). */
 export type Marca = "alvo" | "dada" | "sel" | "errada" | "toca";
 const PRETAS = new Set([1, 3, 6, 8, 10]);
 const W = 22, H = 84, F = 20;
-
-/**
- * Primeira e última tecla: do Dó da nota mais grave, duas oitavas (mais, só se as notas não couberem). Antes descia uma nota
- * antes de arredondar, e uma pergunta começando em Dó (ou a janela padrão C3–B4) ganhava uma oitava inteira a mais embaixo.
- */
-export function faixaDoTeclado(janela: readonly number[]): [number, number] {
-  const lo = Math.floor(Math.min(...janela) / 12) * 12;
-  return [lo, Math.max(lo + 23, Math.floor(Math.max(...janela) / 12) * 12 + 11)];
-}
 
 /**
  * Teclado de piano sempre à mostra: cada tecla toca a nota. A janela cobre as notas da pergunta (pelo menos duas

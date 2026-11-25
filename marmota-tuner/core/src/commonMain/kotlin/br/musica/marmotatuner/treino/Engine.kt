@@ -31,7 +31,8 @@ class ConfigFuncional(val tonica: String, val graus: Array<String>)
 /**
  * A classic-mode question: what to play and the right answer. Optional fields: [cents] (tuning: how far the second note was
  * moved, 0 = in tune), [tonica] and [acordes] (harmony: the key and the degrees asked, without the tonic chord that sets the key),
- * [reveal] (notes to light up after answering), [dada] and [alvo] ("achar": the given note and the one to find).
+ * [reveal] (notes to light up after answering), [dada] and [alvo] ("achar": the given note and the one to find), [intervalo]
+ * (tuning: the interval played, which the person names too, besides flat, in tune or sharp).
  */
 class PerguntaClassica(
     val chave: String,
@@ -43,6 +44,7 @@ class PerguntaClassica(
     val reveal: Array<Int>? = null,
     val dada: Int? = null,
     val alvo: Int? = null,
+    val intervalo: String? = null,
 )
 
 /** A functional-mode question: the cadence that sets the key and the note, apart or together. */
@@ -97,7 +99,10 @@ private fun <T> piscina(todos: Array<T>, escolhidos: Array<String>, id: (T) -> S
     return ok.ifEmpty { todos.toList() }
 }
 
-/** Tuning: the interval plays with the second note flat, in tune or sharp (a third each, on average), in equal temperament. */
+/**
+ * Tuning: the interval plays with the second note flat, in tune or sharp (a third each, on average), in equal temperament. The
+ * person names both: which interval it is ([PerguntaClassica.intervalo]) and how the second note sounds ([PerguntaClassica.resposta]).
+ */
 fun perguntaAfinacao(cfg: ConfigClassica, rng: Rng): PerguntaClassica {
     val i = sortear(piscina(INTERVALOS, cfg.itens) { it.id }, rng)
     val direcao = if (cfg.direcao == "misto") sortear(listOf("asc", "desc", "harm"), rng) else cfg.direcao
@@ -111,7 +116,7 @@ fun perguntaAfinacao(cfg: ConfigClassica, rng: Rng): PerguntaClassica {
     } else {
         arrayOf(PianoNote(a, 0.0, 1.0), PianoNote(b, 1.1, 1.4, cents.toDouble()))
     }
-    return PerguntaClassica("afinacao:${cfg.margem}", resposta, notas, cents = cents)
+    return PerguntaClassica("afinacao:${cfg.margem}", resposta, notas, cents = cents, intervalo = i.id)
 }
 
 private val NOMES_SUSTENIDO = arrayOf("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B")
