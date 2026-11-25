@@ -612,6 +612,12 @@ export declare namespace Placar.$metadata$ {
 export declare function somar(p: Placar, certo: boolean): Placar;
 export declare function nomeNota(midi: number): string;
 export declare function faixaDoTeclado(janela: Array<number>): Array<number>;
+export declare const PIANO_SAMPLES: { get(): Array<number>; };
+export declare function nearestSample(midi: number): number;
+export declare function rateFor(midi: number, sample: number, cents: number): number;
+export declare const PIANO_PEAK: { get(): number; };
+export declare const PIANO_ATTACK_S: { get(): number; };
+export declare const PIANO_RELEASE_S: { get(): number; };
 export declare const MINUTOS: { get(): Array<number>; };
 export declare const EXERCICIOS_DE_PROGRAMA: { get(): Array<string>; };
 export declare const MINUTOS_PADRAO: { get(): number; };

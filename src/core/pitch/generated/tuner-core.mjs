@@ -53,6 +53,8 @@ import {
   miny9ry5d0y0n2x as min_0,
   maxwcemc4giadkb as max_0,
   setOf45ia9pnfhe90 as setOf,
+  UnsupportedOperationException_init_$Create$1pe732c4s59hc as UnsupportedOperationException_init_$Create$,
+  abs1kdzbjes1idip as abs,
   toList2z3tifmtru5ra as toList_0,
   getValue48kllevslyh6 as getValue,
   sortedvxq8id1oldjy as sorted_0,
@@ -69,7 +71,6 @@ import {
   hashCodeq5arwsb9dgti as hashCode,
   plus20p0vtfmu0596 as plus_1,
   compareValues1n2ayl87ihzfk as compareValues,
-  UnsupportedOperationException_init_$Create$1pe732c4s59hc as UnsupportedOperationException_init_$Create$,
   ensureNotNull1e947j3ixpazm as ensureNotNull,
 } from './kotlin-kotlin-stdlib.mjs';
 //region block: imports
@@ -3453,6 +3454,65 @@ function _init_properties_Engine_kt__fnrbfm() {
     PLACAR_ZERO_0 = new Placar(0, 0, 0, 0);
   }
 }
+function get_PIANO_SAMPLES() {
+  _init_properties_Piano_kt__jo5ajt();
+  return PIANO_SAMPLES_0;
+}
+var PIANO_SAMPLES_0;
+function nearestSample(midi) {
+  _init_properties_Piano_kt__jo5ajt();
+  // Inline function 'kotlin.collections.reduce' call
+  var this_0 = get_PIANO_SAMPLES();
+  // Inline function 'kotlin.collections.isEmpty' call
+  if (this_0.length === 0)
+    throw UnsupportedOperationException_init_$Create$("Empty array can't be reduced.");
+  var accumulator = this_0[0];
+  var inductionVariable = 1;
+  var last = get_lastIndex(this_0);
+  if (inductionVariable <= last)
+    do {
+      var index = inductionVariable;
+      inductionVariable = inductionVariable + 1 | 0;
+      var tmp0 = accumulator;
+      var s = this_0[index];
+      accumulator = abs(s - midi | 0) < abs(tmp0 - midi | 0) ? s : tmp0;
+    }
+     while (!(index === last));
+  return accumulator;
+}
+function rateFor(midi, sample, cents) {
+  _init_properties_Piano_kt__jo5ajt();
+  // Inline function 'kotlin.math.pow' call
+  var x = (midi - sample | 0) / 12.0 + cents / 1200.0;
+  return Math.pow(2.0, x);
+}
+function get_PIANO_PEAK() {
+  return PIANO_PEAK_0;
+}
+var PIANO_PEAK_0;
+function get_PIANO_ATTACK_S() {
+  return PIANO_ATTACK_S_0;
+}
+var PIANO_ATTACK_S_0;
+function get_PIANO_RELEASE_S() {
+  return PIANO_RELEASE_S_0;
+}
+var PIANO_RELEASE_S_0;
+var properties_initialized_Piano_kt_8o50br;
+function _init_properties_Piano_kt__jo5ajt() {
+  if (!properties_initialized_Piano_kt_8o50br) {
+    properties_initialized_Piano_kt_8o50br = true;
+    var tmp = 0;
+    // Inline function 'kotlin.arrayOfNulls' call
+    var tmp_0 = Array(14);
+    while (tmp < 14) {
+      var tmp_1 = tmp;
+      tmp_0[tmp_1] = 45 + imul(tmp_1, 3) | 0;
+      tmp = tmp + 1 | 0;
+    }
+    PIANO_SAMPLES_0 = tmp_0;
+  }
+}
 function get_MINUTOS() {
   _init_properties_Programas_kt__m3jq64();
   return MINUTOS_0;
@@ -4506,6 +4566,9 @@ GRACA_S_0 = 0.35;
 GRACA_MAX_0 = 0.45;
 LIMIAR_0 = 0.45;
 LATENCIA_S_0 = 0.15;
+PIANO_PEAK_0 = 0.9;
+PIANO_ATTACK_S_0 = 0.008;
+PIANO_RELEASE_S_0 = 0.35;
 MINUTOS_PADRAO_0 = 10;
 SOBRA_S_0 = 2.0;
 AMOSTRAS_MAX_0 = 30;
@@ -4547,6 +4610,10 @@ var MARGENS = {get: get_MARGENS};
 var RESPOSTAS_AFINACAO = {get: get_RESPOSTAS_AFINACAO};
 var DIRECOES = {get: get_DIRECOES};
 var PLACAR_ZERO = {get: get_PLACAR_ZERO};
+var PIANO_SAMPLES = {get: get_PIANO_SAMPLES};
+var PIANO_PEAK = {get: get_PIANO_PEAK};
+var PIANO_ATTACK_S = {get: get_PIANO_ATTACK_S};
+var PIANO_RELEASE_S = {get: get_PIANO_RELEASE_S};
 var MINUTOS = {get: get_MINUTOS};
 var EXERCICIOS_DE_PROGRAMA = {get: get_EXERCICIOS_DE_PROGRAMA};
 var MINUTOS_PADRAO = {get: get_MINUTOS_PADRAO};
@@ -4650,6 +4717,12 @@ export {
   somar as somar,
   nomeNota as nomeNota,
   faixaDoTeclado as faixaDoTeclado,
+  PIANO_SAMPLES as PIANO_SAMPLES,
+  nearestSample as nearestSample,
+  rateFor as rateFor,
+  PIANO_PEAK as PIANO_PEAK,
+  PIANO_ATTACK_S as PIANO_ATTACK_S,
+  PIANO_RELEASE_S as PIANO_RELEASE_S,
   MINUTOS as MINUTOS,
   EXERCICIOS_DE_PROGRAMA as EXERCICIOS_DE_PROGRAMA,
   MINUTOS_PADRAO as MINUTOS_PADRAO,

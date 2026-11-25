@@ -19,7 +19,8 @@ const val CURTA_S: Double = 0.28
 
 fun ehCurta(j: Janela): Boolean = j.fim - j.ini < CURTA_S
 
-fun janelas(notas: Array<NotaMusica>, bpm: Int, tonicaMidi: Int): Array<Janela> {
+/** [bpm] may be fractional: the slow speed is 0.6 × the song's tempo. */
+fun janelas(notas: Array<NotaMusica>, bpm: Double, tonicaMidi: Int): Array<Janela> {
     val seg = 60.0 / bpm
     var tempo = 0.0
     return notas.map { n ->

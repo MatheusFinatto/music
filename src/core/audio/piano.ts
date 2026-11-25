@@ -1,17 +1,20 @@
 // Piano de amostras: uma amostra a cada terça menor (A2 a C6); as notas entre elas mudam só a velocidade de leitura.
 // Salamander Grand Piano V3, de Alexander Holm (CC BY 3.0): ver public/sons/piano/LICENCA.txt. Os arquivos têm o número
 // MIDI no nome (60.mp3 = C4). Só pode ser usado no navegador.
+// A escolha da amostra, a velocidade e o envelope são os mesmos do app Android (Kotlin em marmota-tuner/core, Piano.kt).
+import * as K from "../pitch/generated/tuner-core.mjs";
 import type { AudioGraph } from "./context";
 
 /** Notas MIDI com amostra: A2 (45) a C6 (84), de 3 em 3. */
-export const PIANO_SAMPLES = Array.from({ length: 14 }, (_, i) => 45 + i * 3);
+export const PIANO_SAMPLES: readonly number[] = K.PIANO_SAMPLES.get();
 
 /** A amostra mais próxima de uma nota (a mais grave, se estiver no meio). */
-export const nearestSample = (midi: number): number =>
-  PIANO_SAMPLES.reduce((best, s) => (Math.abs(s - midi) < Math.abs(best - midi) ? s : best), PIANO_SAMPLES[0]!);
+export const nearestSample = (midi: number): number => K.nearestSample(midi);
 
 /** Velocidade de leitura para tocar `midi` (mais `cents`) a partir da amostra `sample`. */
-export const rateFor = (midi: number, sample: number, cents = 0): number => 2 ** ((midi - sample) / 12 + cents / 1200);
+export const rateFor = (midi: number, sample: number, cents = 0): number => K.rateFor(midi, sample, cents);
+
+const PICO = K.PIANO_PEAK.get(), ATAQUE = K.PIANO_ATTACK_S.get(), SOLTURA = K.PIANO_RELEASE_S.get();
 
 /** Uma nota a tocar: `at` e `dur` em segundos a partir do início; `cents` desloca a altura (100 cents = um semitom). */
 export type PianoNote = { midi: number; at: number; dur: number; cents?: number };
@@ -59,9 +62,9 @@ export function playPiano(g: AudioGraph, notes: readonly PianoNote[], opcoes: { 
     const env = g.ctx.createGain();
     const on = t0 + n.at, off = on + n.dur;
     env.gain.setValueAtTime(0, on);
-    env.gain.linearRampToValueAtTime(0.9, on + 0.008);
-    env.gain.setValueAtTime(0.9, off);
-    env.gain.exponentialRampToValueAtTime(0.001, off + 0.35);
+    env.gain.linearRampToValueAtTime(PICO, on + ATAQUE);
+    env.gain.setValueAtTime(PICO, off);
+    env.gain.exponentialRampToValueAtTime(0.001, off + SOLTURA);
     src.connect(env).connect(g.bus.note);
     src.start(on);
     src.stop(off + 0.4);
