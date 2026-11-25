@@ -99,6 +99,8 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
             addView(ouvir, LayoutParams(dp(72), dp(72)))
             addView(context.coluna(4).apply { addView(titulo); addView(dica) }, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))
         }, lp().margens(b = dp(20)))
+        // Loading or error of the piano: next to the play button it disables, not under the instrument behind the bar.
+        palco.addView(estado, lp().margens(t = dp(-8), b = dp(16)))
         palco.addView(rotuloIntervalo, lp())
         palco.addView(intervalos, lp().margens(t = dp(4), b = dp(12)))
         palco.addView(rotuloSegunda, lp())
@@ -106,7 +108,6 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
         palco.addView(caixaInstrumento, lp())
         palco.addView(responderAchar, lp().margens(t = dp(16)))
         palco.addView(revela, lp().margens(t = dp(20)))
-        palco.addView(estado, lp().margens(t = dp(8)))
         addView(palco, lp())
         caixaInstrumento.addView(instrumento.vista)
         render()
@@ -304,19 +305,25 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
         val p = q
         // Exercise chooser (free training only).
         if (bloco == null) {
-            // One line per group that scrolls sideways (as Material chip rows do): the stage stays near the top of the screen.
-            val rolagens = (0 until escolhas.childCount).map { (escolhas.getChildAt(it) as android.widget.HorizontalScrollView).scrollX }
+            // One chip row that scrolls sideways, as in Voz (Material chip row): the stage stays near the top of the screen.
+            // A thin rule splits the groups (notes | harmony); a label inside the row would scroll away with it.
+            val rolX = (escolhas.getChildAt(0) as? android.widget.HorizontalScrollView)?.scrollX ?: 0
             escolhas.removeAllViews()
+            val l = context.linha(8)
+            var marcadoChip: View? = null
             GRUPOS.forEachIndexed { k, (grupo, lista) ->
-                val l = context.linha(8)
-                l.addView(context.texto(T("grupoExercicios.$grupo"), Papel.LABEL, C.apagado).apply { minWidth = dp(72) })
-                var marcadoChip: View? = null
-                for (e in lista) l.addView(Chip(context, T("exercicios.$e"), radio = true) { mudarExercicio(e) }.apply { marcado = e == exercicio; if (marcado) marcadoChip = this })
-                val r = context.rolagemHorizontal(l)
-                // Keep the chosen exercise in view: scroll only if it would be cut at either edge.
-                r.post { r.mostrar(marcadoChip, rolagens.getOrNull(k) ?: 0) }
-                escolhas.addView(r)
+                if (k > 0) l.addView(View(context).apply { setBackgroundColor(C.linha); importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO }, LayoutParams(dp(1), dp(28)))
+                for (e in lista) l.addView(Chip(context, T("exercicios.$e"), radio = true) { mudarExercicio(e) }.apply {
+                    marcado = e == exercicio
+                    if (marcado) marcadoChip = this
+                    // TalkBack still hears the group the sighted user sees from the rule.
+                    contentDescription = "${T("exercicios.$e")}, ${T("grupoExercicios.$grupo")}"
+                })
             }
+            val r = context.rolagemHorizontal(l)
+            // Keep the chosen exercise in view: scroll only if it would be cut at either edge.
+            r.post { r.mostrar(marcadoChip, rolX) }
+            escolhas.addView(r)
         }
         placarTexto.visibility = if (placar.total > 0 && bloco == null) VISIBLE else GONE
         placarTexto.text = "${T("placar", "acertos" to placar.acertos, "total" to placar.total)} ${T("acertos")} · ${T("sequenciaRotulo")} ${placar.sequencia}"
@@ -514,9 +521,10 @@ class BotaoOuvir(ctx: Context, aoTocar: () -> Unit) : FrameLayout(ctx) {
 class BotaoResposta(ctx: Context, rotulo: String, sub: String?, certa: Boolean?, escolhida: Boolean = false, aoTocar: () -> Unit) : LinearLayout(ctx) {
     init {
         orientation = VERTICAL
-        gravity = Gravity.CENTER_VERTICAL
+        // Centered, like every other pill in the app (chips, buttons, the bar).
+        gravity = Gravity.CENTER
         minimumHeight = dp(56)
-        setPadding(dp(22), dp(8), dp(18), dp(8))
+        setPadding(dp(16), dp(8), dp(16), dp(8))
         isClickable = true
         isFocusable = true
         setOnClickListener { aoTocar() }
@@ -528,8 +536,8 @@ class BotaoResposta(ctx: Context, rotulo: String, sub: String?, certa: Boolean?,
         }
         isSelected = escolhida
         background = ctx.toque(fundo, raio, tinta)
-        addView(ctx.texto(rotulo, Papel.LABEL, tinta).apply { setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 16f) })
-        if (sub != null) addView(ctx.texto(sub, Papel.LABEL_SMALL, tinta).apply { alpha = 0.75f })
+        addView(ctx.texto(rotulo, Papel.LABEL, tinta).apply { setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 16f); gravity = Gravity.CENTER })
+        if (sub != null) addView(ctx.texto(sub, Papel.LABEL_SMALL, tinta).apply { alpha = 0.75f; gravity = Gravity.CENTER })
         contentDescription = listOfNotNull(rotulo, sub, when (certa) { true -> T("certo"); false -> T("app.marca.errada"); null -> null }).joinToString(", ")
     }
 }
@@ -544,8 +552,11 @@ class Grade(ctx: Context) : LinearLayout(ctx) {
         views.chunked(cols).forEachIndexed { k, par ->
             val l = context.linha()
             l.isBaselineAligned = false
-            par.forEachIndexed { j, v -> l.addView(v, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f).margens(s = if (j > 0) dp(10) else 0)) }
-            repeat(cols - par.size) { l.addView(View(context), LayoutParams(0, 0, 1f).margens(s = dp(10))) }
+            // MATCH_PARENT inside a wrapping row: the row takes the tallest answer and the others stretch to it.
+            par.forEachIndexed { j, v -> l.addView(v, LayoutParams(0, LayoutParams.MATCH_PARENT, 1f).margens(s = if (j > 0) dp(10) else 0)) }
+            // The filler must be MATCH_PARENT too (one fixed-height child makes the row measure 0 dp), and a Space, which
+            // measures 0 under AT_MOST where a plain View would take all the height left.
+            repeat(cols - par.size) { l.addView(android.widget.Space(context), LayoutParams(0, LayoutParams.MATCH_PARENT, 1f).margens(s = dp(10))) }
             addView(l, lp().margens(t = if (k > 0) dp(10) else 0))
         }
     }

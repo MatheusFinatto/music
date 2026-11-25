@@ -123,8 +123,9 @@ fun Context.botao(rotulo: String, estilo: Estilo = Estilo.CHEIO, alto: Boolean =
         setTextSize(TypedValue.COMPLEX_UNIT_SP, if (pequeno) 15f else 17f)
         typeface = Typeface.DEFAULT_BOLD
         gravity = Gravity.CENTER
-        // The small button draws 40 dp but keeps a 48 dp touch target (the 4 dp inset above and below).
-        minHeight = dp(if (pequeno) 48 else if (alto) 56 else 52)
+        // One height for every action button (56 dp, the answers' height too), so a filled and a tonal button side by side
+        // or one above the other always match. The small button draws 40 dp and keeps a 48 dp touch target (4 dp inset).
+        minHeight = dp(if (pequeno) 48 else 56)
         isClickable = true
         isFocusable = true
         val raio = dp(if (pequeno) 20 else 28).toFloat()
@@ -363,7 +364,7 @@ fun Context.folha(titulo: String, corpo: View): Dialog {
     val raiz = coluna().apply {
         background = forma(C.superficie, dp(22).toFloat())
         setPadding(dp(20), dp(16), dp(8), dp(16))
-        accessibilityPaneTitle = titulo
+        painel(titulo)
         val cabeca = linha().apply {
             addView(texto(titulo, Papel.TITLE).cabecalho().apply { setTextSize(TypedValue.COMPLEX_UNIT_SP, 19f); typeface = Typeface.DEFAULT_BOLD },
                 LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
@@ -473,6 +474,9 @@ fun TextView.umaLinha(): TextView = apply { maxLines = 1; ellipsize = TextUtils.
 /** Keeps layout params tidy when adding a fixed-size child to a FrameLayout. */
 fun frame(w: Int, h: Int, g: Int) = FrameLayout.LayoutParams(w, h, g)
 
+
+/** Names a pane for TalkBack (API 28+). minSdk is 26: calling the setter directly crashes Android 8. */
+fun View.painel(titulo: String) { if (android.os.Build.VERSION.SDK_INT >= 28) accessibilityPaneTitle = titulo }
 
 /** Marks a view as a heading for TalkBack (API 28+; older versions just read it as text). */
 fun <V : View> V.cabecalho(): V = apply { if (android.os.Build.VERSION.SDK_INT >= 28) isAccessibilityHeading = true }
