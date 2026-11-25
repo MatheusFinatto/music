@@ -9,12 +9,9 @@ export async function Header() {
     <header className="site-header">
       <div className="wrap">
         <Link className="brand" href="/" translate="no">
-          <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-            <rect width="64" height="64" rx="14" fill="#27598a" />
-            <path d="M24 44V18l22-5v26" fill="none" stroke="#fff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
-            <circle cx="19" cy="44" r="7" fill="#f0a634" />
-            <circle cx="41" cy="39" r="7" fill="#f0a634" />
-          </svg>
+          {/* Pixel art de 32×32: mostrada em 32px exatos, sem suavizar, para cada ponto cair num pixel. */}
+          {/* eslint-disable-next-line @next/next/no-img-element -- 1 KB e tamanho fixo; o otimizador do next/image só borraria a pixel art */}
+          <img src="/marmota.png" width={32} height={32} alt="" />
           {t("site.name")}
         </Link>
         <nav aria-label={t("nav.label")}>
