@@ -2,13 +2,17 @@
 
 /* Sistema visual do site. Descrição em DESIGN.md. Ferramentas usam estes tokens; não criam paleta própria. */
 :root {
-  /* Um tema só: palco à noite. Madeira, marfim e uma luz quente vinda de cima (vale para o site inteiro). */
-  --bg: #120e0b;
-  --surface: #1d1713;
-  --ink: #f5ecdc;
-  --muted: #b7a896;
-  --line: #3d3027;
-  --soft: #2a211b;
+  /* Um tema só, escuro, tirado da marmota em pixel art (public/marmota-*.png): o contorno grafite-esverdeado vira o
+     fundo, os cinzas e o taupe do pelo viram superfícies e linhas, o marfim do focinho vira o texto. */
+  --bg: #111715;
+  --surface: #1b2220;
+  --ink: #dbdcd6;
+  --muted: #9c958e;
+  --line: #3a403d;
+  --soft: #252d2b;
+  --fur: #6b625a; /* taupe do pelo */
+  --fur-2: #51524c; /* cinza do pelo */
+  --plate-hover: #f2f1ec; /* placa marfim acesa (hover do "Abrir") */
   --accent: #8cc0ee; /* ação e "tocando agora" */
   --accent-ink: #0b1520;
   --accent-soft: #1c2a37;
@@ -35,11 +39,15 @@
   --bad-bright: #ef7f6c;
   --on-bright: #1a1208; /* texto sobre qualquer bolinha clara */
   --pearl: #ffffff;
-  --shadow: 0 0 0 1px rgb(255 236 210 / 0.07), 0 24px 60px rgb(0 0 0 / 0.5);
-  --shadow-up: 0 0 0 1px rgb(255 236 210 / 0.16), 0 28px 70px rgb(0 0 0 / 0.6);
-  --radius: 22px;
-  --radius-md: 14px;
-  --radius-sm: 10px;
+  /* Mundo de pixel: cantos quase vivos, superfície plana com contorno; só o que flutua (diálogo) tem sombra. */
+  --shadow: 0 0 0 1px var(--line);
+  --shadow-up: 0 0 0 1px var(--fur-2), 0 16px 40px rgb(0 0 0 / 0.55);
+  --radius: 4px;
+  --radius-md: 4px;
+  --radius-sm: 2px;
+  --radius-pill: 4px; /* botões e chips das ferramentas; no celular com cara de app volta a pílula */
+  --px: 4px; /* um pixel da arte na escala do site */
+  --step: steps(3, end); /* movimento em degraus, como pixel art: nada desliza */
   /* Escala de texto. Ferramentas usam só estes degraus. */
   --text-xs: 0.82rem;
   --text-sm: 0.92rem;
@@ -51,9 +59,9 @@
   --text-stage: clamp(2.4rem, 9vw, 4.25rem); /* o que se lê tocando, de longe */
   --text-tempo: clamp(4rem, 14vw, 6.5rem); /* o andamento do metrônomo: o número que se lê a um metro */
   --text-count: clamp(2.7rem, 9.3vw, 4.35rem); /* contagem do timer: 2/3 do andamento */
-  --glow-warm: rgb(240 166 52 / 0.16); /* luz quente de cima, no fundo */
-  --glow-cool: rgb(140 192 238 / 0.07); /* reflexo frio no canto */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Fonte pixel (Silkscreen) só em rótulos curtos: selos e situação. Tudo o que se lê fica em Inter. */
+  --font-pixel: var(--font-silkscreen), var(--font-inter), monospace;
   color-scheme: dark;
 }
 @theme inline {
@@ -82,11 +90,7 @@
   button, a, input, select, summary, [role="button"], [role="tab"], [role="radio"] { touch-action: manipulation; }
   :root { -webkit-tap-highlight-color: color-mix(in srgb, var(--accent) 25%, transparent); }
   body {
-    background:
-      radial-gradient(120% 70% at 50% -10%, var(--glow-warm), transparent 60%),
-      radial-gradient(60% 40% at 85% 0%, var(--glow-cool), transparent 70%),
-      var(--bg);
-    background-attachment: fixed;
+    background: var(--bg);
     color: var(--ink);
     font-family: var(--font-sans);
     font-size: 17px;
@@ -98,7 +102,7 @@
     caret-color: var(--accent);
   }
   ::selection { background: var(--accent); color: var(--accent-ink); }
-  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: var(--radius-sm); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 0; }
   h1, h2, h3, h4, h5 { text-wrap: balance; }
   a { text-underline-offset: 0.2em; }
 }
@@ -106,97 +110,193 @@
 @layer components {
   .wrap { width: 100%; max-width: 1120px; margin-inline: auto; padding-inline: max(20px, env(safe-area-inset-left)) max(20px, env(safe-area-inset-right)); }
 
-  .skip { position: absolute; left: 12px; top: -60px; z-index: 50; background: var(--accent); color: var(--accent-ink); padding: 10px 16px; border-radius: 999px; font-weight: 600; text-decoration: none; }
+  .skip { position: absolute; left: 12px; top: -60px; z-index: 50; background: var(--accent); color: var(--accent-ink); padding: 10px 16px; font-weight: 600; text-decoration: none; }
   .skip:focus { top: 10px; }
 
   /* cabeçalho */
-  .site-header { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--bg) 78%, transparent); backdrop-filter: saturate(1.6) blur(18px); border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent); }
+  .site-header { position: sticky; top: 0; z-index: 40; background: var(--bg); border-bottom: 2px solid var(--soft); }
   .site-header .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
-  .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 650; font-size: 1.12rem; letter-spacing: -0.015em; color: var(--ink); text-decoration: none; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.12rem; letter-spacing: -0.015em; color: var(--ink); text-decoration: none; }
   .brand img { width: 32px; height: 32px; image-rendering: pixelated; }
-  .site-header nav a { color: var(--muted); text-decoration: none; font-size: 0.94rem; font-weight: 500; padding: 8px 12px; border-radius: 999px; transition: color 0.2s, background-color 0.2s; }
-  .site-header nav a:hover { color: var(--ink); background: var(--soft); }
-  .site-header nav a[aria-current="page"] { color: var(--ink); background: var(--soft); font-weight: 600; }
+  /* Link atual: um traço de 2 "pixels" embaixo, como a nota marcada; sem pílula. */
+  .site-header nav a { position: relative; color: var(--muted); text-decoration: none; font-size: 0.94rem; font-weight: 500; padding: 8px 12px; }
+  .site-header nav a:hover { color: var(--ink); }
+  .site-header nav a::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 2px; height: var(--px); background: transparent; }
+  .site-header nav a:hover::after { background: var(--line); }
+  .site-header nav a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+  .site-header nav a[aria-current="page"]::after { background: var(--ink); }
   @media (max-width: 680px) { .site-header nav a { display: inline-flex; align-items: center; min-height: 44px; } .brand { min-height: 44px; } }
   /* Em tela muito estreita o menu rola dentro dele mesmo, nunca a página inteira para o lado. */
   .site-header nav { display: flex; align-items: center; gap: 2px; min-width: 0; overflow-x: auto; scrollbar-width: none; }
   @media (max-width: 560px) { .site-header .wrap { gap: 6px; } .brand { font-size: 0; gap: 0; } .site-header nav a { font-size: 0.84rem; padding: 8px 8px; } }
 
-  /* topo do hub */
-  .hero { text-align: center; padding-block: clamp(24px, 3.5vw, 40px) 0; }
-  .hero h1 { font-size: clamp(2.3rem, 6.2vw, 4.25rem); line-height: 1.04; letter-spacing: -0.035em; font-weight: 700; max-width: 20ch; margin-inline: auto; }
-  .hero p { margin: 18px auto 0; max-width: 46ch; color: var(--muted); font-size: var(--text-lg); line-height: 1.4; text-wrap: balance; }
+  /* Palco do hub: a marmota (pixel art 52×42, sempre em múltiplo inteiro) e, ao lado, o nome e a frase. */
+  .stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 8px clamp(24px, 4vw, 48px); padding-top: clamp(24px, 4vw, 48px); }
+  .marmota { position: relative; width: calc(52px * var(--m)); height: calc(42px * var(--m)); --m: 6; }
+  .marmota img { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+  .marmota-pisca, .marmota-fareja { opacity: 0; }
+  /* O título fica um pouco acima da pauta: a nota mais aguda sobe acima da linha de cima. */
+  .stage-text { padding-bottom: 40px; /* as hastes e a barra da pauta sobem até ~32px acima da linha de cima */ }
+  .stage h1 { font-size: clamp(2.5rem, 5.6vw, 4rem); line-height: 1; letter-spacing: -0.035em; font-weight: 700; }
+  /* Tela baixa (notebook): a marmota a 5× e menos respiro em cima, para o hub caber sem rolar. */
+  @media (min-width: 721px) and (max-height: 820px) { .marmota { --m: 5; } .stage { padding-top: 16px; } }
+  @media (max-width: 720px) {
+    .stage { grid-template-columns: 1fr; justify-items: start; }
+    .marmota { --m: 4; }
+    .stage-text { padding-bottom: 0; }
+  }
 
-  /* pauta animada */
-  .staff { display: block; width: 100%; height: auto; min-height: 96px; max-height: 120px; margin-top: clamp(12px, 2vw, 20px); overflow: visible; }
-  .staff .lines path { stroke: var(--line); stroke-width: 1.5; fill: none; }
-  .staff .note { color: var(--ink); transform-box: fill-box; transform-origin: 50% 80%; }
-  .staff .note .head { fill: currentColor; stroke: currentColor; stroke-width: 2.4; }
-  .staff .note.hollow .head { fill: var(--bg); }
-  .staff .note .stem { stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
-  .staff .note .ring { fill: none; stroke: currentColor; stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
-  .staff .cursor { stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; opacity: 0; }
+  /* Pauta: o começo de "Marmotte", de Beethoven (src/components/Pauta.tsx). Pixel da pauta --u = 3px (a escala dos ícones).
+     Cinco linhas de 2px a cada 12px; --p é a altura da nota em meias-linhas a partir da linha de cima (0) até a de baixo (8) e
+     --t o início em colcheias. A marmota senta na linha de cima (a pauta sobe o próprio respiro). Cabeça 5×4 (15×12px, a altura
+     do espaço entre linhas), haste de 1 pixel com 3 espaços, bandeirola 2×4. No celular só cabem a anacruse e o primeiro
+     compasso (.c2 some). */
+  .pauta { --u: 3px; --gap-line: 12px; --staff-top: 44px; --colcheia: 0.22s; --cols: 14.5; --pre: 1.5; position: relative; height: calc(var(--staff-top) + 4 * var(--gap-line) + 18px); margin-top: calc(-1 * var(--staff-top));
+    background: repeating-linear-gradient(to bottom, var(--line) 0 2px, transparent 2px var(--gap-line)) 0 var(--staff-top) / 100% calc(4 * var(--gap-line) + 2px) no-repeat; }
+  .pauta > [style*="--t"] { left: calc((var(--pre) + var(--t)) / var(--cols) * 100%); }
+  .pauta-formula { position: absolute; left: 0; top: var(--staff-top); height: calc(4 * var(--gap-line) + 2px); display: flex; flex-direction: column; justify-content: space-around; font-family: var(--font-pixel); font-size: 24px; line-height: 1; color: var(--ink); }
+  .pauta-barra { position: absolute; top: var(--staff-top); width: 2px; height: calc(4 * var(--gap-line) + 2px); background: var(--line); }
+  .pauta-nota { --haste-px: calc(12 * var(--u) + var(--haste) * var(--gap-line) / 2); position: absolute; width: calc(5 * var(--u)); height: calc(4 * var(--u)); top: calc(var(--staff-top) + var(--p) * var(--gap-line) / 2 + 1px - 2 * var(--u)); color: var(--ink); }
+  .pauta-cabeca { display: block; width: 100%; height: 100%; }
+  .pauta-haste { position: absolute; left: calc(4 * var(--u)); width: var(--u); top: calc(var(--u) - var(--haste-px)); height: var(--haste-px); background: currentColor; }
+  .pauta-bandeira { position: absolute; left: calc(5 * var(--u)); top: calc(var(--u) - var(--haste-px)); width: calc(2 * var(--u)); height: calc(4 * var(--u)); }
+  .pauta-viga { position: absolute; height: calc(2 * var(--u)); top: calc(var(--staff-top) + var(--p) * var(--gap-line) / 2 + 1px - 2 * var(--u) + var(--u) - 12 * var(--u)); background: var(--ink);
+    margin-left: calc(4 * var(--u)); width: calc((var(--t1) - var(--t)) / var(--cols) * (100%) + var(--u)); }
+  @media (max-width: 720px) { .pauta { margin-top: 0; } }
+  @media (max-width: 560px) { .pauta { --cols: 8.5; } .pauta .c2 { display: none; } }
+
+  /* Rodapé da pauta: nome, play e "?", pequenos e apagados (passam despercebidos); no toque, 44px de alvo. */
+  .pauta-figura { margin: 0; }
+  .pauta-rodape { display: flex; justify-content: flex-end; align-items: center; gap: 0; margin-top: -14px; }
+  .pauta-nome { margin-right: 4px; color: var(--muted); font-size: var(--text-xs); opacity: 0.75; }
+  .pauta-play, .info-sutil .info-btn { display: inline-grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; background: transparent; color: var(--muted); opacity: 0.75; cursor: pointer; }
+  .pauta-play:hover, .info-sutil:focus-within .info-btn { opacity: 1; color: var(--ink); }
+  /* No hover o ? discreto só acende a opacidade: se virasse --ink, o ? claro que "carrega" por cima ficaria invisível. */
+  .info-sutil .info-btn:hover { opacity: 1; }
+  .pauta-play svg { width: 10px; height: 14px; }
+  .pauta-play[aria-busy="true"] { opacity: 0.4; }
+  @media (pointer: coarse) { .pauta-play, .info-sutil .info-btn { width: 44px; height: 44px; } .pauta-rodape { margin-top: -8px; } }
+
+  /* Ferramentas embaixo da pauta, numa fileira só no desktop (as que ainda não existem entram quietas no fim); duas colunas no
+     tablet, uma no celular. */
+  .score { display: grid; grid-template-columns: repeat(var(--n, 4), 1fr); gap: 16px; margin-top: 8px; }
+  @media (max-width: 960px) { .score { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .score { grid-template-columns: 1fr; gap: 12px; } }
+  .part { display: flex; flex-direction: column; min-width: 0; }
+  .part .card { flex: 1; }
 
   /* seções e cards */
   .section { padding-top: clamp(32px, 4.5vw, 56px); }
   .section > h2 { font-size: clamp(1.45rem, 2.6vw, 1.9rem); letter-spacing: -0.025em; font-weight: 650; line-height: 1.15; }
   .section > h2 + p { color: var(--muted); margin-top: 6px; max-width: 60ch; text-wrap: pretty; }
-  .grid { display: grid; gap: 18px; margin-top: 22px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
-  .grid.small { grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 14px; }
 
-  .card { position: relative; display: flex; flex-direction: column; gap: 10px; height: 100%; background: var(--surface); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); color: var(--ink); text-decoration: none; }
-  .card h3 { font-size: 1.45rem; letter-spacing: -0.022em; font-weight: 650; line-height: 1.15; }
-  .card p { color: var(--muted); font-size: var(--text-md); line-height: 1.45; max-width: 38ch; }
-  .card .foot { margin-top: auto; padding-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-
-  .icon { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); margin-bottom: 6px; flex: none; }
-  .icon svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-
-  a.card:hover { box-shadow: var(--shadow-up); }
-  @media (prefers-reduced-motion: no-preference) {
-    a.card { transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); }
-    a.card:hover { transform: translateY(-4px); }
-    a.card:active { transform: translateY(-1px) scale(0.995); transition-duration: 0.12s; }
+  /* Card de ferramenta: superfície plana com um traço de 1 pixel da arte no topo, que acende no hover. */
+  .card { position: relative; display: flex; flex-direction: column; gap: 8px; background: var(--surface); border-top: var(--px) solid var(--fur-2); padding: 18px 20px 20px; color: var(--ink); text-decoration: none; }
+  .card h3 { font-size: 1.25rem; letter-spacing: -0.02em; font-weight: 700; line-height: 1.15; }
+  /* Ferramenta que ainda não existe: sem superfície nem link, só o contorno, o ícone apagado e o selo. */
+  .card.quieto { background: transparent; box-shadow: inset 0 0 0 2px var(--soft); border-top-color: var(--soft); }
+  .card.quieto .icon { color: var(--fur); }
+  .card.quieto h3 { color: var(--muted); }
+  .card.quieto.proxima .icon { color: var(--target); }
+  /* Celular: cada ferramenta numa linha (ícone, nome, ação), para a lista caber com pouca rolagem. */
+  @media (max-width: 560px) {
+    .card { flex-direction: row; align-items: center; gap: 14px; padding: 12px 14px 12px 16px; }
+    .card .icon { width: 32px; height: 32px; margin: 0; }
+    .card h3 { flex: 1; min-width: 0; font-size: var(--text-lg); }
+    .card .foot { margin: 0; padding: 0; }
   }
-  .go { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: var(--bg); font-weight: 600; font-size: 0.95rem; padding: 9px 16px 9px 18px; border-radius: 999px; }
-  .go { transition: filter 0.2s; }
-  .go:hover { filter: brightness(1.1); }
-  .go:active { filter: brightness(0.95); }
-  .go svg { width: 16px; height: 16px; transition: transform 0.5s var(--ease); }
-  a.card:hover .go svg { transform: translateX(4px); }
+  .card p { color: var(--muted); font-size: var(--text-md); line-height: 1.45; max-width: 38ch; }
+  .card .foot { margin-top: auto; padding-top: 10px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  a.card:hover { border-top-color: var(--ink); background: color-mix(in srgb, var(--surface) 70%, var(--soft)); }
+
+  /* Ícone em pixel art 16×16, mostrado a 3× (48px): cada ponto é um quadrado de 3px. */
+  .icon { width: 48px; height: 48px; display: block; color: var(--ink); margin-bottom: 4px; flex: none; }
+  .icon svg { display: block; width: 100%; height: 100%; }
+
+  /* Ação principal: placa marfim, cantos vivos. */
+  /* Cantos em degrau: falta um "pixel" (4px) em cada canto, como num botão de pixel art. */
+  .go { display: inline-flex; align-items: center; gap: 10px; background: var(--ink); color: var(--bg); font-weight: 600; font-size: 0.95rem; padding: 9px 16px 9px 18px;
+    clip-path: polygon(var(--px) 0, calc(100% - var(--px)) 0, calc(100% - var(--px)) var(--px), 100% var(--px), 100% calc(100% - var(--px)), calc(100% - var(--px)) calc(100% - var(--px)), calc(100% - var(--px)) 100%, var(--px) 100%, var(--px) calc(100% - var(--px)), 0 calc(100% - var(--px)), 0 var(--px), var(--px) var(--px)); }
+  .go .arrow { width: 14px; height: 10px; }
+  a.card:hover .go { background: var(--plate-hover); }
+  @media (prefers-reduced-motion: no-preference) {
+    .go .arrow { transition: transform 0.24s var(--step); }
+    a.card:hover .go .arrow { transform: translateX(var(--px)); }
+  }
 
   /* Topo das ferramentas (afinador, metrônomo): título e, à direita, as ações e "Baixar app". */
   .tool-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
   .tool-head h1 { font-size: clamp(1.45rem, 2.6vw, 1.9rem); font-weight: 650; line-height: 1.15; letter-spacing: -0.025em; }
   .tool-head-actions { display: flex; align-items: center; gap: 8px; }
-  .tool-download { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px 0 12px; white-space: nowrap; border-radius: 999px; border: 1px solid var(--line); color: var(--ink); font-size: var(--text-sm); font-weight: 600; text-decoration: none; transition: background-color 0.2s, border-color 0.2s; }
+  .tool-download { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px 0 12px; white-space: nowrap; border-radius: var(--radius-pill); border: 2px solid var(--line); color: var(--ink); font-size: var(--text-sm); font-weight: 600; text-decoration: none; transition: background-color 0.2s, border-color 0.2s; }
   .tool-download:hover { background: var(--soft); border-color: var(--muted); }
   .tool-download:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   .tool-download svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-  .badge { display: inline-flex; align-items: center; gap: 7px; font-size: 0.82rem; font-weight: 600; padding: 5px 11px; border-radius: 999px; background: var(--soft); color: var(--muted); white-space: nowrap; }
+  /* Selo de situação em fonte pixel (Silkscreen, 8px de grade: 16px é 2×). */
+  .badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-pixel); font-size: 16px; line-height: 1; text-transform: uppercase; padding: 6px 10px 7px; background: var(--soft); color: var(--muted); white-space: nowrap; }
   .badge.proxima { background: var(--target-soft); color: var(--target-ink); }
-  .badge.proxima::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .badge.proxima::before { content: ""; width: var(--px); height: var(--px); background: currentColor; }
 
-  .card.next { flex-direction: row; align-items: center; gap: 22px; padding: 28px; }
-  .card.next .icon { width: 64px; height: 64px; border-radius: var(--radius-md); margin: 0; background: var(--target-soft); color: var(--target); }
-  .card.next .icon svg { width: 34px; height: 34px; }
-  .card.next .text { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; }
-  .card.next h3 { font-size: var(--text-2xl); }
-  .card.next p { max-width: 52ch; }
-  @media (max-width: 640px) { .card.next { flex-direction: column; align-items: flex-start; gap: 12px; } }
+  /* O "i": botão quadrado com o i em pixel (4×8 a 2×) e o modal com a lista do que precisa ser dito. */
+  /* O "?": botão quadrado com o ? em pixel (5×8 a 2×). No computador, hover ou foco abre o balão (.info-tip); no celular, o
+     toque abre o modal (.info-dialog). Os dois mostram o mesmo conteúdo: lista curta ou, em .info-tip/.info-corpo com <p>, texto. */
+  .info { position: relative; display: inline-flex; flex: none; }
+  .info-btn { display: inline-grid; place-items: center; flex: none; width: 44px; height: 44px; padding: 0; border: 2px solid var(--line); border-radius: var(--radius-pill); background: transparent; color: var(--muted); cursor: help; }
+  .info-btn:hover { border-color: var(--muted); }
+  /* Dois ? empilhados: o apagado e, por cima, o claro, que "carrega" de baixo para cima (8 degraus, um por linha do desenho)
+     durante o segundo de espera; aberto, fica todo claro; travado, a borda acende também. */
+  .info-btn svg { grid-area: 1 / 1; width: 10px; height: 16px; }
+  .info-carga { color: var(--ink); clip-path: inset(100% 0 0 0); }
+  /* Carregando, o ? de baixo apaga até a cor da linha: o claro que sobe por cima fica óbvio mesmo no ? discreto da pauta. */
+  .info[data-estado="carregando"] .info-glifo { color: var(--line); }
+  .info[data-estado="carregando"] .info-btn { opacity: 1; }
+  .info[data-estado="carregando"] .info-carga { animation: info-carga 1s steps(8, end) forwards; }
+  .info:is([data-estado="aberto"], [data-estado="foco"], [data-estado="travado"]) .info-carga { clip-path: inset(0); }
+  .info:is([data-estado="aberto"], [data-estado="foco"], [data-estado="travado"]) .info-btn { border-color: var(--muted); }
+  .info[data-estado="travado"] .info-btn { border-color: var(--ink); }
+  @keyframes info-carga { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
+  .info-tip { display: none; position: absolute; z-index: 30; right: 0; top: calc(100% + 8px); width: max-content; max-width: min(340px, calc(100vw - 32px)); padding: 14px 16px; border-top: var(--px) solid var(--fur-2); background: var(--surface); box-shadow: var(--shadow-up); text-align: left; pointer-events: none; }
+  .info:is([data-estado="aberto"], [data-estado="foco"], [data-estado="travado"]) .info-tip { display: block; }
+  /* Barra de carga do balão: em cima da borda do topo, enche da esquerda em 8 degraus nos 2 s entre abrir e travar. */
+  .info-tip-barra { position: absolute; left: 0; right: 0; top: calc(-1 * var(--px)); height: var(--px); background: var(--ink); transform: scaleX(0); transform-origin: left; }
+  .info[data-estado="aberto"] .info-tip-barra { animation: info-barra 2s steps(8, end) forwards; }
+  .info[data-estado="travado"] .info-tip-barra { transform: scaleX(1); }
+  @keyframes info-barra { to { transform: scaleX(1); } }
+  .info[data-estado="travado"] .info-tip { pointer-events: auto; border-top-color: var(--ink); max-height: min(70dvh, 520px); overflow-y: auto; }
+  .info-tip-x { display: none; position: absolute; top: 2px; right: 2px; width: 32px; height: 32px; place-items: center; padding: 0; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+  .info-tip-x:hover { color: var(--ink); }
+  .info-tip-x svg { width: 14px; height: 14px; }
+  .info[data-estado="travado"] .info-tip-x { display: grid; }
+  .info[data-estado="travado"] .info-tip { padding-right: 40px; }
+  .info-dialog { width: min(480px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); margin: auto; padding: 20px 22px 24px; border: 0; border-top: var(--px) solid var(--fur-2); border-radius: var(--radius); background: var(--surface); color: var(--ink); box-shadow: var(--shadow-up); }
+  .info-dialog::backdrop { background: rgb(0 0 0 / 0.6); }
+  .info-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+  .info-head h2 { font-size: var(--text-lg); font-weight: 700; letter-spacing: -0.015em; }
+  .info-close { display: grid; place-items: center; width: 44px; height: 44px; margin: -8px -10px -8px 0; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+  .info-close:hover { color: var(--ink); }
+  .info-close svg { width: 14px; height: 14px; }
+  :is(.info-dialog, .info-tip) ul { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; }
+  :is(.info-dialog, .info-tip) li { position: relative; padding-left: 16px; color: var(--muted); font-size: var(--text-sm); line-height: 1.5; }
+  :is(.info-dialog, .info-tip) li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: var(--px); height: var(--px); background: var(--fur); }
+  :is(.info-corpo, .info-tip) p { color: var(--muted); font-size: var(--text-sm); line-height: 1.55; }
+  :is(.info-corpo, .info-tip) p + p { margin-top: 10px; }
 
-  .card.planned { padding: 20px; gap: 6px; box-shadow: none; background: transparent; border: 1px solid var(--line); }
-  .card.planned .icon { width: 40px; height: 40px; border-radius: var(--radius-sm); background: var(--soft); color: var(--muted); }
-  .card.planned .icon svg { width: 22px; height: 22px; }
-  .card.planned h3 { font-size: var(--text-lg); }
-  .card.planned p { font-size: 0.93rem; }
+  /* Backup de dados (modal do rodapé): uma frase e os dois botões. */
+  .backup-texto { color: var(--muted); font-size: var(--text-sm); line-height: 1.5; }
+  .backup-acoes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .backup-acoes .go { border: 0; cursor: pointer; min-height: 44px; }
+  .backup-acoes .go:hover { background: var(--plate-hover); }
+  .backup-sec { min-height: 44px; padding: 0 16px; border: 2px solid var(--line); border-radius: var(--radius-pill); background: transparent; color: var(--ink); font: inherit; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+  .backup-sec:hover { border-color: var(--muted); }
+  .backup-status { min-height: 1.5em; margin-top: 12px; color: var(--muted); font-size: var(--text-sm); }
 
   /* rodapé */
-  .site-footer { margin-top: auto; padding-top: clamp(56px, 8vw, 96px); padding-bottom: env(safe-area-inset-bottom); }
-  .site-footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-block: 22px 30px; color: var(--muted); font-size: 0.9rem; }
-  .site-footer a { color: var(--accent); font-weight: 500; }
-  .site-footer a:hover { text-decoration: underline; }
+  .site-footer { margin-top: auto; padding-top: clamp(24px, 4vw, 40px); padding-bottom: env(safe-area-inset-bottom); }
+  .site-footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: flex-end; align-items: center; border-top: 2px solid var(--soft); padding-block: 12px 16px; color: var(--muted); font-size: 0.9rem; }
+  .site-footer :is(a, .footer-link) { color: var(--accent); font-weight: 500; }
+  .site-footer :is(a, .footer-link):hover { text-decoration: underline; }
+  .footer-link { padding: 0; border: 0; background: none; font: inherit; cursor: pointer; text-underline-offset: 0.2em; }
   .site-footer .links { display: flex; flex-wrap: wrap; gap: 8px 24px; }
 
   .notfound { text-align: center; padding-block: 96px; display: flex; flex-direction: column; gap: 16px; align-items: center; }
@@ -205,38 +305,28 @@
 }
 
 /* Movimento: o conteúdo é visível por padrão; a animação só entra para quem não pediu redução. */
+/* Movimento do hub, todo em degraus (pixel art não desliza): a marmota pisca e fareja; a pauta toca. */
 @media (prefers-reduced-motion: no-preference) {
-  .rise { animation: rise 0.9s var(--ease) both; animation-delay: calc(var(--i, 0) * 70ms); }
-  @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+  .marmota-pisca { animation: pisca 7s steps(1, end) infinite 2s; }
+  @keyframes pisca { 0%, 93% { opacity: 0; } 94%, 96% { opacity: 1; } 97%, 100% { opacity: 0; } }
 
-  /* A pauta toca em ciclo de 8 s: o cursor atravessa e cada nota acende quando ele passa. */
-  .staff .cursor { animation: sweep 8s linear infinite; }
-  @keyframes sweep {
-    0% { transform: translateX(40px); opacity: 0; }
-    4% { opacity: 1; }
-    90% { opacity: 1; }
-    96%, 100% { transform: translateX(1160px); opacity: 0; }
-  }
-  .staff .note { animation: play 8s var(--ease) infinite; animation-delay: calc(var(--t) * 1s); }
-  @keyframes play {
-    0% { color: var(--hit, var(--accent)); transform: translateY(-9px) scale(1.14); }
-    9% { color: var(--hit, var(--accent)); transform: none; }
-    16%, 100% { color: var(--ink); transform: none; }
-  }
-  .staff .note .ring { animation: ring 8s var(--ease) infinite; animation-delay: calc(var(--t) * 1s); }
-  @keyframes ring {
-    0% { opacity: 0.7; transform: scale(1); }
-    14%, 100% { opacity: 0; transform: scale(2.6); }
-  }
-  .staff .lines path { animation: hum 8s ease-in-out infinite; transform-box: fill-box; }
-  .staff .lines path:nth-child(even) { animation-delay: -4s; }
-  @keyframes hum { 50% { transform: translateY(1.2px); } }
+  /* Fungada a cada 4 s, fora de fase com a piscada: o focinho inteiro (nariz, boca e bigodes) sobe um pixel duas
+     vezes seguidas. Cada quadro fica ~0,12 s, como sprite de jogo. */
+  .marmota-fareja { animation: fareja 4s steps(1, end) infinite 0.6s; }
+  @keyframes fareja { 0%, 3% { opacity: 1; } 3.01%, 6% { opacity: 0; } 6.01%, 9% { opacity: 1; } 9.01%, 100% { opacity: 0; } }
+
+  /* A pauta toca a melodia no andamento ("Munter", colcheia de 0,22 s): 13 colcheias e um compasso e meio de pausa, em
+     ciclo de 17 colcheias. A nota da vez acende em azul e pula 4px por uma colcheia (as semínimas, por duas). */
+  .pauta-nota { animation: toca calc(17 * var(--colcheia)) steps(1, end) infinite; animation-delay: calc(var(--t) * var(--colcheia)); }
+  .pauta-nota.longa { animation-name: toca-longa; }
+  @keyframes toca { 0% { color: var(--accent); transform: translateY(calc(var(--px) * -1)); } 3% { color: var(--accent); transform: none; } 5.88%, 100% { color: var(--ink); transform: none; } }
+  @keyframes toca-longa { 0% { color: var(--accent); transform: translateY(calc(var(--px) * -1)); } 3% { color: var(--accent); transform: none; } 11.76%, 100% { color: var(--ink); transform: none; } }
 }
 
 /* alvos de toque: 44px no celular, 24px no desktop */
-.site-footer a { display: inline-flex; align-items: center; min-height: 24px; }
+.site-footer :is(a, .footer-link) { display: inline-flex; align-items: center; min-height: 24px; }
 @media (max-width: 680px) {
-  .site-footer a, .go, .tuner-alt { min-height: 44px; }
+  .site-footer :is(a, .footer-link), .go, .tuner-alt { min-height: 44px; }
   .tuner-alt { display: inline-flex; align-items: center; }
   .brand { min-width: 44px; }
   input[type="range"] { min-height: 44px; }
@@ -252,6 +342,10 @@
 @media (max-width: 640px) {
   .only-desk { display: none !important; }
   body:has(.app-screen) {
+    --radius: 22px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+    --radius-pill: 999px;
     --bg: #1e1e1e;
     --surface: #1e1e1e;
     --soft: #2e2e2e; /* tuner_bar: barra, folhas e bolinhas */

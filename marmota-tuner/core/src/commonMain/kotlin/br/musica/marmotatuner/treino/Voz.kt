@@ -26,8 +26,9 @@ fun sortearClasseDeVoz(rng: Rng): Int = floor(rng() * 12).toInt()
 /** The range of notes (MIDI) the person sings comfortably: exercises draw and pick the key inside it. */
 class Faixa(val min: Int, val max: Int)
 
-/** Without a choice, C3 to C5: the piano sounds good and it fits almost everyone's voice in some octave. */
-val FAIXA_PADRAO: Faixa = Faixa(48, 72)
+/** Without a choice, the tenor's range (C3 to A4) under another name: the piano sounds good there and it fits almost
+ *  everyone's voice in some octave (qualquerOitava). */
+val FAIXA_PADRAO: Faixa = Faixa(48, 69)
 
 class TipoDeVoz(val id: String, val min: Int, val max: Int)
 

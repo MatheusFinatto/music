@@ -44,7 +44,7 @@ O treinador de tirar músicas e solos de ouvido é a peça que o dono nunca viu 
 - Notas sempre no formato letra + oitava (C4, Bb3). C4 = Dó central.
 - Semântica de cor nas ferramentas: laranja = nota-alvo, azul = o que está tocando agora, verde = selecionado. Não misturar.
 - Não comercial: nada de linguagem de venda, plano pago ou "comece grátis".
-- Direção visual: o padrão da categoria, escolhido pelo dono em 2026-11-17 depois de recusar direções mais autorais. Referência de acabamento: páginas de app da Apple (muito respiro, cards grandes arredondados, animações suaves). Animação "mais presente" no hub, com um elemento que lembra partitura.
+- Direção visual (rebranding de 2026-11-25, escolhida pelo dono): a marca é a marmota em pixel art, e o mundo do site sai dela (fundo grafite-esverdeado, cinzas e taupe do pelo, marfim). Pixel art na marca e nos detalhes; o texto e os controles das ferramentas continuam lisos e legíveis. No hub, a marmota toca e as notas pousam numa pauta onde cada ferramenta é uma nota ("caderno pautado"): a música não sai do centro. Antes (2026-11-17 a 11-25) era o padrão da categoria, no estilo das páginas de app da Apple.
 
 ## Evidence on Hand
 

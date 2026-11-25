@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { MicError, openMic, type Mic, type MicProblem, type PianoNote } from "@/core/audio";
 import { CHUNK_SAMPLES, NOTE_NAMES, PitchPipeline, PitchSmoother } from "@/core/pitch";
 import { createStore } from "@/core/storage";
+import { Info } from "@/components/Info";
 import { Afinometro } from "./Afinometro";
 import { GraficoVoz } from "./GraficoVoz";
 import type { AmostraVoz, PassoVoz } from "./grafico";
@@ -31,11 +32,18 @@ const NA_LISTA = EXERCICIOS.filter((e) => e !== "alcance");
 type FaixaSalva = Faixa & { tipo: "padrao" | "medida" | (typeof VOZES)[number]["id"] };
 type Saved = { version: 1; exercicio: Exercicio; tolerancia: number; qualquerOitava: boolean; intervalos: string[]; padrao: string; inicio: number; subir: boolean; grau: string; ajuda: "guia" | "so"; vista: "grafico" | "afinador"; faixa: FaixaSalva; musica: ConfigMusica; melhores: Record<string, number> };
 const DEFAULTS: Saved = { version: 1, exercicio: "igualar", tolerancia: 30, qualquerOitava: true, intervalos: ["3m", "3M", "4J", "5J"], padrao: "arpejoMaior", inicio: 0, subir: true, grau: "3M", ajuda: "guia", vista: "grafico", faixa: { tipo: "padrao", ...FAIXA_PADRAO }, musica: { musica: MUSICAS[0]!.id, trecho: 0, velocidade: 0.6, guia: true }, melhores: {} };
+// Os tipos de voz aparecem em dois grupos (separados ficam mais fáceis de achar que os seis juntos).
+const GRUPOS_DE_VOZ = [
+  { id: "masculinas", vozes: ["baixo", "baritono", "tenor"] },
+  { id: "femininas", vozes: ["contralto", "mezzo", "soprano"] },
+] as const satisfies readonly { id: string; vozes: readonly string[] }[];
 const faixaValida = (f: unknown): FaixaSalva => {
   const x = f as Partial<FaixaSalva> | null | undefined;
   const tipoOk = x?.tipo === "padrao" || x?.tipo === "medida" || VOZES.some((v) => v.id === x?.tipo);
   const ints = Number.isInteger(x?.min) && Number.isInteger(x?.max) && x!.min! >= 36 && x!.max! <= 96 && x!.max! - x!.min! >= 7;
-  return tipoOk && ints ? { tipo: x!.tipo!, min: x!.min!, max: x!.max! } : DEFAULTS.faixa;
+  if (!tipoOk || !ints) return DEFAULTS.faixa;
+  // "Padrão" segue a faixa padrão de hoje (era C3–C5 até 2026-11-25; agora é a do tenor), não a que ficou salva.
+  return x!.tipo === "padrao" ? DEFAULTS.faixa : { tipo: x!.tipo!, min: x!.min!, max: x!.max! };
 };
 const store = createStore<Saved>("treino-de-ouvido-voz", DEFAULTS, (saved) => {
   const s = saved as Partial<Saved> | null;
@@ -409,9 +417,6 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
           </label>
         </div>
       )}
-      {!programa && (ex === "intervalo" || (ex === "tonica" && s.grau === "sortear")) && (
-        <p className="treino-detalhe">{t("voz.sorteando", { lista: s.intervalos.map((id) => t(`nomes.intervalos.${id}` as "nomes.intervalos.3m")).join(", ") })}</p>
-      )}
 
       {ex === "musica" && (
         <section className="treino-palco" aria-label={t("voz.exercicios.musica")}>
@@ -437,9 +442,10 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
           {(ex === "alcance" || programa || (tarefa && (fase === "piano" || fase === "cantando"))) && (
             <h2>{ex === "alcance" ? t("voz.exercicios.alcance") : tarefa && (fase === "piano" || fase === "cantando") ? t("voz.cante") : t(`voz.exercicios.${ex}`)}</h2>
           )}
-          <p>{ex === "tonica" && tarefa && tarefa.tonica !== null && tarefa.grau !== null && fase !== "parado"
-            ? t("voz.tonicaDica", { tonica: nomeNota(tarefa.tonica), grau: t(`nomes.intervalos.${tarefa.grau}` as "nomes.intervalos.3m"), nota: nomeNota(tarefa.alvos[0]!) })
-            : dicaBase}</p>
+          {/* A tarefa da vez (qual nota cantar sobre a tônica) é conteúdo; a explicação do exercício fica no "?". */}
+          {ex === "tonica" && tarefa && tarefa.tonica !== null && tarefa.grau !== null && fase !== "parado" && (
+            <p>{t("voz.tonicaDica", { tonica: nomeNota(tarefa.tonica), grau: t(`nomes.intervalos.${tarefa.grau}` as "nomes.intervalos.3m"), nota: nomeNota(tarefa.alvos[0]!) })}</p>
+          )}
         </div>
 
         {ex === "sequencia" && tarefa && fase !== "parado" && (
@@ -452,10 +458,18 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
 
 
         {/* Como ver a voz: o gráfico (a pista, como nos apps de canto) ou o afinador. Fica à vista, e vale para todos os exercícios de segurar a nota. */}
-        <div className="treino-seg voz-vista" role="radiogroup" aria-label={t("voz.vista")} onKeyDown={onRadioKeyDown}>
-          {(["grafico", "afinador"] as const).map((v) => (
-            <button key={v} type="button" role="radio" aria-checked={s.vista === v} tabIndex={s.vista === v ? 0 : -1} onClick={() => store.set((x) => ({ ...x, vista: v }))}>{t(`voz.vistas.${v}`)}</button>
-          ))}
+        <div className="voz-topo">
+          <div className="treino-seg voz-vista" role="radiogroup" aria-label={t("voz.vista")} onKeyDown={onRadioKeyDown}>
+            {(["grafico", "afinador"] as const).map((v) => (
+              <button key={v} type="button" role="radio" aria-checked={s.vista === v} tabIndex={s.vista === v ? 0 : -1} onClick={() => store.set((x) => ({ ...x, vista: v }))}>{t(`voz.vistas.${v}`)}</button>
+            ))}
+          </div>
+          <Info label={t("info")} title={t("info")} close={t("fechar")} items={[
+          dicaBase,
+          !programa && (ex === "intervalo" || (ex === "tonica" && s.grau === "sortear"))
+            ? t("voz.sorteando", { lista: s.intervalos.map((id) => t(`nomes.intervalos.${id}` as "nomes.intervalos.3m")).join(", ") }) : "",
+          t("voz.minhaVoz.dica"), t("voz.fone"), t("voz.privado"), t("voz.atalhos"), t("creditos"),
+        ]} />
         </div>
 
         {/* Antes de começar o microfone está fechado: a régua (ou a pista) vazia era só ruído. */}
@@ -494,6 +508,11 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
             {ext && alcance.min !== null && alcance.max !== null ? (
               <>
                 <p className="treino-resultado certa">{t("voz.alcanceResultado", { grave: nomeNota(alcance.min), agudo: nomeNota(alcance.max) })}</p>
+                <div className="treino-seg voz-instrumento" role="radiogroup" aria-label={t("instrumento")} onKeyDown={onRadioKeyDown}>
+                  {(["teclado", "violao"] as const).map((v) => (
+                    <button key={v} type="button" role="radio" aria-checked={instrumento === v} tabIndex={instrumento === v ? 0 : -1} onClick={() => setInstrumento(v)}>{t(`instrumentos.${v}`)}</button>
+                  ))}
+                </div>
                 <Instrumento tipo={instrumento} janela={[alcance.min, alcance.max]} marcas={marcas} onTocar={() => {}} label={t(instrumento === "violao" ? "braco" : "teclado")} />
                 <p className="treino-detalhe">{t("voz.extensao", { oitavas: ext.oitavas, semitons: ext.semitons })}</p>
                 {(() => {
@@ -550,36 +569,35 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
         </div>
         {alvoAtual !== null && ex === "tonica" && cantando && <p className="treino-estado">{t("voz.bordaoNota")}</p>}
         {fase === "parado" && aviso && <p className="treino-estado" role="status">{t("voz.ajusteMudou")}</p>}
-        {fase === "parado" && <p className="treino-estado">{t("voz.fone")}</p>}
       </section>}
 
-      {!programa && <details className="treino-ajustes">
+      <details className="treino-ajustes">
         <summary>
           {t("ajustes")}
           {/* Fechado, o resumo mostra a voz e a margem em uso, sem precisar abrir. */}
           <span className="treino-ajustes-resumo">{t("voz.ajustesResumo", { voz: s.faixa.tipo === "padrao" ? t("voz.minhaVoz.padrao") : s.faixa.tipo === "medida" ? t("voz.minhaVoz.medidaCurta") : t(`voz.minhaVoz.tipos.${s.faixa.tipo}` as "voz.minhaVoz.tipos.tenor"), de: nomeNota(s.faixa.min), ate: nomeNota(s.faixa.max), n: s.tolerancia })}</span>
         </summary>
         <div className="treino-ajustes-corpo">
-          {/* O instrumento só aparece no resultado do Alcance (a extensão no teclado ou no braço). */}
-          {ex === "alcance" && <div className="treino-field" role="group" aria-label={t("instrumento")}>
-            <span>{t("instrumento")}</span>
-            <div className="treino-chips">
-              <button type="button" className="treino-chip" aria-pressed={instrumento === "teclado"} onClick={() => setInstrumento("teclado")}>{t("instrumentos.teclado")}</button>
-              <button type="button" className="treino-chip" aria-pressed={instrumento === "violao"} onClick={() => setInstrumento("violao")}>{t("instrumentos.violao")}</button>
-            </div>
-          </div>}
           {ex === "musica" && (
             <Interruptor rotulo={t("voz.musica.guia")} ligado={s.musica.guia} aoMudar={(guia) => store.set((x) => ({ ...x, musica: { ...x.musica, guia } }))} />
           )}
           <div className="treino-field" role="group" aria-label={t("voz.minhaVoz.titulo")}>
             <span>{t("voz.minhaVoz.titulo")}</span>
+            {/* Medir vem primeiro: é o jeito certo de achar a faixa; os tipos de voz são o atalho. Uma escolha só no grupo todo. */}
+            {ex !== "alcance" && !programa && <button type="button" className="treino-btn treino-medir" onClick={() => mudar({ ...s, exercicio: "alcance" })}>{t("voz.minhaVoz.medir")}</button>}
             <div className="treino-chips">
               <button type="button" className="treino-chip" aria-pressed={s.faixa.tipo === "padrao"} onClick={() => mudar({ ...s, faixa: { tipo: "padrao", ...FAIXA_PADRAO } })}>{t("voz.minhaVoz.padrao")}</button>
-              {VOZES.map((v) => <button key={v.id} type="button" className="treino-chip" aria-pressed={s.faixa.tipo === v.id} onClick={() => mudar({ ...s, faixa: { tipo: v.id, min: v.min, max: v.max } })}>{t(`voz.minhaVoz.tipos.${v.id}` as "voz.minhaVoz.tipos.tenor")}</button>)}
               {s.faixa.tipo === "medida" && <button type="button" className="treino-chip" aria-pressed>{t("voz.minhaVoz.medida")}</button>}
             </div>
-            <p className="treino-detalhe">{t("voz.minhaVoz.atual", { de: nomeNota(s.faixa.min), ate: nomeNota(s.faixa.max) })} {t("voz.minhaVoz.dica")}</p>
-            {ex !== "alcance" && <button type="button" className="treino-btn treino-medir" onClick={() => mudar({ ...s, exercicio: "alcance" })}>{t("voz.minhaVoz.medir")}</button>}
+            {GRUPOS_DE_VOZ.map((g) => (
+              <div key={g.id} className="voz-grupo">
+                <span className="voz-grupo-nome">{t(`voz.minhaVoz.grupos.${g.id}`)}</span>
+                <div className="treino-chips">
+                  {VOZES.filter((v) => (g.vozes as readonly string[]).includes(v.id)).map((v) => <button key={v.id} type="button" className="treino-chip" aria-pressed={s.faixa.tipo === v.id} onClick={() => mudar({ ...s, faixa: { tipo: v.id, min: v.min, max: v.max } })}>{t(`voz.minhaVoz.tipos.${v.id}` as "voz.minhaVoz.tipos.tenor")}</button>)}
+                </div>
+              </div>
+            ))}
+            <p className="treino-detalhe">{t("voz.minhaVoz.atual", { de: nomeNota(s.faixa.min), ate: nomeNota(s.faixa.max) })}</p>
           </div>
           {ex !== "alcance" && (
             <div className="treino-field" role="group" aria-label={t("voz.precisao")}>
@@ -598,10 +616,10 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
               </div>
             </div>
           )}
-          {(ex === "sequencia" || ex === "tonica") && s.inicio >= 0 && (
+          {!programa && (ex === "sequencia" || ex === "tonica") && s.inicio >= 0 && (
             <Interruptor rotulo={t("voz.subir")} ligado={s.subir} aoMudar={(subir) => ajustar({ ...s, subir })} />
           )}
-          {ex === "tonica" && (
+          {!programa && ex === "tonica" && (
             <div className="treino-field" role="group" aria-label={t("voz.ajuda")}>
               <span>{t("voz.ajuda")}</span>
               <div className="treino-chips">
@@ -610,7 +628,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
               </div>
             </div>
           )}
-          {(ex === "intervalo" || (ex === "tonica" && s.grau === "sortear")) && (
+          {!programa && (ex === "intervalo" || (ex === "tonica" && s.grau === "sortear")) && (
             <div className="treino-field treino-itens" role="group" aria-label={t("itens")}>
               <span>{t("itens")}</span>
               <div className="treino-chips">
@@ -622,8 +640,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
             </div>
           )}
         </div>
-      </details>}
-      <p className="treino-creditos">{t("creditos")} {t("voz.privado")} {t("voz.atalhos")}</p>
+      </details>
     </div>
   );
 }

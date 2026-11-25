@@ -1,42 +1,976 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-17T12:30:00Z",
+  "generatedAt": "2026-11-25T18:12:44+00:00",
   "title": "Design System: Marmota Music",
   "extensions": {
     "colorMeta": {
-      "action-blue": { "role": "primary", "displayName": "Azul de ação", "canonical": "#27598a", "tonalRamp": ["#0b1520", "#14304b", "#1d446a", "#27598a", "#4f82b3", "#7fb2e2", "#b9d3ec", "#e4edf6"] },
-      "target-orange": { "role": "secondary", "displayName": "Laranja de nota-alvo", "canonical": "#c27400", "tonalRamp": ["#2a1a00", "#3d2c10", "#8a5200", "#c27400", "#dd8f1a", "#f0a634", "#f4cf94", "#f8ead2"] },
-      "selected-green": { "role": "tertiary", "displayName": "Verde de selecionado", "canonical": "#2e7a4d", "tonalRamp": ["#0c2416", "#17422a", "#225e3b", "#2e7a4d", "#479a68", "#62c18a", "#a9dcbd", "#dff2e6"] },
-      "ground": { "role": "neutral", "displayName": "Fundo", "canonical": "#f5f5f7", "tonalRamp": ["#000000", "#1c1c1e", "#38383c", "#5f5f66", "#a1a1a8", "#d9d9de", "#ececf0", "#f5f5f7"] }
+      "ground": {
+        "role": "neutral",
+        "displayName": "Grafite da Marmota",
+        "canonical": "#111715",
+        "oklch": "oklch(19.8% 0.010 173)",
+        "tonalRamp": [
+          "#090c0b",
+          "#222625",
+          "#3e4341",
+          "#5c6361",
+          "#7d8482",
+          "#a0a7a4",
+          "#c5cac9",
+          "#ebefee"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Superfície",
+        "canonical": "#1b2220",
+        "oklch": "oklch(24.4% 0.011 176)",
+        "tonalRamp": [
+          "#090c0b",
+          "#222625",
+          "#3e4342",
+          "#5c6361",
+          "#7c8482",
+          "#a0a7a5",
+          "#c5cbc9",
+          "#ebf0ee"
+        ]
+      },
+      "soft": {
+        "role": "neutral",
+        "displayName": "Sombra Suave",
+        "canonical": "#252d2b",
+        "oklch": "oklch(28.9% 0.012 179)",
+        "tonalRamp": [
+          "#090c0b",
+          "#212625",
+          "#3d4442",
+          "#5b6361",
+          "#7c8582",
+          "#9fa7a5",
+          "#c4cbc9",
+          "#ebf0ee"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Linha da Pauta",
+        "canonical": "#3a403d",
+        "oklch": "oklch(36.5% 0.009 164)",
+        "tonalRamp": [
+          "#090c0b",
+          "#222624",
+          "#3f4341",
+          "#5d6360",
+          "#7e8481",
+          "#a1a6a4",
+          "#c6cac8",
+          "#ecefee"
+        ]
+      },
+      "ink": {
+        "role": "primary",
+        "displayName": "Marfim do Focinho",
+        "canonical": "#dbdcd6",
+        "oklch": "oklch(89.2% 0.008 114)",
+        "tonalRamp": [
+          "#0b0b09",
+          "#252522",
+          "#42423f",
+          "#61625d",
+          "#82837e",
+          "#a5a5a1",
+          "#c9c9c6",
+          "#eeefec"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Cinza Quente",
+        "canonical": "#9c958e",
+        "oklch": "oklch(67.4% 0.013 68)",
+        "tonalRamp": [
+          "#0d0b08",
+          "#282421",
+          "#46413c",
+          "#66605a",
+          "#87817b",
+          "#a9a49e",
+          "#cdc8c3",
+          "#f1eeea"
+        ]
+      },
+      "fur": {
+        "role": "neutral",
+        "displayName": "Taupe do Pelo",
+        "canonical": "#6b625a",
+        "oklch": "oklch(50.2% 0.017 64)",
+        "tonalRamp": [
+          "#0e0a08",
+          "#292420",
+          "#47413b",
+          "#686058",
+          "#898179",
+          "#aba39d",
+          "#cec8c2",
+          "#f3ede9"
+        ]
+      },
+      "fur-grey": {
+        "role": "neutral",
+        "displayName": "Cinza do Pelo",
+        "canonical": "#51524c",
+        "oklch": "oklch(43.6% 0.010 114)",
+        "tonalRamp": [
+          "#0b0b09",
+          "#252522",
+          "#42423e",
+          "#61625c",
+          "#82837d",
+          "#a5a6a0",
+          "#c9cac5",
+          "#eeefeb"
+        ]
+      },
+      "plate-hover": {
+        "role": "primary",
+        "displayName": "Marfim Aceso",
+        "canonical": "#f2f1ec",
+        "oklch": "oklch(95.8% 0.007 97)",
+        "tonalRamp": [
+          "#0b0b0a",
+          "#262523",
+          "#43423f",
+          "#62615d",
+          "#83827e",
+          "#a6a5a1",
+          "#cac9c6",
+          "#efeeec"
+        ]
+      },
+      "now": {
+        "role": "secondary",
+        "displayName": "Azul Tocando Agora",
+        "canonical": "#8cc0ee",
+        "oklch": "oklch(78.8% 0.086 246)",
+        "tonalRamp": [
+          "#000c1b",
+          "#0a273e",
+          "#214563",
+          "#38658c",
+          "#5987af",
+          "#82aacd",
+          "#adcdeb",
+          "#d8f2ff"
+        ]
+      },
+      "now-ink": {
+        "role": "secondary",
+        "displayName": "Azul Profundo",
+        "canonical": "#0b1520",
+        "oklch": "oklch(19.2% 0.027 252)",
+        "tonalRamp": [
+          "#070c11",
+          "#1f262d",
+          "#3a434d",
+          "#57626f",
+          "#788491",
+          "#9ca6b2",
+          "#c1cad4",
+          "#e8eff7"
+        ]
+      },
+      "now-soft": {
+        "role": "secondary",
+        "displayName": "Azul Sombra",
+        "canonical": "#1c2a37",
+        "oklch": "oklch(27.8% 0.031 247)",
+        "tonalRamp": [
+          "#060c11",
+          "#1d262e",
+          "#38434e",
+          "#556371",
+          "#758493",
+          "#99a7b4",
+          "#bfcbd6",
+          "#e7f0f8"
+        ]
+      },
+      "target": {
+        "role": "tertiary",
+        "displayName": "Laranja Nota-Alvo",
+        "canonical": "#f0a634",
+        "oklch": "oklch(77.9% 0.149 73)",
+        "tonalRamp": [
+          "#1c0300",
+          "#3f1900",
+          "#663400",
+          "#8f5000",
+          "#b37200",
+          "#d1994a",
+          "#efc083",
+          "#ffe8b9"
+        ]
+      },
+      "target-soft": {
+        "role": "tertiary",
+        "displayName": "Laranja Sombra",
+        "canonical": "#3b2a0f",
+        "oklch": "oklch(29.9% 0.048 77)",
+        "tonalRamp": [
+          "#110a02",
+          "#2e2314",
+          "#4d3f2b",
+          "#705e45",
+          "#927f65",
+          "#b3a28b",
+          "#d5c7b4",
+          "#f8eddd"
+        ]
+      },
+      "on-target": {
+        "role": "tertiary",
+        "displayName": "Texto sobre Laranja",
+        "canonical": "#1a1208",
+        "oklch": "oklch(18.9% 0.023 72)",
+        "tonalRamp": [
+          "#0e0a06",
+          "#2a241d",
+          "#484138",
+          "#696054",
+          "#8a8175",
+          "#aca399",
+          "#cfc8bf",
+          "#f3ede6"
+        ]
+      },
+      "selected": {
+        "role": "tertiary",
+        "displayName": "Verde Selecionado",
+        "canonical": "#7bd3a0",
+        "oklch": "oklch(79.8% 0.113 157)",
+        "tonalRamp": [
+          "#001103",
+          "#002f16",
+          "#034f2e",
+          "#1d7349",
+          "#459569",
+          "#75b68f",
+          "#a3d8b7",
+          "#d1fae0"
+        ]
+      },
+      "bad": {
+        "role": "tertiary",
+        "displayName": "Coral Erro",
+        "canonical": "#ef8f7c",
+        "oklch": "oklch(74.6% 0.121 32)",
+        "tonalRamp": [
+          "#1e0100",
+          "#43130a",
+          "#6b2b20",
+          "#964637",
+          "#bc6757",
+          "#da8f80",
+          "#f7b7aa",
+          "#ffe1d6"
+        ]
+      },
+      "wood": {
+        "role": "neutral",
+        "displayName": "Braço da guitarra: wood",
+        "canonical": "#4a2c21",
+        "oklch": "oklch(32.8% 0.049 41)",
+        "tonalRamp": [
+          "#140804",
+          "#322019",
+          "#543b32",
+          "#78594e",
+          "#9b7a6e",
+          "#bb9e93",
+          "#dcc3ba",
+          "#feeae3"
+        ]
+      },
+      "wood-2": {
+        "role": "neutral",
+        "displayName": "Braço da guitarra: wood-2",
+        "canonical": "#5e3a2b",
+        "oklch": "oklch(38.7% 0.057 43)",
+        "tonalRamp": [
+          "#150703",
+          "#341f16",
+          "#563a2f",
+          "#7b5849",
+          "#9e7869",
+          "#be9d8f",
+          "#dfc2b7",
+          "#ffe9e0"
+        ]
+      },
+      "wood-3": {
+        "role": "neutral",
+        "displayName": "Braço da guitarra: wood-3",
+        "canonical": "#3a2119",
+        "oklch": "oklch(27.8% 0.042 39)",
+        "tonalRamp": [
+          "#130805",
+          "#31211c",
+          "#523c35",
+          "#755a51",
+          "#987b72",
+          "#b89f96",
+          "#d9c4bd",
+          "#fceae5"
+        ]
+      },
+      "fret": {
+        "role": "neutral",
+        "displayName": "Braço da guitarra: fret",
+        "canonical": "#e6e1d6",
+        "oklch": "oklch(91.1% 0.016 86)",
+        "tonalRamp": [
+          "#0d0b08",
+          "#272520",
+          "#45423b",
+          "#656158",
+          "#868279",
+          "#a8a59d",
+          "#ccc9c2",
+          "#f1eee9"
+        ]
+      },
+      "fret-shade": {
+        "role": "neutral",
+        "displayName": "Braço da guitarra: fret-shade",
+        "canonical": "#8d877b",
+        "oklch": "oklch(62.5% 0.019 85)",
+        "tonalRamp": [
+          "#0d0b07",
+          "#28251e",
+          "#464139",
+          "#666156",
+          "#878277",
+          "#a9a49b",
+          "#cdc9c0",
+          "#f1eee8"
+        ]
+      },
+      "steel": {
+        "role": "neutral",
+        "displayName": "Braço da guitarra: steel",
+        "canonical": "#dfe2e6",
+        "oklch": "oklch(91.2% 0.006 255)",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#242527",
+          "#404245",
+          "#5f6165",
+          "#808286",
+          "#a3a5a8",
+          "#c7c9cc",
+          "#edeef0"
+        ]
+      },
+      "bronze": {
+        "role": "neutral",
+        "displayName": "Braço da guitarra: bronze",
+        "canonical": "#c9a66b",
+        "oklch": "oklch(74.3% 0.087 80)",
+        "tonalRamp": [
+          "#140800",
+          "#332100",
+          "#553d10",
+          "#795c26",
+          "#9c7d48",
+          "#bca174",
+          "#dcc6a1",
+          "#feeccf"
+        ]
+      },
+      "inlay": {
+        "role": "neutral",
+        "displayName": "Braço da guitarra: inlay",
+        "canonical": "#efe7d6",
+        "oklch": "oklch(93.0% 0.024 86)",
+        "tonalRamp": [
+          "#0d0b06",
+          "#28251d",
+          "#464137",
+          "#676153",
+          "#888273",
+          "#aaa498",
+          "#cec9be",
+          "#f2eee6"
+        ]
+      },
+      "pearl": {
+        "role": "neutral",
+        "displayName": "Braço da guitarra: pearl",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 90)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "target-bright": {
+        "role": "neutral",
+        "displayName": "Braço da guitarra: target-bright",
+        "canonical": "#f0a634",
+        "oklch": "oklch(77.9% 0.149 73)",
+        "tonalRamp": [
+          "#1c0300",
+          "#3f1900",
+          "#663400",
+          "#8f5000",
+          "#b37200",
+          "#d1994a",
+          "#efc083",
+          "#ffe8b9"
+        ]
+      },
+      "gesture-bright": {
+        "role": "neutral",
+        "displayName": "Braço da guitarra: gesture-bright",
+        "canonical": "#ff7a2a",
+        "oklch": "oklch(72.4% 0.183 47)",
+        "tonalRamp": [
+          "#250000",
+          "#4e0200",
+          "#7a1b00",
+          "#a93400",
+          "#d05900",
+          "#ed8650",
+          "#ffb186",
+          "#ffddbb"
+        ]
+      },
+      "now-bright": {
+        "role": "neutral",
+        "displayName": "Braço da guitarra: now-bright",
+        "canonical": "#7fb2e2",
+        "oklch": "oklch(74.6% 0.088 248)",
+        "tonalRamp": [
+          "#000c1c",
+          "#0b273f",
+          "#214565",
+          "#38658d",
+          "#5987b1",
+          "#83a9cf",
+          "#adcded",
+          "#d8f2ff"
+        ]
+      },
+      "selected-bright": {
+        "role": "neutral",
+        "displayName": "Braço da guitarra: selected-bright",
+        "canonical": "#6fd39a",
+        "oklch": "oklch(79.1% 0.126 157)",
+        "tonalRamp": [
+          "#001202",
+          "#003014",
+          "#00512c",
+          "#037445",
+          "#3a9765",
+          "#6eb88c",
+          "#9ed9b4",
+          "#cefcde"
+        ]
+      },
+      "bad-bright": {
+        "role": "neutral",
+        "displayName": "Braço da guitarra: bad-bright",
+        "canonical": "#ef7f6c",
+        "oklch": "oklch(71.8% 0.141 31)",
+        "tonalRamp": [
+          "#210000",
+          "#470c05",
+          "#71251a",
+          "#9e3e30",
+          "#c46050",
+          "#e28a7a",
+          "#feb4a6",
+          "#ffded3"
+        ]
+      },
+      "on-bright": {
+        "role": "neutral",
+        "displayName": "Braço da guitarra: on-bright",
+        "canonical": "#1a1208",
+        "oklch": "oklch(18.9% 0.023 72)",
+        "tonalRamp": [
+          "#0e0a06",
+          "#2a241d",
+          "#484138",
+          "#696054",
+          "#8a8175",
+          "#aca399",
+          "#cfc8bf",
+          "#f3ede6"
+        ]
+      },
+      "app-ground": {
+        "role": "neutral",
+        "displayName": "App Android: ground",
+        "canonical": "#1e1e1e",
+        "oklch": "oklch(23.5% 0.000 90)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "app-bar": {
+        "role": "neutral",
+        "displayName": "App Android: bar",
+        "canonical": "#2e2e2e",
+        "oklch": "oklch(30.1% 0.000 90)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "app-ink": {
+        "role": "neutral",
+        "displayName": "App Android: ink",
+        "canonical": "#ededed",
+        "oklch": "oklch(94.6% 0.000 90)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "app-muted": {
+        "role": "neutral",
+        "displayName": "App Android: muted",
+        "canonical": "#9a9a9a",
+        "oklch": "oklch(68.6% 0.000 90)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "app-line": {
+        "role": "neutral",
+        "displayName": "App Android: line",
+        "canonical": "#4a4a4a",
+        "oklch": "oklch(40.9% 0.000 90)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "app-now": {
+        "role": "neutral",
+        "displayName": "App Android: now",
+        "canonical": "#4aa3ff",
+        "oklch": "oklch(70.4% 0.160 252)",
+        "tonalRamp": [
+          "#00082a",
+          "#002454",
+          "#004281",
+          "#0062b1",
+          "#3385d7",
+          "#67a9f1",
+          "#98ceff",
+          "#c9f3ff"
+        ]
+      },
+      "app-target": {
+        "role": "neutral",
+        "displayName": "App Android: target",
+        "canonical": "#ff7a1a",
+        "oklch": "oklch(72.4% 0.187 49)",
+        "tonalRamp": [
+          "#250000",
+          "#4e0200",
+          "#7a1b00",
+          "#a93400",
+          "#d05900",
+          "#ed864b",
+          "#ffb183",
+          "#ffddb8"
+        ]
+      },
+      "app-selected": {
+        "role": "neutral",
+        "displayName": "App Android: selected",
+        "canonical": "#3ddc84",
+        "oklch": "oklch(79.3% 0.180 154)",
+        "tonalRamp": [
+          "#001400",
+          "#003304",
+          "#005519",
+          "#007a2f",
+          "#009e51",
+          "#50be7b",
+          "#8bdfa7",
+          "#c0ffd4"
+        ]
+      }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "Só o título do hub." },
-      "headline": { "displayName": "Headline", "purpose": "Título de seção." },
-      "title": { "displayName": "Title", "purpose": "Nome de ferramenta no card." },
-      "body": { "displayName": "Body", "purpose": "Descrições." },
-      "label": { "displayName": "Label", "purpose": "Selos de situação." }
+      "display": {
+        "displayName": "Display",
+        "purpose": "Só o título do hub, ao lado da marmota."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Título de seção e de ferramenta."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Nome da ferramenta no card."
+      },
+      "title-quiet": {
+        "displayName": "Title (lista quieta)",
+        "purpose": "Nome da ferramenta planejada."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texto corrido; até 38ch no card."
+      },
+      "label": {
+        "displayName": "Selo (Silkscreen)",
+        "purpose": "Só selos de situação, a 16px (2× a grade de 8px), maiúsculas."
+      },
+      "stage": {
+        "displayName": "Palco",
+        "purpose": "O que se lê tocando, a um metro (--text-stage)."
+      },
+      "tempo": {
+        "displayName": "Andamento",
+        "purpose": "O número do metrônomo (--text-tempo)."
+      },
+      "count": {
+        "displayName": "Contagem",
+        "purpose": "Contagem do timer, 2/3 do andamento (--text-count)."
+      }
     },
+    "textScale": [
+      {
+        "name": "--text-xs",
+        "value": "0.82rem"
+      },
+      {
+        "name": "--text-sm",
+        "value": "0.92rem"
+      },
+      {
+        "name": "--text-md",
+        "value": "1rem"
+      },
+      {
+        "name": "--text-lg",
+        "value": "1.15rem"
+      },
+      {
+        "name": "--text-xl",
+        "value": "1.45rem"
+      },
+      {
+        "name": "--text-2xl",
+        "value": "clamp(1.45rem, 2.6vw, 1.9rem)"
+      },
+      {
+        "name": "--text-3xl",
+        "value": "clamp(1.9rem, 4.5vw, 2.9rem)"
+      },
+      {
+        "name": "--text-stage",
+        "value": "clamp(2.4rem, 9vw, 4.25rem)"
+      },
+      {
+        "name": "--text-tempo",
+        "value": "clamp(4rem, 14vw, 6.5rem)"
+      },
+      {
+        "name": "--text-count",
+        "value": "clamp(2.7rem, 9.3vw, 4.35rem)"
+      }
+    ],
     "shadows": [
-      { "name": "shadow", "value": "0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06)", "purpose": "Card no ar, em repouso." },
-      { "name": "shadow-up", "value": "0 2px 4px rgb(0 0 0 / 0.05), 0 18px 40px rgb(0 0 0 / 0.12)", "purpose": "Card no ar, no hover." }
+      {
+        "name": "shadow",
+        "value": "0 0 0 1px var(--line)",
+        "purpose": "Contorno de 1px; superfície plana separada do fundo."
+      },
+      {
+        "name": "shadow-up",
+        "value": "0 0 0 1px var(--fur-2), 0 16px 40px rgb(0 0 0 / 0.55)",
+        "purpose": "Só diálogos flutuantes."
+      }
     ],
     "motion": [
-      { "name": "ease", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Curva única para entrada e hover." },
-      { "name": "staff-cycle", "value": "8s", "purpose": "Ciclo do cursor da pauta." }
+      {
+        "name": "step",
+        "value": "steps(3, end)",
+        "purpose": "Movimento em degraus da casca da marca (seta da placa Abrir). Nada desliza."
+      },
+      {
+        "name": "marmota-pisca",
+        "value": "7s steps(1, end) infinite, atraso 2s",
+        "purpose": "A marmota pisca (quadro piscando por cima)."
+      },
+      {
+        "name": "marmota-fareja",
+        "value": "4s, steps(1, end), ~0,12s por quadro, atraso 0,6s",
+        "purpose": "A cada 4s o focinho inteiro (nariz, boca e bigodes) sobe um pixel duas vezes seguidas; quadros trocados em steps(1)."
+      },
+      {
+        "name": "part-toca",
+        "value": "nº de ferramentas × 1,5s, steps(1, end), atraso i×1,5s",
+        "purpose": "A pauta toca sozinha: uma nota por tempo de 1,5s; a da vez acende azul e pula 4px."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce → nada anima",
+        "purpose": "As notas descansam na pauta."
+      },
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Herdado; só dentro das ferramentas (diálogos, feedback). Nunca na casca da marca."
+      }
     ],
-    "breakpoints": [{ "name": "next-card-stack", "value": "640px" }]
+    "breakpoints": [
+      {
+        "name": "hub-desktop",
+        "value": "961px",
+        "purpose": "Uma coluna por ferramenta; a marmota senta na pauta."
+      },
+      {
+        "name": "hub-tablet",
+        "value": "960px",
+        "purpose": "Duas colunas; notas só sobem."
+      },
+      {
+        "name": "header-touch",
+        "value": "680px",
+        "purpose": "Alvos de 44px."
+      },
+      {
+        "name": "app-screen",
+        "value": "640px",
+        "purpose": "Afinador e metrônomo viram a tela do app Android."
+      },
+      {
+        "name": "phone",
+        "value": "560px",
+        "purpose": "Uma pauta só, cards empilhados, marca só com a cabeça."
+      }
+    ],
+    "pixelArt": [
+      {
+        "name": "marmota",
+        "source": "public/marmota-52x42.png (+ -piscando)",
+        "size": "52×42",
+        "scales": "6× hub, 4× celular"
+      },
+      {
+        "name": "cabeça",
+        "source": "public/marmota.png",
+        "size": "32×32",
+        "scales": "1× no cabeçalho"
+      },
+      {
+        "name": "ícone de ferramenta",
+        "source": "src/components/ToolIcon.tsx via PixelArt",
+        "size": "16×16",
+        "scales": "3× card, 2× lista quieta"
+      },
+      {
+        "name": "colcheia",
+        "source": "NOTE em src/components/PixelArt.tsx",
+        "size": "6×9",
+        "scales": "4× (24×36)"
+      },
+      {
+        "name": "seta",
+        "source": "Arrow em page.tsx",
+        "size": "7×5",
+        "scales": "2× (14×10)"
+      }
+    ],
+    "appScreenOverride": {
+      "selector": "body:has(.app-screen) @ max-width 640px",
+      "radius": "22px",
+      "radius-md": "14px",
+      "radius-sm": "10px",
+      "radius-pill": "999px",
+      "font": "system-ui, Roboto, sans-serif",
+      "note": "Cópia deliberada do Marmota Tuner; painter.ts espelha TunerPainter.kt em todas as larguras."
+    }
   },
   "components": [
-    { "name": "Botão primário", "kind": "button", "refersTo": "button-primary", "description": "Ação de abrir uma ferramenta.", "html": "<span class=\"ds-go\">Abrir</span>", "css": ".ds-go { display: inline-flex; background: var(--accent); color: var(--accent-ink); font-weight: 600; font-size: 0.95rem; padding: 9px 18px; border-radius: 999px; }" },
-    { "name": "Card de ferramenta", "kind": "card", "refersTo": "card", "description": "Ferramenta no ar; o card inteiro é o link.", "html": "<a class=\"ds-card\" href=\"#\"><h3>Diário do Solo</h3><p>Plano de 8 semanas de improviso.</p></a>", "css": ".ds-card { display: flex; flex-direction: column; gap: 10px; background: var(--surface); color: var(--ink); border-radius: 22px; padding: 26px; box-shadow: var(--shadow); text-decoration: none; transition: transform .5s cubic-bezier(0.16,1,0.3,1), box-shadow .5s cubic-bezier(0.16,1,0.3,1); } .ds-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-up); } .ds-card:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; } .ds-card h3 { font-size: 1.45rem; font-weight: 650; letter-spacing: -0.022em; margin: 0; } .ds-card p { color: var(--muted); margin: 0; }" },
-    { "name": "Selo de situação", "kind": "chip", "refersTo": "badge", "description": "Situação da ferramenta.", "html": "<span class=\"ds-badge\">Planejada</span>", "css": ".ds-badge { display: inline-flex; font-size: 0.82rem; font-weight: 600; padding: 5px 11px; border-radius: 999px; background: var(--soft); color: var(--muted); }" }
+    {
+      "name": "Placa Abrir",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ação principal: placa marfim com cantos em degrau de 4px e seta em pixel.",
+      "html": "<a class=\"ds-go\" href=\"#\">Abrir <svg class=\"ds-arrow\" viewBox=\"0 0 7 5\" shape-rendering=\"crispEdges\" aria-hidden=\"true\"><path d=\"M4 0h1v1h-1zM5 1h1v1h-1zM0 2h7v1h-7zM5 3h1v1h-1zM4 4h1v1h-1z\" fill=\"currentColor\"/></svg></a>",
+      "css": ".ds-go { font-family: var(--font-inter, Inter), system-ui, sans-serif; display: inline-flex; align-items: center; gap: 10px; background: var(--ink, #dbdcd6); color: var(--bg, #111715); font-weight: 600; font-size: 0.95rem; padding: 9px 16px 9px 18px; text-decoration: none; clip-path: polygon(4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px), 0 4px, 4px 4px); } .ds-go:hover { background: #f2f1ec; } .ds-go:focus-visible { outline: 3px solid var(--accent, #8cc0ee); outline-offset: 3px; } .ds-arrow { width: 14px; height: 10px; transition: transform 0.24s steps(3, end); } .ds-go:hover .ds-arrow { transform: translateX(4px); }"
+    },
+    {
+      "name": "Botão de ferramenta",
+      "kind": "button",
+      "refersTo": "button-tool",
+      "description": "Botão secundário das ferramentas: contorno de 1px, raio --radius-pill (4px).",
+      "html": "<button class=\"ds-btn-tool\" type=\"button\">Ouvir de novo</button>",
+      "css": ".ds-btn-tool { font-family: var(--font-inter, Inter), system-ui, sans-serif; min-height: 44px; padding: 0 16px; border: 1px solid var(--line, #3a403d); border-radius: var(--radius-pill, 4px); background: var(--surface, #1b2220); color: var(--ink, #dbdcd6); font-weight: 600; cursor: pointer; } .ds-btn-tool:hover { background: var(--soft, #252d2b); border-color: var(--muted, #9c958e); } .ds-btn-tool:focus-visible { outline: 3px solid var(--accent, #8cc0ee); outline-offset: 3px; }"
+    },
+    {
+      "name": "Chip",
+      "kind": "chip",
+      "refersTo": "chip-selected",
+      "description": "Chip de escolha; selecionado é verde (Regra das Três Cores).",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\" aria-pressed=\"true\">Normal</button><button class=\"ds-chip\" aria-pressed=\"false\">Exigente</button></div>",
+      "css": ".ds-chips { display: flex; gap: 8px; } .ds-chip { font-family: var(--font-inter, Inter), system-ui, sans-serif; min-height: 44px; padding: 0 16px; border: 1px solid var(--line, #3a403d); border-radius: var(--radius-pill, 4px); background: var(--surface, #1b2220); color: var(--ink, #dbdcd6); font-size: 0.92rem; font-weight: 600; cursor: pointer; } .ds-chip:hover { border-color: var(--muted, #9c958e); } .ds-chip[aria-pressed=\"true\"] { background: var(--ok, #7bd3a0); border-color: var(--ok, #7bd3a0); color: #1a1208; } .ds-chip:focus-visible { outline: 3px solid var(--accent, #8cc0ee); outline-offset: 3px; }"
+    },
+    {
+      "name": "Card de ferramenta",
+      "kind": "card",
+      "refersTo": "card-tool",
+      "description": "Superfície plana, traço de 4px no topo que acende marfim no hover, sem sombra.",
+      "html": "<a class=\"ds-card\" href=\"#\"><h3>Afinador</h3><p>Afine pelo microfone, nota a nota.</p><span class=\"ds-foot\"><span class=\"ds-go2\">Abrir <svg class=\"ds-arrow\" viewBox=\"0 0 7 5\" shape-rendering=\"crispEdges\" aria-hidden=\"true\"><path d=\"M4 0h1v1h-1zM5 1h1v1h-1zM0 2h7v1h-7zM5 3h1v1h-1zM4 4h1v1h-1z\" fill=\"currentColor\"/></svg></span><span class=\"ds-badge\">Laboratório</span></span></a>",
+      "css": ".ds-card { font-family: var(--font-inter, Inter), system-ui, sans-serif; display: flex; flex-direction: column; gap: 10px; max-width: 280px; background: var(--surface, #1b2220); border-top: 4px solid var(--fur-2, #51524c); padding: 22px 26px 26px; color: var(--ink, #dbdcd6); text-decoration: none; } .ds-card:hover { border-top-color: var(--ink, #dbdcd6); background: color-mix(in srgb, var(--surface, #1b2220) 70%, var(--soft, #252d2b)); } .ds-card:focus-visible { outline: 3px solid var(--accent, #8cc0ee); outline-offset: 3px; } .ds-card h3 { margin: 0; font-size: 1.45rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.022em; } .ds-card p { margin: 0; color: var(--muted, #9c958e); line-height: 1.45; } .ds-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; } .ds-go2 { display: inline-flex; align-items: center; gap: 10px; background: var(--ink, #dbdcd6); color: var(--bg, #111715); font-weight: 600; font-size: 0.95rem; padding: 9px 16px 9px 18px; clip-path: polygon(4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px), 0 4px, 4px 4px); } .ds-badge { font-family: var(--font-silkscreen, Silkscreen), monospace; font-size: 16px; line-height: 1; text-transform: uppercase; padding: 6px 10px 7px; background: var(--soft, #252d2b); color: var(--muted, #9c958e); } .ds-arrow { width: 14px; height: 10px; }"
+    },
+    {
+      "name": "Selo de situação",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "Silkscreen a 16px (2× a grade de 8px); Próxima em laranja com um quadrado de 4px.",
+      "html": "<span class=\"ds-badge\">Planejada</span> <span class=\"ds-badge ds-next\">Próxima</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-silkscreen, Silkscreen), monospace; font-size: 16px; line-height: 1; text-transform: uppercase; padding: 6px 10px 7px; background: var(--soft, #252d2b); color: var(--muted, #9c958e); white-space: nowrap; } .ds-next { background: var(--target-soft, #3b2a0f); color: var(--target, #f0a634); } .ds-next::before { content: \"\"; width: 4px; height: 4px; background: currentColor; }"
+    },
+    {
+      "name": "Cabeçalho",
+      "kind": "nav",
+      "refersTo": "header",
+      "description": "56px, fundo sólido, traço de 2px; link atual marcado por barra de 4px.",
+      "html": "<header class=\"ds-header\"><span class=\"ds-brand\">Marmota Music</span><nav><a href=\"#\" aria-current=\"page\">Afinador</a><a href=\"#\">Metrônomo</a><a href=\"#\">Treino</a></nav></header>",
+      "css": ".ds-header { font-family: var(--font-inter, Inter), system-ui, sans-serif; display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 20px; background: var(--bg, #111715); border-bottom: 2px solid var(--soft, #252d2b); } .ds-brand { font-weight: 700; font-size: 1.12rem; letter-spacing: -0.015em; color: var(--ink, #dbdcd6); } .ds-header nav { display: flex; gap: 2px; } .ds-header nav a { position: relative; color: var(--muted, #9c958e); text-decoration: none; font-size: 0.94rem; font-weight: 500; padding: 8px 12px; } .ds-header nav a::after { content: \"\"; position: absolute; left: 12px; right: 12px; bottom: 2px; height: 4px; background: transparent; } .ds-header nav a:hover { color: var(--ink, #dbdcd6); } .ds-header nav a:hover::after { background: var(--line, #3a403d); } .ds-header nav a[aria-current=\"page\"] { color: var(--ink, #dbdcd6); font-weight: 600; } .ds-header nav a[aria-current=\"page\"]::after { background: var(--ink, #dbdcd6); } .ds-header nav a:focus-visible { outline: 3px solid var(--accent, #8cc0ee); outline-offset: 3px; }"
+    },
+    {
+      "name": "Pauta com nota",
+      "kind": "custom",
+      "refersTo": "card-tool",
+      "description": "Assinatura do hub: cinco linhas de 2px a 12px, colcheia 6×9 a 4×; acende azul em degraus.",
+      "html": "<div class=\"ds-staff\"><svg class=\"ds-note\" viewBox=\"0 0 6 9\" shape-rendering=\"crispEdges\" aria-hidden=\"true\"><path d=\"M3 0h1v1h-1zM3 1h2v1h-2zM3 2h1v1h-1zM5 2h1v1h-1zM3 3h1v1h-1zM5 3h1v1h-1zM3 4h1v1h-1zM3 5h1v1h-1zM1 6h3v1h-3zM0 7h4v1h-4zM1 8h2v1h-2z\" fill=\"currentColor\"/></svg></div>",
+      "css": ".ds-staff { position: relative; width: 240px; height: 50px; margin-top: 30px; background: repeating-linear-gradient(to bottom, var(--line, #3a403d) 0 2px, transparent 2px 12px) 0 0 / 100% 50px no-repeat; } .ds-note { position: absolute; left: 34px; top: -6px; width: 24px; height: 36px; color: var(--ink, #dbdcd6); animation: ds-toca 1.5s steps(1, end) infinite; } .ds-staff:hover .ds-note { animation: none; color: var(--accent, #8cc0ee); } @keyframes ds-toca { 0% { color: var(--accent, #8cc0ee); transform: translateY(-4px); } 20% { color: var(--accent, #8cc0ee); transform: none; } 50%, 100% { color: var(--ink, #dbdcd6); transform: none; } } @media (prefers-reduced-motion: reduce) { .ds-note { animation: none; } }"
+    },
+    {
+      "name": "Item da lista quieta",
+      "kind": "custom",
+      "refersTo": "badge",
+      "description": "Ferramenta planejada: linha sem superfície, traços de 2px, ícone em taupe a 2×.",
+      "html": "<div class=\"ds-quiet\"><span class=\"ds-qicon\"></span><div><h3>Tirar músicas de ouvido</h3><p>Ouça um trecho e encontre as notas.</p></div><span class=\"ds-badge\">Planejada</span></div>",
+      "css": ".ds-quiet { font-family: var(--font-inter, Inter), system-ui, sans-serif; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px 20px; padding: 16px 0; border-top: 2px solid var(--soft, #252d2b); border-bottom: 2px solid var(--soft, #252d2b); color: var(--ink, #dbdcd6); } .ds-qicon { width: 32px; height: 32px; background: var(--fur, #6b625a); } .ds-quiet h3 { margin: 0; font-size: 1.15rem; font-weight: 650; letter-spacing: -0.015em; } .ds-quiet p { margin: 0; color: var(--muted, #9c958e); font-size: 0.92rem; } .ds-badge { font-family: var(--font-silkscreen, Silkscreen), monospace; font-size: 16px; line-height: 1; text-transform: uppercase; padding: 6px 10px 7px; background: var(--soft, #252d2b); color: var(--muted, #9c958e); }"
+    }
   ],
   "narrative": {
-    "northStar": "O padrão, bem feito",
-    "overview": "O padrão da categoria, escolhido de propósito, com acabamento de página de app da Apple: respiro, cards grandes arredondados, uma família tipográfica, animações suaves. O hub é um painel de entrada; o que dá para abrir hoje é a maior coisa da página.",
-    "keyCharacteristics": ["Fundo cinza suave, superfícies brancas, um só azul para ação", "Cards de raio 22px com sombra macia", "Tamanho do card diz a situação", "A pauta animada é o único elemento decorativo"],
-    "rules": [{ "name": "A Regra das Três Cores", "body": "Azul é ação e tocando agora. Laranja é nota-alvo. Verde é selecionado. Nenhuma é usada para outra coisa.", "section": "colors" }],
-    "dos": ["Use os tokens de globals.css", "Diga a situação com as palavras do registro"],
-    "donts": ["Não use linguagem de venda", "Não acrescente um segundo elemento decorativo animado ao hub"]
+    "northStar": "O Caderno Pautado",
+    "overview": "**Creative North Star: \"O Caderno Pautado\"**\n\nO site é um caderno de música escuro onde mora uma marmota em pixel art. Tudo nasce dela: o fundo é o contorno grafite-esverdeado do desenho, as superfícies e linhas são o cinza e o taupe do pelo, o texto é o marfim do focinho. A pauta de cinco linhas é o elemento que organiza a página inicial: a marmota senta na linha de cima, toca, e cada ferramenta no ar é uma nota dessa pauta, com o card pendurado embaixo. A música não some da página; ela é a estrutura.\n\nO pixel é a matéria da marca e dos detalhes (marmota, notas, ícones, selos, cantos da placa \"Abrir\"), sempre em escala inteira e sem suavização. O que se lê continua liso, em Inter. A grade do mundo é de 4px: um pixel da arte vale 4px na tela. Cantos são vivos ou quase vivos, superfícies são planas, e todo movimento da casca da marca anda em degraus, como um sprite, nunca deslizando.\n\nA densidade é baixa: um painel de entrada, não uma página de venda. Não há texto de instrução na interface; o que precisar de explicação vai num \"i\".",
+    "keyCharacteristics": [
+      "Um tema só, escuro, com a paleta tirada da marmota.",
+      "Pauta de cinco linhas como estrutura do hub; cada ferramenta é uma nota.",
+      "Pixel art só em múltiplo inteiro, `image-rendering: pixelated`, grade de 4px.",
+      "Inter para tudo que se lê; Silkscreen só nos selos de situação.",
+      "Cantos vivos (4px no máximo), superfícies planas, sem sombra fora de diálogo.",
+      "Movimento em degraus (`steps()`), nunca com easing, na casca da marca.",
+      "Laranja, azul e verde só com significado musical."
+    ],
+    "rules": [
+      {
+        "name": "A Regra das Três Cores",
+        "body": "Laranja é nota-alvo, azul é tocando agora, verde é selecionado. Nenhuma das três é usada para outra coisa, nem como enfeite, em nenhuma ferramenta nem no hub.",
+        "section": "colors"
+      },
+      {
+        "name": "A Regra da Marmota",
+        "body": "Todo neutro novo sai da arte da marmota. Não se inventa cinza, bege ou marrom fora dela; a madeira é do braço da guitarra e só dele.",
+        "section": "colors"
+      },
+      {
+        "name": "A Regra do Palco",
+        "body": "O que se lê tocando, com o instrumento na mão e a tela a um metro (o que fazer agora, o acorde, a contagem, a casa), usa `--text-stage` ou `--text-xl` e cor cheia. Texto secundário é sempre menor que isso.",
+        "section": "typography"
+      },
+      {
+        "name": "A Regra do Selo",
+        "body": "Silkscreen só em selos de situação, a 16px. Nada que se lê em frase usa fonte pixel.",
+        "section": "typography"
+      },
+      {
+        "name": "A Regra da Grade de 4px",
+        "body": "Um pixel da arte vale 4px (`--px`). Traços, degraus de canto, deslocamentos de animação e o marcador do link atual são múltiplos dele.",
+        "section": "layout"
+      },
+      {
+        "name": "A Regra do Chão",
+        "body": "Card e cabeçalho não têm sombra nem desfoque. Só o que flutua (diálogo, a barra do app no celular) ganha sombra.",
+        "section": "elevation"
+      },
+      {
+        "name": "A Regra da Escala Inteira",
+        "body": "Pixel art é mostrada a 1×, 2×, 3×, 4× ou 6×, nunca em escala fracionária. Ícone a 3× no card (48px) e a 2× na lista quieta (32px); colcheia a 4× (24×36); marmota a 6× no hub e 4× no celular; cabeça a 1× (32px) no cabeçalho.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** tirar todo neutro da marmota: fundo #111715, superfície #1b2220, texto marfim, cinza quente, taupe e cinza do pelo.",
+      "**Do** mostrar pixel art só em escala inteira, com `image-rendering: pixelated` ou `shape-rendering: crispEdges`, na grade de 4px.",
+      "**Do** desenhar ícone novo como grade 16×16 no `PixelArt`, a 3× em card e 2× em lista.",
+      "**Do** animar a casca da marca só com `steps()`, e só com `prefers-reduced-motion: no-preference`.",
+      "**Do** usar `--radius-pill` nos botões e chips das ferramentas, para que a tela de app possa devolver a pílula.",
+      "**Do** manter a Regra das Três Cores, a Regra do Palco e a escala `--text-*` em toda ferramenta.",
+      "**Do** deixar o mínimo de explicação num \"i\", nunca em frase de ajuda na tela."
+    ],
+    "donts": [
+      "**Don't** usar laranja, azul ou verde como enfeite.",
+      "**Don't** colocar um segundo elemento decorativo animado no hub; a cena da marmota é o único.",
+      "**Don't** usar easing (`cubic-bezier`, `ease-out`) no movimento da casca da marca; pixel não desliza.",
+      "**Don't** usar Silkscreen em texto corrido, título ou botão, nem em tamanho que não seja 16px.",
+      "**Don't** arredondar cards ou botões acima de 4px fora da tela de app, nem pôr sombra em card.",
+      "**Don't** usar as cores de madeira fora do desenho do braço da guitarra.",
+      "**Don't** escalar pixel art em fração, nem passar a marmota pelo otimizador do `next/image`.",
+      "**Don't** pôr texto de instrução na interface."
+    ]
   }
 }

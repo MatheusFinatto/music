@@ -4528,7 +4528,7 @@ var properties_initialized_Voz_kt_u8626n;
 function _init_properties_Voz_kt__voj4up() {
   if (!properties_initialized_Voz_kt_u8626n) {
     properties_initialized_Voz_kt_u8626n = true;
-    FAIXA_PADRAO_0 = new Faixa(48, 72);
+    FAIXA_PADRAO_0 = new Faixa(48, 69);
     // Inline function 'kotlin.arrayOf' call
     // Inline function 'kotlin.js.unsafeCast' call
     // Inline function 'kotlin.js.asDynamic' call
