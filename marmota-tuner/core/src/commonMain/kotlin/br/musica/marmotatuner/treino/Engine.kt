@@ -103,8 +103,9 @@ private fun <T> piscina(todos: Array<T>, escolhidos: Array<String>, id: (T) -> S
  * Tuning: the interval plays with the second note flat, in tune or sharp (a third each, on average), in equal temperament. The
  * person names both: which interval it is ([PerguntaClassica.intervalo]) and how the second note sounds ([PerguntaClassica.resposta]).
  */
-fun perguntaAfinacao(cfg: ConfigClassica, rng: Rng): PerguntaClassica {
-    val i = sortear(piscina(INTERVALOS, cfg.itens) { it.id }, rng)
+fun perguntaAfinacao(cfg: ConfigClassica, rng: Rng, historico: Array<HistoricoItem>? = null): PerguntaClassica {
+    // The key is the interval (not the margin): Pontos fracos then says which interval goes out of tune, and reinforcement weighs it.
+    val i = sortearComPeso(piscina(INTERVALOS, cfg.itens) { it.id }, { "afinacao:${it.id}" }, historico, rng)
     val direcao = if (cfg.direcao == "misto") sortear(listOf("asc", "desc", "harm"), rng) else cfg.direcao
     val base = inteiro(rng, 48, 64)
     val a = if (direcao == "desc") base + i.semitons else base
@@ -116,7 +117,7 @@ fun perguntaAfinacao(cfg: ConfigClassica, rng: Rng): PerguntaClassica {
     } else {
         arrayOf(PianoNote(a, 0.0, 1.0), PianoNote(b, 1.1, 1.4, cents.toDouble()))
     }
-    return PerguntaClassica("afinacao:${cfg.margem}", resposta, notas, cents = cents, intervalo = i.id)
+    return PerguntaClassica("afinacao:${i.id}", resposta, notas, cents = cents, intervalo = i.id)
 }
 
 private val NOMES_SUSTENIDO = arrayOf("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B")
@@ -195,7 +196,7 @@ fun perguntaAchar(cfg: ConfigClassica, rng: Rng, historico: Array<HistoricoItem>
 }
 
 fun perguntaClassica(cfg: ConfigClassica, rng: Rng, historico: Array<HistoricoItem>?): PerguntaClassica {
-    if (cfg.exercicio == "afinacao") return perguntaAfinacao(cfg, rng)
+    if (cfg.exercicio == "afinacao") return perguntaAfinacao(cfg, rng, historico)
     if (cfg.exercicio == "achar") return perguntaAchar(cfg, rng, historico)
     if (cfg.exercicio in HARMONIA) return perguntaHarmonia(cfg, rng, historico)
     if (cfg.exercicio == "acordes") {

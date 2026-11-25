@@ -90,12 +90,10 @@ export function desenharPista(ctx: CanvasRenderingContext2D, e: EstadoPista, fx:
     const acerto = e.avaliar && passou && !curta ? acertoDaNota(e.amostras, j, e.tolerancia, e.qualquerOitava, j.fim).fracao >= LIMIAR : false;
 
     if (agora && e.avaliar) {
-      // A da vez: o que já passou da linha mostra o acerto; o que falta brilha em laranja, respirando.
+      // A da vez: o que já passou da linha mostra o acerto; o que falta fica em laranja.
       const xm = Math.max(x0, Math.min(xLinha, x1));
       ctx.fillStyle = comAlfa(cores.alvo, 0.28); nota(x0, x1, j.midi); ctx.fill();
       acertos(j, x0, x1, e.t);
-      const respira = calmo ? 0.5 : 0.5 + 0.5 * Math.sin(relogio * 5.2);
-      brilho(ctx, cores.alvo, 10 + respira * 10, calmo);
       ctx.fillStyle = cores.alvo; capsula(ctx, xm - esp / 2, x1, y(j.midi), esp); ctx.fill(); semBrilho(ctx);
     } else if (agora) {
       brilho(ctx, cores.alvo, 18, calmo); ctx.fillStyle = cores.alvo; nota(x0, x1, j.midi); ctx.fill(); semBrilho(ctx);

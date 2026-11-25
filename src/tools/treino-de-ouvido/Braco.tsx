@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { nomeNota } from "./engine";
+import { aoTocar } from "./toque";
 import type { Marca } from "./Teclado";
 import { ABERTAS, CASAS, melhorPosicao, type Pos } from "./violao";
 
@@ -77,7 +78,7 @@ export function Braco({ marcas, onTocar, label, extras = [] }: { marcas: Readonl
           <rect key={`${corda}:${casa}`} data-pos={`${corda}:${casa}`} role="button" tabIndex={foco.corda === corda && foco.casa === casa ? 0 : -1}
             aria-label={`${nomeNota(solta + casa)}, corda ${corda + 1}, ${casa === 0 ? "solta" : `casa ${casa}`}`} className="braco-celula"
             x={casa === 0 ? 0 : MARGEM + (casa - 1) * LARG} y={cy(corda) - ALT / 2} width={casa === 0 ? MARGEM : LARG} height={ALT}
-            onPointerDown={(e) => { if (e.button === 0) { setFoco({ corda, casa }); tocar(corda, casa); } }}
+            {...aoTocar(() => { setFoco({ corda, casa }); tocar(corda, casa); })}
             onFocus={() => setFoco({ corda, casa })} />
         )))}
         {Array.from({ length: CASAS }, (_, i) => <text key={i} className="braco-num" x={cx(i + 1)} y={altura - 4}>{i + 1}</text>)}

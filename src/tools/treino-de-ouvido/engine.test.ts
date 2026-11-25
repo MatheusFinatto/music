@@ -104,7 +104,8 @@ describe("afinação", () => {
         const q = perguntaClassica(cfg(margem), rng);
         expect([-margem, 0, margem]).toContain(q.cents);
         expect(q.resposta).toBe(q.cents! < 0 ? "baixo" : q.cents! > 0 ? "alto" : "afinado");
-        expect(q.chave).toBe(`afinacao:${margem}`);
+        // A chave é o intervalo (Pontos fracos diz qual intervalo desafina), não a margem.
+        expect(q.chave).toBe(`afinacao:${q.intervalo}`);
         expect(q.notas[0]!.cents).toBeUndefined();
         expect(q.notas[1]!.cents).toBe(q.cents);
         vistos.add(q.resposta);

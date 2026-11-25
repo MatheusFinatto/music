@@ -63,6 +63,9 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
   const [atual, setAtual] = useState(-1);
   const [erroMic, setErroMic] = useState<MicProblem | null>(null);
   const [final, setFinal] = useState<{ acertos: Acerto[]; resumo: Resumo } | null>(null);
+  const revela = useRef<HTMLDivElement>(null);
+  // Terminou: a tela rola só o necessário para o resultado aparecer.
+  useEffect(() => { if (final) revela.current?.scrollIntoView({ block: "nearest" }); }, [final]);
 
   const caixa = useRef<HTMLDivElement>(null);
   const tela = useRef<HTMLCanvasElement>(null);
@@ -172,6 +175,8 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
     const acertos = lista.map((j) => acertoDaNota(amostras.current, j, cfgRef.current.tolerancia, cfgRef.current.qualquerOitava));
     const resumo = resumir(lista, acertos);
     limpar();
+    // Sem isso a última sílaba podia ficar marcada como "agora" (marfim) em vez de acerto ou erro.
+    atualRef.current = -1; setAtual(-1);
     setFinal({ acertos, resumo });
     mudaFase("feito");
     onResultado(chave, resumo);
@@ -297,17 +302,21 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
       {/* Parada, a pista já mostra as sílabas; a letra corrida aparece cantando (a sílaba da vez) e no resultado (o que acertou). */}
       {temLetra && (rodando || final) && <p className="cantar-letra" aria-label={t("voz.musica.letra")}>
         {js.map((j, i) => (j.midi === null ? null : (
-          <span key={i} className={i === atual ? "atual" : final ? (final.acertos[i]?.ok ? "ok" : "falhou") : ""}>{j.sil || "–"} </span>
+          <span key={i} className={final ? (final.acertos[i]?.ok ? "ok" : "falhou") : i === atual ? "atual" : ""}>{j.sil || "–"} </span>
         )))}
       </p>}
 
-      <p className="treino-estado" role="status">
+      {/* O leitor de tela ouve só as mudanças que importam (ouvindo, cante, o resultado), não cada tempo da contagem. */}
+      <p className="sr-only" role="status">
+        {fase === "ouvindo" ? t("voz.musica.ouvindo") : fase === "cantando" ? t("voz.musica.cantando") : fase === "feito" && final ? t("voz.musica.resultado", { acertadas: final.resumo.acertadas, total: final.resumo.total }) : ""}
+      </p>
+      <p className="treino-estado" aria-hidden="true">
         {fase === "contagem" ? t("voz.musica.contagem", { n: contagem || 1 }) : fase === "cantando" ? t("voz.musica.cantando") : fase === "ouvindo" ? t("voz.musica.ouvindo") : t("voz.musica.tom", { nota: nomeNota(tonicaMidi).replace(/-?\d+$/, "") })}
       </p>
 
       {final && (
-        <div className="treino-revela">
-          <p className={`treino-resultado ${final.resumo.ok ? "certa" : "errada"}`} role="status">{t("voz.musica.resultado", { acertadas: final.resumo.acertadas, total: final.resumo.total })}</p>
+        <div className="treino-revela" ref={revela}>
+          <p className={`treino-resultado ${final.resumo.ok ? "certa" : "errada"}`}>{t("voz.musica.resultado", { acertadas: final.resumo.acertadas, total: final.resumo.total })}</p>
           {melhor !== undefined && <p className="treino-detalhe">{t("voz.musica.melhor", { acertadas: Math.round(melhor * total), total })}</p>}
         </div>
       )}

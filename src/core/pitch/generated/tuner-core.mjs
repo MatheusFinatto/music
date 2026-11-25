@@ -2982,30 +2982,32 @@ function piscina(todos, escolhidos, id) {
   }
   return tmp;
 }
-function perguntaAfinacao(cfg, rng) {
+function perguntaAfinacao(cfg, rng, historico) {
+  historico = historico === VOID ? null : historico;
   _init_properties_Engine_kt__fnrbfm();
   var tmp = get_INTERVALOS();
-  var i = sortear(piscina(tmp, cfg.itens, perguntaAfinacao$lambda), rng);
+  var tmp_0 = piscina(tmp, cfg.itens, perguntaAfinacao$lambda);
+  var i = sortearComPeso(tmp_0, perguntaAfinacao$lambda_0, historico, rng);
   var direcao = cfg.direcao === 'misto' ? sortear(listOf(['asc', 'desc', 'harm']), rng) : cfg.direcao;
   var base = inteiro(rng, 48, 64);
   var a = direcao === 'desc' ? base + i.semitons | 0 : base;
   var b = direcao === 'desc' ? base : base + i.semitons | 0;
   var cents = sortear(listOf([-cfg.margem | 0, 0, cfg.margem]), rng);
   var resposta = cents < 0 ? 'baixo' : cents > 0 ? 'alto' : 'afinado';
-  var tmp_0;
+  var tmp_1;
   if (direcao === 'harm') {
     // Inline function 'kotlin.arrayOf' call
     // Inline function 'kotlin.js.unsafeCast' call
     // Inline function 'kotlin.js.asDynamic' call
-    tmp_0 = [new PianoNote(a, 0.0, 2.2), new PianoNote(b, 0.0, 2.2, cents)];
+    tmp_1 = [new PianoNote(a, 0.0, 2.2), new PianoNote(b, 0.0, 2.2, cents)];
   } else {
     // Inline function 'kotlin.arrayOf' call
     // Inline function 'kotlin.js.unsafeCast' call
     // Inline function 'kotlin.js.asDynamic' call
-    tmp_0 = [new PianoNote(a, 0.0, 1.0), new PianoNote(b, 1.1, 1.4, cents)];
+    tmp_1 = [new PianoNote(a, 0.0, 1.0), new PianoNote(b, 1.1, 1.4, cents)];
   }
-  var notas = tmp_0;
-  return new PerguntaClassica('afinacao:' + cfg.margem, resposta, notas, cents, VOID, VOID, VOID, VOID, VOID, i.id);
+  var notas = tmp_1;
+  return new PerguntaClassica('afinacao:' + i.id, resposta, notas, cents, VOID, VOID, VOID, VOID, VOID, i.id);
 }
 function nomeTom(tonica) {
   _init_properties_Engine_kt__fnrbfm();
@@ -3204,7 +3206,7 @@ function perguntaAchar(cfg, rng, historico) {
 function perguntaClassica(cfg, rng, historico) {
   _init_properties_Engine_kt__fnrbfm();
   if (cfg.exercicio === 'afinacao')
-    return perguntaAfinacao(cfg, rng);
+    return perguntaAfinacao(cfg, rng, historico);
   if (cfg.exercicio === 'achar')
     return perguntaAchar(cfg, rng, historico);
   if (contains(get_HARMONIA(), cfg.exercicio))
@@ -3361,6 +3363,10 @@ function faixaDoTeclado(janela) {
 function perguntaAfinacao$lambda(it) {
   _init_properties_Engine_kt__fnrbfm();
   return it.id;
+}
+function perguntaAfinacao$lambda_0(it) {
+  _init_properties_Engine_kt__fnrbfm();
+  return 'afinacao:' + it.id;
 }
 function perguntaHarmonia$lambda(it) {
   _init_properties_Engine_kt__fnrbfm();

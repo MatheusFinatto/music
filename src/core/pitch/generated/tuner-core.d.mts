@@ -589,7 +589,7 @@ export declare namespace HistoricoItem.$metadata$ {
 }
 export declare function registrar(h: Array<HistoricoItem>, chave: string, certo: boolean): Array<HistoricoItem>;
 export declare function peso(h: Array<HistoricoItem>, chave: string): number;
-export declare function perguntaAfinacao(cfg: ConfigClassica, rng: () => number): PerguntaClassica;
+export declare function perguntaAfinacao(cfg: ConfigClassica, rng: () => number, historico?: Nullable<Array<HistoricoItem>>): PerguntaClassica;
 export declare function nomeTom(tonica: number): string;
 export declare function nomeAcorde(tonica: number, grau: string): string;
 export declare function perguntaHarmonia(cfg: ConfigClassica, rng: () => number, historico: Nullable<Array<HistoricoItem>>): PerguntaClassica;

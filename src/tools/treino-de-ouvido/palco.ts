@@ -36,18 +36,22 @@ export function linhaDoAgora(ctx: CanvasRenderingContext2D, x: number, h: number
   g.addColorStop(0, comAlfa(cores.tinta, 0)); g.addColorStop(0.22, comAlfa(cores.tinta, forca)); g.addColorStop(0.78, comAlfa(cores.tinta, forca)); g.addColorStop(1, comAlfa(cores.tinta, 0));
   ctx.fillStyle = g; ctx.fillRect(x - 1, 0, 2, h);
 }
-/** Uma cápsula horizontal centrada em `yc` (a forma de toda nota). */
+/** Um bloco horizontal centrado em `yc` (a forma de toda nota). */
 export function capsula(ctx: CanvasRenderingContext2D, x0: number, x1: number, yc: number, esp: number) {
-  ctx.beginPath(); ctx.roundRect(x0, yc - esp / 2, Math.max(x1 - x0, esp), esp, esp / 2);
+  ctx.beginPath(); ctx.roundRect(x0, yc - esp / 2, Math.max(x1 - x0, esp), esp, Math.min(esp / 2, 4)); // cantos vivos (4px no máximo), como o resto do site
 }
-export const brilho = (ctx: CanvasRenderingContext2D, cor: string, raio: number, calmo: boolean) => { if (!calmo) { ctx.shadowColor = cor; ctx.shadowBlur = raio; } };
+/** Sem brilho: o mundo do site é chapado (pixel, sem neon). As chamadas ficam, para um lugar só decidir. */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const brilho = (_ctx: CanvasRenderingContext2D, _cor: string, _raio: number, _calmo: boolean) => {};
 export const semBrilho = (ctx: CanvasRenderingContext2D) => { ctx.shadowBlur = 0; ctx.shadowColor = "transparent"; };
+/** O tempo de um efeito em degraus (~12 quadros por segundo, como um sprite): nada desliza. */
+const degrau = (t: number) => Math.floor(t * 12) / 12;
 
 // ---------------------------------------------------------------- a voz
 export type PontoVoz = { x: number; y: number; t: number; ok: boolean };
 /**
  * A fita da voz: cada trecho contínuo vira uma curva suavizada (média móvel de 5 pontos: a voz real treme, a fita não precisa
- * tremer junto), com um brilho aditivo por baixo; azul fora da nota, verde dentro, mais apagada quanto mais velha.
+ * tremer junto); azul fora da nota, verde dentro, mais apagada quanto mais velha.
  */
 export function fita(ctx: CanvasRenderingContext2D, trechos: readonly PontoVoz[][], agora: number, vidaS: number, cores: Cores, calmo: boolean) {
   const suave = (pts: readonly PontoVoz[]) => pts.map((p, i) => {
@@ -57,15 +61,14 @@ export function fita(ctx: CanvasRenderingContext2D, trechos: readonly PontoVoz[]
   });
   const lisos = trechos.map(suave);
   ctx.lineJoin = "round"; ctx.lineCap = "round";
-  for (const camada of ["brilho", "fio"] as const) {
-    if (camada === "brilho" && calmo) continue;
-    ctx.globalCompositeOperation = camada === "brilho" ? "lighter" : "source-over";
+  void calmo;
+  {
     for (const tr of lisos) {
       for (let i = 1; i < tr.length; i++) {
         const a = tr[i - 1]!, b = tr[i]!;
         const idade = Math.max(0, Math.min(1, (agora - b.t) / vidaS));
-        ctx.strokeStyle = comAlfa(b.ok ? cores.ok : cores.acento, (camada === "brilho" ? 0.16 : 1) * (1 - idade * 0.85));
-        ctx.lineWidth = camada === "brilho" ? 12 : 3.5;
+        ctx.strokeStyle = comAlfa(b.ok ? cores.ok : cores.acento, 1 - idade * 0.85);
+        ctx.lineWidth = 4;
         ctx.beginPath();
         const ant = tr[i - 2];
         if (ant) ctx.moveTo((ant.x + a.x) / 2, (ant.y + a.y) / 2); else ctx.moveTo(a.x, a.y);
@@ -90,16 +93,15 @@ export function trechosDaVoz<T extends { t: number }>(amostras: readonly T[], po
 }
 /** A cabeça da voz, na linha do agora: verde e maior dentro da nota; fora, uma seta desenhada diz se é para subir (-1) ou descer (1). */
 export function cabecaDaVoz(ctx: CanvasRenderingContext2D, x: number, y: number, dentro: boolean, seta: -1 | 0 | 1, cores: Cores) {
-  const cor = dentro ? cores.ok : cores.acento, raio = dentro ? 30 : 22;
-  const halo = ctx.createRadialGradient(x, y, 0, x, y, raio);
-  halo.addColorStop(0, comAlfa(cor, 0.55)); halo.addColorStop(1, comAlfa(cor, 0));
-  ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(x, y, raio, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = cor; ctx.beginPath(); ctx.arc(x, y, dentro ? 9 : 7.5, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = cores.tinta; ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI * 2); ctx.fill();
+  // Um quadrado de pixel, contornado no fundo para destacar da fita; maior dentro da nota.
+  const cor = dentro ? cores.ok : cores.acento, l = dentro ? 16 : 12;
+  ctx.fillStyle = cores.fundo; ctx.fillRect(Math.round(x - l / 2 - 4), Math.round(y - l / 2 - 4), l + 8, l + 8);
+  ctx.fillStyle = cor; ctx.fillRect(Math.round(x - l / 2), Math.round(y - l / 2), l, l);
+  ctx.fillStyle = cores.tinta; ctx.fillRect(Math.round(x - 2), Math.round(y - 2), 4, 4);
   if (seta === 0) return;
   const yy = y + seta * 34;
-  ctx.lineJoin = "round"; ctx.lineCap = "round";
-  for (const [c, lw] of [[cores.fundo, 7], [cores.acento, 3.5]] as const) {
+  ctx.lineJoin = "miter"; ctx.lineCap = "square";
+  for (const [c, lw] of [[cores.fundo, 8], [cores.acento, 4]] as const) {
     ctx.strokeStyle = c; ctx.lineWidth = lw; ctx.beginPath();
     ctx.moveTo(x - 8, yy - seta * 5); ctx.lineTo(x, yy + seta * 3); ctx.lineTo(x + 8, yy - seta * 5); ctx.stroke();
   }
@@ -126,29 +128,28 @@ export function comemorar(fx: Efeitos, chave: number, x: number, y: number, esp:
   }
 }
 export function desenharEfeitos(ctx: CanvasRenderingContext2D, fx: Efeitos, relogio: number, cores: Cores) {
-  ctx.globalCompositeOperation = "lighter";
+  // Em degraus, como sprite: o anel é um quadrado que cresce aos saltos; as faíscas são pixels de 4px que caem aos saltos.
   fx.aneis = fx.aneis.filter((a) => relogio - a.nasce < 0.55);
   for (const a of fx.aneis) {
-    const k = (relogio - a.nasce) / 0.55, s = 1 + k * 1.4;
-    ctx.strokeStyle = comAlfa(cores.ok, 0.7 * (1 - k)); ctx.lineWidth = 2.5 * (1 - k) + 0.5;
-    ctx.beginPath(); ctx.ellipse(a.x, a.y, a.larg * s, a.alt * s * 0.8, 0, 0, Math.PI * 2); ctx.stroke();
+    const k = degrau(relogio - a.nasce) / 0.55, s = 1 + k * 1.4;
+    ctx.strokeStyle = comAlfa(cores.ok, 0.8 * (1 - k)); ctx.lineWidth = 4;
+    const lx = Math.round(a.larg * s), ly = Math.round(a.alt * s * 0.8);
+    ctx.strokeRect(Math.round(a.x - lx), Math.round(a.y - ly), lx * 2, ly * 2);
   }
   fx.faiscas = fx.faiscas.filter((f) => relogio - f.nasce < f.vida);
   for (const f of fx.faiscas) {
-    const t = relogio - f.nasce, k = t / f.vida;
-    ctx.fillStyle = comAlfa(cores.ok, 0.9 * (1 - k));
-    ctx.beginPath(); ctx.arc(f.x + f.vx * t, f.y + f.vy * t + 90 * t * t, f.r * (1 - k * 0.5), 0, Math.PI * 2); ctx.fill();
+    const t = degrau(relogio - f.nasce), k = t / f.vida;
+    ctx.fillStyle = comAlfa(cores.ok, 1 - k);
+    ctx.fillRect(Math.round((f.x + f.vx * t) / 4) * 4, Math.round((f.y + f.vy * t + 90 * t * t) / 4) * 4, 4, 4);
   }
-  ctx.globalCompositeOperation = "source-over";
 }
-/** A palavra do fim, grande, que entra devagar no meio do palco. */
+/** A palavra do fim, grande, no meio do palco: entra em dois quadros (meio apagada, depois cheia), sem deslizar. */
 export function mensagemDoFim(ctx: CanvasRenderingContext2D, fx: Efeitos, msg: string | null, w: number, h: number, relogio: number, cores: Cores, fonte: string, calmo: boolean) {
   if (msg !== fx.ultimaMensagem) { fx.ultimaMensagem = msg; fx.mensagemDesde = msg ? relogio : null; }
   if (!msg || fx.mensagemDesde === null) return;
-  const k = calmo ? 1 : Math.min(1, (relogio - fx.mensagemDesde) / 0.6);
-  const ease = 1 - Math.pow(1 - k, 4);
-  ctx.save(); ctx.translate(w / 2, h / 2); ctx.scale(0.88 + 0.12 * ease, 0.88 + 0.12 * ease);
-  ctx.globalAlpha = ease; ctx.font = `750 ${Math.min(56, w / 9)}px ${fonte}`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  const alfa = calmo || relogio - fx.mensagemDesde >= 0.12 ? 1 : 0.5;
+  ctx.save(); ctx.translate(w / 2, h / 2);
+  ctx.globalAlpha = alfa; ctx.font = `750 ${Math.min(56, w / 9)}px ${fonte}`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
   brilho(ctx, cores.ok, 24, calmo); ctx.fillStyle = cores.ok; ctx.fillText(msg, 0, 0); semBrilho(ctx);
   ctx.restore();
 }

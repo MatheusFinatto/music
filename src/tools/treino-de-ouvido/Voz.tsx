@@ -96,6 +96,24 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
   const piano = usePiano();
   const [instrumento, setInstrumento] = useInstrumento();
   const [fase, setFase] = useState<Fase>("parado");
+  const raiz = useRef<HTMLDivElement>(null);
+  const resultadoRef = useRef<HTMLParagraphElement>(null);
+  // Cantando no celular: a escolha do exercício, o "o que cantar", os ajustes e o cabeçalho do site somem e o palco sobe para o
+  // topo, para o gráfico ficar inteiro à vista (como no app). Voltam ao parar ou terminar.
+  const emCurso = fase === "piano" || fase === "cantando";
+  useEffect(() => {
+    if (!emCurso) return;
+    const html = document.documentElement;
+    html.classList.add("voz-cantando");
+    if (matchMedia("(max-width: 720px)").matches) raiz.current?.querySelector(".treino-palco")?.scrollIntoView({ block: "start" });
+    return () => html.classList.remove("voz-cantando");
+  }, [emCurso]);
+  // Terminou: a tela rola só o necessário para o resultado e o próximo passo aparecerem.
+  useEffect(() => {
+    if (fase !== "feito") return;
+    const acoes = raiz.current?.querySelector(".treino-acoes");
+    (acoes ?? resultadoRef.current)?.scrollIntoView({ block: "nearest" });
+  }, [fase]);
   const [tarefa, setTarefa] = useState<Tarefa | null>(null);
   const [passo, setPasso] = useState(0);
   const [leitura, setLeitura] = useState<number | null>(null);
@@ -352,6 +370,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
 
   const ex = exercicioDaVez;
   const cantando = fase === "cantando";
+  const ativo = fase === "piano" || cantando;
   const alvoAtual = tarefa ? tarefa.alvos[passo]! : null;
   const dicaBase = ex === "tonica" ? t(s.ajuda === "guia" ? "voz.dicaTonicaGuia" : "voz.dicaTonicaSo") : t(`voz.dica.${ex}` as "voz.dica.igualar");
   const dica = !cantando ? (fase === "piano" ? t(tarefa?.bordao != null ? "voz.ligandoBordao" : "voz.ouvindo") : "")
@@ -360,7 +379,8 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     : Math.abs(vivo.cents) <= s.tolerancia ? t(ex === "longa" ? "voz.sustente" : "voz.segure")
     : vivo.cents > 0 ? t("voz.maisBaixo") : t("voz.maisAlto");
   const marcas = new Map<number, Marca>();
-  if (ex === "alcance" && alcance.min !== null && alcance.max !== null) { marcas.set(alcance.min, "alvo"); marcas.set(alcance.max, "alvo"); }
+  // As pontas medidas não são nota-alvo (laranja): são a voz da pessoa, em marfim.
+  if (ex === "alcance" && alcance.min !== null && alcance.max !== null) { marcas.set(alcance.min, "extremo"); marcas.set(alcance.max, "extremo"); }
   const ext = alcance.min !== null && alcance.max !== null ? extensao(alcance.max - alcance.min) : null;
   const sinal = (n: number) => (Math.abs(n) < 1 ? t("voz.mediaCentro") : t(n > 0 ? "voz.mediaAcima" : "voz.mediaAbaixo", { n: Math.round(Math.abs(n)) }));
   const textoResultado = !resultado ? "" : !resultado.ok ? (resultado.ouvi === null || resultado.alvo === null ? t(programa ? "voz.naoOuviSegue" : "voz.naoOuvi") : t(programa ? "voz.naoFoiSegue" : "voz.naoFoi", { alvo: nomeNota(resultado.alvo), ouvi: nomeNota(Math.round(resultado.ouvi)) }))
@@ -369,7 +389,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
     : `${t("voz.afinou")} ${sinal(resultado.media)}`;
 
   return (
-    <div className="treino voz">
+    <div className={`treino voz${ativo ? " ativo" : ""}`} ref={raiz}>
       {!programa && <div className="treino-topo">
         <div className="treino-escolhas">
           <div className="treino-exs" role="radiogroup" aria-label={t("exercicio")} onKeyDown={onRadioKeyDown}>
@@ -381,7 +401,8 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
             </div>
           </div>
         </div>
-        {ex !== "alcance" && placar.t > 0 && (
+        {/* Em Músicas o resultado já conta as notas acertadas; um placar de tentativas ao lado confundia as duas contas. */}
+        {ex !== "alcance" && ex !== "musica" && placar.t > 0 && (
           <dl className="treino-placar" aria-label={t("placarTitulo")}>
             <div><dd>{t("placar", { acertos: placar.a, total: placar.t })}</dd><dt>{t("acertos")}</dt></div>
           </dl>
@@ -466,6 +487,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
           </div>
           <Info label={t("info")} title={t("info")} close={t("fechar")} items={[
           dicaBase,
+          ex === "tonica" ? t("voz.bordaoNota") : "",
           !programa && (ex === "intervalo" || (ex === "tonica" && s.grau === "sortear"))
             ? t("voz.sorteando", { lista: s.intervalos.map((id) => t(`nomes.intervalos.${id}` as "nomes.intervalos.3m")).join(", ") }) : "",
           t("voz.minhaVoz.dica"), t("voz.fone"), t("voz.privado"), t("voz.atalhos"), t("creditos"),
@@ -498,8 +520,10 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
             centsAlvo={ex === "alcance" || !cantando ? null : vivo.cents}
             tolerancia={s.tolerancia}
             progresso={ex === "alcance" ? 0 : vivo.progresso}
-            rotulos={{ sem: t("voz.sem"), baixo: t("voz.baixo"), alto: t("voz.alto") }}
+            rotulos={{ sem: t("voz.sem"), baixo: t("nomes.afinacao.baixo"), alto: t("nomes.afinacao.alto") }}
             dica={dica}
+            alvo={cantando && alvoAtual !== null && ex !== "alcance" ? nomeNota(alvoAtual) : null}
+            rotuloAlvo={t("voz.alvo")}
           />
         )}
 
@@ -513,7 +537,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
                     <button key={v} type="button" role="radio" aria-checked={instrumento === v} tabIndex={instrumento === v ? 0 : -1} onClick={() => setInstrumento(v)}>{t(`instrumentos.${v}`)}</button>
                   ))}
                 </div>
-                <Instrumento tipo={instrumento} janela={[alcance.min, alcance.max]} marcas={marcas} onTocar={() => {}} label={t(instrumento === "violao" ? "braco" : "teclado")} />
+                <Instrumento tipo={instrumento} janela={[alcance.min, alcance.max]} marcas={marcas} onTocar={(m) => void piano.tocar([{ midi: m, at: 0, dur: 1.2 }])} label={t(instrumento === "violao" ? "braco" : "teclado")} />
                 <p className="treino-detalhe">{t("voz.extensao", { oitavas: ext.oitavas, semitons: ext.semitons })}</p>
                 {(() => {
                   const sug = faixaConfortavel(alcance.min, alcance.max);
@@ -541,7 +565,9 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
             </button>
           </div>
         )}
-        {resultado && <p className={`treino-resultado ${resultado.ok ? "certa" : "errada"}`} role="status">{textoResultado}</p>}
+        {resultado && <p className={`treino-resultado ${resultado.ok ? "certa" : "errada"}`} ref={resultadoRef}>{textoResultado}</p>}
+        {/* Sempre montada: o leitor de tela anuncia o resultado quando o texto chega (uma região viva que nasce cheia é pulada). */}
+        <p className="sr-only" role="status">{fase === "feito" ? textoResultado : ""}</p>
         {erroMic && <p className="treino-estado" role="alert">{t(`voz.erroMic.${erroMic}`)}</p>}
         {piano.erro && <p className="treino-estado" role="alert">{piano.erro === "audio" ? t("erroAudio") : t("erroPiano")}</p>}
 
@@ -567,7 +593,6 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
           )}
           {cantando && ex === "alcance" && <button type="button" className="go treino-proxima" onClick={terminarAlcance}>{t("voz.terminar")}</button>}
         </div>
-        {alvoAtual !== null && ex === "tonica" && cantando && <p className="treino-estado">{t("voz.bordaoNota")}</p>}
         {fase === "parado" && aviso && <p className="treino-estado" role="status">{t("voz.ajusteMudou")}</p>}
       </section>}
 

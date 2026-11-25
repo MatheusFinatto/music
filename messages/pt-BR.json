@@ -299,14 +299,15 @@
     "semitons": "{n, plural, one {# semitom} other {# semitons}}",
     "teclado": "Teclado: toque uma tecla para ouvir a nota",
     "espaco": "Espaço",
-    "atalhos": "Espaço ouve e avança; 1 a 9 respondem.",
+    "atalhos": "Espaço ouve e avança; 1 a 9 respondem. Na afinação, − 0 + dizem como soa a segunda nota.",
     "perguntaAfinacao": "Que intervalo é este, e a segunda nota está afinada?",
     "dicaAfinacao": "Duas notas. Diga o intervalo e se a segunda está baixa, afinada ou alta (até {margem} cents).",
     "afinacaoIntervalo": "Intervalo",
     "afinacaoSegunda": "A segunda nota",
     "afinacaoErrado": "Era: {intervalo}, {sentido}.",
     "margem": "Margem",
-    "margemCents": "{n} cents",
+    "margemCents": "±{n} cents",
+    "margens": { "50": "Folgada", "30": "Normal", "20": "Precisa", "10": "Rigorosa" },
     "centsAcima": "{n, plural, one {# cent} other {# cents}} acima",
     "centsAbaixo": "{n, plural, one {# cent} other {# cents}} abaixo",
     "exatamenteAfinado": "Exatamente afinado",
@@ -315,6 +316,8 @@
     "fracos": "Seus pontos fracos",
     "fracosVazio": "Responda algumas perguntas e os itens com mais erros aparecem aqui.",
     "apagar": "Apagar histórico",
+    "apagado": "Histórico apagado.",
+    "desfazer": "Desfazer",
     "acertoDe": "{certo} de {total}",
     "grupos": {
       "intervalos": "Intervalos",
@@ -378,6 +381,7 @@
       "grafico": "Gráfico da voz: a barra laranja é a nota pedida e a linha mostra a altura que você está cantando",
       "baixo": "Grave",
       "alto": "Agudo",
+      "alvo": "Nota pedida:",
       "precisao": "Precisão",
       "precisoes": {
         "50": "Folgada",
@@ -548,6 +552,9 @@
         "harmonia": "Harmonia",
         "segundaVoz": "Segunda voz",
         "musicas": "Cantar músicas"
+      },
+      "focosVoz": {
+        "afinacao": "Cantar afinado"
       }
     },
     "comoTreinar": {

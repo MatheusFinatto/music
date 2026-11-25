@@ -134,9 +134,7 @@ export function desenharGrafico(ctx: CanvasRenderingContext2D, e: EstadoGrafico,
     const x0 = Math.min(x(atual.ini), cabeca - esp);
     ctx.fillStyle = comAlfa(cores.alvo, 0.28); nota(x0, cabeca, atual.alvo); ctx.fill();
     acertos(atual, x0, cabeca);
-    // O que falta: laranja cheio, respirando enquanto espera a voz.
-    const respira = calmo ? 0.5 : 0.5 + 0.5 * Math.sin(relogio * 5.2);
-    brilho(ctx, cores.alvo, 10 + respira * 10, calmo);
+    // O que falta: laranja cheio.
     ctx.fillStyle = cores.alvo; nota(cabeca - esp / 2, xFim, atual.alvo); ctx.fill(); semBrilho(ctx);
   } else fx.fimSuave = null;
 

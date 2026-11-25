@@ -55,6 +55,8 @@ class SecaoView(
         render()
     }
 
+    /** Same focus, its own name in Voz when the word would change meaning ("Afinação" is hearing in Ouvido, singing in Voz). */
+    private fun nomeFoco(fo: String) = if (secao == "voz" && fo == "afinacao") T("programas.focosVoz.afinacao") else T("programas.focos.$fo")
     private fun nomeDe(ex: String) = T(if (secao == "voz") "voz.exercicios.$ex" else "exercicios.$ex")
 
     val emPrograma get() = rodando != null
@@ -197,7 +199,7 @@ class SecaoView(
         corpo.addView(context.cartao().apply {
             addView(context.rotulo(T("programas.foco")))
             val focos = Fluxo(context)
-            focosDe(secao).forEach { fo -> focos.addView(Chip(context, T("programas.focos.$fo"), radio = true) { r.foco[secao] = fo; dados.salvar(r); render() }.apply { marcado = fo == foco }) }
+            focosDe(secao).forEach { fo -> focos.addView(Chip(context, nomeFoco(fo), radio = true) { r.foco[secao] = fo; dados.salvar(r); render() }.apply { marcado = fo == foco }) }
             addView(focos, lp().margens(b = dp(12)))
             addView(context.rotulo(T("programas.tempo")))
             // Short choices of the same kind: equal-width chips on a 3-column grid, edges aligned (green = selected, like Foco).
