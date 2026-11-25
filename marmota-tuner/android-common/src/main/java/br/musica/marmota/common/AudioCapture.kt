@@ -1,9 +1,10 @@
-package br.musica.marmotatuner
+package br.musica.marmota.common
 
 import android.annotation.SuppressLint
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
+import br.musica.marmotatuner.PitchPipeline
 
 /**
  * Reads the microphone on a background thread and hands each chunk to [onChunk]
@@ -26,7 +27,7 @@ class AudioCapture(
     fun start() {
         if (running) return
         running = true
-        thread = Thread(::recordLoop, "marmota-tuner-audio").apply {
+        thread = Thread(::recordLoop, "marmota-audio").apply {
             priority = Thread.MAX_PRIORITY
             start()
         }
@@ -65,7 +66,7 @@ class AudioCapture(
     private fun openFirstAvailableSource(): AudioRecord? =
         SOURCES.firstNotNullOfOrNull(::openSource)
 
-    @SuppressLint("MissingPermission") // MainActivity only starts capture after the grant
+    @SuppressLint("MissingPermission") // callers only start capture after the RECORD_AUDIO grant
     private fun openSource(source: Int): AudioRecord? {
         val minBytes = AudioRecord.getMinBufferSize(SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_FLOAT)
         if (minBytes <= 0) return null
