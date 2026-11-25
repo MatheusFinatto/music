@@ -8,7 +8,7 @@ export const APK_URL = "https://github.com/MatheusFinatto/music/releases/latest/
  * O segundo app (Marmota Trainer: treino de ouvido e de voz). "latest" é do Tuner, então este link aponta para a
  * versão: ao publicar uma nova, o Release sai sem "Latest" e este link muda para a tag nova.
  */
-export const EAR_APK_URL = "https://github.com/MatheusFinatto/music/releases/download/marmota-trainer-v1.0.1/marmota-trainer.apk";
+export const EAR_APK_URL = "https://github.com/MatheusFinatto/music/releases/download/marmota-trainer-v1.1/marmota-trainer.apk";
 
 /**
  * O topo das ferramentas que também estão no app: título à esquerda; à direita, as ações da página ([actions],
