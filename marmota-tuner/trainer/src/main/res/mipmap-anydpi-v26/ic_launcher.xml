@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
     <background android:drawable="@color/fundo" />
-    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+    <!-- The marmot art (Gemini, 2026-11-25) fills the visible 72 dp; the outer 18 dp repeat its edge, so parallax shows no seam. -->
+    <foreground android:drawable="@mipmap/ic_launcher_arte" />
     <monochrome android:drawable="@drawable/ic_launcher_foreground" />
 </adaptive-icon>
