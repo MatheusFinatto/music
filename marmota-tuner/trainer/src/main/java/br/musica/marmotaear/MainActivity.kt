@@ -1,6 +1,11 @@
 package br.musica.marmotaear
 
+import android.Manifest
 import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.provider.Settings
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -31,6 +36,7 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dados = Dados(this)
+        simular = (applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0 && intent.getBooleanExtra("simular", false)
         atual = savedInstanceState?.getString("secao") ?: "ouvido"
 
         val tela = FrameLayout(this).apply { setBackgroundColor(C.fundo) }
@@ -67,12 +73,13 @@ class MainActivity : Activity() {
     private fun secao(id: String): SecaoView = secoes.getOrPut(id) {
         when (id) {
             "ouvido" -> SecaoView(this, "ouvido", dados, livre = { OuvidoView(this, dados) }, blocoDe = { b -> OuvidoView(this, dados, b) })
-            else -> SecaoView(this, id, dados, livre = { View(this) }, blocoDe = { View(this) })
+            else -> SecaoView(this, "voz", dados, livre = { VozView(this, dados).also { v -> v.aoMudarAjustes = ::atualizarAcoes; v.aoEmCurso = ::focar } }, blocoDe = { b -> VozView(this, dados, b).also { v -> v.aoEmCurso = ::focar } })
         }.also { it.aoMudar = ::atualizarAcoes }
     }
 
     private fun trocar(id: String) {
         (secoes[atual]?.vistaLivre as? OuvidoView)?.calar()
+        pausarVoz()
         Piano.calar()
         atual = id
         corpo.removeAllViews()
@@ -90,6 +97,12 @@ class MainActivity : Activity() {
     private fun ouvidoLivre(): OuvidoView? = secoes["ouvido"]?.vistaLivre as? OuvidoView
 
     private fun abrirAjustes() {
+        (secoes["voz"]?.vistaLivre as? VozView)?.takeIf { atual == "voz" }?.let { v ->
+            lateinit var d: android.app.Dialog
+            d = folha(T("ajustes"), v.corpoAjustes { d.dismiss() })
+            d.show()
+            return
+        }
         val o = ouvidoLivre() ?: return
         folha(T("ajustes"), o.corpoAjustes { o.trocarInstrumento() }).show()
     }
@@ -123,6 +136,9 @@ class MainActivity : Activity() {
     }
 
     override fun onPause() {
+        // The microphone permission dialog pauses the activity too: that is not leaving, so the attempt and the piano go on.
+        if (aoMic != null) return super.onPause()
+        pausarVoz()
         Piano.desligar()
         super.onPause()
     }
@@ -146,9 +162,52 @@ class MainActivity : Activity() {
         }
     }
 
+    /** While singing, the section bar steps aside (switching sections mid-attempt makes no sense); it comes back when it ends. */
+    private fun focar(sim: Boolean) {
+        if (SECOES.size < 2) return
+        abas.animate().cancel()
+        if (sim) abas.animate().alpha(0f).translationY(dp(24).toFloat()).setDuration(160).withEndAction { abas.visibility = View.GONE }.start()
+        else { abas.visibility = View.VISIBLE; abas.animate().alpha(1f).translationY(0f).setDuration(160).start() }
+    }
+
+    private fun pausarVoz() {
+        secoes["voz"]?.let { (it.vistaLivre as? VozView)?.pausar(); (it.vistaBloco as? VozView)?.pausar() }
+    }
+
+    // ---------------------------------------------------------------- microphone permission
+    enum class Mic { OK, NEGADO, BLOQUEADO }
+    private var aoMic: ((Mic) -> Unit)? = null
+
+    /** Asks for the microphone once; [cb] learns whether it may open, was denied, or is blocked ("don't ask again"). */
+    fun pedirMic(cb: (Mic) -> Unit) {
+        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) return cb(Mic.OK)
+        aoMic = cb
+        requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), PEDIDO_MIC)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode != PEDIDO_MIC) return
+        val cb = aoMic ?: return
+        aoMic = null
+        cb(when {
+            grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED -> Mic.OK
+            grantResults.isNotEmpty() && !shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO) -> Mic.BLOQUEADO
+            else -> Mic.NEGADO
+        })
+    }
+
+    /** The app's page in the system settings, where a blocked permission is turned back on. */
+    fun abrirConfiguracoes() {
+        startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", packageName, null)))
+    }
+
     companion object {
-        /** Sections that ship in this build (Voz joins in the next phase). */
-        val SECOES = setOf("ouvido")
+        /** Sections that ship in this build. */
+        val SECOES = setOf("ouvido", "voz")
+        private const val PEDIDO_MIC = 7
+        /** Debug builds: a fake voice instead of the microphone (see VozView.simularVoz). */
+        var simular = false
     }
 }
 

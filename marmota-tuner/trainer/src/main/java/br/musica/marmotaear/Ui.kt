@@ -226,7 +226,7 @@ fun Context.rolagemHorizontal(conteudo: View): HorizontalScrollView = Horizontal
  * Segmented switch drawn like the Tuner's floating bar: a filled pill (tuner_bar) with the chosen segment filled with ink.
  * Calls [aoMudar] with the index.
  */
-class Segmentado(ctx: Context, rotulos: List<String>, inicial: Int, private val aoMudar: (Int) -> Unit) : LinearLayout(ctx) {
+class Segmentado(ctx: Context, rotulos: List<String>, inicial: Int, private val compacto: Boolean = false, private val aoMudar: (Int) -> Unit) : LinearLayout(ctx) {
     private val itens = ArrayList<TextView>()
     var escolhido = inicial
         private set
@@ -235,14 +235,16 @@ class Segmentado(ctx: Context, rotulos: List<String>, inicial: Int, private val 
         orientation = HORIZONTAL
         val raio = dp(28).toFloat()
         background = forma(C.superficie, raio)
-        setPadding(dp(6), dp(6), dp(6), dp(6))
+        // Compact: a secondary switch inside a screen (how to show the voice), lighter than the screen's own switch.
+        val folga = dp(if (compacto) 4 else 6)
+        setPadding(folga, folga, folga, folga)
         rotulos.forEachIndexed { i, r ->
             val tv = TextView(ctx).apply {
                 text = r
                 papel(Papel.BODY)
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, if (compacto) 14f else 15f)
                 gravity = Gravity.CENTER
-                minHeight = dp(44)
+                minHeight = dp(if (compacto) 40 else 44)
                 isClickable = true
                 isFocusable = true
                 setOnClickListener { escolher(i, true) }
@@ -255,7 +257,7 @@ class Segmentado(ctx: Context, rotulos: List<String>, inicial: Int, private val 
 
     fun escolher(i: Int, avisar: Boolean) {
         escolhido = i
-        val raio = dp(22).toFloat()
+        val raio = dp(if (compacto) 20 else 22).toFloat()
         itens.forEachIndexed { k, tv ->
             val on = k == i
             tv.setTextColor(if (on) C.fundo else C.tinta)
@@ -367,7 +369,7 @@ fun Context.folha(titulo: String, corpo: View): Dialog {
 
 /** Line icons drawn in code (24 dp grid, 2 dp round stroke), one consistent set instead of glyphs or emoji. */
 class Icone(ctx: Context, private val tipo: Tipo, cor: Int, private val tamanhoDp: Int) : Drawable() {
-    enum class Tipo { PLAY, AJUSTES, FRACOS, INFO, CHECK, FECHAR, MIC }
+    enum class Tipo { PLAY, AJUSTES, FRACOS, INFO, CHECK, FECHAR, MIC, ABAIXO, SOM }
 
     private val escala = ctx.resources.displayMetrics.density * tamanhoDp / 24f
     private val tamanho = (tamanhoDp * ctx.resources.displayMetrics.density).toInt()
@@ -414,6 +416,13 @@ class Icone(ctx: Context, private val tipo: Tipo, cor: Int, private val tamanhoD
             }
             Tipo.CHECK -> { p.moveTo(5f, 12.5f); p.lineTo(10f, 17f); p.lineTo(19f, 7.5f); c.drawPath(p, traco.apply { strokeWidth = 2.4f }) }
             Tipo.FECHAR -> { c.drawLine(6f, 6f, 18f, 18f, traco); c.drawLine(18f, 6f, 6f, 18f, traco) }
+            Tipo.ABAIXO -> { p.moveTo(7f, 10f); p.lineTo(12f, 15f); p.lineTo(17f, 10f); c.drawPath(p, traco) }
+            Tipo.SOM -> {
+                p.moveTo(4f, 9.5f); p.lineTo(4f, 14.5f); p.lineTo(7.5f, 14.5f); p.lineTo(12f, 18.5f); p.lineTo(12f, 5.5f); p.lineTo(7.5f, 9.5f); p.close()
+                c.drawPath(p, traco)
+                val q = Path(); q.moveTo(15.5f, 9f); q.quadTo(18f, 12f, 15.5f, 15f); c.drawPath(q, traco)
+                val q2 = Path(); q2.moveTo(18f, 6.5f); q2.quadTo(23f, 12f, 18f, 17.5f); c.drawPath(q2, traco)
+            }
             Tipo.MIC -> {
                 val r = android.graphics.RectF(9f, 3f, 15f, 15f)
                 c.drawRoundRect(r, 3f, 3f, traco)
@@ -439,3 +448,6 @@ fun frame(w: Int, h: Int, g: Int) = FrameLayout.LayoutParams(w, h, g)
 
 /** Marks a view as a heading for TalkBack (API 28+; older versions just read it as text). */
 fun <V : View> V.cabecalho(): V = apply { if (android.os.Build.VERSION.SDK_INT >= 28) isAccessibilityHeading = true }
+
+/** Room under the last control so it lands above the floating section bar (56 dp + 16 dp below + 16 dp of air). */
+const val FOLGA_BARRA_DP = 88

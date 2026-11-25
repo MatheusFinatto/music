@@ -189,7 +189,7 @@ class OuvidoView(ctx: Context, private val dados: Dados, private val bloco: Bloc
         performHapticFeedback(if (certo) android.view.HapticFeedbackConstants.CONFIRM else android.view.HapticFeedbackConstants.REJECT)
         render()
         // O resultado e o "Próxima" ficam abaixo do instrumento: rola até eles, sem o dedo ir buscar.
-        revela.post { revela.requestRectangleOnScreen(android.graphics.Rect(0, 0, revela.width, revela.height), false) }
+        revela.post { revela.requestRectangleOnScreen(android.graphics.Rect(0, 0, revela.width, revela.height + dp(FOLGA_BARRA_DP)), false) }
     }
 
     private fun responder(id: String) {

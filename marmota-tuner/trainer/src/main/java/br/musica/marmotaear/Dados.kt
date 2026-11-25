@@ -7,6 +7,11 @@ import br.musica.marmotatuner.treino.DIRECOES
 import br.musica.marmotatuner.treino.Duracao
 import br.musica.marmotatuner.treino.EXERCICIOS
 import br.musica.marmotatuner.treino.EXERCICIOS_DE_PROGRAMA
+import br.musica.marmotatuner.treino.FAIXA_PADRAO
+import br.musica.marmotatuner.treino.Faixa
+import br.musica.marmotatuner.treino.PADROES
+import br.musica.marmotatuner.treino.TOLERANCIAS
+import br.musica.marmotatuner.treino.VOZES
 import br.musica.marmotatuner.treino.HistoricoItem
 import br.musica.marmotatuner.treino.MARGENS
 import br.musica.marmotatuner.treino.MINUTOS
@@ -97,6 +102,76 @@ class Dados(ctx: Context) {
             .put("funcional", JSONObject().put("tonica", "do").put("graus", JSONArray(listOf("1", "3", "5"))))
             .put("historico", h)
             .put("reforco", o.reforco))
+    }
+
+    // ---------------------------------------------------------------- voice training (musica:treino-de-ouvido-voz)
+    /**
+     * The site's Voz.tsx store. [faixaTipo]: "padrao", a voice type id or "medida" (the one the range test suggested).
+     * [musica] and [melhores] belong to the songs (Cantar); kept as they came.
+     */
+    class Voz(
+        var exercicio: String = "igualar",
+        var tolerancia: Int = 30,
+        var qualquerOitava: Boolean = true,
+        var intervalos: List<String> = INTERVALOS_VOZ,
+        var padrao: String = "arpejoMaior",
+        /** Pitch class of the start (0 = C), or -1 = random each round. */
+        var inicio: Int = 0,
+        var subir: Boolean = true,
+        /** An interval id or "sortear". */
+        var grau: String = "3M",
+        var ajuda: String = "guia",
+        var vista: String = "grafico",
+        var faixaTipo: String = "padrao",
+        var faixa: Faixa = FAIXA_PADRAO,
+        var musica: JSONObject = JSONObject(),
+        var melhores: JSONObject = JSONObject(),
+    ) {
+        /** A program runs with the default settings (the person's saved ones don't change): it is a ready-made sequence. */
+        fun deProgramaCom(exercicio: String) = Voz(exercicio = exercicio, faixaTipo = faixaTipo, faixa = faixa, vista = vista, musica = musica, melhores = melhores)
+
+        companion object {
+            val EXERCICIOS = listOf("igualar", "longa", "sequencia", "tonica", "intervalo", "musica", "alcance")
+            val INTERVALOS_VOZ = listOf("3m", "3M", "4J", "5J")
+        }
+    }
+
+    fun voz(): Voz {
+        val s = ler("treino-de-ouvido-voz") ?: return Voz()
+        val ints = strings(s.optJSONArray("intervalos")).filter { it in Ids.intervalos }
+        val f = s.optJSONObject("faixa")
+        val tipo = f?.optString("tipo")
+        val tipoOk = tipo == "padrao" || tipo == "medida" || VOZES.any { it.id == tipo }
+        val fmin = f?.opt("min") as? Int
+        val fmax = f?.opt("max") as? Int
+        val faixaOk = tipoOk && fmin != null && fmax != null && fmin >= 36 && fmax <= 96 && fmax - fmin >= 7
+        val inicio = s.opt("inicio") as? Int
+        val grau = s.optString("grau")
+        return Voz(
+            exercicio = s.optString("exercicio").takeIf { it in Voz.EXERCICIOS } ?: "igualar",
+            tolerancia = (s.opt("tolerancia") as? Int)?.takeIf { it in TOLERANCIAS } ?: 30,
+            qualquerOitava = s.optBoolean("qualquerOitava", true),
+            intervalos = ints.ifEmpty { Voz.INTERVALOS_VOZ },
+            padrao = s.optString("padrao").takeIf { id -> PADROES.any { it.id == id } } ?: "arpejoMaior",
+            inicio = inicio?.takeIf { it in -1..11 } ?: 0,
+            subir = s.optBoolean("subir", true),
+            grau = grau.takeIf { it == "sortear" || it in Ids.intervalos } ?: "3M",
+            ajuda = if (s.optString("ajuda") == "so") "so" else "guia",
+            vista = if (s.optString("vista") == "afinador") "afinador" else "grafico",
+            faixaTipo = if (faixaOk) tipo!! else "padrao",
+            faixa = if (faixaOk) Faixa(fmin!!, fmax!!) else FAIXA_PADRAO,
+            musica = s.optJSONObject("musica") ?: JSONObject(),
+            melhores = s.optJSONObject("melhores") ?: JSONObject(),
+        )
+    }
+
+    fun salvar(v: Voz) {
+        gravar("treino-de-ouvido-voz", JSONObject()
+            .put("version", 1).put("exercicio", v.exercicio).put("tolerancia", v.tolerancia).put("qualquerOitava", v.qualquerOitava)
+            .put("intervalos", JSONArray(v.intervalos)).put("padrao", v.padrao).put("inicio", v.inicio).put("subir", v.subir)
+            .put("grau", v.grau).put("ajuda", v.ajuda).put("vista", v.vista)
+            .put("faixa", JSONObject().put("tipo", v.faixaTipo).put("min", v.faixa.min).put("max", v.faixa.max))
+            .put("musica", v.musica).put("melhores", v.melhores))
     }
 
     // ---------------------------------------------------------------- keyboard or guitar neck (musica:treino-de-ouvido-instrumento)

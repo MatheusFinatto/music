@@ -61,6 +61,7 @@ class SecaoView(
 
     /** System Back during a program stops it (what was answered goes to the summary). Returns true if it handled Back. */
     fun voltar(): Boolean {
+        if ((vistaLivre as? VozView)?.takeIf { rodando == null && modo == 1 }?.voltar() == true) return true
         val x = rodando ?: return false
         parar(x)
         return true
