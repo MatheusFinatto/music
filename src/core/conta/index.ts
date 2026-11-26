@@ -126,6 +126,7 @@ function sincronizar(): Promise<void> {
       const disp = dispositivo();
       const primeira = ler(SINCRONIZADO) === null;
       const em = carimbos();
+      const envios: Promise<void>[] = [];
       for (const chave of CHAVES) {
         const id = K.chaveRemota(chave, disp);
         const r = remoto.get(id);
@@ -141,12 +142,14 @@ function sincronizar(): Promise<void> {
         if (acao === EMPURRAR && local !== null) {
           // Dado de antes da conta (sem hora) ganha a hora de agora, aqui e lá.
           if (localEm === null) { localEm = Date.now(); gravarDeFora(chave, local, localEm); }
-          await F.setDoc(F.doc(col, id), { json: local, em: localEm, dispositivo: disp } satisfies Doc);
+          envios.push(F.setDoc(F.doc(col, id), { json: local, em: localEm, dispositivo: disp } satisfies Doc));
         } else if (acao === PUXAR && r) {
           gravarDeFora(chave, r.json, r.em);
         }
         sujas.delete(chave);
       }
+      // As gravações vão juntas, não uma esperando a outra.
+      await Promise.all(envios);
       guardarOutros(snap.docs.filter((d) => K.ehDiarioDeOutro(d.id, disp)).map((d) => diasDe((d.data() as Doc).json)));
       gravar(SINCRONIZADO, "1");
     } catch {
@@ -168,12 +171,12 @@ async function empurrarSujas() {
     const disp = dispositivo();
     const em = carimbos();
     const col = fb.F.collection(fb.db, "usuarios", u.uid, "chaves");
-    for (const chave of [...sujas]) {
-      sujas.delete(chave);
+    const chaves = [...sujas];
+    sujas.clear();
+    await Promise.all(chaves.map((chave) => {
       const local = lerCru(chave);
-      if (local === null) continue;
-      await fb.F.setDoc(fb.F.doc(col, K.chaveRemota(chave, disp)), { json: local, em: em[chave] ?? Date.now(), dispositivo: disp } satisfies Doc);
-    }
+      return local === null ? null : fb.F.setDoc(fb.F.doc(col, K.chaveRemota(chave, disp)), { json: local, em: em[chave] ?? Date.now(), dispositivo: disp } satisfies Doc);
+    }));
   } catch { /* tenta de novo na próxima mudança ou ao voltar para a página */ }
 }
 
@@ -220,7 +223,8 @@ export async function entrar(): Promise<void> {
     gravar(CONTA, JSON.stringify({ email: r.user.email }));
     gravar(SINCRONIZADO, null);
     mudar({ fase: "dentro", email: r.user.email, ocupado: false });
-    await sincronizar();
+    // A primeira sincronização segue em segundo plano: entrar não espera a rede.
+    void sincronizar();
   } catch (e) {
     const code = (e as { code?: string }).code ?? "";
     // Fechar o popup não é erro.
