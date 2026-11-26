@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The optional account: the same texts as the website (messages/pt-BR.json, "conta"). -->
+<resources>
+    <string name="conta_entrarLabel">Entrar com Google (opcional)</string>
+    <string name="conta_contaLabel">Sua conta</string>
+    <string name="conta_titulo">Conta (opcional)</string>
+    <string name="conta_texto">Entrando com o Google, seu progresso vai junto do computador pro celular, no navegador ou nos apps. Sem entrar, tudo funciona igual, só que fica neste aparelho. A gente não usa seus dados pra mais nada e nunca vai te mandar e-mail.</string>
+    <string name="conta_guardado">O que fica guardado</string>
+    <string name="conta_entrar">Entrar com Google</string>
+    <string name="conta_dentro">Sua conta</string>
+    <string name="conta_dentroTexto">Seu progresso vai junto pra qualquer navegador ou app em que você entrar com esta conta.</string>
+    <string name="conta_sair">Sair</string>
+    <string name="conta_apagar">Apagar meus dados</string>
+    <string name="conta_apagarConfirma">Apagar a cópia na nuvem e a conta? O que está neste aparelho continua aqui.</string>
+    <string name="conta_apagarSim">Apagar</string>
+    <string name="conta_cancelar">Cancelar</string>
+    <string name="conta_erroEntrar">Não deu pra entrar. Tenta de novo.</string>
+    <string name="conta_erroApagar">Não deu pra apagar. Tenta de novo.</string>
+    <string name="conta_fechar">Fechar</string>
+    <string-array name="conta_itens">
+        <item>Seu e-mail e uma cópia do que você salva aqui: os favoritos do metrônomo e o progresso do treino de ouvido e de voz.</item>
+        <item>Sair só para de sincronizar; o que está no aparelho continua aqui. \"Apagar meus dados\" apaga a cópia e a conta.</item>
+    </string-array>
+</resources>

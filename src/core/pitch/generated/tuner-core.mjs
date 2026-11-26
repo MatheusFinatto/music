@@ -28,8 +28,16 @@ import {
   coerceInlzh524ulyz3c as coerceIn_1,
   ArrayDeque_init_$Create$2333dl090ltjt as ArrayDeque_init_$Create$,
   coerceAtLeast2bkz8m9ik7hep as coerceAtLeast,
-  ArrayList_init_$Create$3bxttkj3v1mea as ArrayList_init_$Create$_0,
+  startsWith26w8qjqapeeq6 as startsWith,
+  contentEquals2jbsaphs7gxql as contentEquals,
+  toList383f556t1dixk as toList,
+  plus310ted5e4i90h as plus,
+  take3onnpy6q7ctcz as take,
   copyToArray2j022khrow2yi as copyToArray,
+  LinkedHashMap_init_$Create$1f9mb1z5f3dxn as LinkedHashMap_init_$Create$,
+  compareBy2697bq0ffft96 as compareBy,
+  sortedWith2csnbbb21k0lg as sortedWith,
+  ArrayList_init_$Create$3bxttkj3v1mea as ArrayList_init_$Create$_0,
   minjeab1ybpajdx as min,
   max2o8z1isrnjymo as max,
   sort15ai02l4kxbfa as sort,
@@ -38,7 +46,7 @@ import {
   Long2qws0ah9gnpki as Long,
   collectionSizeOrDefault36dulx8yinfqm as collectionSizeOrDefault,
   mapCapacity1h45rc3eh9p2l as mapCapacity,
-  LinkedHashMap_init_$Create$23uxki4opd0pn as LinkedHashMap_init_$Create$,
+  LinkedHashMap_init_$Create$23uxki4opd0pn as LinkedHashMap_init_$Create$_0,
   split2bvyvnrlcifjv as split,
   getOrNull1go7ef9ldk0df as getOrNull_0,
   toIntOrNull3w2d066r9pvwm as toIntOrNull,
@@ -48,10 +56,8 @@ import {
   takeLast2r8kr8e6g6hi7 as takeLast,
   sum2ku6kbgxq0lee as sum,
   contains1tccixv8iwdcq as contains,
-  toList383f556t1dixk as toList,
   NoSuchElementException_init_$Create$4w03vct39ryy as NoSuchElementException_init_$Create$,
   listOfvhqybd2zx248 as listOf_0,
-  plus310ted5e4i90h as plus,
   withIndex3s8q7w1g0hyfn as withIndex,
   addAll1k27qatfgp3k5 as addAll,
   NoSuchElementException_init_$Create$keivgb96udi6 as NoSuchElementException_init_$Create$_0,
@@ -72,7 +78,6 @@ import {
   sortedvxq8id1oldjy as sorted_0,
   takeLast2px6eo6glugs7 as takeLast_0,
   mapOf1xd03cq9cnmy8 as mapOf,
-  sortedWith2csnbbb21k0lg as sortedWith,
   firstOrNull1gk7vzkf4h3nq as firstOrNull,
   distinct10qe1scfdvu5k as distinct,
   Collection1k04j3hzsbod0 as Collection,
@@ -116,6 +121,7 @@ initMetadataForCompanion(Companion_5);
 initMetadataForClass(TunerGeometry, 'TunerGeometry');
 initMetadataForClass(TunerScene, 'TunerScene', TunerScene);
 initMetadataForClass(YinPitchDetector, 'YinPitchDetector');
+initMetadataForClass(Favorito, 'Favorito');
 initMetadataForClass(Janela, 'Janela');
 initMetadataForClass(Amostra, 'Amostra');
 initMetadataForClass(Acerto, 'Acerto');
@@ -961,16 +967,16 @@ function Companion() {
   this.SUB = 2;
   this.MUTE = 3;
 }
-protoOf(Companion).l8 = function () {
+protoOf(Companion).a9 = function () {
   return this.ACCENT;
 };
-protoOf(Companion).m8 = function () {
+protoOf(Companion).b9 = function () {
   return this.BEAT;
 };
-protoOf(Companion).n8 = function () {
+protoOf(Companion).c9 = function () {
   return this.SUB;
 };
-protoOf(Companion).o8 = function () {
+protoOf(Companion).d9 = function () {
   return this.MUTE;
 };
 var Companion_instance;
@@ -983,16 +989,16 @@ function Tick(time, beat, sub, kind) {
   this.sub = sub;
   this.kind = kind;
 }
-protoOf(Tick).p8 = function () {
+protoOf(Tick).e9 = function () {
   return this.time;
 };
-protoOf(Tick).q8 = function () {
+protoOf(Tick).f9 = function () {
   return this.beat;
 };
-protoOf(Tick).r8 = function () {
+protoOf(Tick).g9 = function () {
   return this.sub;
 };
-protoOf(Tick).s8 = function () {
+protoOf(Tick).h9 = function () {
   return this.kind;
 };
 function Note(beams, dotted) {
@@ -1000,10 +1006,10 @@ function Note(beams, dotted) {
   this.beams = beams;
   this.dotted = dotted;
 }
-protoOf(Note).t8 = function () {
+protoOf(Note).i9 = function () {
   return this.beams;
 };
-protoOf(Note).u8 = function () {
+protoOf(Note).j9 = function () {
   return this.dotted;
 };
 function Subdivision(id, offsets, notes, tuplet) {
@@ -1013,94 +1019,94 @@ function Subdivision(id, offsets, notes, tuplet) {
   this.notes = notes;
   this.tuplet = tuplet;
 }
-protoOf(Subdivision).v8 = function () {
+protoOf(Subdivision).k9 = function () {
   return this.id;
 };
-protoOf(Subdivision).w8 = function () {
+protoOf(Subdivision).l9 = function () {
   return this.offsets;
 };
-protoOf(Subdivision).x8 = function () {
+protoOf(Subdivision).m9 = function () {
   return this.notes;
 };
-protoOf(Subdivision).y8 = function () {
+protoOf(Subdivision).n9 = function () {
   return this.tuplet;
 };
 function Subdivisions_0() {
   Subdivisions_instance = this;
-  this.z8_1 = new Note(0);
-  this.a9_1 = new Note(1);
-  this.b9_1 = new Note(2);
-  this.c9_1 = new Note(1, true);
+  this.o9_1 = new Note(0);
+  this.p9_1 = new Note(1);
+  this.q9_1 = new Note(2);
+  this.r9_1 = new Note(1, true);
   var tmp = this;
   // Inline function 'kotlin.doubleArrayOf' call
   var tmp_0 = new Float64Array([0.0]);
   // Inline function 'kotlin.arrayOf' call
   // Inline function 'kotlin.js.unsafeCast' call
   // Inline function 'kotlin.js.asDynamic' call
-  var tmp$ret$3 = [this.z8_1];
+  var tmp$ret$3 = [this.o9_1];
   var tmp_1 = new Subdivision(1, tmp_0, tmp$ret$3);
   // Inline function 'kotlin.doubleArrayOf' call
   var tmp_2 = new Float64Array([0.0, 0.5]);
   // Inline function 'kotlin.arrayOf' call
   // Inline function 'kotlin.js.unsafeCast' call
   // Inline function 'kotlin.js.asDynamic' call
-  var tmp$ret$7 = [this.a9_1, this.a9_1];
+  var tmp$ret$7 = [this.p9_1, this.p9_1];
   var tmp_3 = new Subdivision(2, tmp_2, tmp$ret$7);
   // Inline function 'kotlin.doubleArrayOf' call
   var tmp_4 = new Float64Array([0.0, 1.0 / 3, 2.0 / 3]);
   // Inline function 'kotlin.arrayOf' call
   // Inline function 'kotlin.js.unsafeCast' call
   // Inline function 'kotlin.js.asDynamic' call
-  var tmp$ret$11 = [this.a9_1, this.a9_1, this.a9_1];
+  var tmp$ret$11 = [this.p9_1, this.p9_1, this.p9_1];
   var tmp_5 = new Subdivision(3, tmp_4, tmp$ret$11, 3);
   // Inline function 'kotlin.doubleArrayOf' call
   var tmp_6 = new Float64Array([0.0, 0.25, 0.5, 0.75]);
   // Inline function 'kotlin.arrayOf' call
   // Inline function 'kotlin.js.unsafeCast' call
   // Inline function 'kotlin.js.asDynamic' call
-  var tmp$ret$15 = [this.b9_1, this.b9_1, this.b9_1, this.b9_1];
+  var tmp$ret$15 = [this.q9_1, this.q9_1, this.q9_1, this.q9_1];
   var tmp_7 = new Subdivision(4, tmp_6, tmp$ret$15);
   // Inline function 'kotlin.doubleArrayOf' call
   var tmp_8 = new Float64Array([0.0, 0.5, 0.75]);
   // Inline function 'kotlin.arrayOf' call
   // Inline function 'kotlin.js.unsafeCast' call
   // Inline function 'kotlin.js.asDynamic' call
-  var tmp$ret$19 = [this.a9_1, this.b9_1, this.b9_1];
+  var tmp$ret$19 = [this.p9_1, this.q9_1, this.q9_1];
   var tmp_9 = new Subdivision(5, tmp_8, tmp$ret$19);
   // Inline function 'kotlin.doubleArrayOf' call
   var tmp_10 = new Float64Array([0.0, 0.25, 0.5]);
   // Inline function 'kotlin.arrayOf' call
   // Inline function 'kotlin.js.unsafeCast' call
   // Inline function 'kotlin.js.asDynamic' call
-  var tmp$ret$23 = [this.b9_1, this.b9_1, this.a9_1];
+  var tmp$ret$23 = [this.q9_1, this.q9_1, this.p9_1];
   var tmp_11 = new Subdivision(6, tmp_10, tmp$ret$23);
   // Inline function 'kotlin.doubleArrayOf' call
   var tmp_12 = new Float64Array([0.0, 0.25, 0.75]);
   // Inline function 'kotlin.arrayOf' call
   // Inline function 'kotlin.js.unsafeCast' call
   // Inline function 'kotlin.js.asDynamic' call
-  var tmp$ret$27 = [this.b9_1, this.a9_1, this.b9_1];
+  var tmp$ret$27 = [this.q9_1, this.p9_1, this.q9_1];
   var tmp_13 = new Subdivision(7, tmp_12, tmp$ret$27);
   // Inline function 'kotlin.doubleArrayOf' call
   var tmp_14 = new Float64Array([0.0, 0.75]);
   // Inline function 'kotlin.arrayOf' call
   // Inline function 'kotlin.js.unsafeCast' call
   // Inline function 'kotlin.js.asDynamic' call
-  var tmp$ret$31 = [this.c9_1, this.b9_1];
+  var tmp$ret$31 = [this.r9_1, this.q9_1];
   var tmp_15 = new Subdivision(8, tmp_14, tmp$ret$31);
   // Inline function 'kotlin.doubleArrayOf' call
   var tmp_16 = new Float64Array([0.0, 0.25]);
   // Inline function 'kotlin.arrayOf' call
   // Inline function 'kotlin.js.unsafeCast' call
   // Inline function 'kotlin.js.asDynamic' call
-  var tmp$ret$35 = [this.b9_1, this.c9_1];
+  var tmp$ret$35 = [this.q9_1, this.r9_1];
   var tmp_17 = new Subdivision(9, tmp_16, tmp$ret$35);
   // Inline function 'kotlin.doubleArrayOf' call
   var tmp_18 = new Float64Array([0.0, 2.0 / 3]);
   // Inline function 'kotlin.arrayOf' call
   // Inline function 'kotlin.js.unsafeCast' call
   // Inline function 'kotlin.js.asDynamic' call
-  var tmp$ret$39 = [this.z8_1, this.a9_1];
+  var tmp$ret$39 = [this.o9_1, this.p9_1];
   var tmp_19 = new Subdivision(10, tmp_18, tmp$ret$39, 3);
   var tmp_20 = 0;
   var tmp_21 = new Float64Array(6);
@@ -1113,7 +1119,7 @@ function Subdivisions_0() {
   // Inline function 'kotlin.arrayOfNulls' call
   var tmp_24 = Array(6);
   while (tmp_23 < 6) {
-    tmp_24[tmp_23] = Subdivisions_getInstance().b9_1;
+    tmp_24[tmp_23] = Subdivisions_getInstance().q9_1;
     tmp_23 = tmp_23 + 1 | 0;
   }
   // Inline function 'kotlin.arrayOf' call
@@ -1121,7 +1127,7 @@ function Subdivisions_0() {
   // Inline function 'kotlin.js.asDynamic' call
   tmp.all = [tmp_1, tmp_3, tmp_5, tmp_7, tmp_9, tmp_11, tmp_13, tmp_15, tmp_17, tmp_19, new Subdivision(11, tmp_21, tmp_24, 6)];
 }
-protoOf(Subdivisions_0).d9 = function () {
+protoOf(Subdivisions_0).s9 = function () {
   return this.all;
 };
 protoOf(Subdivisions_0).byId = function (id) {
@@ -1155,13 +1161,13 @@ function Companion_0() {
   this.MAX_BPM = 250.0;
   this.MAX_BEATS = 12;
 }
-protoOf(Companion_0).e9 = function () {
+protoOf(Companion_0).t9 = function () {
   return this.MIN_BPM;
 };
-protoOf(Companion_0).f9 = function () {
+protoOf(Companion_0).u9 = function () {
   return this.MAX_BPM;
 };
-protoOf(Companion_0).g9 = function () {
+protoOf(Companion_0).v9 = function () {
   return this.MAX_BEATS;
 };
 protoOf(Companion_0).clampBpm = function (bpm) {
@@ -1175,9 +1181,9 @@ function Metronome(bpm, beatsPerBar, subdivision) {
   bpm = bpm === VOID ? 90.0 : bpm;
   beatsPerBar = beatsPerBar === VOID ? 4 : beatsPerBar;
   subdivision = subdivision === VOID ? 1 : subdivision;
-  this.h9_1 = Companion_instance_0.clampBpm(bpm);
-  this.i9_1 = coerceIn_0(beatsPerBar, 1, 12);
-  this.j9_1 = Subdivisions_getInstance().byId(subdivision).id;
+  this.w9_1 = Companion_instance_0.clampBpm(bpm);
+  this.x9_1 = coerceIn_0(beatsPerBar, 1, 12);
+  this.y9_1 = Subdivisions_getInstance().byId(subdivision).id;
   var tmp = this;
   var tmp_0 = 0;
   var tmp_1 = new Int32Array(12);
@@ -1186,39 +1192,39 @@ function Metronome(bpm, beatsPerBar, subdivision) {
     tmp_1[tmp_2] = tmp_2 === 0 ? 0 : 1;
     tmp_0 = tmp_0 + 1 | 0;
   }
-  tmp.k9_1 = tmp_1;
+  tmp.z9_1 = tmp_1;
   this.nextTime = 0.0;
-  this.l9_1 = 0;
-  this.m9_1 = 0;
-  this.n9_1 = 0.0;
+  this.aa_1 = 0;
+  this.ba_1 = 0;
+  this.ca_1 = 0.0;
 }
-protoOf(Metronome).o9 = function (value) {
-  this.h9_1 = Companion_instance_0.clampBpm(value);
+protoOf(Metronome).da = function (value) {
+  this.w9_1 = Companion_instance_0.clampBpm(value);
 };
-protoOf(Metronome).p9 = function () {
-  return this.h9_1;
+protoOf(Metronome).ea = function () {
+  return this.w9_1;
 };
-protoOf(Metronome).q9 = function (value) {
-  this.i9_1 = coerceIn_0(value, 1, 12);
+protoOf(Metronome).fa = function (value) {
+  this.x9_1 = coerceIn_0(value, 1, 12);
 };
-protoOf(Metronome).r9 = function () {
-  return this.i9_1;
+protoOf(Metronome).ga = function () {
+  return this.x9_1;
 };
-protoOf(Metronome).s9 = function (value) {
-  this.j9_1 = Subdivisions_getInstance().byId(value).id;
+protoOf(Metronome).ha = function (value) {
+  this.y9_1 = Subdivisions_getInstance().byId(value).id;
 };
-protoOf(Metronome).t9 = function () {
-  return this.j9_1;
+protoOf(Metronome).ia = function () {
+  return this.y9_1;
 };
-protoOf(Metronome).u9 = function () {
+protoOf(Metronome).ja = function () {
   return this.nextTime;
 };
 protoOf(Metronome).accent = function (beat) {
-  return this.k9_1[coerceIn_0(beat, 0, 11)];
+  return this.z9_1[coerceIn_0(beat, 0, 11)];
 };
 protoOf(Metronome).setAccent = function (beat, kind) {
   if ((0 <= beat ? beat < 12 : false) && (0 <= kind ? kind <= 3 : false) && !(kind === 2)) {
-    this.k9_1[beat] = kind;
+    this.z9_1[beat] = kind;
   }
 };
 protoOf(Metronome).cycleAccent = function (beat) {
@@ -1240,7 +1246,7 @@ protoOf(Metronome).cycleAccent = function (beat) {
 protoOf(Metronome).accentList = function () {
   // Inline function 'kotlin.collections.copyOf' call
   // Inline function 'kotlin.js.asDynamic' call
-  return this.k9_1.slice();
+  return this.z9_1.slice();
 };
 protoOf(Metronome).restoreAccents = function (saved) {
   // Inline function 'kotlin.collections.forEachIndexed' call
@@ -1257,37 +1263,37 @@ protoOf(Metronome).restoreAccents = function (saved) {
 };
 protoOf(Metronome).reset = function (start) {
   this.nextTime = start;
-  this.n9_1 = start;
-  this.l9_1 = 0;
-  this.m9_1 = 0;
+  this.ca_1 = start;
+  this.aa_1 = 0;
+  this.ba_1 = 0;
 };
 protoOf(Metronome).next = function () {
-  var offsets = Subdivisions_getInstance().byId(this.j9_1).offsets;
-  if (this.m9_1 >= offsets.length) {
-    this.m9_1 = 0;
-    this.l9_1 = this.l9_1 + 1 | 0;
-    this.nextTime = this.n9_1 + 60.0 / this.h9_1;
+  var offsets = Subdivisions_getInstance().byId(this.y9_1).offsets;
+  if (this.ba_1 >= offsets.length) {
+    this.ba_1 = 0;
+    this.aa_1 = this.aa_1 + 1 | 0;
+    this.nextTime = this.ca_1 + 60.0 / this.w9_1;
   }
-  if (this.l9_1 >= this.i9_1)
-    this.l9_1 = 0;
-  if (this.m9_1 === 0)
-    this.n9_1 = this.nextTime;
-  var accent = this.k9_1[this.l9_1];
-  var kind = accent === 3 ? 3 : !(this.m9_1 === 0) ? 2 : accent;
-  var tick = new Tick(this.nextTime, this.l9_1, this.m9_1, kind);
-  var to = (this.m9_1 + 1 | 0) < offsets.length ? offsets[this.m9_1 + 1 | 0] : 1.0;
-  this.nextTime = this.nextTime + (to - offsets[this.m9_1]) * 60.0 / this.h9_1;
-  this.m9_1 = this.m9_1 + 1 | 0;
-  if (this.m9_1 >= offsets.length) {
-    this.m9_1 = 0;
-    this.l9_1 = (this.l9_1 + 1 | 0) % this.i9_1 | 0;
+  if (this.aa_1 >= this.x9_1)
+    this.aa_1 = 0;
+  if (this.ba_1 === 0)
+    this.ca_1 = this.nextTime;
+  var accent = this.z9_1[this.aa_1];
+  var kind = accent === 3 ? 3 : !(this.ba_1 === 0) ? 2 : accent;
+  var tick = new Tick(this.nextTime, this.aa_1, this.ba_1, kind);
+  var to = (this.ba_1 + 1 | 0) < offsets.length ? offsets[this.ba_1 + 1 | 0] : 1.0;
+  this.nextTime = this.nextTime + (to - offsets[this.ba_1]) * 60.0 / this.w9_1;
+  this.ba_1 = this.ba_1 + 1 | 0;
+  if (this.ba_1 >= offsets.length) {
+    this.ba_1 = 0;
+    this.aa_1 = (this.aa_1 + 1 | 0) % this.x9_1 | 0;
   }
   return tick;
 };
 function ClickSound_0() {
   this.DURATION = 0.04;
 }
-protoOf(ClickSound_0).v9 = function () {
+protoOf(ClickSound_0).ka = function () {
   return this.DURATION;
 };
 protoOf(ClickSound_0).frequency = function (kind) {
@@ -1351,8 +1357,8 @@ protoOf(ClickSound_0).renderChime = function (sampleRate) {
     while (inductionVariable < last) {
       var _destruct__k2r9zo = tones[inductionVariable];
       inductionVariable = inductionVariable + 1 | 0;
-      var hz = _destruct__k2r9zo.a7();
-      var at = _destruct__k2r9zo.b7();
+      var hz = _destruct__k2r9zo.o7();
+      var at = _destruct__k2r9zo.p7();
       var u = t - at;
       if (u >= 0 && u < 0.65) {
         var tmp_2 = v;
@@ -1378,27 +1384,27 @@ function ClickSound_getInstance() {
 }
 function TapTempo(maxGap) {
   maxGap = maxGap === VOID ? 2.0 : maxGap;
-  this.w9_1 = maxGap;
-  this.x9_1 = ArrayList_init_$Create$();
+  this.la_1 = maxGap;
+  this.ma_1 = ArrayList_init_$Create$();
 }
 protoOf(TapTempo).tap = function (time) {
   var tmp;
   // Inline function 'kotlin.collections.isNotEmpty' call
-  if (!this.x9_1.m()) {
-    tmp = time - last(this.x9_1) > this.w9_1 || time <= last(this.x9_1);
+  if (!this.ma_1.m()) {
+    tmp = time - last(this.ma_1) > this.la_1 || time <= last(this.ma_1);
   } else {
     tmp = false;
   }
   if (tmp) {
-    this.x9_1.k3();
+    this.ma_1.n3();
   }
-  this.x9_1.h(time);
-  if (this.x9_1.o() > 6) {
-    this.x9_1.j3(0);
+  this.ma_1.h(time);
+  if (this.ma_1.o() > 6) {
+    this.ma_1.m3(0);
   }
-  if (this.x9_1.o() < 2)
+  if (this.ma_1.o() < 2)
     return null;
-  var tmp0 = this.x9_1;
+  var tmp0 = this.ma_1;
   var tmp$ret$1;
   $l$block: {
     // Inline function 'kotlin.collections.zipWithNext' call
@@ -1423,13 +1429,13 @@ protoOf(TapTempo).tap = function (time) {
   return Companion_instance_0.clampBpm(round(60.0 / median));
 };
 protoOf(TapTempo).reset = function () {
-  return this.x9_1.k3();
+  return this.ma_1.n3();
 };
 function Companion_1() {
-  this.y9_1 = -1.0;
-  this.z9_1 = 16.0;
-  this.aa_1 = 100.0;
-  this.ba_1 = 0.05;
+  this.na_1 = -1.0;
+  this.oa_1 = 16.0;
+  this.pa_1 = 100.0;
+  this.qa_1 = 0.05;
 }
 var Companion_instance_1;
 function Companion_getInstance_1() {
@@ -1437,35 +1443,35 @@ function Companion_getInstance_1() {
 }
 function NeedleAnimator(timeConstantMs) {
   timeConstantMs = timeConstantMs === VOID ? 90.0 : timeConstantMs;
-  this.ca_1 = timeConstantMs;
+  this.ra_1 = timeConstantMs;
   this.target = 0.0;
   this.position = 0.0;
-  this.da_1 = -1.0;
+  this.sa_1 = -1.0;
 }
-protoOf(NeedleAnimator).ea = function (_set____db54di) {
+protoOf(NeedleAnimator).ta = function (_set____db54di) {
   this.target = _set____db54di;
 };
-protoOf(NeedleAnimator).fa = function () {
+protoOf(NeedleAnimator).ua = function () {
   return this.target;
 };
-protoOf(NeedleAnimator).ga = function () {
+protoOf(NeedleAnimator).va = function () {
   return this.position;
 };
 protoOf(NeedleAnimator).step = function (nowMs) {
-  var elapsedMs = this.da_1 === -1.0 ? 16.0 : coerceIn(nowMs - this.da_1, 0.0, 100.0);
-  this.da_1 = nowMs;
+  var elapsedMs = this.sa_1 === -1.0 ? 16.0 : coerceIn(nowMs - this.sa_1, 0.0, 100.0);
+  this.sa_1 = nowMs;
   var tmp = this;
   var tmp_0 = this.position;
   var tmp_1 = this.target - this.position;
   // Inline function 'kotlin.math.exp' call
-  var x = -elapsedMs / this.ca_1;
+  var x = -elapsedMs / this.ra_1;
   tmp.position = tmp_0 + tmp_1 * (1 - Math.exp(x));
   // Inline function 'kotlin.math.abs' call
   var x_0 = this.target - this.position;
   if (Math.abs(x_0) >= 0.05)
     return true;
   this.position = this.target;
-  this.da_1 = -1.0;
+  this.sa_1 = -1.0;
   return false;
 };
 function Companion_2() {
@@ -1473,10 +1479,10 @@ function Companion_2() {
   this.NOTE_NAMES = listOf(['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']);
   this.IN_TUNE_CENTS = 5.0;
 }
-protoOf(Companion_2).ha = function () {
+protoOf(Companion_2).wa = function () {
   return this.NOTE_NAMES;
 };
-protoOf(Companion_2).ia = function () {
+protoOf(Companion_2).xa = function () {
   return this.IN_TUNE_CENTS;
 };
 var Companion_instance_2;
@@ -1492,39 +1498,39 @@ function NoteReading(pitchClass, octave, cents, frequencyHz) {
   this.cents = cents;
   this.frequencyHz = frequencyHz;
 }
-protoOf(NoteReading).ja = function () {
+protoOf(NoteReading).ya = function () {
   return this.pitchClass;
 };
-protoOf(NoteReading).ka = function () {
+protoOf(NoteReading).za = function () {
   return this.octave;
 };
-protoOf(NoteReading).la = function () {
+protoOf(NoteReading).ab = function () {
   return this.cents;
 };
-protoOf(NoteReading).ma = function () {
+protoOf(NoteReading).bb = function () {
   return this.frequencyHz;
 };
-protoOf(NoteReading).na = function () {
+protoOf(NoteReading).cb = function () {
   return Companion_getInstance_2().NOTE_NAMES.n(this.pitchClass);
 };
-protoOf(NoteReading).oa = function () {
+protoOf(NoteReading).db = function () {
   // Inline function 'kotlin.math.abs' call
   var x = this.cents;
   return Math.abs(x) <= 5.0;
 };
-protoOf(NoteReading).a7 = function () {
+protoOf(NoteReading).o7 = function () {
   return this.pitchClass;
 };
-protoOf(NoteReading).b7 = function () {
+protoOf(NoteReading).p7 = function () {
   return this.octave;
 };
-protoOf(NoteReading).pa = function () {
+protoOf(NoteReading).eb = function () {
   return this.cents;
 };
-protoOf(NoteReading).qa = function () {
+protoOf(NoteReading).fb = function () {
   return this.frequencyHz;
 };
-protoOf(NoteReading).ra = function (pitchClass, octave, cents, frequencyHz) {
+protoOf(NoteReading).gb = function (pitchClass, octave, cents, frequencyHz) {
   return new NoteReading(pitchClass, octave, cents, frequencyHz);
 };
 protoOf(NoteReading).copy = function (pitchClass, octave, cents, frequencyHz, $super) {
@@ -1532,7 +1538,7 @@ protoOf(NoteReading).copy = function (pitchClass, octave, cents, frequencyHz, $s
   octave = octave === VOID ? this.octave : octave;
   cents = cents === VOID ? this.cents : cents;
   frequencyHz = frequencyHz === VOID ? this.frequencyHz : frequencyHz;
-  return $super === VOID ? this.ra(pitchClass, octave, cents, frequencyHz) : $super.ra.call(this, pitchClass, octave, cents, frequencyHz);
+  return $super === VOID ? this.gb(pitchClass, octave, cents, frequencyHz) : $super.gb.call(this, pitchClass, octave, cents, frequencyHz);
 };
 protoOf(NoteReading).toString = function () {
   return 'NoteReading(pitchClass=' + this.pitchClass + ', octave=' + this.octave + ', cents=' + this.cents + ', frequencyHz=' + this.frequencyHz + ')';
@@ -1562,9 +1568,9 @@ protoOf(NoteReading).equals = function (other) {
 };
 function NoteMapper_0() {
   this.A4_HZ = 440.0;
-  this.sa_1 = 69;
+  this.hb_1 = 69;
 }
-protoOf(NoteMapper_0).ta = function () {
+protoOf(NoteMapper_0).ib = function () {
   return this.A4_HZ;
 };
 protoOf(NoteMapper_0).midiFromFrequency = function (hz) {
@@ -1603,25 +1609,25 @@ function PitchSample(midi, level) {
   this.midi = midi;
   this.level = level;
 }
-protoOf(PitchSample).ua = function () {
+protoOf(PitchSample).jb = function () {
   return this.midi;
 };
-protoOf(PitchSample).va = function () {
+protoOf(PitchSample).kb = function () {
   return this.level;
 };
-protoOf(PitchSample).a7 = function () {
+protoOf(PitchSample).o7 = function () {
   return this.midi;
 };
-protoOf(PitchSample).b7 = function () {
+protoOf(PitchSample).p7 = function () {
   return this.level;
 };
-protoOf(PitchSample).wa = function (midi, level) {
+protoOf(PitchSample).lb = function (midi, level) {
   return new PitchSample(midi, level);
 };
 protoOf(PitchSample).copy = function (midi, level, $super) {
   midi = midi === VOID ? this.midi : midi;
   level = level === VOID ? this.level : level;
-  return $super === VOID ? this.wa(midi, level) : $super.wa.call(this, midi, level);
+  return $super === VOID ? this.lb(midi, level) : $super.lb.call(this, midi, level);
 };
 protoOf(PitchSample).toString = function () {
   return 'PitchSample(midi=' + this.midi + ', level=' + this.level + ')';
@@ -1645,14 +1651,14 @@ protoOf(PitchSample).equals = function (other) {
 };
 function SampleWindow(size) {
   this.size = size;
-  this.xa_1 = new Float32Array(this.size);
-  this.ya_1 = 0;
+  this.mb_1 = new Float32Array(this.size);
+  this.nb_1 = 0;
 }
 protoOf(SampleWindow).o = function () {
   return this.size;
 };
-protoOf(SampleWindow).za = function () {
-  return this.ya_1 >= this.size;
+protoOf(SampleWindow).ob = function () {
+  return this.nb_1 >= this.size;
 };
 protoOf(SampleWindow).append = function (chunk, count) {
   // Inline function 'kotlin.require' call
@@ -1663,8 +1669,8 @@ protoOf(SampleWindow).append = function (chunk, count) {
   // Inline function 'kotlin.comparisons.minOf' call
   var b = this.size;
   var incoming = Math.min(count, b);
-  var tmp0 = this.xa_1;
-  var tmp2 = this.xa_1;
+  var tmp0 = this.mb_1;
+  var tmp2 = this.mb_1;
   // Inline function 'kotlin.collections.copyInto' call
   var endIndex = this.size;
   // Inline function 'kotlin.js.unsafeCast' call
@@ -1673,7 +1679,7 @@ protoOf(SampleWindow).append = function (chunk, count) {
   // Inline function 'kotlin.js.unsafeCast' call
   // Inline function 'kotlin.js.asDynamic' call
   arrayCopy(tmp, tmp2, 0, incoming, endIndex);
-  var tmp2_0 = this.xa_1;
+  var tmp2_0 = this.mb_1;
   var tmp4 = this.size - incoming | 0;
   // Inline function 'kotlin.collections.copyInto' call
   var startIndex = count - incoming | 0;
@@ -1686,23 +1692,23 @@ protoOf(SampleWindow).append = function (chunk, count) {
   var tmp_1 = this;
   var tmp0_0 = this.size;
   // Inline function 'kotlin.comparisons.minOf' call
-  var b_0 = this.ya_1 + count | 0;
-  tmp_1.ya_1 = Math.min(tmp0_0, b_0);
+  var b_0 = this.nb_1 + count | 0;
+  tmp_1.nb_1 = Math.min(tmp0_0, b_0);
 };
 protoOf(SampleWindow).samples = function () {
-  return this.xa_1;
+  return this.mb_1;
 };
 protoOf(SampleWindow).clear = function () {
-  this.ya_1 = 0;
+  this.nb_1 = 0;
 };
 function Companion_3() {
   this.CHUNK_SAMPLES = 1024;
   this.SILENCE_RMS = 0.003;
 }
-protoOf(Companion_3).ab = function () {
+protoOf(Companion_3).pb = function () {
   return this.CHUNK_SAMPLES;
 };
-protoOf(Companion_3).bb = function () {
+protoOf(Companion_3).qb = function () {
   return this.SILENCE_RMS;
 };
 protoOf(Companion_3).rootMeanSquare = function (chunk, count) {
@@ -1733,16 +1739,16 @@ function Companion_getInstance_3() {
   return Companion_instance_3;
 }
 function PitchPipeline(sampleRate) {
-  this.cb_1 = new YinPitchDetector(sampleRate);
-  this.db_1 = new SampleWindow(this.cb_1.requiredSamples);
+  this.rb_1 = new YinPitchDetector(sampleRate);
+  this.sb_1 = new SampleWindow(this.rb_1.requiredSamples);
 }
 protoOf(PitchPipeline).process = function (chunk, count) {
-  this.db_1.append(chunk, count);
+  this.sb_1.append(chunk, count);
   var rms = Companion_instance_3.rootMeanSquare(chunk, count);
   var level = Companion_instance_3.levelFromRms(rms);
-  if (!this.db_1.isFull || rms < 0.003)
+  if (!this.sb_1.isFull || rms < 0.003)
     return new PitchSample(null, level);
-  var tmp0_elvis_lhs = this.cb_1.detect(this.db_1.samples());
+  var tmp0_elvis_lhs = this.rb_1.detect(this.sb_1.samples());
   var tmp;
   if (tmp0_elvis_lhs == null) {
     return new PitchSample(null, level);
@@ -1753,14 +1759,14 @@ protoOf(PitchPipeline).process = function (chunk, count) {
   return new PitchSample(NoteMapper_instance.midiFromFrequency(hz), level);
 };
 protoOf(PitchPipeline).reset = function () {
-  return this.db_1.clear();
+  return this.sb_1.clear();
 };
 function onMissing($this) {
-  $this.pb_1 = $this.pb_1 + 1 | 0;
-  if ($this.pb_1 >= $this.mb_1) {
+  $this.ec_1 = $this.ec_1 + 1 | 0;
+  if ($this.ec_1 >= $this.bc_1) {
     $this.reset();
   }
-  return $this.ob_1;
+  return $this.dc_1;
 }
 function blend($this, previous, target) {
   var tmp;
@@ -1769,11 +1775,11 @@ function blend($this, previous, target) {
   } else {
     // Inline function 'kotlin.math.abs' call
     var x = target - previous;
-    tmp = Math.abs(x) >= $this.lb_1;
+    tmp = Math.abs(x) >= $this.ac_1;
   }
   if (tmp)
     return target;
-  return previous + $this.kb_1 * (target - previous);
+  return previous + $this.zb_1 * (target - previous);
 }
 function median($this, values) {
   var sorted_0 = sorted(values);
@@ -1781,7 +1787,7 @@ function median($this, values) {
   return (sorted_0.o() % 2 | 0) === 1 ? sorted_0.n(mid) : (sorted_0.n(mid - 1 | 0) + sorted_0.n(mid)) / 2;
 }
 function Companion_4() {
-  this.qb_1 = 3;
+  this.fc_1 = 3;
 }
 var Companion_instance_4;
 function Companion_getInstance_4() {
@@ -1791,28 +1797,28 @@ function PitchSmoother(easing, newNoteSemitones, silenceFrames) {
   easing = easing === VOID ? 0.3 : easing;
   newNoteSemitones = newNoteSemitones === VOID ? 0.8 : newNoteSemitones;
   silenceFrames = silenceFrames === VOID ? 15 : silenceFrames;
-  this.kb_1 = easing;
-  this.lb_1 = newNoteSemitones;
-  this.mb_1 = silenceFrames;
-  this.nb_1 = ArrayDeque_init_$Create$();
-  this.ob_1 = null;
-  this.pb_1 = 0;
+  this.zb_1 = easing;
+  this.ac_1 = newNoteSemitones;
+  this.bc_1 = silenceFrames;
+  this.cc_1 = ArrayDeque_init_$Create$();
+  this.dc_1 = null;
+  this.ec_1 = 0;
 }
 protoOf(PitchSmoother).push = function (midi) {
   if (midi == null)
     return onMissing(this);
-  this.pb_1 = 0;
-  this.nb_1.o6(midi);
-  if (this.nb_1.k6_1 > 3) {
-    this.nb_1.p6();
+  this.ec_1 = 0;
+  this.cc_1.c7(midi);
+  if (this.cc_1.y6_1 > 3) {
+    this.cc_1.d7();
   }
-  this.ob_1 = blend(this, this.ob_1, median(this, this.nb_1));
-  return this.ob_1;
+  this.dc_1 = blend(this, this.dc_1, median(this, this.cc_1));
+  return this.dc_1;
 };
 protoOf(PitchSmoother).reset = function () {
-  this.nb_1.k3();
-  this.ob_1 = null;
-  this.pb_1 = 0;
+  this.cc_1.n3();
+  this.dc_1 = null;
+  this.ec_1 = 0;
 };
 function Box(left, top, right, bottom) {
   this.left = left;
@@ -1820,40 +1826,40 @@ function Box(left, top, right, bottom) {
   this.right = right;
   this.bottom = bottom;
 }
-protoOf(Box).rb = function () {
+protoOf(Box).gc = function () {
   return this.left;
 };
-protoOf(Box).sb = function () {
+protoOf(Box).hc = function () {
   return this.top;
 };
-protoOf(Box).tb = function () {
+protoOf(Box).ic = function () {
   return this.right;
 };
-protoOf(Box).ub = function () {
+protoOf(Box).jc = function () {
   return this.bottom;
 };
-protoOf(Box).vb = function () {
+protoOf(Box).kc = function () {
   return this.right - this.left;
 };
-protoOf(Box).wb = function () {
+protoOf(Box).lc = function () {
   return this.bottom - this.top;
 };
-protoOf(Box).xb = function () {
+protoOf(Box).mc = function () {
   return (this.left + this.right) / 2;
 };
-protoOf(Box).a7 = function () {
+protoOf(Box).o7 = function () {
   return this.left;
 };
-protoOf(Box).b7 = function () {
+protoOf(Box).p7 = function () {
   return this.top;
 };
-protoOf(Box).pa = function () {
+protoOf(Box).eb = function () {
   return this.right;
 };
-protoOf(Box).qa = function () {
+protoOf(Box).fb = function () {
   return this.bottom;
 };
-protoOf(Box).yb = function (left, top, right, bottom) {
+protoOf(Box).nc = function (left, top, right, bottom) {
   return new Box(left, top, right, bottom);
 };
 protoOf(Box).copy = function (left, top, right, bottom, $super) {
@@ -1861,7 +1867,7 @@ protoOf(Box).copy = function (left, top, right, bottom, $super) {
   top = top === VOID ? this.top : top;
   right = right === VOID ? this.right : right;
   bottom = bottom === VOID ? this.bottom : bottom;
-  return $super === VOID ? this.yb(left, top, right, bottom) : $super.yb.call(this, left, top, right, bottom);
+  return $super === VOID ? this.nc(left, top, right, bottom) : $super.nc.call(this, left, top, right, bottom);
 };
 protoOf(Box).toString = function () {
   return 'Box(left=' + this.left + ', top=' + this.top + ', right=' + this.right + ', bottom=' + this.bottom + ')';
@@ -1902,10 +1908,10 @@ function swingThatFits($this, halfWidth, radius) {
 }
 function Companion_5() {
   this.MAX_CENTS = 50.0;
-  this.zb_1 = 1.08;
-  this.ac_1 = 60.0;
+  this.oc_1 = 1.08;
+  this.pc_1 = 60.0;
 }
-protoOf(Companion_5).bc = function () {
+protoOf(Companion_5).qc = function () {
   return this.MAX_CENTS;
 };
 protoOf(Companion_5).compute = function (box, dp) {
@@ -1935,70 +1941,70 @@ function TunerGeometry(dp, centerX, noteTextSize, noteBaseline, frequencyBaselin
   this.meterRight = meterRight;
   this.meterTop = meterTop;
 }
-protoOf(TunerGeometry).cc = function () {
+protoOf(TunerGeometry).rc = function () {
   return this.dp;
 };
-protoOf(TunerGeometry).xb = function () {
+protoOf(TunerGeometry).mc = function () {
   return this.centerX;
 };
-protoOf(TunerGeometry).dc = function () {
+protoOf(TunerGeometry).sc = function () {
   return this.noteTextSize;
 };
-protoOf(TunerGeometry).ec = function () {
+protoOf(TunerGeometry).tc = function () {
   return this.noteBaseline;
 };
-protoOf(TunerGeometry).fc = function () {
+protoOf(TunerGeometry).uc = function () {
   return this.frequencyBaseline;
 };
-protoOf(TunerGeometry).gc = function () {
+protoOf(TunerGeometry).vc = function () {
   return this.pivotY;
 };
-protoOf(TunerGeometry).hc = function () {
+protoOf(TunerGeometry).wc = function () {
   return this.radius;
 };
-protoOf(TunerGeometry).ic = function () {
+protoOf(TunerGeometry).xc = function () {
   return this.maxAngleDegrees;
 };
-protoOf(TunerGeometry).jc = function () {
+protoOf(TunerGeometry).yc = function () {
   return this.meterRight;
 };
-protoOf(TunerGeometry).kc = function () {
+protoOf(TunerGeometry).zc = function () {
   return this.meterTop;
 };
 protoOf(TunerGeometry).angleForCents = function (cents) {
   return coerceIn_1(cents / 50.0, -1.08, 1.08) * this.maxAngleDegrees;
 };
-protoOf(TunerGeometry).a7 = function () {
+protoOf(TunerGeometry).o7 = function () {
   return this.dp;
 };
-protoOf(TunerGeometry).b7 = function () {
+protoOf(TunerGeometry).p7 = function () {
   return this.centerX;
 };
-protoOf(TunerGeometry).pa = function () {
+protoOf(TunerGeometry).eb = function () {
   return this.noteTextSize;
 };
-protoOf(TunerGeometry).qa = function () {
+protoOf(TunerGeometry).fb = function () {
   return this.noteBaseline;
 };
-protoOf(TunerGeometry).lc = function () {
+protoOf(TunerGeometry).ad = function () {
   return this.frequencyBaseline;
 };
-protoOf(TunerGeometry).mc = function () {
+protoOf(TunerGeometry).bd = function () {
   return this.pivotY;
 };
-protoOf(TunerGeometry).nc = function () {
+protoOf(TunerGeometry).cd = function () {
   return this.radius;
 };
-protoOf(TunerGeometry).oc = function () {
+protoOf(TunerGeometry).dd = function () {
   return this.maxAngleDegrees;
 };
-protoOf(TunerGeometry).pc = function () {
+protoOf(TunerGeometry).ed = function () {
   return this.meterRight;
 };
-protoOf(TunerGeometry).qc = function () {
+protoOf(TunerGeometry).fd = function () {
   return this.meterTop;
 };
-protoOf(TunerGeometry).rc = function (dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop) {
+protoOf(TunerGeometry).gd = function (dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop) {
   return new TunerGeometry(dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop);
 };
 protoOf(TunerGeometry).copy = function (dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop, $super) {
@@ -2012,7 +2018,7 @@ protoOf(TunerGeometry).copy = function (dp, centerX, noteTextSize, noteBaseline,
   maxAngleDegrees = maxAngleDegrees === VOID ? this.maxAngleDegrees : maxAngleDegrees;
   meterRight = meterRight === VOID ? this.meterRight : meterRight;
   meterTop = meterTop === VOID ? this.meterTop : meterTop;
-  return $super === VOID ? this.rc(dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop) : $super.rc.call(this, dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop);
+  return $super === VOID ? this.gd(dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop) : $super.gd.call(this, dp, centerX, noteTextSize, noteBaseline, frequencyBaseline, pivotY, radius, maxAngleDegrees, meterRight, meterTop);
 };
 protoOf(TunerGeometry).toString = function () {
   return 'TunerGeometry(dp=' + this.dp + ', centerX=' + this.centerX + ', noteTextSize=' + this.noteTextSize + ', noteBaseline=' + this.noteBaseline + ', frequencyBaseline=' + this.frequencyBaseline + ', pivotY=' + this.pivotY + ', radius=' + this.radius + ', maxAngleDegrees=' + this.maxAngleDegrees + ', meterRight=' + this.meterRight + ', meterTop=' + this.meterTop + ')';
@@ -2065,46 +2071,46 @@ function TunerScene() {
   this.message = null;
   this.needleCents = 0.0;
 }
-protoOf(TunerScene).sc = function (_set____db54di) {
+protoOf(TunerScene).hd = function (_set____db54di) {
   this.reading = _set____db54di;
 };
-protoOf(TunerScene).tc = function () {
+protoOf(TunerScene).jd = function () {
   return this.reading;
 };
-protoOf(TunerScene).uc = function (_set____db54di) {
+protoOf(TunerScene).kd = function (_set____db54di) {
   this.active = _set____db54di;
 };
-protoOf(TunerScene).vc = function () {
+protoOf(TunerScene).ld = function () {
   return this.active;
 };
-protoOf(TunerScene).wc = function (_set____db54di) {
+protoOf(TunerScene).md = function (_set____db54di) {
   this.level = _set____db54di;
 };
-protoOf(TunerScene).va = function () {
+protoOf(TunerScene).kb = function () {
   return this.level;
 };
-protoOf(TunerScene).xc = function (_set____db54di) {
+protoOf(TunerScene).nd = function (_set____db54di) {
   this.message = _set____db54di;
 };
-protoOf(TunerScene).b6 = function () {
+protoOf(TunerScene).p6 = function () {
   return this.message;
 };
-protoOf(TunerScene).yc = function (_set____db54di) {
+protoOf(TunerScene).od = function (_set____db54di) {
   this.needleCents = _set____db54di;
 };
-protoOf(TunerScene).zc = function () {
+protoOf(TunerScene).pd = function () {
   return this.needleCents;
 };
 function computeDifference($this, x) {
   var inductionVariable = 1;
-  var last = $this.ib_1 + 1 | 0;
+  var last = $this.xb_1 + 1 | 0;
   if (inductionVariable <= last)
     do {
       var tau = inductionVariable;
       inductionVariable = inductionVariable + 1 | 0;
       var sum = 0.0;
       var inductionVariable_0 = 0;
-      var last_0 = $this.fb_1;
+      var last_0 = $this.ub_1;
       if (inductionVariable_0 < last_0)
         do {
           var j = inductionVariable_0;
@@ -2113,40 +2119,40 @@ function computeDifference($this, x) {
           sum = sum + delta * delta;
         }
          while (inductionVariable_0 < last_0);
-      $this.jb_1[tau] = sum;
+      $this.yb_1[tau] = sum;
     }
      while (!(tau === last));
 }
 function normalizeCumulativeMean($this) {
-  $this.jb_1[0] = 1.0;
+  $this.yb_1[0] = 1.0;
   var runningSum = 0.0;
   var inductionVariable = 1;
-  var last = $this.ib_1 + 1 | 0;
+  var last = $this.xb_1 + 1 | 0;
   if (inductionVariable <= last)
     do {
       var tau = inductionVariable;
       inductionVariable = inductionVariable + 1 | 0;
-      runningSum = runningSum + $this.jb_1[tau];
-      $this.jb_1[tau] = runningSum === 0.0 ? 1.0 : $this.jb_1[tau] * tau / runningSum;
+      runningSum = runningSum + $this.yb_1[tau];
+      $this.yb_1[tau] = runningSum === 0.0 ? 1.0 : $this.yb_1[tau] * tau / runningSum;
     }
      while (!(tau === last));
 }
 function firstDipBelowThreshold($this) {
-  var tau = $this.hb_1;
-  while (tau <= $this.ib_1 && $this.jb_1[tau] >= $this.gb_1) {
+  var tau = $this.wb_1;
+  while (tau <= $this.xb_1 && $this.yb_1[tau] >= $this.vb_1) {
     tau = tau + 1 | 0;
   }
-  if (tau > $this.ib_1)
+  if (tau > $this.xb_1)
     return null;
-  while (tau < $this.ib_1 && $this.jb_1[tau + 1 | 0] < $this.jb_1[tau]) {
+  while (tau < $this.xb_1 && $this.yb_1[tau + 1 | 0] < $this.yb_1[tau]) {
     tau = tau + 1 | 0;
   }
   return tau;
 }
 function refineByParabola($this, tau) {
-  var before = $this.jb_1[tau - 1 | 0];
-  var at = $this.jb_1[tau];
-  var after = $this.jb_1[tau + 1 | 0];
+  var before = $this.yb_1[tau - 1 | 0];
+  var at = $this.yb_1[tau];
+  var after = $this.yb_1[tau + 1 | 0];
   var denominator = 2 * (2 * at - after - before);
   if (denominator === 0.0)
     return tau;
@@ -2157,23 +2163,23 @@ function YinPitchDetector(sampleRate, windowSize, minFrequencyHz, maxFrequencyHz
   minFrequencyHz = minFrequencyHz === VOID ? 38.0 : minFrequencyHz;
   maxFrequencyHz = maxFrequencyHz === VOID ? 1400.0 : maxFrequencyHz;
   threshold = threshold === VOID ? 0.15 : threshold;
-  this.eb_1 = sampleRate;
-  this.fb_1 = windowSize;
-  this.gb_1 = threshold;
+  this.tb_1 = sampleRate;
+  this.ub_1 = windowSize;
+  this.vb_1 = threshold;
   var tmp = this;
   // Inline function 'kotlin.math.floor' call
-  var x = this.eb_1 / maxFrequencyHz;
+  var x = this.tb_1 / maxFrequencyHz;
   var tmp$ret$0 = Math.floor(x);
-  tmp.hb_1 = coerceAtLeast(numberToInt(tmp$ret$0), 2);
+  tmp.wb_1 = coerceAtLeast(numberToInt(tmp$ret$0), 2);
   var tmp_0 = this;
   // Inline function 'kotlin.math.ceil' call
-  var x_0 = this.eb_1 / minFrequencyHz;
+  var x_0 = this.tb_1 / minFrequencyHz;
   var tmp$ret$1 = Math.ceil(x_0);
-  tmp_0.ib_1 = numberToInt(tmp$ret$1);
-  this.jb_1 = new Float64Array(this.ib_1 + 2 | 0);
-  this.requiredSamples = (this.fb_1 + this.ib_1 | 0) + 2 | 0;
+  tmp_0.xb_1 = numberToInt(tmp$ret$1);
+  this.yb_1 = new Float64Array(this.xb_1 + 2 | 0);
+  this.requiredSamples = (this.ub_1 + this.xb_1 | 0) + 2 | 0;
 }
-protoOf(YinPitchDetector).ad = function () {
+protoOf(YinPitchDetector).qd = function () {
   return this.requiredSamples;
 };
 protoOf(YinPitchDetector).detect = function (samples) {
@@ -2192,24 +2198,173 @@ protoOf(YinPitchDetector).detect = function (samples) {
     tmp = tmp0_elvis_lhs;
   }
   var tau = tmp;
-  return this.eb_1 / refineByParabola(this, tau);
+  return this.tb_1 / refineByParabola(this, tau);
 };
+function get_CHAVES_SINCRONIZADAS() {
+  _init_properties_Sincronia_kt__hmhu5w();
+  return CHAVES_SINCRONIZADAS_0;
+}
+var CHAVES_SINCRONIZADAS_0;
+function get_CHAVE_DIARIO() {
+  return CHAVE_DIARIO_0;
+}
+var CHAVE_DIARIO_0;
+function get_SEPARADOR_DISPOSITIVO() {
+  return SEPARADOR_DISPOSITIVO_0;
+}
+var SEPARADOR_DISPOSITIVO_0;
+function chaveRemota(chave, dispositivo) {
+  _init_properties_Sincronia_kt__hmhu5w();
+  return chave === 'treino-diario' ? 'treino-diario~' + dispositivo : chave;
+}
+function ehDiarioDeOutro(remota, dispositivo) {
+  _init_properties_Sincronia_kt__hmhu5w();
+  return startsWith(remota, 'treino-diario~') && !(remota === chaveRemota('treino-diario', dispositivo));
+}
+function get_NADA() {
+  return NADA_0;
+}
+var NADA_0;
+function get_EMPURRAR() {
+  return EMPURRAR_0;
+}
+var EMPURRAR_0;
+function get_PUXAR() {
+  return PUXAR_0;
+}
+var PUXAR_0;
+function decidir(temLocal, localEm, remotoEm) {
+  _init_properties_Sincronia_kt__hmhu5w();
+  if (remotoEm == null)
+    return temLocal ? 1 : 0;
+  if (!temLocal)
+    return 2;
+  var l = localEm == null ? 0.0 : localEm;
+  return l > remotoEm ? 1 : l < remotoEm ? 2 : 0;
+}
+function Favorito(bpm, tempos, divisao, acentos, nome) {
+  this.bpm = bpm;
+  this.tempos = tempos;
+  this.divisao = divisao;
+  this.acentos = acentos;
+  this.nome = nome;
+}
+protoOf(Favorito).ea = function () {
+  return this.bpm;
+};
+protoOf(Favorito).rd = function () {
+  return this.tempos;
+};
+protoOf(Favorito).sd = function () {
+  return this.divisao;
+};
+protoOf(Favorito).td = function () {
+  return this.acentos;
+};
+protoOf(Favorito).ud = function () {
+  return this.nome;
+};
+protoOf(Favorito).mesmasConfiguracoes = function (o) {
+  return this.bpm === o.bpm && this.tempos === o.tempos && this.divisao === o.divisao && contentEquals(this.acentos, o.acentos);
+};
+function get_MAX_FAVORITOS() {
+  return MAX_FAVORITOS_0;
+}
+var MAX_FAVORITOS_0;
+function juntarFavoritos(nuvem, local) {
+  _init_properties_Sincronia_kt__hmhu5w();
+  // Inline function 'kotlin.collections.filter' call
+  // Inline function 'kotlin.collections.filterTo' call
+  var destination = ArrayList_init_$Create$();
+  var inductionVariable = 0;
+  var last = local.length;
+  while (inductionVariable < last) {
+    var element = local[inductionVariable];
+    inductionVariable = inductionVariable + 1 | 0;
+    var tmp$ret$1;
+    $l$block: {
+      // Inline function 'kotlin.collections.none' call
+      var inductionVariable_0 = 0;
+      var last_0 = nuvem.length;
+      while (inductionVariable_0 < last_0) {
+        var element_0 = nuvem[inductionVariable_0];
+        inductionVariable_0 = inductionVariable_0 + 1 | 0;
+        if (element_0.mesmasConfiguracoes(element) && element_0.nome === element.nome) {
+          tmp$ret$1 = false;
+          break $l$block;
+        }
+      }
+      tmp$ret$1 = true;
+    }
+    if (tmp$ret$1) {
+      destination.h(element);
+    }
+  }
+  var novos = destination;
+  // Inline function 'kotlin.collections.toTypedArray' call
+  var this_0 = take(plus(toList(nuvem), novos), 30);
+  return copyToArray(this_0);
+}
+function somarDiarios(listas) {
+  _init_properties_Sincronia_kt__hmhu5w();
+  var soma = LinkedHashMap_init_$Create$();
+  var inductionVariable = 0;
+  var last = listas.length;
+  while (inductionVariable < last) {
+    var lista = listas[inductionVariable];
+    inductionVariable = inductionVariable + 1 | 0;
+    var inductionVariable_0 = 0;
+    var last_0 = lista.length;
+    while (inductionVariable_0 < last_0) {
+      var d = lista[inductionVariable_0];
+      inductionVariable_0 = inductionVariable_0 + 1 | 0;
+      var k = d.data + '|' + d.secao;
+      var a = soma.e1(k);
+      // Inline function 'kotlin.collections.set' call
+      var value = a == null ? d : new Dia(d.data, d.secao, a.respostas + d.respostas | 0, a.acertos + d.acertos | 0, a.segundos + d.segundos);
+      soma.f3(k, value);
+    }
+  }
+  var tmp = soma.e3();
+  var tmp_0 = somarDiarios$lambda;
+  // Inline function 'kotlin.collections.toTypedArray' call
+  var this_0 = sortedWith(tmp, compareBy([tmp_0, somarDiarios$lambda_0]));
+  return copyToArray(this_0);
+}
+function somarDiarios$lambda(it) {
+  _init_properties_Sincronia_kt__hmhu5w();
+  return it.data;
+}
+function somarDiarios$lambda_0(it) {
+  _init_properties_Sincronia_kt__hmhu5w();
+  return it.secao;
+}
+var properties_initialized_Sincronia_kt_i624r6;
+function _init_properties_Sincronia_kt__hmhu5w() {
+  if (!properties_initialized_Sincronia_kt_i624r6) {
+    properties_initialized_Sincronia_kt_i624r6 = true;
+    // Inline function 'kotlin.arrayOf' call
+    // Inline function 'kotlin.js.unsafeCast' call
+    // Inline function 'kotlin.js.asDynamic' call
+    CHAVES_SINCRONIZADAS_0 = ['metronomo-favoritos', 'treino-de-ouvido', 'treino-de-ouvido-voz', 'treino-de-ouvido-ritmo', 'treino-de-ouvido-instrumento', 'treino-diario'];
+  }
+}
 function Janela(ini, fim, midi, sil) {
   this.ini = ini;
   this.fim = fim;
   this.midi = midi;
   this.sil = sil;
 }
-protoOf(Janela).bd = function () {
+protoOf(Janela).vd = function () {
   return this.ini;
 };
-protoOf(Janela).cd = function () {
+protoOf(Janela).wd = function () {
   return this.fim;
 };
-protoOf(Janela).ua = function () {
+protoOf(Janela).jb = function () {
   return this.midi;
 };
-protoOf(Janela).dd = function () {
+protoOf(Janela).xd = function () {
   return this.sil;
 };
 function get_CURTA_S() {
@@ -2327,10 +2482,10 @@ function Amostra(t, midi) {
   this.t = t;
   this.midi = midi;
 }
-protoOf(Amostra).ed = function () {
+protoOf(Amostra).yd = function () {
   return this.t;
 };
-protoOf(Amostra).ua = function () {
+protoOf(Amostra).jb = function () {
   return this.midi;
 };
 function get_GRACA_S() {
@@ -2354,13 +2509,13 @@ function Acerto(fracao, ok, ouvido) {
   this.ok = ok;
   this.ouvido = ouvido;
 }
-protoOf(Acerto).fd = function () {
+protoOf(Acerto).zd = function () {
   return this.fracao;
 };
-protoOf(Acerto).gd = function () {
+protoOf(Acerto).ae = function () {
   return this.ok;
 };
-protoOf(Acerto).hd = function () {
+protoOf(Acerto).be = function () {
   return this.ouvido;
 };
 function acertoDaNota(amostras, j, tolerancia, qualquerOitava, ate) {
@@ -2416,13 +2571,13 @@ function Resumo(acertadas, total, ok) {
   this.total = total;
   this.ok = ok;
 }
-protoOf(Resumo).jd = function () {
+protoOf(Resumo).ce = function () {
   return this.acertadas;
 };
-protoOf(Resumo).kd = function () {
+protoOf(Resumo).de = function () {
   return this.total;
 };
-protoOf(Resumo).gd = function () {
+protoOf(Resumo).ae = function () {
   return this.ok;
 };
 function resumir(js, acertos) {
@@ -2471,40 +2626,40 @@ function Intervalo(id, semitons) {
   this.id = id;
   this.semitons = semitons;
 }
-protoOf(Intervalo).v8 = function () {
+protoOf(Intervalo).k9 = function () {
   return this.id;
 };
-protoOf(Intervalo).ld = function () {
+protoOf(Intervalo).ee = function () {
   return this.semitons;
 };
 function Acorde(id, semitons) {
   this.id = id;
   this.semitons = semitons;
 }
-protoOf(Acorde).v8 = function () {
+protoOf(Acorde).k9 = function () {
   return this.id;
 };
-protoOf(Acorde).ld = function () {
+protoOf(Acorde).ee = function () {
   return this.semitons;
 };
 function Grau(id, semitons) {
   this.id = id;
   this.semitons = semitons;
 }
-protoOf(Grau).v8 = function () {
+protoOf(Grau).k9 = function () {
   return this.id;
 };
-protoOf(Grau).ld = function () {
+protoOf(Grau).ee = function () {
   return this.semitons;
 };
 function AcordeDaCadencia(grau, semitons) {
   this.grau = grau;
   this.semitons = semitons;
 }
-protoOf(AcordeDaCadencia).md = function () {
+protoOf(AcordeDaCadencia).fe = function () {
   return this.grau;
 };
-protoOf(AcordeDaCadencia).ld = function () {
+protoOf(AcordeDaCadencia).ee = function () {
   return this.semitons;
 };
 function GrauDoCampo(id, raiz, semitons) {
@@ -2512,43 +2667,43 @@ function GrauDoCampo(id, raiz, semitons) {
   this.raiz = raiz;
   this.semitons = semitons;
 }
-protoOf(GrauDoCampo).v8 = function () {
+protoOf(GrauDoCampo).k9 = function () {
   return this.id;
 };
-protoOf(GrauDoCampo).nd = function () {
+protoOf(GrauDoCampo).ge = function () {
   return this.raiz;
 };
-protoOf(GrauDoCampo).ld = function () {
+protoOf(GrauDoCampo).ee = function () {
   return this.semitons;
 };
 function Cadencia(id, variantes) {
   this.id = id;
   this.variantes = variantes;
 }
-protoOf(Cadencia).v8 = function () {
+protoOf(Cadencia).k9 = function () {
   return this.id;
 };
-protoOf(Cadencia).od = function () {
+protoOf(Cadencia).he = function () {
   return this.variantes;
 };
 function Progressao(id, acordes) {
   this.id = id;
   this.acordes = acordes;
 }
-protoOf(Progressao).v8 = function () {
+protoOf(Progressao).k9 = function () {
   return this.id;
 };
-protoOf(Progressao).pd = function () {
+protoOf(Progressao).ie = function () {
   return this.acordes;
 };
 function Padrao(id, semitons) {
   this.id = id;
   this.semitons = semitons;
 }
-protoOf(Padrao).v8 = function () {
+protoOf(Padrao).k9 = function () {
   return this.id;
 };
-protoOf(Padrao).ld = function () {
+protoOf(Padrao).ee = function () {
   return this.semitons;
 };
 function NotaMusica(st, dur, sil) {
@@ -2556,23 +2711,23 @@ function NotaMusica(st, dur, sil) {
   this.dur = dur;
   this.sil = sil;
 }
-protoOf(NotaMusica).qd = function () {
+protoOf(NotaMusica).je = function () {
   return this.st;
 };
-protoOf(NotaMusica).rd = function () {
+protoOf(NotaMusica).ke = function () {
   return this.dur;
 };
-protoOf(NotaMusica).dd = function () {
+protoOf(NotaMusica).xd = function () {
   return this.sil;
 };
 function Trecho(nome, notas) {
   this.nome = nome;
   this.notas = notas;
 }
-protoOf(Trecho).sd = function () {
+protoOf(Trecho).ud = function () {
   return this.nome;
 };
-protoOf(Trecho).td = function () {
+protoOf(Trecho).le = function () {
   return this.notas;
 };
 function Musica(id, nome, compasso, bpm, confianca, trechos) {
@@ -2583,22 +2738,22 @@ function Musica(id, nome, compasso, bpm, confianca, trechos) {
   this.confianca = confianca;
   this.trechos = trechos;
 }
-protoOf(Musica).v8 = function () {
+protoOf(Musica).k9 = function () {
   return this.id;
 };
-protoOf(Musica).sd = function () {
+protoOf(Musica).ud = function () {
   return this.nome;
 };
-protoOf(Musica).ud = function () {
+protoOf(Musica).me = function () {
   return this.compasso;
 };
-protoOf(Musica).p9 = function () {
+protoOf(Musica).ea = function () {
   return this.bpm;
 };
-protoOf(Musica).vd = function () {
+protoOf(Musica).ne = function () {
   return this.confianca;
 };
-protoOf(Musica).wd = function () {
+protoOf(Musica).oe = function () {
   return this.trechos;
 };
 function PianoNote(midi, at, dur, cents) {
@@ -2608,31 +2763,31 @@ function PianoNote(midi, at, dur, cents) {
   this.dur = dur;
   this.cents = cents;
 }
-protoOf(PianoNote).ua = function () {
+protoOf(PianoNote).jb = function () {
   return this.midi;
 };
-protoOf(PianoNote).xd = function () {
+protoOf(PianoNote).pe = function () {
   return this.at;
 };
-protoOf(PianoNote).rd = function () {
+protoOf(PianoNote).ke = function () {
   return this.dur;
 };
-protoOf(PianoNote).la = function () {
+protoOf(PianoNote).ab = function () {
   return this.cents;
 };
-protoOf(PianoNote).a7 = function () {
+protoOf(PianoNote).o7 = function () {
   return this.midi;
 };
-protoOf(PianoNote).b7 = function () {
+protoOf(PianoNote).p7 = function () {
   return this.at;
 };
-protoOf(PianoNote).pa = function () {
+protoOf(PianoNote).eb = function () {
   return this.dur;
 };
-protoOf(PianoNote).qa = function () {
+protoOf(PianoNote).fb = function () {
   return this.cents;
 };
-protoOf(PianoNote).yd = function (midi, at, dur, cents) {
+protoOf(PianoNote).qe = function (midi, at, dur, cents) {
   return new PianoNote(midi, at, dur, cents);
 };
 protoOf(PianoNote).copy = function (midi, at, dur, cents, $super) {
@@ -2640,7 +2795,7 @@ protoOf(PianoNote).copy = function (midi, at, dur, cents, $super) {
   at = at === VOID ? this.at : at;
   dur = dur === VOID ? this.dur : dur;
   cents = cents === VOID ? this.cents : cents;
-  return $super === VOID ? this.yd(midi, at, dur, cents) : $super.yd.call(this, midi, at, dur, cents);
+  return $super === VOID ? this.qe(midi, at, dur, cents) : $super.qe.call(this, midi, at, dur, cents);
 };
 protoOf(PianoNote).toString = function () {
   return 'PianoNote(midi=' + this.midi + ', at=' + this.at + ', dur=' + this.dur + ', cents=' + this.cents + ')';
@@ -2685,7 +2840,7 @@ function mulberry32$lambda($s) {
     $s._v = $s._v + 1831565813 | 0;
     var t = imul($s._v ^ ($s._v >>> 15 | 0), 1 | $s._v);
     t = (t + imul(t ^ (t >>> 7 | 0), 61 | t) | 0) ^ t;
-    return toLong(t ^ (t >>> 14 | 0)).r1(new Long(-1, 0)).t1() / 4.294967296E9;
+    return toLong(t ^ (t >>> 14 | 0)).s1(new Long(-1, 0)).u1() / 4.294967296E9;
   };
 }
 function Dia(data, secao, respostas, acertos, segundos) {
@@ -2695,19 +2850,19 @@ function Dia(data, secao, respostas, acertos, segundos) {
   this.acertos = acertos;
   this.segundos = segundos;
 }
-protoOf(Dia).zd = function () {
+protoOf(Dia).re = function () {
   return this.data;
 };
-protoOf(Dia).ae = function () {
+protoOf(Dia).se = function () {
   return this.secao;
 };
-protoOf(Dia).be = function () {
+protoOf(Dia).te = function () {
   return this.respostas;
 };
-protoOf(Dia).ce = function () {
+protoOf(Dia).ue = function () {
   return this.acertos;
 };
-protoOf(Dia).de = function () {
+protoOf(Dia).ve = function () {
   return this.segundos;
 };
 function get_DIAS_GUARDADOS() {
@@ -2782,19 +2937,19 @@ function ResumoDiario(respostasHoje, acertosHoje, minutosHoje, semana, sequencia
   this.semana = semana;
   this.sequencia = sequencia;
 }
-protoOf(ResumoDiario).ee = function () {
+protoOf(ResumoDiario).we = function () {
   return this.respostasHoje;
 };
-protoOf(ResumoDiario).fe = function () {
+protoOf(ResumoDiario).xe = function () {
   return this.acertosHoje;
 };
-protoOf(ResumoDiario).ge = function () {
+protoOf(ResumoDiario).ye = function () {
   return this.minutosHoje;
 };
-protoOf(ResumoDiario).he = function () {
+protoOf(ResumoDiario).ze = function () {
   return this.semana;
 };
-protoOf(ResumoDiario).ie = function () {
+protoOf(ResumoDiario).af = function () {
   return this.sequencia;
 };
 function resumoDiario(dias, hoje, secao) {
@@ -2813,28 +2968,28 @@ function resumoDiario(dias, hoje, secao) {
   // Inline function 'kotlin.collections.associateBy' call
   var capacity = coerceAtLeast(mapCapacity(collectionSizeOrDefault(destination, 10)), 16);
   // Inline function 'kotlin.collections.associateByTo' call
-  var destination_0 = LinkedHashMap_init_$Create$(capacity);
+  var destination_0 = LinkedHashMap_init_$Create$_0(capacity);
   var _iterator__ex2g4s = destination.j();
   while (_iterator__ex2g4s.k()) {
     var element_0 = _iterator__ex2g4s.l();
     var tmp$ret$3 = numeroDoDia(element_0.data);
-    destination_0.c3(tmp$ret$3, element_0);
+    destination_0.f3(tmp$ret$3, element_0);
   }
   var meus = destination_0;
   var n = numeroDoDia(hoje);
-  var d = meus.d1(n);
+  var d = meus.e1(n);
   var minutos = resumoDiario$lambda;
   var tmp = 0;
   var tmp_0 = new Int32Array(7);
   while (tmp < 7) {
     var tmp_1 = tmp;
-    tmp_0[tmp_1] = minutos(meus.d1((n - 6 | 0) + tmp_1 | 0));
+    tmp_0[tmp_1] = minutos(meus.e1((n - 6 | 0) + tmp_1 | 0));
     tmp = tmp + 1 | 0;
   }
   var semana = tmp_0;
   var k = !(d == null) ? n : n - 1 | 0;
   var seq = 0;
-  while (!(meus.d1(k) == null)) {
+  while (!(meus.e1(k) == null)) {
     seq = seq + 1 | 0;
     k = k - 1 | 0;
   }
@@ -2953,29 +3108,29 @@ function ConfigClassica(exercicio, itens, direcao, margem, tonica) {
   this.margem = margem;
   this.tonica = tonica;
 }
-protoOf(ConfigClassica).je = function () {
+protoOf(ConfigClassica).bf = function () {
   return this.exercicio;
 };
-protoOf(ConfigClassica).ke = function () {
+protoOf(ConfigClassica).cf = function () {
   return this.itens;
 };
-protoOf(ConfigClassica).le = function () {
+protoOf(ConfigClassica).df = function () {
   return this.direcao;
 };
-protoOf(ConfigClassica).me = function () {
+protoOf(ConfigClassica).ef = function () {
   return this.margem;
 };
-protoOf(ConfigClassica).ne = function () {
+protoOf(ConfigClassica).ff = function () {
   return this.tonica;
 };
 function ConfigFuncional(tonica, graus) {
   this.tonica = tonica;
   this.graus = graus;
 }
-protoOf(ConfigFuncional).ne = function () {
+protoOf(ConfigFuncional).ff = function () {
   return this.tonica;
 };
-protoOf(ConfigFuncional).oe = function () {
+protoOf(ConfigFuncional).gf = function () {
   return this.graus;
 };
 function PerguntaClassica(chave, resposta, notas, cents, tonica, acordes, reveal, dada, alvo, intervalo) {
@@ -2997,34 +3152,34 @@ function PerguntaClassica(chave, resposta, notas, cents, tonica, acordes, reveal
   this.alvo = alvo;
   this.intervalo = intervalo;
 }
-protoOf(PerguntaClassica).pe = function () {
+protoOf(PerguntaClassica).hf = function () {
   return this.chave;
 };
-protoOf(PerguntaClassica).qe = function () {
+protoOf(PerguntaClassica).if = function () {
   return this.resposta;
 };
-protoOf(PerguntaClassica).td = function () {
+protoOf(PerguntaClassica).le = function () {
   return this.notas;
 };
-protoOf(PerguntaClassica).la = function () {
+protoOf(PerguntaClassica).ab = function () {
   return this.cents;
 };
-protoOf(PerguntaClassica).ne = function () {
+protoOf(PerguntaClassica).ff = function () {
   return this.tonica;
 };
-protoOf(PerguntaClassica).pd = function () {
+protoOf(PerguntaClassica).ie = function () {
   return this.acordes;
 };
-protoOf(PerguntaClassica).re = function () {
+protoOf(PerguntaClassica).jf = function () {
   return this.reveal;
 };
-protoOf(PerguntaClassica).se = function () {
+protoOf(PerguntaClassica).kf = function () {
   return this.dada;
 };
-protoOf(PerguntaClassica).te = function () {
+protoOf(PerguntaClassica).lf = function () {
   return this.alvo;
 };
-protoOf(PerguntaClassica).ue = function () {
+protoOf(PerguntaClassica).mf = function () {
   return this.intervalo;
 };
 function PerguntaFuncional(chave, resposta, tonica, cadencia, nota, tudo) {
@@ -3035,22 +3190,22 @@ function PerguntaFuncional(chave, resposta, tonica, cadencia, nota, tudo) {
   this.nota = nota;
   this.tudo = tudo;
 }
-protoOf(PerguntaFuncional).pe = function () {
+protoOf(PerguntaFuncional).hf = function () {
   return this.chave;
 };
-protoOf(PerguntaFuncional).qe = function () {
+protoOf(PerguntaFuncional).if = function () {
   return this.resposta;
 };
-protoOf(PerguntaFuncional).ne = function () {
+protoOf(PerguntaFuncional).ff = function () {
   return this.tonica;
 };
-protoOf(PerguntaFuncional).ve = function () {
+protoOf(PerguntaFuncional).nf = function () {
   return this.cadencia;
 };
-protoOf(PerguntaFuncional).we = function () {
+protoOf(PerguntaFuncional).of = function () {
   return this.nota;
 };
-protoOf(PerguntaFuncional).xe = function () {
+protoOf(PerguntaFuncional).pf = function () {
   return this.tudo;
 };
 function HistoricoItem(chave, certo, total, recentes) {
@@ -3060,16 +3215,16 @@ function HistoricoItem(chave, certo, total, recentes) {
   this.total = total;
   this.recentes = recentes;
 }
-protoOf(HistoricoItem).pe = function () {
+protoOf(HistoricoItem).hf = function () {
   return this.chave;
 };
-protoOf(HistoricoItem).ye = function () {
+protoOf(HistoricoItem).qf = function () {
   return this.certo;
 };
-protoOf(HistoricoItem).kd = function () {
+protoOf(HistoricoItem).de = function () {
   return this.total;
 };
-protoOf(HistoricoItem).ze = function () {
+protoOf(HistoricoItem).rf = function () {
   return this.recentes;
 };
 function get_JANELA() {
@@ -3185,14 +3340,14 @@ function sortearComPeso(lista, chave, h, rng) {
   // Inline function 'kotlin.collections.associateBy' call
   var capacity = coerceAtLeast(mapCapacity(h.length), 16);
   // Inline function 'kotlin.collections.associateByTo' call
-  var destination = LinkedHashMap_init_$Create$(capacity);
+  var destination = LinkedHashMap_init_$Create$_0(capacity);
   var inductionVariable = 0;
   var last_0 = h.length;
   while (inductionVariable < last_0) {
     var element = h[inductionVariable];
     inductionVariable = inductionVariable + 1 | 0;
     var tmp$ret$0 = element.chave;
-    destination.c3(tmp$ret$0, element);
+    destination.f3(tmp$ret$0, element);
   }
   var porChave = destination;
   // Inline function 'kotlin.collections.map' call
@@ -3201,7 +3356,7 @@ function sortearComPeso(lista, chave, h, rng) {
   var _iterator__ex2g4s = lista.j();
   while (_iterator__ex2g4s.k()) {
     var item = _iterator__ex2g4s.l();
-    var tmp$ret$3 = pesoDe(porChave.d1(chave(item)));
+    var tmp$ret$3 = pesoDe(porChave.e1(chave(item)));
     destination_0.h(tmp$ret$3);
   }
   var pesos = destination_0;
@@ -3403,8 +3558,8 @@ function perguntaHarmonia(cfg, rng, historico) {
   var _iterator__ex2g4s = tmp0.j();
   while (_iterator__ex2g4s.k()) {
     var element = _iterator__ex2g4s.l();
-    var k = element.a7();
-    var g_0 = element.b7();
+    var k = element.o7();
+    var g_0 = element.p7();
     var list = acorde(tonica, g_0, 1.6 + k * 1.1, k === ultimo ? 1.8 : 1.0);
     addAll(destination_0, list);
   }
@@ -3532,10 +3687,10 @@ function PadraoRitmo(id, inicios) {
   this.id = id;
   this.inicios = inicios;
 }
-protoOf(PadraoRitmo).v8 = function () {
+protoOf(PadraoRitmo).k9 = function () {
   return this.id;
 };
-protoOf(PadraoRitmo).af = function () {
+protoOf(PadraoRitmo).sf = function () {
   return this.inicios;
 };
 function get_COLCHEIA_RITMO_S() {
@@ -3552,8 +3707,8 @@ function perguntaRitmo(cfg, rng, historico) {
   var this_0 = until(0, 4);
   // Inline function 'kotlin.collections.mapTo' call
   var destination = ArrayList_init_$Create$_0(collectionSizeOrDefault(this_0, 10));
-  var inductionVariable = this_0.s7_1;
-  var last = this_0.t7_1;
+  var inductionVariable = this_0.h8_1;
+  var last = this_0.i8_1;
   if (inductionVariable <= last)
     do {
       var item = inductionVariable;
@@ -3662,8 +3817,8 @@ function cadencia(tonica) {
   var _iterator__ex2g4s = tmp0.j();
   while (_iterator__ex2g4s.k()) {
     var element = _iterator__ex2g4s.l();
-    var k = element.a7();
-    var c = element.b7();
+    var k = element.o7();
+    var c = element.p7();
     var tmp = listOf_0(new PianoNote((tonica + c.grau | 0) - 12 | 0, k * 0.95, 0.85));
     // Inline function 'kotlin.collections.map' call
     var this_0 = c.semitons;
@@ -3711,16 +3866,16 @@ function Placar(acertos, total, sequencia, melhor) {
   this.sequencia = sequencia;
   this.melhor = melhor;
 }
-protoOf(Placar).ce = function () {
+protoOf(Placar).ue = function () {
   return this.acertos;
 };
-protoOf(Placar).kd = function () {
+protoOf(Placar).de = function () {
   return this.total;
 };
-protoOf(Placar).ie = function () {
+protoOf(Placar).af = function () {
   return this.sequencia;
 };
-protoOf(Placar).bf = function () {
+protoOf(Placar).tf = function () {
   return this.melhor;
 };
 function somar(p, certo) {
@@ -4038,20 +4193,20 @@ function Bloco(exercicio, segundos) {
   this.exercicio = exercicio;
   this.segundos = segundos;
 }
-protoOf(Bloco).je = function () {
+protoOf(Bloco).bf = function () {
   return this.exercicio;
 };
-protoOf(Bloco).de = function () {
+protoOf(Bloco).ve = function () {
   return this.segundos;
 };
 function BlocoPlano(exercicio, perguntas) {
   this.exercicio = exercicio;
   this.perguntas = perguntas;
 }
-protoOf(BlocoPlano).je = function () {
+protoOf(BlocoPlano).bf = function () {
   return this.exercicio;
 };
-protoOf(BlocoPlano).cf = function () {
+protoOf(BlocoPlano).uf = function () {
   return this.perguntas;
 };
 function tabela(linhas) {
@@ -4060,12 +4215,12 @@ function tabela(linhas) {
   var this_0 = withIndex(get_MINUTOS());
   var capacity = coerceAtLeast(mapCapacity(collectionSizeOrDefault(this_0, 10)), 16);
   // Inline function 'kotlin.collections.associateTo' call
-  var destination = LinkedHashMap_init_$Create$(capacity);
+  var destination = LinkedHashMap_init_$Create$_0(capacity);
   var _iterator__ex2g4s = this_0.j();
   while (_iterator__ex2g4s.k()) {
     var element = _iterator__ex2g4s.l();
-    var k = element.a7();
-    var m = element.b7();
+    var k = element.o7();
+    var m = element.p7();
     // Inline function 'kotlin.collections.filter' call
     // Inline function 'kotlin.collections.filterTo' call
     var destination_0 = ArrayList_init_$Create$();
@@ -4074,7 +4229,7 @@ function tabela(linhas) {
     while (inductionVariable < last) {
       var element_0 = linhas[inductionVariable];
       inductionVariable = inductionVariable + 1 | 0;
-      if (element_0.h7_1.n(k) > 0) {
+      if (element_0.v7_1.n(k) > 0) {
         destination_0.h(element_0);
       }
     }
@@ -4084,12 +4239,12 @@ function tabela(linhas) {
     var _iterator__ex2g4s_0 = destination_0.j();
     while (_iterator__ex2g4s_0.k()) {
       var item = _iterator__ex2g4s_0.l();
-      var tmp$ret$3 = new Bloco(item.g7_1, item.h7_1.n(k));
+      var tmp$ret$3 = new Bloco(item.u7_1, item.v7_1.n(k));
       destination_1.h(tmp$ret$3);
     }
     // Inline function 'kotlin.collections.plusAssign' call
     var pair = to(m, destination_1);
-    destination.c3(pair.g7_1, pair.h7_1);
+    destination.f3(pair.u7_1, pair.v7_1);
   }
   return destination;
 }
@@ -4100,7 +4255,7 @@ function l(ex, s) {
 function programaDe(secao, foco, minutos) {
   _init_properties_Programas_kt__m3jq64();
   var s = getValue(get_PROGRAMAS(), secao);
-  var tmp0_elvis_lhs = s.d1(foco);
+  var tmp0_elvis_lhs = s.e1(foco);
   // Inline function 'kotlin.collections.toTypedArray' call
   var this_0 = getValue(tmp0_elvis_lhs == null ? getValue(s, 'geral') : tmp0_elvis_lhs, minutos);
   return copyToArray(this_0);
@@ -4133,10 +4288,10 @@ function Duracao(exercicio, valores) {
   this.exercicio = exercicio;
   this.valores = valores;
 }
-protoOf(Duracao).je = function () {
+protoOf(Duracao).bf = function () {
   return this.exercicio;
 };
-protoOf(Duracao).df = function () {
+protoOf(Duracao).vf = function () {
   return this.valores;
 };
 function mediana(valores) {
@@ -4301,7 +4456,7 @@ function _init_properties_Programas_kt__m3jq64() {
     PROGRAMAS = mapOf([to('ouvido', mapOf([to('geral', tabela([l('intervalos', new Int32Array([150, 150, 150, 200, 300])), l('acordes', new Int32Array([150, 150, 150, 150, 200])), l('afinacao', new Int32Array([0, 150, 150, 200, 250])), l('achar', new Int32Array([0, 0, 150, 200, 300])), l('campo', new Int32Array([0, 150, 150, 150, 250])), l('cadencias', new Int32Array([0, 0, 150, 150, 250])), l('progressoes', new Int32Array([0, 0, 0, 150, 250]))])), to('notas', tabela([l('intervalos', new Int32Array([150, 250, 350, 450, 700])), l('acordes', new Int32Array([150, 200, 300, 400, 600])), l('achar', new Int32Array([0, 150, 250, 350, 500]))])), to('afinacao', tabela([l('intervalos', new Int32Array([100, 150, 200, 300, 400])), l('afinacao', new Int32Array([200, 450, 700, 900, 1400]))])), to('harmonia', tabela([l('campo', new Int32Array([150, 200, 300, 400, 600])), l('cadencias', new Int32Array([150, 200, 300, 400, 600])), l('progressoes', new Int32Array([0, 200, 300, 400, 600]))]))])), to('voz', mapOf([to('geral', tabela([l('igualar', new Int32Array([150, 130, 120, 150, 220])), l('longa', new Int32Array([0, 0, 120, 150, 180])), l('sequencia', new Int32Array([150, 170, 200, 250, 330])), l('tonica', new Int32Array([0, 200, 150, 250, 350])), l('intervalo', new Int32Array([0, 0, 130, 150, 320])), l('musica', new Int32Array([0, 100, 180, 250, 400]))])), to('afinacao', tabela([l('igualar', new Int32Array([150, 250, 350, 450, 650])), l('longa', new Int32Array([150, 200, 300, 350, 500])), l('intervalo', new Int32Array([0, 150, 250, 400, 650]))])), to('musicas', tabela([l('igualar', new Int32Array([60, 100, 120, 150, 200])), l('musica', new Int32Array([240, 500, 780, 1050, 1600]))])), to('segundaVoz', tabela([l('igualar', new Int32Array([0, 100, 150, 200, 300])), l('tonica', new Int32Array([150, 300, 450, 600, 900])), l('intervalo', new Int32Array([150, 200, 300, 400, 600]))]))]))]);
     MEDIANAS_INICIAIS = mapOf([to('intervalos', 10.0), to('acordes', 10.0), to('afinacao', 14.0), to('achar', 25.0), to('campo', 15.0), to('cadencias', 16.0), to('progressoes', 20.0), to('igualar', 14.0), to('longa', 14.0), to('sequencia', 25.0), to('tonica', 20.0), to('intervalo', 18.0), to('musica', 22.0), to('eco', 20.0), to('ritmo', 12.0)]);
     // Inline function 'kotlin.collections.toTypedArray' call
-    var this_0 = get_MEDIANAS_INICIAIS().e1();
+    var this_0 = get_MEDIANAS_INICIAIS().f1();
     EXERCICIOS_DE_PROGRAMA_0 = copyToArray(this_0);
   }
 }
@@ -4321,16 +4476,16 @@ function Pos(corda, casa, midi, raiz) {
   this.midi = midi;
   this.raiz = raiz;
 }
-protoOf(Pos).ef = function () {
+protoOf(Pos).wf = function () {
   return this.corda;
 };
-protoOf(Pos).ff = function () {
+protoOf(Pos).xf = function () {
   return this.casa;
 };
-protoOf(Pos).ua = function () {
+protoOf(Pos).jb = function () {
   return this.midi;
 };
-protoOf(Pos).nd = function () {
+protoOf(Pos).ge = function () {
   return this.raiz;
 };
 function posicoesDe(midi) {
@@ -4343,8 +4498,8 @@ function posicoesDe(midi) {
   var _iterator__ex2g4s = tmp0.j();
   while (_iterator__ex2g4s.k()) {
     var element = _iterator__ex2g4s.l();
-    var corda = element.a7();
-    var solta = element.b7();
+    var corda = element.o7();
+    var solta = element.p7();
     // Inline function 'kotlin.takeIf' call
     var this_0 = midi - solta | 0;
     var tmp;
@@ -4458,13 +4613,13 @@ function Forma(posicoes, de, ate) {
   this.de = de;
   this.ate = ate;
 }
-protoOf(Forma).gf = function () {
+protoOf(Forma).yf = function () {
   return this.posicoes;
 };
-protoOf(Forma).hf = function () {
+protoOf(Forma).zf = function () {
   return this.de;
 };
-protoOf(Forma).if = function () {
+protoOf(Forma).ag = function () {
   return this.ate;
 };
 function formaDoArpejo(midis) {
@@ -4572,23 +4727,23 @@ function formaDoArpejo(midis) {
   return null;
 }
 function sam$kotlin_Comparator$0(function_0) {
-  this.jf_1 = function_0;
+  this.bg_1 = function_0;
 }
-protoOf(sam$kotlin_Comparator$0).e6 = function (a, b) {
-  return this.jf_1(a, b);
+protoOf(sam$kotlin_Comparator$0).s6 = function (a, b) {
+  return this.bg_1(a, b);
 };
 protoOf(sam$kotlin_Comparator$0).compare = function (a, b) {
-  return this.e6(a, b);
+  return this.s6(a, b);
 };
-protoOf(sam$kotlin_Comparator$0).u1 = function () {
-  return this.jf_1;
+protoOf(sam$kotlin_Comparator$0).v1 = function () {
+  return this.bg_1;
 };
 protoOf(sam$kotlin_Comparator$0).equals = function (other) {
   var tmp;
   if (!(other == null) ? isInterface(other, Comparator) : false) {
     var tmp_0;
     if (!(other == null) ? isInterface(other, FunctionAdapter) : false) {
-      tmp_0 = equals(this.u1(), other.u1());
+      tmp_0 = equals(this.v1(), other.v1());
     } else {
       tmp_0 = false;
     }
@@ -4599,7 +4754,7 @@ protoOf(sam$kotlin_Comparator$0).equals = function (other) {
   return tmp;
 };
 protoOf(sam$kotlin_Comparator$0).hashCode = function () {
-  return hashCode(this.u1());
+  return hashCode(this.v1());
 };
 function formaDoAcorde$escolhe(notas, custoMelhor, melhor, opcoes, i, atual) {
   if (i === notas.o()) {
@@ -4711,10 +4866,10 @@ function Faixa(min, max) {
   this.min = min;
   this.max = max;
 }
-protoOf(Faixa).kf = function () {
+protoOf(Faixa).cg = function () {
   return this.min;
 };
-protoOf(Faixa).lf = function () {
+protoOf(Faixa).dg = function () {
   return this.max;
 };
 function TipoDeVoz(id, min, max) {
@@ -4722,13 +4877,13 @@ function TipoDeVoz(id, min, max) {
   this.min = min;
   this.max = max;
 }
-protoOf(TipoDeVoz).v8 = function () {
+protoOf(TipoDeVoz).k9 = function () {
   return this.id;
 };
-protoOf(TipoDeVoz).kf = function () {
+protoOf(TipoDeVoz).cg = function () {
   return this.min;
 };
-protoOf(TipoDeVoz).lf = function () {
+protoOf(TipoDeVoz).dg = function () {
   return this.max;
 };
 function sortearAlvoDeVoz(rng, faixa) {
@@ -4786,19 +4941,19 @@ function Segurando(desde, visto, soma, soma2, n) {
   this.soma2 = soma2;
   this.n = n;
 }
-protoOf(Segurando).mf = function () {
+protoOf(Segurando).eg = function () {
   return this.desde;
 };
-protoOf(Segurando).nf = function () {
+protoOf(Segurando).fg = function () {
   return this.visto;
 };
-protoOf(Segurando).of = function () {
+protoOf(Segurando).gg = function () {
   return this.soma;
 };
-protoOf(Segurando).pf = function () {
+protoOf(Segurando).hg = function () {
   return this.soma2;
 };
-protoOf(Segurando).qf = function () {
+protoOf(Segurando).ig = function () {
   return this.n;
 };
 function Passo(estado, cents, ok, media, oscilacao) {
@@ -4808,19 +4963,19 @@ function Passo(estado, cents, ok, media, oscilacao) {
   this.media = media;
   this.oscilacao = oscilacao;
 }
-protoOf(Passo).rf = function () {
+protoOf(Passo).jg = function () {
   return this.estado;
 };
-protoOf(Passo).la = function () {
+protoOf(Passo).ab = function () {
   return this.cents;
 };
-protoOf(Passo).gd = function () {
+protoOf(Passo).ae = function () {
   return this.ok;
 };
-protoOf(Passo).sf = function () {
+protoOf(Passo).kg = function () {
   return this.media;
 };
-protoOf(Passo).tf = function () {
+protoOf(Passo).lg = function () {
   return this.oscilacao;
 };
 function atualizar(s, midi, t, alvo, tolerancia, qualquerOitava, segurarMs) {
@@ -4866,19 +5021,19 @@ function Alcance(min, max, candidato, desde, visto) {
   this.desde = desde;
   this.visto = visto;
 }
-protoOf(Alcance).kf = function () {
+protoOf(Alcance).cg = function () {
   return this.min;
 };
-protoOf(Alcance).lf = function () {
+protoOf(Alcance).dg = function () {
   return this.max;
 };
-protoOf(Alcance).uf = function () {
+protoOf(Alcance).mg = function () {
   return this.candidato;
 };
-protoOf(Alcance).mf = function () {
+protoOf(Alcance).eg = function () {
   return this.desde;
 };
-protoOf(Alcance).nf = function () {
+protoOf(Alcance).fg = function () {
   return this.visto;
 };
 function get_PARADO_MS() {
@@ -4937,10 +5092,10 @@ function Extensao(oitavas, semitons) {
   this.oitavas = oitavas;
   this.semitons = semitons;
 }
-protoOf(Extensao).vf = function () {
+protoOf(Extensao).ng = function () {
   return this.oitavas;
 };
-protoOf(Extensao).ld = function () {
+protoOf(Extensao).ee = function () {
   return this.semitons;
 };
 function extensao(semitons) {
@@ -5023,15 +5178,15 @@ function _init_properties_Voz_kt__voj4up() {
   }
 }
 //region block: post-declaration
-defineProp(protoOf(Metronome), 'bpm', protoOf(Metronome).p9, protoOf(Metronome).o9);
-defineProp(protoOf(Metronome), 'beatsPerBar', protoOf(Metronome).r9, protoOf(Metronome).q9);
-defineProp(protoOf(Metronome), 'subdivision', protoOf(Metronome).t9, protoOf(Metronome).s9);
-defineProp(protoOf(NoteReading), 'name', protoOf(NoteReading).na);
-defineProp(protoOf(NoteReading), 'isInTune', protoOf(NoteReading).oa);
-defineProp(protoOf(SampleWindow), 'isFull', protoOf(SampleWindow).za);
-defineProp(protoOf(Box), 'width', protoOf(Box).vb);
-defineProp(protoOf(Box), 'height', protoOf(Box).wb);
-defineProp(protoOf(Box), 'centerX', protoOf(Box).xb);
+defineProp(protoOf(Metronome), 'bpm', protoOf(Metronome).ea, protoOf(Metronome).da);
+defineProp(protoOf(Metronome), 'beatsPerBar', protoOf(Metronome).ga, protoOf(Metronome).fa);
+defineProp(protoOf(Metronome), 'subdivision', protoOf(Metronome).ia, protoOf(Metronome).ha);
+defineProp(protoOf(NoteReading), 'name', protoOf(NoteReading).cb);
+defineProp(protoOf(NoteReading), 'isInTune', protoOf(NoteReading).db);
+defineProp(protoOf(SampleWindow), 'isFull', protoOf(SampleWindow).ob);
+defineProp(protoOf(Box), 'width', protoOf(Box).kc);
+defineProp(protoOf(Box), 'height', protoOf(Box).lc);
+defineProp(protoOf(Box), 'centerX', protoOf(Box).mc);
 //endregion
 //region block: init
 Companion_instance = new Companion();
@@ -5042,6 +5197,12 @@ NoteMapper_instance = new NoteMapper_0();
 Companion_instance_3 = new Companion_3();
 Companion_instance_4 = new Companion_4();
 Companion_instance_5 = new Companion_5();
+CHAVE_DIARIO_0 = 'treino-diario';
+SEPARADOR_DISPOSITIVO_0 = '~';
+NADA_0 = 0;
+EMPURRAR_0 = 1;
+PUXAR_0 = 2;
+MAX_FAVORITOS_0 = 30;
 CURTA_S_0 = 0.28;
 GRACA_S_0 = 0.35;
 GRACA_MAX_0 = 0.45;
@@ -5084,6 +5245,13 @@ defineProp(NoteReading, 'Companion', Companion_getInstance_2);
 var NoteMapper = {getInstance: NoteMapper_getInstance};
 defineProp(PitchPipeline, 'Companion', Companion_getInstance_3);
 defineProp(TunerGeometry, 'Companion', Companion_getInstance_5);
+var CHAVES_SINCRONIZADAS = {get: get_CHAVES_SINCRONIZADAS};
+var CHAVE_DIARIO = {get: get_CHAVE_DIARIO};
+var SEPARADOR_DISPOSITIVO = {get: get_SEPARADOR_DISPOSITIVO};
+var NADA = {get: get_NADA};
+var EMPURRAR = {get: get_EMPURRAR};
+var PUXAR = {get: get_PUXAR};
+var MAX_FAVORITOS = {get: get_MAX_FAVORITOS};
 var CURTA_S = {get: get_CURTA_S};
 var GRACA_S = {get: get_GRACA_S};
 var GRACA_MAX = {get: get_GRACA_MAX};
@@ -5152,6 +5320,19 @@ export {
   TunerGeometry as TunerGeometry,
   TunerScene as TunerScene,
   YinPitchDetector as YinPitchDetector,
+  CHAVES_SINCRONIZADAS as CHAVES_SINCRONIZADAS,
+  CHAVE_DIARIO as CHAVE_DIARIO,
+  SEPARADOR_DISPOSITIVO as SEPARADOR_DISPOSITIVO,
+  chaveRemota as chaveRemota,
+  ehDiarioDeOutro as ehDiarioDeOutro,
+  NADA as NADA,
+  EMPURRAR as EMPURRAR,
+  PUXAR as PUXAR,
+  decidir as decidir,
+  Favorito as Favorito,
+  MAX_FAVORITOS as MAX_FAVORITOS,
+  juntarFavoritos as juntarFavoritos,
+  somarDiarios as somarDiarios,
   Janela as Janela,
   CURTA_S as CURTA_S,
   ehCurta as ehCurta,

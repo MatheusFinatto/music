@@ -2,6 +2,7 @@
 import { useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { hojeLocal, resumoDiario } from "@/core/treino";
+import { comOutros, diariosOutros } from "@/core/conta";
 import { diario } from "./diario";
 import type { Secao } from "./programas";
 
@@ -12,8 +13,11 @@ import type { Secao } from "./programas";
 export function Hoje({ secao }: { secao: Secao }) {
   const t = useTranslations("treino-de-ouvido.hoje");
   const d = useSyncExternalStore(diario.subscribe, diario.get, diario.getInitial);
-  if (!d.dias.some((x) => x.secao === secao)) return null;
-  const r = resumoDiario(d.dias, hojeLocal(), secao);
+  // Com a conta, soma o que se treinou nos outros aparelhos (site e apps).
+  const outros = useSyncExternalStore(diariosOutros.subscribe, diariosOutros.get, diariosOutros.getInitial);
+  const dias = comOutros(d.dias, outros);
+  if (!dias.some((x) => x.secao === secao)) return null;
+  const r = resumoDiario(dias, hojeLocal(), secao);
   const maior = Math.max(1, ...r.semana);
   return (
     <div className="treino-hoje">

@@ -239,7 +239,8 @@ class Dados(ctx: Context) {
 
     // ---------------------------------------------------------------- helpers
     fun ler(chave: String): JSONObject? = prefs.getString("musica:$chave", null)?.let { runCatching { JSONObject(it) }.getOrNull() }
-    fun gravar(chave: String, v: JSONObject) = prefs.edit().putString("musica:$chave", v.toString()).apply()
+    /** Writes and notes when (the optional account syncs by these times; see br.musica.marmota.common.Conta). */
+    fun gravar(chave: String, v: JSONObject) = br.musica.marmota.common.Conta.gravarLocal(prefs, chave, v.toString())
 
     companion object {
         fun strings(a: JSONArray?): List<String> = if (a == null) emptyList() else (0 until a.length()).mapNotNull { a.opt(it) as? String }

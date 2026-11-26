@@ -66,16 +66,32 @@
     }
   },
   "footer": {
-    "backup": "Backup de dados",
-    "backupTexto": "Seus dados ficam só neste navegador. Baixe um arquivo para guardar ou levar para outro aparelho.",
-    "backupBaixar": "Baixar backup",
-    "backupRestaurar": "Restaurar de um arquivo",
-    "backupBaixado": "Backup baixado.",
-    "backupRestaurado": "Restaurado. Recarregando…",
-    "backupErro": "Esse arquivo não é um backup deste site.",
-    "fechar": "Fechar",
     "issue": "Relatar um problema"
   },
+  "conta": {
+    "entrarLabel": "Entrar com Google (opcional)",
+    "contaLabel": "Sua conta",
+    "titulo": "Conta (opcional)",
+    "texto": "Entrando com o Google, seu progresso vai junto do computador pro celular, no navegador ou nos apps. Sem entrar, tudo funciona igual, só que fica neste aparelho. A gente não usa seus dados pra mais nada e nunca vai te mandar e-mail.",
+    "guardado": "O que fica guardado",
+    "itens": [
+      "Seu e-mail e uma cópia do que você salva aqui: os favoritos do metrônomo e o progresso do treino de ouvido e de voz.",
+      "Sair só para de sincronizar; o que está no aparelho continua aqui. \"Apagar meus dados\" apaga a cópia e a conta."
+    ],
+    "entrar": "Entrar com Google",
+    "carregando": "Carregando…",
+    "dentro": "Sua conta",
+    "dentroTexto": "Seu progresso vai junto pra qualquer navegador ou app em que você entrar com esta conta.",
+    "sair": "Sair",
+    "apagar": "Apagar meus dados",
+    "apagarConfirma": "Apagar a cópia na nuvem e a conta? O que está neste aparelho continua aqui.",
+    "apagarSim": "Apagar",
+    "cancelar": "Cancelar",
+    "erroEntrar": "Não deu pra entrar. Tenta de novo.",
+    "erroApagar": "Não deu pra apagar. Tenta de novo.",
+    "fechar": "Fechar"
+  },
+
   "metronomo": {
     "title": "Metrônomo",
     "description": "Metrônomo no navegador: andamento de 30 a 250 bpm, tempos com acento, divisões do tempo, tap e timer.",
@@ -135,6 +151,14 @@
     "favorites": "Favoritos",
     "favoritesIn": "Favoritos (em {name})",
     "favoriteDesc": "{bpm} bpm · {beats, plural, one {# tempo} other {# tempos}} · {sub}",
+    "favoritesInfo": "Como funcionam os favoritos",
+    "favoritesInfoItems": [
+      "Salvar o atual guarda o andamento, os tempos, a divisão e os acentos de agora, com um nome se quiser.",
+      "Escolher um favorito é entrar nele: o que você mudar no metrônomo muda o favorito, na hora. Dentro de um, a estrela fica verde.",
+      "Nenhum sai do favorito: o metrônomo fica como está e para de mudar o favorito.",
+      "O lápis renomeia; o X apaga.",
+      "Os favoritos ficam só neste navegador."
+    ],
     "favoriteName": "Nome (opcional)",
     "saveCurrent": "Salvar o atual",
     "deleteFavorite": "Apagar {name}",

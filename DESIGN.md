@@ -236,7 +236,7 @@ Coluna de até 1120px com respiro lateral de 20px (ou a área segura do aparelho
 **Responsivo.**
 - Desktop (≥961px): uma coluna por ferramenta.
 - Tablet (≤960px): os cards em duas colunas, embaixo da mesma pauta inteira.
-- Celular (≤720px): o título vem primeiro, e a marmota a 4× senta na linha de cima da pauta, como no desktop; uma pauta só com todas as notas (a 2× até 560px); cards empilhados em linhas, a placa "Abrir" vira só a seta em pixel a 3× (a linha inteira é o link).
+- Celular (≤720px): o título vem primeiro, e a marmota a 4× senta na linha de cima da pauta, como no desktop; uma pauta só com todas as notas (a 2× até 560px); cards empilhados em linhas, sem a placa "Abrir" (a linha inteira é o link).
 - Celular (≤640px) no afinador e no metrônomo: a tela vira a do app Android (ver Components).
 
 Alvos de toque: 44px no celular, 24px no desktop. Seções separadas por 32–56px.
@@ -261,7 +261,7 @@ Cantos vivos. O raio padrão é 4px (`--radius`, `--radius-md`), o pequeno é 2p
 
 A placa "Abrir" tem cantos em degrau: falta um quadrado de 4px em cada canto (`clip-path`), como um botão de pixel art. É a única forma recortada.
 
-Pixel art (marmota 52×42, cabeça 32×32, ícones 16×16, colcheia 6×9, seta 7×5) aparece só em escala inteira, com `image-rendering: pixelated` nos rasters e `shape-rendering: crispEdges` nos SVGs.
+Pixel art (marmota 52×42, cabeça 32×32, ícones 16×16, colcheia 6×9) aparece só em escala inteira, com `image-rendering: pixelated` nos rasters e `shape-rendering: crispEdges` nos SVGs.
 
 ### Named Rules
 **A Regra da Escala Inteira.** Pixel art é mostrada a 1×, 2×, 3×, 4× ou 6×, nunca em escala fracionária. Ícone a 3× no card (48px) e 32px na linha do celular; colcheia a 4× (24×36); marmota a 6× no hub e 4× no celular; cabeça a 1× (32px) no cabeçalho.
@@ -269,7 +269,7 @@ Pixel art (marmota 52×42, cabeça 32×32, ícones 16×16, colcheia 6×9, seta 7
 ## Components
 
 ### Buttons
-- **Primária, a placa "Abrir":** bloco marfim com texto no tom do fundo, 600 a 0.95rem, cantos em degrau de 4px, seta em pixel 7×5. No hover do card a placa clareia e a seta anda 4px em degraus.
+- **Primária, a placa "Abrir":** bloco marfim com texto no tom do fundo, 600 a 0.95rem, cantos em degrau de 4px, sem seta. No hover do card a placa clareia.
 - **Botões das ferramentas:** superfície com contorno de 1px na cor de linha, `--radius-pill` (4px), 44px de altura mínima. Hover troca o fundo para sombra suave e o contorno para cinza quente.
 - **"Baixar app":** botão fantasma com contorno de 2px, `--radius-pill`, ícone de traço e texto 600.
 - **Foco:** anel azul de 3px, afastado 3px, sempre visível.
@@ -304,7 +304,7 @@ A marmota em 52×42 tem dois quadros por cima da base, trocados em degraus (`ste
 Desenhos 16×16 escritos como grade de texto ("#" aceso, "+" sombra) e renderizados pelo `PixelArt` num SVG de um path por cor, na cor do texto. Ferramenta nova sem desenho usa o genérico até ganhar o seu.
 
 ### Tela de app (celular)
-No celular (≤640px), afinador e metrônomo marcam `.app-screen`: some cabeçalho, rodapé e título; a paleta vira a do app, os raios voltam a ser de app (22px, 14px, 10px e pílula de verdade) e aparece a barra flutuante de 56px com a aba atual cheia. É uma cópia deliberada do Marmota Tuner, não uma exceção a corrigir. O site espelha os apps: os treinos de ouvido e de voz têm a mesma barra com as abas do Marmota Trainer (Ouvido, Voz), a casinha do início e o download do APK daquele app (`AppNav.tsx`), mas mantêm o mundo da marmota. Em todo o celular o cabeçalho do site some, e cada ferramenta tem no topo uma ← de traço liso (a mesma família dos ícones da barra), apagada e sem caixa, que volta ao início.
+No celular (≤640px), afinador e metrônomo marcam `.app-screen`: some cabeçalho, rodapé e título; a paleta vira a do app, os raios voltam a ser de app (22px, 14px, 10px e pílula de verdade) e aparece a barra flutuante de 56px com a aba atual cheia. É uma cópia deliberada do Marmota Tuner, não uma exceção a corrigir. O site espelha os apps: os treinos de ouvido e de voz têm a mesma barra com as abas do Marmota Trainer (Ouvido, Voz), a casinha do início e o download do APK daquele app (`AppNav.tsx`), mas mantêm o mundo da marmota. Em todo o celular o cabeçalho do site some, e a volta ao início é só a casinha da barra; não há seta de voltar.
 
 ## Do's and Don'ts
 

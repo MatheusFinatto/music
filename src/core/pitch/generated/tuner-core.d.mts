@@ -346,6 +346,31 @@ export declare class YinPitchDetector {
 export declare namespace YinPitchDetector.$metadata$ {
     const constructor: abstract new () => YinPitchDetector;
 }
+export declare const CHAVES_SINCRONIZADAS: { get(): Array<string>; };
+export declare const CHAVE_DIARIO: { get(): string; };
+export declare const SEPARADOR_DISPOSITIVO: { get(): string; };
+export declare function chaveRemota(chave: string, dispositivo: string): string;
+export declare function ehDiarioDeOutro(remota: string, dispositivo: string): boolean;
+export declare const NADA: { get(): number; };
+export declare const EMPURRAR: { get(): number; };
+export declare const PUXAR: { get(): number; };
+export declare function decidir(temLocal: boolean, localEm: Nullable<number>, remotoEm: Nullable<number>): number;
+export declare class Favorito {
+    constructor(bpm: number, tempos: number, divisao: number, acentos: Int32Array, nome: string);
+    get bpm(): number;
+    get tempos(): number;
+    get divisao(): number;
+    get acentos(): Int32Array;
+    get nome(): string;
+    mesmasConfiguracoes(o: Favorito): boolean;
+}
+/** @deprecated $metadata$ is used for internal purposes, please don't use it in your code, because it can be removed at any moment */
+export declare namespace Favorito.$metadata$ {
+    const constructor: abstract new () => Favorito;
+}
+export declare const MAX_FAVORITOS: { get(): number; };
+export declare function juntarFavoritos(nuvem: Array<Favorito>, local: Array<Favorito>): Array<Favorito>;
+export declare function somarDiarios(listas: Array<Array<Dia>>): Array<Dia>;
 export declare class Janela {
     constructor(ini: number, fim: number, midi: Nullable<number>, sil: string);
     get ini(): number;

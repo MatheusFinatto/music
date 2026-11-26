@@ -17,6 +17,8 @@ export function MetroFavorites({ variant = "icon" }: { variant?: "icon" | "pill"
   const t = useTranslations("metronomo");
   const { items: list, active } = useSyncExternalStore(favorites.subscribe, favorites.get, favorites.getInitial);
   const dialog = useRef<HTMLDialogElement>(null);
+  const ajuda = useRef<HTMLDialogElement>(null);
+  const ajudaId = useId();
   const [name, setName] = useState("");
   const [editing, setEditing] = useState<{ i: number; name: string } | null>(null);
 
@@ -66,6 +68,9 @@ export function MetroFavorites({ variant = "icon" }: { variant?: "icon" | "pill"
       >
         <div className="metro-dialog-head">
           <h2 id={titleId}>{t("favorites")}</h2>
+          <button type="button" className="metro-close metro-fav-ajuda" onClick={() => ajuda.current?.showModal()} aria-label={t("favoritesInfo")} title={t("favoritesInfo")} aria-haspopup="dialog">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.2 9a2.9 2.9 0 1 1 4 2.7c-.7.3-1.2 1-1.2 1.8v.7M12 18v.01" /></svg>
+          </button>
           <button type="button" className="metro-close" onClick={() => dialog.current?.close()} aria-label={t("close")}>{closeIcon}</button>
         </div>
         {list.length > 0 && (
@@ -111,6 +116,21 @@ export function MetroFavorites({ variant = "icon" }: { variant?: "icon" | "pill"
           <input type="text" value={name} maxLength={40} onChange={(e) => setName(e.target.value)} placeholder={t("favoriteName")} aria-label={t("favoriteName")} />
           <button type="submit">{t("saveCurrent")}</button>
         </form>
+      </dialog>
+      {/* Como funcionam os favoritos: um diálogo como os outros do metrônomo (mesmo cartão e mesmo ×), por cima do de favoritos. */}
+      <dialog
+        ref={ajuda}
+        className="metro-dialog"
+        aria-labelledby={ajudaId}
+        onClick={(e) => { if (e.target === e.currentTarget) e.currentTarget.close(); }}
+      >
+        <div className="metro-dialog-head">
+          <h2 id={ajudaId}>{t("favoritesInfo")}</h2>
+          <button type="button" className="metro-close" onClick={() => ajuda.current?.close()} aria-label={t("close")}>{closeIcon}</button>
+        </div>
+        <ul className="metro-fav-ajuda-lista">
+          {(t.raw("favoritesInfoItems") as string[]).map((x) => <li key={x}>{x}</li>)}
+        </ul>
       </dialog>
     </>
   );

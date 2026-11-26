@@ -220,7 +220,9 @@ class SecaoView(
     /** The "Hoje" card (same as the website's Hoje.tsx): today's minutes and right answers, the last 7 days as pixel bars and
      *  the days in a row. Hidden before any practice. */
     private fun hoje(): View? {
-        val dias = dados.dias()
+        // Signed in, the other devices' practice (website, other phone) adds up here.
+        val outros = br.musica.marmota.common.Conta.diariosOutros(context)
+        val dias = if (outros.isEmpty()) dados.dias() else br.musica.marmotatuner.conta.somarDiarios(arrayOf(dados.dias(), *outros))
         if (dias.none { it.secao == secao }) return null
         val r = br.musica.marmotatuner.treino.resumoDiario(dias, dados.hoje(), secao)
         return context.cartao().apply {

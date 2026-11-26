@@ -88,11 +88,18 @@ class MetronomeActivity : Activity() {
         if (accents != null) metronome.restoreAccents(parseAccents(accents))
         else if (!prefs.getBoolean("accent", true)) metronome.setAccent(0, Tick.BEAT) // 1.3 had "accent the first beat"
         minutes = prefs.getInt("minutes", 0).takeIf { it in TIMER_MINUTES } ?: 0
-        activeFav = prefs.getInt("favoriteActive", -1).takeIf { it in loadFavorites().indices } ?: -1
+        activeFav = readFavorites().second
         setContentView(withBottomNav(buildLayout(), Screen.METRONOME))
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Signed in: favorites changed on the website or in another phone come in; the screen reloads with them.
+        br.musica.marmota.common.Conta.aoVoltar(this) { recreate() }
+    }
+
     override fun onPause() {
+        br.musica.marmota.common.Conta.aoSair(this)
         stop()
         getPreferences(MODE_PRIVATE).edit()
             .putInt("bpm", metronome.bpm.roundToInt())
@@ -537,15 +544,51 @@ class MetronomeActivity : Activity() {
         }
     }
 
-    private fun loadFavorites(): MutableList<Favorite> =
-        getPreferences(MODE_PRIVATE).getString("favorites", "")!!.split(";").filter { it.isNotBlank() }.mapNotNull { Favorite.decode(it) }.toMutableList()
+    // Since 1.9 the favorites are kept as the website keeps them: "musica:metronomo-favoritos" in SharedPreferences("musica"),
+    // { version, items: [{ bpm, beatsPerBar, subdivision, accents, name }], active }, so the optional account carries them
+    // between the app and the site. Up to 1.8 they were a "a;b" string in this activity's preferences: converted once.
+    private val musica by lazy { br.musica.marmota.common.Conta.prefs(this) }
+
+    private fun readFavorites(): Pair<MutableList<Favorite>, Int> {
+        val json = musica.getString(FAVORITES_KEY, null) ?: migrateFavorites() ?: return mutableListOf<Favorite>() to -1
+        return runCatching {
+            val o = org.json.JSONObject(json)
+            val items = o.getJSONArray("items")
+            val list = (0 until items.length()).map { i ->
+                val f = items.getJSONObject(i)
+                val a = f.optJSONArray("accents") ?: org.json.JSONArray()
+                Favorite(f.optInt("bpm", 90), f.optInt("beatsPerBar", 4), f.optInt("subdivision", 1), IntArray(a.length()) { a.getInt(it) }, f.optString("name"))
+            }.toMutableList()
+            list to o.optInt("active", -1).takeIf { it in list.indices }.let { it ?: -1 }
+        }.getOrElse { mutableListOf<Favorite>() to -1 }
+    }
+
+    /** The 1.8 favorites, as JSON, written once without a time (data from before the account: the cloud wins if it has some). */
+    private fun migrateFavorites(): String? {
+        val old = getPreferences(MODE_PRIVATE)
+        val list = old.getString("favorites", "")!!.split(";").filter { it.isNotBlank() }.mapNotNull { Favorite.decode(it) }
+        if (list.isEmpty()) return null
+        val json = favoritesJson(list, old.getInt("favoriteActive", -1).takeIf { it in list.indices } ?: -1)
+        musica.edit().putString(FAVORITES_KEY, json).apply()
+        return json
+    }
+
+    private fun favoritesJson(list: List<Favorite>, active: Int): String {
+        val items = org.json.JSONArray()
+        list.forEach { f ->
+            // The site keeps the 12 accents (MAX_BEATS) of every favorite.
+            val acc = IntArray(Metronome.MAX_BEATS) { i -> f.accents.getOrElse(i) { if (i == 0) Tick.ACCENT else Tick.BEAT } }
+            items.put(org.json.JSONObject().put("bpm", f.bpm).put("beatsPerBar", f.beats).put("subdivision", f.sub)
+                .put("accents", org.json.JSONArray(acc.toList())).put("name", f.name))
+        }
+        return org.json.JSONObject().put("version", 1).put("items", items).put("active", active).toString()
+    }
+
+    private fun loadFavorites(): MutableList<Favorite> = readFavorites().first
 
     private fun saveFavorites(list: List<Favorite>, active: Int = activeFav) {
         activeFav = active
-        getPreferences(MODE_PRIVATE).edit()
-            .putString("favorites", list.joinToString(";") { it.encode() })
-            .putInt("favoriteActive", active)
-            .apply()
+        br.musica.marmota.common.Conta.gravarLocal(musica, "metronomo-favoritos", favoritesJson(list, active))
         refreshStar()
     }
 
@@ -841,6 +884,7 @@ class MetronomeActivity : Activity() {
     private companion object {
         val TIMER_MINUTES = listOf(0, 1, 2, 3, 5, 10, 15, 20, 30)
         const val MAX_FAVORITES = 30
+        const val FAVORITES_KEY = "musica:metronomo-favoritos"
     }
 }
 

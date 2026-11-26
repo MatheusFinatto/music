@@ -1,6 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { APK_URL, EAR_APK_URL } from "./ToolHeader";
+import { Conta } from "./Conta";
+import { textosConta } from "./textosConta";
 
 /** As ferramentas que são telas de um app, agrupadas pelo app: o site espelha a barra de cada um. */
 const APPS = {
@@ -12,7 +14,8 @@ type Tela = (typeof APPS)[keyof typeof APPS]["telas"][number];
 /**
  * No celular, o site espelha os apps: a barra flutuante embaixo com as abas do app da página (Afinador e Metrônomo do
  * Marmota Tuner, BottomNav.kt; Ouvido e Voz do Marmota Trainer, Abas em marmotaear/MainActivity.kt). O site acrescenta só
- * o que o app não precisa: a volta para o início e "Baixar app" (o APK daquele app). No computador a barra não aparece
+ * o que o app não precisa: a volta para o início e "Baixar app" (o APK daquele app). A conta opcional (o "G") fica nela como
+ * nos apps. No computador a barra não aparece
  * (ver .app-nav em globals.css).
  */
 export async function AppNav({ current }: { current: Tela }) {
@@ -28,6 +31,7 @@ export async function AppNav({ current }: { current: Tela }) {
           {t(`nav.short.${slug}`)}
         </Link>
       ))}
+      <Conta t={await textosConta()} className="app-nav-icon" />
       <a className="app-nav-icon" href={app.apk} download aria-label={t(app.rotulo)} title={t(app.rotulo)}>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 19.5h14" /></svg>
       </a>
