@@ -430,11 +430,12 @@ body:not(:has(main.hub)) .site-footer .footer-issue { display: none; }
   /* Na tela de app, do topo da ferramenta só fica a ←: título e ações moram na tela do app. */
   .app-screen .tool-head { margin-bottom: 0; }
   .app-screen .tool-head :is(h1, .tool-head-actions) { display: none; }
-  /* A ← fica no mesmo ponto em toda ferramenta, com ou sem tela de app: alvo de 44px a 8px do topo e da esquerda, o ícone na
-     margem do conteúdo (20px). Por isso o topo de todas sai do mesmo lugar: seção sem respiro em cima, 8px no cabeçalho. */
+  /* O topo de toda ferramenta sai do mesmo lugar: seção sem respiro em cima; o cabeçalho decide o espaço. */
   main:has(.tool-head) { padding-top: env(safe-area-inset-top); }
   main:has(.tool-head) > .section { padding-top: 0; }
   .tool-head { padding-top: 8px; }
+  /* Nos treinos o título fica, como a barra de cima do Trainer (MainActivity.kt): 64px de altura, título centrado nela. */
+  main:not(.app-screen) .tool-head { min-height: 64px; padding-top: 0; }
   .app-screen .tool-head { padding-inline: 20px; }
   /* Com a barra, "Baixar app" fica só nela (o ícone de download), como no afinador e no metrônomo. */
   body:has(.app-nav) .tool-download { display: none; }
