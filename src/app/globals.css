@@ -118,8 +118,9 @@
   /* Cantando no treino de voz, no celular: o cabeçalho sai, para o gráfico caber inteiro (Voz.tsx põe a classe). */
   @media (max-width: 720px) { html.voz-cantando .site-header { display: none; } }
   .site-header .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
-  .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.12rem; letter-spacing: -0.015em; color: var(--ink); text-decoration: none; }
-  .brand img { width: 32px; height: 32px; image-rendering: pixelated; }
+  /* O nome é logotipo, não texto: em Silkscreen, como o título da home. 16px = pixel de 2px (a fonte é uma grade de 8). */
+  .brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-pixel); font-size: 16px; line-height: 1; color: var(--ink); text-decoration: none; }
+  .brand img { width: 52px; height: 42px; image-rendering: pixelated; }
   /* Link atual: um traço de 2 "pixels" embaixo, como a nota marcada; sem pílula. */
   .site-header nav a { position: relative; color: var(--muted); text-decoration: none; font-size: 0.94rem; font-weight: 500; padding: 8px 12px; }
   .site-header nav a:hover { color: var(--ink); }
@@ -130,21 +131,31 @@
   @media (max-width: 680px) { .site-header nav a { display: inline-flex; align-items: center; min-height: 44px; } .brand { min-height: 44px; } }
   /* Em tela muito estreita o menu rola dentro dele mesmo, nunca a página inteira para o lado. */
   .site-header nav { display: flex; align-items: center; gap: 2px; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  /* Na home os cards logo abaixo já são o menu: o do topo some ali (repetiria as mesmas ferramentas). */
+  body:has(main.hub) .site-header nav { display: none; }
   @media (max-width: 560px) { .site-header .wrap { gap: 6px; } .brand { font-size: 0; gap: 0; } .site-header nav a { font-size: 0.84rem; padding: 8px 8px; } }
 
+  /* A home ocupa a altura que sobra entre cabeçalho e rodapé e centra a composição nela, um pouco acima do meio (centro óptico:
+     mais respiro embaixo que em cima: 2 para 3). Os espaçadores só dividem a sobra; sem sobra (celular), somem. Assim a sobra de uma tela alta se divide em vez de virar um vão só em cima do rodapé. */
+  .hub { flex: 1 0 auto; display: flex; flex-direction: column; padding-top: 16px; }
+  .hub::before, .hub::after { content: ""; flex: 2 1 0; }
+  .hub::after { flex-grow: 3; }
   /* Palco do hub: a marmota (pixel art 52×42, sempre em múltiplo inteiro) e, ao lado, o nome e a frase. */
-  .stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 8px clamp(24px, 4vw, 48px); padding-top: clamp(24px, 4vw, 48px); }
+  .stage { display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 8px clamp(24px, 4vw, 48px); }
   .marmota { position: relative; width: calc(52px * var(--m)); height: calc(42px * var(--m)); --m: 6; }
   .marmota img { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
   .marmota-pisca, .marmota-fareja { opacity: 0; }
   /* O título fica um pouco acima da pauta: a nota mais aguda sobe acima da linha de cima. */
   .stage-text { padding-bottom: 40px; /* as hastes e a barra da pauta sobem até ~32px acima da linha de cima */ }
-  .stage h1 { font-size: clamp(2.5rem, 5.6vw, 4rem); line-height: 1; letter-spacing: -0.035em; font-weight: 700; }
-  /* Tela baixa (notebook): a marmota a 5× e menos respiro em cima, para o hub caber sem rolar. */
-  @media (min-width: 721px) and (max-height: 820px) { .marmota { --m: 5; } .stage { padding-top: 16px; } }
+  /* O nome em Silkscreen com o pixel da letra igual ao da marmota ao lado: 48px a 6× (pixel de 6px), 40px a 5×, 32px a 4×.
+     A fonte é uma grade de 8: só múltiplos de 8, senão borra. */
+  .stage h1 { font-family: var(--font-pixel); font-size: 48px; line-height: 1; font-weight: 400; }
+  /* Tela baixa (notebook): a marmota a 5×, para o hub caber sem rolar. */
+  @media (min-width: 721px) and (max-height: 820px) { .marmota { --m: 5; } .stage h1 { font-size: 40px; } }
   @media (max-width: 720px) {
     .stage { grid-template-columns: 1fr; justify-items: start; }
     .marmota { --m: 4; }
+    .stage h1 { font-size: 32px; }
     .stage-text { padding-bottom: 0; }
   }
 
@@ -152,15 +163,15 @@
      escala dos ícones). Cinco linhas de 2px a cada 12px; --p é a altura da nota em meias-linhas a partir da linha de cima (0) até a
      de baixo (8) e --t o início em colcheias. À esquerda, em largura fixa (--pre), a clave de sol (11×28) e o 6/8; o resto da
      largura divide-se em --cols colcheias. A marmota senta na linha de cima (a pauta sobe o próprio respiro). Cabeça 5×4 (15×12px,
-     a altura do espaço entre linhas), haste de 1 pixel com 3 espaços, bandeirola 2×4, ponto 2×2. Até o 4º compasso no desktop; no
-     tablet até o 2º (.c3 some) e no celular só a anacruse e o 1º (.c2 some). */
-  .pauta { --u: 3px; --gap-line: 12px; --staff-top: 44px; --colcheia: 0.22s; --pre: 76px; --cols: 21.6; position: relative; height: calc(var(--staff-top) + 4 * var(--gap-line) + 32px); margin-top: calc(-1 * var(--staff-top));
+     a altura do espaço entre linhas), haste de 1 pixel com 3 espaços, bandeirola 2×4, ponto 2×2. A melodia inteira (até o 4º compasso)
+     em toda largura: as medidas saem todas de --u, e no celular --u cai para 2px (2×) para caber. */
+  .pauta { --u: 3px; --gap-line: calc(4 * var(--u)); --staff-top: calc(15 * var(--u) - 1px); --colcheia: 0.22s; --pre: calc(25 * var(--u) + 1px); --cols: 21.6; position: relative; height: calc(var(--staff-top) + 4 * var(--gap-line) + 11 * var(--u) - 1px); margin-top: calc(-1 * var(--staff-top));
     background: repeating-linear-gradient(to bottom, var(--line) 0 2px, transparent 2px var(--gap-line)) 0 var(--staff-top) / 100% calc(4 * var(--gap-line) + 2px) no-repeat; }
   .pauta > [style*="--t"] { left: calc(var(--pre) + var(--t) * (100% - var(--pre)) / var(--cols)); }
   .pauta-clave { position: absolute; left: 0; top: calc(var(--staff-top) + 1px - 6.5 * var(--u)); width: calc(11 * var(--u)); height: calc(28 * var(--u)); color: var(--ink); }
-  .pauta-formula { position: absolute; left: 46px; top: calc(var(--staff-top) + 3px); display: flex; flex-direction: column; gap: 3px; color: var(--ink); }
+  .pauta-formula { position: absolute; left: calc(15 * var(--u) + 1px); top: calc(var(--staff-top) + var(--u)); display: flex; flex-direction: column; gap: var(--u); color: var(--ink); }
   .pauta-formula svg { display: block; width: calc(5 * var(--u)); height: calc(7 * var(--u)); }
-  .pauta-dinamica { position: absolute; left: var(--pre); top: calc(var(--staff-top) + 4 * var(--gap-line) + 15px); width: calc(5 * var(--u)); height: calc(7 * var(--u)); color: var(--muted); }
+  .pauta-dinamica { position: absolute; left: var(--pre); top: calc(var(--staff-top) + 4 * var(--gap-line) + 5 * var(--u)); width: calc(5 * var(--u)); height: calc(7 * var(--u)); color: var(--muted); }
   .pauta-barra { position: absolute; top: var(--staff-top); width: 2px; height: calc(4 * var(--gap-line) + 2px); background: var(--line); }
   .pauta-nota { --haste-px: calc(12 * var(--u) + var(--haste) * var(--gap-line) / 2); position: absolute; width: calc(5 * var(--u)); height: calc(4 * var(--u)); top: calc(var(--staff-top) + var(--p) * var(--gap-line) / 2 + 1px - 2 * var(--u)); color: var(--ink); }
   .pauta-cabeca { display: block; width: 100%; height: 100%; }
@@ -171,18 +182,18 @@
   .pauta-viga { position: absolute; height: calc(2 * var(--u)); top: calc(var(--staff-top) + var(--p) * var(--gap-line) / 2 + 1px - 2 * var(--u) + var(--u) - 12 * var(--u)); background: var(--ink);
     margin-left: calc(4 * var(--u)); width: calc((var(--t1) - var(--t)) * (100% - var(--pre)) / var(--cols) + var(--u)); }
   @media (max-width: 720px) { .pauta { margin-top: 0; } }
-  @media (max-width: 960px) { .pauta { --cols: 13; } .pauta .c3 { display: none; } }
-  @media (max-width: 560px) { .pauta { --cols: 7.2; } .pauta .c2 { display: none; } }
+  @media (max-width: 560px) { .pauta { --u: 2px; } }
   /* No desktop a marmota senta um pouco à direita: a clave sobe acima da pauta e não pode ficar embaixo dela. */
   @media (min-width: 721px) { .stage .marmota { margin-left: 48px; } }
 
   /* Rodapé da pauta: nome, play e "?", pequenos e apagados (passam despercebidos); no toque, 44px de alvo. */
   .pauta-figura { margin: 0; }
   .pauta-rodape { display: flex; justify-content: flex-end; align-items: center; gap: 0; margin-top: -14px; }
-  .pauta-nome { margin-right: 4px; color: var(--muted); font-size: var(--text-xs); opacity: 0.75; }
+  .pauta-nome { margin-right: 4px; color: var(--muted); font-size: var(--text-xs); }
   .pauta-play, .info-sutil .info-btn { display: inline-grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; background: transparent; color: var(--muted); opacity: 0.75; cursor: pointer; }
   .pauta-play:hover, .info-sutil:focus-within .info-btn { opacity: 1; color: var(--ink); }
   /* No hover o ? discreto só acende a opacidade: se virasse --ink, o ? claro que "carrega" por cima ficaria invisível. */
+  .info-sutil .info-btn { cursor: help; }
   .info-sutil .info-btn:hover { opacity: 1; }
   .pauta-play svg { width: 10px; height: 14px; }
   .pauta-play[aria-busy="true"] { opacity: 0.4; }
@@ -203,17 +214,17 @@
 
   /* Card de ferramenta: superfície plana com um traço de 1 pixel da arte no topo, que acende no hover. */
   .card { position: relative; display: flex; flex-direction: column; gap: 8px; background: var(--surface); border-top: var(--px) solid var(--fur-2); padding: 18px 20px 20px; color: var(--ink); text-decoration: none; }
-  .card h3 { font-size: 1.25rem; letter-spacing: -0.02em; font-weight: 700; line-height: 1.15; }
+  .card h2 { font-size: 1.25rem; letter-spacing: -0.02em; font-weight: 700; line-height: 1.15; }
   /* Ferramenta que ainda não existe: sem superfície nem link, só o contorno, o ícone apagado e o selo. */
   .card.quieto { background: transparent; box-shadow: inset 0 0 0 2px var(--soft); border-top-color: var(--soft); }
   .card.quieto .icon { color: var(--fur); }
-  .card.quieto h3 { color: var(--muted); }
+  .card.quieto h2 { color: var(--muted); }
   .card.quieto.proxima .icon { color: var(--target); }
   /* Celular: cada ferramenta numa linha (ícone, nome, ação), para a lista caber com pouca rolagem. */
   @media (max-width: 560px) {
     .card { flex-direction: row; align-items: center; gap: 14px; padding: 12px 14px 12px 16px; }
     .card .icon { width: 32px; height: 32px; margin: 0; }
-    .card h3 { flex: 1; min-width: 0; font-size: var(--text-lg); }
+    .card h2 { flex: 1; min-width: 0; font-size: var(--text-lg); }
     .card .foot { margin: 0; padding: 0; }
   }
   .card p { color: var(--muted); font-size: var(--text-md); line-height: 1.45; max-width: 38ch; }
@@ -239,6 +250,18 @@
   .tool-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
   .tool-head h1 { font-size: clamp(1.45rem, 2.6vw, 1.9rem); font-weight: 650; line-height: 1.15; letter-spacing: -0.025em; }
   .tool-head-actions { display: flex; align-items: center; gap: 8px; }
+  .tool-head-titulo { display: flex; align-items: center; gap: 4px; min-width: 0; }
+  /* A ← do celular: singela (traço liso como os ícones da barra do app, cor apagada, sem caixa), com 44px de alvo; no desktop o
+     cabeçalho do site já leva ao início. */
+  .tool-voltar { display: none; place-items: center; width: 44px; height: 44px; margin-left: -12px; color: var(--muted); }
+  .tool-voltar:hover { color: var(--ink); }
+  .tool-voltar svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  /* Celular com cara de app (a mesma largura da barra do app, 640px): sem o cabeçalho do site (marca e menu); a home é o
+     início, e as ferramentas voltam pela ← (e pela casinha da barra). */
+  @media (max-width: 640px) {
+    .site-header { display: none; }
+    .tool-voltar { display: grid; }
+  }
   .tool-download { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px 0 12px; white-space: nowrap; border-radius: var(--radius-pill); border: 2px solid var(--line); color: var(--ink); font-size: var(--text-sm); font-weight: 600; text-decoration: none; transition: background-color 0.2s, border-color 0.2s; }
   .tool-download:hover { background: var(--soft); border-color: var(--muted); }
   .tool-download:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
@@ -255,31 +278,34 @@
   .info { position: relative; display: inline-flex; flex: none; }
   .info-btn { display: inline-grid; place-items: center; flex: none; width: 44px; height: 44px; padding: 0; border: 2px solid var(--line); border-radius: var(--radius-pill); background: transparent; color: var(--muted); cursor: help; }
   .info-btn:hover { border-color: var(--muted); }
-  /* Dois ? empilhados: o apagado e, por cima, o claro, que "carrega" de baixo para cima (8 degraus, um por linha do desenho)
-     durante o segundo de espera; aberto, fica todo claro; travado, a borda acende também. */
+  /* Dois ? empilhados: o apagado e, por cima, o claro, que "carrega" de baixo para cima durante a espera (--info-abre, vem
+     do Info.tsx); aberto, fica todo claro; travado, a borda acende também. */
   .info-btn svg { grid-area: 1 / 1; width: 10px; height: 16px; }
   .info-carga { color: var(--ink); clip-path: inset(100% 0 0 0); }
   /* Carregando, o ? de baixo apaga até a cor da linha: o claro que sobe por cima fica óbvio mesmo no ? discreto da pauta. */
   .info[data-estado="carregando"] .info-glifo { color: var(--line); }
   .info[data-estado="carregando"] .info-btn { opacity: 1; }
-  .info[data-estado="carregando"] .info-carga { animation: info-carga 1s steps(8, end) forwards; }
-  .info:is([data-estado="aberto"], [data-estado="foco"], [data-estado="travado"]) .info-carga { clip-path: inset(0); }
-  .info:is([data-estado="aberto"], [data-estado="foco"], [data-estado="travado"]) .info-btn { border-color: var(--muted); }
+  .info[data-estado="carregando"] .info-carga { animation: info-carga var(--info-abre) linear forwards; }
+  .info:is([data-estado="aberto"], [data-estado="travando"], [data-estado="foco"], [data-estado="travado"]) .info-carga { clip-path: inset(0); }
+  .info:is([data-estado="aberto"], [data-estado="travando"], [data-estado="foco"], [data-estado="travado"]) .info-btn { border-color: var(--muted); }
   .info[data-estado="travado"] .info-btn { border-color: var(--ink); }
   @keyframes info-carga { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
   .info-tip { display: none; position: absolute; z-index: 30; right: 0; top: calc(100% + 8px); width: max-content; max-width: min(340px, calc(100vw - 32px)); padding: 14px 16px; border-top: var(--px) solid var(--fur-2); background: var(--surface); box-shadow: var(--shadow-up); text-align: left; pointer-events: none; }
-  .info:is([data-estado="aberto"], [data-estado="foco"], [data-estado="travado"]) .info-tip { display: block; }
-  /* Barra de carga do balão: em cima da borda do topo, enche da esquerda em 8 degraus nos 2 s entre abrir e travar. */
+  .info:is([data-estado="aberto"], [data-estado="travando"], [data-estado="foco"], [data-estado="travado"]) .info-tip { display: block; }
+  /* Com o balão aberto pelo hover, o mouse pode ir até ele: a ponte invisível cobre o vão de 8px para o hover não cair no caminho. */
+  .info:is([data-estado="aberto"], [data-estado="travando"]) .info-tip { pointer-events: auto; }
+  .info-tip::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: calc(8px + var(--px)); }
+  /* Barra de carga do balão: em cima da borda do topo, enche da esquerda enquanto o mouse está no balão (--info-trava). */
   .info-tip-barra { position: absolute; left: 0; right: 0; top: calc(-1 * var(--px)); height: var(--px); background: var(--ink); transform: scaleX(0); transform-origin: left; }
-  .info[data-estado="aberto"] .info-tip-barra { animation: info-barra 2s steps(8, end) forwards; }
+  .info[data-estado="travando"] .info-tip-barra { animation: info-barra var(--info-trava) linear forwards; }
   .info[data-estado="travado"] .info-tip-barra { transform: scaleX(1); }
+  /* A barra tem 1 pixel de altura: a área de hover da dica ("clique fora para fechar") desce 12px para dentro do balão. */
+  .info-tip-barra::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 12px; }
   @keyframes info-barra { to { transform: scaleX(1); } }
-  .info[data-estado="travado"] .info-tip { pointer-events: auto; border-top-color: var(--ink); max-height: min(70dvh, 520px); overflow-y: auto; }
-  .info-tip-x { display: none; position: absolute; top: 2px; right: 2px; width: 32px; height: 32px; place-items: center; padding: 0; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
-  .info-tip-x:hover { color: var(--ink); }
-  .info-tip-x svg { width: 14px; height: 14px; }
-  .info[data-estado="travado"] .info-tip-x { display: grid; }
-  .info[data-estado="travado"] .info-tip { padding-right: 40px; }
+  /* Travado, o balão só passa a segurar o mouse; tamanho e conteúdo não mudam. Texto longo rola por dentro, sempre, para a
+     barra (que fica sobre a borda do topo) não ser cortada. */
+  .info[data-estado="travado"] .info-tip { pointer-events: auto; }
+  .info-tip-corpo { display: block; max-height: min(70dvh, 520px); overflow-y: auto; overscroll-behavior: contain; }
   .info-dialog { width: min(480px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); margin: auto; padding: 20px 22px 24px; border: 0; border-top: var(--px) solid var(--fur-2); border-radius: var(--radius); background: var(--surface); color: var(--ink); box-shadow: var(--shadow-up); }
   .info-dialog::backdrop { background: rgb(0 0 0 / 0.6); }
   .info-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
@@ -303,7 +329,7 @@
   .backup-status { min-height: 1.5em; margin-top: 12px; color: var(--muted); font-size: var(--text-sm); }
 
   /* rodapé */
-  .site-footer { margin-top: auto; padding-top: clamp(24px, 4vw, 40px); padding-bottom: env(safe-area-inset-bottom); }
+  .site-footer { margin-top: auto; padding-top: 16px; padding-bottom: env(safe-area-inset-bottom); }
   .site-footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: flex-end; align-items: center; border-top: 2px solid var(--soft); padding-block: 12px 16px; color: var(--muted); font-size: 0.9rem; }
   .site-footer :is(a, .footer-link) { color: var(--accent); font-weight: 500; }
   .site-footer :is(a, .footer-link):hover { text-decoration: underline; }
@@ -389,7 +415,16 @@
   body:has(.app-screen) :is(.site-header, .site-footer) { display: none; }
   .app-screen { display: flex; flex-direction: column; min-height: 100dvh; padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left); }
   .app-screen > .section { flex: 1; display: flex; flex-direction: column; width: 100%; padding-top: 0; padding-bottom: calc(56px + 32px + env(safe-area-inset-bottom)); }
-  .app-screen .tool-head { display: none; }
+  /* Na tela de app, do topo da ferramenta só fica a ←: título e ações moram na tela do app. */
+  .app-screen .tool-head { margin-bottom: 0; }
+  .app-screen .tool-head :is(h1, .tool-head-actions) { display: none; }
+  .app-screen .tool-voltar { margin-left: 0; }
+  /* Com a barra, "Baixar app" fica só nela (o ícone de download), como no afinador e no metrônomo. */
+  body:has(.app-nav) .tool-download { display: none; }
+  /* Fora da tela de app (os treinos), a barra flutua sobre a página: o fim da página ganha o espaço dela. Cantando, a barra
+     sai junto com o cabeçalho, para o gráfico caber inteiro. */
+  body:has(.app-nav):not(:has(.app-screen)) { padding-bottom: calc(56px + 32px + env(safe-area-inset-bottom)); }
+  html.voz-cantando .app-nav { display: none; }
 
   /* A barra flutuante do app (BottomNav.kt): pílula de 56px, a aba atual cheia. */
   .app-nav { position: fixed; z-index: 30; left: max(16px, env(safe-area-inset-left)); right: max(16px, env(safe-area-inset-right)); bottom: calc(16px + env(safe-area-inset-bottom)); display: flex; height: 56px; padding: 6px; border-radius: 28px; background: var(--soft); box-shadow: 0 6px 18px rgb(0 0 0 / 0.45); }

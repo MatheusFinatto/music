@@ -35,18 +35,18 @@ export default async function Hub({ params }: Props) {
       {/* A marmota senta na pauta, que toca o começo de "Marmotte", de Beethoven. */}
       <Pauta t={{
         label: t("hub.pauta.label"), nome: t("hub.pauta.nome"), tocar: t("hub.pauta.tocar"), parar: t("hub.pauta.parar"),
-        historia: t("hub.pauta.historia"), fechar: t("hub.pauta.fechar"), texto: [t("hub.pauta.texto1")],
+        historia: t("hub.pauta.historia"), fechar: t("hub.pauta.fechar"), travado: t("hub.pauta.travado"), texto: [t("hub.pauta.texto1"), t("hub.pauta.texto2")],
       }} />
 
       {/* Uma fileira só: as ferramentas no ar (o card inteiro é o link) e, quietas no fim, as que ainda não existem, com a
-          situação dita no selo. Tudo cabe na tela sem rolar. */}
+          situação dita no selo. No desktop tudo cabe na tela sem rolar; no celular rola. */}
       <section id="ferramentas" aria-label={t("hub.live")}>
         <ul className="score" style={{ "--n": live.length + next.length + planned.length } as React.CSSProperties}>
           {live.map((x) => (
             <li key={x.slug} className="part">
               <ToolLink href={x.href}>
                 <ToolIcon slug={x.slug} />
-                <h3>{name(x)}</h3>
+                <h2>{name(x)}</h2>
                 <span className="foot">
                   <span className="go">{t("hub.open")}<Arrow /></span>
                   {x.status === "laboratorio" && <span className="badge">{t("status.laboratorio")}</span>}
@@ -58,7 +58,7 @@ export default async function Hub({ params }: Props) {
             <li key={x.slug} className="part">
               <div className={`card quieto${x.status === "proxima" ? " proxima" : ""}`}>
                 <ToolIcon slug={x.slug} />
-                <h3>{name(x)}</h3>
+                <h2>{name(x)}</h2>
                 <span className="foot">
                   <span className={`badge${x.status === "proxima" ? " proxima" : ""}`}>{t(x.status === "proxima" ? "status.proxima" : "status.planejada")}</span>
                 </span>

@@ -44,11 +44,10 @@ colors:
   app-selected: "#3ddc84"
 typography:
   display:
-    fontFamily: "Inter, system-ui, -apple-system, Segoe UI, sans-serif"
-    fontSize: "clamp(2.5rem, 5.6vw, 4rem)"
-    fontWeight: 700
+    fontFamily: "Silkscreen, Inter, monospace"
+    fontSize: "48px"
+    fontWeight: 400
     lineHeight: 1
-    letterSpacing: "-0.035em"
   headline:
     fontFamily: "Inter, system-ui, -apple-system, Segoe UI, sans-serif"
     fontSize: "clamp(1.45rem, 2.6vw, 1.9rem)"
@@ -159,13 +158,13 @@ O site é um caderno de música escuro onde mora uma marmota em pixel art. Tudo 
 
 O pixel é a matéria da marca e dos detalhes (marmota, notas, ícones, selos, cantos da placa "Abrir"), sempre em escala inteira e sem suavização. O que se lê continua liso, em Inter. A grade do mundo é de 4px: um pixel da arte vale 4px na tela. Cantos são vivos ou quase vivos, superfícies são planas, e todo movimento da casca da marca anda em degraus, como um sprite, nunca deslizando.
 
-A densidade é baixa: um painel de entrada, não uma página de venda. Não há texto de instrução na interface; o que precisar de explicação vai no "?" (`src/components/Info.tsx`: botão quadrado de 44px com o ? em pixel; no computador, o mouse parado em cima "carrega" o ? de baixo para cima por 1s (8 degraus) e só então abre o balão, e aos 3s o balão trava aberto (com X; fecha também com Esc ou clique fora); clicar trava na hora e o foco pelo teclado abre na hora; no celular, o toque abre um modal; lista curta, ou parágrafos quando é uma história). Créditos, atalhos, avisos e a explicação de cada exercício moram nele.
+A densidade é baixa: um painel de entrada, não uma página de venda. Não há texto de instrução na interface; o que precisar de explicação vai no "?" (`src/components/Info.tsx`: botão quadrado de 44px com o ? em pixel; no computador, o mouse parado em cima "carrega" o ? de baixo para cima por 0,5s e só então abre o balão; levar o mouse ao balão enche a barra do topo e, em 1s, ele trava aberto (sair antes zera a barra; travado, fecha com Esc ou clique fora, e a barra cheia diz isso no hover). O balão é igual em todo estado: só a barra muda, e texto longo rola por dentro; clicar trava na hora e o foco pelo teclado abre na hora; no celular, o toque abre um modal; lista curta, ou parágrafos quando é uma história). Créditos, atalhos, avisos e a explicação de cada exercício moram nele.
 
 **Key Characteristics:**
 - Um tema só, escuro, com a paleta tirada da marmota.
 - Pauta de cinco linhas como estrutura do hub; cada ferramenta é uma nota.
 - Pixel art só em múltiplo inteiro, `image-rendering: pixelated`, grade de 4px.
-- Inter para tudo que se lê; Silkscreen só nos selos de situação.
+- Inter para tudo que se lê; Silkscreen nos selos de situação e no nome "Marmota Music" (logotipo).
 - Cantos vivos (4px no máximo), superfícies planas, sem sombra fora de diálogo.
 - Movimento em degraus (`steps()`), nunca com easing, na casca da marca.
 - Laranja, azul e verde só com significado musical.
@@ -207,14 +206,14 @@ Escuro, esverdeado e quente ao mesmo tempo: a marmota dá o neutro, e três core
 
 ## Typography
 
-**Display Font:** Inter (com system-ui)
+**Display Font:** Silkscreen no nome do site (logotipo); Inter nos demais títulos
 **Body Font:** Inter (com system-ui)
-**Label/Mono Font:** Silkscreen (com Inter, monospace), só nos selos
+**Label/Mono Font:** Silkscreen (com Inter, monospace), nos selos e no nome do site
 
-**Character:** Inter firme e apertada nos títulos, neutra no texto corrido; Silkscreen é o único eco tipográfico do pixel, e fica pequeno e raro.
+**Character:** Inter firme e apertada nos títulos, neutra no texto corrido; Silkscreen é o único eco tipográfico do pixel: o nome do site (feito da mesma matéria da marmota) e os selos, e nada mais.
 
 ### Hierarchy
-- **Display** (700, clamp até 4rem, 1, -0.035em): só o título do hub, ao lado da marmota.
+- **Display** (Silkscreen 400, 48px a 6× / 40px a 5× / 32px no celular, 1): só o título do hub, com o pixel da letra igual ao da marmota ao lado. No cabeçalho, o mesmo nome a 16px.
 - **Headline** (650, clamp até 1.9rem, 1.15, -0.025em): título de seção e título de ferramenta.
 - **Title** (700, 1.25rem, 1.15): nome da ferramenta no card (1.15rem no celular, onde o card vira linha).
 - **Body** (400, 17px, 1.5): texto corrido, até 60ch. O hub não tem frase nem descrição nos cards: ícone e nome bastam.
@@ -226,13 +225,13 @@ As ferramentas usam só os degraus de `globals.css`: `--text-xs` (0.82rem), `--t
 ### Named Rules
 **A Regra do Palco.** O que se lê tocando, com o instrumento na mão e a tela a um metro (o que fazer agora, o acorde, a contagem, a casa), usa `--text-stage` ou `--text-xl` e cor cheia. Texto secundário é sempre menor que isso.
 
-**A Regra do Selo.** Silkscreen só em selos de situação (16px) e nos números da fórmula de compasso da pauta (24px). Nada que se lê em frase usa fonte pixel.
+**A Regra do Selo.** Silkscreen só em selos de situação (16px), nos números da fórmula de compasso da pauta (24px) e no nome "Marmota Music" (logotipo: título da home e cabeçalho; dono, 2026-11-26), sempre em múltiplo de 8px. Nada que se lê em frase usa fonte pixel.
 
 ## Layout
 
 Coluna de até 1120px com respiro lateral de 20px (ou a área segura do aparelho). Cabeçalho de 56px, fixo no topo.
 
-**O palco do hub.** A marmota (52×42 a 6×, ou 5× em tela baixa, embaixo à esquerda) e, ao lado dela, só o título. A marmota senta na linha de cima de uma pauta de cinco linhas (12px entre linhas, linha de 2px) que corre pela largura inteira da coluna e traz, em pixel, o começo de "Marmotte" de Beethoven: fórmula 6/8 em Silkscreen, cabeças 5×4 a 3× (a escala dos ícones), hastes de 3px, bandeirolas e a barra das colcheias ligadas (`src/components/Pauta.tsx`). No celular só cabem a anacruse e o primeiro compasso. Embaixo da pauta, à direita e quase apagado, o rodapé da partitura: "Marmotte · Beethoven", o ▶ (toca o trecho no piano do site e reinicia a animação junto) e o "?" com a história; 32px no mouse, 44px no toque. Depois, numa fileira só, todas as ferramentas: as no ar como card-link, as que ainda não existem como card quieto (só contorno, ícone apagado e o selo) no fim. O hub cabe sem rolar no desktop, de 1366×768 para cima; no celular os cards viram linhas (ícone, nome, ação).
+**O palco do hub.** A marmota (52×42 a 6×, ou 5× em tela baixa, embaixo à esquerda) e, ao lado dela, só o título. A marmota senta na linha de cima de uma pauta de cinco linhas (12px entre linhas, linha de 2px) que corre pela largura inteira da coluna e traz, em pixel, o começo de "Marmotte" de Beethoven: fórmula 6/8 em Silkscreen, cabeças 5×4 a 3× (a escala dos ícones), hastes de 3px, bandeirolas e a barra das colcheias ligadas (`src/components/Pauta.tsx`). No celular a melodia inteira cabe com a pauta a 2× (cabeças 10×8). Embaixo da pauta, à direita e quase apagado, o rodapé da partitura: "Marmotte · Beethoven", o ▶ (toca o trecho no piano do site e reinicia a animação junto) e o "?" com a história; 32px no mouse, 44px no toque. Depois, numa fileira só, todas as ferramentas: as no ar como card-link, as que ainda não existem como card quieto (só contorno, ícone apagado e o selo) no fim. A composição fica centrada na altura livre, um pouco acima do meio, para a sobra de uma tela alta não virar um vão em cima do rodapé; na home o menu do cabeçalho some (os cards já são o menu). O hub cabe sem rolar no desktop, de 1366×681 para cima; no celular rola, e os cards viram linhas (ícone, nome, ação).
 
 **Responsivo.**
 - Desktop (≥961px): uma coluna por ferramenta.
@@ -305,7 +304,7 @@ A marmota em 52×42 tem dois quadros por cima da base, trocados em degraus (`ste
 Desenhos 16×16 escritos como grade de texto ("#" aceso, "+" sombra) e renderizados pelo `PixelArt` num SVG de um path por cor, na cor do texto. Ferramenta nova sem desenho usa o genérico até ganhar o seu.
 
 ### Tela de app (celular)
-No celular (≤640px), afinador e metrônomo marcam `.app-screen`: some cabeçalho, rodapé e título; a paleta vira a do app, os raios voltam a ser de app (22px, 14px, 10px e pílula de verdade) e aparece a barra flutuante de 56px com a aba atual cheia. É uma cópia deliberada do Marmota Tuner, não uma exceção a corrigir.
+No celular (≤640px), afinador e metrônomo marcam `.app-screen`: some cabeçalho, rodapé e título; a paleta vira a do app, os raios voltam a ser de app (22px, 14px, 10px e pílula de verdade) e aparece a barra flutuante de 56px com a aba atual cheia. É uma cópia deliberada do Marmota Tuner, não uma exceção a corrigir. O site espelha os apps: os treinos de ouvido e de voz têm a mesma barra com as abas do Marmota Trainer (Ouvido, Voz), a casinha do início e o download do APK daquele app (`AppNav.tsx`), mas mantêm o mundo da marmota. Em todo o celular o cabeçalho do site some, e cada ferramenta tem no topo uma ← de traço liso (a mesma família dos ícones da barra), apagada e sem caixa, que volta ao início.
 
 ## Do's and Don'ts
 
@@ -322,7 +321,7 @@ No celular (≤640px), afinador e metrônomo marcam `.app-screen`: some cabeçal
 - **Don't** usar laranja, azul ou verde como enfeite.
 - **Don't** colocar um segundo elemento decorativo animado no hub; a cena da marmota é o único.
 - **Don't** usar easing (`cubic-bezier`, `ease-out`) no movimento da casca da marca; pixel não desliza.
-- **Don't** usar Silkscreen em texto corrido, título ou botão, nem em tamanho que não seja 16px.
+- **Don't** usar Silkscreen em texto corrido, título (exceto o nome do site) ou botão, nem em tamanho fora de múltiplo de 8px.
 - **Don't** arredondar cards ou botões acima de 4px fora da tela de app, nem pôr sombra em card.
 - **Don't** usar as cores de madeira fora do desenho do braço da guitarra.
 - **Don't** escalar pixel art em fração, nem passar a marmota pelo otimizador do `next/image`.

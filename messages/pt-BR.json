@@ -28,7 +28,9 @@
       "parar": "Parar",
       "historia": "A história desta música",
       "fechar": "Fechar",
-      "texto1": "Marmotte é uma canção de Ludwig van Beethoven sobre um poema de Goethe, escrita por volta de 1790 e publicada em 1805 (op. 52 nº 7). É a canção de um menino que roda o mundo com a sua marmota e, por onde passa, sempre acha o que comer."
+      "travado": "Clique fora para fechar",
+      "texto1": "Marmotte é uma canção de Beethoven sobre um poema de Goethe, publicada em 1805 (op. 52 nº 7). É a canção de um menino que roda o mundo com a sua marmota, provavelmente inspirada nos jovens da Saboia que, no século XVIII, ganhavam moedas pelas feiras da Europa com marmotas treinadas.",
+      "texto2": "Goethe deu voz a um deles numa peça sobre uma feira, e Beethoven fez do poema uma canção para voz e piano."
     },
     "live": "Disponíveis agora",
     "next": "A seguir",
@@ -114,6 +116,7 @@
     "beatLabel": "Tempo {n}: {accent}",
     "beatHint": "Toque numa bolinha para mudar o tempo: normal, forte ou mudo.",
     "close": "Fechar",
+    "infoTravado": "Clique fora para fechar",
     "infoOpen": "Como usar",
     "infoTitle": "Como usar",
     "infoItems": [
@@ -228,6 +231,7 @@
     "creditos": "Piano: Salamander Grand Piano, de Alexander Holm (CC BY 3.0).",
     "info": "Como funciona",
     "fechar": "Fechar",
+    "infoTravado": "Clique fora para fechar",
     "nomes": {
       "ritmo": {
         "s4": "Quatro semínimas",
