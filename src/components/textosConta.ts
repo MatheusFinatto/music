@@ -6,5 +6,5 @@ export async function textosConta(): Promise<TextosConta> {
   const t = await getTranslations("conta");
   const k = ["entrarLabel", "contaLabel", "titulo", "texto", "guardado", "entrar", "carregando", "dentro", "dentroTexto", "sair", "apagar",
     "apagarConfirma", "apagarSim", "cancelar", "erroEntrar", "erroApagar", "fechar"] as const;
-  return Object.fromEntries(k.map((x) => [x, t(x)])) as TextosConta;
+  return { ...(Object.fromEntries(k.map((x) => [x, t(x)])) as Omit<TextosConta, "itens">), itens: t.raw("itens") as string[] };
 }

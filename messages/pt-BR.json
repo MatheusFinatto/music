@@ -71,32 +71,28 @@
   "conta": {
     "entrarLabel": "Entrar com Google (opcional)",
     "contaLabel": "Sua conta",
-    "titulo": "Levar seu progresso",
-    "texto": "Para levar seu progresso entre o site, o Marmota Tuner e o Marmota Trainer, você pode entrar com o Google. É opcional e existe só para isso. Você nunca vai receber e-mail nosso.",
+    "titulo": "Conta (opcional)",
+    "texto": "Entrando com o Google, seu progresso vai junto do computador pro celular, seja no navegador ou nos apps. Sem entrar, tudo funciona igual e fica só neste aparelho. E você nunca vai receber e-mail nosso.",
     "guardado": "O que fica guardado",
+    "itens": [
+      "Seu e-mail e uma cópia do que você salva aqui: os favoritos do metrônomo e o progresso do treino de ouvido e de voz.",
+      "A cópia fica no Firebase, do Google, e só a sua conta lê. Não usamos pra mais nada: sem anúncio, sem e-mail, sem venda de dados.",
+      "Sair só para de sincronizar; o que está no aparelho continua aqui. \"Apagar meus dados\" apaga a cópia e a conta."
+    ],
     "entrar": "Entrar com Google",
     "carregando": "Carregando…",
     "dentro": "Sua conta",
-    "dentroTexto": "Seu progresso vai junto para o site, o Marmota Tuner e o Marmota Trainer.",
+    "dentroTexto": "Seu progresso vai junto pra todo navegador e app em que você entrar com esta conta.",
     "sair": "Sair",
     "apagar": "Apagar meus dados",
-    "apagarConfirma": "Apagar a cópia na nuvem e a conta? O que está neste aparelho fica.",
+    "apagarConfirma": "Apagar a cópia na nuvem e a conta? O que está neste aparelho continua aqui.",
     "apagarSim": "Apagar",
     "cancelar": "Cancelar",
-    "erroEntrar": "Não deu para entrar. Tente de novo.",
-    "erroApagar": "Não deu para apagar. Tente de novo.",
+    "erroEntrar": "Não deu pra entrar. Tenta de novo.",
+    "erroApagar": "Não deu pra apagar. Tenta de novo.",
     "fechar": "Fechar"
   },
-  "privacidade": {
-    "title": "Privacidade",
-    "description": "O que o Marmota Music guarda de quem entra com o Google, e como apagar.",
-    "itens": [
-      "Sem entrar, nada sai do seu aparelho: o progresso fica só no navegador ou no app.",
-      "Entrando com o Google, guardamos seu e-mail e uma cópia do que você salva nas ferramentas (favoritos do metrônomo, progresso e registro do treino de ouvido e de voz), para levar entre o site e os apps.",
-      "A cópia fica no Firebase, do Google, e só a sua conta consegue ler. Ninguém mais vê, e não usamos para mais nada: sem anúncio, sem e-mail, sem venda de dados.",
-      "Sair para a sincronização e deixa tudo no aparelho. \"Apagar meus dados\", no mesmo lugar onde você entrou, apaga a cópia e a conta; o que está no aparelho fica."
-    ]
-  },
+
   "metronomo": {
     "title": "Metrônomo",
     "description": "Metrônomo no navegador: andamento de 30 a 250 bpm, tempos com acento, divisões do tempo, tap e timer.",

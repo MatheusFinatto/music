@@ -50,17 +50,17 @@ percebe diferença nenhuma. Substitui o "baixar/restaurar JSON" da home.
 8. **Lógica comum no Kotlin** (`marmota-tuner/core`, pacote novo `conta`): decidir puxar/empurrar por chave, soma dos
    registros diários, conversão dos favoritos antigos do Tuner. Exportada para o site como o resto (`exportToSite`).
 9. **Interface** (dono, 2026-11-26):
-   - **O botão é só o "G" do Google**, colorido, sem texto, bem singelo. Tocar abre um modal que explica tudo:
-     "Para levar seu progresso entre o site, o Marmota Tuner e o Marmota Trainer, você pode entrar com o Google. É opcional
-     e existe só para isso. Você nunca vai receber e-mail nosso." Embaixo: o que fica guardado (link para `/privacidade`) e o
-     botão "Entrar com Google". Logado, o mesmo modal mostra o e-mail, "Sair" e "Apagar meus dados".
+   - **O botão é só o "G" do Google**, colorido, sem texto, bem singelo. Tocar abre **um modal só** (dono, 2026-11-26): na
+     primeira linha a ação ("Entrar com Google"; logado: o e-mail, "Sair" e "Apagar meus dados"), para quem só quer entrar;
+     embaixo, para quem quer ler, o texto ("seu progresso vai junto do computador pro celular, seja no navegador ou nos
+     apps… você nunca vai receber e-mail nosso") e "O que fica guardado". Sem página à parte.
    - **Apps:** o "G" fica na barra de baixo, junto das abas, nos dois apps. Logado, no lugar do "G", um ícone de conta de
      traço liso (o mesmo padrão dos outros ícones da barra).
    - **Site:** no celular, a barra do app (`AppNav`) ganha o mesmo "G" (o site espelha os apps). Na home, o "G" fica onde
      hoje está "Backup de dados", no rodapé; no desktop das ferramentas, no rodapé também.
    - O "G" segue a marca do Google (as quatro cores, sem alterar o desenho), em SVG no próprio código.
-10. **LGPD:** página curta `/privacidade` (o que guarda: e-mail e os dados acima; onde: Firebase/Google; como apagar).
-   "Apagar meus dados" apaga todos os documentos e a conta no Firebase.
+10. **LGPD:** o "O que fica guardado" do próprio modal diz o que guarda (e-mail e os dados acima), onde (Firebase/Google) e
+   como apagar. "Apagar meus dados" apaga todos os documentos e a conta no Firebase.
 11. **Configuração (pública, não é segredo):** site em `NEXT_PUBLIC_FIREBASE_*` (Vercel); apps em `gradle.properties`
     (API key e Web client ID) → `BuildConfig`. A proteção dos dados são as regras do Firestore.
 
@@ -78,7 +78,7 @@ Outros provedores de login; sincronizar o Laboratório; compartilhar entre pesso
 
 ## Plano (commits na branch `fix/sem-setas`, um por etapa)
 1. Kotlin `core/conta` + testes; `exportToSite`.
-2. Site: carimbo `em` por chave no `createStore`; módulo de sincronização; login; troca do backup; `/privacidade`; regras.
+2. Site: carimbo `em` por chave no `createStore`; módulo de sincronização; login; troca do backup; regras.
 3. Tuner 1.9: migração dos favoritos; login e sincronização por REST.
 4. Trainer 1.6: login e sincronização por REST; "Hoje" soma os aparelhos.
 5. Releases dos dois apps.

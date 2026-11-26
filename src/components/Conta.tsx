@@ -1,12 +1,11 @@
 "use client";
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
-import { Link } from "@/i18n/navigation";
 import { apagarConta, conta, contaPronta, entrar, iniciarConta, prepararConta, sair } from "@/core/conta";
 
 export type TextosConta = {
   entrarLabel: string; contaLabel: string; titulo: string; texto: string; guardado: string; entrar: string; carregando: string;
   dentro: string; dentroTexto: string; sair: string; apagar: string; apagarConfirma: string; apagarSim: string; cancelar: string;
-  erroEntrar: string; erroApagar: string; fechar: string;
+  erroEntrar: string; erroApagar: string; fechar: string; itens: string[];
 };
 
 /** O "G" do Google, nas cores da marca, sem mudar o desenho. */
@@ -58,10 +57,10 @@ export function Conta({ t, className }: { t: TextosConta; className?: string }) 
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
           </button>
         </div>
+        {/* Primeira linha: a ação, para quem só quer entrar (ou sair). Embaixo, para quem quer ler, o texto e o que fica guardado. */}
         {dentro ? (
           <>
             {s.email && <p className="conta-email">{s.email}</p>}
-            <p className="conta-texto">{t.dentroTexto}</p>
             {confirmando ? (
               <>
                 <p className="conta-texto">{t.apagarConfirma}</p>
@@ -76,19 +75,21 @@ export function Conta({ t, className }: { t: TextosConta; className?: string }) 
                 <button type="button" className="conta-link" disabled={s.ocupado} onClick={() => setConfirmando(true)}>{t.apagar}</button>
               </div>
             )}
+            <p className="conta-texto">{t.dentroTexto}</p>
           </>
         ) : (
           <>
-            <p className="conta-texto">{t.texto}</p>
             <div className="conta-acoes">
               <button type="button" className="conta-google" disabled={!pronta || s.ocupado} onClick={() => void entrar().then(() => { if (conta.get().fase === "dentro") fechar(); })}>
                 <LogoGoogle />{pronta ? t.entrar : t.carregando}
               </button>
             </div>
-            <Link className="conta-guardado" href="/privacidade">{t.guardado}</Link>
+            <p className="conta-texto">{t.texto}</p>
           </>
         )}
         {s.erro && <p className="conta-erro" role="alert">{s.erro === "entrar" ? t.erroEntrar : t.erroApagar}</p>}
+        <h3 className="conta-sub">{t.guardado}</h3>
+        <ul className="conta-itens">{t.itens.map((x) => <li key={x}>{x}</li>)}</ul>
       </dialog>
     </>
   );
