@@ -20,6 +20,8 @@ percebe diferença nenhuma. Substitui o "baixar/restaurar JSON" da home.
 ## Decisões
 1. **Os dados continuam locais e são a fonte.** Site: `localStorage` (`musica:<chave>`). Apps: `SharedPreferences("musica")`
    com as mesmas chaves e o mesmo JSON do site (o Trainer já é assim; o Tuner migra, ver 6). A nuvem é cópia sincronizada.
+   Quem não entra usa só o local, como hoje, para sempre (dono, 2026-11-26). "Sair" não apaga nada do aparelho: só para
+   de sincronizar. "Apagar meus dados" apaga a nuvem e a conta; o que está no aparelho fica.
 2. **Sem SDK do Firebase no Android.** O SDK se inicia sozinho na abertura do app (ContentProvider) e soma MB ao APK.
    Os apps falam com o Firebase pela API REST:
    - login: Credential Manager (`androidx.credentials` + `googleid`) devolve o token do Google →
