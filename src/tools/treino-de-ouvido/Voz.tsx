@@ -487,7 +487,7 @@ export function Voz({ programa }: { programa?: ProgramaProp }) {
               <button key={v} type="button" role="radio" aria-checked={s.vista === v} tabIndex={s.vista === v ? 0 : -1} onClick={() => store.set((x) => ({ ...x, vista: v }))}>{t(`voz.vistas.${v}`)}</button>
             ))}
           </div>
-          <Info label={t("info")} title={t("info")} close={t("fechar")} items={[
+          <Info label={t("info")} title={t("info")} close={t("fechar")} travado={t("infoTravado")} items={[
           dicaBase,
           ex === "tonica" ? t("voz.bordaoNota") : "",
           !programa && (ex === "intervalo" || (ex === "tonica" && s.grau === "sortear"))

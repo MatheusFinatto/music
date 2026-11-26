@@ -289,7 +289,7 @@ export function Cantar({ cfg: cfgSalva, onCfg, tonica, tolerancia, qualquerOitav
       </div>}
 
       <div className="cantar-info">
-        <Info label={t("info")} title={t("info")} close={t("fechar")} items={[
+        <Info label={t("info")} title={t("info")} close={t("fechar")} travado={t("infoTravado")} items={[
           t("voz.musica.dica"), t("voz.fone"),
           musica.confianca === "alta" ? "" : t(musica.confianca === "baixa" ? "voz.musica.conferirBaixa" : "voz.musica.conferirMedia"),
           t("voz.privado"), t("voz.atalhos"), t("creditos"),

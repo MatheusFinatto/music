@@ -351,7 +351,7 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
           <div className="treino-pergunta">
             <h2 ref={titulo} tabIndex={-1}>{pergunta}</h2>
           </div>
-          <Info label={t("info")} title={t("info")} close={t("fechar")} items={[dica, t("atalhos"), t("creditos")]} />
+          <Info label={t("info")} title={t("info")} close={t("fechar")} travado={t("infoTravado")} items={[dica, t("atalhos"), t("creditos")]} />
         </div>
 
         {afinacao && (

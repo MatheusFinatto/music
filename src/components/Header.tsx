@@ -9,9 +9,9 @@ export async function Header() {
     <header className="site-header">
       <div className="wrap">
         <Link className="brand" href="/" translate="no">
-          {/* Pixel art de 32×32: mostrada em 32px exatos, sem suavizar, para cada ponto cair num pixel. */}
+          {/* A mesma marmota da home (52×42), parada: em 1×, sem suavizar, para cada ponto cair num pixel. */}
           {/* eslint-disable-next-line @next/next/no-img-element -- 1 KB e tamanho fixo; o otimizador do next/image só borraria a pixel art */}
-          <img src="/marmota.png" width={32} height={32} alt="" />
+          <img src="/marmota-52x42.png" width={52} height={42} alt="" />
           {t("site.name")}
         </Link>
         <nav aria-label={t("nav.label")}>

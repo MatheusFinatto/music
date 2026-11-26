@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { AppNav } from "@/components/AppNav";
 import { ToolHeader } from "@/components/ToolHeader";
 import { TreinoDeOuvido } from "./TreinoDeOuvido";
 
@@ -10,6 +11,7 @@ export async function TreinoDeOuvidoPage() {
         <ToolHeader title={t("title")} app="ear" />
         <TreinoDeOuvido />
       </section>
+      <AppNav current="treino-de-ouvido" />
     </main>
   );
 }

@@ -25,8 +25,6 @@ const MELODIA: Nota[] = [
   { t: 19, p: 4, d: 3 }, // B4: começo do 4º compasso
 ];
 const BARRAS = [1, 7, 13, 19]; // barras de compasso, em colcheias
-/** Quanto cabe em cada largura (globals.css): no celular, a anacruse e o 1º compasso (.c2 some); no tablet, até o 2º (.c3 some). */
-const compasso = (t: number) => (t >= 13 ? " c2 c3" : t >= 7 ? " c2" : "");
 /** Lá menor natural, clave de sol: meia-linha → MIDI (F5, E5, D5, C5, B4, A4, G4, F4, E4). */
 const MIDI = [77, 76, 74, 72, 71, 69, 67, 65, 64];
 /** A colcheia, em segundos: a mesma de --colcheia no CSS. */
@@ -113,7 +111,7 @@ const STOP = `
 #####
 #####`;
 
-export type TextosPauta = { label: string; nome: string; tocar: string; parar: string; historia: string; fechar: string; texto: string[] };
+export type TextosPauta = { label: string; nome: string; tocar: string; parar: string; historia: string; fechar: string; travado: string; texto: string[] };
 
 export function Pauta({ t }: { t: TextosPauta }) {
   const grupos = [1, 2].map((g) => {
@@ -152,9 +150,9 @@ export function Pauta({ t }: { t: TextosPauta }) {
         <PixelArt grid={CLAVE} className="pauta-clave" />
         <span className="pauta-formula" aria-hidden="true"><PixelArt grid={SEIS} /><PixelArt grid={OITO} /></span>
         <PixelArt grid={PIANO} className="pauta-dinamica" />
-        {BARRAS.map((b) => <span key={b} className={`pauta-barra${compasso(b)}`} style={{ "--t": b - 0.3 } as React.CSSProperties} />)}
+        {BARRAS.map((b) => <span key={b} className="pauta-barra" style={{ "--t": b - 0.3 } as React.CSSProperties} />)}
         {MELODIA.map((n, i) => (
-          <span key={i} className={`pauta-nota d${n.d}${compasso(n.t)}`}
+          <span key={i} className={`pauta-nota d${n.d}`}
             style={{ "--p": n.p, "--t": n.t, "--haste": n.p - topo(n) } as React.CSSProperties}>
             <PixelArt grid={CABECA} className="pauta-cabeca" />
             <span className="pauta-haste" />
@@ -163,7 +161,7 @@ export function Pauta({ t }: { t: TextosPauta }) {
           </span>
         ))}
         {grupos.map((x) => (
-          <span key={x.g} className={`pauta-viga${compasso(x.t0)}`} style={{ "--t": x.t0, "--t1": x.t1, "--p": x.topo } as React.CSSProperties} />
+          <span key={x.g} className="pauta-viga" style={{ "--t": x.t0, "--t1": x.t1, "--p": x.topo } as React.CSSProperties} />
         ))}
       </div>
       <figcaption className="pauta-rodape">
@@ -171,7 +169,7 @@ export function Pauta({ t }: { t: TextosPauta }) {
         <button type="button" className="pauta-play" onClick={() => void tocar()} aria-label={estado === "parado" ? t.tocar : t.parar} title={estado === "parado" ? t.tocar : t.parar} aria-busy={estado === "carregando"}>
           <PixelArt grid={estado === "parado" ? PLAY : STOP} />
         </button>
-        <Info className="info-sutil" label={t.historia} title={t.nome} close={t.fechar} items={t.texto} texto />
+        <Info className="info-sutil" label={t.historia} title={t.nome} close={t.fechar} travado={t.travado} items={t.texto} texto />
       </figcaption>
     </figure>
   );
