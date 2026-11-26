@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.os.SystemClock
 import android.view.View
+import br.musica.marmota.common.Paleta
 
 /**
  * The single tuner screen. Call [show] with every smoothed reading; the needle animates on its own.
@@ -16,7 +17,7 @@ class TunerView(context: Context) : View(context) {
     private val scene = TunerScene().apply { message = context.getString(R.string.play_a_string) }
 
     init {
-        setBackgroundColor(context.getColor(R.color.tuner_background))
+        setBackgroundColor(Paleta.ground)
     }
 
     /** [reading] null means silence: the last note and the needle stay where they were, dimmed, so the last reading can still be read. */

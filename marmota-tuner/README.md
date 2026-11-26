@@ -33,7 +33,7 @@ A lógica do treino tem fixtures (`core/src/jvmTest/resources/treino-fixtures.js
 O código de `core/` não pode usar nada só da JVM (`Math.*`, `System.*`, `java.*`): use o equivalente de `kotlin.math` e da biblioteca padrão. Tudo em `core/` é exportado para o TypeScript (`@file:JsExport`); por isso a API pública usa `Double` no lugar de `Long`.
 
 ## Marmota Trainer (`trainer/`)
-O segundo app (`br.musica.marmotaear`): o treino de ouvido e de voz do site (`/treino-de-ouvido`, `/treino-de-voz`) no celular, com a cara do Tuner (paleta de `colors.xml`, pílulas, folhas no centro, barra flutuante Ouvido | Voz). Mesma lógica do site (`core/treino`), mesmos textos (gerados de `messages/pt-BR.json` no build) e as mesmas amostras de piano (copiadas de `public/sons/piano` no build). Os dados ficam em `SharedPreferences`, no mesmo formato JSON do `localStorage` do site.
+O segundo app (`br.musica.marmotaear`): o treino de ouvido e de voz do site (`/treino-de-ouvido`, `/treino-de-voz`) no celular, com a cara do Tuner (a paleta da marmota, de `android-common/.../Paleta.kt`, a mesma do site; pílulas, folhas no centro, barra flutuante Ouvido | Voz). Mesma lógica do site (`core/treino`), mesmos textos (gerados de `messages/pt-BR.json` no build) e as mesmas amostras de piano (copiadas de `public/sons/piano` no build). Os dados ficam em `SharedPreferences`, no mesmo formato JSON do `localStorage` do site.
 
 ```bash
 ./gradlew :trainer:assembleDebug

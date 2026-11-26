@@ -30,13 +30,13 @@ import kotlin.math.min
  * for whoever wants to read, the text and what is kept. Same look as the apps' sheets (dark rounded card, × in thin line).
  */
 object ContaUi {
-    // The apps' palette (colors.xml of the Tuner; C in the Trainer's Ui.kt).
-    private val BAR = Color.parseColor("#2E2E2E")
-    private val INK = Color.parseColor("#EDEDED")
-    private val MUTED = Color.parseColor("#9A9A9A")
-    private val LINE = Color.parseColor("#4A4A4A")
-    private val BG = Color.parseColor("#1E1E1E")
-    private val BAD = Color.parseColor("#EF8F7C")
+    // The apps' palette (Paleta.kt).
+    private val BAR = Paleta.soft
+    private val INK = Paleta.ink
+    private val MUTED = Paleta.muted
+    private val LINE = Paleta.line
+    private val BG = Paleta.ground
+    private val BAD = Paleta.bad
 
     /** The bar's button, 44 dp wide. [aoPuxar]: something came from the cloud right after signing in (the screen reloads). */
     fun botao(act: Activity, aoPuxar: () -> Unit): ImageView = ImageView(act).apply {

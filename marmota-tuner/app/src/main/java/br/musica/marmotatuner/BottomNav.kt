@@ -9,6 +9,7 @@ import android.view.WindowInsets
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import br.musica.marmota.common.Paleta
 
 /** As duas telas do app. */
 enum class Screen { TUNER, METRONOME }
@@ -24,13 +25,13 @@ enum class Screen { TUNER, METRONOME }
 fun Activity.withBottomNav(content: View, current: Screen): View {
     val dp = { v: Int -> (v * resources.displayMetrics.density).toInt() }
     val root = FrameLayout(this)
-    root.setBackgroundColor(getColor(R.color.tuner_background))
+    root.setBackgroundColor(Paleta.ground)
     // Espaço embaixo do conteúdo para a barra não cobrir nada.
     root.addView(content, FrameLayout.LayoutParams(-1, -1).apply { bottomMargin = dp(BAR_HEIGHT + BAR_GAP * 2) })
 
     val bar = LinearLayout(this).apply {
         orientation = LinearLayout.HORIZONTAL
-        background = GradientDrawable().apply { cornerRadius = dp(BAR_HEIGHT / 2).toFloat(); setColor(getColor(R.color.tuner_bar)) }
+        background = GradientDrawable().apply { cornerRadius = dp(BAR_HEIGHT / 2).toFloat(); setColor(Paleta.soft) }
         setPadding(dp(6), dp(6), dp(6), dp(6))
         elevation = dp(6).toFloat()
     }
@@ -40,8 +41,8 @@ fun Activity.withBottomNav(content: View, current: Screen): View {
             text = getString(label)
             textSize = 15f
             gravity = Gravity.CENTER
-            setTextColor(getColor(if (on) R.color.tuner_background else R.color.tuner_ink))
-            if (on) background = GradientDrawable().apply { cornerRadius = dp(BAR_HEIGHT / 2).toFloat(); setColor(getColor(R.color.tuner_ink)) }
+            setTextColor(if (on) Paleta.ground else Paleta.ink)
+            if (on) background = GradientDrawable().apply { cornerRadius = dp(BAR_HEIGHT / 2).toFloat(); setColor(Paleta.ink) }
             isSelected = on
             contentDescription = getString(label)
             setOnClickListener { if (!on) go(screen) }

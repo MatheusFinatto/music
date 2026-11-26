@@ -11,6 +11,7 @@ import android.util.TypedValue
 import java.util.Locale
 import kotlin.math.cos
 import kotlin.math.sin
+import br.musica.marmota.common.Paleta
 
 /**
  * Draws the tuner: note + octave, frequency, dial with ♭/♯ ends, needle, pivot, mic level.
@@ -20,11 +21,11 @@ import kotlin.math.sin
  */
 class TunerPainter(context: Context) {
     private val metrics = context.resources.displayMetrics
-    private val ink = context.getColor(R.color.tuner_ink)
-    private val muted = context.getColor(R.color.tuner_muted)
-    private val target = context.getColor(R.color.tuner_target)
-    private val now = context.getColor(R.color.tuner_now)
-    private val inTune = context.getColor(R.color.tuner_in_tune)
+    private val ink = Paleta.ink
+    private val muted = Paleta.muted
+    private val target = Paleta.target
+    private val now = Paleta.now
+    private val inTune = Paleta.selected
 
     private val notePaint = textPaint(target, Paint.Align.CENTER, Typeface.create("sans-serif-light", Typeface.NORMAL))
     private val octavePaint = textPaint(target, Paint.Align.LEFT, Typeface.create("sans-serif", Typeface.NORMAL))

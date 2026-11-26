@@ -402,7 +402,8 @@
 
 /*
  * Celular: o afinador e o metrônomo têm a cara do app Android (marmota-tuner). A página marca <main class="app-screen">;
- * aqui some o cabeçalho, o rodapé e o título, a paleta vira a do app (colors.xml) e aparece a barra flutuante (AppNav).
+ * aqui some o cabeçalho, o rodapé e o título, os raios e a fonte viram os do app e aparece a barra flutuante (AppNav).
+ * A paleta é uma só nos dois (a da marmota); src/core/paleta.test.ts confere contra marmota-tuner/android-common/.../Paleta.kt.
  * .only-mob e .only-desk escolhem o que cada largura mostra quando as duas disposições diferem.
  */
 .app-nav { display: none; }
@@ -414,17 +415,9 @@
     --radius-md: 14px;
     --radius-sm: 10px;
     --radius-pill: 999px;
-    --bg: #1e1e1e;
-    --surface: #1e1e1e;
-    --soft: #2e2e2e; /* tuner_bar: barra, folhas e bolinhas */
-    --ink: #ededed;
-    --muted: #9a9a9a;
-    --line: #4a4a4a;
-    --accent: #4aa3ff; /* tuner_now: tocando agora */
-    --accent-ink: #0b1520;
-    --accent-soft: #1d3550;
-    --target: #ff7a1a;
-    --ok: #3ddc84; /* tuner_in_tune: selecionado */
+    /* As cores são as mesmas do site (os apps usam a paleta da marmota: android-common/Paleta.kt). No app a tela não tem
+       cartão: a superfície é o próprio fundo, e barra, folhas e bolinhas ficam na sombra suave. */
+    --surface: var(--bg);
     background: var(--bg);
     font-family: system-ui, Roboto, sans-serif;
   }

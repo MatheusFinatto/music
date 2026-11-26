@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- One theme, dark: the Marmota Tuner family (app/res/values/colors.xml). Colors live in Ui.kt (C). -->
+    <!-- One theme, dark: the marmot's palette, shared with the Tuner (android-common: Paleta.kt and res/values/paleta.xml). -->
     <style name="Theme.MarmotaEar" parent="android:Theme.Material.NoActionBar">
-        <item name="android:windowBackground">@color/fundo</item>
-        <item name="android:statusBarColor">@color/fundo</item>
-        <item name="android:navigationBarColor">@color/fundo</item>
+        <item name="android:windowBackground">@color/marmota_ground</item>
+        <item name="android:statusBarColor">@color/marmota_ground</item>
+        <item name="android:navigationBarColor">@color/marmota_ground</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:colorAccent">@color/azul</item>
-        <item name="android:colorControlHighlight">#33EDEDED</item>
+        <item name="android:colorAccent">@color/marmota_now</item>
+        <item name="android:colorControlHighlight">#33DBDCD6</item>
     </style>
-    <color name="fundo">#FF1E1E1E</color>
-    <color name="azul">#FF4AA3FF</color>
 </resources>

@@ -15,6 +15,7 @@ import android.widget.OverScroller
 import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.roundToInt
+import br.musica.marmota.common.Paleta
 
 /**
  * The tempo as a vertical drum of numbers: drag or fling it, and it settles on a whole bpm. The numbers grow
@@ -42,7 +43,7 @@ class BpmWheel(context: Context, private val min: Int, private val max: Int) : V
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
         typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-        color = context.getColor(R.color.tuner_ink)
+        color = Paleta.ink
     }
 
     init {
