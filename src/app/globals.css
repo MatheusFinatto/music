@@ -131,11 +131,11 @@
   @media (max-width: 680px) { .site-header nav a { display: inline-flex; align-items: center; min-height: 44px; } .brand { min-height: 44px; } }
   /* Em tela muito estreita o menu rola dentro dele mesmo, nunca a página inteira para o lado. */
   .site-header nav { display: flex; align-items: center; gap: 2px; min-width: 0; overflow-x: auto; scrollbar-width: none; }
-  /* Na home os cards logo abaixo já são o menu: o do topo some ali (repetiria as mesmas ferramentas). */
-  body:has(main.hub) .site-header nav { display: none; }
+  /* Na home o cabeçalho inteiro some: os cards já são o menu e a marmota com o nome já é a marca (repetiria os dois). */
+  body:has(main.hub) .site-header { display: none; }
   @media (max-width: 560px) { .site-header .wrap { gap: 6px; } .brand { font-size: 0; gap: 0; } .site-header nav a { font-size: 0.84rem; padding: 8px 8px; } }
 
-  /* A home ocupa a altura que sobra entre cabeçalho e rodapé e centra a composição nela, um pouco acima do meio (centro óptico:
+  /* A home ocupa a altura que sobra acima do rodapé e centra a composição nela, um pouco acima do meio (centro óptico:
      mais respiro embaixo que em cima: 2 para 3). Os espaçadores só dividem a sobra; sem sobra (celular), somem. Assim a sobra de uma tela alta se divide em vez de virar um vão só em cima do rodapé. */
   .hub { flex: 1 0 auto; display: flex; flex-direction: column; padding-top: 16px; }
   .hub::before, .hub::after { content: ""; flex: 2 1 0; }
@@ -156,7 +156,7 @@
     .stage { grid-template-columns: 1fr; justify-items: start; }
     .marmota { --m: 4; }
     .stage h1 { font-size: 32px; }
-    .stage-text { padding-bottom: 0; }
+    .stage-text { padding-bottom: 0; order: -1; }
   }
 
   /* Pauta: o começo de "Marmotte", de Beethoven (src/components/Pauta.tsx), como na partitura impressa. Pixel da pauta --u = 3px (a
@@ -181,10 +181,9 @@
   .pauta-ponto { position: absolute; left: calc(7 * var(--u)); top: calc(-1 * var(--u)); width: calc(2 * var(--u)); height: calc(2 * var(--u)); background: currentColor; }
   .pauta-viga { position: absolute; height: calc(2 * var(--u)); top: calc(var(--staff-top) + var(--p) * var(--gap-line) / 2 + 1px - 2 * var(--u) + var(--u) - 12 * var(--u)); background: var(--ink);
     margin-left: calc(4 * var(--u)); width: calc((var(--t1) - var(--t)) * (100% - var(--pre)) / var(--cols) + var(--u)); }
-  @media (max-width: 720px) { .pauta { margin-top: 0; } }
   @media (max-width: 560px) { .pauta { --u: 2px; } }
-  /* No desktop a marmota senta um pouco à direita: a clave sobe acima da pauta e não pode ficar embaixo dela. */
-  @media (min-width: 721px) { .stage .marmota { margin-left: 48px; } }
+  /* A marmota senta um pouco à direita: a clave sobe acima da pauta e não pode ficar embaixo dela. */
+  .stage .marmota { margin-left: 48px; }
 
   /* Rodapé da pauta: nome, play e "?", pequenos e apagados (passam despercebidos); no toque, 44px de alvo. */
   .pauta-figura { margin: 0; }
@@ -203,7 +202,7 @@
      tablet, uma no celular. */
   .score { display: grid; grid-template-columns: repeat(var(--n, 4), 1fr); gap: 16px; margin-top: 8px; }
   @media (max-width: 960px) { .score { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 560px) { .score { grid-template-columns: 1fr; gap: 12px; } }
+  @media (max-width: 560px) { .score { grid-template-columns: 1fr; gap: 16px; } }
   .part { display: flex; flex-direction: column; min-width: 0; }
   .part .card { flex: 1; }
 
@@ -215,10 +214,15 @@
   /* Card de ferramenta: superfície plana com um traço de 1 pixel da arte no topo, que acende no hover. */
   .card { position: relative; display: flex; flex-direction: column; gap: 8px; background: var(--surface); border-top: var(--px) solid var(--fur-2); padding: 18px 20px 20px; color: var(--ink); text-decoration: none; }
   .card h2 { font-size: 1.25rem; letter-spacing: -0.02em; font-weight: 700; line-height: 1.15; }
-  /* Ferramenta que ainda não existe: sem superfície nem link, só o contorno, o ícone apagado e o selo. */
-  .card.quieto { background: transparent; box-shadow: inset 0 0 0 2px var(--soft); border-top-color: var(--soft); }
+  /* Ferramenta que ainda não existe: sem caixa nem placa, como um compasso ainda não escrito. O traço de 4px do topo vira
+     pontilhado (um pixel aceso, um apagado), o ícone fica em taupe, o nome apagado e a situação é só texto em pixel, sem
+     fundo: no lugar da placa "Abrir", nada que pareça botão. */
+  .card.quieto { background: none; border-top-color: transparent; }
+  .card.quieto::before { content: ""; position: absolute; left: 0; right: 0; top: calc(-1 * var(--px)); height: var(--px);
+    background: repeating-linear-gradient(90deg, var(--fur-2) 0 var(--px), transparent 0 calc(2 * var(--px))); }
   .card.quieto .icon { color: var(--fur); }
   .card.quieto h2 { color: var(--muted); }
+  .card.quieto .badge:not(.proxima) { background: none; padding: 0; color: var(--muted); }
   .card.quieto.proxima .icon { color: var(--target); }
   /* Celular: cada ferramenta numa linha (ícone, nome, ação), para a lista caber com pouca rolagem. */
   @media (max-width: 560px) {
@@ -226,6 +230,13 @@
     .card .icon { width: 32px; height: 32px; margin: 0; }
     .card h2 { flex: 1; min-width: 0; font-size: var(--text-lg); }
     .card .foot { margin: 0; padding: 0; }
+    /* A linha inteira já é o link: a placa "Abrir" vira só a seta em pixel (3×), apagada; o nome cabe numa linha só. */
+    .card .go { background: none; color: var(--muted); padding: 0; clip-path: none; font-size: 0; gap: 0; min-height: 0; }
+    .card .go .arrow { width: 21px; height: 15px; }
+    a.card:hover .go { background: none; color: var(--ink); }
+    /* A que ainda não existe: a situação vai embaixo do nome (ao lado, empurraria o nome para duas linhas). */
+    .card.quieto { display: grid; grid-template-columns: auto 1fr; column-gap: 14px; row-gap: 6px; }
+    .card.quieto .icon { grid-row: span 2; }
   }
   .card p { color: var(--muted); font-size: var(--text-md); line-height: 1.45; max-width: 38ch; }
   .card .foot { margin-top: auto; padding-top: 10px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
@@ -341,6 +352,11 @@
   .notfound a { color: var(--accent); font-weight: 600; }
 }
 
+/* Tocando (o play da pauta), a animação em ciclo para e o Pauta.tsx acende cada nota pelo relógio do áudio, para luz e som
+   baterem em qualquer aparelho. A cor vale mesmo para quem pediu menos movimento: foi a pessoa que apertou play. */
+.pauta.tocando .pauta-nota { animation: none; }
+.pauta-nota.acesa { color: var(--accent); }
+
 /* Movimento: o conteúdo é visível por padrão; a animação só entra para quem não pediu redução. */
 /* Movimento do hub, todo em degraus (pixel art não desliza): a marmota pisca e fareja; a pauta toca. */
 @media (prefers-reduced-motion: no-preference) {
@@ -352,27 +368,17 @@
   .marmota-fareja { animation: fareja 4s steps(1, end) infinite 0.6s; }
   @keyframes fareja { 0%, 3% { opacity: 1; } 3.01%, 6% { opacity: 0; } 6.01%, 9% { opacity: 1; } 9.01%, 100% { opacity: 0; } }
 
-  /* A pauta toca a melodia no andamento ("Munter", colcheia de 0,22 s): 22 colcheias e um compasso de pausa, em ciclo de 26.
-     A nota da vez acende em azul e pula 4px por meia colcheia; fica acesa pela sua duração (.d1, .d2, .d3 em colcheias). Onde a
-     pauta mostra menos compassos, o ciclo encurta para só o que aparece (17 no tablet, 11 no celular), sem buraco no escuro. */
-  .pauta-nota { --ciclo: 26; animation: toca1 calc(var(--ciclo) * var(--colcheia)) steps(1, end) infinite; animation-delay: calc(var(--t) * var(--colcheia)); }
+  /* Parada, a pauta toca a melodia sozinha no andamento ("Munter", colcheia de 0,22 s): 22 colcheias e um compasso de pausa, em
+     ciclo de 26, em toda largura (a melodia inteira aparece em todas). A nota da vez acende em azul e pula um pixel por meia
+     colcheia; fica acesa pela sua duração (.d1, .d2, .d3 em colcheias). Tocando, quem acende é o Pauta.tsx (ver ".pauta.tocando"). */
+  /* Duas voltas e para: azul é "tocando agora", e a pauta não finge tocar para sempre sem som (o ▶ toca de novo). */
+  .pauta-nota { --ciclo: 26; animation: toca1 calc(var(--ciclo) * var(--colcheia)) steps(1, end) 2; animation-delay: calc(var(--t) * var(--colcheia)); }
   .pauta-nota.d2 { animation-name: toca2; }
   .pauta-nota.d3 { animation-name: toca3; }
   @keyframes toca1 { 0% { color: var(--accent); transform: translateY(calc(var(--px) * -1)); } 1.9% { color: var(--accent); transform: none; } 3.85%, 100% { color: var(--ink); transform: none; } }
   @keyframes toca2 { 0% { color: var(--accent); transform: translateY(calc(var(--px) * -1)); } 1.9% { color: var(--accent); transform: none; } 7.69%, 100% { color: var(--ink); transform: none; } }
   @keyframes toca3 { 0% { color: var(--accent); transform: translateY(calc(var(--px) * -1)); } 1.9% { color: var(--accent); transform: none; } 11.54%, 100% { color: var(--ink); transform: none; } }
-  @media (max-width: 960px) {
-    .pauta-nota { --ciclo: 17; animation-name: toca1-17; }
-    .pauta-nota.d2 { animation-name: toca2-17; }
-    @keyframes toca1-17 { 0% { color: var(--accent); transform: translateY(calc(var(--px) * -1)); } 2.9% { color: var(--accent); transform: none; } 5.88%, 100% { color: var(--ink); transform: none; } }
-    @keyframes toca2-17 { 0% { color: var(--accent); transform: translateY(calc(var(--px) * -1)); } 2.9% { color: var(--accent); transform: none; } 11.76%, 100% { color: var(--ink); transform: none; } }
-  }
-  @media (max-width: 560px) {
-    .pauta-nota { --ciclo: 11; animation-name: toca1-11; }
-    .pauta-nota.d2 { animation-name: toca2-11; }
-    @keyframes toca1-11 { 0% { color: var(--accent); transform: translateY(calc(var(--px) * -1)); } 4.5% { color: var(--accent); transform: none; } 9.09%, 100% { color: var(--ink); transform: none; } }
-    @keyframes toca2-11 { 0% { color: var(--accent); transform: translateY(calc(var(--px) * -1)); } 4.5% { color: var(--accent); transform: none; } 18.18%, 100% { color: var(--ink); transform: none; } }
-  }
+  .pauta-nota.acesa.pula { transform: translateY(calc(var(--px) * -1)); }
 }
 
 /* alvos de toque: 44px no celular, 24px no desktop */
@@ -418,7 +424,12 @@
   /* Na tela de app, do topo da ferramenta só fica a ←: título e ações moram na tela do app. */
   .app-screen .tool-head { margin-bottom: 0; }
   .app-screen .tool-head :is(h1, .tool-head-actions) { display: none; }
-  .app-screen .tool-voltar { margin-left: 0; }
+  /* A ← fica no mesmo ponto em toda ferramenta, com ou sem tela de app: alvo de 44px a 8px do topo e da esquerda, o ícone na
+     margem do conteúdo (20px). Por isso o topo de todas sai do mesmo lugar: seção sem respiro em cima, 8px no cabeçalho. */
+  main:has(.tool-head) { padding-top: env(safe-area-inset-top); }
+  main:has(.tool-head) > .section { padding-top: 0; }
+  .tool-head { padding-top: 8px; }
+  .app-screen .tool-head { padding-inline: 20px; }
   /* Com a barra, "Baixar app" fica só nela (o ícone de download), como no afinador e no metrônomo. */
   body:has(.app-nav) .tool-download { display: none; }
   /* Fora da tela de app (os treinos), a barra flutua sobre a página: o fim da página ganha o espaço dela. Cantando, a barra

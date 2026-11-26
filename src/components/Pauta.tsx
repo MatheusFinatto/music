@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { getAudio, loadPiano, playPiano, resumeAudio, stopPiano, type PianoNote } from "@/core/audio";
+import { PIANO_LEAD_S, getAudio, heardTime, loadPiano, playPiano, resumeAudio, stopPiano, type PianoNote } from "@/core/audio";
 import { Info } from "./Info";
 import { PixelArt } from "./PixelArt";
 
@@ -8,8 +8,9 @@ import { PixelArt } from "./PixelArt";
 // marmota, como na mão direita do piano da edição impressa: clave de sol, 6/8, "p" na anacruse, até o começo do 4º compasso.
 // Lá menor, "Munter". Alturas conferidas na edição do WIMA (abcm2ps, 2007):
 // E4 | A4♩ A4♪ A4♩ A4♪ | B4♪ C5♪ B4♪ A4♩ A4♪ | B4♩ B4♪ C5♪ B4♪ A4♪ | B4♩.
-// A pauta acende cada nota na sua hora, em ciclo (globals.css, "pauta"). Embaixo, discreto: o nome, o play (toca no piano do site e
-// reinicia a animação junto, para som e luz baterem) e o "?" com a história.
+// Parada, a pauta acende cada nota na sua hora, em ciclo, por CSS (globals.css, "pauta"). Embaixo, discreto: o nome, o play e o "?"
+// com a história. Tocando, o ciclo para e as notas acendem pelo relógio do áudio (o que está saindo no alto-falante, descontado o
+// atraso da saída): luz e som batem em qualquer aparelho, mesmo com Bluetooth.
 
 type Nota = { t: number; p: number; d: 1 | 2 | 3; grupo?: number };
 
@@ -120,14 +121,19 @@ export function Pauta({ t }: { t: TextosPauta }) {
   });
   // A barra das colcheias ligadas fica na altura da haste da nota mais aguda do grupo.
   const topo = (n: Nota) => grupos.find((x) => x.g === n.grupo)?.topo ?? n.p;
-  const [vez, setVez] = useState(0); // trocar remonta a pauta: a animação recomeça junto com o som
   const [estado, setEstado] = useState<"parado" | "carregando" | "tocando">("parado");
-  const fim = useRef<ReturnType<typeof setTimeout> | null>(null);
-  useEffect(() => () => { if (fim.current) clearTimeout(fim.current); }, []);
+  const notasEl = useRef<(HTMLSpanElement | null)[]>([]);
+  const quadro = useRef(0);
+  /** Para o laço de luz e apaga as notas. */
+  const apagar = () => {
+    cancelAnimationFrame(quadro.current);
+    for (const el of notasEl.current) el?.classList.remove("acesa", "pula");
+  };
+  useEffect(() => () => cancelAnimationFrame(quadro.current), []);
 
   async function tocar() {
     if (estado !== "parado") {
-      if (fim.current) clearTimeout(fim.current);
+      apagar();
       const g = getAudio(); if (g) stopPiano(g);
       setEstado("parado");
       return;
@@ -137,22 +143,36 @@ export function Pauta({ t }: { t: TextosPauta }) {
     setEstado("carregando");
     try { await loadPiano(g); } catch { setEstado("parado"); return; }
     const notas: PianoNote[] = MELODIA.map((n) => ({ midi: MIDI[n.p]!, at: n.t * COLCHEIA, dur: n.d * COLCHEIA * 0.95 }));
-    const dur = playPiano(g, notas);
+    const inicio = g.ctx.currentTime + PIANO_LEAD_S;
+    const dur = playPiano(g, notas, { inicio });
     if (dur === null) { setEstado("parado"); return; }
-    setVez((v) => v + 1);
     setEstado("tocando");
-    fim.current = setTimeout(() => setEstado("parado"), (dur + 0.4) * 1000);
+    // Limite pelo relógio de parede: se o áudio não andar (contexto travado), a pauta não fica presa em "tocando".
+    const limite = performance.now() + (dur + 1) * 1000;
+    // A cada quadro: em que colcheia está o som que se ouve agora? Acende a nota que soa (e o pulo, na primeira meia colcheia).
+    const passo = () => {
+      const c = (heardTime(g.ctx) - inicio) / COLCHEIA;
+      if (c > MELODIA.at(-1)!.t + MELODIA.at(-1)!.d || performance.now() > limite) { apagar(); setEstado("parado"); return; }
+      MELODIA.forEach((n, i) => {
+        const el = notasEl.current[i];
+        if (!el) return;
+        el.classList.toggle("acesa", c >= n.t && c < n.t + n.d);
+        el.classList.toggle("pula", c >= n.t && c < n.t + 0.5);
+      });
+      quadro.current = requestAnimationFrame(passo);
+    };
+    quadro.current = requestAnimationFrame(passo);
   }
 
   return (
     <figure className="pauta-figura">
-      <div key={vez} className="pauta" role="img" aria-label={t.label}>
+      <div className={`pauta${estado === "tocando" ? " tocando" : ""}`} role="img" aria-label={t.label}>
         <PixelArt grid={CLAVE} className="pauta-clave" />
         <span className="pauta-formula" aria-hidden="true"><PixelArt grid={SEIS} /><PixelArt grid={OITO} /></span>
         <PixelArt grid={PIANO} className="pauta-dinamica" />
         {BARRAS.map((b) => <span key={b} className="pauta-barra" style={{ "--t": b - 0.3 } as React.CSSProperties} />)}
         {MELODIA.map((n, i) => (
-          <span key={i} className={`pauta-nota d${n.d}`}
+          <span key={i} ref={(el) => { notasEl.current[i] = el; }} className={`pauta-nota d${n.d}`}
             style={{ "--p": n.p, "--t": n.t, "--haste": n.p - topo(n) } as React.CSSProperties}>
             <PixelArt grid={CABECA} className="pauta-cabeca" />
             <span className="pauta-haste" />

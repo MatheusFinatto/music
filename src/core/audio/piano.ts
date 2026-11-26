@@ -21,7 +21,11 @@ export type PianoNote = { midi: number; at: number; dur: number; cents?: number 
 
 const buffers = new Map<number, AudioBuffer>();
 let loading: Promise<void> | null = null;
-const playing = new Set<AudioBufferSourceNode>();
+/** O que ainda soa, com o ganho de cada nota: parar é baixar o ganho, não cortar a onda no meio (o corte estala). */
+const playing = new Map<AudioBufferSourceNode, GainNode>();
+/** Folga entre pedir e soar: dá tempo de agendar tudo antes da primeira nota. */
+export const PIANO_LEAD_S = 0.06;
+const FADE_S = 0.03;
 
 /** Baixa e decodifica as amostras (uma vez). Pode ser chamado antes do primeiro gesto. */
 export function loadPiano(g: AudioGraph): Promise<void> {
@@ -37,22 +41,29 @@ export function loadPiano(g: AudioGraph): Promise<void> {
   return loading;
 }
 
-/** Cala o que ainda soa. */
+/** Cala o que ainda soa, com um fade de 30 ms. */
 export function stopPiano(g: AudioGraph) {
   const now = g.ctx.currentTime;
-  for (const s of playing) { try { s.stop(now + 0.05); } catch { /* já tinha parado */ } }
+  for (const [s, env] of playing) {
+    const gain = env.gain;
+    // Segura o ganho onde ele está agora e desce a zero; só então para a fonte.
+    if (gain.cancelAndHoldAtTime) gain.cancelAndHoldAtTime(now);
+    else { const v = gain.value; gain.cancelScheduledValues(now); gain.setValueAtTime(v, now); }
+    gain.linearRampToValueAtTime(0, now + FADE_S);
+    try { s.stop(now + FADE_S + 0.01); } catch { /* já tinha parado */ }
+  }
   playing.clear();
 }
 
 /**
- * Toca as notas a partir de agora (com uma folga curta). Devolve a duração total em segundos, ou null se as amostras
- * ainda não carregaram. Com `manter`, não corta o que já soa.
+ * Toca as notas a partir de agora (com uma folga curta, PIANO_LEAD_S) ou de `inicio` (no relógio do áudio). Devolve a
+ * duração total em segundos, ou null se as amostras ainda não carregaram. Com `manter`, não corta o que já soa.
  */
-export function playPiano(g: AudioGraph, notes: readonly PianoNote[], opcoes: { manter?: boolean } = {}): number | null {
+export function playPiano(g: AudioGraph, notes: readonly PianoNote[], opcoes: { manter?: boolean; inicio?: number } = {}): number | null {
   if (buffers.size < PIANO_SAMPLES.length) return null;
   // `manter`: soma ao que já soa em vez de cortar (o bordão repete a nota por cima de si mesmo).
   if (!opcoes.manter) stopPiano(g);
-  const t0 = g.ctx.currentTime + 0.06;
+  const t0 = opcoes.inicio ?? g.ctx.currentTime + PIANO_LEAD_S;
   let end = 0;
   for (const n of notes) {
     const sample = nearestSample(n.midi);
@@ -68,7 +79,7 @@ export function playPiano(g: AudioGraph, notes: readonly PianoNote[], opcoes: { 
     src.connect(env).connect(g.bus.note);
     src.start(on);
     src.stop(off + 0.4);
-    playing.add(src);
+    playing.set(src, env);
     src.onended = () => playing.delete(src);
     end = Math.max(end, n.at + n.dur + 0.4);
   }

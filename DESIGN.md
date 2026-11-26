@@ -154,7 +154,7 @@ components:
 
 **Creative North Star: "O Caderno Pautado"**
 
-O site é um caderno de música escuro onde mora uma marmota em pixel art. Tudo nasce dela: o fundo é o contorno grafite-esverdeado do desenho, as superfícies e linhas são o cinza e o taupe do pelo, o texto é o marfim do focinho. A pauta de cinco linhas é o elemento que organiza a página inicial: a marmota senta na linha de cima, toca, e cada ferramenta no ar é uma nota dessa pauta, com o card pendurado embaixo. A música não some da página; ela é a estrutura.
+O site é um caderno de música escuro onde mora uma marmota em pixel art. Tudo nasce dela: o fundo é o contorno grafite-esverdeado do desenho, as superfícies e linhas são o cinza e o taupe do pelo, o texto é o marfim do focinho. A pauta de cinco linhas é o elemento que organiza a página inicial: a marmota senta na linha de cima, a pauta toca, e as ferramentas ficam logo embaixo dela, numa fileira. A música não some da página.
 
 O pixel é a matéria da marca e dos detalhes (marmota, notas, ícones, selos, cantos da placa "Abrir"), sempre em escala inteira e sem suavização. O que se lê continua liso, em Inter. A grade do mundo é de 4px: um pixel da arte vale 4px na tela. Cantos são vivos ou quase vivos, superfícies são planas, e todo movimento da casca da marca anda em degraus, como um sprite, nunca deslizando.
 
@@ -162,7 +162,7 @@ A densidade é baixa: um painel de entrada, não uma página de venda. Não há 
 
 **Key Characteristics:**
 - Um tema só, escuro, com a paleta tirada da marmota.
-- Pauta de cinco linhas como estrutura do hub; cada ferramenta é uma nota.
+- Pauta de cinco linhas como palco do hub, com as ferramentas logo embaixo.
 - Pixel art só em múltiplo inteiro, `image-rendering: pixelated`, grade de 4px.
 - Inter para tudo que se lê; Silkscreen nos selos de situação e no nome "Marmota Music" (logotipo).
 - Cantos vivos (4px no máximo), superfícies planas, sem sombra fora de diálogo.
@@ -177,7 +177,7 @@ Escuro, esverdeado e quente ao mesmo tempo: a marmota dá o neutro, e três core
 - **Marfim do Focinho** (ink): a cor do texto e da ação principal. A placa "Abrir" é um bloco marfim com texto no tom do fundo; o traço do card e o traço sob o link atual acendem em marfim. No hover a placa clareia para **Marfim Aceso** (plate-hover).
 
 ### Secondary
-- **Azul Tocando Agora** (now): o que está soando neste instante. No hub, a nota da pauta acende azul quando é a vez dela de tocar, e quando o card dela recebe hover ou foco. Também é o anel de foco (3px) e a cor dos links do rodapé. **Azul Profundo** (now-ink) é o texto sobre ele; **Azul Sombra** (now-soft) é o fundo suave.
+- **Azul Tocando Agora** (now): o que está soando neste instante. No hub, a nota da pauta acende azul quando é a vez dela de tocar. Também é o anel de foco (3px) e a cor dos links do rodapé. **Azul Profundo** (now-ink) é o texto sobre ele; **Azul Sombra** (now-soft) é o fundo suave.
 
 ### Tertiary
 - **Laranja Nota-Alvo** (target): a nota que se busca. No hub só aparece no selo "Próxima" (fundo **Laranja Sombra**, target-soft) e no ícone da ferramenta que vem a seguir.
@@ -231,12 +231,12 @@ As ferramentas usam só os degraus de `globals.css`: `--text-xs` (0.82rem), `--t
 
 Coluna de até 1120px com respiro lateral de 20px (ou a área segura do aparelho). Cabeçalho de 56px, fixo no topo.
 
-**O palco do hub.** A marmota (52×42 a 6×, ou 5× em tela baixa, embaixo à esquerda) e, ao lado dela, só o título. A marmota senta na linha de cima de uma pauta de cinco linhas (12px entre linhas, linha de 2px) que corre pela largura inteira da coluna e traz, em pixel, o começo de "Marmotte" de Beethoven: fórmula 6/8 em Silkscreen, cabeças 5×4 a 3× (a escala dos ícones), hastes de 3px, bandeirolas e a barra das colcheias ligadas (`src/components/Pauta.tsx`). No celular a melodia inteira cabe com a pauta a 2× (cabeças 10×8). Embaixo da pauta, à direita e quase apagado, o rodapé da partitura: "Marmotte · Beethoven", o ▶ (toca o trecho no piano do site e reinicia a animação junto) e o "?" com a história; 32px no mouse, 44px no toque. Depois, numa fileira só, todas as ferramentas: as no ar como card-link, as que ainda não existem como card quieto (só contorno, ícone apagado e o selo) no fim. A composição fica centrada na altura livre, um pouco acima do meio, para a sobra de uma tela alta não virar um vão em cima do rodapé; na home o menu do cabeçalho some (os cards já são o menu). O hub cabe sem rolar no desktop, de 1366×681 para cima; no celular rola, e os cards viram linhas (ícone, nome, ação).
+**O palco do hub.** A marmota (52×42 a 6×, ou 5× em tela baixa, embaixo à esquerda) e, ao lado dela, só o título. A marmota senta na linha de cima de uma pauta de cinco linhas (12px entre linhas, linha de 2px) que corre pela largura inteira da coluna e traz, em pixel, o começo de "Marmotte" de Beethoven: fórmula 6/8 em Silkscreen, cabeças 5×4 a 3× (a escala dos ícones), hastes de 3px, bandeirolas e a barra das colcheias ligadas (`src/components/Pauta.tsx`). No celular a melodia inteira cabe com a pauta a 2× (cabeças 10×8). Embaixo da pauta, à direita e quase apagado, o rodapé da partitura: "Marmotte · Beethoven", o ▶ (toca o trecho no piano do site e reinicia a animação junto) e o "?" com a história; 32px no mouse, 44px no toque. Depois, numa fileira só, todas as ferramentas: as no ar como card-link, as que ainda não existem como card quieto (ver Lista quieta) no fim. A composição fica centrada na altura livre, um pouco acima do meio, para a sobra de uma tela alta não virar um vão em cima do rodapé; na home o cabeçalho inteiro some (os cards já são o menu e a marmota com o nome já é a marca). O hub cabe sem rolar no desktop, de 1366×681 para cima; no celular rola, e os cards viram linhas (ícone, nome, ação).
 
 **Responsivo.**
 - Desktop (≥961px): uma coluna por ferramenta.
-- Tablet (≤960px): duas colunas, cada card com seu trecho de pauta; as notas só sobem.
-- Celular (≤560px): marmota a 4×, título embaixo dela, uma pauta só com todas as notas, cards empilhados.
+- Tablet (≤960px): os cards em duas colunas, embaixo da mesma pauta inteira.
+- Celular (≤720px): o título vem primeiro, e a marmota a 4× senta na linha de cima da pauta, como no desktop; uma pauta só com todas as notas (a 2× até 560px); cards empilhados em linhas, a placa "Abrir" vira só a seta em pixel a 3× (a linha inteira é o link).
 - Celular (≤640px) no afinador e no metrônomo: a tela vira a do app Android (ver Components).
 
 Alvos de toque: 44px no celular, 24px no desktop. Seções separadas por 32–56px.
@@ -289,16 +289,16 @@ Pixel art (marmota 52×42, cabeça 32×32, ícones 16×16, colcheia 6×9, seta 7
 Silkscreen 16px em maiúsculas sobre sombra suave, texto cinza quente, canto zero. "Próxima" usa laranja sobre laranja sombra, com um quadrado de 4px antes do texto.
 
 ### Lista quieta
-Ferramentas que ainda não estão no ar: linhas sem superfície nem link, separadas por traços de 2px. Ícone a 2× em taupe (laranja na próxima), nome, uma linha, selo à direita.
+Ferramentas que ainda não estão no ar entram no fim da fileira como card quieto, sem link: sem superfície nem caixa, como um compasso ainda não escrito. O traço de 4px do topo vira pontilhado (um pixel aceso, um apagado, em cinza do pelo), o ícone fica em taupe (laranja na próxima), o nome em cinza quente e a situação é só texto em Silkscreen, sem fundo, para nada ali parecer a placa "Abrir". No celular a situação vai embaixo do nome.
 
 ### Navigation
-- **Cabeçalho:** 56px, fundo sólido no tom do chão, traço de 2px embaixo. À esquerda a cabeça da marmota (32px) e o nome em 700; à direita os links das ferramentas.
+- **Cabeçalho:** 56px, fundo sólido no tom do chão, traço de 2px embaixo. À esquerda a cabeça da marmota (32px) e o nome em Silkscreen; à direita os links das ferramentas. Some na home (desktop e celular) e em todo o celular.
 - **Link:** cinza quente, 500, 0.94rem. Hover: marfim, com uma barra de 4px de linha embaixo. Atual: marfim, 600, barra de 4px em marfim embaixo. Sem pílula.
 - **Celular:** o nome some e fica só a cabeça; o menu rola dentro dele mesmo.
 - **Rodapé:** traço de 2px em cima e só dois links em azul, à direita: "Relatar um problema" e "Backup de dados" (abre um modal com uma frase e os botões Baixar backup e Restaurar de um arquivo; `src/components/BackupDados.tsx`, formato em `src/core/storage/backup.ts`, compatível com o do Laboratório).
 
 ### A Marmota e a Pauta (assinatura)
-A marmota em 52×42 tem dois quadros por cima da base, trocados em degraus (`steps(1)`): pisca (olho fechado, a cada 7s) e fareja a cada 4s (o focinho inteiro, nariz, canto da boca e bigodes, sobe um pixel duas vezes seguidas, ~0,12s por quadro). A música fica na pauta: ela toca o começo de "Marmotte", de Beethoven (op. 52 nº 7, poema de Goethe; anacruse e dois compassos, lá menor, 6/8), no andamento (colcheia de 0,22s), e a nota da vez acende azul e pula 4px. Nada sai voando da marmota (o dono recusou). Com `prefers-reduced-motion`, nada anda.
+A marmota em 52×42 tem dois quadros por cima da base, trocados em degraus (`steps(1)`): pisca (olho fechado, a cada 7s) e fareja a cada 4s (o focinho inteiro, nariz, canto da boca e bigodes, sobe um pixel duas vezes seguidas, ~0,12s por quadro). A música fica na pauta: ela toca o começo de "Marmotte", de Beethoven (op. 52 nº 7, poema de Goethe; anacruse e dois compassos, lá menor, 6/8), no andamento (colcheia de 0,22s), e a nota da vez acende azul e pula 4px. Sozinha, a pauta toca duas voltas e para (azul é "tocando agora"; não finge tocar para sempre sem som). O ▶ toca o trecho no piano, e aí quem acende as notas é o relógio do áudio (o que sai no alto-falante, descontado o atraso da saída), não a animação. Nada sai voando da marmota (o dono recusou). Com `prefers-reduced-motion`, nada anda sozinho; tocando, as notas só mudam de cor.
 
 ### Ícones de ferramenta
 Desenhos 16×16 escritos como grade de texto ("#" aceso, "+" sombra) e renderizados pelo `PixelArt` num SVG de um path por cor, na cor do texto. Ferramenta nova sem desenho usa o genérico até ganhar o seu.
