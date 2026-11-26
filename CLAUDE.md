@@ -26,7 +26,7 @@ npm run smoke       # teste de fumaça no navegador (Playwright), com o start ro
 - **Status honesto**: `pronta`, `laboratorio`, `proxima` ou `planejada`. Sem datas prometidas.
 - **Notas** no formato letra + oitava (**C4, Bb3**; C4 = Dó central).
 - **Cores com significado** nas ferramentas: laranja = nota-alvo, azul = tocando agora, verde = selecionado.
-- **Dados** só no navegador (`localStorage`, prefixo `musica:`). Sem backend nem contas até o dono pedir.
+- **Dados** no navegador (`localStorage`, prefixo `musica:`), sempre gravados pelo `createStore` (`src/core/storage`). Conta opcional com Google (Firebase, projeto `marmota-music-app`) só copia para a nuvem e sincroniza com os apps: quem não entra não muda nada. Ver `.specs/001-conta-e-sincronizacao.md`, `src/core/conta` e `firestore.rules`.
 - **Sem catálogo de tablaturas de música comercial** (direito autoral). Nenhuma ferramenta publica tab inteira de música para tocar.
 - `legacy/` está congelado: só correção.
 - **Next 16** mudou convenções (ex.: `src/proxy.ts` no lugar de `middleware.ts`). Antes de usar uma API do Next, confira em `node_modules/next/dist/docs/` (ver `AGENTS.md`).

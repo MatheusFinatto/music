@@ -318,13 +318,35 @@
   :is(.info-corpo, .info-tip) p + p { margin-top: 10px; }
 
   /* Backup de dados (modal do rodapé): uma frase e os dois botões. */
-  .backup-texto { color: var(--muted); font-size: var(--text-sm); line-height: 1.5; }
-  .backup-acoes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-  .backup-acoes .go { border: 0; cursor: pointer; min-height: 44px; }
-  .backup-acoes .go:hover { background: var(--plate-hover); }
-  .backup-sec { min-height: 44px; padding: 0 16px; border: 2px solid var(--line); border-radius: var(--radius-pill); background: transparent; color: var(--ink); font: inherit; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
-  .backup-sec:hover { border-color: var(--muted); }
-  .backup-status { min-height: 1.5em; margin-top: 12px; color: var(--muted); font-size: var(--text-sm); }
+  /* A conta opcional (Conta.tsx): o "G" do Google sozinho, e um modal no padrão dos diálogos do app (cartão arredondado, × de
+     traço liso), igual no site e nos apps. */
+  .conta-btn { display: inline-grid; place-items: center; padding: 0; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+  .conta-rodape { width: 44px; height: 44px; margin: -12px -10px; }
+  .conta-btn svg.conta-g { width: 18px; height: 18px; stroke: none; }
+  .conta-btn svg.conta-icone { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+  .conta-btn:hover { color: var(--ink); }
+  .conta-dialog { width: min(440px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); margin: auto; padding: 16px 20px 20px; border: 0; border-radius: 22px; background: var(--soft); color: var(--ink); box-shadow: 0 16px 40px rgb(0 0 0 / 0.55); }
+  .conta-dialog::backdrop { background: rgb(0 0 0 / 0.6); }
+  .conta-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+  .conta-head h2 { font-size: 19px; font-weight: 700; letter-spacing: -0.015em; }
+  .conta-fechar { display: grid; place-items: center; width: 44px; height: 44px; margin: -8px -10px -8px 0; border: 0; border-radius: 50%; background: transparent; color: var(--muted); cursor: pointer; }
+  .conta-fechar:hover { background: color-mix(in srgb, var(--ink) 10%, transparent); color: var(--ink); }
+  .conta-fechar svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+  .conta-texto { color: var(--muted); font-size: var(--text-sm); line-height: 1.55; }
+  .conta-texto + .conta-texto { margin-top: 10px; }
+  .conta-email { margin-bottom: 6px; font-weight: 600; overflow-wrap: anywhere; }
+  .conta-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 18px; }
+  .conta-acoes button { min-height: 48px; padding: 0 20px; border-radius: 28px; font: inherit; font-weight: 700; cursor: pointer; }
+  .conta-acoes button:disabled { opacity: 0.5; cursor: default; }
+  .conta-google { display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--line); background: var(--ink); color: var(--bg); }
+  .conta-google svg.conta-g { width: 18px; height: 18px; }
+  .conta-sec { border: 1px solid var(--line); background: transparent; color: var(--ink); }
+  .conta-acoes .conta-link { padding: 0 8px; border: 0; background: transparent; color: var(--muted); font-weight: 500; }
+  .conta-acoes .conta-link:hover { color: var(--bad); }
+  .conta-perigo { border: 0; background: var(--bad); color: var(--on-bright); }
+  .conta-guardado { display: inline-block; margin-top: 14px; color: var(--muted); font-size: var(--text-xs); text-decoration: underline; text-underline-offset: 0.2em; }
+  .conta-erro { margin-top: 12px; color: var(--bad); font-size: var(--text-sm); }
+  .conta-dialog :is(button, a):focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
   /* rodapé */
   .site-footer { margin-top: auto; padding-top: 16px; padding-bottom: env(safe-area-inset-bottom); }
@@ -337,6 +359,9 @@
   .notfound { text-align: center; padding-block: 96px; display: flex; flex-direction: column; gap: 16px; align-items: center; }
   .notfound h1 { font-size: var(--text-2xl); letter-spacing: -0.025em; font-weight: 650; }
   .notfound a { color: var(--accent); font-weight: 600; }
+  .privacidade { max-width: 62ch; padding-block: 48px 64px; display: flex; flex-direction: column; gap: 14px; }
+  .privacidade h1 { font-size: var(--text-2xl); letter-spacing: -0.025em; font-weight: 650; margin-bottom: 8px; }
+  .privacidade p { color: var(--muted); line-height: 1.6; }
 }
 
 /* Tocando (o play da pauta), a animação em ciclo para e o Pauta.tsx acende cada nota pelo relógio do áudio, para luz e som
@@ -431,5 +456,7 @@
   .app-nav-icon { flex: none; display: grid; place-items: center; width: 44px; border-radius: 22px; color: var(--muted); -webkit-tap-highlight-color: transparent; }
   .app-nav-icon:active, .app-nav-tab:not([aria-current]):active { background: color-mix(in srgb, var(--ink) 10%, transparent); }
   .app-nav-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  /* O "G" é a marca do Google, nas cores dela: sem o traço dos outros ícones. */
+  .app-nav-icon svg.conta-g { width: 18px; height: 18px; stroke: none; }
   .app-nav :focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
 }

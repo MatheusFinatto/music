@@ -127,6 +127,9 @@ export const resumoDiario = (dias: readonly Dia[], hoje: string, secao: string):
   const r = K.resumoDiario(diasK(dias), hoje, secao);
   return { respostasHoje: r.respostasHoje, acertosHoje: r.acertosHoje, minutosHoje: r.minutosHoje, semana: Array.from(r.semana), sequencia: r.sequencia };
 };
+/** O registro de vários aparelhos junto (a conta opcional traz o dos outros): mesmo dia e seção somam. */
+export const somarDiarios = (listas: readonly (readonly Dia[])[]): Dia[] =>
+  arr(K.somarDiarios(listas.map(diasK))).map((x) => ({ data: x.data, secao: x.secao, respostas: x.respostas, acertos: x.acertos, segundos: x.segundos }));
 /** O dia de hoje no calendário local, "AAAA-MM-DD". */
 export const hojeLocal = (agora = new Date()): string => `${agora.getFullYear()}-${String(agora.getMonth() + 1).padStart(2, "0")}-${String(agora.getDate()).padStart(2, "0")}`;
 
