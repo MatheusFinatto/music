@@ -54,6 +54,9 @@ adb shell am start -n br.musica.marmotaear/.MainActivity --ez simular true
 | `Instrumentos` | Teclado e braço do violão em Canvas. |
 | `Ui` | Cores, tipos, botões, pílulas, folhas e ícones. |
 
+### Ícones dos apps
+Os dois ícones são a marmota em pixel do site (`public/marmota-52x42.png`) com o ícone da ferramenta em cima, a 2× (os mesmos 16×16 de `src/components/ToolIcon.tsx`: mostrador no Tuner, fone no Trainer), e um fundo por app (verde no Tuner, roxo no Trainer), para não abrir o errado. Saem de `scripts/gerar_icones.py` como VectorDrawable (1 pixel = 1 dp), com a camada temática do Android 13+. Mudou a marmota ou um desses ícones: `python3 scripts/gerar_icones.py` (precisa de Pillow) e commite os XML.
+
 ## Publicar
 A página `/afinador` do site baixa `https://github.com/MatheusFinatto/music/releases/latest/download/marmota-tuner.apk`. Para publicar uma versão: gere o APK, renomeie para `marmota-tuner.apk` e anexe a um Release do GitHub marcado como o mais recente. O nome do arquivo tem que ser exatamente esse.
 
