@@ -86,7 +86,7 @@ export function drawTuner(ctx: CanvasRenderingContext2D, g: TunerGeometry, scene
   ctx.stroke();
   ctx.globalAlpha = 1;
   ctx.lineCap = "round";
-  for (let cents = -50; cents <= 50; cents += 10) drawTick(ctx, g, cents);
+  for (let cents = -50; cents <= 50; cents += 10) drawTick(ctx, g, cents, c);
 
   const edge = rad(g.maxAngleDegrees);
   const reach = g.radius * Math.sin(edge) + 22 * dp;
@@ -154,7 +154,7 @@ export function drawTuner(ctx: CanvasRenderingContext2D, g: TunerGeometry, scene
 }
 
 /** Marcas a cada 10 cents; o centro é uma linha laranja dupla. */
-function drawTick(ctx: CanvasRenderingContext2D, g: TunerGeometry, cents: number) {
+function drawTick(ctx: CanvasRenderingContext2D, g: TunerGeometry, cents: number, c: TunerColors) {
   const dp = g.dp;
   const isEnd = cents === -50 || cents === 50;
   const length = (cents === 0 || isEnd ? 30 : 22) * dp;
@@ -165,14 +165,14 @@ function drawTick(ctx: CanvasRenderingContext2D, g: TunerGeometry, cents: number
   ctx.beginPath();
   if (cents === 0) {
     const half = 3.5 * dp;
-    ctx.strokeStyle = TUNER_COLORS.target;
+    ctx.strokeStyle = c.target;
     ctx.lineWidth = 2.5 * dp;
     ctx.moveTo(-half, top);
     ctx.lineTo(-half, top + length);
     ctx.moveTo(half, top);
     ctx.lineTo(half, top + length);
   } else {
-    ctx.strokeStyle = TUNER_COLORS.muted;
+    ctx.strokeStyle = c.muted;
     ctx.lineWidth = 2 * dp;
     ctx.moveTo(0, top);
     ctx.lineTo(0, top + length);
