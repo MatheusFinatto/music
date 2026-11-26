@@ -1,7 +1,7 @@
 ---
 id: 001
 slug: conta-e-sincronizacao
-status: draft
+status: implemented
 criada: 2026-11-26
 ---
 

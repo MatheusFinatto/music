@@ -53,7 +53,27 @@ object Conta {
     private val main by lazy { Handler(Looper.getMainLooper()) }
     @Volatile private var ultimaLeitura = 0L
 
-    fun prefs(ctx: Context): SharedPreferences = ctx.applicationContext.getSharedPreferences("musica", Context.MODE_PRIVATE)
+    fun prefs(ctx: Context): SharedPreferences = ctx.applicationContext.getSharedPreferences("musica", Context.MODE_PRIVATE).also { if (app == null) app = ctx.applicationContext }
+
+    /** Kept to read the app's identity later, on the first network call (never when the app opens). */
+    @Volatile private var app: Context? = null
+
+    /** The package and the SHA-1 of the signing certificate: the API key is restricted to the two apps. Read once. */
+    @Volatile private var identidade: Pair<String, String>? = null
+
+    @Suppress("DEPRECATION")
+    private fun identificar(ctx: Context) {
+        if (identidade != null) return
+        identidade = runCatching {
+            val pm = ctx.packageManager
+            val pkg = ctx.packageName
+            val cert = if (android.os.Build.VERSION.SDK_INT >= 28)
+                pm.getPackageInfo(pkg, android.content.pm.PackageManager.GET_SIGNING_CERTIFICATES).signingInfo!!.apkContentsSigners[0]
+            else pm.getPackageInfo(pkg, android.content.pm.PackageManager.GET_SIGNATURES).signatures!![0]
+            val sha1 = java.security.MessageDigest.getInstance("SHA-1").digest(cert.toByteArray()).joinToString("") { "%02X".format(it) }
+            pkg to sha1
+        }.getOrNull()
+    }
 
     // ---------------------------------------------------------------- local data, with the time of each change
 
@@ -318,6 +338,9 @@ object Conta {
             // HttpURLConnection has no PATCH: the override header does it (Google APIs accept it).
             if (metodo == "PATCH") { c.requestMethod = "POST"; c.setRequestProperty("X-HTTP-Method-Override", "PATCH") } else c.requestMethod = metodo
             token?.let { c.setRequestProperty("Authorization", "Bearer $it") }
+            // The API key only accepts this app (package + signing certificate): Google checks these two headers.
+            if (url.contains("key=")) app?.let { identificar(it) }
+            if (url.contains("key=")) identidade?.let { (pacote, cert) -> c.setRequestProperty("X-Android-Package", pacote); c.setRequestProperty("X-Android-Cert", cert) }
             if (corpo != null) {
                 c.doOutput = true
                 c.setRequestProperty("Content-Type", "$tipo; charset=utf-8")
