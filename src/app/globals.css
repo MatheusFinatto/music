@@ -355,7 +355,7 @@
   .site-footer :is(a, .footer-link) { color: var(--accent); font-weight: 500; }
   .site-footer :is(a, .footer-link):hover { text-decoration: underline; }
   .footer-link { padding: 0; border: 0; background: none; font: inherit; cursor: pointer; text-underline-offset: 0.2em; }
-  .site-footer .links { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  .site-footer .links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
 
   .notfound { text-align: center; padding-block: 96px; display: flex; flex-direction: column; gap: 16px; align-items: center; }
   .notfound h1 { font-size: var(--text-2xl); letter-spacing: -0.025em; font-weight: 650; }
@@ -393,6 +393,9 @@
 
 /* alvos de toque: 44px no celular, 24px no desktop */
 .site-footer :is(a, .footer-link) { display: inline-flex; align-items: center; min-height: 24px; }
+/* "Relatar um problema" é só da home. Nas ferramentas o rodapé fica só com a conta, e no celular some inteiro. */
+body:not(:has(main.hub)) .site-footer .footer-issue { display: none; }
+@media (max-width: 680px) { body:not(:has(main.hub)) .site-footer { display: none; } }
 @media (max-width: 680px) {
   .site-footer :is(a, .footer-link), .go, .tuner-alt { min-height: 44px; }
   .tuner-alt { display: inline-flex; align-items: center; }
