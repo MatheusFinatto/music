@@ -50,7 +50,7 @@
 /* O andamento continua sendo o número mais claro; o timer acende um pouco quando corre. */
 .metro-timer.live { color: color-mix(in srgb, var(--ink) 78%, var(--muted)); }
 
-.metro-slider { width: 100%; accent-color: var(--accent); min-height: 32px; cursor: pointer; }
+.metro-slider { width: 100%; accent-color: var(--ink); min-height: 32px; cursor: pointer; }
 
 /* Lugares fixos: ▶ | (■ com timer) | Tap. Nenhum botão muda de lugar quando o estado muda. */
 .metro-actions { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 12px; width: 100%; max-width: 380px; margin: 0 auto; }

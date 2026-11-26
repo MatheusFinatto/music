@@ -2,7 +2,8 @@
    Cores com significado: azul = soando agora (o botão de ouvir), verde = certo e escolhido, vermelho = errado.
    A assinatura é o teclado que acende as notas depois da resposta. */
 .treino {
-  --key-white: #efe5d2; --key-black: #231c16; --key-white-hover: #e0d4bd; --key-black-hover: #3a3027;
+  /* Teclas no neutro da marmota: marfim e grafite (Regra da Marmota). */
+  --key-white: var(--ink); --key-black: var(--bg); --key-white-hover: var(--plate-hover); --key-black-hover: var(--soft);
   display: flex; flex-direction: column; gap: 24px;
   background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow);
   padding: clamp(20px, 4vw, 32px);
@@ -228,7 +229,7 @@
 .braco { display: block; min-width: 560px; width: 100%; height: auto; touch-action: manipulation; }
 .braco-madeira { fill: var(--wood-3); }
 .braco-traste { stroke: var(--fret-shade); stroke-width: 2; }
-.braco-pestana { stroke: var(--key-white); stroke-width: 5; }
+.braco-pestana { stroke: var(--fret); stroke-width: 5; }
 .braco-incrust { fill: var(--wood-2); }
 .braco-corda { stroke: var(--fret); }
 .braco-num { font: 600 10px var(--font-sans); fill: var(--muted); text-anchor: middle; pointer-events: none; }

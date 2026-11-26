@@ -1,14 +1,22 @@
-/* Afinador no navegador: a tela escura é a mesma do app Android (marmota-tuner). */
+/* Afinador no navegador: o desenho é o do app Android (marmota-tuner), solto no fundo da página, sem caixa;
+   as cores são as da página (no celular, as do app). */
 .tuner-screen {
   position: relative;
   width: 100%;
   height: clamp(380px, 64svh, 600px);
-  border-radius: var(--radius);
   overflow: hidden;
-  background: #1e1e1e;
-  box-shadow: var(--shadow);
+  background: var(--bg);
 }
 .tuner-screen canvas { display: block; width: 100%; height: 100%; }
+
+/* Computador: o afinador ocupa a altura que sobra entre o título e o rodapé, então a página cabe na tela sem rolar
+   (a altura fixa em svh passava alguns pixels num notebook de 681px). Só rola se a janela for baixa demais. */
+@media (min-width: 641px) {
+  main:has(.tuner) { flex: 1; display: flex; flex-direction: column; }
+  main:has(.tuner) > .section { flex: 1; display: flex; flex-direction: column; width: 100%; }
+  .tuner { flex: 1; display: flex; min-height: 320px; }
+  .tuner-screen { flex: 1; height: auto; max-height: 600px; }
+}
 .tuner-screen.offline { cursor: pointer; }
 
 /* O microfone, no topo ao lado de "Baixar app": ligado = ícone cheio; desligado = riscado; bloqueado = riscado em vermelho. */

@@ -197,7 +197,7 @@ Escuro, esverdeado e quente ao mesmo tempo: a marmota dá o neutro, e três core
 - **Jacarandá, alpaca, osso, aço, bronze, madrepérola** (wood, wood-2, wood-3, fret, fret-shade, steel, bronze, inlay, pearl) e as versões claras dos sinais sobre a madeira (target-bright, gesture-bright, now-bright, selected-bright, bad-bright, com on-bright por cima). Existem só para desenhar o braço da guitarra. Nunca viram superfície de interface.
 
 ### Tela de app (celular)
-- **Paleta do app Android** (app-ground, app-bar, app-ink, app-muted, app-line, app-now, app-target, app-selected): no celular, o afinador e o metrônomo copiam o Marmota Tuner, e estas cores (as do `colors.xml` do app) substituem o mundo da marmota naquelas telas. O desenho do afinador (canvas) usa essa paleta em todas as larguras de propósito: `painter.ts` espelha `TunerPainter.kt`.
+- **Paleta do app Android** (app-ground, app-bar, app-ink, app-muted, app-line, app-now, app-target, app-selected): no celular, o afinador e o metrônomo copiam o Marmota Tuner, e estas cores (as do `colors.xml` do app) substituem o mundo da marmota naquelas telas. O desenho do afinador (canvas) espelha `TunerPainter.kt` na forma, mas lê as cores do CSS (`readTunerColors` em `painter.ts`): no computador sai na paleta da marmota (marfim, laranja, azul e verde do site), solto no fundo da página, sem caixa; no celular, a tela de app troca as variáveis e ele fica com as cores do app (dono, 2026-11-26).
 
 ### Named Rules
 **A Regra das Três Cores.** Laranja é nota-alvo, azul é tocando agora, verde é selecionado. Nenhuma das três é usada para outra coisa, nem como enfeite, em nenhuma ferramenta nem no hub.
