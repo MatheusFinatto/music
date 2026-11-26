@@ -3,24 +3,41 @@
 // aqui fica só o traço, que depende de cada plataforma. Mudou o visual do app? Mude aqui também.
 import { IN_TUNE_CENTS, type TunerGeometry, type TunerScene } from "@/core/pitch";
 
-// Mesmas cores de marmota-tuner/app/src/main/res/values/colors.xml.
 // Laranja = alvo (nota e marca central), azul = o que está soando, verde = afinado.
-export const TUNER_COLORS = {
+// As cores vêm do CSS da página: no computador, a paleta da marmota; no celular (.app-screen), globals.css troca as
+// variáveis pelas de marmota-tuner/app/src/main/res/values/colors.xml e a tela fica igual à do app.
+export type TunerColors = { background: string; ink: string; muted: string; target: string; now: string; inTune: string };
+
+/** Fallback: as cores do app, para quando o CSS ainda não chegou. */
+export const TUNER_COLORS: TunerColors = {
   background: "#1e1e1e",
   ink: "#ededed",
   muted: "#9a9a9a",
   target: "#ff7a1a",
   now: "#4aa3ff",
   inTune: "#3ddc84",
-} as const;
+};
+
+export function readTunerColors(el: Element): TunerColors {
+  const s = getComputedStyle(el);
+  const v = (name: string, fallback: string) => s.getPropertyValue(name).trim() || fallback;
+  const f = TUNER_COLORS;
+  return {
+    background: v("--bg", f.background),
+    ink: v("--ink", f.ink),
+    muted: v("--muted", f.muted),
+    target: v("--target", f.target),
+    now: v("--accent", f.now),
+    inTune: v("--ok", f.inTune),
+  };
+}
 
 const IDLE_ALPHA = 90 / 255;
 const FONT = "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
 const rad = (deg: number) => (deg * Math.PI) / 180;
 const frequencyFormat = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
-export function drawTuner(ctx: CanvasRenderingContext2D, g: TunerGeometry, scene: TunerScene, width: number, height: number) {
-  const c = TUNER_COLORS;
+export function drawTuner(ctx: CanvasRenderingContext2D, g: TunerGeometry, scene: TunerScene, width: number, height: number, c: TunerColors = TUNER_COLORS) {
   const dp = g.dp;
   const sp = (v: number) => v * dp;
 

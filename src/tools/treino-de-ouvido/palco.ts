@@ -6,7 +6,7 @@ export type Cores = { fundo: string; alvo: string; ok: string; ruim: string; tin
 export const lerCores = (el: Element): Cores => {
   const s = getComputedStyle(el);
   const c = (v: string, f: string) => s.getPropertyValue(v).trim() || f;
-  return { fundo: c("--bg", "#120e0b"), alvo: c("--target", "#f0a634"), ok: c("--ok", "#4cc58c"), ruim: c("--bad", "#e5675c"), tinta: c("--ink", "#f1e8da"), suave: c("--soft", "#2a231d"), linha: c("--line", "#3a322b"), sobre: c("--on-bright", "#1a1410"), acento: c("--accent", "#7db6f0") };
+  return { fundo: c("--bg", "#111715"), alvo: c("--target", "#f0a634"), ok: c("--ok", "#7bd3a0"), ruim: c("--bad", "#ef8f7c"), tinta: c("--ink", "#dbdcd6"), suave: c("--soft", "#252d2b"), linha: c("--line", "#3a403d"), sobre: c("--on-bright", "#1a1208"), acento: c("--accent", "#8cc0ee") };
 };
 
 export const comAlfa = (cor: string, a: number) => {

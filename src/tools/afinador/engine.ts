@@ -5,9 +5,9 @@ import {
   Box, CHUNK_SAMPLES, NeedleAnimator, PitchPipeline, PitchSmoother, TunerScene,
   computeGeometry, readingFromMidi, type NoteReading, type TunerGeometry,
 } from "@/core/pitch";
-import { drawTuner } from "./painter";
+import { drawTuner, readTunerColors, type TunerColors } from "./painter";
 
-type Layout = { g: TunerGeometry; width: number; height: number };
+type Layout = { g: TunerGeometry; width: number; height: number; colors: TunerColors };
 
 export class TunerEngine {
   private readonly scene = new TunerScene();
@@ -41,7 +41,8 @@ export class TunerEngine {
       canvas.width = width;
       canvas.height = height;
       // A geometria é a do app: área em pixels e a densidade no papel do dp do Android.
-      this.layout = { g: computeGeometry(new Box(0, 0, width, height), dpr), width, height };
+      // As cores também se releem aqui: cruzar os 640px muda o tamanho da caixa e a paleta junto.
+      this.layout = { g: computeGeometry(new Box(0, 0, width, height), dpr), width, height, colors: readTunerColors(box) };
       this.draw();
     };
     resize();
@@ -122,7 +123,7 @@ export class TunerEngine {
       if (!ctx || !this.layout) return;
       const stillMoving = this.needle.step(performance.now());
       this.scene.needleCents = this.needle.position;
-      drawTuner(ctx, this.layout.g, this.scene, this.layout.width, this.layout.height);
+      drawTuner(ctx, this.layout.g, this.scene, this.layout.width, this.layout.height, this.layout.colors);
       if (stillMoving) this.draw();
     });
   };
