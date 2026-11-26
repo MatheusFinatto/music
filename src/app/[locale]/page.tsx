@@ -6,7 +6,6 @@ import { routing } from "@/i18n/routing";
 import { TOOLS, isLive, type Tool } from "@/tools/registry";
 import { Marmota } from "@/components/Marmota";
 import { Pauta } from "@/components/Pauta";
-import { PixelArt } from "@/components/PixelArt";
 import { ToolIcon } from "@/components/ToolIcon";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -48,7 +47,7 @@ export default async function Hub({ params }: Props) {
                 <ToolIcon slug={x.slug} />
                 <h2>{name(x)}</h2>
                 <span className="foot">
-                  <span className="go">{t("hub.open")}<Arrow /></span>
+                  <span className="go">{t("hub.open")}</span>
                   {x.status === "laboratorio" && <span className="badge">{t("status.laboratorio")}</span>}
                 </span>
               </ToolLink>
@@ -75,14 +74,4 @@ export default async function Hub({ params }: Props) {
 function ToolLink({ href, children }: { href: string; children: React.ReactNode }) {
   const cls = "card";
   return href.startsWith("/laboratorio") ? <a className={cls} href={href}>{children}</a> : <Link className={cls} href={href}>{children}</Link>;
-}
-
-/** Seta em pixel (7×5), no grid do resto. */
-function Arrow() {
-  return <PixelArt className="arrow" grid={`
-....#..
-.....#.
-#######
-.....#.
-....#..`} />;
 }

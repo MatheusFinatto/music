@@ -233,10 +233,8 @@
     .card .icon { width: 32px; height: 32px; margin: 0; }
     .card h2 { flex: 1; min-width: 0; font-size: var(--text-lg); }
     .card .foot { margin: 0; padding: 0; }
-    /* A linha inteira já é o link: a placa "Abrir" vira só a seta em pixel (3×), apagada; o nome cabe numa linha só. */
-    .card .go { background: none; color: var(--muted); padding: 0; clip-path: none; font-size: 0; gap: 0; min-height: 0; }
-    .card .go .arrow { width: 21px; height: 15px; }
-    a.card:hover .go { background: none; color: var(--ink); }
+    /* A linha inteira já é o link: sem a placa "Abrir"; o nome cabe numa linha só. */
+    .card .go { display: none; }
     /* A que ainda não existe: a situação vai embaixo do nome (ao lado, empurraria o nome para duas linhas). */
     .card.quieto { display: grid; grid-template-columns: auto 1fr; column-gap: 14px; row-gap: 6px; }
     .card.quieto .icon { grid-row: span 2; }
@@ -253,29 +251,15 @@
   /* Cantos em degrau: falta um "pixel" (4px) em cada canto, como num botão de pixel art. */
   .go { display: inline-flex; align-items: center; gap: 10px; background: var(--ink); color: var(--bg); font-weight: 600; font-size: 0.95rem; padding: 9px 16px 9px 18px;
     clip-path: polygon(var(--px) 0, calc(100% - var(--px)) 0, calc(100% - var(--px)) var(--px), 100% var(--px), 100% calc(100% - var(--px)), calc(100% - var(--px)) calc(100% - var(--px)), calc(100% - var(--px)) 100%, var(--px) 100%, var(--px) calc(100% - var(--px)), 0 calc(100% - var(--px)), 0 var(--px), var(--px) var(--px)); }
-  .go .arrow { width: 14px; height: 10px; }
   a.card:hover .go { background: var(--plate-hover); }
-  @media (prefers-reduced-motion: no-preference) {
-    .go .arrow { transition: transform 0.24s var(--step); }
-    a.card:hover .go .arrow { transform: translateX(var(--px)); }
-  }
 
   /* Topo das ferramentas (afinador, metrônomo): título e, à direita, as ações e "Baixar app". */
   .tool-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
   .tool-head h1 { font-size: clamp(1.45rem, 2.6vw, 1.9rem); font-weight: 650; line-height: 1.15; letter-spacing: -0.025em; }
   .tool-head-actions { display: flex; align-items: center; gap: 8px; }
-  .tool-head-titulo { display: flex; align-items: center; gap: 4px; min-width: 0; }
-  /* A ← do celular: singela (traço liso como os ícones da barra do app, cor apagada, sem caixa), com 44px de alvo; no desktop o
-     cabeçalho do site já leva ao início. */
-  .tool-voltar { display: none; place-items: center; width: 44px; height: 44px; margin-left: -12px; color: var(--muted); }
-  .tool-voltar:hover { color: var(--ink); }
-  .tool-voltar svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   /* Celular com cara de app (a mesma largura da barra do app, 640px): sem o cabeçalho do site (marca e menu); a home é o
-     início, e as ferramentas voltam pela ← (e pela casinha da barra). */
-  @media (max-width: 640px) {
-    .site-header { display: none; }
-    .tool-voltar { display: grid; }
-  }
+     início, e as ferramentas voltam pela casinha da barra do app (AppNav). */
+  @media (max-width: 640px) { .site-header { display: none; } }
   .tool-download { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px 0 12px; white-space: nowrap; border-radius: var(--radius-pill); border: 2px solid var(--line); color: var(--ink); font-size: var(--text-sm); font-weight: 600; text-decoration: none; transition: background-color 0.2s, border-color 0.2s; }
   .tool-download:hover { background: var(--soft); border-color: var(--muted); }
   .tool-download:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }

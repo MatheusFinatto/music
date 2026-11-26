@@ -135,6 +135,14 @@
     "favorites": "Favoritos",
     "favoritesIn": "Favoritos (em {name})",
     "favoriteDesc": "{bpm} bpm · {beats, plural, one {# tempo} other {# tempos}} · {sub}",
+    "favoritesInfo": "Como funcionam os favoritos",
+    "favoritesInfoItems": [
+      "Salvar o atual guarda o andamento, os tempos, a divisão e os acentos de agora, com um nome se quiser.",
+      "Escolher um favorito é entrar nele: o que você mudar no metrônomo muda o favorito, na hora. Dentro de um, a estrela fica verde.",
+      "Nenhum sai do favorito: o metrônomo fica como está e para de mudar o favorito.",
+      "O lápis renomeia; o X apaga.",
+      "Os favoritos ficam só neste navegador."
+    ],
     "favoriteName": "Nome (opcional)",
     "saveCurrent": "Salvar o atual",
     "deleteFavorite": "Apagar {name}",
