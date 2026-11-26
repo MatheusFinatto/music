@@ -195,7 +195,10 @@
   .info-sutil .info-btn { cursor: help; }
   .info-sutil .info-btn:hover { opacity: 1; }
   .pauta-play svg { width: 10px; height: 14px; }
-  .pauta-play[aria-busy="true"] { opacity: 0.4; }
+  .pauta-play[aria-busy="true"] { opacity: 1; cursor: progress; }
+  .pauta-play .pauta-carregando { width: 16px; height: 16px; animation: pauta-gira 0.8s linear infinite; }
+  @keyframes pauta-gira { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .pauta-play .pauta-carregando { animation-duration: 2.4s; } }
   @media (pointer: coarse) { .pauta-play, .info-sutil .info-btn { width: 44px; height: 44px; } .pauta-rodape { margin-top: -8px; } }
 
   /* Ferramentas embaixo da pauta, numa fileira só no desktop (as que ainda não existem entram quietas no fim); duas colunas no

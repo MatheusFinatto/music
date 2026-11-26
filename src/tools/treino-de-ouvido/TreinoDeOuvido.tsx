@@ -2,7 +2,7 @@
 import { onRadioKeyDown } from "@/core/ui/radioGroup";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
-import { getAudio, loadPiano, PIANO_SAMPLES, playPiano, resumeAudio, stopPiano, type PianoNote } from "@/core/audio";
+import { getAudio, loadPiano, playPiano, preparePiano, readyAudio, resumeAudio, stopPiano, type PianoNote } from "@/core/audio";
 import { createStore } from "@/core/storage";
 import { Info } from "@/components/Info";
 import {
@@ -99,14 +99,14 @@ function Ouvido({ programa }: { programa?: ProgramaProp }) {
   // Num programa, o exercício vem do bloco (a config salva da pessoa não muda).
   const exercicioDaVez = (programa?.exercicio as Exercicio | undefined) ?? s.classica.exercicio;
 
-  // Aquece o cache das amostras sem criar o áudio (que só nasce no primeiro toque).
-  useEffect(() => { PIANO_SAMPLES.forEach((m) => { void fetch(`/sons/piano/${m}.mp3`).catch(() => {}); }); }, []);
+  // Amostras prontas e saída de áudio aberta antes do primeiro "ouvir".
+  useEffect(() => { preparePiano(); }, []);
   useEffect(() => () => { const g = getAudio(); if (g) stopPiano(g); }, []);
 
   const tocar = async (notas: readonly PianoNote[], botao = true) => {
     const g = resumeAudio();
     if (!g) { setErro("audio"); return; }
-    try { setCarregando(true); await loadPiano(g); setErro(null); } catch { setErro("piano"); return; } finally { setCarregando(false); }
+    try { setCarregando(true); await Promise.all([loadPiano(g), readyAudio(g)]); setErro(null); } catch { setErro("piano"); return; } finally { setCarregando(false); }
     const duracao = playPiano(g, notas);
     if (duracao === null) return;
     // Azul = soando agora: o botão de ouvir fica azul até a última nota acabar.
