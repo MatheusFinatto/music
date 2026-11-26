@@ -1,6 +1,6 @@
 // Toca o metrônomo no Web Audio. A conta de quando cada clique soa é do Kotlin (Metronome); aqui só se
 // agenda cada clique no relógio do áudio, um pouco à frente, e se avisa a tela no instante em que ele soa.
-import { getAudio, outputDelay, resumeAudio, type AudioGraph } from "@/core/audio";
+import { getAudio, outputDelay, readyAudio, resumeAudio, type AudioGraph } from "@/core/audio";
 import { ACCENT, BEAT, MUTE, Metronome, SUB, renderChime, renderClick, type Tick } from "@/core/rhythm";
 
 const LOOKAHEAD = 0.12; // segundos agendados à frente
@@ -16,6 +16,8 @@ export class MetronomeEngine {
   private timer: ReturnType<typeof setInterval> | null = null;
   private pending: ReturnType<typeof setTimeout>[] = [];
   private sources: AudioBufferSourceNode[] = [];
+  /** Muda a cada start/stop: um start que ainda espera a saída abrir e foi parado não começa depois. */
+  private vez = 0;
   running = false;
 
   /** Chamado no instante em que cada clique soa (para a tela acender o tempo). */
@@ -42,14 +44,21 @@ export class MetronomeEngine {
         this.buffers.set(kind, buf);
       }
     this.apply(s);
-    this.clock.reset(g.ctx.currentTime + 0.08);
     this.running = true;
-    this.timer = setInterval(() => this.schedule(), TICK_MS);
-    this.schedule();
+    // O primeiro clique só sai com a saída aberta: no celular, o que se agenda antes disso some (a pauta tinha o mesmo).
+    // Na primeira vez espera ~¼ s; depois, readyAudio volta na hora.
+    const vez = this.vez;
+    void readyAudio(g).then(() => {
+      if (vez !== this.vez) return;
+      this.clock.reset(g.ctx.currentTime + 0.08);
+      this.timer = setInterval(() => this.schedule(), TICK_MS);
+      this.schedule();
+    });
     return true;
   }
 
   stop() {
+    this.vez++;
     this.running = false;
     if (this.timer) clearInterval(this.timer);
     this.timer = null;

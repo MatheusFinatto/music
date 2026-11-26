@@ -269,5 +269,6 @@ describe("paridade com o Kotlin (treino-fixtures.json)", () => {
     const atual = gerar();
     if (process.env.ATUALIZAR_FIXTURES) writeFileSync(ARQUIVO, JSON.stringify(atual) + "\n");
     expect(atual).toEqual(JSON.parse(readFileSync(ARQUIVO, "utf8")));
-  });
+    // Gera e compara milhares de casos: leva ~1 s sozinho, mas passa dos 5 s padrão com a máquina ocupada (CI, dev server).
+  }, 30_000);
 });
