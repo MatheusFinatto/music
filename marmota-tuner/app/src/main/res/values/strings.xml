@@ -58,6 +58,9 @@
     <string name="save_current">Salvar o atual</string>
     <string name="favorite_name_hint">Nome (opcional)</string>
     <string name="delete_favorite">Apagar %s</string>
+    <string name="rename_favorite">Renomear %s</string>
+    <string name="no_favorite">Nenhum</string>
+    <string name="favorites_in">Favoritos (em %s)</string>
     <string name="close">Fechar</string>
     <string name="dots_hint">Toque numa bolinha: normal, forte ou mudo</string>
 </resources>

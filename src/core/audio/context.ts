@@ -32,3 +32,14 @@ export function resumeAudio(): AudioGraph | null {
 }
 
 export const audioNow = (): number => graph?.ctx.currentTime ?? 0;
+
+/**
+ * O instante do relógio do áudio que está saindo no alto-falante agora. `currentTime` é o que está sendo calculado, e
+ * o som ainda leva o atraso da saída (no celular e no Bluetooth, 100 ms ou mais) para ser ouvido. Para acender algo
+ * junto com o som, compare com isto, não com `currentTime`.
+ */
+export function heardTime(ctx: AudioContext): number {
+  const ts = ctx.getOutputTimestamp?.();
+  if (ts?.contextTime && ts.performanceTime) return ts.contextTime + (performance.now() - ts.performanceTime) / 1000;
+  return ctx.currentTime - (ctx.outputLatency || ctx.baseLatency || 0);
+}
