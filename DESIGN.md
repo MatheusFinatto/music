@@ -34,14 +34,6 @@ colors:
   selected-bright: "#6fd39a"
   bad-bright: "#ef7f6c"
   on-bright: "#1a1208"
-  app-ground: "#1e1e1e"
-  app-bar: "#2e2e2e"
-  app-ink: "#ededed"
-  app-muted: "#9a9a9a"
-  app-line: "#4a4a4a"
-  app-now: "#4aa3ff"
-  app-target: "#ff7a1a"
-  app-selected: "#3ddc84"
 typography:
   display:
     fontFamily: "Silkscreen, Inter, monospace"
@@ -197,7 +189,7 @@ Escuro, esverdeado e quente ao mesmo tempo: a marmota dá o neutro, e três core
 - **Jacarandá, alpaca, osso, aço, bronze, madrepérola** (wood, wood-2, wood-3, fret, fret-shade, steel, bronze, inlay, pearl) e as versões claras dos sinais sobre a madeira (target-bright, gesture-bright, now-bright, selected-bright, bad-bright, com on-bright por cima). Existem só para desenhar o braço da guitarra. Nunca viram superfície de interface.
 
 ### Tela de app (celular)
-- **Paleta do app Android** (app-ground, app-bar, app-ink, app-muted, app-line, app-now, app-target, app-selected): no celular, o afinador e o metrônomo copiam o Marmota Tuner, e estas cores (as do `colors.xml` do app) substituem o mundo da marmota naquelas telas. O desenho do afinador (canvas) espelha `TunerPainter.kt` na forma, mas lê as cores do CSS (`readTunerColors` em `painter.ts`): no computador sai na paleta da marmota (marfim, laranja, azul e verde do site), solto no fundo da página, sem caixa; no celular, a tela de app troca as variáveis e ele fica com as cores do app (dono, 2026-11-26).
+- **Uma paleta só** (dono, 2026-11-26): os apps Android (Marmota Tuner e Marmota Trainer) usam a paleta da marmota, a mesma deste arquivo, em `marmota-tuner/android-common/.../Paleta.kt`; `src/core/paleta.test.ts` falha se um valor de lá se afastar do `globals.css`. No celular, a tela de app troca só a forma (raios, fonte, barra), não as cores: a superfície vira o próprio fundo, e barra, folhas e bolinhas ficam na sombra suave (soft). O desenho do afinador (canvas) espelha `TunerPainter.kt` e lê as cores do CSS (`readTunerColors` em `painter.ts`); no computador fica solto no fundo da página, sem caixa.
 
 ### Named Rules
 **A Regra das Três Cores.** Laranja é nota-alvo, azul é tocando agora, verde é selecionado. Nenhuma das três é usada para outra coisa, nem como enfeite, em nenhuma ferramenta nem no hub.
@@ -304,7 +296,7 @@ A marmota em 52×42 tem dois quadros por cima da base, trocados em degraus (`ste
 Desenhos 16×16 escritos como grade de texto ("#" aceso, "+" sombra) e renderizados pelo `PixelArt` num SVG de um path por cor, na cor do texto. Ferramenta nova sem desenho usa o genérico até ganhar o seu.
 
 ### Tela de app (celular)
-No celular (≤640px), afinador e metrônomo marcam `.app-screen`: some cabeçalho, rodapé e título; a paleta vira a do app, os raios voltam a ser de app (22px, 14px, 10px e pílula de verdade) e aparece a barra flutuante de 56px com a aba atual cheia. É uma cópia deliberada do Marmota Tuner, não uma exceção a corrigir. O site espelha os apps: os treinos de ouvido e de voz têm a mesma barra com as abas do Marmota Trainer (Ouvido, Voz), a casinha do início e o download do APK daquele app (`AppNav.tsx`), mas mantêm o mundo da marmota. Em todo o celular o cabeçalho do site some, e a volta ao início é só a casinha da barra; não há seta de voltar.
+No celular (≤640px), afinador e metrônomo marcam `.app-screen`: some cabeçalho, rodapé e título; as cores continuam as da marmota (as dos apps também), os raios voltam a ser de app (22px, 14px, 10px e pílula de verdade) e aparece a barra flutuante de 56px com a aba atual cheia. É uma cópia deliberada do Marmota Tuner, não uma exceção a corrigir. O site espelha os apps: os treinos de ouvido e de voz têm a mesma barra com as abas do Marmota Trainer (Ouvido, Voz), a casinha do início e o download do APK daquele app (`AppNav.tsx`), mas mantêm o mundo da marmota. Em todo o celular o cabeçalho do site some, e a volta ao início é só a casinha da barra; não há seta de voltar.
 
 ## Do's and Don'ts
 

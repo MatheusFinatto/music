@@ -4,18 +4,17 @@
 import { IN_TUNE_CENTS, type TunerGeometry, type TunerScene } from "@/core/pitch";
 
 // Laranja = alvo (nota e marca central), azul = o que está soando, verde = afinado.
-// As cores vêm do CSS da página: no computador, a paleta da marmota; no celular (.app-screen), globals.css troca as
-// variáveis pelas de marmota-tuner/app/src/main/res/values/colors.xml e a tela fica igual à do app.
+// As cores vêm do CSS da página, a paleta da marmota, a mesma dos apps (marmota-tuner/android-common/.../Paleta.kt).
 export type TunerColors = { background: string; ink: string; muted: string; target: string; now: string; inTune: string };
 
-/** Fallback: as cores do app, para quando o CSS ainda não chegou. */
+/** Fallback, para quando o CSS ainda não chegou: os mesmos valores de globals.css. */
 export const TUNER_COLORS: TunerColors = {
-  background: "#1e1e1e",
-  ink: "#ededed",
-  muted: "#9a9a9a",
-  target: "#ff7a1a",
-  now: "#4aa3ff",
-  inTune: "#3ddc84",
+  background: "#111715",
+  ink: "#dbdcd6",
+  muted: "#9c958e",
+  target: "#f0a634",
+  now: "#8cc0ee",
+  inTune: "#7bd3a0",
 };
 
 export function readTunerColors(el: Element): TunerColors {

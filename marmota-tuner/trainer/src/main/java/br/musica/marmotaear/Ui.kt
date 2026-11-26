@@ -28,33 +28,34 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.Switch
 import android.widget.TextView
+import br.musica.marmota.common.Paleta
 
 /**
- * The app's visual kit, the same family as the Marmota Tuner (marmota-tuner/app, colors.xml): neutral dark gray, outlined pills,
- * a floating bar at the bottom and centered sheets. Built with plain Views. Meaning of color, as everywhere in Marmota:
- * orange = target note, blue = sounding now, green = selected.
+ * The app's visual kit, the same family as the Marmota Tuner: the marmot's palette (Paleta, shared with the Tuner and the
+ * website), outlined pills, a floating bar at the bottom and centered sheets. Built with plain Views. Meaning of color, as
+ * everywhere in Marmota: orange = target note, blue = sounding now, green = selected.
  */
 object C {
-    val fundo = Color.parseColor("#1E1E1E") // tuner_background
-    val superficie = Color.parseColor("#2E2E2E") // tuner_bar: sheets and the floating bar
-    val superficieAlta = Color.parseColor("#2E2E2E") // tonal buttons
-    val tinta = Color.parseColor("#EDEDED") // tuner_ink; also the primary action
-    val apagado = Color.parseColor("#9A9A9A") // tuner_muted
-    val linha = Color.parseColor("#4A4A4A") // tuner_line: outlines of pills and dots
-    val azul = Color.parseColor("#4AA3FF") // tuner_now: sounding now
-    val azulTinta = Color.parseColor("#0B1520")
-    val laranja = Color.parseColor("#FF7A1A") // tuner_target
-    val laranjaSuave = Color.parseColor("#3A2614")
-    val verde = Color.parseColor("#3DDC84") // tuner_in_tune: selected / right
-    val vermelho = Color.parseColor("#FF7B6B") // wrong / error
-    val sobreClaro = Color.parseColor("#1E1E1E") // text on any bright fill
-    val teclaBranca = Color.parseColor("#EDEDED")
-    val teclaPreta = Color.parseColor("#262626")
-    val madeira = Color.parseColor("#4A2C21")
-    val traste = Color.parseColor("#E6E1D6")
-    val aco = Color.parseColor("#DFE2E6")
-    val bronze = Color.parseColor("#C9A66B")
-    val incrustacao = Color.parseColor("#EFE7D6")
+    val fundo = Paleta.ground
+    val superficie = Paleta.soft // sheets and the floating bar
+    val superficieAlta = Paleta.soft // tonal buttons
+    val tinta = Paleta.ink // also the primary action
+    val apagado = Paleta.muted
+    val linha = Paleta.line // outlines of pills and dots
+    val azul = Paleta.now // sounding now
+    val azulTinta = Paleta.nowInk
+    val laranja = Paleta.target
+    val laranjaSuave = Paleta.targetSoft
+    val verde = Paleta.selected // selected / right
+    val vermelho = Paleta.bad // wrong / error
+    val sobreClaro = Paleta.ground // text on any bright fill
+    val teclaBranca = Paleta.ink
+    val teclaPreta = Paleta.ground
+    val madeira = Paleta.wood
+    val traste = Paleta.fret
+    val aco = Paleta.steel
+    val bronze = Paleta.bronze
+    val incrustacao = Paleta.inlay
 }
 
 fun Context.dp(v: Number): Int = (v.toFloat() * resources.displayMetrics.density + 0.5f).toInt()

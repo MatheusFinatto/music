@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Only what the XML themes need. The palette lives in Paleta.kt; src/core/paleta.test.ts keeps these equal to it. -->
+    <color name="marmota_ground">#FF111715</color>
+    <color name="marmota_now">#FF8CC0EE</color>
+</resources>

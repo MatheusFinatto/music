@@ -37,6 +37,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import kotlin.math.min
 import kotlin.math.roundToInt
+import br.musica.marmota.common.Paleta
 
 /**
  * Metronome screen. The click timing and the click sound come from core (Metronome, ClickSound), the same
@@ -113,7 +114,6 @@ class MetronomeActivity : Activity() {
 
     private fun parseAccents(s: String) = s.split(".").mapNotNull { it.toIntOrNull() }.toIntArray()
 
-    private fun color(id: Int) = getColor(id)
     /** [a] moved [t] of the way toward [b]. */
     private fun blend(a: Int, b: Int, t: Float) = Color.rgb(
         (Color.red(a) + (Color.red(b) - Color.red(a)) * t).roundToInt(),
@@ -132,7 +132,7 @@ class MetronomeActivity : Activity() {
 
     /** A drawn × (close, delete): 48dp touch target, 2dp stroke like the star. */
     private fun closeButton(description: String, onClick: () -> Unit) = ImageView(this).apply {
-        setImageDrawable(CrossDrawable(color(R.color.tuner_muted), dpf(1.8f), dpf(14f)))
+        setImageDrawable(CrossDrawable(Paleta.muted, dpf(1.8f), dpf(14f)))
         scaleType = ImageView.ScaleType.CENTER
         contentDescription = description
         background = ripple()
@@ -142,8 +142,8 @@ class MetronomeActivity : Activity() {
 
     private fun pillBackground(filled: Boolean) = GradientDrawable().apply {
         cornerRadius = dpf(28f)
-        setColor(if (filled) color(R.color.tuner_ink) else Color.TRANSPARENT)
-        setStroke(dp(1), if (filled) color(R.color.tuner_ink) else color(R.color.tuner_line))
+        setColor(if (filled) Paleta.ink else Color.TRANSPARENT)
+        setStroke(dp(1), if (filled) Paleta.ink else Paleta.line)
     }
 
     private fun pill(text: String, filled: Boolean = false) = Button(this).apply {
@@ -151,7 +151,7 @@ class MetronomeActivity : Activity() {
         isAllCaps = false
         textSize = 17f
         typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-        setTextColor(if (filled) color(R.color.tuner_background) else color(R.color.tuner_ink))
+        setTextColor(if (filled) Paleta.ground else Paleta.ink)
         background = pillBackground(filled)
         stateListAnimator = null
         minHeight = dp(52)
@@ -194,7 +194,7 @@ class MetronomeActivity : Activity() {
         dotsHint = TextView(this).apply {
             text = getString(R.string.dots_hint)
             textSize = 14f
-            setTextColor(color(R.color.tuner_muted))
+            setTextColor(Paleta.muted)
             gravity = Gravity.CENTER
             setPadding(0, dp(4), 0, 0)
             importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
@@ -209,7 +209,7 @@ class MetronomeActivity : Activity() {
         root.addView(TextView(this).apply {
             text = getString(R.string.bpm)
             textSize = 15f
-            setTextColor(color(R.color.tuner_muted))
+            setTextColor(Paleta.muted)
             gravity = Gravity.CENTER
             importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
         })
@@ -223,7 +223,7 @@ class MetronomeActivity : Activity() {
             gravity = Gravity.CENTER
             fontFeatureSettings = "tnum"
         }
-        timerNote = TextView(this).apply { textSize = 14f; gravity = Gravity.CENTER; setTextColor(color(R.color.tuner_muted)) }
+        timerNote = TextView(this).apply { textSize = 14f; gravity = Gravity.CENTER; setTextColor(Paleta.muted) }
         timerBox.addView(timerText)
         timerBox.addView(timerNote)
         root.addView(timerBox, LinearLayout.LayoutParams(-1, -2))
@@ -247,7 +247,7 @@ class MetronomeActivity : Activity() {
         }
         actions.addView(playButton, LinearLayout.LayoutParams(0, dp(64), 1f))
         stopButton = ImageView(this).apply {
-            setImageDrawable(TransportDrawable(TransportDrawable.STOP, color(R.color.tuner_ink), dpf(22f)))
+            setImageDrawable(TransportDrawable(TransportDrawable.STOP, Paleta.ink, dpf(22f)))
             scaleType = ImageView.ScaleType.CENTER
             background = pillBackground(false)
             foreground = ripple()
@@ -313,15 +313,15 @@ class MetronomeActivity : Activity() {
         val inner = when (accent) { Tick.ACCENT -> 34; Tick.MUTE -> 20; else -> 26 }
         val shape = GradientDrawable().apply {
             shape = GradientDrawable.OVAL
-            val now = color(R.color.tuner_now)
+            val now = Paleta.now
             when {
                 accent == Tick.MUTE -> {
                     setColor(Color.TRANSPARENT)
-                    setStroke(dp(2), if (on) now else color(R.color.tuner_muted), dpf(3f), dpf(3f))
+                    setStroke(dp(2), if (on) now else Paleta.muted, dpf(3f), dpf(3f))
                 }
                 on -> { setColor(now); setStroke(dp(2), now) }
-                accent == Tick.ACCENT -> { setColor(color(R.color.tuner_ink)); setStroke(dp(2), color(R.color.tuner_ink)) }
-                else -> { setColor(color(R.color.tuner_bar)); setStroke(dp(2), color(R.color.tuner_muted)) }
+                accent == Tick.ACCENT -> { setColor(Paleta.ink); setStroke(dp(2), Paleta.ink) }
+                else -> { setColor(Paleta.soft); setStroke(dp(2), Paleta.muted) }
             }
         }
         val pad = ((v.layoutParams?.width ?: dp(48)) - dp(inner)) / 2
@@ -341,7 +341,7 @@ class MetronomeActivity : Activity() {
         val count = TextView(this).apply {
             textSize = 56f
             typeface = Typeface.DEFAULT_BOLD
-            setTextColor(color(R.color.tuner_ink))
+            setTextColor(Paleta.ink)
             gravity = Gravity.CENTER
             text = metronome.beatsPerBar.toString()
         }
@@ -368,7 +368,7 @@ class MetronomeActivity : Activity() {
         val sub = Subdivisions.byId(metronome.subdivision)
         figureButton.removeAllViews()
         figureButton.addView(ImageView(this).apply {
-            setImageDrawable(FigureDrawable(sub, color(R.color.tuner_ink), dpf(0.85f)))
+            setImageDrawable(FigureDrawable(sub, Paleta.ink, dpf(0.85f)))
             scaleType = ImageView.ScaleType.CENTER
         }, FrameLayout.LayoutParams(-1, -1))
         figureButton.contentDescription = getString(R.string.subdivision_desc, subdivisionName(sub.id))
@@ -384,7 +384,7 @@ class MetronomeActivity : Activity() {
         lateinit var dialog: Dialog
         for (sub in Subdivisions.all) {
             val selected = sub.id == metronome.subdivision
-            val tint = if (selected) color(R.color.tuner_in_tune) else color(R.color.tuner_ink)
+            val tint = if (selected) Paleta.selected else Paleta.ink
             val cell = LinearLayout(this).apply {
                 orientation = LinearLayout.VERTICAL
                 gravity = Gravity.CENTER
@@ -392,7 +392,7 @@ class MetronomeActivity : Activity() {
                 background = GradientDrawable().apply {
                     cornerRadius = dpf(14f)
                     setColor(Color.TRANSPARENT)
-                    setStroke(dp(if (selected) 2 else 1), if (selected) color(R.color.tuner_in_tune) else color(R.color.tuner_line))
+                    setStroke(dp(if (selected) 2 else 1), if (selected) Paleta.selected else Paleta.line)
                 }
                 foreground = ripple()
                 isClickable = true
@@ -450,7 +450,7 @@ class MetronomeActivity : Activity() {
     private fun refreshTransport() {
         val timer = minutes > 0
         val kind = when { !playing -> TransportDrawable.PLAY; timer -> TransportDrawable.PAUSE; else -> TransportDrawable.STOP }
-        playButton.setImageDrawable(TransportDrawable(kind, color(R.color.tuner_background), dpf(26f)))
+        playButton.setImageDrawable(TransportDrawable(kind, Paleta.ground, dpf(26f)))
         playButton.contentDescription = getString(when {
             playing -> if (timer) R.string.pause else R.string.stop
             pausedLeft > 0 -> R.string.resume
@@ -472,7 +472,7 @@ class MetronomeActivity : Activity() {
         val sec = ((ms + 999) / 1000).coerceAtLeast(0)
         timerText.text = "%d:%02d".format(sec / 60, sec % 60)
         // The tempo stays the brightest number; the timer lights up a little while it runs. Orange is only for targets.
-        timerText.setTextColor(if (playing) blend(color(R.color.tuner_ink), color(R.color.tuner_muted), 0.22f) else color(R.color.tuner_muted))
+        timerText.setTextColor(if (playing) blend(Paleta.ink, Paleta.muted, 0.22f) else Paleta.muted)
         timerNote.text = when { timerDone -> getString(R.string.timer_done); pausedLeft > 0 -> getString(R.string.paused); else -> "" }
         timerNote.visibility = if (timerNote.text.isEmpty()) View.INVISIBLE else View.VISIBLE // keeps its line: the wheel does not jump
     }
@@ -486,8 +486,8 @@ class MetronomeActivity : Activity() {
                 textSize = 15f
                 setPadding(dp(6), 0, dp(6), 0)
                 if (selected) {
-                    setTextColor(color(R.color.tuner_in_tune))
-                    background = GradientDrawable().apply { cornerRadius = dpf(28f); setStroke(dp(2), color(R.color.tuner_in_tune)) }
+                    setTextColor(Paleta.selected)
+                    background = GradientDrawable().apply { cornerRadius = dpf(28f); setStroke(dp(2), Paleta.selected) }
                 }
                 isSelected = selected
                 setOnClickListener {
@@ -610,7 +610,7 @@ class MetronomeActivity : Activity() {
     private fun refreshStar() {
         if (!::starButton.isInitialized) return
         val f = loadFavorites().getOrNull(activeFav)
-        starButton.setImageDrawable(StarDrawable(color(if (f != null) R.color.tuner_in_tune else R.color.tuner_ink), dpf(1.8f), filled = f != null))
+        starButton.setImageDrawable(StarDrawable(if (f != null) Paleta.selected else Paleta.ink, dpf(1.8f), filled = f != null))
         starButton.contentDescription = if (f != null) getString(R.string.favorites_in, f.name.ifEmpty { describe(f) }) else getString(R.string.favorites)
     }
 
@@ -650,7 +650,7 @@ class MetronomeActivity : Activity() {
                 background = GradientDrawable().apply {
                     cornerRadius = dpf(14f)
                     setColor(Color.TRANSPARENT)
-                    if (selected) setStroke(dp(2), color(R.color.tuner_in_tune))
+                    if (selected) setStroke(dp(2), Paleta.selected)
                 }
                 foreground = ripple()
                 isClickable = true
@@ -662,7 +662,7 @@ class MetronomeActivity : Activity() {
                 this.text = text
                 textSize = 16f
                 typeface = Typeface.DEFAULT_BOLD
-                setTextColor(color(if (selected) R.color.tuner_in_tune else R.color.tuner_ink))
+                setTextColor(if (selected) Paleta.selected else Paleta.ink)
             }
             // "None" leaves the favorite: the metronome stays as it is and stops changing the favorite.
             if (list.isNotEmpty()) rows.addView(choice(activeFav < 0, getString(R.string.no_favorite)) { selectFavorite(-1); dialog.dismiss() }.apply {
@@ -675,13 +675,13 @@ class MetronomeActivity : Activity() {
                     val field = EditText(this).apply {
                         setText(f.name)
                         hint = describe(f)
-                        setHintTextColor(color(R.color.tuner_muted))
-                        setTextColor(color(R.color.tuner_ink))
+                        setHintTextColor(Paleta.muted)
+                        setTextColor(Paleta.ink)
                         textSize = 16f
                         isSingleLine = true
                         imeOptions = EditorInfo.IME_ACTION_DONE
                         filters = arrayOf(InputFilter.LengthFilter(40))
-                        background = GradientDrawable().apply { cornerRadius = dpf(14f); setStroke(dp(2), color(R.color.tuner_line)) }
+                        background = GradientDrawable().apply { cornerRadius = dpf(14f); setStroke(dp(2), Paleta.line) }
                         setPadding(dp(12), 0, dp(12), 0)
                         contentDescription = getString(R.string.favorite_name_hint)
                         setSelectAllOnFocus(true)
@@ -704,12 +704,12 @@ class MetronomeActivity : Activity() {
                     if (f.name.isNotEmpty()) item.addView(TextView(this).apply {
                         text = describe(f)
                         textSize = 13f
-                        setTextColor(color(R.color.tuner_muted))
+                        setTextColor(Paleta.muted)
                     })
                     row.addView(item, LinearLayout.LayoutParams(0, -2, 1f))
                 }
                 row.addView(ImageView(this).apply {
-                    setImageDrawable(PencilDrawable(color(R.color.tuner_muted), dpf(1.8f), dpf(18f)))
+                    setImageDrawable(PencilDrawable(Paleta.muted, dpf(1.8f), dpf(18f)))
                     scaleType = ImageView.ScaleType.CENTER
                     contentDescription = getString(R.string.rename_favorite, label)
                     background = ripple()
@@ -727,13 +727,13 @@ class MetronomeActivity : Activity() {
             body.addView(ScrollView(this).apply { addView(rows) }, LinearLayout.LayoutParams(-1, -2, 1f))
             val nameField = EditText(this).apply {
                 hint = getString(R.string.favorite_name_hint)
-                setHintTextColor(color(R.color.tuner_muted))
-                setTextColor(color(R.color.tuner_ink))
+                setHintTextColor(Paleta.muted)
+                setTextColor(Paleta.ink)
                 textSize = 16f
                 isSingleLine = true
                 imeOptions = EditorInfo.IME_ACTION_DONE
                 filters = arrayOf(InputFilter.LengthFilter(40))
-                background = GradientDrawable().apply { cornerRadius = dpf(14f); setStroke(dp(1), color(R.color.tuner_line)) }
+                background = GradientDrawable().apply { cornerRadius = dpf(14f); setStroke(dp(1), Paleta.line) }
                 setPadding(dp(16), 0, dp(16), 0)
             }
             // Saves the current settings as a new favorite, on top, and goes into it.
@@ -764,14 +764,14 @@ class MetronomeActivity : Activity() {
         val box = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(dp(20), dp(16), dp(20), dp(16))
-            background = GradientDrawable().apply { cornerRadius = dpf(22f); setColor(color(R.color.tuner_bar)) }
+            background = GradientDrawable().apply { cornerRadius = dpf(22f); setColor(Paleta.soft) }
         }
         val head = LinearLayout(this).apply { gravity = Gravity.CENTER_VERTICAL }
         head.addView(TextView(this).apply {
             text = title
             textSize = 19f
             typeface = Typeface.DEFAULT_BOLD
-            setTextColor(color(R.color.tuner_ink))
+            setTextColor(Paleta.ink)
             isFocusable = true
         }, LinearLayout.LayoutParams(0, -2, 1f))
         head.addView(closeButton(getString(R.string.close)) { d.dismiss() }, LinearLayout.LayoutParams(dp(48), dp(48)))
