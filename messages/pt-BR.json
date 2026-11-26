@@ -76,7 +76,6 @@
     "guardado": "O que fica guardado",
     "itens": [
       "Seu e-mail e uma cópia do que você salva aqui: os favoritos do metrônomo e o progresso do treino de ouvido e de voz.",
-      "A cópia fica no Firebase, do Google, e só a sua conta consegue ler.",
       "Sair só para de sincronizar; o que está no aparelho continua aqui. \"Apagar meus dados\" apaga a cópia e a conta."
     ],
     "entrar": "Entrar com Google",
