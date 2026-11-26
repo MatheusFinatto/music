@@ -37,9 +37,11 @@ class MainActivity : Activity() {
     override fun onResume() {
         super.onResume()
         if (hasMicPermission()) startListening()
+        br.musica.marmota.common.Conta.aoVoltar(this) { recreate() }
     }
 
     override fun onPause() {
+        br.musica.marmota.common.Conta.aoSair(this)
         capture.stop()
         smoother.reset()
         tunerView.show(null, 0f)

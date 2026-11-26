@@ -15,8 +15,8 @@ android {
         applicationId = "br.musica.marmotaear"
         minSdk = 26
         targetSdk = 35
-        versionCode = 8
-        versionName = "1.5"
+        versionCode = 9
+        versionName = "1.6"
     }
 
     // Same release key as the tuner (~/.gradle/gradle.properties); without it, release builds come out unsigned.
