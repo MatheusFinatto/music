@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { PIANO_LEAD_S, getAudio, heardTime, loadPiano, playPiano, resumeAudio, stopPiano, type PianoNote } from "@/core/audio";
+import { PIANO_LEAD_S, getAudio, heardTime, loadPiano, playPiano, preparePiano, readyAudio, resumeAudio, stopPiano, type PianoNote } from "@/core/audio";
 import { Info } from "./Info";
 import { PixelArt } from "./PixelArt";
 
@@ -112,6 +112,16 @@ const STOP = `
 #####
 #####`;
 
+/** Carregando: um arco que gira (traço liso, não pixel, para não parecer mais uma nota da pauta). */
+function Carregando() {
+  return (
+    <svg className="pauta-carregando" viewBox="0 0 16 16" aria-hidden="true">
+      <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" strokeWidth="1.75" opacity="0.25" />
+      <path d="M8 2a6 6 0 0 1 6 6" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export type TextosPauta = { label: string; nome: string; tocar: string; parar: string; historia: string; fechar: string; travado: string; texto: string[] };
 
 export function Pauta({ t }: { t: TextosPauta }) {
@@ -124,14 +134,18 @@ export function Pauta({ t }: { t: TextosPauta }) {
   const [estado, setEstado] = useState<"parado" | "carregando" | "tocando">("parado");
   const notasEl = useRef<(HTMLSpanElement | null)[]>([]);
   const quadro = useRef(0);
+  /** Cada toque no play ganha um número: parar enquanto carrega invalida o que ainda espera as amostras. */
+  const vez = useRef(0);
   /** Para o laço de luz e apaga as notas. */
   const apagar = () => {
     cancelAnimationFrame(quadro.current);
     for (const el of notasEl.current) el?.classList.remove("acesa", "pula");
   };
-  useEffect(() => () => cancelAnimationFrame(quadro.current), []);
+  useEffect(() => { preparePiano(); }, []);
+  useEffect(() => () => { vez.current++; cancelAnimationFrame(quadro.current); }, []);
 
   async function tocar() {
+    const minha = ++vez.current;
     if (estado !== "parado") {
       apagar();
       const g = getAudio(); if (g) stopPiano(g);
@@ -141,7 +155,9 @@ export function Pauta({ t }: { t: TextosPauta }) {
     const g = resumeAudio();
     if (!g) return;
     setEstado("carregando");
-    try { await loadPiano(g); } catch { setEstado("parado"); return; }
+    // Só toca com as amostras prontas e a saída aberta: antes disso, o começo da melodia se perdia.
+    try { await Promise.all([loadPiano(g), readyAudio(g)]); } catch { if (minha === vez.current) setEstado("parado"); return; }
+    if (minha !== vez.current) return;
     const notas: PianoNote[] = MELODIA.map((n) => ({ midi: MIDI[n.p]!, at: n.t * COLCHEIA, dur: n.d * COLCHEIA * 0.95 }));
     const inicio = g.ctx.currentTime + PIANO_LEAD_S;
     const dur = playPiano(g, notas, { inicio });
@@ -187,7 +203,7 @@ export function Pauta({ t }: { t: TextosPauta }) {
       <figcaption className="pauta-rodape">
         <span className="pauta-nome">{t.nome}</span>
         <button type="button" className="pauta-play" onClick={() => void tocar()} aria-label={estado === "parado" ? t.tocar : t.parar} title={estado === "parado" ? t.tocar : t.parar} aria-busy={estado === "carregando"}>
-          <PixelArt grid={estado === "parado" ? PLAY : STOP} />
+          {estado === "carregando" ? <Carregando /> : <PixelArt grid={estado === "parado" ? PLAY : STOP} />}
         </button>
         <Info className="info-sutil" label={t.historia} title={t.nome} close={t.fechar} travado={t.travado} items={t.texto} texto />
       </figcaption>

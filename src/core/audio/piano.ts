@@ -27,18 +27,37 @@ const playing = new Map<AudioBufferSourceNode, GainNode>();
 export const PIANO_LEAD_S = 0.06;
 const FADE_S = 0.03;
 
-/** Baixa e decodifica as amostras (uma vez). Pode ser chamado antes do primeiro gesto. */
-export function loadPiano(g: AudioGraph): Promise<void> {
-  loading ??= Promise.all(
-    PIANO_SAMPLES.map(async (m) => {
-      const res = await fetch(`/sons/piano/${m}.mp3`);
-      if (!res.ok) throw new Error(`piano ${m}: ${res.status}`);
-      buffers.set(m, await g.ctx.decodeAudioData(await res.arrayBuffer()));
-    }),
-  ).then(() => undefined);
+/**
+ * Baixa e decodifica as amostras (uma vez). Pode ser chamado antes do primeiro gesto: sem o áudio do site, decodifica num
+ * OfflineAudioContext (que não precisa de gesto); a amostra serve igual no áudio de verdade.
+ */
+export function loadPiano(g?: AudioGraph | null): Promise<void> {
+  loading ??= (async () => {
+    const ctx: BaseAudioContext = g?.ctx ?? new OfflineAudioContext(1, 1, 48000);
+    await Promise.all(
+      PIANO_SAMPLES.map(async (m) => {
+        const res = await fetch(`/sons/piano/${m}.mp3`);
+        if (!res.ok) throw new Error(`piano ${m}: ${res.status}`);
+        buffers.set(m, await ctx.decodeAudioData(await res.arrayBuffer()));
+      }),
+    );
+  })();
   // Se falhar (rede), a próxima tentativa recomeça.
   loading.catch(() => { loading = null; });
   return loading;
+}
+
+/**
+ * Deixa as amostras prontas antes do primeiro play: baixa e decodifica quando a página fica ociosa (não com economia de
+ * dados ligada). O play então só espera a saída de áudio abrir.
+ */
+export function preparePiano() {
+  if (typeof window === "undefined") return;
+  const rede = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+  if (rede?.saveData) return;
+  const baixar = () => { loadPiano().catch(() => { /* o play tenta de novo */ }); };
+  if ("requestIdleCallback" in window) window.requestIdleCallback(baixar, { timeout: 3000 });
+  else setTimeout(baixar, 1500);
 }
 
 /** Cala o que ainda soa, com um fade de 30 ms. */

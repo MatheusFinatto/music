@@ -12,7 +12,10 @@ export function getAudio(): AudioGraph | null {
   if (typeof window === "undefined") return null;
   const AC = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
   if (!AC) return null;
-  const ctx = new AC();
+  // No Android, o buffer curto do modo "interactive" (o padrão) falha quando o celular aperta a CPU e o som estala. O
+  // "playback" usa um buffer maior: mais atraso na saída, que heardTime desconta para a tela acender junto com o som.
+  const android = /Android/i.test(navigator.userAgent);
+  const ctx = new AC({ latencyHint: android ? "playback" : "interactive" });
   const comp = ctx.createDynamicsCompressor();
   comp.threshold.value = -14;
   comp.ratio.value = 4;
@@ -30,6 +33,36 @@ export function resumeAudio(): AudioGraph | null {
   if (g && g.ctx.state !== "running") void g.ctx.resume();
   return g;
 }
+
+let aquecido = false;
+
+/**
+ * Espera o áudio estar soando de verdade. `resume()` volta antes da saída abrir, e o relógio (`currentTime`) anda antes de
+ * o alto-falante tocar alguma coisa: no celular, o que foi agendado nesse meio começa pela metade. O sinal certo é o
+ * relógio da saída (`getOutputTimestamp`): na primeira vez, espera ele andar 250 ms (de silêncio já tocado). Desiste em 3 s
+ * (o navegador pode não deixar o áudio rodar) e segue assim mesmo.
+ */
+export async function readyAudio(g: AudioGraph): Promise<void> {
+  if (aquecido && g.ctx.state === "running" && saidaViva(g.ctx)) return;
+  const limite = performance.now() + 3000;
+  const espera = () => new Promise((r) => setTimeout(r, 20));
+  await Promise.race([g.ctx.resume().catch(() => {}), new Promise((r) => setTimeout(r, 3000))]);
+  const saida = () => g.ctx.getOutputTimestamp?.().contextTime ?? g.ctx.currentTime;
+  while (saida() <= 0 && performance.now() < limite) await espera();
+  const t0 = saida();
+  while (saida() - t0 < 0.25 && performance.now() < limite) await espera();
+  aquecido = g.ctx.state === "running" && performance.now() < limite;
+}
+
+/** A saída está tocando agora? Sem `getOutputTimestamp` (Safari antigo), não dá para saber: confia no aquecimento. */
+function saidaViva(ctx: AudioContext): boolean {
+  const ts = ctx.getOutputTimestamp?.();
+  if (!ts) return true;
+  return (ts.contextTime ?? 0) > 0 && performance.now() - (ts.performanceTime ?? 0) < 250;
+}
+
+/** Quanto o som que sai agora no alto-falante está atrás de `currentTime`, em segundos. */
+export const outputDelay = (ctx: AudioContext): number => Math.max(0, ctx.currentTime - heardTime(ctx));
 
 export const audioNow = (): number => graph?.ctx.currentTime ?? 0;
 

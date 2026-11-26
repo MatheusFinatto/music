@@ -1,6 +1,6 @@
 // Toca o metrônomo no Web Audio. A conta de quando cada clique soa é do Kotlin (Metronome); aqui só se
 // agenda cada clique no relógio do áudio, um pouco à frente, e se avisa a tela no instante em que ele soa.
-import { getAudio, resumeAudio, type AudioGraph } from "@/core/audio";
+import { getAudio, outputDelay, resumeAudio, type AudioGraph } from "@/core/audio";
 import { ACCENT, BEAT, MUTE, Metronome, SUB, renderChime, renderClick, type Tick } from "@/core/rhythm";
 
 const LOOKAHEAD = 0.12; // segundos agendados à frente
@@ -63,11 +63,13 @@ export class MetronomeEngine {
     const g = this.graph ?? getAudio();
     if (!g) return;
     const now = g.ctx.currentTime;
+    // A tela acende quando o clique sai no alto-falante, não quando é calculado (no Android a saída atrasa mais).
+    const atraso = outputDelay(g.ctx);
     // Aba em segundo plano: o timer atrasa. Clique que já passou é pulado, sem tocar atrasado.
     while (this.clock.nextTime < now + LOOKAHEAD) {
       const tick = this.clock.next();
       if (tick.time < now - 0.02) continue;
-      this.pending.push(setTimeout(() => this.onTick(tick), Math.max(0, (tick.time - now) * 1000)));
+      this.pending.push(setTimeout(() => this.onTick(tick), Math.max(0, (tick.time - now + atraso) * 1000)));
       if (this.pending.length > 64) this.pending = this.pending.slice(-32);
       if (tick.kind === MUTE) continue; // tempo mudo: a tela acompanha, o som não
       const src = g.ctx.createBufferSource();

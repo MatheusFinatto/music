@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { getAudio, loadPiano, playPiano, resumeAudio, stopPiano, type PianoNote } from "@/core/audio";
+import { getAudio, loadPiano, playPiano, preparePiano, readyAudio, resumeAudio, stopPiano, type PianoNote } from "@/core/audio";
 
 /** De quanto em quanto tempo o bordão toca a nota de novo, por cima da anterior (a amostra dura ~3 s). */
 const BORDAO_MS = 2400;
@@ -13,11 +13,12 @@ export function usePiano() {
   /** Cada início de bordão ganha um número; parar ou desmontar invalida os que ainda esperam as amostras. */
   const geracao = useRef(0);
   const pararBordao = useCallback(() => { geracao.current++; if (bordao.current) clearInterval(bordao.current); bordao.current = null; }, []);
+  useEffect(() => { preparePiano(); }, []);
   useEffect(() => () => { pararBordao(); const g = getAudio(); if (g) stopPiano(g); }, [pararBordao]);
   const tocar = useCallback(async (notas: readonly PianoNote[], manter = false): Promise<number | null> => {
     const g = resumeAudio();
     if (!g) { setErro("audio"); return null; }
-    try { setCarregando(true); await loadPiano(g); setErro(null); } catch { setErro("piano"); return null; } finally { setCarregando(false); }
+    try { setCarregando(true); await Promise.all([loadPiano(g), readyAudio(g)]); setErro(null); } catch { setErro("piano"); return null; } finally { setCarregando(false); }
     return playPiano(g, notas, { manter });
   }, []);
   const calar = useCallback(() => { pararBordao(); const g = getAudio(); if (g) stopPiano(g); }, [pararBordao]);
