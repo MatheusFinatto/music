@@ -54,8 +54,8 @@ class MetronomeActivity : Activity() {
     @Volatile private var playing = false
     private var audioThread: Thread? = null
 
-    /** Timer length in minutes (0 = no limit) and, while playing with a limit, when it ends (elapsedRealtime). */
-    private var minutes = 0
+    /** Timer length in seconds (0 = no limit, up to 99:59) and, while playing with a limit, when it ends (elapsedRealtime). */
+    private var seconds = 0
     private var deadline = 0L
     private var timerDone = false
     /** With a timer, the play button pauses: what was left (ms) waits here until it plays again. 0 = not paused. */
@@ -89,7 +89,9 @@ class MetronomeActivity : Activity() {
         val accents = prefs.getString("accents", null)
         if (accents != null) metronome.restoreAccents(parseAccents(accents))
         else if (!prefs.getBoolean("accent", true)) metronome.setAccent(0, Tick.BEAT) // 1.3 had "accent the first beat"
-        minutes = prefs.getInt("minutes", 0).takeIf { it in TIMER_MINUTES } ?: 0
+        // Up to 1.12 the timer kept minutes ("minutes"), only the presets.
+        seconds = if (prefs.contains("seconds")) prefs.getInt("seconds", 0).takeIf { it in 0..MAX_TIMER } ?: 0
+            else (prefs.getInt("minutes", 0).takeIf { it in TIMER_MINUTES } ?: 0) * 60
         activeFav = readFavorites().second
         setContentView(withBottomNav(buildLayout(), Screen.METRONOME))
     }
@@ -108,7 +110,8 @@ class MetronomeActivity : Activity() {
             .putInt("beats", metronome.beatsPerBar)
             .putInt("sub", metronome.subdivision)
             .putString("accents", metronome.accentList().joinToString("."))
-            .putInt("minutes", minutes)
+            .putInt("seconds", seconds)
+            .remove("minutes")
             .apply()
         super.onPause()
     }
@@ -216,7 +219,7 @@ class MetronomeActivity : Activity() {
         })
 
         // The timer shows as soon as it is set, at 2/3 of the tempo's size.
-        timerBox = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER; setPadding(0, dp(8), 0, 0) }
+        timerBox = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER; setPadding(dp(16), dp(8), dp(16), 0) }
         timerText = TextView(this).apply {
             textSize = 58f
             // Semibold where Android has weights (9+); bold before that.
@@ -225,9 +228,14 @@ class MetronomeActivity : Activity() {
             fontFeatureSettings = "tnum"
         }
         timerNote = TextView(this).apply { textSize = 14f; gravity = Gravity.CENTER; setTextColor(Paleta.muted) }
+        // Tapping the countdown opens the timer sheet too, at any moment.
+        timerBox.isClickable = true
+        timerBox.isFocusable = true
+        timerBox.background = ripple()
+        timerBox.setOnClickListener { pickTimer() }
         timerBox.addView(timerText)
         timerBox.addView(timerNote)
-        root.addView(timerBox, LinearLayout.LayoutParams(-1, -2))
+        root.addView(timerBox, LinearLayout.LayoutParams(-2, -2).apply { gravity = Gravity.CENTER_HORIZONTAL })
 
         val row = LinearLayout(this).apply { setPadding(0, dp(16), 0, dp(12)) }
         row.addView(pill(getString(R.string.tap)).apply {
@@ -443,13 +451,14 @@ class MetronomeActivity : Activity() {
 
     /** The timer pill only names the setting; the countdown is the big number above. */
     private fun refreshTimer() {
-        timerButton.text = if (minutes > 0) getString(R.string.timer_minutes, minutes) else getString(R.string.timer)
-        timerButton.contentDescription = if (minutes > 0) getString(R.string.timer_desc, minutes) else getString(R.string.timer_off_desc)
+        timerButton.text = if (seconds > 0) getString(R.string.timer_now, duration(seconds)) else getString(R.string.timer)
+        timerButton.contentDescription = if (seconds > 0) getString(R.string.timer_desc, duration(seconds)) else getString(R.string.timer_off_desc)
+        timerBox.contentDescription = timerButton.contentDescription
     }
 
     /** Play/pause/stop icons, the stop button and the big countdown, from the current state. */
     private fun refreshTransport() {
-        val timer = minutes > 0
+        val timer = seconds > 0
         val kind = when { !playing -> TransportDrawable.PLAY; timer -> TransportDrawable.PAUSE; else -> TransportDrawable.STOP }
         playButton.setImageDrawable(TransportDrawable(kind, Paleta.ground, dpf(26f)))
         playButton.contentDescription = getString(when {
@@ -468,7 +477,7 @@ class MetronomeActivity : Activity() {
             playing && deadline > 0 -> deadline - SystemClock.elapsedRealtime()
             pausedLeft > 0 -> pausedLeft
             timerDone -> 0L
-            else -> minutes * 60_000L
+            else -> seconds * 1000L
         }
         val sec = ((ms + 999) / 1000).coerceAtLeast(0)
         timerText.text = "%d:%02d".format(sec / 60, sec % 60)
@@ -478,11 +487,28 @@ class MetronomeActivity : Activity() {
         timerNote.visibility = if (timerNote.text.isEmpty()) View.INVISIBLE else View.VISIBLE // keeps its line: the wheel does not jump
     }
 
+    /** "5 min" on a round minute, else "1:30" (the website's duration). */
+    private fun duration(sec: Int) = if (sec % 60 == 0) getString(R.string.minutes, sec / 60) else "%d:%02d".format(sec / 60, sec % 60)
+
+    /** Sets the timer; while playing, it starts over from the new length. */
+    private fun setTimer(sec: Int) {
+        seconds = sec.coerceIn(0, MAX_TIMER)
+        timerDone = false
+        pausedLeft = 0L
+        deadline = if (playing && seconds > 0) SystemClock.elapsedRealtime() + seconds * 1000L else 0L
+        main.removeCallbacks(timerTick)
+        if (deadline > 0) main.post(timerTick)
+        refreshTimer()
+        refreshTransport()
+    }
+
     private fun pickTimer() {
+        val body = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
         val grid = GridLayout(this).apply { columnCount = 3 }
         lateinit var dialog: Dialog
+        val preset = seconds % 60 == 0 && seconds / 60 in TIMER_MINUTES
         for (m in TIMER_MINUTES) {
-            val selected = m == minutes
+            val selected = preset && m * 60 == seconds
             val b = pill(if (m == 0) getString(R.string.timer_off) else getString(R.string.minutes, m)).apply {
                 textSize = 15f
                 setPadding(dp(6), 0, dp(6), 0)
@@ -491,17 +517,7 @@ class MetronomeActivity : Activity() {
                     background = GradientDrawable().apply { cornerRadius = dpf(28f); setStroke(dp(2), Paleta.selected) }
                 }
                 isSelected = selected
-                setOnClickListener {
-                    minutes = m
-                    timerDone = false
-                    pausedLeft = 0L
-                    deadline = if (playing && m > 0) SystemClock.elapsedRealtime() + m * 60_000L else 0L
-                    main.removeCallbacks(timerTick)
-                    if (deadline > 0) main.post(timerTick)
-                    refreshTimer()
-                    refreshTransport()
-                    dialog.dismiss()
-                }
+                setOnClickListener { setTimer(m * 60); dialog.dismiss() }
             }
             grid.addView(b, GridLayout.LayoutParams(GridLayout.spec(GridLayout.UNDEFINED), GridLayout.spec(GridLayout.UNDEFINED, 1f)).apply {
                 width = 0
@@ -509,7 +525,58 @@ class MetronomeActivity : Activity() {
                 setMargins(dp(4), dp(4), dp(4), dp(4))
             })
         }
-        dialog = sheet(getString(R.string.timer), grid)
+        body.addView(grid)
+
+        // Off the presets: two drums like the tempo's, minutes (0 to 99) and seconds (0 to 59). ✓ uses it.
+        // Turning them does not touch the running timer: only ✓ does (it starts the countdown over).
+        val custom = !preset && seconds > 0
+        // The drums in the middle and ✓ at the end; the box is green when the current timer is this one.
+        val row = FrameLayout(this).apply {
+            setPadding(dp(8), dp(4), dp(8), dp(4))
+            background = GradientDrawable().apply { cornerRadius = dpf(22f); setStroke(dp(if (custom) 2 else 1), if (custom) Paleta.selected else Paleta.line) }
+        }
+        val wheels = LinearLayout(this).apply { gravity = Gravity.CENTER }
+        val minWheel = BpmWheel(this, 0, 99, 0.6f, true) { getString(R.string.timer_min_value, it) }.apply { set(seconds / 60) }
+        val secWheel = BpmWheel(this, 0, 59, 0.6f, true) { getString(R.string.timer_sec_value, it) }.apply { set(seconds % 60) }
+        wheels.addView(minWheel, LinearLayout.LayoutParams(dp(76), dp(132)))
+        wheels.addView(TextView(this).apply {
+            text = ":"
+            textSize = 30f
+            typeface = Typeface.DEFAULT_BOLD
+            setTextColor(Paleta.muted)
+            setPadding(dp(2), 0, dp(2), dp(4))
+            importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
+        })
+        wheels.addView(secWheel, LinearLayout.LayoutParams(dp(76), dp(132)))
+        row.addView(wheels, FrameLayout.LayoutParams(-2, -2, Gravity.CENTER))
+        // ✓ is outlined; filled ivory (the primary action) while the built time is not the timer yet.
+        val set = ImageView(this).apply {
+            scaleType = ImageView.ScaleType.CENTER
+            contentDescription = getString(R.string.timer_set)
+            isClickable = true
+            setOnClickListener { setTimer(minWheel.value * 60 + secWheel.value); dialog.dismiss() }
+        }
+        fun refreshSet() {
+            val dirty = minWheel.value * 60 + secWheel.value != seconds
+            set.setImageDrawable(CheckDrawable(if (dirty) Paleta.ground else Paleta.ink, dpf(2.2f), dpf(22f)))
+            set.background = GradientDrawable().apply {
+                shape = GradientDrawable.OVAL
+                if (dirty) setColor(Paleta.ink) else setStroke(dp(1), Paleta.line)
+            }
+        }
+        minWheel.onChange = { refreshSet() }
+        secWheel.onChange = { refreshSet() }
+        refreshSet()
+        row.addView(set, FrameLayout.LayoutParams(dp(52), dp(52), Gravity.END or Gravity.CENTER_VERTICAL))
+        body.addView(TextView(this).apply {
+            text = getString(R.string.timer_custom)
+            textSize = 14f
+            typeface = Typeface.DEFAULT_BOLD
+            setTextColor(Paleta.muted)
+            isFocusable = true
+        }, LinearLayout.LayoutParams(-2, -2).apply { topMargin = dp(20); leftMargin = dp(8); bottomMargin = dp(8) })
+        body.addView(row, LinearLayout.LayoutParams(-1, -2).apply { leftMargin = dp(4); rightMargin = dp(4) })
+        dialog = sheet(getString(R.string.timer), body)
     }
 
     private fun playChime() = Thread {
@@ -792,7 +859,7 @@ class MetronomeActivity : Activity() {
     private fun mainAction() {
         when {
             !playing -> start()
-            minutes > 0 -> pause()
+            seconds > 0 -> pause()
             else -> stop()
         }
     }
@@ -801,7 +868,7 @@ class MetronomeActivity : Activity() {
         if (playing) return
         playing = true
         timerDone = false
-        val ms = if (minutes > 0) (if (pausedLeft > 0) pausedLeft else minutes * 60_000L) else 0L
+        val ms = if (seconds > 0) (if (pausedLeft > 0) pausedLeft else seconds * 1000L) else 0L
         pausedLeft = 0L
         deadline = if (ms > 0) SystemClock.elapsedRealtime() + ms else 0L
         if (deadline > 0) main.post(timerTick)
@@ -814,7 +881,7 @@ class MetronomeActivity : Activity() {
         if (!playing) return
         val left = (deadline - SystemClock.elapsedRealtime()).coerceAtLeast(1)
         silence()
-        pausedLeft = if (minutes > 0) left else 0L
+        pausedLeft = if (seconds > 0) left else 0L
         refreshTransport()
     }
 
@@ -883,6 +950,7 @@ class MetronomeActivity : Activity() {
 
     private companion object {
         val TIMER_MINUTES = listOf(0, 1, 2, 3, 5, 10, 15, 20, 30)
+        const val MAX_TIMER = 99 * 60 + 59
         const val MAX_FAVORITES = 30
         const val FAVORITES_KEY = "musica:metronomo-favoritos"
     }

@@ -17,24 +17,30 @@ import br.musica.marmota.common.Paleta
  * Draws the tuner: note + octave, frequency, dial with ♭/♯ ends, needle, pivot, mic level.
  *
  * Colors follow the site's rule (docs/PREFERENCIAS.md): orange = the target (the note to tune to and
- * the dial's center), blue = what is sounding now (the needle and the mic level). The needle turns green in tune.
+ * the dial's center), blue = what is sounding now (the needle and the mic level). In tune, the needle and the note
+ * turn green together. The note and the needle use livelier versions of those colors (same hues, more saturated) so they
+ * stand out from the dial; the ground and the dial keep the palette. The website's painter.ts uses the same values.
  */
 class TunerPainter(context: Context) {
     private val metrics = context.resources.displayMetrics
     private val ink = Paleta.ink
     private val muted = Paleta.muted
     private val target = Paleta.target
-    private val now = Paleta.now
     private val inTune = Paleta.selected
+    private val vividTarget = 0xFFFDA521.toInt() // Paleta.target, more saturated
+    private val vividNow = 0xFF6EB7F7.toInt() // Paleta.now, more saturated
+    private val vividInTune = 0xFF28A745.toInt() // in tune: the owner's green (2026-11-27)
 
-    private val notePaint = textPaint(target, Paint.Align.CENTER, Typeface.create("sans-serif-light", Typeface.NORMAL))
-    private val octavePaint = textPaint(target, Paint.Align.LEFT, Typeface.create("sans-serif", Typeface.NORMAL))
+    private val notePaint = textPaint(vividTarget, Paint.Align.CENTER, Typeface.create("sans-serif-light", Typeface.NORMAL))
+    private val octavePaint = textPaint(vividTarget, Paint.Align.LEFT, Typeface.create("sans-serif", Typeface.NORMAL))
     private val frequencyPaint = textPaint(ink, Paint.Align.CENTER, Typeface.DEFAULT).apply { textSize = sp(15f) }
+    // Tiny cents numbers above the ticks, barely legible (the website's painter.ts draws the same).
+    private val centsPaint = textPaint(muted, Paint.Align.CENTER, Typeface.DEFAULT).apply { textSize = sp(10f); alpha = 170 }
     private val symbolPaint = textPaint(muted, Paint.Align.CENTER, Typeface.DEFAULT).apply { textSize = sp(22f) }
     private val tickPaint = strokePaint(muted, 2f)
     private val targetTickPaint = strokePaint(target, 2.5f)
     private val tolerancePaint = strokePaint(inTune, 3f).apply { alpha = 70; strokeCap = Paint.Cap.BUTT }
-    private val needlePaint = strokePaint(now, 3f)
+    private val needlePaint = strokePaint(vividNow, 3f)
     private val pivotRingPaint = strokePaint(muted, 1.5f).apply { alpha = 150 }
     private val fillPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
@@ -50,7 +56,7 @@ class TunerPainter(context: Context) {
         geometry = g
         notePaint.textSize = g.noteTextSize
         octavePaint.textSize = g.noteTextSize * 0.28f
-        needleShaders = listOf(now, inTune, muted).associateWith { fadingNeedle(g, it) }
+        needleShaders = listOf(vividNow, vividInTune, muted).associateWith { fadingNeedle(g, it) }
         val ringRadius = g.radius + 10 * g.dp
         toleranceOval.set(g.centerX - ringRadius, g.pivotY - ringRadius, g.centerX + ringRadius, g.pivotY + ringRadius)
         placeSymbols(g)
@@ -68,6 +74,11 @@ class TunerPainter(context: Context) {
     private fun drawNoteName(canvas: Canvas, g: TunerGeometry, scene: TunerScene) {
         val reading = scene.reading ?: return
         val alpha = if (scene.active) OPAQUE else IDLE_ALPHA
+        // In tune, the note turns green with the needle, and stays green (faded, like the orange) when the sound stops:
+        // an orange note after a right one read as wrong.
+        val color = if (reading.isInTune) vividInTune else vividTarget
+        notePaint.color = color
+        octavePaint.color = color
         notePaint.alpha = alpha
         octavePaint.alpha = alpha
         val name = reading.name
@@ -87,6 +98,7 @@ class TunerPainter(context: Context) {
         val toleranceDegrees = g.angleForCents(NoteReading.IN_TUNE_CENTS)
         canvas.drawArc(toleranceOval, -90f - toleranceDegrees, 2 * toleranceDegrees, false, tolerancePaint)
         for (cents in -50..50 step 10) drawTick(canvas, g, cents)
+        drawCentsLabels(canvas, g)
         canvas.drawText(FLAT, flatX, symbolY, symbolPaint)
         canvas.drawText(SHARP, sharpX, symbolY, symbolPaint)
     }
@@ -122,8 +134,8 @@ class TunerPainter(context: Context) {
 
     private fun needleColor(scene: TunerScene): Int = when {
         !scene.active -> muted
-        scene.reading?.isInTune == true -> inTune
-        else -> now
+        scene.reading?.isInTune == true -> vividInTune
+        else -> vividNow
     }
 
     /** Small mic outline plus a vertical bar filling from the bottom with the input level. */
@@ -137,7 +149,7 @@ class TunerPainter(context: Context) {
         fillPaint.alpha = 60
         scratchRect.set(barLeft, g.meterTop, g.meterRight, barBottom)
         canvas.drawRoundRect(scratchRect, 2 * g.dp, 2 * g.dp, fillPaint)
-        fillPaint.color = now
+        fillPaint.color = Paleta.now
         scratchRect.top = barBottom - (barBottom - g.meterTop) * scene.level
         canvas.drawRoundRect(scratchRect, 2 * g.dp, 2 * g.dp, fillPaint)
     }
@@ -146,6 +158,18 @@ class TunerPainter(context: Context) {
     private fun fadingNeedle(g: TunerGeometry, color: Int): Shader {
         val faded = (color and 0x00FFFFFF) or (0x30 shl 24)
         return LinearGradient(0f, g.pivotY, 0f, g.pivotY - g.radius, color, faded, Shader.TileMode.CLAMP)
+    }
+
+    /** The cents of each tick, upright, just outside the dial (above the green in-tune arc). */
+    private fun drawCentsLabels(canvas: Canvas, g: TunerGeometry) {
+        val r = g.radius + 22 * g.dp
+        val mid = (centsPaint.ascent() + centsPaint.descent()) / 2
+        for (cents in -50..50 step 10) {
+            val a = Math.toRadians(g.angleForCents(cents.toFloat()).toDouble())
+            val x = g.centerX + (r * sin(a)).toFloat()
+            val y = g.pivotY - (r * cos(a)).toFloat() - mid
+            canvas.drawText(kotlin.math.abs(cents).toString(), x, y, centsPaint)
+        }
     }
 
     private fun placeSymbols(g: TunerGeometry) {

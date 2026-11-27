@@ -21,13 +21,21 @@ import br.musica.marmota.common.Paleta
  * The tempo as a vertical drum of numbers: drag or fling it, and it settles on a whole bpm. The numbers grow
  * downward, so dragging up speeds up. Tapping the number above or below moves one step. Each new number
  * ticks the phone's haptics, like a real wheel. Screen readers get scroll actions (one bpm each).
+ * The timer's minutes and seconds use the same drum, smaller ([scale]) and with two digits ([pad]).
  */
-class BpmWheel(context: Context, private val min: Int, private val max: Int) : View(context) {
+class BpmWheel(
+    context: Context,
+    private val min: Int,
+    private val max: Int,
+    private val scale: Float = 1f,
+    private val pad: Boolean = false,
+    private val describe: ((Int) -> String)? = null,
+) : View(context) {
     /** Called with each new whole bpm, while it moves. */
     var onChange: ((Int) -> Unit)? = null
 
     private val density = resources.displayMetrics.density
-    private val itemHeight = 76 * density
+    private val itemHeight = 76 * density * scale
     private val scroller = OverScroller(context)
     private val touchSlop = ViewConfiguration.get(context).scaledTouchSlop
     private val minFling = ViewConfiguration.get(context).scaledMinimumFlingVelocity
@@ -143,17 +151,17 @@ class BpmWheel(context: Context, private val min: Int, private val max: Int) : V
             val ad = abs(d)
             val y = cy + d * itemHeight
             // The middle number is big and solid; the others shrink and fade toward the edges.
-            val size = (88f - 34f * ad.coerceAtMost(1f) - 6f * (ad - 1f).coerceIn(0f, 2f)) * density
+            val size = (88f - 34f * ad.coerceAtMost(1f) - 6f * (ad - 1f).coerceIn(0f, 2f)) * density * scale
             paint.textSize = size
             // Near the top and bottom edges the numbers fade out instead of being cut.
             val edge = (minOf(y, height - y) / (itemHeight * 0.9f)).coerceIn(0f, 1f)
             paint.alpha = (255 * edge * (1f - 0.62f * ad.coerceAtMost(1f) - 0.2f * (ad - 1f).coerceIn(0f, 1.5f))).toInt().coerceIn(0, 255)
-            canvas.drawText(n.toString(), width / 2f, y - (paint.ascent() + paint.descent()) / 2, paint)
+            canvas.drawText(if (pad) "%02d".format(n) else n.toString(), width / 2f, y - (paint.ascent() + paint.descent()) / 2, paint)
         }
     }
 
     private fun updateDescription() {
-        contentDescription = context.getString(R.string.bpm_value, shown)
+        contentDescription = describe?.invoke(shown) ?: context.getString(R.string.bpm_value, shown)
     }
 
     override fun onInitializeAccessibilityNodeInfo(info: AccessibilityNodeInfo) {

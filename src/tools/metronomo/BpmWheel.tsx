@@ -4,9 +4,10 @@ import { useEffect, useRef } from "react";
 /**
  * O andamento como um tambor de números, igual ao app (BpmWheel.kt; mudou um, mude o outro): arrastar ou arremessar
  * para cima acelera, e ele para num número inteiro. Tocar no número de cima ou de baixo anda um. Mesmas medidas do
- * app: 76 px por número, o do meio com 88 px e os outros menores e apagados até as bordas.
+ * app: 76 px por número, o do meio com 88 px e os outros menores e apagados até as bordas. Os minutos e segundos do timer
+ * usam o mesmo tambor, menor ([scale]) e com dois dígitos ([pad]).
  */
-const ITEM = 76;
+const BASE_ITEM = 76;
 /** Quanto o dedo anda antes de virar arrasto (o touch slop do Android, ~8 dp). */
 const SLOP = 8;
 /** Abaixo disso (px/ms) não é arremesso: só assenta no número mais perto. */
@@ -23,12 +24,17 @@ type Props = {
   label: string;
   unit: string;
   className?: string;
+  scale?: number;
+  pad?: boolean;
 };
 
-export function BpmWheel({ value, min, max, onChange, label, unit, className }: Props) {
+export function BpmWheel({ value, min, max, onChange, label, unit, className, scale = 1, pad = false }: Props) {
+  const ITEM = BASE_ITEM * scale;
   const canvas = useRef<HTMLCanvasElement>(null);
   // Estado do tambor fora do React: muda a cada quadro.
   const st = useRef({ offset: value * ITEM, shown: value, raf: 0, width: 0, height: 0 });
+  /** O arrasto em curso (ver onPointerDown). */
+  const drag = useRef<{ id: number; downY: number; lastY: number; moving: boolean; samples: { t: number; y: number }[] } | null>(null);
   const change = useRef(onChange);
   /** As funções da última renderização, para os ouvintes registrados uma vez só (redimensionar, roda do mouse). */
   const fns = useRef<{ draw: () => void; settle: (to: number) => void }>({ draw: () => {}, settle: () => {} });
@@ -54,11 +60,11 @@ export function BpmWheel({ value, min, max, onChange, label, unit, className }: 
       const d = n - pos;
       const ad = Math.abs(d);
       const y = cy + d * ITEM;
-      const size = 88 - 34 * Math.min(ad, 1) - 6 * clamp(ad - 1, 0, 2);
+      const size = (88 - 34 * Math.min(ad, 1) - 6 * clamp(ad - 1, 0, 2)) * scale;
       const edge = clamp(Math.min(y, h - y) / (ITEM * 0.9), 0, 1);
       ctx.globalAlpha = clamp(edge * (1 - 0.62 * Math.min(ad, 1) - 0.2 * clamp(ad - 1, 0, 1.5)), 0, 1);
       ctx.font = `700 ${size}px ${css.fontFamily}`;
-      ctx.fillText(String(n), w / 2, y + size * 0.04);
+      ctx.fillText(pad ? String(n).padStart(2, "0") : String(n), w / 2, y + size * 0.04);
     }
     ctx.globalAlpha = 1;
   };
@@ -117,7 +123,9 @@ export function BpmWheel({ value, min, max, onChange, label, unit, className }: 
 
   // O valor mudou por fora (tap, favorito, teclado): pula para ele sem animação e sem avisar de volta.
   useEffect(() => {
+    // Enquanto gira ou é arrastado, o [value] pode chegar atrasado (o timer guarda num useState): não é mudança de fora.
     const s = st.current;
+    if (s.raf || drag.current?.moving) return;
     if (value !== s.shown) {
       stop();
       s.offset = clamp(value, min, max) * ITEM;
@@ -145,7 +153,6 @@ export function BpmWheel({ value, min, max, onChange, label, unit, className }: 
   }, []);
 
   // Arrastar: o dedo leva o tambor; ao soltar, arremessa com a velocidade dos últimos 100 ms ou assenta.
-  const drag = useRef<{ id: number; downY: number; lastY: number; moving: boolean; samples: { t: number; y: number }[] } | null>(null);
   const onPointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (e.button !== 0) return;
     stop();
