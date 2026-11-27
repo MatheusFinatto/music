@@ -48,7 +48,7 @@ fun Activity.withBottomNav(content: View, current: Screen): View {
             setOnClickListener { if (!on) go(screen) }
         }, LinearLayout.LayoutParams(0, -1, 1f))
     }
-    // A conta opcional (o "G"): leva os favoritos para o site e o outro app. Se algo vier da nuvem, a tela recarrega.
+    // A conta opcional (o bonequinho): leva os favoritos para o site e o outro app. Se algo vier da nuvem, a tela recarrega.
     bar.addView(br.musica.marmota.common.ContaUi.botao(this) { recreate() }, LinearLayout.LayoutParams(dp(44), -1))
     val barParams = FrameLayout.LayoutParams(-1, dp(BAR_HEIGHT), Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL).apply {
         setMargins(dp(24), 0, dp(24), dp(BAR_GAP))

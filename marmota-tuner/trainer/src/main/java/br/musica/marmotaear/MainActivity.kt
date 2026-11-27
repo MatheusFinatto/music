@@ -55,7 +55,7 @@ class MainActivity : Activity() {
         }
         raiz.addView(barra, lp())
         abas = Abas(this, listOf("ouvido" to T("app.ouvido"), "voz" to T("app.voz")).filter { it.first in SECOES }, atual) { trocar(it) }
-        // A conta opcional (o "G"), no fim da barra como no Tuner. Se algo vier da nuvem, a tela recarrega.
+        // A conta opcional (o bonequinho), no fim da barra como no Tuner. Se algo vier da nuvem, a tela recarrega.
         abas.addView(br.musica.marmota.common.ContaUi.botao(this) { recreate() }, LinearLayout.LayoutParams(dp(44), LinearLayout.LayoutParams.MATCH_PARENT))
         // Com a barra embaixo, o fim da rolagem fica acima dela (56 dp + 16 dp de folga em cima e embaixo).
         val folgaBarra = if (abas.visibility == View.VISIBLE) dp(56 + 32) else 0

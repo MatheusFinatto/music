@@ -14,8 +14,8 @@ type Tela = (typeof APPS)[keyof typeof APPS]["telas"][number];
 /**
  * No celular, o site espelha os apps: a barra flutuante embaixo com as abas do app da página (Afinador e Metrônomo do
  * Marmota Tuner, BottomNav.kt; Ouvido e Voz do Marmota Trainer, Abas em marmotaear/MainActivity.kt). O site acrescenta só
- * o que o app não precisa: a volta para o início e "Baixar app" (o APK daquele app). A conta opcional (o "G") fica nela como
- * nos apps. No computador a barra não aparece
+ * o que o app não precisa: a volta para o início e "Baixar app" (o APK daquele app). A conta opcional (o bonequinho) fica nela
+ * como nos apps. No computador a barra não aparece
  * (ver .app-nav em globals.css).
  */
 export async function AppNav({ current }: { current: Tela }) {

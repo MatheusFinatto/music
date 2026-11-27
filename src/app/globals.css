@@ -131,8 +131,16 @@
   @media (max-width: 680px) { .site-header nav a { display: inline-flex; align-items: center; min-height: 44px; } .brand { min-height: 44px; } }
   /* Em tela muito estreita o menu rola dentro dele mesmo, nunca a página inteira para o lado. */
   .site-header nav { display: flex; align-items: center; gap: 2px; min-width: 0; overflow-x: auto; scrollbar-width: none; }
-  /* Na home o cabeçalho inteiro some: os cards já são o menu e a marmota com o nome já é a marca (repetiria os dois). */
-  body:has(main.hub) .site-header { display: none; }
+  /* A conta fica sempre no canto direito do topo. */
+  .site-header nav { margin-left: auto; }
+  .conta-topo { flex: none; width: 44px; height: 44px; margin-right: -10px; }
+  /* Na home sai o resto do cabeçalho: os cards já são o menu e a marmota com o nome já é a marca (repetiria os dois). Fica só a
+     conta, no mesmo ponto em que ela está nas outras telas, sem ocupar espaço nem pintar faixa. */
+  @media (min-width: 641px) { body:has(main.hub) .site-header { position: absolute; left: 0; right: 0; } }
+  body:has(main.hub) .site-header { border-bottom-color: transparent; background: transparent; pointer-events: none; }
+  body:has(main.hub) .site-header :is(.brand, nav) { display: none; }
+  body:has(main.hub) .site-header .wrap { justify-content: flex-end; }
+  body:has(main.hub) .conta-topo { pointer-events: auto; }
   @media (max-width: 560px) { .site-header .wrap { gap: 6px; } .brand { font-size: 0; gap: 0; } .site-header nav a { font-size: 0.84rem; padding: 8px 8px; } }
 
   /* A home ocupa a altura que sobra acima do rodapé e centra a composição nela, um pouco acima do meio (centro óptico:
@@ -260,6 +268,16 @@
   /* Celular com cara de app (a mesma largura da barra do app, 640px): sem o cabeçalho do site (marca e menu); a home é o
      início, e as ferramentas voltam pela casinha da barra do app (AppNav). */
   @media (max-width: 640px) { .site-header { display: none; } }
+  /* Sem a barra do app (a home), o cabeçalho volta só com a conta no canto, como na home do computador. */
+  @media (max-width: 640px) {
+    /* Aqui ela ocupa uma faixa própria (o título da home vai até a borda e bateria nela). */
+    body:not(:has(.app-nav)) .site-header { display: block; position: static; border-bottom-color: transparent; background: transparent; pointer-events: none; }
+    body:not(:has(.app-nav)) .site-header .wrap { justify-content: flex-end; }
+    body:not(:has(.app-nav)) .site-header :is(.brand, nav) { display: none; }
+    body:not(:has(.app-nav)) .site-header .wrap { height: calc(44px + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top); }
+    body:has(main.hub) .hub { padding-top: 0; }
+    body:not(:has(.app-nav)) .conta-topo { pointer-events: auto; }
+  }
   .tool-download { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px 0 12px; white-space: nowrap; border-radius: var(--radius-pill); border: 2px solid var(--line); color: var(--ink); font-size: var(--text-sm); font-weight: 600; text-decoration: none; transition: background-color 0.2s, border-color 0.2s; }
   .tool-download:hover { background: var(--soft); border-color: var(--muted); }
   .tool-download:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
@@ -318,12 +336,12 @@
   :is(.info-corpo, .info-tip) p + p { margin-top: 10px; }
 
   /* Backup de dados (modal do rodapé): uma frase e os dois botões. */
-  /* A conta opcional (Conta.tsx): o "G" do Google sozinho, e um modal no padrão dos diálogos do app (cartão arredondado, × de
+  /* A conta opcional (Conta.tsx): o bonequinho (vazado fora, cheio dentro), e um modal no padrão dos diálogos do app (cartão arredondado, × de
      traço liso), igual no site e nos apps. */
   .conta-btn { display: inline-grid; place-items: center; padding: 0; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
-  .conta-rodape { width: 44px; height: 44px; margin: -12px -10px; }
-  .conta-btn svg.conta-g { width: 18px; height: 18px; stroke: none; }
-  .conta-btn svg.conta-icone { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+  .conta-btn svg.conta-icone { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .conta-btn svg.conta-icone.cheio { fill: currentColor; }
+  .conta-btn:has(.cheio) { color: var(--ink); }
   .conta-btn:hover { color: var(--ink); }
   .conta-dialog { width: min(440px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); margin: auto; padding: 16px 20px 20px; border: 0; border-radius: 22px; background: var(--soft); color: var(--ink); box-shadow: 0 16px 40px rgb(0 0 0 / 0.55); }
   .conta-dialog::backdrop { background: rgb(0 0 0 / 0.6); }
@@ -393,9 +411,8 @@
 
 /* alvos de toque: 44px no celular, 24px no desktop */
 .site-footer :is(a, .footer-link) { display: inline-flex; align-items: center; min-height: 24px; }
-/* "Relatar um problema" é só da home. Nas ferramentas o rodapé fica só com a conta, e no celular some inteiro. */
-body:not(:has(main.hub)) .site-footer .footer-issue { display: none; }
-@media (max-width: 680px) { body:not(:has(main.hub)) .site-footer { display: none; } }
+/* O rodapé ("Relatar um problema") é só da home. */
+body:not(:has(main.hub)) .site-footer { display: none; }
 @media (max-width: 680px) {
   .site-footer :is(a, .footer-link), .go, .tuner-alt { min-height: 44px; }
   .tuner-alt { display: inline-flex; align-items: center; }
@@ -451,7 +468,6 @@ body:not(:has(main.hub)) .site-footer .footer-issue { display: none; }
   .app-nav-icon { flex: none; display: grid; place-items: center; width: 44px; border-radius: 22px; color: var(--muted); -webkit-tap-highlight-color: transparent; }
   .app-nav-icon:active, .app-nav-tab:not([aria-current]):active { background: color-mix(in srgb, var(--ink) 10%, transparent); }
   .app-nav-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-  /* O "G" é a marca do Google, nas cores dela: sem o traço dos outros ícones. */
-  .app-nav-icon svg.conta-g { width: 18px; height: 18px; stroke: none; }
+  .app-nav-icon svg.conta-icone.cheio { fill: currentColor; }
   .app-nav :focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
 }
