@@ -10,8 +10,8 @@ android {
         applicationId = "br.musica.marmotatuner"
         minSdk = 26
         targetSdk = 35
-        versionCode = 12
-        versionName = "1.11"
+        versionCode = 13
+        versionName = "1.12"
     }
 
     // The release key lives outside the repo. Its path and password come from
