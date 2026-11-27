@@ -1,21 +1,25 @@
 "use client";
 import { useId, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
-import { NONE, addFavorite, favorites, removeFavorite, renameFavorite, selectFavorite, store, type Favorite } from "./store";
+import { addFavorite, favorites, inFavorite, removeFavorite, renameFavorite, selectFavorite, store, type Favorite } from "./store";
 
 const STAR = "M12 3.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z";
 
 /**
  * Os favoritos do metrônomo, no topo da página ao lado do "?": andamento, tempos, divisão e acentos, com um
  * nome opcional. Ficam neste navegador, como o resto. Mesmo modelo dos favoritos do app.
- * Escolher um favorito é entrar nele: dali em diante, mexer no metrônomo muda o favorito (salvo na hora), até
- * escolher outro ou "nenhum". Dentro de um, a estrela fica cheia, em verde, com o nome ao lado.
+ * Favorito é uma foto: escolher carrega; mexer no metrônomo não muda nenhum. Salvar sempre cria um novo (nome e padrão
+ * podem repetir); depois, só o nome muda (lápis). Enquanto o metrônomo está igual ao último escolhido ou salvo, a estrela
+ * fica cheia, em verde, com o nome ao lado.
  * [variant] "pill": a estrela grande da linha de cima do celular, como no app; a do topo da página some lá.
  */
 export function MetroFavorites({ variant = "icon" }: { variant?: "icon" | "pill" }) {
   const titleId = useId();
   const t = useTranslations("metronomo");
-  const { items: list, active } = useSyncExternalStore(favorites.subscribe, favorites.get, favorites.getInitial);
+  const favs = useSyncExternalStore(favorites.subscribe, favorites.get, favorites.getInitial);
+  const settings = useSyncExternalStore(store.subscribe, store.get, store.getInitial);
+  const list = favs.items;
+  const active = inFavorite(favs, settings);
   const dialog = useRef<HTMLDialogElement>(null);
   const ajuda = useRef<HTMLDialogElement>(null);
   const ajudaId = useId();
@@ -75,15 +79,10 @@ export function MetroFavorites({ variant = "icon" }: { variant?: "icon" | "pill"
         </div>
         {list.length > 0 && (
           <ul className="metro-fav-list">
-            {/* "Nenhum" sai do favorito: o metrônomo fica como está e para de mudar o favorito. */}
-            <li>
-              <button type="button" className="metro-fav-load" aria-pressed={active === NONE} onClick={() => load(NONE)}>
-                <span>{t("noFavorite")}</span>
-              </button>
-            </li>
             {list.map((f, i) => (
               <li key={`${i}-${f.name}-${f.bpm}`}>
                 {editing?.i === i ? (
+                  // Editando, só o nome muda: o lápis vira ✓ (salvar) e o X vira cancelar. Enter salva, Esc cancela.
                   <form className="metro-fav-rename" onSubmit={(e) => { e.preventDefault(); rename(); }}>
                     <input
                       type="text"
@@ -92,22 +91,27 @@ export function MetroFavorites({ variant = "icon" }: { variant?: "icon" | "pill"
                       autoFocus
                       onFocus={(e) => e.target.select()}
                       onChange={(e) => setEditing({ i, name: e.target.value })}
-                      onBlur={rename}
                       onKeyDown={(e) => { if (e.key === "Escape") { e.preventDefault(); setEditing(null); } }}
                       placeholder={describe(f)}
                       aria-label={t("favoriteName")}
                     />
+                    <button type="submit" className="metro-close metro-fav-ok" aria-label={t("saveName")} title={t("saveName")}>
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+                    </button>
+                    <button type="button" className="metro-close" onClick={() => setEditing(null)} aria-label={t("cancelRename")} title={t("cancelRename")}>{closeIcon}</button>
                   </form>
                 ) : (
-                  <button type="button" className="metro-fav-load" aria-pressed={i === active} onClick={() => load(i)}>
-                    <span>{label(f)}</span>
-                    {f.name && <small>{describe(f)}</small>}
-                  </button>
+                  <>
+                    <button type="button" className="metro-fav-load" aria-pressed={i === active} onClick={() => load(i)}>
+                      <span>{label(f)}</span>
+                      {f.name && <small>{describe(f)}</small>}
+                    </button>
+                    <button type="button" className="metro-close" onClick={() => setEditing({ i, name: f.name })} aria-label={t("renameFavorite", { name: label(f) })} title={t("renameFavorite", { name: label(f) })}>
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z M13.5 6.5l4 4" /></svg>
+                    </button>
+                    <button type="button" className="metro-close" onClick={() => remove(i)} aria-label={t("deleteFavorite", { name: label(f) })} title={t("deleteFavorite", { name: label(f) })}>{closeIcon}</button>
+                  </>
                 )}
-                <button type="button" className="metro-close" onClick={() => setEditing({ i, name: f.name })} aria-label={t("renameFavorite", { name: label(f) })}>
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z M13.5 6.5l4 4" /></svg>
-                </button>
-                <button type="button" className="metro-close" onClick={() => remove(i)} aria-label={t("deleteFavorite", { name: label(f) })}>{closeIcon}</button>
               </li>
             ))}
           </ul>

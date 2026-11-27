@@ -154,16 +154,17 @@
     "favoritesInfo": "Como funcionam os favoritos",
     "favoritesInfoItems": [
       "Salvar o atual guarda o andamento, os tempos, a divisão e os acentos de agora, com um nome se quiser.",
-      "Escolher um favorito é entrar nele: o que você mudar no metrônomo muda o favorito, na hora. Dentro de um, a estrela fica verde.",
-      "Nenhum sai do favorito: o metrônomo fica como está e para de mudar o favorito.",
+      "Salvar sempre cria um favorito novo: o nome e o padrão podem repetir.",
+      "Escolher um favorito carrega ele. Mexer no metrônomo não muda o favorito; enquanto estiver igual a ele, a estrela fica verde.",
       "O lápis renomeia; o X apaga.",
-      "Os favoritos ficam só neste navegador."
+      "Os favoritos ficam neste navegador. Entrando na conta, vão junto pros outros aparelhos e pro app."
     ],
     "favoriteName": "Nome (opcional)",
+    "saveName": "Salvar nome",
+    "cancelRename": "Cancelar",
     "saveCurrent": "Salvar o atual",
     "deleteFavorite": "Apagar {name}",
     "renameFavorite": "Renomear {name}",
-    "noFavorite": "Nenhum",
     "beatsCount": "{n, plural, one {# tempo} other {# tempos}}",
     "beatsTitle": "Tempos por compasso",
     "fewerBeats": "Menos um tempo",
