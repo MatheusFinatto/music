@@ -343,7 +343,8 @@
   .conta-btn svg.conta-icone.cheio { fill: currentColor; }
   .conta-btn:has(.cheio) { color: var(--ink); }
   .conta-btn:hover { color: var(--ink); }
-  .conta-dialog { width: min(440px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); margin: auto; padding: 16px 20px 20px; border: 0; border-radius: 22px; background: var(--soft); color: var(--ink); box-shadow: 0 16px 40px rgb(0 0 0 / 0.55); }
+  /* O modal mora no cabeçalho, que na home deixa o clique passar (pointer-events: none): aqui ele volta a receber. */
+  .conta-dialog { pointer-events: auto; width: min(440px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); margin: auto; padding: 16px 20px 20px; border: 0; border-radius: 22px; background: var(--soft); color: var(--ink); box-shadow: 0 16px 40px rgb(0 0 0 / 0.55); }
   .conta-dialog::backdrop { background: rgb(0 0 0 / 0.6); }
   .conta-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
   .conta-head h2 { font-size: 19px; font-weight: 700; letter-spacing: -0.015em; }
