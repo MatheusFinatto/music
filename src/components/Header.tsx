@@ -2,6 +2,8 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { TOOLS, isLive, type Tool } from "@/tools/registry";
 import { NavLinks } from "./NavLinks";
+import { Conta } from "./Conta";
+import { textosConta } from "./textosConta";
 
 export async function Header() {
   const t = await getTranslations();
@@ -21,6 +23,8 @@ export async function Header() {
             nome: t.has(`nav.short.${x.slug}` as "nav.short.afinador") ? t(`nav.short.${x.slug}` as "nav.short.afinador") : t(`tools.${x.slug}.name` as "tools.afinador.name"),
           }))} />
         </nav>
+        {/* A conta mora no canto direito do topo, em toda tela que tem o cabeçalho (e na home, onde só ela fica: globals.css). */}
+        <Conta t={await textosConta()} className="conta-topo" />
       </div>
     </header>
   );

@@ -50,15 +50,16 @@ percebe diferença nenhuma. Substitui o "baixar/restaurar JSON" da home.
 8. **Lógica comum no Kotlin** (`marmota-tuner/core`, pacote novo `conta`): decidir puxar/empurrar por chave, soma dos
    registros diários, conversão dos favoritos antigos do Tuner. Exportada para o site como o resto (`exportToSite`).
 9. **Interface** (dono, 2026-11-26):
-   - **O botão é só o "G" do Google**, colorido, sem texto, bem singelo. Tocar abre **um modal só** (dono, 2026-11-26): na
+   - **O botão é um bonequinho de conta** (dono, 2026-11-27; antes era o "G" do Google, que parecia busca, não conta): vazado,
+     de traço liso, para quem está fora; cheio para quem entrou. O "G" do Google (as quatro cores, sem alterar o desenho, em
+     SVG no código) fica só no botão "Entrar com Google". Tocar abre **um modal só** (dono, 2026-11-26): na
      primeira linha a ação ("Entrar com Google"; logado: o e-mail, "Sair" e "Apagar meus dados"), para quem só quer entrar;
      embaixo, para quem quer ler, o texto ("seu progresso vai junto do computador pro celular, seja no navegador ou nos
      apps… você nunca vai receber e-mail nosso") e "O que fica guardado". Sem página à parte.
-   - **Apps:** o "G" fica na barra de baixo, junto das abas, nos dois apps. Logado, no lugar do "G", um ícone de conta de
-     traço liso (o mesmo padrão dos outros ícones da barra).
-   - **Site:** no celular, a barra do app (`AppNav`) ganha o mesmo "G" (o site espelha os apps). Na home, o "G" fica onde
-     hoje está "Backup de dados", no rodapé; no desktop das ferramentas, no rodapé também.
-   - O "G" segue a marca do Google (as quatro cores, sem alterar o desenho), em SVG no próprio código.
+   - **Apps:** o bonequinho fica na barra de baixo, junto das abas, nos dois apps.
+   - **Site** (dono, 2026-11-27: a conta sempre no mesmo lugar, na nav): no computador, no canto direito do cabeçalho; na
+     home, que não tem cabeçalho, sozinha no mesmo ponto. No celular, a barra do app (`AppNav`) tem o bonequinho (o site
+     espelha os apps); na home do celular, sem barra, ele fica no canto de cima à direita. Fora do rodapé.
 10. **LGPD:** o "O que fica guardado" do próprio modal diz o que guarda (e-mail e os dados acima), onde (Firebase/Google) e
    como apagar. "Apagar meus dados" apaga todos os documentos e a conta no Firebase.
 11. **Configuração (pública, não é segredo):** site em `NEXT_PUBLIC_FIREBASE_*` (Vercel); apps em `gradle.properties`

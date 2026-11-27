@@ -21,8 +21,9 @@ export function LogoGoogle() {
 }
 
 /**
- * A conta opcional (ver .specs/001-conta-e-sincronizacao.md): fora, o botão é só o "G" do Google; dentro, um ícone de conta de
- * traço liso. Tocar abre o modal que explica e tem as ações. [className] posiciona o botão (rodapé, barra do app).
+ * A conta opcional (ver .specs/001-conta-e-sincronizacao.md): o bonequinho de conta, vazado (traço liso) para quem está fora e
+ * cheio para quem entrou. O "G" do Google só aparece no botão "Entrar com Google", dentro do modal. Tocar abre o modal que
+ * explica e tem as ações. [className] posiciona o botão (cabeçalho, barra do app).
  */
 export function Conta({ t, className }: { t: TextosConta; className?: string }) {
   const s = useSyncExternalStore(conta.subscribe, conta.get, conta.getInitial);
@@ -46,9 +47,9 @@ export function Conta({ t, className }: { t: TextosConta; className?: string }) 
     <>
       <button type="button" className={`conta-btn${className ? ` ${className}` : ""}`} onClick={abrir}
         aria-label={dentro ? t.contaLabel : t.entrarLabel} title={dentro ? t.contaLabel : t.entrarLabel} aria-haspopup="dialog">
-        {dentro
-          ? <svg className="conta-icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5" /><path d="M5 19.5c1.2-3.3 3.8-5 7-5s5.8 1.7 7 5" /></svg>
-          : <LogoGoogle />}
+        <svg className={`conta-icone${dentro ? " cheio" : ""}`} viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8.5" r="3.5" /><path d="M5 19.5c1.2-3.3 3.8-5 7-5s5.8 1.7 7 5z" />
+        </svg>
       </button>
       <dialog ref={dialog} className="conta-dialog" aria-labelledby={titulo} onClick={(e) => { if (e.target === e.currentTarget) fechar(); }}>
         <div className="conta-head">

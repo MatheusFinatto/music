@@ -25,8 +25,8 @@ import android.widget.TextView
 import kotlin.math.min
 
 /**
- * The account's button for the bottom bar of both apps, and its dialog (the website's Conta.tsx): signed out, only the Google "G";
- * signed in, a person in thin line. The dialog is one card: the action on the first line, for whoever only wants to sign in; below,
+ * The account's button for the bottom bar of both apps, and its dialog (the website's Conta.tsx): signed out, a person in thin line;
+ * signed in, the same person filled (the Google "G" only on the sign-in button). The dialog is one card: the action on the first line, for whoever only wants to sign in; below,
  * for whoever wants to read, the text and what is kept. Same look as the apps' sheets (dark rounded card, × in thin line).
  */
 object ContaUi {
@@ -47,7 +47,7 @@ object ContaUi {
         background = RippleDrawable(ColorStateList.valueOf(Color.argb(40, 255, 255, 255)), null, GradientDrawable().apply { cornerRadius = r; setColor(Color.WHITE) })
         fun pintar() {
             val dentro = Conta.dentro(act)
-            setImageResource(if (dentro) R.drawable.conta_icone else R.drawable.conta_g)
+            setImageResource(if (dentro) R.drawable.conta_icone else R.drawable.conta_fora)
             contentDescription = act.getString(if (dentro) R.string.conta_contaLabel else R.string.conta_entrarLabel)
         }
         pintar()
