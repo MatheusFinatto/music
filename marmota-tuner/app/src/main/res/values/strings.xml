@@ -49,9 +49,13 @@
     <string name="timer">Timer</string>
     <string name="timer_off">Sem limite</string>
     <string name="minutes">%d min</string>
-    <string name="timer_minutes">Timer: %d min</string>
+    <string name="timer_now">Timer: %s</string>
+    <string name="timer_custom">Tempo personalizado</string>
+    <string name="timer_min_value">%d minutos</string>
+    <string name="timer_sec_value">%d segundos</string>
+    <string name="timer_set">Usar este tempo</string>
     <string name="timer_done">Tempo acabou</string>
-    <string name="timer_desc">Timer de %d minutos</string>
+    <string name="timer_desc">Timer de %s</string>
     <string name="timer_off_desc">Timer, sem limite</string>
     <string name="favorites">Favoritos</string>
     <string name="favorite_desc">%1$d bpm · %2$s · %3$s</string>

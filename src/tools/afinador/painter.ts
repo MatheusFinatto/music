@@ -31,6 +31,13 @@ export function readTunerColors(el: Element): TunerColors {
   };
 }
 
+/**
+ * A nota e a agulha usam versões mais vivas das mesmas cores (mesmo tom, mais saturadas), para saltar do mostrador; o fundo
+ * e o mostrador ficam na paleta. Os mesmos valores do TunerPainter.kt. Afinado, a nota fica verde junto com a agulha, e
+ * continua verde (apagada, como o laranja) quando o som para: laranja depois de acertar parecia erro.
+ */
+const VIVID = { target: "#fda521", now: "#6eb7f7", inTune: "#28a745" } as const;
+
 const IDLE_ALPHA = 90 / 255;
 const FONT = "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif";
 const rad = (deg: number) => (deg * Math.PI) / 180;
@@ -50,7 +57,7 @@ export function drawTuner(ctx: CanvasRenderingContext2D, g: TunerGeometry, scene
   const reading = scene.reading ?? null;
   if (reading) {
     ctx.globalAlpha = scene.active ? 1 : IDLE_ALPHA;
-    ctx.fillStyle = c.target;
+    ctx.fillStyle = reading.isInTune ? VIVID.inTune : VIVID.target;
     ctx.font = `300 ${g.noteTextSize}px ${FONT}`;
     ctx.textAlign = "center";
     ctx.fillText(reading.name, g.centerX, g.noteBaseline);
@@ -87,6 +94,20 @@ export function drawTuner(ctx: CanvasRenderingContext2D, g: TunerGeometry, scene
   ctx.lineCap = "round";
   for (let cents = -50; cents <= 50; cents += 10) drawTick(ctx, g, cents, c);
 
+  // Os cents de cada marca, pequenos e em pé, logo acima do mostrador (como o TunerPainter.kt).
+  ctx.globalAlpha = 170 / 255;
+  ctx.fillStyle = c.muted;
+  ctx.font = `400 ${sp(10)}px ${FONT}`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  const labelR = g.radius + 22 * dp;
+  for (let cents = -50; cents <= 50; cents += 10) {
+    const a = rad(g.angleForCents(cents));
+    ctx.fillText(String(Math.abs(cents)), g.centerX + labelR * Math.sin(a), g.pivotY - labelR * Math.cos(a));
+  }
+  ctx.globalAlpha = 1;
+  ctx.textBaseline = "alphabetic";
+
   const edge = rad(g.maxAngleDegrees);
   const reach = g.radius * Math.sin(edge) + 22 * dp;
   const symbolY = g.pivotY - g.radius * Math.cos(edge) + 22 * dp;
@@ -97,7 +118,7 @@ export function drawTuner(ctx: CanvasRenderingContext2D, g: TunerGeometry, scene
   ctx.fillText("♯", g.centerX + reach, symbolY);
 
   // Agulha: cheia perto do pino, sumindo na ponta
-  const needleColor = !scene.active ? c.muted : reading?.isInTune ? c.inTune : c.now;
+  const needleColor = !scene.active ? c.muted : reading?.isInTune ? VIVID.inTune : VIVID.now;
   ctx.save();
   ctx.translate(g.centerX, g.pivotY);
   ctx.rotate(rad(g.angleForCents(scene.needleCents)));

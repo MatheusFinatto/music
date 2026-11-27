@@ -3,7 +3,7 @@ import { onRadioKeyDown } from "@/core/ui/radioGroup";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { ACCENT, BEAT, MAX_BEATS, MAX_BPM, MIN_BPM, MUTE, SUBDIVISIONS, TapTempo, clampBpm, subdivisionById, type Tick } from "@/core/rhythm";
-import { MINUTES, store } from "./store";
+import { MAX_TIMER, MINUTES, clock, store, timerFrom } from "./store";
 import { MetronomeEngine, chime, type MetronomeSettings } from "./engine";
 import { Figure } from "./Figure";
 import { BpmWheel } from "./BpmWheel";
@@ -11,7 +11,6 @@ import { MetroFavorites } from "./MetroFavorites";
 import "./metronomo.css";
 
 const STEPS = [-10, -5, -1, 1, 5, 10] as const; // os negativos à esquerda do número, os positivos à direita
-const clock = (ms: number) => { const s = Math.max(0, Math.ceil(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
 /** Clicar num tempo: normal → forte → mudo → normal (a mesma ordem do núcleo, Metronome.cycleAccent). */
 const nextAccent = (a: number) => (a === BEAT ? ACCENT : a === ACCENT ? MUTE : BEAT);
 
@@ -22,6 +21,13 @@ export function Metronomo() {
   const [running, setRunning] = useState(false);
   const [now, setNow] = useState<{ beat: number; sub: number } | null>(null);
   const [draft, setDraft] = useState<string | null>(null);
+  /** O tempo do modal do timer (rodas, passos ou digitado), antes do ✓. */
+  const [typed, setTyped] = useState({ min: "", sec: "" });
+  const asTyped = (sec: number) => {
+    const v = Math.max(0, Math.min(MAX_TIMER, sec));
+    return { min: String(Math.floor(v / 60)).padStart(2, "0"), sec: String(v % 60).padStart(2, "0") };
+  };
+  const draftOf = (x: { min: string; sec: string }) => timerFrom(x.min, x.sec);
   const engine = useRef<MetronomeEngine | null>(null);
   const tap = useRef<TapTempo | null>(null);
   const subDialog = useRef<HTMLDialogElement>(null);
@@ -56,25 +62,28 @@ export function Metronomo() {
     engine.current ??= new MetronomeEngine((tick: Tick) => setNow({ beat: tick.beat, sub: tick.sub }));
     if (!engine.current.start(store.get())) { setAudioError(true); return; }
     setRunning(true); setAudioError(false); setPaused(false);
-    const min = store.get().minutes;
-    const ms = min > 0 ? (paused && left !== null ? left : min * 60_000) : null;
+    const sec = store.get().seconds;
+    const ms = sec > 0 ? (paused && left !== null ? left : sec * 1000) : null;
     deadline.current = ms !== null ? at + ms : null;
     setLeft(ms);
   };
   /** [at] é o timeStamp do evento (ms, no relógio de performance.now). Com timer, pausa; sem timer, para. */
   const toggle = (at: number) => {
     if (!engine.current?.running) play(at);
-    else if (store.get().minutes > 0) pause(at);
+    else if (store.get().seconds > 0) pause(at);
     else halt();
   };
-  const setMinutes = (minutes: number, at: number) => {
-    store.set({ ...store.get(), minutes });
+  const setTimer = (seconds: number, at: number) => {
+    seconds = Math.max(0, Math.min(MAX_TIMER, seconds));
+    store.set({ ...store.get(), seconds });
     setFinished(false);
     if (running) {
-      deadline.current = minutes > 0 ? at + minutes * 60_000 : null;
-      setLeft(minutes > 0 ? minutes * 60_000 : null);
+      deadline.current = seconds > 0 ? at + seconds * 1000 : null;
+      setLeft(seconds > 0 ? seconds * 1000 : null);
     } else { setLeft(null); setPaused(false); }
   };
+  /** "5 min" no minuto redondo; senão "1:30". */
+  const duration = (seconds: number) => (seconds % 60 === 0 ? t("minutes", { n: seconds / 60 }) : clock(seconds * 1000));
   /** [at] é o timeStamp do evento, em ms. */
   const onTap = (at: number) => {
     tap.current ??= new TapTempo();
@@ -147,7 +156,19 @@ export function Metronomo() {
   // Clicar fora do conteúdo (no fundo escurecido) fecha o modal.
   const closeOnBackdrop = (e: React.MouseEvent<HTMLDialogElement>) => { if (e.target === e.currentTarget) e.currentTarget.close(); };
   const openSub = () => { subDialog.current?.showModal(); subDialog.current?.querySelector<HTMLElement>('[aria-checked="true"]')?.focus(); };
-  const openTimer = () => { timerDialog.current?.showModal(); timerDialog.current?.querySelector<HTMLElement>('[aria-checked="true"]')?.focus(); };
+  /** Aberto pelo mouse ou toque, o foco não acende o anel (só pelo teclado: o click do Enter tem detail 0). */
+  const openTimer = (e?: React.MouseEvent) => {
+    const cur = store.get().seconds;
+    setTyped(asTyped(cur));
+    timerDialog.current?.showModal();
+    // Num atalho, o foco vai nele; num tempo personalizado, no primeiro campo visível dele (roda ou minutos digitados).
+    const d = timerDialog.current;
+    const field = [...(d?.querySelectorAll<HTMLElement>(".metro-timer-custom canvas, .metro-timer-custom input") ?? [])].find((el) => el.offsetParent !== null);
+    (d?.querySelector<HTMLElement>('[aria-checked="true"]') ?? field)?.focus({ focusVisible: !e || e.detail === 0 } as FocusOptions);
+  };
+  const applyTyped = (at: number) => { setTimer(timerFrom(typed.min, typed.sec), at); timerDialog.current?.close(); };
+  const timerSeconds = s.seconds;
+  const isPreset = (MINUTES as readonly number[]).includes(timerSeconds / 60);
   const closeButton = (dialog: React.RefObject<HTMLDialogElement | null>) => (
     <button type="button" className="metro-close" onClick={() => dialog.current?.close()} aria-label={t("close")}>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
@@ -183,7 +204,8 @@ export function Metronomo() {
           );
         })}
       </ol>
-      {!s.hintSeen && <p className="metro-hint">{t("beatHint")}</p>}
+      {/* No computador a explicação está no "?" do título; no celular (como no app) não há "?", e a dica fica até o primeiro toque. */}
+      {!s.hintSeen && <p className="metro-hint only-mob">{t("beatHint")}</p>}
 
       <div className="metro-tempo only-desk">
         <div className="metro-steps down" role="group" aria-label={t("slowerGroup")}>
@@ -225,32 +247,39 @@ export function Metronomo() {
         <span aria-hidden="true">{t("bpm")}</span>
       </div>
 
-      {s.minutes > 0 && (
-        <div className={["metro-timer", running ? "live" : "", finished ? "done" : ""].join(" ")} aria-hidden="true">
-          <span>{clock(finished ? 0 : left ?? s.minutes * 60_000)}</span>
-          <small>{finished ? t("finished") : paused ? t("paused") : ""}</small>
-        </div>
+      {s.seconds > 0 && (
+        // A contagem também abre o modal do timer, a qualquer momento (o nome vai no aria-label: ler a contagem atrapalharia).
+        <button
+          type="button"
+          className={["metro-timer", running ? "live" : "", finished ? "done" : ""].join(" ")}
+          onClick={openTimer}
+          aria-haspopup="dialog"
+          aria-label={t("timerNow", { time: duration(s.seconds) })}
+        >
+          <span aria-hidden="true">{clock(finished ? 0 : left ?? s.seconds * 1000)}</span>
+          <small aria-hidden="true">{finished ? t("finished") : paused ? t("paused") : ""}</small>
+        </button>
       )}
 
       <div className="metro-pills only-mob">
         <button type="button" className="metro-pill" onClick={(e) => onTap(e.timeStamp)}>{t("tap")}</button>
-        <button type="button" className="metro-pill" onClick={openTimer} aria-haspopup="dialog">{s.minutes > 0 ? t("timerMinutes", { n: s.minutes }) : t("timer")}</button>
+        <button type="button" className="metro-pill" onClick={openTimer} aria-haspopup="dialog">{s.seconds > 0 ? t("timerNow", { time: duration(s.seconds) }) : t("timer")}</button>
       </div>
 
-      <div className={["metro-actions", s.minutes > 0 ? "with-stop" : ""].join(" ")}>
+      <div className={["metro-actions", s.seconds > 0 ? "with-stop" : ""].join(" ")}>
         {/* Ícones universais: ▶ tocar ou continuar, ❚❚ pausar (com timer), ■ parar. O nome vai no aria-label. */}
         <button
           type="button"
           className="go metro-play"
           onClick={(e) => toggle(e.timeStamp)}
           aria-keyshortcuts="Space"
-          aria-label={running ? (s.minutes > 0 ? t("pause") : t("stop")) : paused ? t("resume") : t("start")}
-          title={running ? (s.minutes > 0 ? t("pause") : t("stop")) : paused ? t("resume") : t("start")}
+          aria-label={running ? (s.seconds > 0 ? t("pause") : t("stop")) : paused ? t("resume") : t("start")}
+          title={running ? (s.seconds > 0 ? t("pause") : t("stop")) : paused ? t("resume") : t("start")}
         >
-          <PlayIcon kind={running ? (s.minutes > 0 ? "pause" : "stop") : "play"} />
+          <PlayIcon kind={running ? (s.seconds > 0 ? "pause" : "stop") : "play"} />
         </button>
         {/* Com timer, o ■ fica sempre no mesmo lugar (desligado enquanto não há o que parar): nada se mexe sob o dedo. */}
-        {s.minutes > 0 && (
+        {s.seconds > 0 && (
           <button type="button" className="metro-icon-btn" onClick={halt} disabled={!running && !paused} aria-label={t("stop")} title={t("stop")}>
             <PlayIcon kind="stop" />
           </button>
@@ -274,12 +303,12 @@ export function Metronomo() {
             <span id="metro-sub-name" className="sr-only">{t(`sub.${sub.id}`)}</span>
           </button>
         </div>
-        <label className="metro-field">
-          <span>{t("timer")}</span>
-          <select value={s.minutes} onChange={(e) => setMinutes(Number(e.target.value), e.timeStamp)}>
-            {MINUTES.map((m) => <option key={m} value={m}>{m === 0 ? t("noLimit") : t("minutes", { n: m })}</option>)}
-          </select>
-        </label>
+        <div className="metro-field">
+          <span id="metro-timer-label">{t("timer")}</span>
+          <button type="button" className="metro-timer-open" onClick={openTimer} aria-haspopup="dialog" aria-labelledby="metro-timer-label metro-timer-now">
+            <span id="metro-timer-now">{s.seconds > 0 ? duration(s.seconds) : t("noLimit")}</span>
+          </button>
+        </div>
       </div>
       {audioError && <p className="metro-error" role="alert">{t("noAudio")}</p>}
 
@@ -329,14 +358,55 @@ export function Metronomo() {
               key={m}
               type="button"
               role="radio"
-              aria-checked={m === s.minutes}
-              tabIndex={m === s.minutes ? 0 : -1}
-              onClick={(e) => { setMinutes(m, e.timeStamp); if (!arrowing.current) timerDialog.current?.close(); }}
+              aria-checked={isPreset && m * 60 === timerSeconds}
+              tabIndex={(isPreset ? m * 60 === timerSeconds : m === 0) ? 0 : -1}
+              onClick={(e) => { setTimer(m * 60, e.timeStamp); if (!arrowing.current) timerDialog.current?.close(); }}
             >
               {m === 0 ? t("noLimit") : t("minutes", { n: m })}
             </button>
           ))}
         </div>
+        {/* Fora dos atalhos: no celular, duas rodas como a do andamento (minutos e segundos); no computador, minutos e segundos
+            digitados. Até 99:59. Só o ✓ (ou Enter) usa: girar não reinicia o timer que corre.
+            Verde quando o timer atual não é um dos atalhos. */}
+        <h3 id="metro-timer-custom-title" className="metro-timer-custom-title">{t("timerCustom")}</h3>
+        <form
+          className={["metro-timer-custom", timerSeconds > 0 && !isPreset ? "on" : ""].join(" ")}
+          aria-labelledby="metro-timer-custom-title"
+          onSubmit={(e) => { e.preventDefault(); applyTyped(e.timeStamp); }}
+        >
+          <div className="metro-timer-wheels only-mob">
+            <BpmWheel
+              value={draftOf(typed) / 60 | 0} min={0} max={99} scale={0.6} pad
+              onChange={(m) => setTyped((x) => asTyped(m * 60 + (draftOf(x) % 60)))}
+              label={t("timerMin")} unit={t("minutesUnit")} className="metro-timer-wheel"
+            />
+            <span aria-hidden="true">:</span>
+            <BpmWheel
+              value={draftOf(typed) % 60} min={0} max={59} scale={0.6} pad
+              onChange={(sec) => setTyped((x) => asTyped(Math.floor(draftOf(x) / 60) * 60 + sec))}
+              label={t("timerSec")} unit={t("secondsUnit")} className="metro-timer-wheel"
+            />
+          </div>
+          <div className="metro-timer-typed only-desk">
+            <input
+              type="text" inputMode="numeric" maxLength={2} placeholder="00" aria-label={t("timerMin")}
+              value={typed.min} onFocus={(e) => e.target.select()}
+              onChange={(e) => setTyped({ ...typed, min: e.target.value.replace(/\D/g, "") })}
+              onBlur={() => setTyped((x) => asTyped(draftOf(x)))}
+            />
+            <span aria-hidden="true">:</span>
+            <input
+              type="text" inputMode="numeric" maxLength={2} placeholder="00" aria-label={t("timerSec")}
+              value={typed.sec} onFocus={(e) => e.target.select()}
+              onChange={(e) => setTyped({ ...typed, sec: e.target.value.replace(/\D/g, "") })}
+              onBlur={() => setTyped((x) => asTyped(draftOf(x)))}
+            />
+          </div>
+          <button type="submit" className={["metro-timer-set", draftOf(typed) !== timerSeconds ? "dirty" : ""].join(" ")} aria-label={t("timerSet")} title={t("timerSet")}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          </button>
+        </form>
       </dialog>
     </div>
   );
