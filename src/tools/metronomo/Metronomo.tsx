@@ -3,7 +3,7 @@ import { onRadioKeyDown } from "@/core/ui/radioGroup";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { ACCENT, BEAT, MAX_BEATS, MAX_BPM, MIN_BPM, MUTE, SUBDIVISIONS, TapTempo, clampBpm, subdivisionById, type Tick } from "@/core/rhythm";
-import { MAX_TIMER, MINUTES, clock, favorites, followActive, store, timerFrom } from "./store";
+import { MAX_TIMER, MINUTES, clock, store, timerFrom } from "./store";
 import { MetronomeEngine, chime, type MetronomeSettings } from "./engine";
 import { Figure } from "./Figure";
 import { BpmWheel } from "./BpmWheel";
@@ -40,10 +40,6 @@ export function Metronomo() {
     const prev = store.get();
     const next = { ...prev, ...patch, bpm: clampBpm(Math.round(patch.bpm ?? prev.bpm)) };
     store.set(next);
-    // Dentro de um favorito, a mudança vai junto para ele (a estrela continua cheia).
-    const f = favorites.get();
-    const g = followActive(f, prev, next);
-    if (g !== f) favorites.set(g);
     engine.current?.apply(next);
   };
   const [audioError, setAudioError] = useState(false);

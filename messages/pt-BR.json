@@ -91,7 +91,6 @@
     "erroApagar": "Não deu pra apagar. Tenta de novo.",
     "fechar": "Fechar"
   },
-
   "metronomo": {
     "title": "Metrônomo",
     "description": "Metrônomo no navegador: andamento de 30 a 250 bpm, tempos com acento, divisões do tempo, tap e timer.",
@@ -149,24 +148,18 @@
     "slowerGroup": "Diminuir o andamento",
     "fasterGroup": "Aumentar o andamento",
     "favorites": "Favoritos",
-    "favoritesIn": "Favoritos (em {name})",
     "favoriteDesc": "{bpm} bpm · {beats, plural, one {# tempo} other {# tempos}} · {sub}",
     "favoritesInfo": "Como funcionam os favoritos",
     "favoritesInfoItems": [
-      "Salvar o atual guarda o andamento, os tempos, a divisão e os acentos de agora, com um nome se quiser.",
-      "Salvar sempre cria um favorito novo: o nome e o padrão podem repetir.",
-      "Escolher um favorito carrega ele e você fica dentro dele (estrela verde): mexer no andamento, nos tempos, na divisão ou nos acentos grava no favorito na hora.",
-      "Para sair do favorito, toque em Sair ou de novo nele na lista. A estrela apaga e o que você mexer não grava mais.",
-      "O lápis renomeia; o X apaga.",
+      "Salvar o atual abre o favorito com o andamento, os tempos e a divisão de agora; dê um nome se quiser e salve.",
+      "Tocar num favorito carrega ele no metrônomo. Mexer no metrônomo depois não muda o favorito.",
+      "O lápis edita nome, tempos, andamento e divisão; a lixeira exclui.",
+      "Reordenar deixa arrastar os favoritos na ordem que quiser.",
       "Os favoritos ficam neste navegador. Entrando na conta, vão junto pros outros aparelhos e pro app."
     ],
     "favoriteName": "Nome (opcional)",
-    "saveName": "Salvar nome",
-    "cancelRename": "Cancelar",
     "saveCurrent": "Salvar o atual",
-    "leaveFavorite": "Sair de {name}",
-    "deleteFavorite": "Apagar {name}",
-    "renameFavorite": "Renomear {name}",
+    "deleteFavorite": "Excluir {name}",
     "beatsCount": "{n, plural, one {# tempo} other {# tempos}}",
     "beatsTitle": "Tempos por compasso",
     "fewerBeats": "Menos um tempo",
@@ -180,7 +173,18 @@
     "secondsUnit": "segundos",
     "subdivisionNow": "Divisão: {name}",
     "beatsNow": "{n, plural, one {# tempo} other {# tempos}} por compasso",
-    "wheelLabel": "Andamento em bpm. Arraste para cima ou para baixo para mudar"
+    "wheelLabel": "Andamento em bpm. Arraste para cima ou para baixo para mudar",
+    "editFavorite": "Editar {name}",
+    "editTitle": "Editar favorito",
+    "newTitle": "Novo favorito",
+    "reorder": "Reordenar",
+    "reorderDone": "Concluir",
+    "dragFavorite": "Mover {name}. Arraste, ou use as setas para cima e para baixo",
+    "cancel": "Cancelar",
+    "save": "Salvar",
+    "beatsWheel": "Tempos por compasso",
+    "subWheel": "Divisão do tempo",
+    "favoritesEmpty": "Nenhum favorito ainda. Salve o que está tocando para voltar a ele com um toque."
   },
   "afinador": {
     "title": "Afinador",
@@ -365,7 +369,12 @@
     "afinacaoErrado": "Era: {intervalo}, {sentido}.",
     "margem": "Margem",
     "margemCents": "±{n} cents",
-    "margens": { "50": "Folgada", "30": "Normal", "20": "Precisa", "10": "Rigorosa" },
+    "margens": {
+      "50": "Folgada",
+      "30": "Normal",
+      "20": "Precisa",
+      "10": "Rigorosa"
+    },
     "centsAcima": "{n, plural, one {# cent} other {# cents}} acima",
     "centsAbaixo": "{n, plural, one {# cent} other {# cents}} abaixo",
     "exatamenteAfinado": "Exatamente afinado",
