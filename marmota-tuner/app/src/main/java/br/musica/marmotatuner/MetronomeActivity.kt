@@ -75,8 +75,8 @@ class MetronomeActivity : Activity() {
     private val dots = ArrayList<View>()
     private var lit = -1
     private lateinit var starButton: ImageView
-    /** The last favorite picked or saved (index in the list), or -1. A favorite is a snapshot: changing the metronome doesn't
-     *  change it; the star is lit only while the metronome still matches it ([inFavorite]). Same as the website's store.ts. */
+    /** The favorite the user is in (the last one picked or saved; index in the list), or -1. While in it (star lit), changing
+     *  the metronome writes into it right away ([changed]). Same as the website's store.ts (followActive). */
     private var activeFav = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -207,7 +207,7 @@ class MetronomeActivity : Activity() {
         root.addView(dotsHint, LinearLayout.LayoutParams(-1, -2))
 
         wheel = BpmWheel(this, Metronome.MIN_BPM.toInt(), Metronome.MAX_BPM.toInt()).apply {
-            onChange = { metronome.bpm = it.toDouble(); refreshStar() }
+            onChange = { v -> changed { metronome.bpm = v.toDouble() } }
         }
         root.addView(wheel, LinearLayout.LayoutParams(-1, 0, 1f))
         root.addView(TextView(this).apply {
@@ -276,10 +276,9 @@ class MetronomeActivity : Activity() {
         return root
     }
 
-    private fun setBpm(v: Int) {
+    private fun setBpm(v: Int) = changed {
         metronome.bpm = v.toDouble()
         wheel.set(metronome.bpm.roundToInt())
-        refreshStar()
     }
 
     // ---- Beats: the dots, one per beat; tapping one cycles its accent.
@@ -300,9 +299,8 @@ class MetronomeActivity : Activity() {
             val v = View(this).apply {
                 isClickable = true
                 setOnClickListener {
-                    metronome.cycleAccent(i)
+                    changed { metronome.cycleAccent(i) }
                     paintDot(i)
-                    refreshStar()
                     if (dotsHint.visibility == View.VISIBLE) {
                         dotsHint.visibility = View.GONE
                         getPreferences(MODE_PRIVATE).edit().putBoolean("dotsHintSeen", true).apply()
@@ -358,10 +356,9 @@ class MetronomeActivity : Activity() {
         body.addView(count)
         val buttons = LinearLayout(this).apply { setPadding(0, dp(12), 0, 0) }
         fun change(d: Int) {
-            metronome.beatsPerBar += d
+            changed { metronome.beatsPerBar += d }
             count.text = metronome.beatsPerBar.toString()
             refreshBeats()
-            refreshStar()
         }
         buttons.addView(pill("−").apply { textSize = 24f; contentDescription = getString(R.string.fewer_beats); setOnClickListener { change(-1) } },
             LinearLayout.LayoutParams(0, dp(56), 1f).apply { marginEnd = dp(10) })
@@ -408,9 +405,8 @@ class MetronomeActivity : Activity() {
                 isSelected = selected
                 contentDescription = subdivisionName(sub.id)
                 setOnClickListener {
-                    metronome.subdivision = sub.id
+                    changed { metronome.subdivision = sub.id }
                     refreshFigure()
-                    refreshStar()
                     dialog.dismiss()
                 }
             }
@@ -667,6 +663,20 @@ class MetronomeActivity : Activity() {
     private fun inFavorite(list: List<Favorite> = loadFavorites()): Int =
         activeFav.takeIf { list.getOrNull(it)?.settings() == current().settings() } ?: -1
 
+    /** A change to the metronome made by the user: inside a favorite (star lit before it), the favorite takes the new
+     *  settings and keeps its name, so the star stays lit. Outside one, nothing is written. Then the star is refreshed. */
+    private fun changed(change: () -> Unit) {
+        val list = loadFavorites()
+        val inside = inFavorite(list)
+        change()
+        val now = current()
+        val cur = list.getOrNull(inside)
+        if (cur != null && cur.settings() != now.settings()) {
+            list[inside] = Favorite(now.bpm, now.beats, now.sub, now.accents, cur.name)
+            saveFavorites(list)
+        } else refreshStar()
+    }
+
     /** Filled and green while in a favorite (green = selected, as everywhere). Called after every change. */
     private fun refreshStar() {
         if (!::starButton.isInitialized) return
@@ -688,7 +698,8 @@ class MetronomeActivity : Activity() {
         metronome.beatsPerBar = f.beats
         metronome.subdivision = f.sub
         metronome.restoreAccents(f.accents)
-        setBpm(f.bpm)
+        metronome.bpm = f.bpm.toDouble()
+        wheel.set(f.bpm)
         refreshBeats(); refreshFigure()
         saveFavorites(list, i)
     }
