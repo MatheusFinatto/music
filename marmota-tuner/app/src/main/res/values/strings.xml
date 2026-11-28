@@ -60,6 +60,7 @@
     <string name="favorites">Favoritos</string>
     <string name="favorite_desc">%1$d bpm · %2$s · %3$s</string>
     <string name="save_current">Salvar o atual</string>
+    <string name="leave_favorite">Sair de %s</string>
     <string name="favorite_name_hint">Nome (opcional)</string>
     <string name="delete_favorite">Apagar %s</string>
     <string name="rename_favorite">Renomear %s</string>

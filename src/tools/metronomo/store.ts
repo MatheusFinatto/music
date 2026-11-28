@@ -111,6 +111,9 @@ export function inFavorite(f: Favorites, now: MetronomeSettings): number {
   return cur && sameSettings(cur, now) ? f.active : NONE;
 }
 
+/** Sai do favorito: fica sem ativo, a estrela apaga e mexer no metrônomo não grava mais em nenhum. */
+export const leaveFavorite = (f: Favorites): Favorites => ({ ...f, active: NONE });
+
 /** Carrega o favorito i no metrônomo e marca ele como ativo. */
 export function selectFavorite(i: number) {
   const f = favorites.get();

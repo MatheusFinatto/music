@@ -1,7 +1,7 @@
 "use client";
 import { useId, useRef, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
-import { addFavorite, favorites, inFavorite, removeFavorite, renameFavorite, selectFavorite, store, type Favorite } from "./store";
+import { addFavorite, favorites, inFavorite, leaveFavorite, removeFavorite, renameFavorite, selectFavorite, store, type Favorite } from "./store";
 
 const STAR = "M12 3.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z";
 
@@ -10,7 +10,7 @@ const STAR = "M12 3.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.2-4.1
  * nome opcional. Ficam neste navegador, como o resto. Mesmo modelo dos favoritos do app.
  * Escolher ou salvar um favorito é entrar nele: mexer no andamento, tempos, divisão ou acentos grava nele na hora, e a
  * estrela fica cheia, em verde, com o nome ao lado. Salvar sempre cria um novo (nome e padrão podem repetir); o lápis
- * troca o nome.
+ * troca o nome. Para sair (a estrela apaga e nada mais grava): "Sair do favorito" ou tocar de novo no favorito ativo.
  * [variant] "pill": a estrela grande da linha de cima do celular, como no app; a do topo da página some lá.
  */
 export function MetroFavorites({ variant = "icon" }: { variant?: "icon" | "pill" }) {
@@ -35,8 +35,10 @@ export function MetroFavorites({ variant = "icon" }: { variant?: "icon" | "pill"
     favorites.set(addFavorite(favorites.get(), store.get(), name));
     setName("");
   };
+  const leave = () => favorites.set(leaveFavorite(favorites.get()));
   const load = (i: number) => {
-    selectFavorite(i);
+    // Tocar no favorito em que já está sai dele.
+    if (i === active) leave(); else selectFavorite(i);
     dialog.current?.close();
   };
   const rename = () => {
@@ -115,6 +117,9 @@ export function MetroFavorites({ variant = "icon" }: { variant?: "icon" | "pill"
               </li>
             ))}
           </ul>
+        )}
+        {current && (
+          <button type="button" className="metro-fav-leave" onClick={leave}>{t("leaveFavorite", { name: label(current) })}</button>
         )}
         <form className="metro-fav-save" onSubmit={(e) => { e.preventDefault(); save(); }}>
           <input type="text" value={name} maxLength={40} onChange={(e) => setName(e.target.value)} placeholder={t("favoriteName")} aria-label={t("favoriteName")} />
