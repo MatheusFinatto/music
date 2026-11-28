@@ -75,9 +75,6 @@ class MetronomeActivity : Activity() {
     private val dots = ArrayList<View>()
     private var lit = -1
     private lateinit var starButton: ImageView
-    /** The favorite the user is in (the last one picked or saved; index in the list), or -1. While in it (star lit), changing
-     *  the metronome writes into it right away ([changed]). "Leave" or tapping it again sets -1. Same as the website's store.ts. */
-    private var activeFav = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +89,6 @@ class MetronomeActivity : Activity() {
         // Up to 1.12 the timer kept minutes ("minutes"), only the presets.
         seconds = if (prefs.contains("seconds")) prefs.getInt("seconds", 0).takeIf { it in 0..MAX_TIMER } ?: 0
             else (prefs.getInt("minutes", 0).takeIf { it in TIMER_MINUTES } ?: 0) * 60
-        activeFav = readFavorites().second
         setContentView(withBottomNav(buildLayout(), Screen.METRONOME))
     }
 
@@ -186,10 +182,11 @@ class MetronomeActivity : Activity() {
             scaleType = ImageView.ScaleType.CENTER
             background = pillBackground(false)
             foreground = ripple()
+            setImageDrawable(StarDrawable(Paleta.ink, dpf(1.8f)))
+            contentDescription = getString(R.string.favorites)
             setOnClickListener { showFavorites() }
         }
         top.addView(starButton, LinearLayout.LayoutParams(dp(52), dp(52)))
-        refreshStar()
         root.addView(top, LinearLayout.LayoutParams(-1, -2))
 
         dotsRow = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER; setPadding(0, dp(20), 0, 0) }
@@ -207,7 +204,7 @@ class MetronomeActivity : Activity() {
         root.addView(dotsHint, LinearLayout.LayoutParams(-1, -2))
 
         wheel = BpmWheel(this, Metronome.MIN_BPM.toInt(), Metronome.MAX_BPM.toInt()).apply {
-            onChange = { v -> changed { metronome.bpm = v.toDouble() } }
+            onChange = { metronome.bpm = it.toDouble() }
         }
         root.addView(wheel, LinearLayout.LayoutParams(-1, 0, 1f))
         root.addView(TextView(this).apply {
@@ -276,7 +273,7 @@ class MetronomeActivity : Activity() {
         return root
     }
 
-    private fun setBpm(v: Int) = changed {
+    private fun setBpm(v: Int) {
         metronome.bpm = v.toDouble()
         wheel.set(metronome.bpm.roundToInt())
     }
@@ -299,7 +296,7 @@ class MetronomeActivity : Activity() {
             val v = View(this).apply {
                 isClickable = true
                 setOnClickListener {
-                    changed { metronome.cycleAccent(i) }
+                    metronome.cycleAccent(i)
                     paintDot(i)
                     if (dotsHint.visibility == View.VISIBLE) {
                         dotsHint.visibility = View.GONE
@@ -356,7 +353,7 @@ class MetronomeActivity : Activity() {
         body.addView(count)
         val buttons = LinearLayout(this).apply { setPadding(0, dp(12), 0, 0) }
         fun change(d: Int) {
-            changed { metronome.beatsPerBar += d }
+            metronome.beatsPerBar += d
             count.text = metronome.beatsPerBar.toString()
             refreshBeats()
         }
@@ -405,7 +402,7 @@ class MetronomeActivity : Activity() {
                 isSelected = selected
                 contentDescription = subdivisionName(sub.id)
                 setOnClickListener {
-                    changed { metronome.subdivision = sub.id }
+                    metronome.subdivision = sub.id
                     refreshFigure()
                     dialog.dismiss()
                 }
@@ -613,18 +610,16 @@ class MetronomeActivity : Activity() {
     // between the app and the site. Up to 1.8 they were a "a;b" string in this activity's preferences: converted once.
     private val musica by lazy { br.musica.marmota.common.Conta.prefs(this) }
 
-    private fun readFavorites(): Pair<MutableList<Favorite>, Int> {
-        val json = musica.getString(FAVORITES_KEY, null) ?: migrateFavorites() ?: return mutableListOf<Favorite>() to -1
+    private fun readFavorites(): MutableList<Favorite> {
+        val json = musica.getString(FAVORITES_KEY, null) ?: migrateFavorites() ?: return mutableListOf()
         return runCatching {
-            val o = org.json.JSONObject(json)
-            val items = o.getJSONArray("items")
-            val list = (0 until items.length()).map { i ->
+            val items = org.json.JSONObject(json).getJSONArray("items")
+            (0 until items.length()).map { i ->
                 val f = items.getJSONObject(i)
                 val a = f.optJSONArray("accents") ?: org.json.JSONArray()
                 Favorite(f.optInt("bpm", 90), f.optInt("beatsPerBar", 4), f.optInt("subdivision", 1), IntArray(a.length()) { a.getInt(it) }, f.optString("name"))
             }.toMutableList()
-            list to o.optInt("active", -1).takeIf { it in list.indices }.let { it ?: -1 }
-        }.getOrElse { mutableListOf<Favorite>() to -1 }
+        }.getOrElse { mutableListOf() }
     }
 
     /** The 1.8 favorites, as JSON, written once without a time (data from before the account: the cloud wins if it has some). */
@@ -632,12 +627,13 @@ class MetronomeActivity : Activity() {
         val old = getPreferences(MODE_PRIVATE)
         val list = old.getString("favorites", "")!!.split(";").filter { it.isNotBlank() }.mapNotNull { Favorite.decode(it) }
         if (list.isEmpty()) return null
-        val json = favoritesJson(list, old.getInt("favoriteActive", -1).takeIf { it in list.indices } ?: -1)
+        val json = favoritesJson(list)
         musica.edit().putString(FAVORITES_KEY, json).apply()
         return json
     }
 
-    private fun favoritesJson(list: List<Favorite>, active: Int): String {
+    /** "active" stays -1: there is no "being in" a favorite any more (picking one only loads it). Kept for the readers of the format. */
+    private fun favoritesJson(list: List<Favorite>): String {
         val items = org.json.JSONArray()
         list.forEach { f ->
             // The site keeps the 12 accents (MAX_BEATS) of every favorite.
@@ -645,45 +641,14 @@ class MetronomeActivity : Activity() {
             items.put(org.json.JSONObject().put("bpm", f.bpm).put("beatsPerBar", f.beats).put("subdivision", f.sub)
                 .put("accents", org.json.JSONArray(acc.toList())).put("name", f.name))
         }
-        return org.json.JSONObject().put("version", 1).put("items", items).put("active", active).toString()
+        return org.json.JSONObject().put("version", 1).put("items", items).put("active", -1).toString()
     }
 
-    private fun loadFavorites(): MutableList<Favorite> = readFavorites().first
-
-    private fun saveFavorites(list: List<Favorite>, active: Int = activeFav) {
-        activeFav = active
-        br.musica.marmota.common.Conta.gravarLocal(musica, "metronomo-favoritos", favoritesJson(list, active))
-        refreshStar()
-    }
+    private fun saveFavorites(list: List<Favorite>) =
+        br.musica.marmota.common.Conta.gravarLocal(musica, "metronomo-favoritos", favoritesJson(list.take(MAX_FAVORITES)))
 
     private fun current(name: String = "") =
         Favorite(metronome.bpm.roundToInt(), metronome.beatsPerBar, metronome.subdivision, metronome.accentList(), name)
-
-    /** The favorite the metronome is in: the active one, while the settings are still its own; else -1. */
-    private fun inFavorite(list: List<Favorite> = loadFavorites()): Int =
-        activeFav.takeIf { list.getOrNull(it)?.settings() == current().settings() } ?: -1
-
-    /** A change to the metronome made by the user: inside a favorite (star lit before it), the favorite takes the new
-     *  settings and keeps its name, so the star stays lit. Outside one, nothing is written. Then the star is refreshed. */
-    private fun changed(change: () -> Unit) {
-        val list = loadFavorites()
-        val inside = inFavorite(list)
-        change()
-        val now = current()
-        val cur = list.getOrNull(inside)
-        if (cur != null && cur.settings() != now.settings()) {
-            list[inside] = Favorite(now.bpm, now.beats, now.sub, now.accents, cur.name)
-            saveFavorites(list)
-        } else refreshStar()
-    }
-
-    /** Filled and green while in a favorite (green = selected, as everywhere). Called after every change. */
-    private fun refreshStar() {
-        if (!::starButton.isInitialized) return
-        val f = loadFavorites().let { it.getOrNull(inFavorite(it)) }
-        starButton.setImageDrawable(StarDrawable(if (f != null) Paleta.selected else Paleta.ink, dpf(1.8f), filled = f != null))
-        starButton.contentDescription = if (f != null) getString(R.string.favorites_in, f.name.ifEmpty { describe(f) }) else getString(R.string.favorites)
-    }
 
     private fun describe(f: Favorite) = getString(
         R.string.favorite_desc, f.bpm,
@@ -691,162 +656,228 @@ class MetronomeActivity : Activity() {
         subdivisionName(f.sub),
     )
 
-    /** Loads favorite i into the metronome and makes it the active one. */
-    private fun selectFavorite(i: Int) {
-        val list = loadFavorites()
-        val f = list.getOrNull(i) ?: return
+    /** Loads favorite [f] into the metronome. Only that: changing the metronome afterwards doesn't change the favorite. */
+    private fun loadFavorite(f: Favorite) {
         metronome.beatsPerBar = f.beats
         metronome.subdivision = f.sub
         metronome.restoreAccents(f.accents)
-        metronome.bpm = f.bpm.toDouble()
-        wheel.set(f.bpm)
+        setBpm(f.bpm)
         refreshBeats(); refreshFigure()
-        saveFavorites(list, i)
     }
 
+    private fun iconButton(icon: Drawable, description: String, onClick: () -> Unit) = ImageView(this).apply {
+        setImageDrawable(icon)
+        scaleType = ImageView.ScaleType.CENTER
+        contentDescription = description
+        background = ripple()
+        isClickable = true
+        setOnClickListener { onClick() }
+    }
+
+    /**
+     * The favorites list (the website's MetroFavorites): tapping one loads it; the pencil opens the editor, the bin deletes.
+     * "Reordenar" on top swaps the pencil and the bin for a grip: drag the rows into any order. "Salvar o atual" at the end
+     * opens the editor with what is playing now.
+     */
     private fun showFavorites() {
         val body = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
+        var reordering = false
+        val reorder = TextView(this).apply {
+            textSize = 14f
+            typeface = Typeface.DEFAULT_BOLD
+            gravity = Gravity.CENTER
+            setPadding(dp(14), 0, dp(14), 0)
+            foreground = ripple()
+            isClickable = true
+        }
         lateinit var dialog: Dialog
-        var editing = -1
         fun fill() {
             body.removeAllViews()
-            val list = loadFavorites()
-            val on = inFavorite(list)
+            val list = readFavorites()
+            reorder.visibility = if (list.size > 1) View.VISIBLE else View.GONE
+            if (list.size < 2) reordering = false
+            reorder.text = getString(if (reordering) R.string.reorder_done else R.string.reorder)
+            reorder.setTextColor(if (reordering) Paleta.selected else Paleta.ink)
+            reorder.background = GradientDrawable().apply { cornerRadius = dpf(18f); setStroke(dp(1), if (reordering) Paleta.selected else Paleta.line) }
+            if (list.isEmpty()) body.addView(TextView(this).apply {
+                text = getString(R.string.favorites_empty)
+                textSize = 14f
+                setTextColor(Paleta.muted)
+                setPadding(dp(4), 0, dp(4), dp(8))
+            })
             val rows = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
-            fun choice(selected: Boolean, description: String, onClick: () -> Unit) = LinearLayout(this).apply {
-                orientation = LinearLayout.VERTICAL
-                gravity = Gravity.CENTER_VERTICAL
-                minimumHeight = dp(52)
-                setPadding(dp(12), dp(6), dp(12), dp(6))
-                background = GradientDrawable().apply {
-                    cornerRadius = dpf(14f)
-                    setColor(Color.TRANSPARENT)
-                    if (selected) setStroke(dp(2), Paleta.selected)
-                }
-                foreground = ripple()
-                isClickable = true
-                isSelected = selected
-                contentDescription = description
-                setOnClickListener { onClick() }
-            }
-            fun title(text: String, selected: Boolean) = TextView(this).apply {
-                this.text = text
-                textSize = 16f
-                typeface = Typeface.DEFAULT_BOLD
-                setTextColor(if (selected) Paleta.selected else Paleta.ink)
-            }
+            val scroll = ScrollView(this).apply { addView(rows) }
             list.forEachIndexed { i, f ->
-                val row = LinearLayout(this).apply { gravity = Gravity.CENTER_VERTICAL }
                 val label = f.name.ifEmpty { describe(f) }
-                if (i == editing) {
-                    val field = EditText(this).apply {
-                        setText(f.name)
-                        hint = describe(f)
-                        setHintTextColor(Paleta.muted)
-                        setTextColor(Paleta.ink)
-                        textSize = 16f
-                        isSingleLine = true
-                        imeOptions = EditorInfo.IME_ACTION_DONE
-                        filters = arrayOf(InputFilter.LengthFilter(40))
-                        background = GradientDrawable().apply { cornerRadius = dpf(14f); setStroke(dp(2), Paleta.line) }
-                        setPadding(dp(12), 0, dp(12), 0)
-                        contentDescription = getString(R.string.favorite_name_hint)
-                        setSelectAllOnFocus(true)
-                    }
-                    // Editing, only the name changes: the pencil becomes ✓ (save) and the X becomes cancel. Done on the keyboard saves too.
-                    fun saveName() {
-                        val all = loadFavorites()
-                        all.getOrNull(i)?.let { all[i] = Favorite(it.bpm, it.beats, it.sub, it.accents, field.text.toString().trim()) }
-                        saveFavorites(all)
-                        editing = -1
-                        fill()
-                    }
-                    field.setOnEditorActionListener { _, action, _ ->
-                        if (action != EditorInfo.IME_ACTION_DONE) return@setOnEditorActionListener false
-                        saveName()
-                        true
-                    }
-                    row.addView(field, LinearLayout.LayoutParams(0, dp(52), 1f))
-                    field.post { field.requestFocus() }
-                    row.addView(ImageView(this).apply {
-                        setImageDrawable(CheckDrawable(Paleta.ink, dpf(1.8f), dpf(20f)))
-                        scaleType = ImageView.ScaleType.CENTER
-                        contentDescription = getString(R.string.save_name)
-                        background = ripple()
+                val row = LinearLayout(this).apply {
+                    gravity = Gravity.CENTER_VERTICAL
+                    background = GradientDrawable().apply { cornerRadius = dpf(14f); setColor(Paleta.soft) }
+                }
+                // With a name: the name, and the settings smaller below it. Without: the settings.
+                val item = LinearLayout(this).apply {
+                    orientation = LinearLayout.VERTICAL
+                    gravity = Gravity.CENTER_VERTICAL
+                    minimumHeight = dp(52)
+                    setPadding(dp(12), dp(6), dp(12), dp(6))
+                    contentDescription = if (f.name.isEmpty()) describe(f) else "${f.name}, ${describe(f)}"
+                    if (!reordering) {
+                        foreground = ripple()
                         isClickable = true
-                        setOnClickListener { saveName() }
-                    }, LinearLayout.LayoutParams(dp(48), dp(48)))
-                    row.addView(closeButton(getString(R.string.cancel_rename)) { editing = -1; fill() }, LinearLayout.LayoutParams(dp(48), dp(48)))
-                } else {
-                    // With a name: the name, and the settings smaller below it. Without: the settings.
-                    val item = choice(i == on, if (f.name.isEmpty()) describe(f) else "${f.name}, ${describe(f)}") {
-                        // Tapping the favorite it's already in leaves it.
-                        if (i == on) saveFavorites(list, -1) else selectFavorite(i)
-                        dialog.dismiss()
+                        setOnClickListener { loadFavorite(f); dialog.dismiss() }
                     }
-                    item.addView(title(label, i == on))
-                    if (f.name.isNotEmpty()) item.addView(TextView(this).apply {
-                        text = describe(f)
-                        textSize = 13f
-                        setTextColor(Paleta.muted)
-                    })
-                    row.addView(item, LinearLayout.LayoutParams(0, -2, 1f))
+                }
+                item.addView(TextView(this).apply {
+                    text = label
+                    textSize = 16f
+                    typeface = Typeface.DEFAULT_BOLD
+                    setTextColor(Paleta.ink)
+                })
+                if (f.name.isNotEmpty()) item.addView(TextView(this).apply {
+                    text = describe(f)
+                    textSize = 13f
+                    setTextColor(Paleta.muted)
+                })
+                row.addView(item, LinearLayout.LayoutParams(0, -2, 1f))
+                if (reordering) {
                     row.addView(ImageView(this).apply {
-                    setImageDrawable(PencilDrawable(Paleta.muted, dpf(1.8f), dpf(18f)))
-                    scaleType = ImageView.ScaleType.CENTER
-                    contentDescription = getString(R.string.rename_favorite, label)
-                    background = ripple()
-                    isClickable = true
-                    setOnClickListener { editing = i; fill() }
-                }, LinearLayout.LayoutParams(dp(48), dp(48)))
-                row.addView(closeButton(getString(R.string.delete_favorite, label)) {
-                    val active = if (i == activeFav) -1 else if (i < activeFav) activeFav - 1 else activeFav
-                    if (editing == i) editing = -1 else if (editing > i) editing--
-                    saveFavorites(list.also { it.removeAt(i) }, active)
-                    fill()
-                }, LinearLayout.LayoutParams(dp(48), dp(48)))
+                        setImageDrawable(GripDrawable(Paleta.ink, dpf(1.8f), dpf(20f)))
+                        scaleType = ImageView.ScaleType.CENTER
+                        contentDescription = getString(R.string.drag_favorite, label)
+                        setOnTouchListener(dragRows(rows, scroll) { a, b ->
+                            saveFavorites(readFavorites().also { l -> l.add(b, l.removeAt(a)) })
+                            fill()
+                        })
+                    }, LinearLayout.LayoutParams(dp(48), dp(48)))
+                } else {
+                    row.addView(iconButton(PencilDrawable(Paleta.muted, dpf(1.8f), dpf(18f)), getString(R.string.edit_favorite, label)) {
+                        showFavoriteEditor(i) { fill() }
+                    }, LinearLayout.LayoutParams(dp(48), dp(48)))
+                    row.addView(iconButton(TrashDrawable(Paleta.muted, dpf(1.8f), dpf(18f)), getString(R.string.delete_favorite, label)) {
+                        saveFavorites(readFavorites().also { it.removeAt(i) })
+                        fill()
+                    }, LinearLayout.LayoutParams(dp(48), dp(48)))
                 }
                 rows.addView(row, LinearLayout.LayoutParams(-1, -2).apply { bottomMargin = dp(4) })
             }
-            body.addView(ScrollView(this).apply { addView(rows) }, LinearLayout.LayoutParams(-1, -2, 1f))
-            // Inside a favorite: leave it (the star goes out and changes stop being written). Same as tapping it again.
-            list.getOrNull(on)?.let { f ->
-                body.addView(pill(getString(R.string.leave_favorite, f.name.ifEmpty { describe(f) })).apply {
-                    setOnClickListener { saveFavorites(loadFavorites(), -1); fill() }
-                }, LinearLayout.LayoutParams(-1, dp(52)).apply { topMargin = dp(8) })
-            }
-            val nameField = EditText(this).apply {
-                hint = getString(R.string.favorite_name_hint)
-                setHintTextColor(Paleta.muted)
-                setTextColor(Paleta.ink)
-                textSize = 16f
-                isSingleLine = true
-                imeOptions = EditorInfo.IME_ACTION_DONE
-                filters = arrayOf(InputFilter.LengthFilter(40))
-                background = GradientDrawable().apply { cornerRadius = dpf(14f); setStroke(dp(1), Paleta.line) }
-                setPadding(dp(16), 0, dp(16), 0)
-            }
-            // Saves the current settings as a new favorite, on top, and makes it the active one (the website's addFavorite).
-            // Always a new one: names and patterns may repeat.
-            fun save() {
-                val list2 = loadFavorites()
-                list2.add(0, current(nameField.text.toString().trim()))
-                editing = -1
-                saveFavorites(list2.take(MAX_FAVORITES), 0)
-                fill()
-            }
-            nameField.setOnEditorActionListener { _, action, _ -> if (action == EditorInfo.IME_ACTION_DONE) { save(); true } else false }
-            body.addView(nameField, LinearLayout.LayoutParams(-1, dp(52)).apply { topMargin = dp(8) })
-            body.addView(pill(getString(R.string.save_current)).apply { setOnClickListener { save() } },
+            body.addView(scroll, LinearLayout.LayoutParams(-1, -2, 1f))
+            if (!reordering) body.addView(pill(getString(R.string.save_current)).apply { setOnClickListener { showFavoriteEditor(null) { fill() } } },
                 LinearLayout.LayoutParams(-1, dp(52)).apply { topMargin = dp(8) })
         }
+        reorder.setOnClickListener { reordering = !reordering; fill() }
         fill()
-        dialog = sheet(getString(R.string.favorites), body)
+        dialog = sheet(getString(R.string.favorites), body, reorder)
+    }
+
+    /**
+     * Dragging a row by its grip: the row follows the finger and the rows it passes slide one place the other way. On
+     * release, [moved] gets where it started and where it landed. The views stay where they are while the finger is down
+     * (taking the touched row out of the layout would cancel the gesture).
+     */
+    private fun dragRows(rows: LinearLayout, scroll: ScrollView, moved: (Int, Int) -> Unit) = object : View.OnTouchListener {
+        var downY = 0f
+        var from = 0
+        var to = 0
+        override fun onTouch(v: View, e: android.view.MotionEvent): Boolean {
+            val row = v.parent as View
+            val step = row.height + dp(4)
+            when (e.actionMasked) {
+                android.view.MotionEvent.ACTION_DOWN -> {
+                    scroll.requestDisallowInterceptTouchEvent(true)
+                    downY = e.rawY
+                    from = rows.indexOfChild(row); to = from
+                    row.elevation = dpf(6f)
+                    v.performHapticFeedback(android.view.HapticFeedbackConstants.LONG_PRESS)
+                }
+                android.view.MotionEvent.ACTION_MOVE -> {
+                    val dy = e.rawY - downY
+                    row.translationY = dy
+                    val now = (from + (dy / step).roundToInt()).coerceIn(0, rows.childCount - 1)
+                    if (now != to) { to = now; v.performHapticFeedback(android.view.HapticFeedbackConstants.CLOCK_TICK) }
+                    for (k in 0 until rows.childCount) {
+                        val other = rows.getChildAt(k)
+                        if (other === row) continue
+                        other.translationY = when {
+                            k in (from + 1)..to -> -step.toFloat()
+                            k in to until from -> step.toFloat()
+                            else -> 0f
+                        }
+                    }
+                }
+                android.view.MotionEvent.ACTION_UP, android.view.MotionEvent.ACTION_CANCEL -> {
+                    for (k in 0 until rows.childCount) rows.getChildAt(k).translationY = 0f
+                    row.elevation = 0f
+                    // After this touch is done: [moved] rebuilds the list.
+                    if (to != from) { val a = from; val b = to; rows.post { moved(a, b) } }
+                }
+            }
+            return true
+        }
+    }
+
+    /**
+     * Editing (or creating, [index] null: from what is playing now) a favorite: the name first, then the beats, the tempo
+     * and the figure as drums, and Cancelar / Salvar at the end. The accents are kept. [done] runs after saving.
+     */
+    private fun showFavoriteEditor(index: Int?, done: () -> Unit) {
+        val f = index?.let { readFavorites().getOrNull(it) } ?: current()
+        val body = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
+        val name = EditText(this).apply {
+            setText(if (index == null) "" else f.name)
+            hint = getString(R.string.favorite_name_hint)
+            setHintTextColor(Paleta.muted)
+            setTextColor(Paleta.ink)
+            textSize = 16f
+            isSingleLine = true
+            imeOptions = EditorInfo.IME_ACTION_DONE
+            filters = arrayOf(InputFilter.LengthFilter(40))
+            background = GradientDrawable().apply { cornerRadius = dpf(14f); setStroke(dp(1), Paleta.line) }
+            setPadding(dp(16), 0, dp(16), 0)
+        }
+        body.addView(name, LinearLayout.LayoutParams(-1, dp(52)))
+        val subs = Subdivisions.all
+        val beats = BpmWheel(this, 1, Metronome.MAX_BEATS, 0.6f) { resources.getQuantityString(R.plurals.beats_short, it, it) }.apply { set(f.beats) }
+        val bpm = BpmWheel(this, Metronome.MIN_BPM.toInt(), Metronome.MAX_BPM.toInt(), 0.6f).apply { set(f.bpm) }
+        val sub = BpmWheel(this, 0, subs.size - 1, 0.5f, format = { subdivisionName(subs[it].id) }) { subdivisionName(subs[it].id) }
+            .apply { set(subs.indexOfFirst { it.id == f.sub }.coerceAtLeast(0)) }
+        val wheels = LinearLayout(this).apply { setPadding(0, dp(16), 0, 0) }
+        fun column(title: String, wheel: View, width: Int, weight: Float) {
+            val col = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
+            col.addView(TextView(this).apply {
+                text = title
+                textSize = 14f
+                gravity = Gravity.CENTER
+                setTextColor(Paleta.muted)
+                importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
+            }, LinearLayout.LayoutParams(-1, -2))
+            col.addView(wheel, LinearLayout.LayoutParams(-1, dp(170)))
+            wheels.addView(col, LinearLayout.LayoutParams(width, -2, weight).apply { marginEnd = dp(8) })
+        }
+        column(getString(R.string.fav_beats), beats, dp(64), 0f)
+        column(getString(R.string.bpm), bpm, dp(92), 0f)
+        column(getString(R.string.fav_subdivision), sub, 0, 1f)
+        body.addView(wheels, LinearLayout.LayoutParams(-1, -2))
+        lateinit var dialog: Dialog
+        val actions = LinearLayout(this).apply { setPadding(0, dp(16), 0, 0) }
+        actions.addView(pill(getString(R.string.cancel)).apply { setOnClickListener { dialog.dismiss() } },
+            LinearLayout.LayoutParams(0, dp(52), 1f).apply { marginEnd = dp(8) })
+        actions.addView(pill(getString(R.string.save), filled = true).apply {
+            setOnClickListener {
+                val fav = Favorite(bpm.value, beats.value, subs[sub.value].id, f.accents, name.text.toString().trim().take(40))
+                val list = readFavorites()
+                if (index == null) list.add(0, fav) else if (index in list.indices) list[index] = fav
+                saveFavorites(list)
+                done()
+                dialog.dismiss()
+            }
+        }, LinearLayout.LayoutParams(0, dp(52), 1f))
+        body.addView(actions, LinearLayout.LayoutParams(-1, -2))
+        dialog = sheet(getString(if (index == null) R.string.favorite_new else R.string.favorite_edit), body)
     }
 
     // ---- A dialog in the app's look: dark rounded card, title, content, close.
 
-    private fun sheet(title: String, content: View): Dialog {
+    /** [action]: an optional control in the header, before the close (the favorites' "Reordenar"). */
+    private fun sheet(title: String, content: View, action: View? = null): Dialog {
         val d = Dialog(this)
         d.requestWindowFeature(Window.FEATURE_NO_TITLE)
         val box = LinearLayout(this).apply {
@@ -862,6 +893,7 @@ class MetronomeActivity : Activity() {
             setTextColor(Paleta.ink)
             isFocusable = true
         }, LinearLayout.LayoutParams(0, -2, 1f))
+        action?.let { head.addView(it, LinearLayout.LayoutParams(-2, dp(36)).apply { marginEnd = dp(4) }) }
         head.addView(closeButton(getString(R.string.close)) { d.dismiss() }, LinearLayout.LayoutParams(dp(48), dp(48)))
         box.addView(head)
         box.addView(content, LinearLayout.LayoutParams(-1, -2).apply { topMargin = dp(8) })
@@ -1031,6 +1063,54 @@ private class PencilDrawable(color: Int, strokePx: Float, private val size: Floa
         }
         canvas.drawPath(body, paint)
         canvas.drawLine(x(13.5f), y(6.5f), x(17.5f), y(10.5f), paint)
+    }
+
+    override fun setAlpha(alpha: Int) { paint.alpha = alpha }
+    override fun setColorFilter(colorFilter: ColorFilter?) { paint.colorFilter = colorFilter }
+    @Deprecated("Deprecated in Java")
+    override fun getOpacity() = PixelFormat.TRANSLUCENT
+}
+
+/** A bin, for deleting a favorite: the site's 24-unit path M4 7h16 M10 7V4.5h4V7 M6.5 7l1 12.5h9l1-12.5 M10 11v5 M14 11v5. */
+private class TrashDrawable(color: Int, strokePx: Float, private val size: Float) : Drawable() {
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        this.color = color; style = Paint.Style.STROKE; strokeWidth = strokePx; strokeCap = Paint.Cap.ROUND; strokeJoin = Paint.Join.ROUND
+    }
+
+    override fun getIntrinsicWidth() = size.toInt()
+    override fun getIntrinsicHeight() = size.toInt()
+
+    override fun draw(canvas: Canvas) {
+        val k = size / 24f
+        val x0 = bounds.exactCenterX() - size / 2
+        val y0 = bounds.exactCenterY() - size / 2
+        fun x(v: Float) = x0 + v * k
+        fun y(v: Float) = y0 + v * k
+        canvas.drawLine(x(4f), y(7f), x(20f), y(7f), paint)
+        canvas.drawPath(Path().apply { moveTo(x(10f), y(7f)); lineTo(x(10f), y(4.5f)); lineTo(x(14f), y(4.5f)); lineTo(x(14f), y(7f)) }, paint)
+        canvas.drawPath(Path().apply { moveTo(x(6.5f), y(7f)); lineTo(x(7.5f), y(19.5f)); lineTo(x(16.5f), y(19.5f)); lineTo(x(17.5f), y(7f)) }, paint)
+        canvas.drawLine(x(10f), y(11f), x(10f), y(16f), paint)
+        canvas.drawLine(x(14f), y(11f), x(14f), y(16f), paint)
+    }
+
+    override fun setAlpha(alpha: Int) { paint.alpha = alpha }
+    override fun setColorFilter(colorFilter: ColorFilter?) { paint.colorFilter = colorFilter }
+    @Deprecated("Deprecated in Java")
+    override fun getOpacity() = PixelFormat.TRANSLUCENT
+}
+
+/** Three lines, the grip for dragging a favorite while reordering (the site's M5 8h14M5 12h14M5 16h14). */
+private class GripDrawable(color: Int, strokePx: Float, private val size: Float) : Drawable() {
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { this.color = color; style = Paint.Style.STROKE; strokeWidth = strokePx; strokeCap = Paint.Cap.ROUND }
+
+    override fun getIntrinsicWidth() = size.toInt()
+    override fun getIntrinsicHeight() = size.toInt()
+
+    override fun draw(canvas: Canvas) {
+        val k = size / 24f
+        val x0 = bounds.exactCenterX() - size / 2
+        val y0 = bounds.exactCenterY() - size / 2
+        for (y in listOf(8f, 12f, 16f)) canvas.drawLine(x0 + 5 * k, y0 + y * k, x0 + 19 * k, y0 + y * k, paint)
     }
 
     override fun setAlpha(alpha: Int) { paint.alpha = alpha }

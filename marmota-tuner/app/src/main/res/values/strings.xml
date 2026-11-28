@@ -60,13 +60,19 @@
     <string name="favorites">Favoritos</string>
     <string name="favorite_desc">%1$d bpm · %2$s · %3$s</string>
     <string name="save_current">Salvar o atual</string>
-    <string name="leave_favorite">Sair de %s</string>
     <string name="favorite_name_hint">Nome (opcional)</string>
-    <string name="delete_favorite">Apagar %s</string>
-    <string name="rename_favorite">Renomear %s</string>
-    <string name="save_name">Salvar nome</string>
-    <string name="cancel_rename">Cancelar</string>
-    <string name="favorites_in">Favoritos (em %s)</string>
+    <string name="delete_favorite">Excluir %s</string>
+    <string name="edit_favorite">Editar %s</string>
+    <string name="drag_favorite">Mover %s: arraste</string>
+    <string name="reorder">Reordenar</string>
+    <string name="reorder_done">Concluir</string>
+    <string name="favorites_empty">Nenhum favorito ainda. Salve o que está tocando para voltar a ele com um toque.</string>
+    <string name="favorite_new">Novo favorito</string>
+    <string name="favorite_edit">Editar favorito</string>
+    <string name="fav_beats">Tempos</string>
+    <string name="fav_subdivision">Divisão</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Salvar</string>
     <string name="close">Fechar</string>
     <string name="dots_hint">Toque numa bolinha: normal, forte ou mudo</string>
 </resources>

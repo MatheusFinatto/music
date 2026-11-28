@@ -9,11 +9,6 @@
 .metro-info:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 .metro-info:hover { border-color: var(--muted); color: var(--ink); }
 .metro-info svg { width: 22px; height: 22px; }
-/* Dentro de um favorito: a estrela cheia, em verde, e o nome ao lado (o botão vira pílula). */
-:is(.metro-info, .metro-pill).metro-fav-on { color: var(--ok); }
-:is(.metro, body) .metro-fav-on svg { fill: currentColor; }
-.metro-info:has(.metro-fav-name) { width: auto; max-width: 220px; gap: 6px; padding: 0 14px 0 10px; display: inline-flex; align-items: center; }
-.metro-fav-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); font-size: var(--text-sm); font-weight: 600; }
 
 /* Os tempos: cada bolinha é um botão que troca normal → forte → mudo. */
 .metro-hint { margin: -14px 0 0; text-align: center; color: var(--muted); font-size: var(--text-sm); }
@@ -90,7 +85,6 @@
   @keyframes metro-in { from { opacity: 0; transform: translateY(12px) scale(0.98); } }
 }
 .metro-dialog-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
-/* O "?" dos favoritos fica junto do título; o X continua no canto. */
 /* O "?" dos favoritos fica junto do título, no padrão dos ícones do diálogo; o × continua no canto. */
 .metro-dialog-head .metro-fav-ajuda { margin: -8px auto -8px 0; }
 .metro-fav-ajuda-lista { display: flex; flex-direction: column; gap: 10px; padding-left: 18px; color: var(--muted); font-size: var(--text-sm); line-height: 1.5; }
@@ -107,32 +101,39 @@
 .metro-subgrid button[aria-checked="true"] { border-color: var(--ok); box-shadow: inset 0 0 0 1px var(--ok); color: var(--ok); }
 .metro-subgrid .metro-figure { height: auto; max-height: 44px; max-width: 100%; }
 
-/* Favoritos: a lista (carregar | apagar) e, embaixo, nome opcional + salvar. */
+/* Favoritos: a lista (carregar | lápis | lixeira) e, embaixo, "Salvar o atual". Reordenando: a alça no lugar dos dois. */
+.metro-fav-reorder { min-height: 36px; margin: -4px 4px -4px auto; padding: 0 14px; border-radius: var(--radius-pill); border: 1px solid var(--line); background: transparent; color: var(--ink); font: inherit; font-size: var(--text-sm); font-weight: 600; cursor: pointer; }
+.metro-fav-reorder:hover { border-color: var(--muted); }
+.metro-fav-reorder[aria-pressed="true"] { border-color: var(--ok); color: var(--ok); }
+.metro-fav-empty { margin-bottom: 14px; color: var(--muted); font-size: var(--text-sm); line-height: 1.5; }
 .metro-fav-list { display: grid; gap: 4px; margin-bottom: 14px; max-height: 50dvh; overflow-y: auto; overflow-x: hidden; }
 .metro-fav-list .metro-close { margin: 0; flex: none; }
-.metro-fav-list li { display: flex; align-items: center; gap: 4px; }
-/* O favorito em que se está, em verde (selecionado), como a figura e o timer escolhidos. */
-.metro-fav-load[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--ok); }
-.metro-fav-load[aria-pressed="true"] span { color: var(--ok); }
-.metro-fav-rename { flex: 1; min-width: 0; display: flex; align-items: center; gap: 4px; }
-.metro-fav-rename .metro-close { margin: 0; flex: none; }
-.metro-fav-ok { color: var(--ink); }
-.metro-fav-rename input { flex: 1; min-width: 0; min-height: 52px; padding: 0 12px; border-radius: var(--radius-md); border: 2px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; font-size: var(--text-md); font-weight: 600; }
-.metro-fav-rename input::placeholder { color: var(--muted); font-weight: 400; }
-.metro-fav-rename input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.metro-fav-list li { position: relative; display: flex; align-items: center; gap: 4px; border-radius: var(--radius-md); background: var(--surface); }
+.metro-fav-list li.dragging { z-index: 1; box-shadow: var(--shadow-up); }
+.metro-fav-grip { touch-action: none; cursor: grab; color: var(--ink); }
+.metro-fav-grip:active { cursor: grabbing; }
 .metro-fav-load { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-height: 52px; padding: 8px 12px; border: 0; border-radius: var(--radius-md); background: transparent; color: var(--ink); font: inherit; font-size: var(--text-md); text-align: left; cursor: pointer; transition: background-color 0.15s; }
-.metro-fav-load:hover { background: var(--soft); }
+.metro-fav-load:hover:not(:disabled) { background: var(--soft); }
+.metro-fav-load:disabled { cursor: default; }
 .metro-fav-load span { font-weight: 600; overflow-wrap: anywhere; }
 .metro-fav-load small { color: var(--muted); font-size: var(--text-sm); }
-.metro-fav-save { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
-.metro-fav-save input { min-height: 48px; padding: 0 16px; border-radius: var(--radius-pill); border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; }
-.metro-fav-save input::placeholder { color: var(--muted); }
-.metro-fav-save button { min-height: 48px; padding: 0 20px; border-radius: var(--radius-pill); border: 0; background: var(--ink); color: var(--bg); font: inherit; font-weight: 600; cursor: pointer; }
-.metro-fav-save button:hover { filter: brightness(1.1); }
-.metro-fav-leave { width: 100%; min-height: 48px; margin-bottom: 8px; border-radius: var(--radius-pill); border: 1px solid var(--line); background: transparent; color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; }
-.metro-fav-leave:hover { border-color: var(--ink); }
-.metro-dialog :is(input, .metro-fav-load):focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-@media (max-width: 420px) { .metro-fav-save { grid-template-columns: 1fr; } }
+.metro-fav-new, .metro-fav-actions button { min-height: 48px; padding: 0 20px; border-radius: var(--radius-pill); border: 1px solid var(--line); background: transparent; color: var(--ink); font: inherit; font-weight: 600; cursor: pointer; }
+.metro-fav-new { width: 100%; border: 0; background: var(--ink); color: var(--bg); }
+.metro-fav-new:hover, .metro-fav-actions .primary:hover { filter: brightness(1.1); }
+.metro-fav-actions button:not(.primary):hover { border-color: var(--muted); }
+.metro-fav-actions .primary { border: 0; background: var(--ink); color: var(--bg); }
+.metro-fav-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+
+/* O modal de editar: nome, depois as três rodas (tempos, andamento, divisão). */
+.metro-fav-name-input { width: 100%; min-height: 48px; padding: 0 16px; border-radius: var(--radius-pill); border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; }
+.metro-fav-name-input::placeholder { color: var(--muted); }
+.metro-fav-wheels { display: grid; grid-template-columns: 72px 104px minmax(0, 1fr); gap: 8px; margin-top: 16px; }
+.metro-fav-wheels label { display: flex; flex-direction: column; align-items: stretch; gap: 4px; min-width: 0; }
+.metro-fav-wheels label > span { text-align: center; color: var(--muted); font-size: var(--text-sm); }
+.metro-fav-wheel { width: 100%; height: 150px; color: var(--ink); touch-action: none; cursor: grab; border-radius: var(--radius-md); background: var(--bg); }
+.metro-fav-wheel:active { cursor: grabbing; }
+.metro-fav-wheel:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.metro-dialog :is(input, .metro-fav-load, .metro-fav-new, .metro-fav-actions button, .metro-fav-reorder):focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
 
 .metro :is(button, input, select):focus-visible, .metro-dialog :is(button):focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
@@ -200,8 +201,6 @@
   .metro-pill-figure { width: 84px; padding: 0; }
   .metro-pill-figure .metro-figure { height: 37px; width: auto; }
   .metro-pill-star { width: 52px; padding: 0; margin-left: auto; }
-  /* Na linha de cima do celular não cabe o nome: dentro de um favorito, só a estrela cheia (o nome está na lista). */
-  .metro-pill-star .metro-fav-name { display: none; }
   .metro .metro-pill-star svg { width: 31px; height: 31px; stroke-width: 1.4; }
 
   /* Bolinhas do app: 26px normal, 34px forte, 20px mudo; a que soa fica azul, sem halo. */
@@ -240,8 +239,10 @@
   .metro-subgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
   .metro-subgrid button { gap: 6px; min-height: 96px; padding: 10px 2px; background: transparent; font-size: 12px; font-weight: 500; }
   .metro-subgrid button[aria-checked="true"] { border-width: 2px; box-shadow: none; }
-  .metro-fav-save { grid-template-columns: 1fr; }
-  .metro-fav-leave { min-height: 52px; border-radius: 28px; font-size: 17px; font-weight: 700; }
-  .metro-fav-save input { min-height: 52px; border-radius: 14px; background: transparent; }
-  .metro-fav-save button { min-height: 52px; border-radius: 28px; border: 1px solid var(--line); background: transparent; color: var(--ink); font-size: 17px; font-weight: 700; }
+  .metro-fav-list li { background: var(--soft); }
+  .metro-fav-new, .metro-fav-actions button { min-height: 52px; border-radius: 28px; font-size: 17px; font-weight: 700; }
+  .metro-fav-new { border: 1px solid var(--line); background: transparent; color: var(--ink); }
+  .metro-fav-name-input { min-height: 52px; border-radius: 14px; background: transparent; }
+  .metro-fav-wheels { grid-template-columns: 64px 92px minmax(0, 1fr); }
+  .metro-fav-wheel { height: 170px; background: transparent; }
 }

@@ -58,8 +58,8 @@ export const store = createStore<Saved>("metronomo", DEFAULTS, savedFrom);
 
 /** Um favorito: as configurações do compasso e um nome opcional ("" = mostrado pelas configurações). */
 export type Favorite = MetronomeSettings & { name: string };
-/** [active]: o favorito em que a pessoa está (o último escolhido ou salvo; índice em items), ou -1. Dentro dele, mexer no
- *  metrônomo grava no favorito na hora (ver [followActive]); a estrela fica cheia. Salvar sempre cria um novo. */
+/** [active] fica sempre -1: não existe mais "estar dentro" de um favorito (escolher só carrega). O campo continua no
+ *  formato para os apps e a nuvem que ainda o leem. */
 export type Favorites = { version: 1; items: Favorite[]; active: number };
 export const MAX_FAVORITES = 30;
 export const NONE = -1;
@@ -71,54 +71,40 @@ export const favorites = createStore<Favorites>("metronomo-favoritos", { version
     .filter((f): f is Favorite => !!f && typeof f === "object")
     .map((f) => ({ ...settingsFrom(f), name: typeof f.name === "string" ? f.name.slice(0, 40) : "" }))
     .slice(0, MAX_FAVORITES);
-  return { version: 1, items, active: int(s.active, 0, items.length - 1, NONE) };
+  return { version: 1, items, active: NONE };
 });
-
-/** Mesmo andamento, tempos, divisão e acentos. */
-export const sameSettings = (a: MetronomeSettings, b: MetronomeSettings) =>
-  a.bpm === b.bpm && a.beatsPerBar === b.beatsPerBar && a.subdivision === b.subdivision && a.accents.join() === b.accents.join();
 
 const settingsOf = ({ bpm, beatsPerBar, subdivision, accents }: MetronomeSettings): MetronomeSettings =>
   ({ bpm, beatsPerBar, subdivision, accents: [...accents] });
 
-/** Salva o atual como favorito novo, no topo, e ele vira o ativo. Sempre um novo: nome e padrão podem repetir. */
-export function addFavorite(f: Favorites, now: MetronomeSettings, name: string): Favorites {
-  const fav: Favorite = { ...settingsOf(now), name: name.trim().slice(0, 40) };
-  return { version: 1, items: [fav, ...f.items].slice(0, MAX_FAVORITES), active: 0 };
+/** O favorito como o modal grava: configurações válidas e nome aparado (até 40). */
+export const favoriteOf = (s: MetronomeSettings, name: string): Favorite => ({ ...settingsFrom(settingsOf(s)), name: name.trim().slice(0, 40) });
+
+/** Um favorito novo, no topo. Sempre um novo: nome e padrão podem repetir. */
+export function addFavorite(f: Favorites, fav: Favorite): Favorites {
+  return { version: 1, items: [fav, ...f.items].slice(0, MAX_FAVORITES), active: NONE };
 }
 
-/** Apaga o favorito i; se era o ativo, fica sem ativo. */
+/** Troca o favorito i pelo editado no modal. */
+export function updateFavorite(f: Favorites, i: number, fav: Favorite): Favorites {
+  return { version: 1, items: f.items.map((x, j) => (j === i ? fav : x)), active: NONE };
+}
+
 export function removeFavorite(f: Favorites, i: number): Favorites {
-  const active = i === f.active ? NONE : i < f.active ? f.active - 1 : f.active;
-  return { version: 1, items: f.items.filter((_, j) => j !== i), active };
+  return { version: 1, items: f.items.filter((_, j) => j !== i), active: NONE };
 }
 
-export function renameFavorite(f: Favorites, i: number, name: string): Favorites {
-  return { ...f, items: f.items.map((x, j) => (j === i ? { ...x, name: name.trim().slice(0, 40) } : x)) };
+/** Reordenar: o favorito [from] vai para a posição [to]. */
+export function moveFavorite(f: Favorites, from: number, to: number): Favorites {
+  if (from === to || !f.items[from] || to < 0 || to >= f.items.length) return f;
+  const items = [...f.items];
+  const [x] = items.splice(from, 1);
+  items.splice(to, 0, x!);
+  return { version: 1, items, active: NONE };
 }
 
-/** Mexeu no metrônomo ([prev] → [now]) dentro de um favorito (o ativo, igual a [prev]: estrela cheia): o favorito passa a ter
- *  as configurações novas (o nome fica). Fora de um favorito, ou sem mudança, devolve o mesmo objeto (nada para gravar). */
-export function followActive(f: Favorites, prev: MetronomeSettings, now: MetronomeSettings): Favorites {
-  const cur = f.items[f.active];
-  if (!cur || !sameSettings(cur, prev) || sameSettings(cur, now)) return f;
-  return { ...f, items: f.items.map((x, j) => (j === f.active ? { ...settingsOf(now), name: x.name } : x)) };
-}
-
-/** O favorito em que o metrônomo está: o ativo, se as configurações ainda são as dele; senão NONE. */
-export function inFavorite(f: Favorites, now: MetronomeSettings): number {
-  const cur = f.items[f.active];
-  return cur && sameSettings(cur, now) ? f.active : NONE;
-}
-
-/** Sai do favorito: fica sem ativo, a estrela apaga e mexer no metrônomo não grava mais em nenhum. */
-export const leaveFavorite = (f: Favorites): Favorites => ({ ...f, active: NONE });
-
-/** Carrega o favorito i no metrônomo e marca ele como ativo. */
-export function selectFavorite(i: number) {
-  const f = favorites.get();
-  const fav = f.items[i];
-  if (!fav) return;
-  favorites.set({ ...f, active: i });
-  store.set({ ...store.get(), ...settingsOf(fav) });
+/** Carrega o favorito i no metrônomo. Só isso: mexer depois não muda o favorito. */
+export function loadFavorite(i: number) {
+  const fav = favorites.get().items[i];
+  if (fav) store.set({ ...store.get(), ...settingsOf(fav) });
 }

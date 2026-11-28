@@ -5,7 +5,8 @@ import { useEffect, useRef } from "react";
  * O andamento como um tambor de números, igual ao app (BpmWheel.kt; mudou um, mude o outro): arrastar ou arremessar
  * para cima acelera, e ele para num número inteiro. Tocar no número de cima ou de baixo anda um. Mesmas medidas do
  * app: 76 px por número, o do meio com 88 px e os outros menores e apagados até as bordas. Os minutos e segundos do timer
- * usam o mesmo tambor, menor ([scale]) e com dois dígitos ([pad]).
+ * usam o mesmo tambor, menor ([scale]) e com dois dígitos ([pad]). [format] troca o número por um texto (a divisão no
+ * modal do favorito); o texto que não cabe na largura diminui.
  */
 const BASE_ITEM = 76;
 /** Quanto o dedo anda antes de virar arrasto (o touch slop do Android, ~8 dp). */
@@ -26,9 +27,10 @@ type Props = {
   className?: string;
   scale?: number;
   pad?: boolean;
+  format?: (n: number) => string;
 };
 
-export function BpmWheel({ value, min, max, onChange, label, unit, className, scale = 1, pad = false }: Props) {
+export function BpmWheel({ value, min, max, onChange, label, unit, className, scale = 1, pad = false, format }: Props) {
   const ITEM = BASE_ITEM * scale;
   const canvas = useRef<HTMLCanvasElement>(null);
   // Estado do tambor fora do React: muda a cada quadro.
@@ -63,8 +65,11 @@ export function BpmWheel({ value, min, max, onChange, label, unit, className, sc
       const size = (88 - 34 * Math.min(ad, 1) - 6 * clamp(ad - 1, 0, 2)) * scale;
       const edge = clamp(Math.min(y, h - y) / (ITEM * 0.9), 0, 1);
       ctx.globalAlpha = clamp(edge * (1 - 0.62 * Math.min(ad, 1) - 0.2 * clamp(ad - 1, 0, 1.5)), 0, 1);
+      const text = format ? format(n) : pad ? String(n).padStart(2, "0") : String(n);
       ctx.font = `700 ${size}px ${css.fontFamily}`;
-      ctx.fillText(pad ? String(n).padStart(2, "0") : String(n), w / 2, y + size * 0.04);
+      const fit = Math.min(1, (w * 0.92) / Math.max(1, ctx.measureText(text).width));
+      if (fit < 1) ctx.font = `700 ${size * fit}px ${css.fontFamily}`;
+      ctx.fillText(text, w / 2, y + size * fit * 0.04);
     }
     ctx.globalAlpha = 1;
   };
@@ -227,7 +232,7 @@ export function BpmWheel({ value, min, max, onChange, label, unit, className, sc
       aria-valuemin={min}
       aria-valuemax={max}
       aria-valuenow={value}
-      aria-valuetext={`${value} ${unit}`}
+      aria-valuetext={format ? format(value) : `${value} ${unit}`}
       aria-orientation="vertical"
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
