@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ACCENT, BEAT, MAX_BEATS } from "@/core/rhythm";
-import { MAX_TIMER, NONE, addFavorite, clock, followActive, inFavorite, removeFavorite, renameFavorite, savedFrom, timerFrom, type Favorites } from "./store";
+import { MAX_TIMER, NONE, addFavorite, clock, followActive, inFavorite, leaveFavorite, removeFavorite, renameFavorite, savedFrom, timerFrom, type Favorites } from "./store";
 
 const accents = Array.from({ length: MAX_BEATS }, (_, i) => (i === 0 ? ACCENT : BEAT));
 const at = (bpm: number) => ({ bpm, beatsPerBar: 4, subdivision: 1, accents: [...accents] });
@@ -40,6 +40,12 @@ describe("favoritos", () => {
     expect(followActive(f, at(90), at(84))).toBe(f);
     expect(followActive(f, at(80), at(80))).toBe(f);
     expect(f.items[0]!.bpm).toBe(80);
+  });
+
+  it("sair do favorito: sem ativo, a estrela apaga e mexer não grava mais", () => {
+    const f = leaveFavorite(addFavorite(empty, at(80), "A"));
+    expect(inFavorite(f, at(80))).toBe(NONE);
+    expect(followActive(f, at(80), at(84))).toBe(f);
   });
 
   it("apagar o ativo deixa sem ativo; apagar um de cima acompanha o índice", () => {

@@ -76,7 +76,7 @@ class MetronomeActivity : Activity() {
     private var lit = -1
     private lateinit var starButton: ImageView
     /** The favorite the user is in (the last one picked or saved; index in the list), or -1. While in it (star lit), changing
-     *  the metronome writes into it right away ([changed]). Same as the website's store.ts (followActive). */
+     *  the metronome writes into it right away ([changed]). "Leave" or tapping it again sets -1. Same as the website's store.ts. */
     private var activeFav = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -779,7 +779,11 @@ class MetronomeActivity : Activity() {
                     row.addView(closeButton(getString(R.string.cancel_rename)) { editing = -1; fill() }, LinearLayout.LayoutParams(dp(48), dp(48)))
                 } else {
                     // With a name: the name, and the settings smaller below it. Without: the settings.
-                    val item = choice(i == on, if (f.name.isEmpty()) describe(f) else "${f.name}, ${describe(f)}") { selectFavorite(i); dialog.dismiss() }
+                    val item = choice(i == on, if (f.name.isEmpty()) describe(f) else "${f.name}, ${describe(f)}") {
+                        // Tapping the favorite it's already in leaves it.
+                        if (i == on) saveFavorites(list, -1) else selectFavorite(i)
+                        dialog.dismiss()
+                    }
                     item.addView(title(label, i == on))
                     if (f.name.isNotEmpty()) item.addView(TextView(this).apply {
                         text = describe(f)
@@ -805,6 +809,12 @@ class MetronomeActivity : Activity() {
                 rows.addView(row, LinearLayout.LayoutParams(-1, -2).apply { bottomMargin = dp(4) })
             }
             body.addView(ScrollView(this).apply { addView(rows) }, LinearLayout.LayoutParams(-1, -2, 1f))
+            // Inside a favorite: leave it (the star goes out and changes stop being written). Same as tapping it again.
+            list.getOrNull(on)?.let { f ->
+                body.addView(pill(getString(R.string.leave_favorite, f.name.ifEmpty { describe(f) })).apply {
+                    setOnClickListener { saveFavorites(loadFavorites(), -1); fill() }
+                }, LinearLayout.LayoutParams(-1, dp(52)).apply { topMargin = dp(8) })
+            }
             val nameField = EditText(this).apply {
                 hint = getString(R.string.favorite_name_hint)
                 setHintTextColor(Paleta.muted)

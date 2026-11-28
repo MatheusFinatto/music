@@ -156,6 +156,7 @@
       "Salvar o atual guarda o andamento, os tempos, a divisão e os acentos de agora, com um nome se quiser.",
       "Salvar sempre cria um favorito novo: o nome e o padrão podem repetir.",
       "Escolher um favorito carrega ele e você fica dentro dele (estrela verde): mexer no andamento, nos tempos, na divisão ou nos acentos grava no favorito na hora.",
+      "Para sair do favorito, toque em Sair ou de novo nele na lista. A estrela apaga e o que você mexer não grava mais.",
       "O lápis renomeia; o X apaga.",
       "Os favoritos ficam neste navegador. Entrando na conta, vão junto pros outros aparelhos e pro app."
     ],
@@ -163,6 +164,7 @@
     "saveName": "Salvar nome",
     "cancelRename": "Cancelar",
     "saveCurrent": "Salvar o atual",
+    "leaveFavorite": "Sair de {name}",
     "deleteFavorite": "Apagar {name}",
     "renameFavorite": "Renomear {name}",
     "beatsCount": "{n, plural, one {# tempo} other {# tempos}}",
