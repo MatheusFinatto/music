@@ -8,9 +8,9 @@ const STAR = "M12 3.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.2-4.1
 /**
  * Os favoritos do metrônomo, no topo da página ao lado do "?": andamento, tempos, divisão e acentos, com um
  * nome opcional. Ficam neste navegador, como o resto. Mesmo modelo dos favoritos do app.
- * Favorito é uma foto: escolher carrega; mexer no metrônomo não muda nenhum. Salvar sempre cria um novo (nome e padrão
- * podem repetir); depois, só o nome muda (lápis). Enquanto o metrônomo está igual ao último escolhido ou salvo, a estrela
- * fica cheia, em verde, com o nome ao lado.
+ * Escolher ou salvar um favorito é entrar nele: mexer no andamento, tempos, divisão ou acentos grava nele na hora, e a
+ * estrela fica cheia, em verde, com o nome ao lado. Salvar sempre cria um novo (nome e padrão podem repetir); o lápis
+ * troca o nome.
  * [variant] "pill": a estrela grande da linha de cima do celular, como no app; a do topo da página some lá.
  */
 export function MetroFavorites({ variant = "icon" }: { variant?: "icon" | "pill" }) {

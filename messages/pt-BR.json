@@ -155,7 +155,7 @@
     "favoritesInfoItems": [
       "Salvar o atual guarda o andamento, os tempos, a divisão e os acentos de agora, com um nome se quiser.",
       "Salvar sempre cria um favorito novo: o nome e o padrão podem repetir.",
-      "Escolher um favorito carrega ele. Mexer no metrônomo não muda o favorito; enquanto estiver igual a ele, a estrela fica verde.",
+      "Escolher um favorito carrega ele e você fica dentro dele (estrela verde): mexer no andamento, nos tempos, na divisão ou nos acentos grava no favorito na hora.",
       "O lápis renomeia; o X apaga.",
       "Os favoritos ficam neste navegador. Entrando na conta, vão junto pros outros aparelhos e pro app."
     ],
